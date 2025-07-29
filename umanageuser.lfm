@@ -1,0 +1,301 @@
+object FrmManageUser: TFrmManageUser
+  Left = 742
+  Height = 424
+  Top = 224
+  Width = 710
+  BorderStyle = bsSingle
+  Caption = 'object Panel1: TPanel'#10'  Left = 544'#10'  Height = 190'#10'  Top = 9'#10'  Width = 160'#10'  Caption = ''Panel1'''#10'  ParentBackground = False'#10'  TabOrder = 6'#10'end'#10
+  ClientHeight = 424
+  ClientWidth = 710
+  Color = clWindowFrame
+  Position = poScreenCenter
+  LCLVersion = '4.99.0.0'
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnShow = FormShow
+  object ADBGrid: TDBGrid
+    Left = 16
+    Height = 220
+    Top = 16
+    Width = 678
+    Color = clWindow
+    Columns = <    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        Title.Caption = 'ID'
+        Width = 104
+        FieldName = 'USER_ID'
+      end    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        Title.Caption = 'ユーザ名'
+        Width = 99
+        FieldName = 'NAME'
+      end    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        Title.Caption = '権限'
+        Width = 0
+        Visible = False
+        FieldName = 'ROLE'
+      end    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        Title.Caption = '登録日'
+        Width = 78
+        FieldName = 'ENTRY_DT'
+      end    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        Title.Caption = '更新日'
+        Width = 78
+        FieldName = 'UPDATE_DT'
+      end>
+    Constraints.MaxWidth = 2000
+    Font.Height = -16
+    Font.Name = '0xProto Nerd Font Mono'
+    Font.Style = [fsBold]
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
+    ParentFont = False
+    TabOrder = 0
+    TitleStyle = tsStandard
+  end
+  object PnlAddUser: TPanel
+    Left = 16
+    Height = 48
+    Top = 248
+    Width = 334
+    Caption = 'ユーザの追加 (CTRL+1)'
+    Color = clActiveCaption
+    Enabled = False
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 1
+  end
+  object BtnAddUser: TButton
+    Cursor = crHandPoint
+    Left = 24
+    Height = 32
+    Top = 256
+    Width = 318
+    Action = ActAddUser
+    Caption = 'ユーザの追加 (CTRL+1)'
+    Color = clNone
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 2
+  end
+  object PnlEditUser: TPanel
+    Left = 360
+    Height = 48
+    Top = 248
+    Width = 334
+    Caption = 'ユーザ の編集 (CTRL+2)'
+    Color = clActiveCaption
+    Enabled = False
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 3
+  end
+  object BtnEditUser: TButton
+    Cursor = crHandPoint
+    Left = 368
+    Height = 32
+    Top = 256
+    Width = 318
+    Action = ActEditUser
+    Caption = 'ユーザ の編集 (CTRL+2)'
+    Color = clNone
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 4
+  end
+  object PnlRemoveUser: TPanel
+    Left = 16
+    Height = 48
+    Top = 304
+    Width = 334
+    Caption = 'ユーザの削除 (CTRL+3)'
+    Color = clActiveCaption
+    Enabled = False
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 5
+  end
+  object BtnRemoveUser: TButton
+    Cursor = crHandPoint
+    Left = 24
+    Height = 32
+    Top = 312
+    Width = 318
+    Action = ActRemoveUser
+    Caption = 'ユーザの削除 (CTRL+3)'
+    Color = clNone
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 6
+  end
+  object PnlEditAdminUser: TPanel
+    Left = 360
+    Height = 48
+    Top = 304
+    Width = 334
+    Caption = '管理者ユーザの編集 (CTRL+4)'
+    Color = clActiveCaption
+    Enabled = False
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 7
+  end
+  object BtnEditAdminUser: TButton
+    Cursor = crHandPoint
+    Left = 368
+    Height = 32
+    Top = 312
+    Width = 318
+    Action = ActEditAdminUser
+    Caption = '管理者ユーザの編集 (CTRL+4)'
+    Color = clNone
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 8
+  end
+  object PnlGoBack: TPanel
+    Left = 16
+    Height = 48
+    Top = 360
+    Width = 678
+    Caption = '前の画面に戻る (CTRL+5)'
+    Color = clActiveCaption
+    Enabled = False
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 9
+  end
+  object BtnGoBack: TButton
+    Cursor = crHandPoint
+    Left = 24
+    Height = 32
+    Top = 368
+    Width = 662
+    Action = ActQuit
+    Caption = '前の画面に戻る (CTRL+5)'
+    Color = clNone
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 10
+  end
+  object Timer: TTimer
+    OnTimer = TimerTimer
+    Left = 424
+    Top = 96
+  end
+  object ActionList: TActionList
+    Left = 496
+    Top = 96
+    object ActAddUser: TAction
+      Caption = 'ActAddUser'
+      ShortCut = 16433
+      OnExecute = ActAddUserExecute
+    end
+    object ActEditUser: TAction
+      Caption = 'ActEditUser'
+      ShortCut = 16434
+      OnExecute = ActEditUserExecute
+    end
+    object ActRemoveUser: TAction
+      Caption = 'ActRemoveUser'
+      ShortCut = 16435
+      OnExecute = ActRemoveUserExecute
+    end
+    object ActEditAdminUser: TAction
+      Caption = 'ActEditAdminUser'
+      ShortCut = 16436
+      OnExecute = ActEditAdminUserExecute
+    end
+    object ActQuit: TAction
+      Caption = 'ActQuit'
+      SecondaryShortCuts.Strings = (
+        'Ctrl+5'
+      )
+      ShortCut = 16465
+      OnExecute = ActQuitExecute
+    end
+  end
+  object ADS: TDataSource
+    DataSet = AQu
+    Left = 144
+    Top = 96
+  end
+  object ATr: TSQLTransaction
+    Active = False
+    Database = ACn
+    Left = 224
+    Top = 96
+  end
+  object AQu: TSQLQuery
+    FieldDefs = <>
+    Database = ACn
+    Transaction = ATr
+    Left = 304
+    Top = 96
+  end
+  object ADSByCount: TDataSource
+    DataSet = AQuByCount
+    Left = 144
+    Top = 168
+  end
+  object ATrByCount: TSQLTransaction
+    Active = False
+    Database = ACnByCount
+    Left = 224
+    Top = 168
+  end
+  object AQuByCount: TSQLQuery
+    FieldDefs = <>
+    Database = ACnByCount
+    Transaction = ATrByCount
+    Left = 304
+    Top = 168
+  end
+  object ACn: TSQLite3Connection
+    Connected = False
+    LoginPrompt = False
+    DatabaseName = './KakeiBonDB.sqlite3'
+    KeepConnection = False
+    Transaction = ATr
+    AlwaysUseBigint = False
+    Left = 64
+    Top = 96
+  end
+  object ACnByCount: TSQLite3Connection
+    Connected = False
+    LoginPrompt = False
+    DatabaseName = './KakeiBonDB.sqlite3'
+    KeepConnection = False
+    Transaction = ATrByCount
+    AlwaysUseBigint = False
+    Left = 64
+    Top = 168
+  end
+end

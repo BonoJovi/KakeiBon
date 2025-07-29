@@ -1,0 +1,379 @@
+object FrmManageDetails: TFrmManageDetails
+  Left = 305
+  Height = 460
+  Top = 167
+  Width = 859
+  BorderStyle = bsSingle
+  Caption = '入出金登録'
+  ClientHeight = 460
+  ClientWidth = 859
+  Color = clWindowFrame
+  Font.Height = -19
+  Font.Name = '0xProto Nerd Font Mono'
+  Font.Style = [fsBold]
+  Position = poScreenCenter
+  LCLVersion = '4.2.0.0'
+  OnClose = FormClose
+  OnShow = FormShow
+  object ADBG: TDBGrid
+    Left = 16
+    Height = 320
+    Top = 16
+    Width = 827
+    Color = clMenuHighlight
+    Columns = <    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        Title.MultiLine = True
+        Title.Caption = 'USER_ID'
+        Width = 0
+        Visible = False
+        FieldName = 'USER_ID'
+      end    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        Title.Caption = 'HEADER_ID'
+        Width = 0
+        Visible = False
+        FieldName = 'HEADER_ID'
+      end    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        Title.Caption = '日時'
+        Width = 100
+        FieldName = 'HEADER_DT'
+        DisplayFormat = 'YYYY年MM月DD日 HH時'
+      end    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        Title.Caption = '店ID'
+        Width = 0
+        Visible = False
+        FieldName = 'SHOP_ID'
+      end    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        Title.Caption = '店名'
+        Width = 100
+        FieldName = 'SHOP_NAME'
+      end    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        Title.Caption = '入出金区分ID'
+        Width = 0
+        Visible = False
+        FieldName = 'EXP_KEY1'
+      end    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        Title.Caption = '入出金区分'
+        FieldName = 'EXP1'
+      end    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        Title.Caption = '出金元ID'
+        Width = 0
+        Visible = False
+        FieldName = 'FROM_ID'
+      end    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        Title.Caption = '出金元'
+        FieldName = 'FROM_NAME'
+      end    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        Title.Caption = '入金先ID'
+        Width = 0
+        Visible = False
+        FieldName = 'TO_ID'
+      end    
+      item
+        Title.Caption = '入金先'
+        FieldName = 'TO_NAME'
+      end    
+      item
+        Title.Caption = '合計金額'
+        FieldName = 'TOTAL_AMOUNT'
+        DisplayFormat = '#,##0'
+      end    
+      item
+        Title.Caption = 'ENTRY_DT'
+        Width = 0
+        Visible = False
+        FieldName = 'ENTRY_DT'
+      end    
+      item
+        Title.Caption = 'UPDATE_DT'
+        Width = 0
+        Visible = False
+        FieldName = 'UPDATE_DT'
+      end>
+    DataSource = ADS
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgDisableInsert]
+    TabOrder = 0
+  end
+  object ADBNav: TDBNavigator
+    Cursor = crHandPoint
+    Left = 571
+    Height = 48
+    Top = 344
+    Width = 272
+    BevelOuter = bvNone
+    ChildSizing.EnlargeHorizontal = crsScaleChilds
+    ChildSizing.EnlargeVertical = crsScaleChilds
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 100
+    ClientHeight = 48
+    ClientWidth = 272
+    DataSource = ADS
+    Options = [navFocusableButtons]
+    TabOrder = 1
+    TabStop = True
+    VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast, nbRefresh]
+  end
+  object PnlAddDetail: TPanel
+    Left = 16
+    Height = 48
+    Top = 344
+    Width = 273
+    Caption = '入出金を登録 (CTRL+1)'
+    Color = clActiveCaption
+    Enabled = False
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 2
+  end
+  object BtnAddDetail: TButton
+    Cursor = crHandPoint
+    Left = 24
+    Height = 32
+    Top = 352
+    Width = 256
+    Action = ActAddDetailsHeader
+    Caption = '入出金を登録 (CTRL+1)'
+    Color = clSkyBlue
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 3
+  end
+  object PnlEditDetail: TPanel
+    Left = 294
+    Height = 48
+    Top = 344
+    Width = 272
+    Caption = '入出金を編集 (CTRL+2)'
+    Color = clActiveCaption
+    Enabled = False
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 4
+  end
+  object BtnEditDetail: TButton
+    Cursor = crHandPoint
+    Left = 302
+    Height = 32
+    Top = 352
+    Width = 256
+    Action = ActEditDetailsHeader
+    Caption = '入出金を編集 (CTRL+2)'
+    Color = clSkyBlue
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 5
+  end
+  object PnlRemoveDetail: TPanel
+    Left = 16
+    Height = 48
+    Top = 400
+    Width = 272
+    Caption = '入出金を削除 (CTRL+3)'
+    Color = clActiveCaption
+    Enabled = False
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 6
+  end
+  object BtnRemoveDetail: TButton
+    Cursor = crHandPoint
+    Left = 24
+    Height = 32
+    Top = 408
+    Width = 256
+    Action = ActRemoveDetailsHeader
+    Caption = '入出金を削除 (CTRL+3)'
+    Color = clSkyBlue
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 7
+  end
+  object PnlGoBack: TPanel
+    Left = 294
+    Height = 48
+    Top = 400
+    Width = 549
+    Caption = '前の画面に戻る (CTRL+4)'
+    Color = clActiveCaption
+    Enabled = False
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 8
+  end
+  object BtnGoBack: TButton
+    Cursor = crHandPoint
+    Left = 302
+    Height = 32
+    Top = 408
+    Width = 533
+    Action = ActQuit
+    Caption = '前の画面に戻る (CTRL+4)'
+    Color = clSkyBlue
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 9
+  end
+  object ActionList: TActionList
+    Left = 504
+    Top = 176
+    object ActAddDetailsHeader: TAction
+      Caption = 'ActAddDetailsHeader'
+      ShortCut = 16433
+      OnExecute = ActAddDetailsHeaderExecute
+    end
+    object ActEditDetailsHeader: TAction
+      Caption = 'ActEditDetailsHeader'
+      ShortCut = 16434
+      OnExecute = ActEditDetailsHeaderExecute
+    end
+    object ActRemoveDetailsHeader: TAction
+      Caption = 'ActRemoveDetailsHeader'
+      ShortCut = 16435
+      OnExecute = ActRemoveDetailsHeaderExecute
+    end
+    object ActQuit: TAction
+      Caption = 'ActQuit'
+      SecondaryShortCuts.Strings = (
+        'Ctrl+4'
+      )
+      ShortCut = 16465
+      OnExecute = ActQuitExecute
+    end
+  end
+  object ADS: TDataSource
+    DataSet = AQu
+    Left = 648
+    Top = 176
+  end
+  object ATr: TSQLTransaction
+    Active = False
+    Database = ACn
+    Left = 696
+    Top = 176
+  end
+  object AQu: TSQLQuery
+    FieldDefs = <    
+      item
+        Name = 'USER_ID'
+        Attributes = [faRequired]
+        DataType = ftInteger
+      end    
+      item
+        Name = 'HEADER_ID'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'HEADER_DT'
+        DataType = ftDateTime
+      end    
+      item
+        Name = 'SHOP_ID'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'SHOP_NAME'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'EXP_KEY1'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'EXP1'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'FROM_ID'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'FROM_NAME'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'TO_ID'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'TO_NAME'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'TOTAL_AMOUNT'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'ENTRY_DT'
+        DataType = ftDateTime
+      end    
+      item
+        Name = 'UPDATE_DT'
+        DataType = ftDateTime
+      end>
+    Database = ACn
+    Transaction = ATr
+    Params = <>
+    Macros = <>
+    Left = 744
+    Top = 176
+  end
+  object ACn: TSQLite3Connection
+    Connected = False
+    LoginPrompt = False
+    DatabaseName = './KakeiBonDB.sqlite3'
+    KeepConnection = False
+    Transaction = ATr
+    AlwaysUseBigint = False
+    Left = 600
+    Top = 176
+  end
+end

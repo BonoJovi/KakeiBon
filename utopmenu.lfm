@@ -1,0 +1,390 @@
+object FrmTopMenu: TFrmTopMenu
+  Cursor = crCross
+  Left = 775
+  Height = 377
+  Top = 187
+  Width = 642
+  BorderStyle = bsSingle
+  Caption = 'KakeiBon'
+  ClientHeight = 377
+  ClientWidth = 642
+  Color = clTeal
+  DoubleBuffered = True
+  ParentDoubleBuffered = False
+  Position = poScreenCenter
+  LCLVersion = '4.99.0.0'
+  Visible = True
+  OnActivate = FormActivate
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnShow = FormShow
+  object PnlManageDetails: TPanel
+    Left = 20
+    Height = 72
+    Top = 16
+    Width = 595
+    BevelColor = clMoneyGreen
+    BevelInner = bvLowered
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    ClientHeight = 72
+    ClientWidth = 595
+    Color = clMoneyGreen
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 0
+    TabStop = True
+    object PnlEntryDetails: TPanel
+      Cursor = crCross
+      Left = 8
+      Height = 52
+      Top = 8
+      Width = 574
+      BevelColor = clTeal
+      BevelWidth = 3
+      Caption = '入出金登録 (CTRL+1)'
+      Color = clMoneyGreen
+      Font.CharSet = ANSI_CHARSET
+      Font.Height = -21
+      Font.Name = '0xProto Nerd Font Mono'
+      Font.Pitch = fpFixed
+      Font.Quality = fqDraft
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 0
+      TabStop = True
+    end
+  end
+  object BtnEntryDetails: TButton
+    Left = 33
+    Height = 44
+    Top = 30
+    Width = 567
+    Action = ActEntryDetails
+    Caption = '入出金登録 (CTRL+1)'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpFixed
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 1
+  end
+  object PnlManagements: TPanel
+    Left = 20
+    Height = 128
+    Top = 96
+    Width = 595
+    BevelColor = clMoneyGreen
+    BevelInner = bvLowered
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    ClientHeight = 128
+    ClientWidth = 595
+    Color = clMoneyGreen
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 2
+    TabStop = True
+    object PnlManageUser: TPanel
+      Cursor = crCross
+      Left = 8
+      Height = 52
+      Top = 8
+      Width = 574
+      BevelColor = clTeal
+      BevelWidth = 3
+      Caption = 'ユーザ管理 (CTRL+U)'
+      Color = clMoneyGreen
+      Font.CharSet = ANSI_CHARSET
+      Font.Height = -21
+      Font.Name = '0xProto Nerd Font Mono'
+      Font.Pitch = fpFixed
+      Font.Quality = fqDraft
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 0
+      TabStop = True
+    end
+    object PnlManageExp: TPanel
+      Cursor = crCross
+      Left = 8
+      Height = 52
+      Top = 64
+      Width = 574
+      BevelColor = clTeal
+      BevelWidth = 3
+      Caption = '費目管理 (CTRL+E)'
+      Color = clMoneyGreen
+      Font.CharSet = ANSI_CHARSET
+      Font.Height = -21
+      Font.Name = '0xProto Nerd Font Mono'
+      Font.Pitch = fpFixed
+      Font.Quality = fqDraft
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 1
+      TabStop = True
+    end
+  end
+  object BtnManageUser: TButton
+    Left = 33
+    Height = 44
+    Top = 110
+    Width = 566
+    Action = ActManageUser
+    Caption = 'ユーザ管理 (CTRL+U)'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpFixed
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 3
+  end
+  object BtnManageExp: TButton
+    Left = 33
+    Height = 44
+    Top = 166
+    Width = 567
+    Action = ActManageExp
+    Caption = '費目管理 (CTRL+E)'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpFixed
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 4
+  end
+  object PnlLogInAndOut: TPanel
+    Left = 20
+    Height = 128
+    Top = 232
+    Width = 595
+    BevelColor = clMoneyGreen
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    ClientHeight = 128
+    ClientWidth = 595
+    Color = clMoneyGreen
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 5
+    TabStop = True
+    object PnlLogin: TPanel
+      Left = 8
+      Height = 52
+      Top = 8
+      Width = 574
+      BevelColor = clTeal
+      BevelWidth = 3
+      Caption = 'ログイン (CTRL+I)'
+      Color = clMoneyGreen
+      Font.CharSet = ANSI_CHARSET
+      Font.Height = -21
+      Font.Name = '0xProto Nerd Font Mono'
+      Font.Pitch = fpFixed
+      Font.Quality = fqDraft
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 0
+      TabStop = True
+    end
+    object PnlLogout: TPanel
+      Left = 8
+      Height = 52
+      Top = 8
+      Width = 574
+      BevelColor = clTeal
+      BevelWidth = 3
+      Caption = 'ログアウト (CTRL+O)'
+      Color = clMoneyGreen
+      DoubleBuffered = True
+      Enabled = False
+      Font.CharSet = ANSI_CHARSET
+      Font.Height = -21
+      Font.Name = '0xProto Nerd Font Mono'
+      Font.Pitch = fpFixed
+      Font.Quality = fqDraft
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentColor = False
+      ParentDoubleBuffered = False
+      ParentFont = False
+      TabOrder = 1
+      TabStop = True
+      Visible = False
+    end
+    object PnlQuit: TPanel
+      Left = 8
+      Height = 52
+      Top = 64
+      Width = 574
+      BevelColor = clTeal
+      BevelWidth = 3
+      Caption = 'KakeiBonを終了 (CTRL+Q)'
+      Color = clMoneyGreen
+      Font.CharSet = ANSI_CHARSET
+      Font.Height = -21
+      Font.Name = '0xProto Nerd Font Mono'
+      Font.Pitch = fpFixed
+      Font.Quality = fqDraft
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 2
+      TabStop = True
+    end
+  end
+  object BtnLogin: TButton
+    Cursor = crHandPoint
+    Left = 33
+    Height = 44
+    Top = 246
+    Width = 566
+    Action = ActLogin
+    Caption = 'ログイン (CTRL+I)'
+    Color = clMoneyGreen
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 6
+  end
+  object BtnLogout: TButton
+    Cursor = crCross
+    Left = 33
+    Height = 44
+    Top = 246
+    Width = 566
+    Action = ActLogout
+    Caption = 'ログアウト (CTRL+O)'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpFixed
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 7
+  end
+  object BtnQuit: TButton
+    Cursor = crCross
+    Left = 33
+    Height = 44
+    Top = 302
+    Width = 567
+    Action = ActQuit
+    Caption = 'KakeiBonを終了 (CTRL+Q)'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpFixed
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 8
+  end
+  object Timer: TTimer
+    Interval = 2500
+    OnTimer = TimerTimer
+    Left = 88
+    Top = 152
+  end
+  object ActionList: TActionList
+    Left = 168
+    Top = 152
+    object ActLogin: TAction
+      Category = 'System'
+      AutoCheck = True
+      Caption = 'ActLogin'
+      Checked = True
+      SecondaryShortCuts.Strings = (
+        'Ctrl+B'
+      )
+      ShortCut = 16457
+      OnExecute = ActLoginExecute
+    end
+    object ActLogout: TAction
+      Category = 'System'
+      AutoCheck = True
+      Caption = 'ActLogout'
+      Checked = True
+      ShortCut = 16463
+      OnExecute = ActLogoutExecute
+    end
+    object ActQuit: TAction
+      Category = 'System'
+      AutoCheck = True
+      Caption = 'ActQuit'
+      Checked = True
+      SecondaryShortCuts.Strings = (
+        ''
+      )
+      ShortCut = 16465
+      OnExecute = ActQuitExecute
+    end
+    object ActManageUser: TAction
+      Category = 'Managements'
+      Caption = 'ActManageUser'
+      Checked = True
+      ShortCut = 16469
+      OnExecute = ActManageUserExecute
+    end
+    object ActManageExp: TAction
+      Category = 'Managements'
+      Caption = 'ActManageExp'
+      Checked = True
+      ShortCut = 16453
+      OnExecute = ActManageExpExecute
+    end
+    object ActEntryDetails: TAction
+      Category = 'Managements'
+      Caption = 'ActEntryDetails'
+      Checked = True
+      ShortCut = 16433
+      OnExecute = ActEntryDetailsExecute
+    end
+  end
+  object ADS: TDataSource
+    DataSet = AQu
+    Left = 88
+    Top = 256
+  end
+  object ATr: TSQLTransaction
+    Active = False
+    Database = ACn
+    Left = 128
+    Top = 256
+  end
+  object AQu: TSQLQuery
+    FieldDefs = <>
+    Database = ACn
+    Transaction = ATr
+    Left = 168
+    Top = 256
+  end
+  object ACn: TSQLite3Connection
+    Connected = False
+    LoginPrompt = False
+    DatabaseName = './KakeiBonDB.sqlite3'
+    KeepConnection = False
+    Transaction = ATr
+    AlwaysUseBigint = False
+    Left = 48
+    Top = 256
+  end
+end
