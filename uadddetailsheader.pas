@@ -172,9 +172,13 @@ begin
     if DBEdtHeaderID.Text <> '' then begin;
       SetHID(StrToInt(DBEdtHeaderID.Text));
     end;
+    if (AQuDetail.RecordCount > 0)
+      And (AQuDetail.FieldByName('DETAIL_ID').AsInteger > 0) then begin
+      SetDID(AQuDetail.FieldByName('DETAIL_ID').AsInteger);
+    end;
     DBDTPHeaderDT.TimeFormat := tf24;
     SetHeaderDT(
-      FormatDateTime('yyyy/mm/dd hh:nn:ss', DTPYear.DateTime, GetFS)
+      DateTimeToStr(DTPYear.DateTime)
     );
     if DBEdtShopID.Text <> '' then begin
       SetShopID(DBEdtShopID.Text);
@@ -191,6 +195,10 @@ begin
 
     SetExpKey2(Null);
     SetExpKey3(Null);
+    SetQuantity(0);
+    SetExcludeTax(0);
+    SetTax(0);
+    SetSubTotal(0);
   end;
 end;
 
@@ -687,7 +695,8 @@ begin
       if GetHeaderDT = '' then begin
         DTPYear.DateTime := Now;
       end else begin
-        DTPYear.DateTime := StrToDateTime(GetHeaderDT, GetFS);
+        DTPYear.DateTime
+          := StrToDateTime(GetHeaderDT);
       end;
     end;
 

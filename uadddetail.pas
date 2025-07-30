@@ -410,8 +410,20 @@ begin
           Params.ParamByName('pHeaderID'   ).AsInteger   := GetHID;
           Params.ParamByName('pDetailID'   ).AsInteger   := GetDID;
           Params.ParamByName('pExpKey1'    ).AsInteger   := GetExpKey1;
-          Params.ParamByName('pExpKey2'    ).AsInteger   := GetExpKey2;
-          Params.ParamByName('pExpKey3'    ).AsInteger   := GetExpKey3;
+          if (Not VarIsNull(GetExpKey2))
+            And (VarToStr(GetExpKey2) <> '')
+            And (StrToInt(VarToStr(GetExpKey2)) > 0) then begin
+            Params.ParamByName('pExpKey2'    ).AsInteger   := StrToInt(VarToStr(GetExpKey2));
+          end else begin
+            Params.ParamByName('pExpKey2'    ).AsInteger   := 0;
+          end;
+          if (Not VarIsNull(GetExpKey3))
+            And (VarToStr(GetExpKey3) <> '')
+            And (StrToInt(VarToStr(GetExpKey3)) > 0) then begin
+            Params.ParamByName('pExpKey3'    ).AsInteger   := StrToInt(VarToStr(GetExpKey3));
+          end else begin
+            Params.ParamByName('pExpKey3'    ).AsInteger   := 0;
+          end;
           Params.ParamByName('pMakerID'    ).AsInteger   := GetMakerID;
           Params.ParamByName('pBrandNameID').AsInteger   := GetBrandNameID;
           Params.ParamByName('pQuantity'   ).AsInteger   := GetQuantity;
@@ -741,6 +753,7 @@ begin
     EdtAmount.TabStop  := False;
     EdtAmount.ReadOnly := True;
     if (DBLCBTaxType.KeyValue = 1) Or (DBLCBTaxType.KeyValue = 2) then begin
+      //Writeln('TAX_TYPE : 1 or 2');
       EdtExcludeTax.TabStop  := True;
       EdtExcludeTax.ReadOnly := False;
       EdtTax.TabStop         := True;
@@ -754,6 +767,7 @@ begin
         end;
     end else if ((DBLCBTaxType.KeyValue = 3) Or (DBLCBTaxType.KeyValue = 4))
       And (EdtSubTotal.Text <> '') then begin
+        //Writeln('TAX_TYPE : 3 or 4');
         EdtExcludeTax.TabStop  := False;
         EdtExcludeTax.ReadOnly := True;
         EdtTax.TabStop         := False;
@@ -762,6 +776,7 @@ begin
         CalcIncludeTax;
     end else if (DBLCBTaxType.KeyValue = 5) then begin
       // Tax Free
+      //Writeln('TAX_TYPE : 5');
       EdtExcludeTax.TabStop  := False;
       EdtExcludeTax.ReadOnly := True;
       EdtTax.TabStop         := False;

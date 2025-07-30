@@ -367,42 +367,48 @@ const
                  'BRAND_NAME_ID, EXP_KEY1, QUANTITY, UNIT_ID, EXCLUDE_TAX, ' +
                  'TAX_TYPE_ID, TAX, SUB_TOTAL FROM DETAILS ' +
                  'WHERE USER_ID = :pUserID AND HEADER_ID = :pHeaderID';
-  SQL_20100011 = 'SELECT SUM(INCLUSIVE_TAX) AS TOTAL_AMOUNT FROM (SELECT ' +
-                 'TAX_TYPE, TAX_RATE, CAST(TOTAL_AMOUNT AS VARCHAR) AS ' +
-                 'TOTAL_AMOUNT, ROUND(TOTAL_AMOUNT * RATE) AS INCLUSIVE_TAX ' +
-                 'FROM (SELECT CAST(TT.TAX_TYPE AS VARCHAR) AS TAX_TYPE, ' +
-                 'CAST(TR.TAX_RATE AS VARCHAR) AS TAX_RATE, SUM(' +
-                 'D.EXCLUDE_TAX) AS TOTAL_AMOUNT, 1 + (CAST(TR.TAX_RATE AS ' +
-                 'NUMERIC) / 100) AS RATE FROM DETAILS D JOIN TAX_TYPE TT ' +
-                 'ON D.USER_ID = TT.USER_ID AND D.TAX_TYPE_ID = ' +
-                 'TT.TAX_TYPE_ID JOIN TAX_RATE TR ON D.USER_ID = TR.USER_ID ' +
-                 'AND D.TAX_RATE_ID = TR.TAX_RATE_ID WHERE D.USER_ID = ' +
-                 ':pUserID AND D.HEADER_ID = :pHeaderID GROUP BY ' +
-                 'TT.TAX_TYPE, TR.TAX_RATE))';
-  SQL_20100012 = 'SELECT SUM(INCLUSIVE_TAX) AS TOTAL_AMOUNT FROM (SELECT ' +
-                 'TAX_TYPE, TAX_RATE, CAST(TOTAL_AMOUNT AS VARCHAR) AS ' +
-                 'TOTAL_AMOUNT, TRUNC(TOTAL_AMOUNT * RATE) AS INCLUSIVE_TAX ' +
-                 'FROM (SELECT CAST(TT.TAX_TYPE AS VARCHAR) AS TAX_TYPE, ' +
-                 'CAST(TR.TAX_RATE AS VARCHAR) AS TAX_RATE, SUM(' +
-                 'D.EXCLUDE_TAX) AS TOTAL_AMOUNT, 1 + (CAST(TR.TAX_RATE AS ' +
-                 'NUMERIC) / 100) AS RATE FROM DETAILS D JOIN TAX_TYPE TT ' +
-                 'ON D.USER_ID = TT.USER_ID AND D.TAX_TYPE_ID = ' +
-                 'TT.TAX_TYPE_ID JOIN TAX_RATE TR ON D.USER_ID = TR.USER_ID ' +
-                 'AND D.TAX_RATE_ID = TR.TAX_RATE_ID WHERE D.USER_ID = ' +
-                 ':pUserID AND D.HEADER_ID = :pHeaderID GROUP BY ' +
-                 'TT.TAX_TYPE, TR.TAX_RATE))';
-  SQL_20100013 = 'SELECT SUM(INCLUSIVE_TAX) AS TOTAL_AMOUNT FROM (SELECT ' +
-                 'TAX_TYPE, TAX_RATE, CAST(TOTAL_AMOUNT AS VARCHAR) AS ' +
-                 'TOTAL_AMOUNT, CEIL(TOTAL_AMOUNT * RATE) AS INCLUSIVE_TAX ' +
-                 'FROM (SELECT CAST(TT.TAX_TYPE AS VARCHAR) AS TAX_TYPE, ' +
-                 'CAST(TR.TAX_RATE AS VARCHAR) AS TAX_RATE, SUM(' +
-                 'D.EXCLUDE_TAX) AS TOTAL_AMOUNT, 1 + (CAST(TR.TAX_RATE AS ' +
-                 'NUMERIC) / 100) AS RATE FROM DETAILS D JOIN TAX_TYPE TT ' +
-                 'ON D.USER_ID = TT.USER_ID AND D.TAX_TYPE_ID = ' +
-                 'TT.TAX_TYPE_ID JOIN TAX_RATE TR ON D.USER_ID = TR.USER_ID ' +
-                 'AND D.TAX_RATE_ID = TR.TAX_RATE_ID WHERE D.USER_ID = ' +
-                 ':pUserID AND D.HEADER_ID = :pHeaderID GROUP BY ' +
-                 'TT.TAX_TYPE, TR.TAX_RATE))';
+  SQL_20100011 = 'SELECT HEADER_ID, DETAIL_ID, SUM(INCLUSIVE_TAX) AS ' +
+                 'TOTAL_AMOUNT FROM (SELECT HEADER_ID, DETAIL_ID, TAX_TYPE, ' +
+                 'TAX_RATE, CAST(TOTAL_AMOUNT AS VARCHAR) AS TOTAL_AMOUNT, ' +
+                 'ROUND(TOTAL_AMOUNT * RATE) AS INCLUSIVE_TAX FROM (SELECT ' +
+                 'D.HEADER_ID AS HEADER_ID, D.DETAIL_ID AS DETAIL_ID, CAST(' +
+                 'TT.TAX_TYPE AS VARCHAR) AS TAX_TYPE, CAST(TR.TAX_RATE AS ' +
+                 'VARCHAR) AS TAX_RATE, SUM(D.EXCLUDE_TAX) AS TOTAL_AMOUNT, ' +
+                 '1 + (CAST(TR.TAX_RATE AS REAL) / 100) AS RATE FROM DETAILS ' +
+                 'D JOIN TAX_TYPE TT ON D.USER_ID = TT.USER_ID AND ' +
+                 'D.TAX_TYPE_ID = TT.TAX_TYPE_ID JOIN TAX_RATE TR ON ' +
+                 'D.USER_ID = TR.USER_ID AND D.TAX_RATE_ID = TR.TAX_RATE_ID ' +
+                 'WHERE D.USER_ID = :pUserID AND D.HEADER_ID = :pHeaderID ' +
+                 'GROUP BY D.HEADER_ID, D.DETAIL_ID, TT.TAX_TYPE, TR.TAX_RATE' +
+                 '))';
+  SQL_20100012 = 'SELECT HEADER_ID, DETAIL_ID, SUM(INCLUSIVE_TAX) AS ' +
+                 'TOTAL_AMOUNT FROM (SELECT HEADER_ID, DETAIL_ID, TAX_TYPE, ' +
+                 'TAX_RATE, CAST(TOTAL_AMOUNT AS VARCHAR) AS TOTAL_AMOUNT, ' +
+                 'TRUNC(TOTAL_AMOUNT * RATE) AS INCLUSIVE_TAX FROM (SELECT ' +
+                 'D.HEADER_ID AS HEADER_ID, D.DETAIL_ID AS DETAIL_ID, CAST(' +
+                 'TT.TAX_TYPE AS VARCHAR) AS TAX_TYPE, CAST(TR.TAX_RATE AS ' +
+                 'VARCHAR) AS TAX_RATE, SUM(D.EXCLUDE_TAX) AS TOTAL_AMOUNT, ' +
+                 '1 + (CAST(TR.TAX_RATE AS REAL) / 100) AS RATE FROM DETAILS ' +
+                 'D JOIN TAX_TYPE TT ON D.USER_ID = TT.USER_ID AND ' +
+                 'D.TAX_TYPE_ID = TT.TAX_TYPE_ID JOIN TAX_RATE TR ON ' +
+                 'D.USER_ID = TR.USER_ID AND D.TAX_RATE_ID = TR.TAX_RATE_ID ' +
+                 'WHERE D.USER_ID = :pUserID AND D.HEADER_ID = :pHeaderID ' +
+                 'GROUP BY D.HEADER_ID, D.DETAIL_ID, TT.TAX_TYPE, TR.TAX_RATE' +
+                 '))';
+  SQL_20100013 = 'SELECT HEADER_ID, DETAIL_ID, SUM(INCLUSIVE_TAX) AS ' +
+                 'TOTAL_AMOUNT FROM (SELECT HEADER_ID, DETAIL_ID, TAX_TYPE, ' +
+                 'TAX_RATE, CAST(TOTAL_AMOUNT AS VARCHAR) AS TOTAL_AMOUNT, ' +
+                 'CEIL(TOTAL_AMOUNT * RATE) AS INCLUSIVE_TAX FROM (SELECT ' +
+                 'D.HEADER_ID AS HEADER_ID, D.DETAIL_ID AS DETAIL_ID, CAST(' +
+                 'TT.TAX_TYPE AS VARCHAR) AS TAX_TYPE, CAST(TR.TAX_RATE AS ' +
+                 'VARCHAR) AS TAX_RATE, SUM(D.EXCLUDE_TAX) AS TOTAL_AMOUNT, ' +
+                 '1 + (CAST(TR.TAX_RATE AS REAL) / 100) AS RATE FROM DETAILS ' +
+                 'D JOIN TAX_TYPE TT ON D.USER_ID = TT.USER_ID AND ' +
+                 'D.TAX_TYPE_ID = TT.TAX_TYPE_ID JOIN TAX_RATE TR ON ' +
+                 'D.USER_ID = TR.USER_ID AND D.TAX_RATE_ID = TR.TAX_RATE_ID ' +
+                 'WHERE D.USER_ID = :pUserID AND D.HEADER_ID = :pHeaderID ' +
+                 'GROUP BY D.HEADER_ID, D.DETAIL_ID, TT.TAX_TYPE, TR.TAX_RATE' +
+                 '))';
   SQL_20100014 = 'UPDATE SHOP SET DO_ROUND = TRUE, DO_TRUNCATE = FALSE, ' +
                  'DO_ROUND_UP = FALSE WHERE USER_ID = :pUserID AND SHOP_ID ' +
                  '= :pShopID';
@@ -485,7 +491,7 @@ const
     // UEntryBrandName and UAddDetail and UEditDetail
     SQL_20140001 = 'SELECT USER_ID, MAKER_ID, BRAND_NAME_ID, BRAND_NAME, ' +
                    'END_OF_SALES, DISABLED, ENTRY_DT, UPDATE_DT FROM BRAND ' +
-                   'WHERE USER_ID = :pUserID AND MAKER_ID = :pMakerID';
+                   'WHERE USER_ID = :pUserID AND MAKER_ID = :pMakerID ';
     SQL_20140002 = 'SELECT COALESCE(MAX(BRAND_NAME_ID), 0) + 1 AS ' +
                    'NEXT_ID FROM BRAND WHERE USER_ID = :pUserID ' +
                    'AND MAKER_ID = :pMakerID';
@@ -510,9 +516,6 @@ const
                    ':pDisabled, UPDATE_DT = :pUpdateDT WHERE USER_ID = ' +
                    ':pUserID AND MAKER_ID = :pCurrMakerID AND BRAND_NAME_ID ' +
                    '= :pCurrBrandNameID';
-    SQL_20140007 = 'SELECT USER_ID, MAKER_ID, BRAND_NAME_ID, BRAND_NAME, ' +
-                   'END_OF_SALES, DISABLED, ENTRY_DT, UPDATE_DT FROM BRAND ' +
-                   'WHERE USER_ID = :pUserID';
 
     // UEntryUnit and UAddDetail and UEditDetail
     SQL_20150001 = 'SELECT * FROM UNIT ORDER BY ORDER_ID ASC';

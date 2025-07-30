@@ -136,6 +136,7 @@ type
     procedure ProcRemoveDetail;
     procedure SetButtonEnabled(Qu: TSQLQuery);
     procedure Summarize;
+    procedure NewSummarize;
   public
 
   end;
@@ -156,9 +157,9 @@ uses
 procedure TFrmEditDetailsHeader.CloseTransactions;
 begin
   with FrmTopMenu.Defs do begin
-    CloseConn(ACn        , ATr      );
+    CloseConn(ACn      , ATr      );
     CloseConn(ACnDetail, ATrDetail);
-    CloseConn(ACnNextID  , ATrNextID);
+    CloseConn(ACnNextID, ATrNextID);
     CloseConn(ACnShop  , ATrShop  );
     CloseConn(ACnExp1  , ATrExp1  );
     CloseConn(ACnFromAC, ATrFromAC);
@@ -172,12 +173,12 @@ begin
     if DBEdtHeaderID.Text <> '' then begin;
       SetHID(StrToInt(DBEdtHeaderID.Text));
     end;
-    //if (AQuDetail.Active) And (AQuDetail.FieldByName('DETAIL_ID').AsInteger > 0) then begin
-    //  SetDID(AQuDetail.FieldByName('DETAIL_ID').AsInteger);
-    //end;
+    if (AQuDetail.RecordCount > 0)
+      And (AQuDetail.FieldByName('DETAIL_ID').AsInteger > 0) then begin
+      SetDID(AQuDetail.FieldByName('DETAIL_ID').AsInteger);
+    end;
     DBDTPHeaderDT.TimeFormat := tf24;
     SetHeaderDT(
-      //FormatDateTime('yyyy/mm/dd hh:nn:ss', DTPYear.DateTime, GetFS)
       DateTimeToStr(DTPYear.DateTime)
     );
     if DBEdtShopID.Text <> '' then begin
@@ -320,7 +321,15 @@ begin
         end;
 
         with FrmTopMenu.Defs do begin
-          SetDID(AQuDetail.FieldByName('DETAIL_ID').AsInteger);
+          with AQuDetail do begin
+            OpenConn(ACnDetail, ADSDetail, ATrDetail, AQuDetail);
+            SQL.Text   := SQL_20100009;
+            Params.ParamByName('pUserID').AsInteger   := GetUID;
+            Params.ParamByName('pHeaderID').AsInteger := GetHID;
+            Open;
+          end;
+
+          SetDID(AQuDetail.FieldByName('DETAIL_ID').AsVariant);
 
           FrmEditDetail := TFrmEditDetail.Create(Application);
           OpenForm(Self, FrmEditDetail);
@@ -352,10 +361,11 @@ begin
 end;
 
 procedure TFrmEditDetailsHeader.ProcRemoveDetail;
+var
+  LResult   : TModalResult;
 begin
   try
     try
-
       with FrmTopMenu.Defs do begin
         with AQuDetail do begin
           SQL.Text := SQL_20100010;
@@ -373,13 +383,17 @@ begin
             Next;
           end;
 
-          CloseTransactions;
-          Edit;
-          Delete;
-          ApplyUpdates;
-          ATrDetail.Commit;
+          LResult:= QuestionDlg(
+            REMOVE_DETAILS_HEADER_CAPTION, REMOVE_DETAILS_HEADER_MESSAGE,
+            mtConfirmation, [mrYes, mrNo], 0);
+          if LResult = mrYes then begin
+            Edit;
+            Delete;
+            ApplyUpdates;
+            ATrDetail.Commit;
 
-          SetButtonEnabled(AQuDetail);
+            SetButtonEnabled(AQuDetail);
+          end;
         end;
       end;
     except
@@ -425,6 +439,136 @@ begin
   end;
 end;
 
+procedure TFrmEditDetailsHeader.NewSummarize;
+var
+  LFractionProc : Integer;
+  LDetailID     : Integer;
+  LTotalAmount  : Integer;
+begin
+  try
+    try
+      if AQuDetail.RecordCount > 0 then begin
+        LDetailID          := AQuDetail.FieldByName('DETAIL_ID').AsInteger;
+        with FrmTopMenu.Defs do begin
+          SetDID(AQuDetail.FieldByName('DETAIL_ID').AsVariant);
+        end;
+      end;
+
+      // Get fruction processing type
+      with FrmTopMenu.Defs do begin
+        OpenSelQuAndSetVal(
+          ACnShop  , ADSShop  , ATrShop  , AQuShop  , DBLCBShopName,
+          DBEdtShopID , SQL_20100001, GetShopID);
+
+        if AQuShop.FieldByName('DO_TRUNCATE').AsBoolean then begin
+          LFractionProc := FRACTION_PROC_TRUNCATE;
+        end else if AQuShop.FieldByName('DO_ROUND').AsBoolean then begin
+          LFractionProc := FRACTION_PROC_ROUND;
+        end else if AQuShop.FieldByName('DO_ROUND_UP').AsBoolean then begin
+          LFractionProc := FRACTION_PROC_ROUND_UP;
+        end else begin
+          LFractionProc := FRACTION_PROC_UNDEF;
+        end;
+
+        // Get total amount
+        if (DBEdtTotalAmount.Text <> '')
+          And (StrToInt(DBEdtTotalAmount.Text) <> 0) then begin
+          LTotalAmount := StrToInt(DBEdtTotalAmount.Text);
+        end else begin
+          with AQu do begin
+            OpenSelectQueryWithHeaderID(
+              ACn, ADS, ATr, AQu, SQL_20100006, GetHID);
+            LTotalAmount := FieldByName('TOTAL_AMOUNT').AsInteger;
+          end;
+        end;
+
+        with FrmTopMenu.Defs do begin
+          with AQuDetail do begin
+            if (LFractionProc = FRACTION_PROC_TRUNCATE)
+              Or (LFractionProc = FRACTION_PROC_UNDEF) then begin
+              // Calc TotalAmount (TRUNC)
+              OpenSelectQueryWithHeaderID(
+                ACnDetail, ADSDetail, ATrDetail, AQuDetail, SQL_20100012, GetHID);
+              if LTotalAmount >= AQuDetail.FieldByName('TOTAL_AMOUNT').AsInteger then begin
+                SetTotalAmount(LTotalAmount);
+                if LFractionProc = FRACTION_PROC_UNDEF then begin
+                  CloseTransactions;
+                  UpdateFractionProcQueryWithShopID(
+                    ACnShop, ADSShop, ATrShop, AQuShop,
+                    SQL_20100015, StrToInt(VarToStr(GetShopID)));
+                  ATrShop.Commit;
+                end;
+                OpenSelectQueryWithHeaderID(
+                  ACn, ADS, ATr, AQu, SQL_20100006, GetHID);
+                OpenSelQuAndSetVal(
+                  ACnShop  , ADSShop  , ATrShop  , AQuShop  , DBLCBShopName,
+                  DBEdtShopID , SQL_20100001, GetShopID);
+                Exit;
+              end;
+            end;
+          end;
+
+          with AQuDetail do begin
+            if (LFractionProc = FRACTION_PROC_ROUND_UP)
+              Or (LFractionProc = FRACTION_PROC_UNDEF) then begin
+              // Calc TotalAmount (ROUND_UP)
+              OpenSelectQueryWithHeaderID(
+                ACnDetail, ADSDetail, ATrDetail, AQuDetail, SQL_20100013, GetHID);
+              if LTotalAmount <= AQuDetail.FieldByName('TOTAL_AMOUNT').AsInteger then begin
+                SetTotalAmount(LTotalAmount);
+                if LFractionProc = FRACTION_PROC_UNDEF then begin
+                  CloseTransactions;
+                  UpdateFractionProcQueryWithShopID(
+                    ACnShop, ADSShop, ATrShop, AQuShop,
+                    SQL_20100016, StrToInt(VarToStr(GetShopID)));
+                  ATrShop.Commit;
+                end;
+                OpenSelectQueryWithHeaderID(
+                  ACn, ADS, ATr, AQu, SQL_20100006, GetHID);
+                OpenSelQuAndSetVal(
+                  ACnShop  , ADSShop  , ATrShop  , AQuShop  , DBLCBShopName,
+                  DBEdtShopID , SQL_20100001, GetShopID);
+                Exit;
+              end;
+            end;
+          end;
+
+          with AQuDetail do begin
+            if (LFractionProc = FRACTION_PROC_ROUND)
+              Or (LFractionProc = FRACTION_PROC_UNDEF) then begin
+              // Calc TotalAmount (ROUND)
+              OpenSelectQueryWithHeaderID(
+                ACnDetail, ADSDetail, ATrDetail, AQuDetail, SQL_20100011, GetHID);
+              if LTotalAmount = AQuDetail.FieldByName('TOTAL_AMOUNT').AsInteger then begin
+                SetTotalAmount(LTotalAmount);
+                if LFractionProc = FRACTION_PROC_UNDEF then begin
+                  CloseTransactions;
+                  UpdateFractionProcQueryWithShopID(
+                    ACnShop, ADSShop, ATrShop, AQuShop,
+                    SQL_20100014, StrToInt(VarToStr(GetShopID)));
+                  ATrShop.Commit;
+                end;
+                OpenSelectQueryWithHeaderID(
+                  ACn, ADS, ATr, AQu, SQL_20100006, GetHID);
+                OpenSelQuAndSetVal(
+                  ACnShop  , ADSShop  , ATrShop  , AQuShop  , DBLCBShopName,
+                  DBEdtShopID , SQL_20100001, GetShopID);
+                Exit;
+              end;
+            end;
+          end;
+        end;
+      end;
+    except
+      on E: ESQLDatabaseError do begin
+        ShowMessage(E.Message);
+        ATrShop.Rollback;
+      end;
+    end;
+  finally
+  end;
+end;
+
 procedure TFrmEditDetailsHeader.Summarize;
 var
   LDetailID        : Integer;
@@ -438,23 +582,24 @@ begin
       Params.ParamByName('pUserID').AsInteger   := GetUID;
       Params.ParamByName('pHeaderID').AsInteger := GetHID;
 
-      CloseConn(ACnDetail, ATrDetail);
+      //CloseConn(ACnDetail, ATrDetail);
+      CloseTransactions;
       Open;
     end;
   end;
 
-  LDetailID        := AQuDetail.FieldByName('DETAIL_ID').AsInteger;
+  LDetailID          := AQuDetail.FieldByName('DETAIL_ID').AsInteger;
   with FrmTopMenu.Defs do begin
-    SetDID(LDetailID);
+    SetDID(AQuDetail.FieldByName('DETAIL_ID').AsVariant);
   end;
-  if EdtTotalAmount.Text <> '' then begin
-    LPrevTotalAmount := StrToInt(StringReplace(EdtTotalAmount.Text, ',', '', [rfReplaceAll]));
-  end else begin
-    LPrevTotalAmount := 0;
-  end;
+  //if EdtTotalAmount.Text <> '' then begin
+  //  LPrevTotalAmount := StrToInt(StringReplace(EdtTotalAmount.Text, ',', '', [rfReplaceAll]));
+  //end else begin
+  //  LPrevTotalAmount := 0;
+  //end;
 
   with FrmTopMenu.Defs do begin
-    // Get fruction processing type
+    // Get fraction processing type
     OpenSelQuAndSetVal(
       ACnShop  , ADSShop  , ATrShop  , AQuShop  , DBLCBShopName,
       DBEdtShopID , SQL_20100001, GetShopID);
@@ -470,18 +615,18 @@ begin
     if (DBEdtTotalAmount.Text <> '') And (StrToInt(DBEdtTotalAmount.Text) <> 0) then begin
       LTotalAmount := StrToInt(DBEdtTotalAmount.Text);
     end else begin
-      //with FrmTopMenu.Defs do begin
-        with AQu do begin
-          OpenConn(ACn, ADS, ATr, AQu);
-          SQL.Text := SQL_20100006;
-          Params.ParamByName('pUserID').AsInteger   := GetUID;
-          Params.ParamByName('pHeaderID').AsInteger := GetHID;
-          Open;
-
-          LTotalAmount := FieldByName('TOTAL_AMOUNT').AsInteger;
-        end;
-      //end;
+      with AQu do begin
+        OpenSelectQueryWithHeaderID(
+          ACn, ADS, ATr, AQu, SQL_20100006, GetHID);
+        LTotalAmount := FieldByName('TOTAL_AMOUNT').AsInteger;
+      end;
     end;
+
+    CloseConn(ACnExp1, ATrExp1);
+    OpenSelQuAndSetVal(
+      ACnExp1  , ADSExp1  , ATrExp1  , AQuExp1  , DBLCBExp1    ,
+      DBEdtExpKey1, SQL_20100002, GetExpKey1);
+    DBLCBExp1Change(Self);
 
     with AQuDetail do begin
       // Calc TotalAmount (TRUNC)
@@ -500,17 +645,15 @@ begin
       FTotalAmount := FieldByName('TOTAL_AMOUNT').AsInteger;
 
       CloseConn(ACnDetail, ATrDetail);
-      OpenConn(ACnDetail, ADSDetail, ATrDetail, AQuDetail);
-      SQL.Text := SQL_20100009;
-      Params.ParamByName('pUserID').AsInteger   := GetUID;
-      Params.ParamByName('pHeaderID').AsInteger := GetHID;
-      Open;
+      OpenSelectQueryWithHeaderID(
+        ACnDetail, ADSDetail, ATrDetail, AQuDetail, SQL_20100009, GetHID);
 
       if FTotalAmount <= LTotalAmount then begin
         if (FTotalAmount = LTotalAmount) then begin
           with AQuShop do begin
             CloseConn(ACnShop, ATrShop);
-            OpenConn(ACnShop, ADSShop, ATrShop, AQuShop);
+            UpdateFractionProcQueryWithShopID(
+              ACnShop, ADSShop, ATrShop, AQuShop, SQL_20100015, GetShopID);
             SQL.Text := SQL_20100015;
             Params.ParamByName('pUserID').AsInteger := GetUID;
             Params.ParamByName('pShopID').AsInteger := GetShopID;
@@ -524,6 +667,30 @@ begin
               DBEdtShopID , SQL_20100001, GetShopID);
           end;
           EdtTotalAmount.Text := FormatFloat('#,##0', FTotalAmount);
+          with AQu do begin
+            OpenConn(ACn, ADS, ATr, AQu);
+              OpenSelectQueryWithHeaderID(
+              ACn, ADS, ATr, AQu, SQL_20100006, GetHID);
+            LTotalAmount := FieldByName('TOTAL_AMOUNT').AsInteger;
+          end;
+
+          OpenSelQuAndSetVal(
+            ACnExp1  , ADSExp1  , ATrExp1  , AQuExp1  , DBLCBExp1    ,
+            DBEdtExpKey1, SQL_20100002, GetExpKey1);
+          DBLCBExp1Change(Self);
+
+          if Not VarIsNull(GetFromACID) then begin
+            OpenSelQuAndSetVal(
+              ACnFromAC, ADSFromAC, ATrFromAC, AQuFromAC, DBLCBFromAC  ,
+              DBEdtFromID , SQL_20100003, GetFromACID);
+          end;
+
+          if Not VarIsNull(GetToACID) then begin
+            OpenSelQuAndSetVal(
+              ACnToAC  , ADSToAC  , ATrToAC  , AQuToAC  , DBLCBToAC    ,
+              DBEdtToID   , SQL_20100004, GetToACID);
+          end;
+
           Exit;
         end;
       end;
@@ -565,6 +732,30 @@ begin
               DBEdtShopID , SQL_20100001, GetShopID);
           end;
           EdtTotalAmount.Text := FormatFloat('#,##0', FTotalAmount);
+          with AQu do begin
+            OpenConn(ACn, ADS, ATr, AQu);
+            OpenSelectQueryWithHeaderID(
+              ACn, ADS, ATr, AQu, SQL_20100006, GetHID);
+            LTotalAmount := FieldByName('TOTAL_AMOUNT').AsInteger;
+          end;
+
+          OpenSelQuAndSetVal(
+            ACnExp1  , ADSExp1  , ATrExp1  , AQuExp1  , DBLCBExp1    ,
+            DBEdtExpKey1, SQL_20100002, GetExpKey1);
+          DBLCBExp1Change(Self);
+
+          if Not VarIsNull(GetFromACID) then begin
+            OpenSelQuAndSetVal(
+              ACnFromAC, ADSFromAC, ATrFromAC, AQuFromAC, DBLCBFromAC  ,
+              DBEdtFromID , SQL_20100003, GetFromACID);
+          end;
+
+          if Not VarIsNull(GetToACID) then begin
+            OpenSelQuAndSetVal(
+              ACnToAC  , ADSToAC  , ATrToAC  , AQuToAC  , DBLCBToAC    ,
+              DBEdtToID   , SQL_20100004, GetToACID);
+          end;
+
           Exit;
         end;
       end;
@@ -601,9 +792,32 @@ begin
         ExecSQL;
         ATrShop.Commit;
 
+        with AQu do begin
+          OpenConn(ACn, ADS, ATr, AQu);
+          OpenSelectQueryWithHeaderID(
+            ACn, ADS, ATr, AQu, SQL_20100006, GetHID);
+          LTotalAmount := FieldByName('TOTAL_AMOUNT').AsInteger;
+        end;
         OpenSelQuAndSetVal(
           ACnShop, ADSShop, ATrShop, AQuShop, DBLCBShopName,
           DBEdtShopID , SQL_20100001, GetShopID);
+
+        OpenSelQuAndSetVal(
+          ACnExp1  , ADSExp1  , ATrExp1  , AQuExp1  , DBLCBExp1    ,
+          DBEdtExpKey1, SQL_20100002, GetExpKey1);
+        DBLCBExp1Change(Self);
+        end;
+
+      if Not VarIsNull(GetFromACID) then begin
+        OpenSelQuAndSetVal(
+          ACnFromAC, ADSFromAC, ATrFromAC, AQuFromAC, DBLCBFromAC  ,
+          DBEdtFromID , SQL_20100003, GetFromACID);
+      end;
+
+      if Not VarIsNull(GetToACID) then begin
+        OpenSelQuAndSetVal(
+          ACnToAC  , ADSToAC  , ATrToAC  , AQuToAC  , DBLCBToAC    ,
+          DBEdtToID   , SQL_20100004, GetToACID);
       end;
 
       EdtTotalAmount.Text := FormatFloat('#,##0', FTotalAmount);
@@ -650,7 +864,7 @@ begin
 
   BackupValues;
   ProcAddDetail;
-  Summarize;
+  NewSummarize;
 end;
 
 procedure TFrmEditDetailsHeader.ActEditDetailExecute(Sender: TObject);
@@ -662,7 +876,7 @@ begin
 
   BackupValues;
   ProcEditDetail;
-  Summarize;
+  NewSummarize;
 end;
 
 procedure TFrmEditDetailsHeader.ActEntryAccountExecute(Sender: TObject);
@@ -881,7 +1095,6 @@ begin
       OpenSelQuAndSetVal(
         ACnExp1  , ADSExp1  , ATrExp1  , AQuExp1  , DBLCBExp1    ,
         DBEdtExpKey1, SQL_20100002, GetExpKey1);
-
       DBLCBExp1Change(Self);
 
       if Not VarIsNull(GetFromACID) then begin
@@ -912,11 +1125,9 @@ begin
 
     with FrmTopMenu.Defs do begin
       with AQuDetail do begin
-        OpenConn(ACnDetail, ADSDetail, ATrDetail, AQuDetail);
-        SQL.Text   := SQL_20100009;
-        Params.ParamByName('pUserID').AsInteger   := GetUID;
-        Params.ParamByName('pHeaderID').AsInteger := GetHID;
-        Open;
+        //OpenConn(ACnDetail, ADSDetail, ATrDetail, AQuDetail);
+        OpenSelectQueryWithHeaderID(
+          ACnDetail, ADSDetail, ATrDetail, AQuDetail, SQL_20100009, GetHID);
 
         if RecordCount <= 0 then begin
           BtnEditDetail.Enabled   := False;
@@ -930,13 +1141,17 @@ begin
     SetButtonEnabled(AQuDetail);
     ADBGrid.AutoAdjustColumns;
 
-    // Summarize
-    Summarize;
-
     if DBEdtTotalAmount.Text <> '' then begin
       EdtTotalAmount.Text := FormatFloat('#,##0', StrToInt(DBEdtTotalAmount.Text));
     end else begin
       EdtTotalAmount.Text := FormatFloat('#,##0', 0);
+    end;
+
+    NewSummarize;
+    with FrmTopMenu.Defs do begin
+      CloseConn(ACnDetail, ATrDetail);
+      OpenSelectQueryWithHeaderID(
+        ACnDetail, ADSDetail, ATrDetail, AQuDetail, SQL_20100009, GetHID);
     end;
 
     DBLCBShopName.Height := 46;
@@ -944,7 +1159,7 @@ begin
 
     FrmEditDetailsHeader.Width := 859;
     { Debug }
-    //FrmAddDetailsHeader.Width := 1167;
+    FrmEditDetailsHeader.Width := 1167;
   finally
   end;
 end;

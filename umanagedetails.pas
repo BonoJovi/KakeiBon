@@ -49,6 +49,7 @@ type
     procedure ProcEditDetailsHeader;
     procedure ProcEntryAccount;
     procedure ProcEntryShop;
+    procedure ProcRemoveDetailsHeader;
     function GetGoBack: Boolean;
     procedure SetGoBack(GoBack: Boolean);
     property GoBack: Boolean read GetGoBack write SetGoBack;
@@ -133,6 +134,61 @@ begin
   end;
 end;
 
+procedure TFrmManageDetails.ProcRemoveDetailsHeader;
+var
+  LHeaderID : Integer;
+  LResult   : TModalResult;
+begin
+  try
+    try
+      with FrmTopMenu.Defs do begin
+        LHeaderID := AQu.FieldByName('HEADER_ID').AsInteger;
+        with AQu do begin
+          CloseConn(ACn, ATr);
+
+          LResult:= QuestionDlg(
+            REMOVE_DETAILS_HEADER_CAPTION, REMOVE_DETAILS_HEADER_MESSAGE,
+            mtConfirmation, [mrYes, mrNo], 0);
+          if LResult = mrYes then begin
+            SQL.Text := SQL_20090002;
+            Params.ParamByName('pUserID').AsInteger   := GetUID;
+            Params.ParamByName('pHeaderID').AsInteger := LHeaderID;
+            ExecSQL;
+
+            SQL.Text := SQL_20090003;
+            Params.ParamByName('pUserID').AsInteger   := GetUID;
+            Params.ParamByName('pHeaderID').AsInteger := LHeaderID;
+
+            //CloseTransactions;
+            ExecSQL;
+            ATr.Commit;
+          end else begin
+            MessageDlg(
+              CANCEL_OF_REMOVE_CAPTION, CANCEL_OF_REMOVE_MESSAGE,
+              mtInformation, [mbOK], 0);
+          end;
+        end;
+      end;
+    except
+      on E: ESQLDatabaseError do begin
+        ShowMessage(E.Message);
+      end;
+    end;
+  finally
+    with FrmTopMenu.Defs do begin
+      OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20090001);
+      if AQu.RecordCount = 0 then begin
+        BtnEditDetail.Enabled   := False;
+        BtnRemoveDetail.Enabled := False;
+      end else begin
+        BtnEditDetail.Enabled   := True;
+        BtnRemoveDetail.Enabled := True;
+      end;
+    end;
+    ADBG.AutoAdjustColumns;
+  end;
+end;
+
 procedure TFrmManageDetails.ProcEntryAccount;
 begin
   with FrmTopMenu.Defs do begin
@@ -193,49 +249,8 @@ begin
 end;
 
 procedure TFrmManageDetails.ActRemoveDetailsHeaderExecute(Sender: TObject);
-var
-  LHeaderID : Integer;
 begin
-
-  try
-    try
-      with FrmTopMenu.Defs do begin
-        LHeaderID := AQu.FieldByName('HEADER_ID').AsInteger;
-        with AQu do begin
-          CloseConn(ACn, ATr);
-
-          SQL.Text := SQL_20090002;
-          Params.ParamByName('pUserID').AsInteger   := GetUID;
-          Params.ParamByName('pHeaderID').AsInteger := LHeaderID;
-          ExecSQL;
-
-          SQL.Text := SQL_20090003;
-          Params.ParamByName('pUserID').AsInteger   := GetUID;
-          Params.ParamByName('pHeaderID').AsInteger := LHeaderID;
-
-          CloseTransactions;
-          ExecSQL;
-          ATr.Commit;
-        end;
-      end;
-    except
-      on E: ESQLDatabaseError do begin
-        ShowMessage(E.Message);
-      end;
-    end;
-  finally
-    with FrmTopMenu.Defs do begin
-      OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20090001);
-      if AQu.RecordCount = 0 then begin
-        BtnEditDetail.Enabled   := False;
-        BtnRemoveDetail.Enabled := False;
-      end else begin
-        BtnEditDetail.Enabled   := True;
-        BtnRemoveDetail.Enabled := True;
-      end;
-    end;
-    ADBG.AutoAdjustColumns;
-  end;
+  ProcRemoveDetailsHeader;
 end;
 
 procedure TFrmManageDetails.FormClose(Sender: TObject;
@@ -270,6 +285,11 @@ begin
     SetToACID(0);
     SetUnitID(0);
     SetTaxTypeID(0);
+
+    SetQuantity(0);
+    SetExcludeTax(0);
+    SetTax(0);
+    SetTotalAmount(0);
   end;
 
   try

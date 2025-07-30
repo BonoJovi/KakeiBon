@@ -25,6 +25,12 @@ const
   FRACTION_PROC_TRUNCATE = 2;
   FRACTION_PROC_ROUND_UP = 3;
 
+  // UManageDetails
+  REMOVE_DETAILS_HEADER_CAPTION = '削除の確認';
+  REMOVE_DETAILS_HEADER_MESSAGE = '削除したデータは復旧できません。本当に削除しますか？';
+  CANCEL_OF_REMOVE_CAPTION      = '削除のキャンセル';
+  CANCEL_OF_REMOVE_MESSAGE      = '削除をキャンセルしました';
+
   MSG_JP_000001  = '先にログインしてください';
   MSG_JP_000002  = '管理者ユーザ名は入力必須です。';
   MSG_JP_000003  = 'ユーザ名は入力必須です。';
@@ -58,6 +64,7 @@ const
   MSG_JP_000031  = 'アカウントの削除が完了しました。ログアウトします。';
   MSG_JP_000032  = 'メーカーが選択されていません。';
   MSG_JP_000033  = 'メーカーIDが取得できません';
+  MSG_JP_000034  = '入力したら[Tabキー]で次の項目に移動してから保存してください';
 
   ERR_MSG_000001 = 'UNIQUE constraint failed';
   ERR_MSG_000002 = 'リレーション"users"は存在しません';

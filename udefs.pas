@@ -47,6 +47,12 @@ type
     procedure OpenSelectQueryWithMakerID(
       var Cn: TSQLite3Connection; var DS: TDataSource; var Tr: TSQLTransaction;
       var Qu: TSQLQuery; SS: AnsiString; MakerID: Integer);
+    procedure OpenSelectQueryWithMakerIDAndBrandNameID(
+      var Cn: TSQLite3Connection; var DS: TDataSource; var Tr: TSQLTransaction;
+      var Qu: TSQLQuery; SS: AnsiString; MakerID, BrandNameID: Integer);
+    procedure UpdateFractionProcQueryWithShopID(
+      var Cn: TSQLite3Connection; var DS: TDataSource; var Tr: TSQLTransaction;
+      var Qu: TSQLQuery; SS: AnsiString; ShopID: Integer);
     procedure OpenSelQuAndSetNextID(
       var Cn: TSQLite3Connection; var DS: TDataSource; var Tr: TSQLTransaction;
       var Qu: TSQLQuery; var DBEditObj: TDBEdit; SS: AnsiString);
@@ -280,18 +286,14 @@ begin
   if Not Cn.Connected then
   begin
     Cn.DatabaseName := DB_NAME;
-    //Tr              := TSQLTransaction.Create(Cn);
     Tr.DataBase     := Cn;
-    //Qu              := TSQLQuery.Create(Cn);
     Qu.Database     := Cn;
     Qu.Transaction  := Tr;
     DS.DataSet      := Qu;
   end else begin
     Cn.Close;
     Cn.DatabaseName := DB_NAME;
-    //Tr              := TSQLTransaction.Create(Cn);
     Tr.DataBase     := Cn;
-    //Qu              := TSQLQuery.Create(Cn);
     Qu.Database     := Cn;
     Qu.Transaction  := Tr;
     DS.DataSet      := Qu;
@@ -310,6 +312,7 @@ procedure TDefs.OpenSelectQuery(
   var Cn: TSQLite3Connection; var DS: TDataSource;
   var Tr: TSQLTransaction; var Qu: TSQLQuery; SS: AnsiString);
 begin
+  CloseConn(Cn, Tr);
   OpenConn(Cn, DS, Tr, Qu);
   with Qu do begin
     if Active = False then
@@ -327,6 +330,7 @@ procedure TDefs.OpenSelectQueryByUnit(
   var Cn: TSQLite3Connection; var DS: TDataSource;
   var Tr: TSQLTransaction; var Qu: TSQLQuery; SS: AnsiString);
 begin
+  CloseConn(Cn, Tr);
   OpenConn(Cn, DS, Tr, Qu);
   with Qu do begin
     if Active = False then
@@ -341,6 +345,7 @@ procedure TDefs.OpenSelectQueryWithExp1(
   var Cn: TSQLite3Connection; var DS: TDataSource; var Tr: TSQLTransaction;
   var Qu: TSQLQuery; SS: AnsiString; ExpKey1: Integer);
 begin
+  CloseConn(Cn, Tr);
   OpenConn(Cn, DS, Tr, Qu);
   with Qu do begin
     if Active = False then
@@ -359,6 +364,7 @@ procedure TDefs.OpenSelectQueryWithExp1AndExp2(
   var Cn: TSQLite3Connection; var DS: TDataSource; var Tr: TSQLTransaction;
   var Qu: TSQLQuery; SS: AnsiString; ExpKey1: Integer; ExpKey2: Integer);
 begin
+  CloseConn(Cn, Tr);
   OpenConn(Cn, DS, Tr, Qu);
   with Qu do begin
     if Active = False then
@@ -378,6 +384,7 @@ procedure TDefs.OpenSelectQueryWithHeaderID(
   var Cn: TSQLite3Connection; var DS: TDataSource; var Tr: TSQLTransaction;
   var Qu: TSQLQuery; SS: AnsiString; HeaderID: Integer);
 begin
+  CloseConn(Cn, Tr);
   OpenConn(Cn, DS, Tr, Qu);
   with Qu do begin
     if Active = False then
@@ -396,6 +403,7 @@ procedure TDefs.OpenSelectQueryWithMakerID(
   var Cn: TSQLite3Connection; var DS: TDataSource; var Tr: TSQLTransaction;
   var Qu: TSQLQuery; SS: AnsiString; MakerID: Integer);
 begin
+  CloseConn(Cn, Tr);
   OpenConn(Cn, DS, Tr, Qu);
   with Qu do begin
     if Active = False then
@@ -410,10 +418,49 @@ begin
   end;
 end;
 
+procedure TDefs.OpenSelectQueryWithMakerIDAndBrandNameID(
+  var Cn: TSQLite3Connection; var DS: TDataSource; var Tr: TSQLTransaction;
+  var Qu: TSQLQuery; SS: AnsiString; MakerID, BrandNameID: Integer);
+begin
+  CloseConn(Cn, Tr);
+  OpenConn(Cn, DS, Tr, Qu);
+  with Qu do begin
+    if Active = False then
+    begin
+      SQL.Text                             := SS;
+      if Pos(':pUserID', SS) > 0 then begin
+        Params.ParamByName('pUserID').AsInteger  := FrmTopMenu.Defs.GetUID;
+        Params.ParamByName('pMakerID').AsInteger := MakerID;
+      end;
+      Open;
+    end;
+  end;
+end;
+
+procedure TDefs.UpdateFractionProcQueryWithShopID(
+  var Cn: TSQLite3Connection; var DS: TDataSource; var Tr: TSQLTransaction;
+  var Qu: TSQLQuery; SS: AnsiString; ShopID: Integer);
+begin
+  CloseConn(Cn, Tr);
+  OpenConn(Cn, DS, Tr, Qu);
+  with Qu do begin
+    if Active = False then
+    begin
+      SQL.Text                             := SS;
+      with FrmTopMenu.Defs do begin
+        Params.ParamByName('pUserID').AsInteger := GetUID;
+        Params.ParamByName('pShopID').AsInteger := ShopID;
+      end;
+      ExecSQL;
+    end;
+  end;
+end;
+
 procedure TDefs.OpenSelQuAndSetNextID(
   var Cn: TSQLite3Connection; var DS: TDataSource; var Tr: TSQLTransaction;
   var Qu: TSQLQuery; var DBEditObj: TDBEdit; SS: AnsiString);
 begin
+  CloseConn(Cn, Tr);
   OpenConn(Cn, DS, Tr, Qu);
   with Qu do begin
     if Active = False then
@@ -433,6 +480,7 @@ procedure TDefs.OpenSelQuAndSetVal(
   var Qu: TSQLQuery; var DBLCBObj: TDBLookupComboBox;
   var DBEditObj: TDBEdit; SS: AnsiString; KeyValue: Variant);
 begin
+  CloseConn(Cn, Tr);
   OpenConn(Cn, DS, Tr, Qu);
   with Qu do begin
     if Active = False then
@@ -461,6 +509,7 @@ procedure TDefs.OpenSelQuBrandAndSetVal(
   var Qu: TSQLQuery; var DBLCBObj: TDBLookupComboBox;
   var DBEditObj: TDBEdit; SS: AnsiString; KeyValue: Integer);
 begin
+  CloseConn(Cn, Tr);
   OpenConn(Cn, DS, Tr, Qu);
   with Qu do begin
     if Active = False then
@@ -492,6 +541,7 @@ procedure TDefs.OpenSelQuUnitAndSetVal(
   var Qu: TSQLQuery; var DBLCBObj: TDBLookupComboBox;
   var DBEditObj: TDBEdit; SS: AnsiString; KeyValue: Integer);
 begin
+  CloseConn(Cn, Tr);
   OpenConn(Cn, DS, Tr, Qu);
   with Qu do begin
     if Active = False then
@@ -515,6 +565,7 @@ procedure TDefs.OpenSelQuTaxTypeAndSetVal(
   var Qu: TSQLQuery; var DBLCBObj: TDBLookupComboBox;
   var DBEditObj: TDBEdit; SS: AnsiString; KeyValue: Integer);
 begin
+  CloseConn(Cn, Tr);
   OpenConn(Cn, DS, Tr, Qu);
   with Qu do begin
     if Active = False then

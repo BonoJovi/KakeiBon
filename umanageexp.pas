@@ -64,9 +64,6 @@ type
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormShow(Sender: TObject);
   private
-    FExpKey1      : Integer;
-    FExpKey2      : Integer;
-    FExpKey3      : Integer;
     FPrevOrderKey2 : Integer;
     FPrevOrderKey3 : Integer;
     FNewOrderKey2  : Integer;
@@ -128,8 +125,7 @@ var
       SQL.Text := SQL_20060005;
       with Params do begin
         ParamByName('pUserID').AsInteger   := ASG1.Cells[1, ASG1.Row].ToInteger;
-        FExpKey1                           := ASG1.Cells[3, ASG1.Row].ToInteger;
-        ParamByName('pExpKey1').AsInteger  := FExpKey1;
+        ParamByName('pExpKey1').AsInteger  := ASG1.Cells[3, ASG1.Row].ToInteger;
         ParamByName('pName2').AsAnsiString := AnsiString(NEW_EXP_NAME);
         ParamByName('pEntryDT').AsDateTime := Now;
 
@@ -163,8 +159,7 @@ begin
           LPickList     := GeneratePickList(LMaxOrderKey2);
           SetPickList(ASG2, ORDER_KEY2_IDX, LPickList);
 
-          FExpKey2      := LMaxOrderKey2;
-          ASG2.Row := FExpKey2;
+          ASG2.Row      := LMaxOrderKey2;
         end;
       end;
     except
@@ -188,10 +183,8 @@ var
       SQL.Text := SQL_20060006;
       with Params do begin
         ParamByName('pUserID').AsInteger   := ASG2.Cells[1, ASG1.Row].ToInteger;
-        FExpKey1                           := ASG2.Cells[2, ASG2.Row].ToInteger;
-        ParamByName('pExpKey1').AsInteger  := FExpKey1;
-        FExpKey2                           := ASG2.Cells[3, ASG2.Row].ToInteger;
-        ParamByName('pExpKey2').AsInteger  := FExpKey2;
+        ParamByName('pExpKey1').AsInteger  := ASG2.Cells[2, ASG2.Row].ToInteger;
+        ParamByName('pExpKey2').AsInteger  := ASG2.Cells[3, ASG2.Row].ToInteger;
         ParamByName('pName3').AsAnsiString := AnsiString('費目');
         ParamByName('pEntryDT').AsDateTime := Now;
 
@@ -220,8 +213,7 @@ begin
           LPickList     := GeneratePickList(LMaxOrderKey3);
           SetPickList(ASG3, ORDER_KEY3_IDX, LPickList);
 
-          FExpKey3      := LMaxOrderKey3;
-          ASG3.Row := FExpKey3;
+          ASG3.Row      := LMaxOrderKey3;
         end;
       end;
     except
@@ -467,8 +459,8 @@ begin
               ParamByName('pDisabled2').AsBoolean := True;
             end else if aState = cbUnchecked then begin
               ParamByName('pDisabled2').AsBoolean := False;
-            end else begin
-              ShowMessage('');
+            //end else begin
+            //  ShowMessage('');
             end;
             with ASG2 do begin
               ParamByName('pUpdateDT').AsDateTime := Now;
@@ -511,7 +503,6 @@ var
       SQL.Text := SS;
       with Params do begin
         with SG do begin
-          ShowMessage('aRow : ' + IntToStr(aRow));
           ParamByName('pUserID').AsInteger    := Cells[1, aRow].ToInteger;
           ParamByName('pExpKey1').AsInteger   := Cells[2, aRow].ToInteger;
           ParamByName('pExpKey2').AsInteger   := Cells[3, aRow].ToInteger;
@@ -557,7 +548,7 @@ begin
         SelectExp3;
       except
         on E: ESQLDatabaseError do begin
-          ShowMessage('');
+          ShowMessage(E.Message);
           ATr2.Rollback;
         end;
       end;
@@ -639,7 +630,6 @@ begin
             SaveChangedOrderKey2(
               SQL_20060012, ASG2, FPrevOrderKey2, FNewOrderKey2);
             for i := FPrevOrderKey2 + 1 to FNewOrderKey2 do begin
-              ShowMessage(IntToStr(i));
               Cells[6, i] := IntToStr(Cells[6, i].ToInteger - 1);
 
               SaveChangedOrderKey2(SQL_20060012, ASG2, i, Cells[6, i].ToInteger);
@@ -681,8 +671,8 @@ begin
               ParamByName('pDisabled3').AsBoolean := True;
             end else if aState = cbUnchecked then begin
               ParamByName('pDisabled3').AsBoolean := False;
-            end else begin
-              ShowMessage('');
+            //end else begin
+            //  ShowMessage('');
             end;
             with ASG3 do begin
               ParamByName('pUpdateDT').AsDateTime := Now;
@@ -771,7 +761,7 @@ begin
         SelectExp3;
       except
         on E: ESQLDatabaseError do begin
-          ShowMessage('');
+          ShowMessage(E.Message);
           ATr2.Rollback;
         end;
       end;
@@ -944,10 +934,6 @@ begin
     AutoSize   := False;
     ScrollBars := ssAutoBoth;
   end;
-
-  //FExpKey1 := 1;
-  //FExpKey2 := 1;
-  //FExpKey3 := 1;
 
   SelectExp1;
   SelectExp2;

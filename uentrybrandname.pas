@@ -68,11 +68,9 @@ type
     procedure ActEntryMakerExecute(Sender: TObject);
     procedure ActInsertExecute(Sender: TObject);
     procedure ActQuitExecute(Sender: TObject);
-    procedure ADBGridSelectEditor(Sender: TObject; Column: TColumn;
-      var Editor: TWinControl);
     procedure DBEdtBrandNameExit(Sender: TObject);
     procedure DBEdtBrandNameIDChange(Sender: TObject);
-    procedure DBLCBMakerChange(Sender: TObject);
+    procedure DBLCBMakerSelect(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -100,7 +98,7 @@ var
 
 implementation
 uses
-  UTopMenu, UManageDetails, UAddDetail, UEditDetail, UEntryMaker;
+  UConsts, UTopMenu, UManageDetails, UAddDetail, UEditDetail, UEntryMaker;
 
 {$R *.lfm}
 
@@ -152,48 +150,54 @@ begin
   end;
 
   ATr.Rollback;
-  FrmTopMenu.Defs.CloseConn(ACn, ATr);
-  FrmTopMenu.Defs.OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20140003);
-  if DBEdtMakerID.Text <> '' then begin
-    DBLCBMaker.KeyValue := DBEdtMakerID.Field.AsInteger;
+  with FrmTopMenu.Defs do begin
+    CloseConn(ACn, ATr);
+    OpenSelectQueryWithMakerID(
+      ACn, ADS, ATr, AQu, SQL_20140001,  AQuMaker.FieldByName('MAKER_ID').AsInteger);
   end;
 end;
 
 procedure TFrmEntryBrandName.ProcCommit;
 var
-  LNextShopID : Integer;
+  LNextShopID  : Integer;
+  LMakerID     : Integer;
+  LNewMakerID  : Integer;
+  LBrandNameID : Integer;
 begin
   FDoCommit := True;
   try
     try
       with AQu do begin
         SQL.Text := SQL_20140004;
-        Params.ParamByName('pUserID').AsInteger    := FrmTopMenu.Defs.GetUID;
+        Params.ParamByName('pUserID').AsInteger       := FrmTopMenu.Defs.GetUID;
 
         with FrmTopMenu.Defs do begin
           if FCurrMakerID > 0 then begin
-            Params.ParamByName('pMakerID').AsInteger   := FCurrMakerID;
+            Params.ParamByName('pMakerID').AsInteger  := FCurrMakerID;
           end else begin
-            Params.ParamByName('pMakerID').AsInteger   := GetMakerID;
+            Params.ParamByName('pMakerID').AsInteger  := StrToInt(VarToStr(GetMakerID));
           end;
-          Params.ParamByName('pNewMakerID').AsInteger   := GetMakerID;
+          LMakerID := Params.ParamByName('pMakerID').AsInteger;
+          Params.ParamByName('pNewMakerID').AsInteger := StrToInt(VarToStr(GetMakerID));
+          LNewMakerID := Params.ParamByName('pNewMakerID').AsInteger;
 
-          OpenSelectQueryWithMakerID(ACnNextID, ADSNextID, ATrNextID, AQuNextID, SQL_20140002, GetMakerID);
+          OpenSelectQueryWithMakerID(
+            ACnNextID, ADSNextID, ATrNextID, AQuNextID, SQL_20140002, LMakerID);
           LNextShopID := AQuNextID.FieldByName('NEXT_ID').AsInteger;
           CloseConn(ACnNextID, ATrNextID);
           if FCurrBrandNameID > 0 then begin
-            Params.ParamByName('pBrandNameID').AsInteger  := FCurrBrandNameID;
+            Params.ParamByName('pBrandNameID').AsInteger    := FCurrBrandNameID;
           end else begin
-            if GetBrandNameID <> '' then begin
-              Params.ParamByName('pBrandNameID').AsInteger  := GetBrandNameID;
+            if VarToStr(GetBrandNameID) <> '' then begin
+              Params.ParamByName('pBrandNameID').AsInteger  := StrToInt(VarToStr(GetBrandNameID));
             end else begin
               Params.ParamByName('pBrandNameID').AsInteger  := LNextShopID;
             end;
           end;
-          if FCurrMakerID = GetMakerID then begin
-            Params.ParamByName('pNewBrandNameID').AsInteger  := GetBrandNameID;
+          if FCurrMakerID = StrToInt(VarToStr(GetMakerID)) then begin
+            Params.ParamByName('pNewBrandNameID').AsInteger := StrToInt(VarToStr(GetBrandNameID));
           end else begin
-            Params.ParamByName('pNewBrandNameID').AsInteger  := LNextShopID;
+            Params.ParamByName('pNewBrandNameID').AsInteger := LNextShopID;
           end;
 
           Params.ParamByName('pBrandName').AsAnsiString := GetBrandName;
@@ -211,8 +215,23 @@ begin
         ATr.Commit;
 
         with FrmTopMenu.Defs do begin
-          CloseConn(ACn, ATr);
-          OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20140003);
+          CloseTransactions;
+          //CloseConn(ACn, ATr);
+          OpenSelectQuery(ACnMaker, ADSMaker, ATrMaker, AQuMaker, SQL_20130002);
+          if DBEdtBrandNameID.Text <> '' then begin
+            OpenSelectQueryWithMakerIDAndBrandNameID(
+              ACn, ADS, ATr, AQu, SQL_20140001, StrToInt(VarToStr(DBLCBMaker.KeyValue)), StrToInt(DBEdtBrandNameID.Text));
+          end else begin
+            if (LMakerID > 0) then begin
+              OpenSelectQueryWithMakerIDAndBrandNameID(
+                ACn, ADS, ATr, AQu, SQL_20140001, LMakerID, 1);
+            end else if (LNewMakerID > 0) then begin
+              OpenSelectQueryWithMakerIDAndBrandNameID(
+                ACn, ADS, ATr, AQu, SQL_20140001, LNewMakerID, 1);
+            end else begin
+              MessageDlg(MSG_JP_000034, mtInformation, [mbOk], 0);
+            end;
+          end;
         end;
 
         FInsert := False;
@@ -245,8 +264,11 @@ begin
   with FrmTopMenu.Defs do begin
     if Not FInsert then begin
       with AQu do begin
-        CloseConn(ACn, ATr);
-        OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20140007);
+        //CloseConn(ACn, ATr);
+        if DBEdtMakerID.Text <> '' then begin
+          OpenSelectQueryWithMakerID(
+            ACn, ADS, ATr, AQu, SQL_20140001, StrToInt(DBEdtMakerID.Text));
+        end;
         Edit;
         if RecordCount > 0 then begin
           Insert;
@@ -293,44 +315,28 @@ begin
   Close;
 end;
 
-procedure TFrmEntryBrandName.ADBGridSelectEditor(Sender: TObject;
-  Column: TColumn; var Editor: TWinControl);
+procedure TFrmEntryBrandName.DBLCBMakerSelect(Sender: TObject);
 begin
   if Not FDoCommit then begin
     with FrmTopMenu.Defs do begin
-      if DBEdtMakerID.Text <> '' then begin
-        DBLCBMaker.KeyValue := StrToInt(DBEdtMakerID.Text);
-        if StrToInt(DBEdtMakerID.Text) > 0 then begin
-          FCurrMakerID      := StrToInt(DBEdtMakerID.Text);
-        end else begin
-          FCurrMakerID      := 0;
-        end;
-      end;
-      if (DBEdtBrandNameID.Text <> '') And (StrToInt(DBEdtBrandNameID.Text) > 0) then begin
-        FCurrBrandNameID    := StrToInt(DBEdtBrandNameID.Text);
-      end else begin
-        FCurrBrandNameID    := 0;
-      end;
-    end;
-    ADBGrid.AutoAdjustColumns;
-    //AQu.Edit;
-  end;
-end;
-
-procedure TFrmEntryBrandName.DBLCBMakerChange(Sender: TObject);
-begin
-  if Not FDoCommit then begin
-    with FrmTopMenu.Defs do begin
-      if (Not VarIsNull(DBLCBMaker.KeyValue)) then begin
-        if (DBLCBMaker.KeyValue <> DBEdtMakerID.Field.AsInteger) then begin
-          AQu.Edit;
-          DBEdtUserID.Field.AsInteger      := GetUID;
-          if DBLCBMaker.KeyValue > 0 then begin
-            SetMakerID(DBLCBMaker.KeyValue);
+      //ProcCancel;
+      with AQu do begin
+        FMakerID := DBLCBMaker.KeyValue;
+        First;
+        while Not EOF do begin
+          if StrToInt(VarToStr(FMakerID)) = FieldByName('MAKER_ID').AsInteger then begin
+            Break;
           end;
-          DBEdtMakerID.Text     := VarToStr(GetMakerID);
-
-          SetBrandNameID(AQu.FieldByName('BRAND_NAME_ID').AsString);
+          Next;
+        end;
+        with DBEdtBrandNameID do begin
+          if Text <> '' then begin
+            OpenSelectQueryWithMakerIDAndBrandNameID(
+              ACn, ADS, ATr, AQu, SQL_20140001, StrToInt(VarToStr(DBLCBMaker.KeyValue)), StrToInt(Text));
+          end else begin
+            OpenSelectQueryWithMakerIDAndBrandNameID(
+              ACn, ADS, ATr, AQu, SQL_20140001, StrToInt(VarToStr(DBLCBMaker.KeyValue)), 1);
+          end;
         end;
       end;
 
@@ -345,8 +351,9 @@ procedure TFrmEntryBrandName.DBEdtBrandNameIDChange(Sender: TObject);
 begin
   if Not FDoCommit then begin
     with FrmTopMenu.Defs do begin
-      if (DBEdtBrandNameID.Text <> '') And (StrToInt(DBEdtBrandNameID.Text) > 0) then begin
-        SetBrandNameID(StrToInt(DBEdtBrandNameID.Text));
+      if (AQu.FieldByName('BRAND_NAME_ID').AsAnsiString <> '')
+        And (AQu.FieldByName('BRAND_NAME_ID').AsInteger > 0) then begin
+        SetBrandNameID(AQu.FieldByName('BRAND_NAME_ID').AsVariant);
       end;
     end;
   end;
@@ -395,8 +402,6 @@ begin
 end;
 
 procedure TFrmEntryBrandName.FormShow(Sender: TObject);
-var
-  i : Integer;
 begin
   FReOpenDS       := False;
   Timer.Enabled   := False;
@@ -412,8 +417,7 @@ begin
 
   with FrmTopMenu.Defs do begin
     with AQu do begin
-      OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20140003);
-      //ADBGrid.DataSource := ADS;
+      OpenSelectQueryWithMakerID(ACn, ADS, ATr, AQu, SQL_20140001, 1);
       if RecordCount = 0 then begin
         ProcInsert;
       end else begin
@@ -426,22 +430,28 @@ begin
   with AQuMaker do begin
     with FrmTopMenu.Defs do begin
       if Not Active then begin
-        SQL.Text := SQL_20130002;
-        DBEdtUserID.Text := VarToStr(GetUID);
-        Params.ParamByName('pUserID').AsInteger := GetUID;
-        Open;
+        OpenSelectQuery(ACnMaker, ADSMaker, ATrMaker, AQuMaker, SQL_20130002);
+        First;
         //if Not VarIsNull(GetMakerID) then begin
-        if (DBEdtMakerID.Text <> '') And (StrToInt(DBEdtMakerID.Text) > 0) then begin
-          SetMakerID(StrToInt(DBEdtMakerID.Text));
-          First;
-          while Not EOF do begin
-            if FieldByName('MAKER_ID').AsAnsiString = VarToStr(GetMakerID) then begin
-              break;
-            end;
-            Next;
+        if (FieldByName('MAKER_ID').AsAnsiString <> '')
+          And (FieldByName('MAKER_ID').AsInteger > 0) then begin
+          SetMakerID(FieldByName('MAKER_ID').AsVariant);
+          with AQu do begin
+            OpenSelectQueryWithMakerID(
+              ACn, ADS, ATr, AQu, SQL_20140001, StrToInt(VarToStr(GetMakerID)));
           end;
+          if AQu.RecordCount = 0 then begin
+            ProcInsert;
+          end;
+          //First;
+          //while Not EOF do begin
+          //  if FieldByName('MAKER_ID').AsAnsiString = VarToStr(GetMakerID) then begin
+          //    break;
+          //  end;
+          //  Next;
+          //end;
 
-          DBLCBMaker.KeyValue := FieldByName('MAKER_ID').AsInteger;
+          DBLCBMaker.KeyValue := FieldByName('MAKER_ID').AsVariant;
         end else begin
           DBLCBMaker.ItemIndex := -1;
         end;
@@ -460,7 +470,7 @@ begin
   if FReOpenDS then
   begin
     with FrmTopMenu.Defs do begin
-      OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20140003);
+      OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20140001);
       ADBGrid.DataSource := ADS;
 
       FReOpenDS       := False;

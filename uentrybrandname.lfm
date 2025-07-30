@@ -19,12 +19,13 @@ object FrmEntryBrandName: TFrmEntryBrandName
     Color = clWindow
     Columns = <    
       item
-        Title.Caption = 'ID'
+        Title.Caption = 'USER_ID'
+        Width = 0
         Visible = False
         FieldName = 'USER_ID'
       end    
       item
-        Title.Caption = ''
+        Title.Caption = 'MAKER_ID'
         Width = 0
         Visible = False
         FieldName = 'MAKER_ID'
@@ -38,7 +39,8 @@ object FrmEntryBrandName: TFrmEntryBrandName
       item
         MaxSize = 400
         Title.Caption = 'メーカー名'
-        Width = 200
+        Width = 0
+        Visible = False
         FieldName = 'MAKER_NAME'
       end    
       item
@@ -63,7 +65,6 @@ object FrmEntryBrandName: TFrmEntryBrandName
     TabOrder = 0
     TabStop = False
     TitleStyle = tsStandard
-    OnSelectEditor = ADBGridSelectEditor
   end
   object ADBNav: TDBNavigator
     Cursor = crHandPoint
@@ -117,7 +118,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
     ScrollListDataset = True
     Style = csDropDownList
     TabOrder = 2
-    OnChange = DBLCBMakerChange
+    OnSelect = DBLCBMakerSelect
   end
   object PnlEntryMaker: TPanel
     Left = 136
