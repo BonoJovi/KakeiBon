@@ -12,7 +12,7 @@ object FrmTopMenu: TFrmTopMenu
   DoubleBuffered = True
   ParentDoubleBuffered = False
   Position = poScreenCenter
-  LCLVersion = '4.99.0.0'
+  LCLVersion = '4.2.0.0'
   Visible = True
   OnActivate = FormActivate
   OnClose = FormClose
@@ -374,6 +374,8 @@ object FrmTopMenu: TFrmTopMenu
     FieldDefs = <>
     Database = ACn
     Transaction = ATr
+    Params = <>
+    Macros = <>
     Left = 168
     Top = 256
   end

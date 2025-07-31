@@ -20,7 +20,6 @@ type
     ActEntryMaker    : TAction;
     ActionList       : TActionList;
     ActQuit          : TAction;
-    ActQuit1: TAction;
     ADBGrid          : TDBGrid;
     ADBNav           : TDBNavigator;
     ADS              : TDataSource;
@@ -215,23 +214,26 @@ begin
         ATr.Commit;
 
         with FrmTopMenu.Defs do begin
-          CloseTransactions;
-          //CloseConn(ACn, ATr);
-          OpenSelectQuery(ACnMaker, ADSMaker, ATrMaker, AQuMaker, SQL_20130002);
-          if DBEdtBrandNameID.Text <> '' then begin
-            OpenSelectQueryWithMakerIDAndBrandNameID(
-              ACn, ADS, ATr, AQu, SQL_20140001, StrToInt(VarToStr(DBLCBMaker.KeyValue)), StrToInt(DBEdtBrandNameID.Text));
-          end else begin
-            if (LMakerID > 0) then begin
-              OpenSelectQueryWithMakerIDAndBrandNameID(
-                ACn, ADS, ATr, AQu, SQL_20140001, LMakerID, 1);
-            end else if (LNewMakerID > 0) then begin
-              OpenSelectQueryWithMakerIDAndBrandNameID(
-                ACn, ADS, ATr, AQu, SQL_20140001, LNewMakerID, 1);
-            end else begin
-              MessageDlg(MSG_JP_000034, mtInformation, [mbOk], 0);
-            end;
-          end;
+          //CloseTransactions;
+          OpenSelectQuery(
+            ACnMaker, ADSMaker, ATrMaker, AQuMaker, SQL_20130002);
+          OpenSelectQueryWithMakerID(
+            ACn, ADS, ATr, AQu, SQL_20140001, StrToInt(VarToStr(GetMakerID)));
+          DBLCBMaker.KeyValue := AQu.FieldByName('MAKER_ID').AsVariant;
+          //if DBEdtBrandNameID.Text <> '' then begin
+          //  OpenSelectQueryWithMakerIDAndBrandNameID(
+          //    ACn, ADS, ATr, AQu, SQL_20140001, StrToInt(VarToStr(DBLCBMaker.KeyValue)), StrToInt(DBEdtBrandNameID.Text));
+          //end else begin
+          //  if (LMakerID > 0) then begin
+          //    OpenSelectQueryWithMakerIDAndBrandNameID(
+          //      ACn, ADS, ATr, AQu, SQL_20140001, LMakerID, 1);
+          //  end else if (LNewMakerID > 0) then begin
+          //    OpenSelectQueryWithMakerIDAndBrandNameID(
+          //      ACn, ADS, ATr, AQu, SQL_20140001, LNewMakerID, 1);
+          //  end else begin
+          //    MessageDlg(MSG_JP_000034, mtInformation, [mbOk], 0);
+          //  end;
+          //end;
         end;
 
         FInsert := False;
@@ -322,13 +324,13 @@ begin
       //ProcCancel;
       with AQu do begin
         FMakerID := DBLCBMaker.KeyValue;
-        First;
-        while Not EOF do begin
-          if StrToInt(VarToStr(FMakerID)) = FieldByName('MAKER_ID').AsInteger then begin
-            Break;
-          end;
-          Next;
-        end;
+        //First;
+        //while Not EOF do begin
+        //  if StrToInt(VarToStr(FMakerID)) = FieldByName('MAKER_ID').AsInteger then begin
+        //    Break;
+        //  end;
+        //  Next;
+        //end;
         with DBEdtBrandNameID do begin
           if Text <> '' then begin
             OpenSelectQueryWithMakerIDAndBrandNameID(
@@ -443,14 +445,6 @@ begin
           if AQu.RecordCount = 0 then begin
             ProcInsert;
           end;
-          //First;
-          //while Not EOF do begin
-          //  if FieldByName('MAKER_ID').AsAnsiString = VarToStr(GetMakerID) then begin
-          //    break;
-          //  end;
-          //  Next;
-          //end;
-
           DBLCBMaker.KeyValue := FieldByName('MAKER_ID').AsVariant;
         end else begin
           DBLCBMaker.ItemIndex := -1;

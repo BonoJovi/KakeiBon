@@ -626,7 +626,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
     Top = 232
   end
   object ATrMaker: TSQLTransaction
-    Active = False
+    Active = True
     Database = ACnMaker
     Left = 260
     Top = 232
@@ -687,7 +687,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
     Top = 172
   end
   object ACnMaker: TSQLite3Connection
-    Connected = False
+    Connected = True
     LoginPrompt = False
     DatabaseName = './KakeiBonDB.sqlite3'
     KeepConnection = False

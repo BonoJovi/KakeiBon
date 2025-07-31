@@ -340,12 +340,30 @@ begin
     CloseConn(ACnNextID, ATrNextID);
 
     DBEdtDetailID.Text      := IntToStr(LNextDetailID);
+
+    OpenSelQuAndSetVal(ACnMaker, ADSMaker, ATrMaker, AQuMaker,
+    DBLCBMaker, DBEdtMakerID, SQL_20130002, 0);
     DBLCBMaker.KeyValue     := -1;
+
+    OpenSelQuBrandAndSetVal(ACnBrand, ADSBrand, ATrBrand, AQuBrand,
+    DBLCBBrandName, DBEdtBrandNameID, SQL_20140001, 0);
     DBLCBBrandName.KeyValue := -1;
+
+    DBEdtExpKey1.Text := GetExpKey1;
+    SelectExp2(ACnExp2, ADSExp2, ATrExp2, AQuExp2);
     DBLCBExp2.KeyValue      := -1;
+
+    SelectExp3(ACnExp3, ADSExp3, ATrExp3, AQuExp3);
     DBLCBExp3.KeyValue      := -1;
+
+    OpenSelQuUnitAndSetVal(ACnUnit, ADSUnit, ATrUnit, AQuUnit,
+    DBLCBUnit, DBEdtUnitID, SQL_20150001, 0);
     DBLCBUnit.KeyValue      := -1;
+
+    OpenSelQuTaxTypeAndSetVal(ACnTaxType, ADSTaxType, ATrTaxType, AQuTaxType,
+    DBLCBTaxType, DBEdtTaxTypeID, SQL_20120004, 0);
     DBLCBTaxType.KeyValue   := -1;
+
     EdtQuantity.Text        := IntToStr(0);
     EdtAmount.Text          := FormatFloat('#,##0.000', 0);
     EdtExcludeTax.Text      := IntToStr(0);
@@ -753,11 +771,11 @@ begin
     EdtAmount.TabStop  := False;
     EdtAmount.ReadOnly := True;
     if (DBLCBTaxType.KeyValue = 1) Or (DBLCBTaxType.KeyValue = 2) then begin
-      //Writeln('TAX_TYPE : 1 or 2');
-      EdtExcludeTax.TabStop  := True;
-      EdtExcludeTax.ReadOnly := False;
-      EdtTax.TabStop         := True;
-      EdtTax.ReadOnly        := False;
+      //Writeln('TT : 1 or 2');
+      //EdtExcludeTax.TabStop  := True;
+      //EdtExcludeTax.ReadOnly := False;
+      //EdtTax.TabStop         := True;
+      //EdtTax.ReadOnly        := False;
 
       if (DBEdtExcludeTax.Text <> '')
         And (StrToInt(DBEdtExcludeTax.Text) <> 0) then begin
@@ -767,20 +785,20 @@ begin
         end;
     end else if ((DBLCBTaxType.KeyValue = 3) Or (DBLCBTaxType.KeyValue = 4))
       And (EdtSubTotal.Text <> '') then begin
-        //Writeln('TAX_TYPE : 3 or 4');
-        EdtExcludeTax.TabStop  := False;
-        EdtExcludeTax.ReadOnly := True;
-        EdtTax.TabStop         := False;
-        EdtTax.ReadOnly        := True;
+        //Writeln('TT : 3 or 4');
+        //EdtExcludeTax.TabStop  := False;
+        //EdtExcludeTax.ReadOnly := True;
+        //EdtTax.TabStop         := False;
+        //EdtTax.ReadOnly        := True;
 
         CalcIncludeTax;
     end else if (DBLCBTaxType.KeyValue = 5) then begin
       // Tax Free
-      //Writeln('TAX_TYPE : 5');
-      EdtExcludeTax.TabStop  := False;
-      EdtExcludeTax.ReadOnly := True;
-      EdtTax.TabStop         := False;
-      EdtTax.ReadOnly        := True;
+      //Writeln('TT : 5');
+      //EdtExcludeTax.TabStop  := False;
+      //EdtExcludeTax.ReadOnly := True;
+      //EdtTax.TabStop         := False;
+      //EdtTax.ReadOnly        := True;
 
       DBEdtTax.Text := IntToStr(0);
       EdtTax.Text := DBEdtTax.Text;
@@ -800,13 +818,28 @@ begin
   if ((DBLCBTaxType.KeyValue = 1) Or (DBLCBTaxType.KeyValue = 2))
     And (DBEdtExcludeTax.Text <> '')
     And (StrToInt(DBEdtExcludeTax.Text) <> 0) then begin
+      EdtExcludeTax.TabStop  := True;
+      EdtExcludeTax.ReadOnly := False;
+      EdtTax.TabStop         := True;
+      EdtTax.ReadOnly        := False;
+
       EdtTax.Text :=
         FormatFloat('#,##0', Round(GetExcludeTax * FTaxRate));
   end else if ((DBLCBTaxType.KeyValue = 3) Or (DBLCBTaxType.KeyValue = 4))
     And (EdtSubTotal.Text <> '') then begin
+      EdtExcludeTax.TabStop  := False;
+      EdtExcludeTax.ReadOnly := True;
+      EdtTax.TabStop         := False;
+      EdtTax.ReadOnly        := True;
+
       CalcIncludeTax;
   end else if (DBLCBTaxType.KeyValue = 5) then begin
     // Tax Free
+    EdtExcludeTax.TabStop  := False;
+    EdtExcludeTax.ReadOnly := True;
+    EdtTax.TabStop         := False;
+    EdtTax.ReadOnly        := True;
+
     DBEdtTax.Text := IntToStr(0);
     EdtTax.Text := DBEdtTax.Text;
     if DBEdtExcludeTax.Text <> '' then begin
@@ -1027,36 +1060,47 @@ begin
       DBLCBTaxType.KeyValue := -1;
     end;
 
-    if (GetEntryMaker = 0) And (GetEntryAccount = 0) And (GetEntryUnit = 0) then begin
-      if Not VarIsNull(GetQuantity) then begin
+    if (GetEntryMaker = 0)
+      And (GetEntryAccount = 0)
+      And (GetEntryUnit = 0) then begin
+      if (Not VarIsNull(GetQuantity))
+        And (VarToStr(GetQuantity) <> '')
+        And (StrToInt(VarToStr(GetQuantity)) > 0) then begin
         EdtQuantity.Text := FormatFloat('#,##0', GetQuantity);
       end else begin
         EdtQuantity.Text := FormatFloat('#,##0', 0);
       end;
 
-      if Not VarIsNull(GetExcludeTax) then begin
+      if (Not VarIsNull(GetExcludeTax))
+        And (VarToStr(GetExcludeTax) <> '')
+        And (StrToInt(VarToStr(GetExcludeTax)) > 0) then begin
         EdtExcludeTax.Text := FormatFloat('#,##0', GetExcludeTax);
       end else begin
         EdtExcludeTax.Text := FormatFloat('#,##0', 0);
       end;
 
-      if (DBEdtExcludeTax.Text <> '')
-          And (StrToInt(DBEdtExcludeTax.Text) <> 0)
-          And (DBEdtQuantity.Text <> '')
-          And (StrToInt(DBEdtQuantity.Text) > 0)
-          then begin
+      if (Not VarIsNull(GetExcludeTax))
+          And (VarToStr(GetExcludeTax) <> '')
+          And (StrToInt(VarToStr(GetExcludeTax)) > 0)
+          And (Not VarIsNull(GetQuantity))
+          And (VarToStr(GetQuantity) <> '')
+          And (StrToInt(VarToStr(GetQuantity)) > 0) then begin
         EdtAmount.Text := FormatFloat('#,##0.000', GetExcludeTax / GetQuantity);
       end else begin
         EdtAmount.Text := FormatFloat('#,##0.000', 0);
       end;
 
-      if Not VarIsNull(GetTax) then begin
+      if (Not VarIsNull(GetTax))
+        And (VarToStr(GetTax) <> '')
+        And (StrToInt(VarToStr(GetTax)) > 0)then begin
         EdtTax.Text := VarToStr(GetTax);
       end else begin
         EdtTax.Text := FormatFloat('#,##0', 0);
       end;
 
-      if Not VarIsNull(GetSubTotal) then begin
+      if (Not VarIsNull(GetSubTotal))
+          And (VarToStr(GetSubTotal) <> '')
+          And (StrToInt(VarToStr(GetSubTotal)) > 0)then begin
         EdtSubTotal.Text := FormatFloat('#,##0', GetSubTotal);
       end else begin
         EdtSubTotal.Text := FormatFloat('#,##0', 0);

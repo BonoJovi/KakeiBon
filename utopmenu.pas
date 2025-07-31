@@ -267,9 +267,9 @@ begin
 
   // Initialize
   LFS.DateSeparator        := '/';
-  LFS.ShortDateFormat      := 'yyyy/mm/dd';
+  LFS.ShortDateFormat      := 'yyyy-mm-dd';
   LFS.TimeSeparator        := ':';
-  LFS.ShortTimeFormat      := 'hh:mm:ss';
+  LFS.ShortTimeFormat      := 'hh:nn:ss';
   Defs.SetFS(LFS);
 end;
 

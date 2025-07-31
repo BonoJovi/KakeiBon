@@ -178,7 +178,7 @@ begin
     end;
     DBDTPHeaderDT.TimeFormat := tf24;
     SetHeaderDT(
-      DateTimeToStr(DTPYear.DateTime)
+      FormatDateTime('yyyy/mm/dd hh:mm:dd', DTPYear.DateTime, GetFS)
     );
     if DBEdtShopID.Text <> '' then begin
       SetShopID(DBEdtShopID.Text);
@@ -695,8 +695,9 @@ begin
       if GetHeaderDT = '' then begin
         DTPYear.DateTime := Now;
       end else begin
+        ShowMessage(GetHeaderDT);
         DTPYear.DateTime
-          := StrToDateTime(GetHeaderDT);
+          := StrToDateTime(GetHeaderDT, GetFS);
       end;
     end;
 

@@ -4,7 +4,7 @@ object FrmAddDetail: TFrmAddDetail
   Top = 163
   Width = 737
   BorderStyle = bsSingle
-  Caption = 'FrmAddDetail'
+  Caption = '明細登録'
   ClientHeight = 606
   ClientWidth = 737
   Color = clWindowFrame
