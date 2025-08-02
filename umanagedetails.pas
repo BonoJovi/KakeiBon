@@ -103,20 +103,18 @@ end;
 
 procedure TFrmManageDetails.ProcEditDetailsHeader;
 begin
-  with FrmTopMenu.Defs do begin
-    SetUID(AQu.FieldByName('USER_ID').AsInteger);
-    SetHID(AQu.FieldByName('HEADER_ID').AsInteger);
-    SetHeaderDT(FormatDateTime('yyyy/mm/dd hh:mm:ss', AQu.FieldByName('HEADER_DT').AsDateTime, GetFS));
-    SetShopID(AQu.FieldByName('SHOP_ID').AsInteger);
-    SetExpKey1(AQu.FieldByName('EXP_KEY1').AsInteger);
-    SetFromACID(AQu.FieldByName('FROM_ID').AsInteger);
-    SetToACID(AQu.FieldByName('TO_ID').AsInteger);
-  end;
-
   try
     try
       if (Assigned(AQu)) And (AQu.RecordCount > 0) then begin;
         with FrmTopMenu.Defs do begin
+          SetUID(AQu.FieldByName('USER_ID').AsInteger);
+          SetHID(AQu.FieldByName('HEADER_ID').AsInteger);
+          SetHeaderDT(FormatDateTime('yyyy/mm/dd hh:mm:ss', AQu.FieldByName('HEADER_DT').AsDateTime, GetFS));
+          SetShopID(AQu.FieldByName('SHOP_ID').AsInteger);
+          SetExpKey1(AQu.FieldByName('EXP_KEY1').AsInteger);
+          SetFromACID(AQu.FieldByName('FROM_ID').AsInteger);
+          SetToACID(AQu.FieldByName('TO_ID').AsInteger);
+
           CloseConn(ACn, ATr);
 
           FrmEditDetailsHeader := TFrmEditDetailsHeader.Create(Application);

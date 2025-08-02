@@ -306,7 +306,8 @@ const
                  'AND AF.ACCOUNT_ID = DH.FROM_ID ' +
                  'LEFT OUTER JOIN ACCOUNT AT ON AT.USER_ID = DH.USER_ID ' +
                  'AND AT.ACCOUNT_ID = DH.TO_ID ' +
-                 'WHERE DH.USER_ID = :pUserID ORDER BY HEADER_DT DESC';
+                 'WHERE DH.USER_ID = :pUserID ORDER BY strftime(' +
+                 '''%Y-%m-%d %H'', HEADER_DT) DESC, HEADER_ID DESC';
   SQL_20090002 = 'DELETE FROM DETAILS WHERE USER_ID = :pUserID AND ' +
                  'HEADER_ID = :pHeaderID';
   SQL_20090003 = 'DELETE FROM DETAILS_HEADER WHERE USER_ID = :pUserID AND ' +

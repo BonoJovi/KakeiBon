@@ -650,16 +650,19 @@ begin
         DBEdtShopID , SQL_20100001, GetShopID);
 
       if (Not VarIsNull(GetShopID))
-        And (VarToStr(GetShopID) <> '')
-        And (GetShopID > 0) then begin
-          AQuShop.First;
-          while Not AQuShop.EOF do begin
-            if AQuShop.FieldByName('SHOP_ID').AsInteger = GetShopID then begin
-              Break;
+        And (VarToStr(GetShopID) <> '') And (GetShopID > 0) then begin
+          with AQuShop do begin
+            First;
+            while Not EOF do begin
+              if FieldByName('SHOP_ID').AsInteger = GetShopID then begin
+                Break;
+              end;
+              Next;
             end;
-            AQuShop.Next;
+            if FieldByName('PHONE_NUM').AsAnsiString <> '' then begin
+              DBEdtPhoneNum.Text := FieldByName('PHONE_NUM').AsAnsiString;
+            end;
           end;
-          DBEdtPhoneNum.Text := AQuShop.FieldByName('PHONE_NUM').AsAnsiString;
       end else begin
         DBEdtPhoneNum.Text := '';
       end;
@@ -669,15 +672,19 @@ begin
         DBEdtExpKey1, SQL_20100002, GetExpKey1);
       DBLCBExp1Change(Self);
 
-      OpenSelQuAndSetVal(
-        ACnFromAC, ADSFromAC, ATrFromAC, AQuFromAC, DBLCBFromAC  ,
-        DBEdtFromID , SQL_20100003, GetFromACID);
-      DBLCBFromACChange(Self);
+      if Not VarIsNull(GetFromACID) then begin
+        OpenSelQuAndSetVal(
+          ACnFromAC, ADSFromAC, ATrFromAC, AQuFromAC, DBLCBFromAC  ,
+          DBEdtFromID , SQL_20100003, GetFromACID);
+        DBLCBFromACChange(Self);
+      end;
 
-      OpenSelQuAndSetVal(
-        ACnToAC  , ADSToAC  , ATrToAC  , AQuToAC  , DBLCBToAC    ,
-        DBEdtToID   , SQL_20100004, GetToACID);
-      DBLCBToACChange(Self);
+      if Not VarIsNull(GetToACID) then begin
+        OpenSelQuAndSetVal(
+          ACnToAC  , ADSToAC  , ATrToAC  , AQuToAC  , DBLCBToAC    ,
+          DBEdtToID   , SQL_20100004, GetToACID);
+        DBLCBToACChange(Self);
+      end;
 
       if DBEdtHeaderID.Text = '' then begin
         OpenSelQuAndSetNextID(
@@ -689,40 +696,31 @@ begin
           ACnDetail, ADSDetail, ATrDetail, AQuDetail,
           SQL_20120005, StrToInt(DBEdtHeaderID.Text));
       end;
-    end;
 
-    with FrmTopMenu.Defs do begin
       if GetHeaderDT = '' then begin
         DTPYear.DateTime := Now;
       end else begin
-        ShowMessage(GetHeaderDT);
         DTPYear.DateTime
           := StrToDateTime(GetHeaderDT, GetFS);
       end;
-    end;
 
-    with FrmTopMenu.Defs do begin
       DBEdtUserID.Text        := GetUID.ToString;
-    end;
 
-    with FrmTopMenu.Defs do begin
       DBEdtTotalAmount.Text   := VarToStr(GetTotalAmount);
-    end;
 
-    with AQuDetail do begin
-      SQL.Text      := SQL_20100009;
-      Open;
+      with AQuDetail do begin
+        SQL.Text      := SQL_20100009;
+        Open;
 
-      if RecordCount <= 0 then begin
-        BtnEditDetail.Enabled   := False;
-        BtnRemoveDetail.Enabled := False;
-      end else begin
-        BtnEditDetail.Enabled   := True;
-        BtnRemoveDetail.Enabled := True;
+        if RecordCount <= 0 then begin
+          BtnEditDetail.Enabled   := False;
+          BtnRemoveDetail.Enabled := False;
+        end else begin
+          BtnEditDetail.Enabled   := True;
+          BtnRemoveDetail.Enabled := True;
+        end;
       end;
-    end;
 
-    with FrmTopMenu.Defs do begin
       SetExpKey1(AQuDetail.FieldByName('EXP_KEY1').AsInteger);
       SetHID(AQuDetail.FieldByName('HEADER_ID').AsInteger);
     end;

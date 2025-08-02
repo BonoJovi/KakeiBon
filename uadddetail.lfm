@@ -549,6 +549,7 @@ object FrmAddDetail: TFrmAddDetail
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 17
+    OnChange = EdtSubTotalChange
     OnExit = EdtSubTotalExit
   end
   object PnlCancel: TPanel
@@ -587,7 +588,6 @@ object FrmAddDetail: TFrmAddDetail
     ParentBackground = False
     ParentColor = False
     TabOrder = 20
-    TabStop = True
   end
   object BtnCommit: TButton
     Cursor = crHandPoint

@@ -63,15 +63,15 @@ type
     procedure OpenSelQuBrandAndSetVal(
       var Cn: TSQLite3Connection; var DS: TDataSource; var Tr: TSQLTransaction;
       var Qu: TSQLQuery; var DBLCBObj: TDBLookupComboBox;
-      var DBEditObj: TDBEdit; SS: AnsiString; KeyValue: Integer);
+      var DBEditObj: TDBEdit; SS: AnsiString; KeyValue: Variant);
     procedure OpenSelQuUnitAndSetVal(
       var Cn: TSQLite3Connection; var DS: TDataSource; var Tr: TSQLTransaction;
       var Qu: TSQLQuery; var DBLCBObj: TDBLookupComboBox;
-      var DBEditObj: TDBEdit; SS: AnsiString; KeyValue: Integer);
+      var DBEditObj: TDBEdit; SS: AnsiString; KeyValue: Variant);
     procedure OpenSelQuTaxTypeAndSetVal(
       var Cn: TSQLite3Connection; var DS: TDataSource; var Tr: TSQLTransaction;
       var Qu: TSQLQuery; var DBLCBObj: TDBLookupComboBox;
-      var DBEditObj: TDBEdit; SS: AnsiString; KeyValue: Integer);
+      var DBEditObj: TDBEdit; SS: AnsiString; KeyValue: Variant);
     function GetChangedUserDef: Boolean;
     procedure SetChangedUserDef(Sender: Boolean);
     function GetInitializedDB: Boolean;
@@ -507,7 +507,7 @@ end;
 procedure TDefs.OpenSelQuBrandAndSetVal(
   var Cn: TSQLite3Connection; var DS: TDataSource; var Tr: TSQLTransaction;
   var Qu: TSQLQuery; var DBLCBObj: TDBLookupComboBox;
-  var DBEditObj: TDBEdit; SS: AnsiString; KeyValue: Integer);
+  var DBEditObj: TDBEdit; SS: AnsiString; KeyValue: Variant);
 begin
   CloseConn(Cn, Tr);
   OpenConn(Cn, DS, Tr, Qu);
@@ -525,12 +525,12 @@ begin
       end;
       Qu.Open;
     end;
-    if KeyValue > 0 then begin
+    if StrToInt(VarToStr(KeyValue)) > 0 then begin
       if Assigned(DBLCBObj) then begin
         DBLCBObj.KeyValue := KeyValue;
       end;
       if Assigned(DBEditObj) then begin
-        DBEditObj.Text := KeyValue.ToString;
+        DBEditObj.Text := VarToStr(KeyValue);
       end;
     end;
   end;
@@ -539,7 +539,7 @@ end;
 procedure TDefs.OpenSelQuUnitAndSetVal(
   var Cn: TSQLite3Connection; var DS: TDataSource; var Tr: TSQLTransaction;
   var Qu: TSQLQuery; var DBLCBObj: TDBLookupComboBox;
-  var DBEditObj: TDBEdit; SS: AnsiString; KeyValue: Integer);
+  var DBEditObj: TDBEdit; SS: AnsiString; KeyValue: Variant);
 begin
   CloseConn(Cn, Tr);
   OpenConn(Cn, DS, Tr, Qu);
@@ -549,12 +549,12 @@ begin
       SQL.Text                                := SS;
       Qu.Open;
     end;
-    if KeyValue > 0 then begin
+    if StrToInt(VarToStr(KeyValue)) > 0 then begin
       if Assigned(DBLCBObj) then begin
         DBLCBObj.KeyValue := KeyValue;
       end;
       if Assigned(DBEditObj) then begin
-        DBEditObj.Text := KeyValue.ToString;
+        DBEditObj.Text := VarToStr(KeyValue);
       end;
     end;
   end;
@@ -563,7 +563,7 @@ end;
 procedure TDefs.OpenSelQuTaxTypeAndSetVal(
   var Cn: TSQLite3Connection; var DS: TDataSource; var Tr: TSQLTransaction;
   var Qu: TSQLQuery; var DBLCBObj: TDBLookupComboBox;
-  var DBEditObj: TDBEdit; SS: AnsiString; KeyValue: Integer);
+  var DBEditObj: TDBEdit; SS: AnsiString; KeyValue: Variant);
 begin
   CloseConn(Cn, Tr);
   OpenConn(Cn, DS, Tr, Qu);
@@ -576,12 +576,12 @@ begin
       end;
       Qu.Open;
     end;
-    if KeyValue > 0 then begin
+    if StrToInt(VarToStr(KeyValue)) > 0 then begin
       if Assigned(DBLCBObj) then begin
         DBLCBObj.KeyValue := KeyValue;
       end;
       if Assigned(DBEditObj) then begin
-        DBEditObj.Text := KeyValue.ToString;
+        DBEditObj.Text := VarToStr(KeyValue);
       end;
     end;
   end;

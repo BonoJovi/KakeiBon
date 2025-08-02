@@ -12,6 +12,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   Font.Name = '0xProto Nerd Font Mono'
   Font.Style = [fsBold]
   Position = poScreenCenter
+  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnShow = FormShow
   object LblDateTime1: TLabel

@@ -220,22 +220,23 @@ begin
           OpenSelectQueryWithMakerID(
             ACn, ADS, ATr, AQu, SQL_20140001, StrToInt(VarToStr(GetMakerID)));
           DBLCBMaker.KeyValue := AQu.FieldByName('MAKER_ID').AsVariant;
-          //if DBEdtBrandNameID.Text <> '' then begin
-          //  OpenSelectQueryWithMakerIDAndBrandNameID(
-          //    ACn, ADS, ATr, AQu, SQL_20140001, StrToInt(VarToStr(DBLCBMaker.KeyValue)), StrToInt(DBEdtBrandNameID.Text));
-          //end else begin
-          //  if (LMakerID > 0) then begin
-          //    OpenSelectQueryWithMakerIDAndBrandNameID(
-          //      ACn, ADS, ATr, AQu, SQL_20140001, LMakerID, 1);
-          //  end else if (LNewMakerID > 0) then begin
-          //    OpenSelectQueryWithMakerIDAndBrandNameID(
-          //      ACn, ADS, ATr, AQu, SQL_20140001, LNewMakerID, 1);
-          //  end else begin
-          //    MessageDlg(MSG_JP_000034, mtInformation, [mbOk], 0);
-          //  end;
-          //end;
+          if DBEdtBrandNameID.Text <> '' then begin
+            OpenSelectQueryWithMakerIDAndBrandNameID(
+              ACn, ADS, ATr, AQu, SQL_20140001, StrToInt(VarToStr(DBLCBMaker.KeyValue)), StrToInt(DBEdtBrandNameID.Text));
+          end else begin
+            if (LMakerID > 0) then begin
+              OpenSelectQueryWithMakerIDAndBrandNameID(
+                ACn, ADS, ATr, AQu, SQL_20140001, LMakerID, 1);
+            end else if (LNewMakerID > 0) then begin
+              OpenSelectQueryWithMakerIDAndBrandNameID(
+                ACn, ADS, ATr, AQu, SQL_20140001, LNewMakerID, 1);
+            end else begin
+              MessageDlg(MSG_JP_000034, mtInformation, [mbOk], 0);
+            end;
+          end;
         end;
 
+        ADBGrid.AutoAdjustColumns;
         FInsert := False;
       end;
     except
@@ -324,13 +325,6 @@ begin
       //ProcCancel;
       with AQu do begin
         FMakerID := DBLCBMaker.KeyValue;
-        //First;
-        //while Not EOF do begin
-        //  if StrToInt(VarToStr(FMakerID)) = FieldByName('MAKER_ID').AsInteger then begin
-        //    Break;
-        //  end;
-        //  Next;
-        //end;
         with DBEdtBrandNameID do begin
           if Text <> '' then begin
             OpenSelectQueryWithMakerIDAndBrandNameID(

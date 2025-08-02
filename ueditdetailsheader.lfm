@@ -4,7 +4,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   Top = 132
   Width = 859
   BorderStyle = bsSingle
-  Caption = '入出金登録'
+  Caption = '入出金編集'
   ClientHeight = 832
   ClientWidth = 859
   Color = clWindowFrame
@@ -12,7 +12,6 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   Font.Name = '0xProto Nerd Font Mono'
   Font.Style = [fsBold]
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnShow = FormShow
   object LblDateTime1: TLabel

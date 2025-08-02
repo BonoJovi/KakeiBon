@@ -541,6 +541,7 @@ object FrmEditDetail: TFrmEditDetail
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 17
+    OnChange = EdtSubTotalChange
     OnExit = EdtSubTotalExit
   end
   object PnlCancel: TPanel
