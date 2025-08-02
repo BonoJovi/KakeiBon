@@ -266,14 +266,20 @@ begin
     end;
 
     if AQuTaxType.Active then begin;
-      AQuTaxType.First;
-      while AQuTaxType.FieldByName('TAX_TYPE_ID').AsInteger <> StrToInt(VarToStr(DBLCBTaxType.KeyValue)) do begin
-        if AQuTaxType.EOF then begin
-          break;
+      if (Not VarIsNull(DBLCBTaxType.KeyValue))
+          And (VarToStr(DBLCBTaxType.KeyValue) <> '')
+          And (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) > 0) then begin
+        AQuTaxType.First;
+        while AQuTaxType.FieldByName('TAX_TYPE_ID').AsInteger <> StrToInt(VarToStr(DBLCBTaxType.KeyValue)) do begin
+          if AQuTaxType.EOF then begin
+            break;
+          end;
+          AQuTaxType.Next;
         end;
-        AQuTaxType.Next;
+        SetTaxRateID(AQuTaxType.FieldByName('TAX_RATE_ID').AsVariant);
+      end else begin
+        SetTaxRateID(Null);
       end;
-      SetTaxRateID(AQuTaxType.FieldByName('TAX_RATE_ID').AsVariant);
     end;
 
     if DBEdtQuantity.Text <> '' then begin

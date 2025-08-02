@@ -20,10 +20,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="UAddDetail"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="999"/>
-        <CursorPos X="2" Y="1040"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="513"/>
+        <CursorPos Y="525"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="uadddetailsheader.pas"/>
@@ -32,10 +34,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="UAddDetailsHeader"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="643"/>
-        <CursorPos Y="648"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="408"/>
+        <CursorPos X="37" Y="415"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="uadduser.pas"/>
@@ -51,7 +55,7 @@
         <Filename Value="udbaccess.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UDBAccess"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="4"/>
         <TopLine Value="354"/>
         <CursorPos X="15" Y="348"/>
         <UsageCount Value="200"/>
@@ -61,9 +65,8 @@
         <Filename Value="udefs.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UDefs"/>
-        <IsVisibleTab Value="True"/>
-        <TopLine Value="316"/>
-        <CursorPos X="29" Y="318"/>
+        <TopLine Value="317"/>
+        <CursorPos X="44" Y="319"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit>
@@ -150,8 +153,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="UEntryMaker"/>
-        <EditorIndex Value="-1"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="324"/>
+        <CursorPos Y="332"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="uentryshop.pas"/>
@@ -387,10 +395,103 @@
         <UsageCount Value="9"/>
       </Unit>
     </Units>
-    <JumpHistory>
+    <JumpHistory HistoryIndex="24">
       <Position>
         <Filename Value="udbaccess.pas"/>
         <Caret Line="310" Column="36" TopLine="302"/>
+      </Position>
+      <Position>
+        <Filename Value="uadddetailsheader.pas"/>
+        <Caret Line="649" Column="53" TopLine="644"/>
+      </Position>
+      <Position>
+        <Filename Value="uadddetail.pas"/>
+        <Caret Line="1040" Column="2" TopLine="924"/>
+      </Position>
+      <Position>
+        <Filename Value="uadddetail.pas"/>
+        <Caret Line="669" Column="17" TopLine="666"/>
+      </Position>
+      <Position>
+        <Filename Value="uadddetail.pas"/>
+      </Position>
+      <Position>
+        <Filename Value="uadddetail.pas"/>
+        <Caret Line="159" Column="29" TopLine="147"/>
+      </Position>
+      <Position>
+        <Filename Value="uentrymaker.pas"/>
+        <Caret Line="16" Column="52" TopLine="7"/>
+      </Position>
+      <Position>
+        <Filename Value="uentrymaker.pas"/>
+      </Position>
+      <Position>
+        <Filename Value="uentrymaker.pas"/>
+        <Caret Line="332" TopLine="325"/>
+      </Position>
+      <Position>
+        <Filename Value="uadddetail.pas"/>
+        <Caret Line="281" Column="26" TopLine="267"/>
+      </Position>
+      <Position>
+        <Filename Value="uadddetail.pas"/>
+        <Caret Line="669" Column="22" TopLine="665"/>
+      </Position>
+      <Position>
+        <Filename Value="uadddetail.pas"/>
+      </Position>
+      <Position>
+        <Filename Value="uadddetail.pas"/>
+        <Caret Line="158" Column="34" TopLine="146"/>
+      </Position>
+      <Position>
+        <Filename Value="uadddetail.pas"/>
+        <Caret Line="509" Column="42" TopLine="502"/>
+      </Position>
+      <Position>
+        <Filename Value="uadddetail.pas"/>
+        <Caret Line="521" TopLine="513"/>
+      </Position>
+      <Position>
+        <Filename Value="uadddetail.pas"/>
+        <Caret Line="522" TopLine="513"/>
+      </Position>
+      <Position>
+        <Filename Value="uadddetail.pas"/>
+        <Caret Line="524" TopLine="513"/>
+      </Position>
+      <Position>
+        <Filename Value="uadddetail.pas"/>
+        <Caret Line="525" TopLine="513"/>
+      </Position>
+      <Position>
+        <Filename Value="uentrymaker.pas"/>
+        <Caret Line="332" TopLine="322"/>
+      </Position>
+      <Position>
+        <Filename Value="uentrymaker.pas"/>
+        <Caret Line="333" TopLine="322"/>
+      </Position>
+      <Position>
+        <Filename Value="uentrymaker.pas"/>
+        <Caret Line="334" TopLine="322"/>
+      </Position>
+      <Position>
+        <Filename Value="uentrymaker.pas"/>
+        <Caret Line="337" TopLine="324"/>
+      </Position>
+      <Position>
+        <Filename Value="uentrymaker.pas"/>
+        <Caret Line="339" TopLine="326"/>
+      </Position>
+      <Position>
+        <Filename Value="uentrymaker.pas"/>
+        <Caret Line="340" TopLine="327"/>
+      </Position>
+      <Position>
+        <Filename Value="uentrymaker.pas"/>
+        <Caret Line="343" TopLine="335"/>
       </Position>
     </JumpHistory>
     <RunParams>
@@ -398,4 +499,22 @@
       <Modes ActiveMode=""/>
     </RunParams>
   </ProjectSession>
+  <Debugging>
+    <BreakPoints>
+      <Item>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="uadddetailsheader.pas"/>
+        <Line Value="412"/>
+      </Item>
+      <Item>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="uadddetail.pas"/>
+        <Line Value="521"/>
+      </Item>
+    </BreakPoints>
+  </Debugging>
 </CONFIG>
