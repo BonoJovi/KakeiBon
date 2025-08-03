@@ -12,6 +12,7 @@ object FrmManageDetails: TFrmManageDetails
   Font.Name = '0xProto Nerd Font Mono'
   Font.Style = [fsBold]
   Position = poScreenCenter
+  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnShow = FormShow
   object ADBG: TDBGrid
@@ -368,7 +369,6 @@ object FrmManageDetails: TFrmManageDetails
   object ACn: TSQLite3Connection
     Connected = False
     LoginPrompt = False
-    DatabaseName = './KakeiBonDB.sqlite3'
     KeepConnection = False
     Transaction = ATr
     AlwaysUseBigint = False

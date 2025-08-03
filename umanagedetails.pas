@@ -13,6 +13,7 @@ type
   { TFrmManageDetails }
 
   TFrmManageDetails = class(TForm)
+    ACn                    : TSQLite3Connection;
     ADS                    : TDataSource;
     ATr                    : TSQLTransaction;
     AQu                    : TSQLQuery;
@@ -33,7 +34,6 @@ type
     PnlEditDetail          : TPanel;
     PnlGoBack              : TPanel;
     PnlRemoveDetail        : TPanel;
-    ACn: TSQLite3Connection;
     procedure ActAddDetailsHeaderExecute(Sender: TObject);
     procedure ActEditDetailsHeaderExecute(Sender: TObject);
     procedure ActEntryAccountExecute(Sender: TObject);
@@ -43,8 +43,8 @@ type
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormShow(Sender: TObject);
   private
-    FGoBack : Boolean;
     procedure CloseTransactions;
+    procedure SetDatabaseNames;
     procedure ProcAddDetailsHeader;
     procedure ProcEditDetailsHeader;
     procedure ProcEntryAccount;
@@ -52,7 +52,7 @@ type
     procedure ProcRemoveDetailsHeader;
     function GetGoBack: Boolean;
     procedure SetGoBack(GoBack: Boolean);
-    property GoBack: Boolean read GetGoBack write SetGoBack;
+    property FGoBack: Boolean read GetGoBack write SetGoBack;
   public
 
   end;
@@ -76,19 +76,21 @@ begin
   end;
 end;
 
-procedure TFrmManageDetails.ProcAddDetailsHeader;
+procedure TFrmManageDetails.SetDatabaseNames;
 begin
   with FrmTopMenu.Defs do begin
-    CloseConn(ACn, ATr);
+    ACn.DatabaseName := GetHomeDir + DB_NAME;
   end;
+end;
+
+procedure TFrmManageDetails.ProcAddDetailsHeader;
+begin
+  CloseTransactions;
 
   try
     try
-      FrmAddDetailsHeader := TFrmAddDetailsHeader.Create(Application);
       with FrmTopMenu.Defs do begin
         SetHeaderDT('');
-        CloseConn(ACn, ATr);
-
         FrmAddDetailsHeader := TFrmAddDetailsHeader.Create(Application);
         OpenForm(Self, FrmAddDetailsHeader);
       end;
@@ -107,15 +109,17 @@ begin
     try
       if (Assigned(AQu)) And (AQu.RecordCount > 0) then begin;
         with FrmTopMenu.Defs do begin
-          SetUID(AQu.FieldByName('USER_ID').AsInteger);
-          SetHID(AQu.FieldByName('HEADER_ID').AsInteger);
-          SetHeaderDT(FormatDateTime('yyyy/mm/dd hh:mm:ss', AQu.FieldByName('HEADER_DT').AsDateTime, GetFS));
-          SetShopID(AQu.FieldByName('SHOP_ID').AsInteger);
-          SetExpKey1(AQu.FieldByName('EXP_KEY1').AsInteger);
-          SetFromACID(AQu.FieldByName('FROM_ID').AsInteger);
-          SetToACID(AQu.FieldByName('TO_ID').AsInteger);
-
+          with AQu do begin
+            SetUID(FieldByName('USER_ID').AsInteger);
+            SetHID(FieldByName('HEADER_ID').AsInteger);
+            SetHeaderDT(FormatDateTime('yyyy/mm/dd hh:mm:ss', FieldByName('HEADER_DT').AsDateTime, GetFS));
+            GetShopID.SetShopID(FieldByName('SHOP_ID').AsInteger);
+            GetExpKey1.SetExpKey1(FieldByName('EXP_KEY1').AsInteger);
+            GetFromACID.SetFromACID(FieldByName('FROM_ID').AsInteger);
+            GetToACID.SetToACID(FieldByName('TO_ID').AsInteger);
+          end;
           CloseConn(ACn, ATr);
+          SetDatabaseNames;
 
           FrmEditDetailsHeader := TFrmEditDetailsHeader.Create(Application);
           OpenForm(Self, FrmEditDetailsHeader);
@@ -143,6 +147,7 @@ begin
         LHeaderID := AQu.FieldByName('HEADER_ID').AsInteger;
         with AQu do begin
           CloseConn(ACn, ATr);
+          SetDatabaseNames;
 
           LResult:= QuestionDlg(
             REMOVE_DETAILS_HEADER_CAPTION, REMOVE_DETAILS_HEADER_MESSAGE,
@@ -157,7 +162,6 @@ begin
             Params.ParamByName('pUserID').AsInteger   := GetUID;
             Params.ParamByName('pHeaderID').AsInteger := LHeaderID;
 
-            //CloseTransactions;
             ExecSQL;
             ATr.Commit;
           end else begin
@@ -266,6 +270,7 @@ end;
 procedure TFrmManageDetails.FormShow(Sender: TObject);
 begin
   SetGoBack(True);
+  SetDatabaseNames;
 
   FrmManageDetails.Color := RGB(112, 168, 175);
   PnlAddDetail.Color     := RGB( 72, 122, 129);
@@ -277,12 +282,12 @@ begin
   with FrmTopMenu,Defs do begin
     SetHeaderDT('');
 
-    SetShopID(0);
-    SetExpKey1(0);
-    SetFromACID(0);
-    SetToACID(0);
-    SetUnitID(0);
-    SetTaxTypeID(0);
+    GetShopID.SetShopID(0);
+    GetExpKey1.SetExpKey1(0);
+    GetFromACID.SetFromACID(0);
+    GetToACID.SetToACID(0);
+    GetUnitID.SetUnitID(0);
+    GetTaxTypeID.SetTaxTypeID(0);
 
     SetQuantity(0);
     SetExcludeTax(0);
@@ -291,17 +296,23 @@ begin
   end;
 
   try
-    with FrmTopMenu.Defs do begin
-      OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20090001);
-      if AQu.RecordCount = 0 then begin
-        BtnEditDetail.Enabled   := False;
-        BtnRemoveDetail.Enabled := False;
-      end else begin
-        BtnEditDetail.Enabled   := True;
-        BtnRemoveDetail.Enabled := True;
+    try
+      with FrmTopMenu.Defs do begin
+        OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20090001);
+        if AQu.RecordCount = 0 then begin
+          BtnEditDetail.Enabled   := False;
+          BtnRemoveDetail.Enabled := False;
+        end else begin
+          BtnEditDetail.Enabled   := True;
+          BtnRemoveDetail.Enabled := True;
+        end;
+      end;
+      ADBG.AutoAdjustColumns;
+    except
+      on E: ESQLDatabaseError do begin
+        ShowMessage(E.Message);
       end;
     end;
-    ADBG.AutoAdjustColumns;
   finally
   end;
 end;

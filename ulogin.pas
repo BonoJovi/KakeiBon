@@ -43,7 +43,7 @@ type
     procedure ProcCancel;
     procedure ProcLogin;
   private
-
+    procedure SetDatabaseNames;
   public
 
   end;
@@ -58,6 +58,13 @@ uses
 {$R *.lfm}
 
 { TFormLogin }
+
+procedure TFrmLogin.SetDatabaseNames;
+begin
+  with FrmTopMenu.Defs do begin
+    ACn.DatabaseName       := GetHomeDir + DB_NAME;
+  end;
+end;
 
 procedure TFrmLogin.ProcCancel;
 begin
@@ -177,6 +184,8 @@ end;
 
 procedure TFrmLogin.FormShow(Sender: TObject);
 begin
+  SetDatabaseNames;
+
   FrmLogin.Color    := RGB(112, 168, 175);
   pnlClearPaw.Color := RGB( 72, 122, 129);
   pnlCancel.Color   := RGB( 72, 122, 129);

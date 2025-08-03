@@ -12,7 +12,6 @@ object FrmEntryAdmin: TFrmEntryAdmin
   ParentFont = True
   PopupMode = pmAuto
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnShow = FormShow
   object LblAdminUserID: TLabel
@@ -219,7 +218,6 @@ object FrmEntryAdmin: TFrmEntryAdmin
   object ACn: TSQLite3Connection
     Connected = False
     LoginPrompt = False
-    DatabaseName = './KakeiBonDB.sqlite3'
     KeepConnection = False
     Transaction = ATr
     AlwaysUseBigint = False

@@ -80,9 +80,8 @@ type
     FDoCommit        : Boolean;
     FCurrMakerID     : Integer;
     FCurrBrandNameID : Integer;
-    FMakerID         : Variant;
-    FBrandNameID     : Variant;
     procedure CloseTransactions;
+    procedure SetDatabaseNames;
     procedure BackupValues;
     procedure ProcInsert;
     procedure ProcCancel;
@@ -112,6 +111,15 @@ begin
   end;
 end;
 
+procedure TFrmEntryBrandName.SetDatabaseNames;
+begin
+  with FrmTopMenu.Defs do begin
+    ACn.DatabaseName       := GetHomeDir + DB_NAME;
+    ACnNextID.DatabaseName := GetHomeDir + DB_NAME;
+    ACnMaker.DatabaseName  := GetHomeDir + DB_NAME;
+  end;
+end;
+
 procedure TFrmEntryBrandName.BackupValues;
 begin
   with FrmTopMenu.Defs do begin
@@ -120,9 +128,9 @@ begin
     end;
     if (DBEdtBrandNameID.Text <> '')
       And (StrToInt(DBEdtBrandNameID.Text) > 0) then begin;
-        SetBrandNameID(DBEdtBrandNameID.Text);
+        GetBrandNameID.SetBrandNameID(DBEdtBrandNameID.Text);
     end else begin
-      SetBrandNameID('');
+      GetBrandNameID.SetBrandNameID('');
     end;
     if DBEdtBrandName.Text <> '' then begin;
       SetBrandName(DBEdtBrandName.Text);
@@ -151,6 +159,7 @@ begin
   ATr.Rollback;
   with FrmTopMenu.Defs do begin
     CloseConn(ACn, ATr);
+    SetDatabaseNames;
     OpenSelectQueryWithMakerID(
       ACn, ADS, ATr, AQu, SQL_20140001,  AQuMaker.FieldByName('MAKER_ID').AsInteger);
   end;
@@ -161,7 +170,6 @@ var
   LNextShopID  : Integer;
   LMakerID     : Integer;
   LNewMakerID  : Integer;
-  LBrandNameID : Integer;
 begin
   FDoCommit := True;
   try
@@ -184,6 +192,7 @@ begin
             ACnNextID, ADSNextID, ATrNextID, AQuNextID, SQL_20140002, LMakerID);
           LNextShopID := AQuNextID.FieldByName('NEXT_ID').AsInteger;
           CloseConn(ACnNextID, ATrNextID);
+          SetDatabaseNames;
           if FCurrBrandNameID > 0 then begin
             Params.ParamByName('pBrandNameID').AsInteger    := FCurrBrandNameID;
           end else begin
@@ -210,11 +219,11 @@ begin
         end;
 
         CloseTransactions;
+        SetDatabaseNames;
         ExecSQL;
         ATr.Commit;
 
         with FrmTopMenu.Defs do begin
-          //CloseTransactions;
           OpenSelectQuery(
             ACnMaker, ADSMaker, ATrMaker, AQuMaker, SQL_20130002);
           OpenSelectQueryWithMakerID(
@@ -267,7 +276,6 @@ begin
   with FrmTopMenu.Defs do begin
     if Not FInsert then begin
       with AQu do begin
-        //CloseConn(ACn, ATr);
         if DBEdtMakerID.Text <> '' then begin
           OpenSelectQueryWithMakerID(
             ACn, ADS, ATr, AQu, SQL_20140001, StrToInt(DBEdtMakerID.Text));
@@ -399,6 +407,8 @@ end;
 
 procedure TFrmEntryBrandName.FormShow(Sender: TObject);
 begin
+  SetDatabaseNames;
+
   FReOpenDS       := False;
   Timer.Enabled   := False;
   FDoCommit       := False;

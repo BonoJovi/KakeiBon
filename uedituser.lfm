@@ -391,7 +391,6 @@ object FrmEditUser: TFrmEditUser
   object ACn: TSQLite3Connection
     Connected = False
     LoginPrompt = False
-    DatabaseName = './KakeiBonDB.sqlite3'
     KeepConnection = False
     Transaction = ATr
     AlwaysUseBigint = False

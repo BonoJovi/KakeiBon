@@ -14,6 +14,7 @@ type
   { TFrmEditAdmUser }
 
   TFrmEditAdmUser = class(TForm)
+    ACn                : TSQLite3Connection;
     ADS                : TDataSource;
     ATr                : TSQLTransaction;
     AQu                : TSQLQuery;
@@ -44,7 +45,6 @@ type
     PnlCancel          : TPanel;
     PnlClearPass       : TPanel;
     PnlCommit          : TPanel;
-    ACn: TSQLite3Connection;
     procedure ActCancelExecute(Sender: TObject);
     procedure ActClearPawExecute(Sender: TObject);
     procedure ActCommitExecute(Sender: TObject);
@@ -57,6 +57,7 @@ type
     FUName             : String;
     FPAW               : String;
     procedure CloseTransactions;
+    procedure SetDatabaseNames;
     function CheckMultiFields(NameField: Boolean): String;
     function CheckSQuoteInPAW: Boolean;
     function CheckSQuoteInUName: Boolean;
@@ -82,6 +83,13 @@ procedure TFrmEditAdmUser.CloseTransactions;
 begin
   with FrmTopMenu.Defs do begin
     CloseConn(ACn, ATr);
+  end;
+end;
+
+procedure TFrmEditAdmUser.SetDatabaseNames;
+begin
+  with FrmTopMenu.Defs do begin
+    ACn.DatabaseName        := GetHomeDir + DB_NAME;
   end;
 end;
 
@@ -135,24 +143,26 @@ begin
         AQu.SQL.Text   := LSQL.Replace(':pFieldAndValue', LFieldAndValue);
 
         CloseTransactions;
+        SetDatabaseNames;
         AQu.ExecSQL;
         ATr.Commit;
 
         if (FUName <> '')
-           And (FrmTopMenu.Defs.UName = LOriginalUName)
+           And (FrmTopMenu.Defs.GetUName = LOriginalUName)
            And (FUName <> LOriginalUName) then
         begin
           FrmTopMenu.Defs.SetChangedUserDef(True);
         end;
 
         if (FPAW <> '')
-           And (FrmTopMenu.Defs.UName = LOriginalUName)
+           And (FrmTopMenu.Defs.GetUName = LOriginalUName)
            And (FPAW <> AQu.FieldByName('PAW').AsAnsiString) then
         begin
           FrmTopMenu.Defs.SetChangedUserDef(True);
         end;
 
         CloseTransactions;
+        SetDatabaseNames;
         ATr.Commit;
 
         FrmManageUser.Visible := True;
@@ -349,6 +359,8 @@ end;
 
 procedure TFrmEditAdmUser.FormShow(Sender: TObject);
 begin
+  SetDatabaseNames;
+
   FrmEditAdmUser.Color := RGB(112, 168, 175);
   PnlClearPass.Color   := RGB( 72, 122, 129);
   PnlCancel.Color      := RGB( 72, 122, 129);

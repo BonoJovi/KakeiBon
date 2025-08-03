@@ -81,20 +81,21 @@ type
     procedure DBEdtShopIDChange(Sender: TObject);
     procedure DBEdtShopNameChange(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
-    procedure FormCreate(Sender: TObject);
+    //procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure TimerTimer(Sender: TObject);
   private
     FDoCommit        : Boolean;
     FReOpenDS        : Boolean;
     FInsert          : Boolean;
-    FShopID          : Variant;
-    FShopName        : String;
-    FPhoneNum        : String;
-    FStartBusinessDT : String;
-    FEndBusinessDT   : String;
-    FDisabled        : Boolean;
+    //FShopID          : Variant;
+    //FShopName        : String;
+    //FPhoneNum        : String;
+    //FStartBusinessDT : String;
+    //FEndBusinessDT   : String;
+    //FDisabled        : Boolean;
     procedure CloseTransactions;
+    procedure SetDatabaseNames;
     procedure BackupValues;
     procedure ProcCancel;
     procedure ProcCommit;
@@ -109,11 +110,11 @@ type
     procedure SetEndBusinessDT(EndBusinessDT: String);
     function GetDisabled: Boolean;
     procedure SetDisabled(Disabled: Boolean);
-    property ShopName: String read GetShopName write SetShopName;
-    property PhoneNum: String read GetPhoneNum write SetPhoneNum;
-    property StartBusinessDT: String read GetStartBusinessDT write SetStartBusinessDT;
-    property EndBusinessDT: String read GetEndBusinessDT write SetEndBusinessDT;
-    property Disabled: Boolean read GetDisabled write SetDisabled;
+    property FShopName: String read GetShopName write SetShopName;
+    property FPhoneNum: String read GetPhoneNum write SetPhoneNum;
+    property FStartBusinessDT: String read GetStartBusinessDT write SetStartBusinessDT;
+    property FEndBusinessDT: String read GetEndBusinessDT write SetEndBusinessDT;
+    property FDisabled: Boolean read GetDisabled write SetDisabled;
   public
 
   end;
@@ -138,11 +139,19 @@ begin
   end;
 end;
 
+procedure TFrmEntryShop.SetDatabaseNames;
+begin
+  with FrmTopMenu.Defs do begin
+    ACn.DatabaseName       := GetHomeDir + DB_NAME;
+    ACnNextID.DatabaseName := GetHomeDir + DB_NAME;
+  end;
+end;
+
 procedure TFrmEntryShop.BackupValues;
 begin
   with FrmTopMenu.Defs do begin
     if DBEdtShopID.Text <> '' then begin;
-      SetShopID(DBEdtShopID.Text);
+      GetShopID.SetShopID(DBEdtShopID.Text);
     end else begin
       SetShopID(Null);
     end;
@@ -196,13 +205,15 @@ begin
           SQL.Text := SQL_20080003;
           Params.ParamByName('pUserID').AsInteger   := GetUID;
 
-          if (VarIsNull(GetShopID)) Or (GetShopID = '') then begin
+          if (VarIsNull(GetShopID))
+              Or (VarToStr(GetShopID) = '') then begin
             OpenSelectQuery(ACnNextID, ADSNextID, ATrNextID, AQuNextID, SQL_20080002);
             LNextShopID := AQuNextID.FieldByName('NEXT_ID').AsInteger;
             CloseConn(ACnNextID, ATrNextID);
+            SetDatabaseNames;
             Params.ParamByName('pShopID').AsInteger := LNextShopID;
           end else begin
-            Params.ParamByName('pShopID').AsInteger := GetShopID;
+            Params.ParamByName('pShopID').AsInteger := StrToInt(VarToStr(GetShopID));
           end;
           Params.ParamByName('pShopName').AsAnsiString := GetShopName;
           Params.ParamByName('pPhoneNum').AsAnsiString := GetPhoneNum;
@@ -220,6 +231,7 @@ begin
           Params.ParamByName('pUpdateDT').AsDateTime := LNow;
 
           CloseTransactions;
+          SetDatabaseNames;
           ExecSQL;
           ATr.Commit;
         end;
@@ -345,7 +357,7 @@ procedure TFrmEntryShop.DBEdtShopIDChange(Sender: TObject);
 begin
   if Not FDoCommit then begin
     with FrmTopMenu.Defs do begin
-      SetShopID(DBEdtShopID.Text);
+      GetShopID.SetShopID(DBEdtShopID.Text);
     end;
   end;
 end;
@@ -406,7 +418,7 @@ begin
 
   with FrmTopMenu.Defs do begin
     // Restore value of previous screen
-    SetShopID(FShopID);
+    //SetShopID(FShopID);
 
     if GetEntryShop = 0 then begin
       FrmManageDetails    := TFrmManageDetails.Create(Application);
@@ -424,15 +436,17 @@ begin
   FrmEntryShop := nil;
 end;
 
-procedure TFrmEntryShop.FormCreate(Sender: TObject);
-begin
-  with FrmTopMenu.Defs do begin
-    FShopID := GetShopID;
-  end;
-end;
+//procedure TFrmEntryShop.FormCreate(Sender: TObject);
+//begin
+//  with FrmTopMenu.Defs do begin
+//    FShopID := GetShopID;
+//  end;
+//end;
 
 procedure TFrmEntryShop.FormShow(Sender: TObject);
 begin
+  SetDatabaseNames;
+
   FReOpenDS := False;
   FDoCommit := False;
 
@@ -442,30 +456,48 @@ begin
   PnlCommit.Color    := RGB( 72, 122, 129);
   PnlGoBack.Color    := RGB( 72, 122, 129);
 
-  with AQu do begin
-    with FrmTopMenu.Defs do begin
-      OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20080001);
-      ADBGrid.DataSource := ADS;
-      if RecordCount = 0 then begin
-        ProcInsert;
-      end else begin
-        FInsert := False;
+  try
+    try
+      with AQu do begin
+        with FrmTopMenu.Defs do begin
+          OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20080001);
+          ADBGrid.DataSource := ADS;
+          if RecordCount = 0 then begin
+            ProcInsert;
+          end else begin
+            FInsert := False;
+          end;
+          ADBGrid.AutoAdjustColumns;
+          DBEdtShopName.SetFocus;
+        end;
       end;
-      ADBGrid.AutoAdjustColumns;
-      DBEdtShopName.SetFocus;
+    except
+      on E: ESQLDatabaseError do begin
+        ShowMessage(E.Message);
+      end;
     end;
+  finally
   end;
 end;
 
 procedure TFrmEntryShop.TimerTimer(Sender: TObject);
 begin
-  if FReOpenDS then
-  begin
-    FrmTopMenu.Defs.OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20080001);
-    ADBGrid.DataSource := ADS;
+  try
+    try
+      if FReOpenDS then
+      begin
+        FrmTopMenu.Defs.OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20080001);
+        ADBGrid.DataSource := ADS;
 
-    FReOpenDS          := False;
-    Timer.Enabled      := False;
+        FReOpenDS          := False;
+        Timer.Enabled      := False;
+      end;
+    except
+      on E: ESQLDatabaseError do begin
+        ShowMessage(E.Message);
+      end;
+    end;
+  finally
   end;
 end;
 

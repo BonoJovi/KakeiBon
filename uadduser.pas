@@ -45,6 +45,7 @@ type
     procedure FormShow(Sender: TObject);
   private
     procedure CloseTransactions;
+    procedure SetDatabaseNames;
     procedure CallInsertSQL(UserID: Integer; SQLStr: String);
     procedure CallInsertSQLWithoutUserID(SQLStr: String);
     procedure ProcCancel;
@@ -69,6 +70,13 @@ procedure TFrmAddUser.CloseTransactions;
 begin
   with FrmTopMenu.Defs do begin
     CloseConn(ACn, ATr);
+  end;
+end;
+
+procedure TFrmAddUser.SetDatabaseNames;
+begin
+  with FrmTopMenu.Defs do begin
+    ACn.DatabaseName        := GetHomeDir + DB_NAME;
   end;
 end;
 
@@ -152,6 +160,7 @@ begin
         Params.ParamByName('pEntryDT').AsDateTime := Now;
 
         CloseTransactions;
+        SetDatabaseNames;
         ExecSQL;
         ATr.Commit;
       end;
@@ -164,6 +173,7 @@ begin
 
     try
       CloseTransactions;
+      SetDatabaseNames;
 
       with AQu do begin
         SQL.Text := SQL_20030002;
@@ -369,6 +379,7 @@ begin
       CallInsertSQL(LUserID, SQL_93000001);
 
       CloseTransactions;
+      SetDatabaseNames;
       ATr.Commit;
     except
       on E: ESQLDatabaseError do begin
@@ -413,6 +424,8 @@ end;
 
 procedure TFrmAddUser.FormShow(Sender: TObject);
 begin
+  SetDatabaseNames;
+
   FrmAddUser.Color   := RGB(112, 168, 175);
   PnlClearPass.Color := RGB( 72, 122, 129);
   PnlCancel.Color    := RGB( 72, 122, 129);

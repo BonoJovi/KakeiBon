@@ -1431,7 +1431,6 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   object ACn: TSQLite3Connection
     Connected = False
     LoginPrompt = False
-    DatabaseName = './KakeiBonDB.sqlite3'
     KeepConnection = False
     Transaction = ATr
     AlwaysUseBigint = False
@@ -1441,7 +1440,6 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   object ACnDetail: TSQLite3Connection
     Connected = False
     LoginPrompt = False
-    DatabaseName = './KakeiBonDB.sqlite3'
     KeepConnection = False
     Transaction = ATrDetail
     AlwaysUseBigint = False
@@ -1451,7 +1449,6 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   object ACnNextID: TSQLite3Connection
     Connected = False
     LoginPrompt = False
-    DatabaseName = './KakeiBonDB.sqlite3'
     KeepConnection = False
     Transaction = ATrNextID
     AlwaysUseBigint = False
@@ -1461,7 +1458,6 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   object ACnShop: TSQLite3Connection
     Connected = False
     LoginPrompt = False
-    DatabaseName = './KakeiBonDB.sqlite3'
     KeepConnection = False
     Transaction = ATrShop
     AlwaysUseBigint = False
@@ -1471,7 +1467,6 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   object ACnExp1: TSQLite3Connection
     Connected = False
     LoginPrompt = False
-    DatabaseName = './KakeiBonDB.sqlite3'
     KeepConnection = False
     Transaction = ATrExp1
     AlwaysUseBigint = False
@@ -1481,7 +1476,6 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   object ACnFromAC: TSQLite3Connection
     Connected = False
     LoginPrompt = False
-    DatabaseName = './KakeiBonDB.sqlite3'
     KeepConnection = False
     Transaction = ATrFromAC
     AlwaysUseBigint = False
@@ -1491,7 +1485,6 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   object ACnToAC: TSQLite3Connection
     Connected = False
     LoginPrompt = False
-    DatabaseName = './KakeiBonDB.sqlite3'
     KeepConnection = False
     Transaction = ATrToAC
     AlwaysUseBigint = False

@@ -9,7 +9,6 @@ object FrmManageUser: TFrmManageUser
   ClientWidth = 710
   Color = clWindowFrame
   Position = poScreenCenter
-  LCLVersion = '4.99.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
@@ -257,31 +256,34 @@ object FrmManageUser: TFrmManageUser
     FieldDefs = <>
     Database = ACn
     Transaction = ATr
+    Params = <>
+    Macros = <>
     Left = 304
     Top = 96
   end
   object ADSByCount: TDataSource
     DataSet = AQuByCount
     Left = 144
-    Top = 168
+    Top = 152
   end
   object ATrByCount: TSQLTransaction
     Active = False
     Database = ACnByCount
     Left = 224
-    Top = 168
+    Top = 152
   end
   object AQuByCount: TSQLQuery
     FieldDefs = <>
     Database = ACnByCount
     Transaction = ATrByCount
+    Params = <>
+    Macros = <>
     Left = 304
-    Top = 168
+    Top = 152
   end
   object ACn: TSQLite3Connection
     Connected = False
     LoginPrompt = False
-    DatabaseName = './KakeiBonDB.sqlite3'
     KeepConnection = False
     Transaction = ATr
     AlwaysUseBigint = False
@@ -291,11 +293,10 @@ object FrmManageUser: TFrmManageUser
   object ACnByCount: TSQLite3Connection
     Connected = False
     LoginPrompt = False
-    DatabaseName = './KakeiBonDB.sqlite3'
     KeepConnection = False
     Transaction = ATrByCount
     AlwaysUseBigint = False
     Left = 64
-    Top = 168
+    Top = 152
   end
 end

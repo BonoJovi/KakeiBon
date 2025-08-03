@@ -13,7 +13,6 @@ object FrmEntryShop: TFrmEntryShop
   Position = poScreenCenter
   LCLVersion = '4.2.0.0'
   OnClose = FormClose
-  OnCreate = FormCreate
   OnShow = FormShow
   object ADBGrid: TDBGrid
     Left = 16
@@ -705,7 +704,7 @@ object FrmEntryShop: TFrmEntryShop
     Top = 124
   end
   object ATr: TSQLTransaction
-    Active = True
+    Active = False
     Database = ACn
     Left = 232
     Top = 124
@@ -814,9 +813,8 @@ object FrmEntryShop: TFrmEntryShop
     Top = 184
   end
   object ACn: TSQLite3Connection
-    Connected = True
+    Connected = False
     LoginPrompt = False
-    DatabaseName = './KakeiBonDB.sqlite3'
     KeepConnection = False
     Transaction = ATr
     CharSet = 'UTF-8'
@@ -827,7 +825,6 @@ object FrmEntryShop: TFrmEntryShop
   object ACnNextID: TSQLite3Connection
     Connected = False
     LoginPrompt = False
-    DatabaseName = './KakeiBonDB.sqlite3'
     KeepConnection = False
     Transaction = ATrNextID
     CharSet = 'UTF8'

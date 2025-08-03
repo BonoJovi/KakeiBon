@@ -14,24 +14,31 @@ type
   { TFrmAddDetailsHeader }
 
   TFrmAddDetailsHeader = class(TForm)
+    ACn              : TSQLite3Connection;
     ADS              : TDataSource;
     ATr              : TSQLTransaction;
     AQu              : TSQLQuery;
+    ACnDetail        : TSQLite3Connection;
     ADSDetail        : TDataSource;
     ATrDetail        : TSQLTransaction;
     AQuDetail        : TSQLQuery;
+    ACnNextID        : TSQLite3Connection;
     ADSNextID        : TDataSource;
     ATrNextID        : TSQLTransaction;
     AQuNextID        : TSQLQuery;
+    ACnShop          : TSQLite3Connection;
     ADSShop          : TDataSource;
     ATrShop          : TSQLTransaction;
     AQuShop          : TSQLQuery;
+    ACnExp1          : TSQLite3Connection;
     ADSExp1          : TDataSource;
     ATrExp1          : TSQLTransaction;
     AQuExp1          : TSQLQuery;
+    ACnFromAC        : TSQLite3Connection;
     ADSFromAC        : TDataSource;
     ATrFromAC        : TSQLTransaction;
     AQuFromAC        : TSQLQuery;
+    ACnToAC          : TSQLite3Connection;
     ADSToAC          : TDataSource;
     ATrToAC          : TSQLTransaction;
     AQuToAC          : TSQLQuery;
@@ -56,7 +63,7 @@ type
     DBDTPUpdateDT    : TDBDateTimePicker;
     DBEdtHeaderID    : TDBEdit;
     DBEdtFromID      : TDBEdit;
-    DBEdtTotalAmount: TDBEdit;
+    DBEdtTotalAmount : TDBEdit;
     DBEdtUserID      : TDBEdit;
     DBEdtToID        : TDBEdit;
     DBEdtPhoneNum    : TDBEdit;
@@ -101,13 +108,6 @@ type
     PnlEditDetail    : TPanel;
     PnlRemoveDetail  : TPanel;
     PnlGoBack        : TPanel;
-    ACn: TSQLite3Connection;
-    ACnDetail: TSQLite3Connection;
-    ACnNextID: TSQLite3Connection;
-    ACnShop: TSQLite3Connection;
-    ACnExp1: TSQLite3Connection;
-    ACnFromAC: TSQLite3Connection;
-    ACnToAC: TSQLite3Connection;
     procedure ActAddDetailExecute(Sender: TObject);
     procedure ActEditDetailExecute(Sender: TObject);
     procedure ActEntryAccountExecute(Sender: TObject);
@@ -126,8 +126,8 @@ type
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormShow(Sender: TObject);
   private
-    FGoBack : Boolean;
     procedure CloseTransactions;
+    procedure SetDatabaseNames;
     procedure BackupValues;
     function CheckInput: Boolean;
     procedure ProcAddDetail;
@@ -136,7 +136,7 @@ type
     procedure ProcEntryShop;
     function GetGoBack: Boolean;
     procedure SetGoBack(GoBack: boolean);
-    property GoBack: Boolean read GetGoBack write SetGoBack;
+    property FGoBack: Boolean read GetGoBack write SetGoBack;
   public
 
   end;
@@ -166,6 +166,19 @@ begin
   end;
 end;
 
+procedure TFrmAddDetailsHeader.SetDatabaseNames;
+begin
+  with FrmTopMenu.Defs do begin
+    ACn.DatabaseName       := GetHomeDir + DB_NAME;
+    ACnDetail.DatabaseName := GetHomeDir + DB_NAME;
+    ACnNextID.DatabaseName := GetHomeDir + DB_NAME;
+    ACnShop.DatabaseName   := GetHomeDir + DB_NAME;
+    ACnExp1.DatabaseName   := GetHomeDir + DB_NAME;
+    ACnFromAC.DatabaseName := GetHomeDir + DB_NAME;
+    ACnToAC.DatabaseName   := GetHomeDir + DB_NAME;
+  end;
+end;
+
 procedure TFrmAddDetailsHeader.BackupValues;
 begin
   with FrmTopMenu.Defs do begin
@@ -174,23 +187,23 @@ begin
     end;
     if (AQuDetail.RecordCount > 0)
       And (AQuDetail.FieldByName('DETAIL_ID').AsInteger > 0) then begin
-      SetDID(AQuDetail.FieldByName('DETAIL_ID').AsInteger);
+      GetDID.SetDID(AQuDetail.FieldByName('DETAIL_ID').AsInteger);
     end;
     DBDTPHeaderDT.TimeFormat := tf24;
     SetHeaderDT(
       FormatDateTime('yyyy/mm/dd hh:mm:dd', DTPYear.DateTime, GetFS)
     );
     if DBEdtShopID.Text <> '' then begin
-      SetShopID(DBEdtShopID.Text);
+      GetShopID.SetShopID(DBEdtShopID.Text);
     end;
     if DBEdtExpKey1.Text <> '' then begin
-      SetExpKey1(DBEdtExpKey1.Text);
+      GetExpKey1.SetExpKey1(DBEdtExpKey1.Text);
     end;
     if (DBLCBFromAC.Enabled) And (DBEdtFromID.Text <> '') then begin
-      SetFromACID(DBEdtFromID.Text);
+      GetFromACID.SetFromACID(DBEdtFromID.Text);
     end;
     if (DBLCBToAC.Enabled) And (DBEdtToID.Text <> '') then begin
-      SetToACID(DBEdtToID.Text);
+      GetToACID.SetToACID(DBEdtToID.Text);
     end;
 
     SetExpKey2(Null);
@@ -234,8 +247,6 @@ end;
 procedure TFrmAddDetailsHeader.ProcAddDetail;
 var
   LNextHeaderID : Integer;
-  LUID          : Integer;
-  LNilObj       : TDBLookupComboBox = nil;
 begin
   try
     try
@@ -253,6 +264,7 @@ begin
             SQL_20100005);
           LNextHeaderID := AQuNextID.FieldByName('NEXT_ID').AsInteger;
           CloseConn(ACnNextID, ATrNextID);
+          SetDatabaseNames;
         end;
 
         with AQu do begin
@@ -260,13 +272,13 @@ begin
           Params.ParamByName('pUserID').AsInteger        := FrmTopMenu.Defs.GetUID;
           Params.ParamByName('pHeaderID').AsInteger      := LNextHeaderID;
           Params.ParamByName('pHeaderDT').AsDateTime     := DTPYear.DateTime;
-          Params.ParamByName('pShopID').AsInteger        := DBLCBShopName.KeyValue;
-          Params.ParamByName('pExpKey1').AsInteger       := DBLCBExp1.KeyValue;
+          Params.ParamByName('pShopID').AsInteger        := StrToInt(VarToStr(DBLCBShopName.KeyValue));
+          Params.ParamByName('pExpKey1').AsInteger       := StrToInt(VarToStr(DBLCBExp1.KeyValue));
           if Not VarIsNull(DBLCBFromAC.KeyValue) then begin
-            Params.ParamByName('pFromID').AsInteger      := DBLCBFromAC.KeyValue;
+            Params.ParamByName('pFromID').AsInteger      := StrToInt(VarToStr(DBLCBFromAC.KeyValue));
           end;
           if Not VarIsNull(DBLCBToAC.KeyValue) then begin
-            Params.ParamByName('pToID').AsInteger        := DBLCBToAC.KeyValue;
+            Params.ParamByName('pToID').AsInteger        := StrToInt(VarToStr(DBLCBToAC.KeyValue));
           end;
           if EdtTotalAmount.Text = '' then begin
             Params.ParamByName('pTotalAmount').AsInteger := 0;
@@ -278,6 +290,7 @@ begin
           UpdateMode                                     := upWhereAll;
 
           CloseTransactions;
+          SetDatabaseNames;
           ExecSQL;
           ATr.Commit;
         end;
@@ -318,6 +331,7 @@ begin
               SQL_20100005);
             LNextHeaderID := AQuNextID.FieldByName('NEXT_ID').AsInteger;
             CloseConn(ACnNextID, ATrNextID);
+            SetDatabaseNames;
           end;
         end;
 
@@ -327,13 +341,13 @@ begin
             ParamByName('pUserID').AsInteger        := FrmTopMenu.Defs.GetUID;
             ParamByName('pHeaderID').AsInteger      := LNextHeaderID;
             ParamByName('pHeaderDT').AsDateTime     := DTPYear.DateTime;
-            ParamByName('pShopID').AsInteger        := DBLCBShopName.KeyValue;
-            ParamByName('pExpKey1').AsInteger       := DBLCBExp1.KeyValue;
+            ParamByName('pShopID').AsInteger        := StrToInt(VarToStr(DBLCBShopName.KeyValue));
+            ParamByName('pExpKey1').AsInteger       := StrToInt(VarToStr(DBLCBExp1.KeyValue));
             if Not VarIsNull(DBLCBFromAC.KeyValue) then begin
-              ParamByName('pFromID').AsInteger      := DBLCBFromAC.KeyValue;
+              ParamByName('pFromID').AsInteger      := StrToInt(VarToStr(DBLCBFromAC.KeyValue));
             end;
             if Not VarIsNull(DBLCBToAC.KeyValue) then begin
-              ParamByName('pToID').AsInteger        := DBLCBToAC.KeyValue;
+              ParamByName('pToID').AsInteger        := StrToInt(VarToStr(DBLCBToAC.KeyValue));
             end;
             if EdtTotalAmount.Text = '' then begin
               ParamByName('pTotalAmount').AsInteger := 0;
@@ -346,6 +360,7 @@ begin
           UpdateMode                                     := upWhereAll;
 
           CloseTransactions;
+          SetDatabaseNames;
           ExecSQL;
           ATr.Commit;
         end;
@@ -366,15 +381,8 @@ end;
 
 procedure TFrmAddDetailsHeader.ProcEntryAccount;
 begin
+  CloseTransactions;
   with FrmTopMenu.Defs do begin
-    CloseConn(ACn      , ATr      );
-    CloseConn(ACnDetail, ATrDetail);
-    CloseConn(ACnNextID, ATrNextID);
-    CloseConn(ACnShop  , ATrShop  );
-    CloseConn(ACnExp1  , ATrExp1  );
-    CloseConn(ACnFromAC, ATrFromAC);
-    CloseConn(ACnToAC  , ATrToAC  );
-
     FrmEntryAccount := TFrmEntryAccount.Create(Application);
     OpenForm(Self, FrmEntryAccount);
   end;
@@ -382,15 +390,8 @@ end;
 
 procedure TFrmAddDetailsHeader.ProcEntryShop;
 begin
+  CloseTransactions;
   with FrmTopMenu.Defs do begin
-    CloseConn(ACn      , ATr      );
-    CloseConn(ACnDetail, ATrDetail);
-    CloseConn(ACnNextID, ATrNextID);
-    CloseConn(ACnShop  , ATrShop  );
-    CloseConn(ACnExp1  , ATrExp1  );
-    CloseConn(ACnFromAC, ATrFromAC);
-    CloseConn(ACnToAC  , ATrToAC  );
-
     FrmEntryShop := TFrmEntryShop.Create(Application);
     OpenForm(Self, FrmEntryShop);
   end;
@@ -455,6 +456,7 @@ begin
     end;
 
     CloseTransactions;
+    SetDatabaseNames;
     ExecSQL;
     ATrDetail.Commit;
   end;
@@ -466,7 +468,7 @@ begin
     SetExpKey1(DBLCBExp1.KeyValue);
     if Not VarIsNull(GetExpKey1) then begin
       if Not VarIsNull(GetExpKey1) then begin
-        if GetExpKey1 = 1 then begin
+        if StrToInt(VarToStr(GetExpKey1)) = 1 then begin
           DBLCBFromAC.Enabled := True;
           DBLCBFromAC.Cursor  := crHandPoint;
           DBLCBToAC.Enabled   := False;
@@ -477,7 +479,7 @@ begin
             DBEdtFromID.Text  := DBLCBFromAC.KeyValue;
           end;
           DBEdtToID.Text      := '';
-        end else if GetExpKey1 = 2 then begin
+        end else if StrToInt(VarToStr(GetExpKey1)) = 2 then begin
           DBLCBFromAC.Enabled   := False;
           DBLCBFromAC.Cursor    := crDefault;
           DBLCBFromAC.ItemIndex := -1;
@@ -488,7 +490,7 @@ begin
           if (DBLCBToAC.Enabled) And (Not VarIsNull(DBLCBToAC.KeyValue)) then begin
             DBEdtToID.Text        := DBLCBToAC.KeyValue;
           end;
-        end else if GetExpKey1 = 3 then begin
+        end else if StrToInt(VarToStr(GetExpKey1)) = 3 then begin
           DBLCBFromAC.Enabled      := True;
           DBLCBFromAC.Cursor       := crHandPoint;
           DBLCBToAC.Enabled        := True;
@@ -500,7 +502,7 @@ begin
             end else begin
               if Not VarIsNull(DBLCBFromAC.KeyValue) then begin
                 DBEdtFromID.Text   := DBLCBFromAC.KeyValue;
-                FrmTopMenu.Defs.SetFromACID(DBEdtFromID.Text);
+                GetFromACID.SetFromACID(DBEdtFromID.Text);
               end;
             end;
           end;
@@ -511,7 +513,7 @@ begin
             end else begin
               if Not VarIsNull(DBLCBToAC.KeyValue) then begin
                 DBEdtToID.Text   := DBLCBToAC.KeyValue;
-                FrmTopMenu.Defs.SetToACID(DBEdtToID.Text);
+                GetToACID.SetToACID(DBEdtToID.Text);
               end;
             end;
           end;
@@ -519,8 +521,8 @@ begin
       end;
       DBEdtExpKey1.Text          := DBLCBExp1.KeyValue;
     end else begin
-      FrmTopMenu.Defs.SetFromACID(DBEdtFromID.Text);
-      FrmTopMenu.Defs.SetToACID(DBEdtToID.Text);
+      GetFromACID.SetFromACID(DBEdtFromID.Text);
+      GetToACID.SetToACID(DBEdtToID.Text);
     end;
   end;
 end;
@@ -528,17 +530,19 @@ end;
 procedure TFrmAddDetailsHeader.DBLCBShopNameChange(Sender: TObject);
 begin
   with FrmTopMenu.Defs do begin
-    if DBLCBShopName.Enabled then begin
-      if (Not VarIsNull(DBLCBShopName.KeyValue))
-        And (VarToStr(DBLCBShopName.KeyValue) <> '') then begin
-          DBEdtShopID.Text := DBLCBShopName.KeyValue;
+    with DBLCBShopName do begin
+      if Enabled then begin
+        if (Not VarIsNull(KeyValue))
+          And (VarToStr(KeyValue) <> '') then begin
+            DBEdtShopID.Text := KeyValue;
+        end else begin
+          DBEdtShopID.Text := '';
+        end;
+        GetShopID.SetShopID(DBEdtShopID.Text);
       end else begin
         DBEdtShopID.Text := '';
+        GetShopID.SetShopID(DBEdtShopID.Text);
       end;
-      SetShopID(DBEdtShopID.Text);
-    end else begin
-      DBEdtShopID.Text := '';
-      FrmTopMenu.Defs.SetShopID(DBEdtShopID.Text);
     end;
   end;
 end;
@@ -553,10 +557,10 @@ begin
       end else begin
         DBEdtFromID.Text := '';
       end;
-      SetFromACID(DBEdtFromID.Text);
+      GetFromACID.SetFromACID(DBEdtFromID.Text);
     end else begin
       DBEdtFromID.Text := '';
-      SetFromACID(DBEdtFromID.Text);
+      GetFromACID.SetFromACID(DBEdtFromID.Text);
     end;
   end;
 end;
@@ -571,10 +575,10 @@ begin
       end else begin
         DBEdtToID.Text := '';
       end;
-      SetToACID(DBEdtToID.Text);
+      GetToACID.SetToACID(DBEdtToID.Text);
     end else begin
       DBEdtToID.Text := '';
-      SetToACID(DBEdtToID.Text);
+      GetToACID.SetToACID(DBEdtToID.Text);
     end;
   end;
 end;
@@ -630,10 +634,9 @@ begin
 end;
 
 procedure TFrmAddDetailsHeader.FormShow(Sender: TObject);
-var
-  i       : Integer;
 begin
   SetGoBack(True);
+  SetDatabaseNames;
 
   FrmAddDetailsHeader.Color := RGB(112, 168, 175);
   PnlEntryShop.Color        := RGB( 72, 122, 129);
@@ -647,42 +650,43 @@ begin
     with FrmTopMenu.Defs do begin
       OpenSelQuAndSetVal(
         ACnShop  , ADSShop  , ATrShop  , AQuShop  , DBLCBShopName,
-        DBEdtShopID , SQL_20100001, GetShopID);
+        DBEdtShopID , SQL_20100001, StrToInt(VarToStr(GetShopID)));
 
       if (Not VarIsNull(GetShopID))
-        And (VarToStr(GetShopID) <> '') And (GetShopID > 0) then begin
-          with AQuShop do begin
-            First;
-            while Not EOF do begin
-              if FieldByName('SHOP_ID').AsInteger = GetShopID then begin
-                Break;
-              end;
-              Next;
+          And (VarToStr(GetShopID) <> '')
+          And (StrToInt(VarToStr(GetShopID)) > 0) then begin
+        with AQuShop do begin
+          First;
+          while Not EOF do begin
+            if FieldByName('SHOP_ID').AsInteger = StrToInt(VarToStr(GetShopID)) then begin
+              Break;
             end;
-            if FieldByName('PHONE_NUM').AsAnsiString <> '' then begin
-              DBEdtPhoneNum.Text := FieldByName('PHONE_NUM').AsAnsiString;
-            end;
+            Next;
           end;
+          if FieldByName('PHONE_NUM').AsAnsiString <> '' then begin
+            DBEdtPhoneNum.Text := FieldByName('PHONE_NUM').AsAnsiString;
+          end;
+        end;
       end else begin
         DBEdtPhoneNum.Text := '';
       end;
 
       OpenSelQuAndSetVal(
         ACnExp1  , ADSExp1  , ATrExp1  , AQuExp1  , DBLCBExp1    ,
-        DBEdtExpKey1, SQL_20100002, GetExpKey1);
+        DBEdtExpKey1, SQL_20100002, StrToInt(VarToStr(GetExpKey1)));
       DBLCBExp1Change(Self);
 
       if Not VarIsNull(GetFromACID) then begin
         OpenSelQuAndSetVal(
           ACnFromAC, ADSFromAC, ATrFromAC, AQuFromAC, DBLCBFromAC  ,
-          DBEdtFromID , SQL_20100003, GetFromACID);
+          DBEdtFromID , SQL_20100003, StrToInt(VarToStr(GetFromACID)));
         DBLCBFromACChange(Self);
       end;
 
       if Not VarIsNull(GetToACID) then begin
         OpenSelQuAndSetVal(
           ACnToAC  , ADSToAC  , ATrToAC  , AQuToAC  , DBLCBToAC    ,
-          DBEdtToID   , SQL_20100004, GetToACID);
+          DBEdtToID   , SQL_20100004, StrToInt(VarToStr(GetToACID)));
         DBLCBToACChange(Self);
       end;
 
@@ -690,7 +694,8 @@ begin
         OpenSelQuAndSetNextID(
           ACnNextID, ADSNextID, ATrNextID, AQuNextID, DBEdtHeaderID,
           SQL_20100005);
-        CloseConn(ACnNextID, ATrNextID);
+        CloseTransactions;
+        SetDatabaseNames;
       end else begin
         OpenSelectQueryWithHeaderID(
           ACnDetail, ADSDetail, ATrDetail, AQuDetail,
@@ -706,7 +711,7 @@ begin
 
       DBEdtUserID.Text        := GetUID.ToString;
 
-      DBEdtTotalAmount.Text   := VarToStr(GetTotalAmount);
+      DBEdtTotalAmount.Text   := IntToStr(GetTotalAmount);
 
       with AQuDetail do begin
         SQL.Text      := SQL_20100009;
@@ -721,7 +726,7 @@ begin
         end;
       end;
 
-      SetExpKey1(AQuDetail.FieldByName('EXP_KEY1').AsInteger);
+      GetExpKey1.SetExpKey1(AQuDetail.FieldByName('EXP_KEY1').AsInteger);
       SetHID(AQuDetail.FieldByName('HEADER_ID').AsInteger);
     end;
 

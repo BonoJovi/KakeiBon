@@ -13,42 +13,42 @@ type
   { TFrmRemoveUser }
 
   TFrmRemoveUser = class(TForm)
+    ACn            : TSQLite3Connection;
+    ADS            : TDataSource;
+    ATr            : TSQLTransaction;
+    AQu            : TSQLQuery;
     ActCancel      : TAction;
     ActionList     : TActionList;
     ActQuit        : TAction;
     ActRemoveUser  : TAction;
-    ADBGrid           : TDBGrid;
-    ADS            : TDataSource;
-    ATr            : TSQLTransaction;
-    BtnCancel: TButton;
-    BtnRemoveUser: TButton;
+    ADBGrid        : TDBGrid;
+    BtnCancel      : TButton;
+    BtnRemoveUser  : TButton;
     DBNav          : TDBNavigator;
     DBTextUserId   : TDBText;
     DBTextName     : TDBText;
     DBTextRole     : TDBText;
     DBTextEntryDT  : TDBText;
     DBTextUpdateDT : TDBText;
-    LblEntryDT1     : TLabel;
+    LblEntryDT1    : TLabel;
     LblEntryDT2    : TLabel;
     LblEntryDT3    : TLabel;
     LblName2       : TLabel;
     LblName3       : TLabel;
     LblName4       : TLabel;
-    LblName1        : TLabel;
-    LblRole1        : TLabel;
+    LblName1       : TLabel;
+    LblRole1       : TLabel;
     LblRole2       : TLabel;
-    LblUpdateDT1    : TLabel;
+    LblUpdateDT1   : TLabel;
     LblUpdateDT2   : TLabel;
     LblUpdateDT3   : TLabel;
-    LblUserId1      : TLabel;
+    LblUserId1     : TLabel;
     LblUserId2     : TLabel;
     LblUserId3     : TLabel;
     LblUserId4     : TLabel;
     LblUserId5     : TLabel;
     PnlCancel      : TPanel;
     PnlRemoveUser  : TPanel;
-    AQu: TSQLQuery;
-    ACn: TSQLite3Connection;
     procedure ActCancelExecute(Sender: TObject);
     procedure ActQuitExecute(Sender: TObject);
     procedure ActRemoveUserExecute(Sender: TObject);
@@ -56,6 +56,7 @@ type
     procedure FormShow(Sender: TObject);
   private
     procedure CloseTransactions;
+    procedure SetDatabaseNames;
     procedure ConnectUsersTable;
     procedure ProcCancel;
     procedure ProcRemoveUser;
@@ -78,6 +79,13 @@ procedure TFrmRemoveUser.CloseTransactions;
 begin
   with FrmTopMenu.Defs do begin
     CloseConn(ACn, ATr);
+  end;
+end;
+
+procedure TFrmRemoveUser.SetDatabaseNames;
+begin
+  with FrmTopMenu.Defs do begin
+    ACn.DatabaseName        := GetHomeDir + DB_NAME;
   end;
 end;
 
@@ -106,6 +114,7 @@ begin
         if LRet = mrYes then
         begin
           CloseTransactions;
+          SetDatabaseNames;
           ExecSQL;
           ATr.Commit;
           FrmTopMenu.Defs.SetChangedUserDef(True);
@@ -191,6 +200,8 @@ end;
 
 procedure TFrmRemoveUser.FormShow(Sender: TObject);
 begin
+  SetDatabaseNames;
+
   FrmRemoveUser.Color := RGB(112, 168, 175);
   pnlCancel.Color     := RGB( 72, 122, 129);
   PnlRemoveUser.Color := RGB( 72, 122, 129);

@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, Variants, SQLDB, SQLite3Conn, DB, Forms, Controls,
   Graphics, Dialogs, ExtCtrls, StdCtrls, DBCtrls, LCLIntf, ActnList,
-  DBDateTimePicker, DateTimePicker;
+  DBDateTimePicker;
 
 type
 
@@ -141,14 +141,8 @@ type
     procedure FormShow(Sender: TObject);
   private
     FInsert     : Boolean;
-    FGoBack     : Boolean;
-    FTaxRate    : Double;
-    FQuantity   : Variant;
-    FAmount     : Variant;
-    FExcludeTax : Variant;
-    FTax        : Variant;
-    FSubTotal   : Variant;
     procedure CloseTransactions;
+    procedure SetDatabaseNames;
     procedure BackupValues;
     procedure CalcInclusiveTax;
     procedure ClearInputFields;
@@ -160,6 +154,8 @@ type
     procedure ProcEntryUnit;
     function GetGoBack: Boolean;
     procedure SetGoBack(GoBack: boolean);
+    function GetTaxRate: Real;
+    procedure SetTaxRate(TaxRate: Real);
     function GetQuantity: Variant;
     procedure SetQuantity(Quantity: Variant);
     function GetAmount: Variant;
@@ -176,12 +172,13 @@ type
     procedure SelectExp3(
       var Cn3: TSQLite3Connection; var DS3: TDataSource;
       var Tr3: TSQLTransaction; var Qu3: TSQLQuery);
-    property GoBack: Boolean read GetGoBack write SetGoBack;
-    property Quantity: Variant read GetQuantity write SetQuantity;
-    property Amount: Variant read GetAmount write SetAmount;
-    property ExcludeTax: Variant read GetExcludeTax write SetExcludeTax;
-    property Tax: Variant read GetTax write SetTax;
-    property SubTotal: Variant read GetSubTotal write SetSubTotal;
+    property FGoBack: Boolean read GetGoBack write SetGoBack;
+    property FTaxRate: Real read GetTaxRate write SetTaxRate;
+    property FQuantity: Variant read GetQuantity write SetQuantity;
+    property FAmount: Variant read GetAmount write SetAmount;
+    property FExcludeTax: Variant read GetExcludeTax write SetExcludeTax;
+    property FTax: Variant read GetTax write SetTax;
+    property FSubTotal: Variant read GetSubTotal write SetSubTotal;
   public
 
   end;
@@ -191,8 +188,8 @@ var
 
 implementation
 uses
-  UConsts, UDefs, UDBAccess, UTopMenu, UManageDetails, UAddDetailsHeader,
-  UEditDetailsHeader, UEntryBrandName, UEntryMaker, UEntryUnit;
+  UConsts, UDefs, UDBAccess, UTopMenu, UManageDetails, UEditDetailsHeader,
+  UEntryBrandName, UEntryMaker, UEntryUnit;
 
 {$R *.lfm}
 
@@ -212,6 +209,20 @@ begin
   end;
 end;
 
+procedure TFrmAddDetail.SetDatabaseNames;
+begin
+  with FrmTopMenu.Defs do begin
+    ACn.DatabaseName        := GetHomeDir + DB_NAME;
+    ACnNextID.DatabaseName  := GetHomeDir + DB_NAME;
+    ACnMaker.DatabaseName   := GetHomeDir + DB_NAME;
+    ACnBrand.DatabaseName   := GetHomeDir + DB_NAME;
+    ACnExp2.DatabaseName    := GetHomeDir + DB_NAME;
+    ACnExp3.DatabaseName    := GetHomeDir + DB_NAME;
+    ACnUnit.DatabaseName    := GetHomeDir + DB_NAME;
+    ACnTaxType.DatabaseName := GetHomeDir + DB_NAME;
+  end;
+end;
+
 procedure TFrmAddDetail.BackupValues;
 begin
   with FrmTopMenu.Defs do begin
@@ -220,47 +231,47 @@ begin
     end;
 
     if DBEdtDetailID.Text <> '' then begin
-      SetDID(StrToInt(DBEdtDetailID.Text));
+      GetDID.SetDID(StrToInt(DBEdtDetailID.Text));
     end else begin
       SetDID(Null);
     end;
 
     if DBEdtMakerID.Text <> '' then begin
-      SetMakerID(DBEdtMakerID.Text);
+      GetMakerID.SetMakerID(DBEdtMakerID.Text);
     end else begin
       SetMakerID(Null);
     end;
 
     if DBEdtBrandNameID.Text <> '' then begin
-      SetBrandNameID(DBEdtBrandNameID.Text);
+      GetBrandNameID.SetBrandNameID(DBEdtBrandNameID.Text);
     end else begin
       SetBrandNameID(Null);
     end;
 
     if DBEdtExpKey1.Text <> '' then begin
-      SetExpKey1(DBEdtExpKey1.Text);
+      GetExpKey1.SetExpKey1(DBEdtExpKey1.Text);
     end;
 
     if DBEdtExpKey2.Text <> '' then begin
-      SetExpKey2(DBEdtExpKey2.Text);
+      GetExpKey2.SetExpKey2(DBEdtExpKey2.Text);
     end else begin
       SetExpKey2(Null);
     end;
 
     if DBEdtExpKey3.Text <> '' then begin
-      SetExpKey3(DBEdtExpKey3.Text);
+      GetExpKey3.SetExpKey3(DBEdtExpKey3.Text);
     end else begin
       SetExpKey3(Null);
     end;
 
     if DBEdtUnitID.Text <> '' then begin
-      SetUnitID(DBEdtUnitID.Text);
+      GetUnitID.SetUnitID(DBEdtUnitID.Text);
     end else begin
       SetUnitID(Null);
     end;
 
     if DBEdtTaxTypeID.Text <> '' then begin
-      SetTaxTypeID(DBEdtTaxTypeID.Text);
+      GetTaxTypeID.SetTaxTypeID(DBEdtTaxTypeID.Text);
     end else begin
       SetTaxTypeID(Null);
     end;
@@ -289,7 +300,7 @@ begin
     end;
 
     if EdtAmount.Text <> '' then begin
-      SetAmount(StringReplace(EdtAmount.Text, ',', '', [rfReplaceAll]));
+      GetAmount.SetAmount(StringReplace(EdtAmount.Text, ',', '', [rfReplaceAll]));
     end else begin
       SetAmount(Null);
     end;
@@ -319,7 +330,9 @@ begin
   if (DBEdtSubTotal.Text <> '')
       And (StrToInt(DBEdtSubTotal.Text) <> 0) then begin
     DBEdtTax.Text :=
-      IntToStr(Round(StrToInt(DBEdtSubTotal.Text) / (1 + FTaxRate) * FTaxRate));
+      IntToStr(Round(
+        StrToInt(DBEdtSubTotal.Text) /
+        (1 + GetTaxRate) * GetTaxRate));
     EdtTax.Text   := FormatFloat('#,##0', StrToInt(DBEdtTax.Text));
 
     DBEdtExcludeTax.Text :=
@@ -343,52 +356,63 @@ procedure TFrmAddDetail.ClearInputFields;
 var
   LNextDetailID : Integer;
 begin
-  with FrmTopMenu.Defs do begin
-    DBEdtUserID.Text        := VarToStr(GetUID);
-    DBEdtHeaderID.Text      := VarToStr(GetHID);
+  try
+    try
+      with FrmTopMenu.Defs do begin
+        DBEdtUserID.Text        := IntToStr(GetUID);
+        DBEdtHeaderID.Text      := IntToStr(GetHID);
 
-    OpenSelectQueryWithHeaderID(ACnNextID, ADSNextID, ATrNextID, AQuNextID, SQL_20120003, GetHID);
-    LNextDetailID := AQuNextID.FieldByName('NEXT_ID').AsInteger;
-    CloseConn(ACnNextID, ATrNextID);
+        OpenSelectQueryWithHeaderID(
+          ACnNextID, ADSNextID, ATrNextID, AQuNextID,
+          SQL_20120003, GetHID);
+        LNextDetailID := AQuNextID.FieldByName('NEXT_ID').AsInteger;
+        CloseConn(ACnNextID, ATrNextID);
 
-    SetMakerID(Null);
-    SetBrandNameID(Null);
-    SetExpKey2(Null);
-    SetExpKey3(Null);
-    SetUnitID(Null);
-    SetTaxTypeID(Null);
+        SetMakerID(Null);
+        SetBrandNameID(Null);
+        SetExpKey2(Null);
+        SetExpKey3(Null);
+        SetUnitID(Null);
+        SetTaxTypeID(Null);
 
-    SetQuantity(0);
-    SetAmount(0);
-    SetExcludeTax(0);
-    SetTax(0);
-    SetSubTotal(0);
+        SetQuantity(0);
+        GetAmount.SetAmount(0);
+        SetExcludeTax(0);
+        SetTax(0);
+        SetSubTotal(0);
 
-    DBEdtDetailID.Text      := IntToStr(LNextDetailID);
-    DBLCBMaker.KeyValue     := -1;
-    DBLCBBrandName.KeyValue := -1;
-    DBLCBExp2.KeyValue      := -1;
-    DBLCBExp3.KeyValue      := -1;
-    DBLCBUnit.KeyValue      := -1;
-    DBLCBTaxType.KeyValue   := -1;
+        DBEdtDetailID.Text               := IntToStr(LNextDetailID);
+        DBLCBMaker.KeyValue.KeyValue     := -1;
+        DBLCBBrandName.KeyValue.KeyValue := -1;
+        DBLCBExp2.KeyValue.KeyValue      := -1;
+        DBLCBExp3.KeyValue.KeyValue      := -1;
+        DBLCBUnit.KeyValue.KeyValue      := -1;
+        DBLCBTaxType.KeyValue.KeyValue   := -1;
 
-    DBEdtMakerID.Text     := '';
-    DBEdtBrandNameID.Text := '';
-    DBEdtExpKey2.Text     := '';
-    DBEdtExpKey3.Text     := '';
-    DBEdtUnitID.Text      := '';
-    DBEdtTaxTypeID.Text   := '';
+        DBEdtMakerID.Text     := '';
+        DBEdtBrandNameID.Text := '';
+        DBEdtExpKey2.Text     := '';
+        DBEdtExpKey3.Text     := '';
+        DBEdtUnitID.Text      := '';
+        DBEdtTaxTypeID.Text   := '';
 
-    EdtQuantity.Text        := IntToStr(0);
-    EdtAmount.Text          := FormatFloat('#,##0.000', 0);
-    EdtExcludeTax.Text      := IntToStr(0);
-    EdtTax.Text             := IntToStr(0);
-    EdtSubTotal.Text        := IntToStr(0);
+        EdtQuantity.Text        := IntToStr(0);
+        EdtAmount.Text          := FormatFloat('#,##0.000', 0);
+        EdtExcludeTax.Text      := IntToStr(0);
+        EdtTax.Text             := IntToStr(0);
+        EdtSubTotal.Text        := IntToStr(0);
 
-    DBEdtQuantity.Text        := '';
-    DBEdtExcludeTax.Text      := '';
-    DBEdtTax.Text             := '';
-    DBEdtSubTotal.Text        := '';
+        DBEdtQuantity.Text        := '';
+        DBEdtExcludeTax.Text      := '';
+        DBEdtTax.Text             := '';
+        DBEdtSubTotal.Text        := '';
+      end;
+    except
+      on E: ESQLDatabaseError do begin
+        ShowMessage(E.Message);
+      end;
+    end;
+  finally
   end;
 end;
 
@@ -419,51 +443,56 @@ begin
 
           CloseConn(ACnNextID, ATrNextID);
           DBEdtDetailID.Text := IntToStr(LNextDetailID);
-          SetDID(LNextDetailID);
+          GetDID.SetDID(LNextDetailID);
         end;
       end;
 
-      with AQu do begin
-        SQL.Text := SQL_20120007;
-        with FrmTopMenu.Defs do begin
-          Params.ParamByName('pUserID'     ).AsInteger   := GetUID;
-          Params.ParamByName('pHeaderID'   ).AsInteger   := GetHID;
-          Params.ParamByName('pDetailID'   ).AsInteger   := GetDID;
-          Params.ParamByName('pExpKey1'    ).AsInteger   := GetExpKey1;
-          if (Not VarIsNull(GetExpKey2))
-            And (VarToStr(GetExpKey2) <> '')
-            And (StrToInt(VarToStr(GetExpKey2)) > 0) then begin
-            Params.ParamByName('pExpKey2'    ).AsInteger   := StrToInt(VarToStr(GetExpKey2));
-          end else begin
-            Params.ParamByName('pExpKey2'    ).AsInteger   := 0;
+      with FrmTopMenu.Defs do begin
+        with AQu do begin
+          with Params do begin
+            SQL.Text := SQL_20120007;
+            ParamByName('pUserID'     ).AsInteger   := GetUID;
+            ParamByName('pHeaderID'   ).AsInteger   := GetHID;
+            ParamByName('pDetailID'   ).AsInteger   := StrToInt(VarToStr(GetDID));
+            ParamByName('pExpKey1'    ).AsInteger   := StrToInt(VarToStr(GetExpKey1));
+            if (Not VarIsNull(GetExpKey2))
+              And (VarToStr(GetExpKey2) <> '')
+              And (StrToInt(VarToStr(GetExpKey2)) > 0) then begin
+              ParamByName('pExpKey2'    ).AsInteger   := StrToInt(VarToStr(GetExpKey2));
+            end else begin
+              ParamByName('pExpKey2'    ).AsInteger   := 0;
+            end;
+            if (Not VarIsNull(GetExpKey3))
+              And (VarToStr(GetExpKey3) <> '')
+              And (StrToInt(VarToStr(GetExpKey3)) > 0) then begin
+              ParamByName('pExpKey3'    ).AsInteger   := StrToInt(VarToStr(GetExpKey3));
+            end else begin
+              ParamByName('pExpKey3'    ).AsInteger   := 0;
+            end;
+            ParamByName('pMakerID'    ).AsInteger   := StrToInt(VarToStr(GetMakerID));
+            ParamByName('pBrandNameID').AsInteger   := StrToInt(VarToStr(GetBrandNameID));
+            ParamByName('pUnitID'     ).AsInteger   := StrToInt(VarToStr(GetUnitID));
+            ParamByName('pTaxTypeID'  ).AsInteger   := StrToInt(VarToStr(GetTaxTypeID));
+            ParamByName('pTaxRateID'  ).AsInteger   := StrToInt(VarToStr(GetTaxRateID));
+            ParamByName('pQuantity'   ).AsInteger   := GetQuantity;
+            ParamByName('pExcludeTax' ).AsInteger   := GetExcludeTax;
+            ParamByName('pTax'        ).AsInteger   := GetTax;
+            ParamByName('pSubTotal'   ).AsInteger   := GetSubTotal;
+            ParamByName('pEntryDT'    ).AsDateTime  := Now;
+            ParamByName('pUpdateDT'   ).AsDateTime  := Now;
+
+            CloseTransactions;
+            SetDatabaseNames;
+            ExecSQL;
+            ATr.Commit;
           end;
-          if (Not VarIsNull(GetExpKey3))
-            And (VarToStr(GetExpKey3) <> '')
-            And (StrToInt(VarToStr(GetExpKey3)) > 0) then begin
-            Params.ParamByName('pExpKey3'    ).AsInteger   := StrToInt(VarToStr(GetExpKey3));
-          end else begin
-            Params.ParamByName('pExpKey3'    ).AsInteger   := 0;
-          end;
-          Params.ParamByName('pMakerID'    ).AsInteger   := GetMakerID;
-          Params.ParamByName('pBrandNameID').AsInteger   := GetBrandNameID;
-          Params.ParamByName('pQuantity'   ).AsInteger   := GetQuantity;
-          Params.ParamByName('pUnitID'     ).AsInteger   := GetUnitID;
-          Params.ParamByName('pExcludeTax' ).AsInteger   := GetExcludeTax;
-          Params.ParamByName('pTaxTypeID'  ).AsInteger   := GetTaxTypeID;
-          Params.ParamByName('pTaxRateID'  ).AsInteger   := GetTaxRateID;
-          Params.ParamByName('pTax'        ).AsInteger   := GetTax;
-          Params.ParamByName('pSubTotal'   ).AsInteger   := GetSubTotal;
-          Params.ParamByName('pEntryDT'    ).AsDateTime  := Now;
-          Params.ParamByName('pUpdateDT'   ).AsDateTime  := Now;
         end;
-        CloseTransactions;
-        ExecSQL;
-        ATr.Commit;
       end;
 
       // Clear input values
       with FrmTopMenu.Defs do begin
         CloseTransactions;
+        SetDatabaseNames;
 
         DBEdtMakerID.Text     := '';
         DBEdtBrandNameID.Text := '';
@@ -506,34 +535,61 @@ end;
 
 procedure TFrmAddDetail.ProcEntryBrandName;
 begin
-  with FrmTopMenu.Defs do begin
-    SetGoBack(False);
-    SetEntryBrandName(1);
+  try
+    try
+      with FrmTopMenu.Defs do begin
+        SetGoBack(False);
+        SetEntryBrandName(1);
 
-    FrmEntryBrandName := TFrmEntryBrandName.Create(Application);
-    OpenForm(Self, FrmEntryBrandName);
+        FrmEntryBrandName := TFrmEntryBrandName.Create(Application);
+        OpenForm(Self, FrmEntryBrandName);
+      end;
+    except
+      on E: Exception do begin
+        ShowMessage(E.Message);
+      end;
+    end;
+  finally
   end;
 end;
 
 procedure TFrmAddDetail.ProcEntryMaker;
 begin
-  with FrmTopMenu.Defs do begin
-    SetGoBack(False);
-    SetEntryMaker(1);
+  try
+    try
+      with FrmTopMenu.Defs do begin
+        SetGoBack(False);
+        SetEntryMaker(1);
 
-    FrmEntryMaker := TFrmEntryMaker.Create(Application);
-    OpenForm(Self, FrmEntryMaker);
+        FrmEntryMaker := TFrmEntryMaker.Create(Application);
+        OpenForm(Self, FrmEntryMaker);
+      end;
+    except
+      on E: Exception do begin
+        ShowMessage(E.Message);
+      end;
+    end;
+  finally
   end;
 end;
 
 procedure TFrmAddDetail.ProcEntryUnit;
 begin
-  with FrmTopMenu.Defs do begin
-    SetGoBack(False);
-    SetEntryUnit(1);
+  try
+    try
+      with FrmTopMenu.Defs do begin
+        SetGoBack(False);
+        SetEntryUnit(1);
 
-    FrmEntryUnit := TFrmEntryUnit.Create(Application);
-    OpenForm(Self, FrmEntryUnit);
+        FrmEntryUnit := TFrmEntryUnit.Create(Application);
+        OpenForm(Self, FrmEntryUnit);
+      end;
+    except
+      on E: Exception do begin
+        ShowMessage(E.Message);
+      end;
+    end;
+  finally
   end;
 end;
 
@@ -545,6 +601,16 @@ end;
 procedure TFrmAddDetail.SetGoBack(GoBack: boolean);
 begin
   FGoBack := GoBack;
+end;
+
+function TFrmAddDetail.GetTaxRate: Real;
+begin
+  Result := FTaxRate;
+end;
+
+procedure TFrmAddDetail.SetTaxRate(TaxRate: Real);
+begin
+  FTaxRate := TaxRate;
 end;
 
 function TFrmAddDetail.GetQuantity: Variant;
@@ -600,21 +666,25 @@ end;
 procedure TFrmAddDetail.SelectExp2(
   var Cn2: TSQLite3Connection; var DS2: TDataSource;
   var Tr2: TSQLTransaction; var Qu2: TSQLQuery);
-var
-  i        : Integer;
 begin
   try
-    with FrmTopMenu.Defs do begin
-      with Qu2 do begin
-        OpenConn(Cn2, DS2, Tr2, Qu2);
+    try
+      with FrmTopMenu.Defs do begin
+        with Qu2 do begin
+          OpenConn(Cn2, DS2, Tr2, Qu2);
 
-        SQL.Text     := SQL_20120001;
-        with Params do begin
-          ParamByName('pUserID').AsInteger  := GetUID;
-          ParamByName('pExpKey1').AsInteger := GetExpKey1;
+          SQL.Text     := SQL_20120001;
+          with Params do begin
+            ParamByName('pUserID').AsInteger  := GetUID;
+            ParamByName('pExpKey1').AsInteger := StrToInt(VarToStr(GetExpKey1));
+          end;
+          Tr2.StartTransaction;
+          Open;
         end;
-        Tr2.StartTransaction;
-        Open;
+      end;
+    except
+      on E: ESQLDatabaseError do begin
+        ShowMessage(E.Message);
       end;
     end;
   finally
@@ -624,26 +694,29 @@ end;
 procedure TFrmAddDetail.SelectExp3(
   var Cn3: TSQLite3Connection; var DS3: TDataSource;
   var Tr3: TSQLTransaction; var Qu3: TSQLQuery);
-var
-  i        : Integer;
-  LRow     : Integer;
 begin
   try
-    with FrmTopMenu.Defs do begin
-      with Qu3 do begin
-        OpenConn(Cn3, DS3, Tr3, Qu3);
+    try
+      with FrmTopMenu.Defs do begin
+        with Qu3 do begin
+          OpenConn(Cn3, DS3, Tr3, Qu3);
 
-        SQL.Text     := SQL_20120002;
-        with Params do begin
-          ParamByName('pUserID').AsInteger  := GetUID;
-          ParamByName('pExpKey1').AsInteger := GetExpKey1;
-          if Not VarIsNull(DBLCBExp2.KeyValue) then begin
-            ParamByName('pExpKey2').AsInteger := DBLCBExp2.KeyValue;
+          SQL.Text     := SQL_20120002;
+          with Params do begin
+            ParamByName('pUserID').AsInteger  := GetUID;
+            ParamByName('pExpKey1').AsInteger := StrToInt(VarToStr(GetExpKey1));
+            if Not VarIsNull(DBLCBExp2.KeyValue) then begin
+              ParamByName('pExpKey2').AsInteger := StrToInt(VarToStr(DBLCBExp2.KeyValue));
 
-            Tr3.Active        := True;
-            Open;
+              Tr3.Active        := True;
+              Open;
+            end;
           end;
         end;
+      end;
+    except
+      on E: ESQLDatabaseError do begin
+        ShowMessage(E.Message);
       end;
     end;
   finally
@@ -688,494 +761,655 @@ end;
 
 procedure TFrmAddDetail.DBLCBMakerChange(Sender: TObject);
 begin
-  if Not VarIsNull(DBLCBMaker.KeyValue) then begin
-    if VarToStr(DBLCBMaker.KeyValue) <> DBEdtMakerID.Text then begin
-      DBEdtMakerID.Text := DBLCBMaker.KeyValue;
-      with FrmTopMenu.Defs do begin
-        SetMakerID(DBLCBMaker.KeyValue);
+  try
+    try
+      if Not VarIsNull(DBLCBMaker.KeyValue) then begin
+        if VarToStr(DBLCBMaker.KeyValue) <> DBEdtMakerID.Text then begin
+          DBEdtMakerID.Text := DBLCBMaker.KeyValue;
+          with FrmTopMenu.Defs do begin
+            SetMakerID(DBLCBMaker.KeyValue);
 
-        // Set BrandName ComboBox
-        OpenSelQuBrandAndSetVal(ACnBrand, ADSBrand, ATrBrand, AQuBrand,
-        DBLCBBrandName, DBEdtBrandNameID, SQL_20140001, 0);
+            // Set BrandName ComboBox
+            OpenSelQuBrandAndSetVal(ACnBrand, ADSBrand, ATrBrand, AQuBrand,
+            DBLCBBrandName, DBEdtBrandNameID, SQL_20140001, 0);
+          end;
+        end;
+      end;
+    except
+      on E: ESQLDatabaseError do begin
+        ShowMessage(E.Message);
       end;
     end;
+  finally
   end;
 end;
 
 procedure TFrmAddDetail.DBLCBBrandNameChange(Sender: TObject);
 begin
-  if Not VarIsNull(DBLCBBrandName.KeyValue) then begin
-    if VarToStr(DBLCBBrandName.KeyValue) <> DBEdtBrandNameID.Text then begin
-      DBEdtBrandNameID.Text := DBLCBBrandName.KeyValue;
-      with FrmTopMenu.Defs do begin
-        SetBrandNameID(DBLCBBrandName.KeyValue);
+  try
+    try
+      if Not VarIsNull(DBLCBBrandName.KeyValue) then begin
+        if VarToStr(DBLCBBrandName.KeyValue) <> DBEdtBrandNameID.Text then begin
+          DBEdtBrandNameID.Text := DBLCBBrandName.KeyValue;
+          with FrmTopMenu.Defs do begin
+            SetBrandNameID(DBLCBBrandName.KeyValue);
+          end;
+        end;
+      end else begin
+        DBEdtBrandNameID.Text := '';
+      end;
+    except
+      on E: Exception do begin
+        ShowMessage(E.Message);
       end;
     end;
-  end else begin
-    DBEdtBrandNameID.Text := '';
+  finally
   end;
 end;
 
 procedure TFrmAddDetail.DBLCBExp2Change(Sender: TObject);
 begin
-  if Not VarIsNull(DBLCBExp2.KeyValue) then begin
-    if VarToStr(DBLCBExp2.KeyValue) <> DBEdtExpKey2.Text then begin
-      DBEdtExpKey2.Text := DBLCBExp2.KeyValue;
-      with FrmTopMenu.Defs do begin
-        SetExpKey2(DBLCBExp2.KeyValue);
+  try
+    try
+      if Not VarIsNull(DBLCBExp2.KeyValue) then begin
+        if VarToStr(DBLCBExp2.KeyValue) <> DBEdtExpKey2.Text then begin
+          DBEdtExpKey2.Text := DBLCBExp2.KeyValue;
+          with FrmTopMenu.Defs do begin
+            SetExpKey2(DBLCBExp2.KeyValue);
+          end;
+          SelectExp3(ACnExp3, ADSExp3, ATrExp3, AQuExp3);
+          if AQuExp3.RecordCount = 0 then begin
+            DBEdtExpKey3.Text := '';
+          end;
+        end;
       end;
-      SelectExp3(ACnExp3, ADSExp3, ATrExp3, AQuExp3);
-      if AQuExp3.RecordCount = 0 then begin
-        DBEdtExpKey3.Text := '';
+    except
+      on E: Exception do begin
+        ShowMessage(E.Message);
       end;
     end;
+  finally
   end;
 end;
 
 procedure TFrmAddDetail.DBLCBExp3Change(Sender: TObject);
 begin
-  if Not VarIsNull(DBLCBExp3.KeyValue) then begin
-    if StrToInt(VarToStr(DBLCBExp3.KeyValue)) > 0 then begin
-      if VarToStr(DBLCBExp3.KeyValue) <> DBEdtExpKey3.Text then begin
-        DBEdtExpKey3.Text := DBLCBExp3.KeyValue;
-        with FrmTopMenu.Defs do begin
-          SetExpKey3(DBLCBExp3.KeyValue);
+  try
+    try
+      if Not VarIsNull(DBLCBExp3.KeyValue) then begin
+        if StrToInt(VarToStr(DBLCBExp3.KeyValue)) > 0 then begin
+          if VarToStr(DBLCBExp3.KeyValue) <> DBEdtExpKey3.Text then begin
+            DBEdtExpKey3.Text := DBLCBExp3.KeyValue;
+            with FrmTopMenu.Defs do begin
+              SetExpKey3(DBLCBExp3.KeyValue);
+            end;
+          end;
+        end else begin
+          DBEdtExpKey3.Text := '';
         end;
+      end else begin
+        DBEdtExpKey3.Text := '';
       end;
-    end else begin
-      DBEdtExpKey3.Text := '';
+    except
+      on E: Exception do begin
+        ShowMessage(E.Message);
+      end;
     end;
-  end else begin
-    DBEdtExpKey3.Text := '';
+  finally
   end;
 end;
 
 procedure TFrmAddDetail.DBLCBUnitChange(Sender: TObject);
 begin
-  DBEdtUnitID.Text := VarToStr(DBLCBUnit.KeyValue);
+  try
+    try
+       DBEdtUnitID.Text := VarToStr(DBLCBUnit.KeyValue);
+    except
+      on E: Exception do begin
+        ShowMessage(E.Message);
+      end;
+    end;
+  finally
+  end;
 end;
 
 procedure TFrmAddDetail.DBLCBTaxTypeChange(Sender: TObject);
+var
+  result : Real;
 begin
-  DBEdtTaxTypeID.Text := VarToStr(DBLCBTaxType.KeyValue);
-  if Not VarIsNull(DBLCBTaxType.KeyValue) then begin
-    with AQuTaxType do begin
-      First;
-      while Not EOF do begin
-        if FieldByName('TAX_TYPE_ID').AsInteger = StrToInt(VarToStr(DBLCBTaxType.KeyValue)) then begin
-          Break;
+  try
+    try
+      DBEdtTaxTypeID.Text := VarToStr(DBLCBTaxType.KeyValue);
+      if Not VarIsNull(DBLCBTaxType.KeyValue) then begin
+        with AQuTaxType do begin
+          First;
+          while Not EOF do begin
+            if FieldByName('TAX_TYPE_ID').AsInteger = StrToInt(VarToStr(DBLCBTaxType.KeyValue)) then begin
+              Break;
+            end;
+            Next;
+          end;
+
+          with FrmTopMenu.Defs do begin
+            SetTaxRateID(FieldByName('TAX_RATE_ID').AsVariant);
+          end;
+
+          Result := FieldByName('TAX_RATE').AsFloat / 100;
+          SetTaxRate(Result);
         end;
-        Next;
-      end;
 
-      with FrmTopMenu.Defs do begin
-        SetTaxRateID(FieldByName('TAX_RATE_ID').AsVariant);
+        if (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 1)
+          Or (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 2) then begin
+          if (DBEdtExcludeTax.Text <> '')
+            And (StrToInt(DBEdtExcludeTax.Text) <> 0) then begin
+              EdtTax.Text := FormatFloat(
+                '#,##0',
+                Round(StrToInt(VarToStr(GetExcludeTax)) * GetTaxRate));
+          end else begin
+              EdtTax.Text := FormatFloat('#,##0', 0);
+          end;
+        end else if ((StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 3)
+            Or (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 4))
+            And (EdtSubTotal.Text <> '') then begin
+            CalcInclusiveTax;
+        end else if (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 5) then begin
+          DBEdtTax.Text := IntToStr(0);
+          EdtTax.Text := DBEdtTax.Text;
+          if DBEdtExcludeTax.Text <> '' then begin
+            DBEdtExcludeTax.Text := DBEdtSubTotal.Text;
+            EdtSubTotal.Text
+              := FormatFloat('#,##0', StrToInt(DBEdtSubTotal.Text));
+          end;
+        end;
       end;
-
-      FTaxRate := FieldByName('TAX_RATE').AsInteger / 100;
+    except
+      on E: Exception do begin
+        ShowMessage(E.Message);
+      end;
     end;
-
-    if (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 1)
-      Or (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 2) then begin
-      if (DBEdtExcludeTax.Text <> '')
-        And (StrToInt(DBEdtExcludeTax.Text) <> 0) then begin
-          EdtTax.Text := FormatFloat('#,##0', Round(StrToInt(VarToStr(GetExcludeTax)) * FTaxRate));
-      end else begin
-          EdtTax.Text := FormatFloat('#,##0', 0);
-      end;
-    end else if ((StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 3)
-        Or (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 4))
-        And (EdtSubTotal.Text <> '') then begin
-        CalcInclusiveTax;
-    end else if (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 5) then begin
-      DBEdtTax.Text := IntToStr(0);
-      EdtTax.Text := DBEdtTax.Text;
-      if DBEdtExcludeTax.Text <> '' then begin
-        DBEdtExcludeTax.Text := DBEdtSubTotal.Text;
-        EdtSubTotal.Text
-          := FormatFloat('#,##0', StrToInt(DBEdtSubTotal.Text));
-      end;
-    end;
+  finally
   end;
 end;
 
 procedure TFrmAddDetail.DBLCBTaxTypeExit(Sender: TObject);
 begin
-  DBEdtTaxTypeID.Text := VarToStr(DBLCBTaxType.KeyValue);
+  try
+    try
+      DBEdtTaxTypeID.Text := VarToStr(DBLCBTaxType.KeyValue);
 
-  if (Not VarIsNull(DBLCBTaxType.KeyValue)) And (EdtExcludeTax.Text <> '') then begin
-    EdtAmount.TabStop  := False;
-    EdtAmount.ReadOnly := True;
-    if (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 1)
-          Or (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 2) then begin
-      EdtExcludeTax.TabStop  := True;
-      EdtExcludeTax.ReadOnly := False;
-      EdtTax.TabStop         := True;
-      EdtTax.ReadOnly        := False;
+      if (Not VarIsNull(DBLCBTaxType.KeyValue)) And (EdtExcludeTax.Text <> '') then begin
+        EdtAmount.TabStop  := False;
+        EdtAmount.ReadOnly := True;
+        if (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 1)
+              Or (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 2) then begin
+          EdtExcludeTax.TabStop  := True;
+          EdtExcludeTax.ReadOnly := False;
+          EdtTax.TabStop         := True;
+          EdtTax.ReadOnly        := False;
 
-      EdtTax.Text :=
-        FormatFloat('#,##0', Round(StrToInt(VarToStr(GetExcludeTax)) * FTaxRate));
-    end else if ((StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 3)
-      Or (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 4))
-      And (EdtSubTotal.Text <> '') then begin
-        EdtExcludeTax.TabStop  := False;
-        EdtExcludeTax.ReadOnly := True;
-        EdtTax.TabStop         := False;
-        EdtTax.ReadOnly        := True;
+          EdtTax.Text :=
+            FormatFloat(
+              '#,##0',
+              Round(StrToInt(VarToStr(GetExcludeTax)) * GetTaxRate));
+        end else if ((StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 3)
+          Or (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 4))
+          And (EdtSubTotal.Text <> '') then begin
+            EdtExcludeTax.TabStop  := False;
+            EdtExcludeTax.ReadOnly := True;
+            EdtTax.TabStop         := False;
+            EdtTax.ReadOnly        := True;
 
-        CalcInclusiveTax;
-    end else if (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 5) then begin
-      // Tax Free
-      EdtExcludeTax.TabStop  := False;
-      EdtExcludeTax.ReadOnly := True;
-      EdtTax.TabStop         := False;
-      EdtTax.ReadOnly        := True;
+            CalcInclusiveTax;
+        end else if (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 5) then begin
+          // Tax Free
+          EdtExcludeTax.TabStop  := False;
+          EdtExcludeTax.ReadOnly := True;
+          EdtTax.TabStop         := False;
+          EdtTax.ReadOnly        := True;
 
-      DBEdtTax.Text := IntToStr(0);
-      EdtTax.Text := DBEdtTax.Text;
-      if (DBEdtExcludeTax.Text <> '')
-        And (StrToInt(DBEdtExcludeTax.Text) <> 0) then begin
-        DBEdtExcludeTax.Text := DBEdtSubTotal.Text;
-        EdtSubTotal.Text
-          := FormatFloat('#,##0', StrToInt(DBEdtSubTotal.Text));
-      end else begin
-        DBEdtExcludeTax.Text := IntToStr(0);
-        EdtSubTotal.Text
-          := FormatFloat('#,##0', 0);
+          DBEdtTax.Text := IntToStr(0);
+          EdtTax.Text := DBEdtTax.Text;
+          if (DBEdtExcludeTax.Text <> '')
+            And (StrToInt(DBEdtExcludeTax.Text) <> 0) then begin
+            DBEdtExcludeTax.Text := DBEdtSubTotal.Text;
+            EdtSubTotal.Text
+              := FormatFloat('#,##0', StrToInt(DBEdtSubTotal.Text));
+          end else begin
+            DBEdtExcludeTax.Text := IntToStr(0);
+            EdtSubTotal.Text
+              := FormatFloat('#,##0', 0);
+          end;
+        end;
+      end;
+    except
+      on E: Exception do begin
+        ShowMessage(E.Message);
       end;
     end;
+  finally
   end;
 end;
 
 procedure TFrmAddDetail.EdtQuantityExit(Sender: TObject);
 begin
-  DBEdtQuantity.Text := StringReplace(EdtQuantity.Text, ',', '', [rfReplaceAll]);
-  SetQuantity(DBEdtQuantity.Text);
+  try
+    try
+      DBEdtQuantity.Text := StringReplace(EdtQuantity.Text, ',', '', [rfReplaceAll]);
+      GetQuantity.SetQuantity(DBEdtQuantity.Text);
 
-  if VarToStr(GetQuantity) <> '' then begin
-    EdtQuantity.Text := FormatFloat('#,##0', GetQuantity);
-  end else begin
-    EdtQuantity.Text := FormatFloat('#,##0', 0);
-  end;
-  if (DBEdtExcludeTax.Text <> '')
-    And (StrToInt(DBEdtExcludeTax.Text) <> 0)
-    And (Not VarIsNull(GetQuantity))
-    And (VarToStr(GetQuantity) <> '')
-    And (StrToInt(VarToStr(GetQuantity)) > 0) then begin
-      SetExcludeTax(AQu.FieldByName('EXCLUDE_TAX').AsVariant);
-      EdtAmount.Text
-        := FormatFloat(
-          '#,##0.000',
-          StrToInt(VarToStr(GetExcludeTax)) / StrToInt(VarToStr(GetQuantity)));
-  end else begin
-    EdtAmount.Text := FormatFloat('#,##0.000', 0);
+      if VarToStr(GetQuantity) <> '' then begin
+        EdtQuantity.Text := FormatFloat('#,##0', StrToInt(VarToStr(GetQuantity)));
+      end else begin
+        EdtQuantity.Text := FormatFloat('#,##0', 0);
+      end;
+      if (DBEdtExcludeTax.Text <> '')
+        And (StrToInt(DBEdtExcludeTax.Text) <> 0)
+        And (Not VarIsNull(GetQuantity))
+        And (VarToStr(GetQuantity) <> '')
+        And (StrToInt(VarToStr(GetQuantity)) > 0) then begin
+          SetExcludeTax(AQu.FieldByName('EXCLUDE_TAX').AsVariant);
+          EdtAmount.Text
+            := FormatFloat(
+              '#,##0.000',
+              StrToInt(VarToStr(GetExcludeTax)) / StrToInt(VarToStr(GetQuantity)));
+      end else begin
+        EdtAmount.Text := FormatFloat('#,##0.000', 0);
+      end;
+    except
+      on E: Exception do begin
+        ShowMessage(E.Message);
+      end;
+    end;
+  finally
   end;
 end;
 
 procedure TFrmAddDetail.EdtAmountChange(Sender: TObject);
 begin
-  SetAmount(EdtAmount.Text);
+  try
+    try
+      GetAmount.SetAmount(EdtAmount.Text);
+    except
+      on E: Exception do begin
+        ShowMessage(E.Message);
+      end;
+    end;
+  finally
+  end;
 end;
 
 procedure TFrmAddDetail.EdtExcludeTaxExit(Sender: TObject);
+var
+  Result : Real;
 begin
-  FTaxRate := AQuTaxType.FieldByName('TAX_RATE').AsInteger / 100;
+  try
+    try
+      Result := AQuTaxType.FieldByName('TAX_RATE').AsInteger / 100;
+      SetTaxRate(Result);
 
-  DBEdtExcludeTax.Text := StringReplace(EdtExcludeTax.Text, ',', '', [rfReplaceAll]);
+      DBEdtExcludeTax.Text := StringReplace(EdtExcludeTax.Text, ',', '', [rfReplaceAll]);
 
-  if DBEdtExcludeTax.Text <> '' then begin
-    SetExcludeTax(DBEdtExcludeTax.Text);
-  end else begin
-    SetExcludeTax(0);
-  end;
+      if DBEdtExcludeTax.Text <> '' then begin
+        GetExcludeTax.SetExcludeTax(DBEdtExcludeTax.Text);
+      end else begin
+        GetExcludeTax.SetExcludeTax(0);
+      end;
 
-  if ((StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 1)
-    Or (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 2))
-    And (Not VarIsNull(GetExcludeTax))
-    And (VarToStr(GetExcludeTax) <> '')
-    And (StrToInt(VarToStr(GetExcludeTax)) <> 0)
-    And (Not VarIsNull(GetQuantity))
-    And (VarToStr(GetQuantity) <> '')
-    And (StrToInt(VarToStr(GetQuantity)) > 0) then begin
-      EdtAmount.Text
-        := FormatFloat(
-          '#,##0.000',
-          StrToInt(VarToStr(GetExcludeTax)) /
-          StrToInt(VarToStr(GetQuantity)));
-      DBEdtTax.Text
-        := IntToStr(Round(StrToInt(VarToStr(GetExcludeTax)) * FTaxRate));
-      EdtTax.Text        := FormatFloat('#,##0', StrToInt(DBEdtTax.Text));
-      DBEdtSubTotal.Text := IntToStr(StrToInt(DBEdtExcludeTax.Text) + StrToInt(DBEdtTax.Text));
-      EdtSubTotal.Text   := FormatFloat('#,##0', StrToInt(DBEdtSubTotal.Text));
-  end else begin
-    EdtAmount.Text     := FormatFloat('#,##0.000', 0);
-    DBEdtTax.Text      := IntToStr(0);
-    EdtTax.Text        := FormatFloat('#,##0', StrToInt(DBEdtTax.Text));
-    DBEdtSubTotal.Text := IntToStr(0);
-    EdtSubTotal.Text   := FormatFloat('#,##0', StrToInt(DBEdtSubTotal.Text));
+      if ((StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 1)
+        Or (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 2))
+        And (Not VarIsNull(GetExcludeTax))
+        And (VarToStr(GetExcludeTax) <> '')
+        And (StrToInt(VarToStr(GetExcludeTax)) <> 0)
+        And (Not VarIsNull(GetQuantity))
+        And (VarToStr(GetQuantity) <> '')
+        And (StrToInt(VarToStr(GetQuantity)) > 0) then begin
+          EdtAmount.Text
+            := FormatFloat(
+              '#,##0.000',
+              StrToInt(VarToStr(GetExcludeTax)) /
+              StrToInt(VarToStr(GetQuantity)));
+          DBEdtTax.Text
+            := IntToStr(Round(
+              StrToInt(VarToStr(GetExcludeTax)) * FTaxRate));
+          EdtTax.Text        := FormatFloat('#,##0', StrToInt(DBEdtTax.Text));
+          DBEdtSubTotal.Text := IntToStr(StrToInt(DBEdtExcludeTax.Text) + StrToInt(DBEdtTax.Text));
+          EdtSubTotal.Text   := FormatFloat('#,##0', StrToInt(DBEdtSubTotal.Text));
+      end else begin
+        EdtAmount.Text     := FormatFloat('#,##0.000', 0);
+        DBEdtTax.Text      := IntToStr(0);
+        EdtTax.Text        := FormatFloat('#,##0', StrToInt(DBEdtTax.Text));
+        DBEdtSubTotal.Text := IntToStr(0);
+        EdtSubTotal.Text   := FormatFloat('#,##0', StrToInt(DBEdtSubTotal.Text));
+      end;
+    except
+      on E: Exception do begin
+        ShowMessage(E.Message);
+      end;
+    end;
+  finally
   end;
 end;
 
 procedure TFrmAddDetail.EdtTaxChange(Sender: TObject);
 begin
-  if (EdtTax.Text <> '')
-    And (StrToInt(StringReplace(EdtTax.Text, ',', '', [rfReplaceAll])) > 0) then begin
-    DBEdtTax.Text := StringReplace(EdtTax.Text, ',', '', [rfReplaceAll]);
-  end else begin
-    DBEdtTax.Text := '';
+  try
+    try
+      if (EdtTax.Text <> '')
+        And (StrToInt(StringReplace(EdtTax.Text, ',', '', [rfReplaceAll])) > 0) then begin
+        DBEdtTax.Text := StringReplace(EdtTax.Text, ',', '', [rfReplaceAll]);
+      end else begin
+        DBEdtTax.Text := '';
+      end;
+      GetTax.SetTax(DBEdtTax.Text);
+    except
+      on E: Exception do begin
+        ShowMessage(E.Message);
+      end;
+    end;
+  finally
   end;
-  SetTax(DBEdtTax.Text);
 end;
 
 procedure TFrmAddDetail.EdtTaxExit(Sender: TObject);
 begin
-  if (Not VarIsNull(GetExcludeTax))
-    And (VarToStr(GetExcludeTax) <> '')
-    And (Not VarIsNull(GetTax))
-    And (VarToStr(GetTax) <> '') then begin
-      EdtSubTotal.Text := FormatFloat('#,##0', StrToInt(VarToStr(GetExcludeTax)) + StrToInt(VarToStr(GetTax)));
+  try
+    try
+      if (Not VarIsNull(GetExcludeTax))
+        And (VarToStr(GetExcludeTax) <> '')
+        And (Not VarIsNull(GetTax))
+        And (VarToStr(GetTax) <> '') then begin
+          EdtSubTotal.Text := FormatFloat('#,##0', StrToInt(VarToStr(GetExcludeTax)) + StrToInt(VarToStr(GetTax)));
+      end;
+    except
+      on E: Exception do begin
+        ShowMessage(E.Message);
+      end;
+    end;
+  finally
   end;
 end;
 
 procedure TFrmAddDetail.EdtSubTotalChange(Sender: TObject);
 begin
-  if (EdtSubTotal.Text <> '-') then begin
-    if (EdtSubTotal.Text <> '')
-      And (StrToInt(StringReplace(EdtSubTotal.Text, ',', '', [rfReplaceAll])) <> 0) then begin
-      DBEdtSubTotal.Text := StringReplace(EdtSubTotal.Text, ',', '', [rfReplaceAll]);
-    end else begin
-      DBEdtQuantity.Text   := '';
-      DBEdtExcludeTax.Text := '';
-      DBEdtTax.Text        := '';
-      DBEdtSubTotal.Text   := '';
+  try
+    try
+      if (EdtSubTotal.Text <> '-') then begin
+        if (EdtSubTotal.Text <> '')
+          And (StrToInt(StringReplace(EdtSubTotal.Text, ',', '', [rfReplaceAll])) <> 0) then begin
+          DBEdtSubTotal.Text := StringReplace(EdtSubTotal.Text, ',', '', [rfReplaceAll]);
+        end else begin
+          DBEdtQuantity.Text   := '';
+          DBEdtExcludeTax.Text := '';
+          DBEdtTax.Text        := '';
+          DBEdtSubTotal.Text   := '';
+        end;
+      end;
+    except
+      on E: Exception do begin
+        ShowMessage(E.Message);
+      end;
     end;
+  finally
   end;
 end;
 
 procedure TFrmAddDetail.EdtSubTotalExit(Sender: TObject);
 begin
-  if StrToInt(StringReplace(EdtSubTotal.Text, ',', '', [rfReplaceAll])) <> 0 then begin
-    DBEdtSubTotal.Text := StringReplace(EdtSubTotal.Text, ',', '', [rfReplaceAll]);
-  end else begin
-    DBEdtSubTotal.Text := '';
-  end;
-
-  if (DBEdtSubTotal.Text <> '')
-    And (StrToInt(DBEdtSubTotal.Text) > 0) then begin
-    SetSubTotal(DBEdtSubTotal.Text);
-  end else begin
-    SetSubTotal(0);
-  end;
-
-  if (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 1)
-    Or (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 2) then begin
-    if GetSubTotal > 0 then begin
-      EdtSubTotal.Text := FormatFloat('#,##0', GetSubTotal);
-    end else begin
-      EdtQuantity.Text   := '';
-      EdtExcludeTax.Text := '';
-      EdtTax.Text        := '';
-      EdtSubTotal.Text   := '';
-    end;
-  end else if (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 3)
-    Or (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 4) then begin
-    if GetSubTotal > 0 then begin
-      CalcInclusiveTax;
-    end else begin
-      EdtQuantity.Text   := '';
-      EdtExcludeTax.Text := '';
-      EdtTax.Text        := '';
-      EdtSubTotal.Text   := '';
-    end;
-  end else if (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 5) then begin
-    // Tax Free
-    DBEdtTax.Text := IntToStr(0);
-    EdtTax.Text := DBEdtTax.Text;
-    if DBEdtSubTotal.Text <> '' then begin
-      EdtSubTotal.Text
-        := FormatFloat('#,##0', StrToInt(DBEdtSubTotal.Text));
-      DBEdtExcludeTax.Text := DBEdtSubTotal.Text;
-      SetExcludeTax(DBEdtExcludeTax.Text);
-      EdtExcludeTax.Text   := FormatFloat('#,##0', GetExcludeTax);
-
-      if (Not VarIsNull(GetExcludeTax))
-          And (VarToStr(GetExcludeTax) <> '')
-          And (StrToInt(VarToStr(GetExcludeTax)) <> 0)
-          And (Not VarIsNull(GetQuantity))
-          And (VarToStr(GetQuantity) <> '')
-          And (StrToInt(VarToStr(GetQuantity)) <> 0) then begin
-        EdtAmount.Text
-          := FormatFloat('#,##0.000',
-            StrToInt(VarToStr(GetExcludeTax)) /
-            StrToInt(VarToStr(GetQuantity)));
+  try
+    try
+      if StrToInt(StringReplace(EdtSubTotal.Text, ',', '', [rfReplaceAll])) <> 0 then begin
+        DBEdtSubTotal.Text := StringReplace(EdtSubTotal.Text, ',', '', [rfReplaceAll]);
       end else begin
-        EdtAmount.Text   := FormatFloat('#,##0.000', 0);
+        DBEdtSubTotal.Text := '';
       end;
-    end else begin
-      EdtQuantity.Text   := '';
-      EdtExcludeTax.Text := '';
-      EdtTax.Text        := '';
-      EdtSubTotal.Text   := '';
+
+      if (DBEdtSubTotal.Text <> '')
+        And (StrToInt(DBEdtSubTotal.Text) > 0) then begin
+        GetSubTotal.SetSubTotal(DBEdtSubTotal.Text);
+      end else begin
+        GetSubTotal.SetSubTotal(0);
+      end;
+
+      if (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 1)
+        Or (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 2) then begin
+        if (Not VarIsNull(GetSubTotal))
+            And (VarToStr(GetSubTotal) <> '')
+            And (StrToInt(VarToStr(GetSubTotal)) <> 0) then begin
+          EdtSubTotal.Text := FormatFloat('#,##0', StrToInt(VarToStr(GetSubTotal)));
+        end else begin
+          EdtQuantity.Text   := '';
+          EdtExcludeTax.Text := '';
+          EdtTax.Text        := '';
+          EdtSubTotal.Text   := '';
+        end;
+      end else if (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 3)
+        Or (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 4) then begin
+        if (Not VarIsNull(GetSubTotal))
+            And (VarToStr(GetSubTotal) <> '')
+            And (StrToInt(VarToStr(GetSubTotal)) <> 0) then begin
+          CalcInclusiveTax;
+        end else begin
+          EdtQuantity.Text   := '';
+          EdtExcludeTax.Text := '';
+          EdtTax.Text        := '';
+          EdtSubTotal.Text   := '';
+        end;
+      end else if (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 5) then begin
+        // Tax Free
+        DBEdtTax.Text := IntToStr(0);
+        EdtTax.Text := DBEdtTax.Text;
+        if DBEdtSubTotal.Text <> '' then begin
+          EdtSubTotal.Text
+            := FormatFloat('#,##0', StrToInt(DBEdtSubTotal.Text));
+          DBEdtExcludeTax.Text := DBEdtSubTotal.Text;
+          GetExcludeTax.SetExcludeTax(DBEdtExcludeTax.Text);
+          EdtExcludeTax.Text   := FormatFloat('#,##0', StrToInt(VarToStr(GetExcludeTax)));
+
+          if (Not VarIsNull(GetExcludeTax))
+              And (VarToStr(GetExcludeTax) <> '')
+              And (StrToInt(VarToStr(GetExcludeTax)) <> 0)
+              And (Not VarIsNull(GetQuantity))
+              And (VarToStr(GetQuantity) <> '')
+              And (StrToInt(VarToStr(GetQuantity)) <> 0) then begin
+            EdtAmount.Text
+              := FormatFloat('#,##0.000',
+                StrToInt(VarToStr(GetExcludeTax)) /
+                StrToInt(VarToStr(GetQuantity)));
+          end else begin
+            EdtAmount.Text   := FormatFloat('#,##0.000', 0);
+          end;
+        end else begin
+          EdtQuantity.Text   := '';
+          EdtExcludeTax.Text := '';
+          EdtTax.Text        := '';
+          EdtSubTotal.Text   := '';
+        end;
+      end else begin
+        EdtQuantity.Text   := '';
+        EdtExcludeTax.Text := '';
+        EdtTax.Text        := '';
+        EdtSubTotal.Text   := '';
+      end;
+    except
+      on E: Exception do begin
+        ShowMessage(E.Message);
+      end;
     end;
-  end else begin
-    EdtQuantity.Text   := '';
-    EdtExcludeTax.Text := '';
-    EdtTax.Text        := '';
-    EdtSubTotal.Text   := '';
+  finally
   end;
 end;
 
 procedure TFrmAddDetail.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
-  ATr.Rollback;
+  try
+    try
+      ATr.Rollback;
 
-  CloseTransactions;
+      CloseTransactions;
 
-  // Go back to the screen
-  with FrmTopMenu.Defs do begin
-    if GetGoBack then begin
-      if GetAddDetail = 0 then begin
-        FrmManageDetails             := TFrmManageDetails.Create(Application);
-        FrmManageDetails.Visible     := True;
-      end else if GetAddDetail = 1 then begin
-        FrmEditDetailsHeader         := TFrmEditDetailsHeader.Create(Application);
-        FrmEditDetailsHeader.Visible := True;
-      end else if GetAddDetail = 2 then begin
-        FrmEditDetailsHeader         := TFrmEditDetailsHeader.Create(Application);
-        FrmEditDetailsHeader.Visible := True;
+      // Go back to the screen
+      with FrmTopMenu.Defs do begin
+        if GetGoBack then begin
+          if GetAddDetail = 0 then begin
+            FrmManageDetails             := TFrmManageDetails.Create(Application);
+            FrmManageDetails.Visible     := True;
+          end else if GetAddDetail = 1 then begin
+            FrmEditDetailsHeader         := TFrmEditDetailsHeader.Create(Application);
+            FrmEditDetailsHeader.Visible := True;
+          end else if GetAddDetail = 2 then begin
+            FrmEditDetailsHeader         := TFrmEditDetailsHeader.Create(Application);
+            FrmEditDetailsHeader.Visible := True;
+          end;
+        end;
+
+        SetAddDetail(0);
+      end;
+
+      CloseAction                  := caFree;
+      FrmAddDetail                 := nil;
+    except
+      on E: Exception do begin
+        ShowMessage(E.Message);
       end;
     end;
-
-    SetAddDetail(0);
+  finally
   end;
-
-  CloseAction                  := caFree;
-  FrmAddDetail                 := nil;
 end;
 
 procedure TFrmAddDetail.FormShow(Sender: TObject);
 begin
-  FrmAddDetail.Width := 737;
+  try
+    try
+      FrmAddDetail.Width := 737;
 
-  SetGoBack(True);
+      SetGoBack(True);
+      SetDatabaseNames;
 
-  FrmAddDetail.Color      := RGB(112, 168, 175);
-  PnlEntryMaker.Color     := RGB( 72, 122, 129);
-  PnlEntryBrandName.Color := RGB( 72, 122, 129);
-  PnlEntryUnit.Color      := RGB( 72, 122, 129);
-  PnlCancel.Color         := RGB( 72, 122, 129);
-  PnlCommit.Color         := RGB( 72, 122, 129);
-  PnlGoBack.Color         := RGB( 72, 122, 129);
+      FrmAddDetail.Color      := RGB(112, 168, 175);
+      PnlEntryMaker.Color     := RGB( 72, 122, 129);
+      PnlEntryBrandName.Color := RGB( 72, 122, 129);
+      PnlEntryUnit.Color      := RGB( 72, 122, 129);
+      PnlCancel.Color         := RGB( 72, 122, 129);
+      PnlCommit.Color         := RGB( 72, 122, 129);
+      PnlGoBack.Color         := RGB( 72, 122, 129);
 
-  with FrmTopMenu.Defs do begin
-    if Not VarIsNull(GetMakerID) then begin
-      OpenSelQuAndSetVal(ACnMaker, ADSMaker, ATrMaker, AQuMaker,
-      DBLCBMaker, DBEdtMakerID, SQL_20130002, GetMakerID);
-    end else begin
-      OpenSelQuAndSetVal(ACnMaker, ADSMaker, ATrMaker, AQuMaker,
-      DBLCBMaker, DBEdtMakerID, SQL_20130002, 0);
-      DBLCBMaker.KeyValue := -1;
-      DBEdtMakerID.Text   := '';
+      with FrmTopMenu.Defs do begin
+        if Not VarIsNull(GetMakerID) then begin
+          OpenSelQuAndSetVal(ACnMaker, ADSMaker, ATrMaker, AQuMaker,
+          DBLCBMaker, DBEdtMakerID, SQL_20130002, StrToInt(VarToStr(GetMakerID)));
+        end else begin
+          OpenSelQuAndSetVal(ACnMaker, ADSMaker, ATrMaker, AQuMaker,
+          DBLCBMaker, DBEdtMakerID, SQL_20130002, 0);
+          DBLCBMaker.KeyValue.KeyValue := -1;
+          DBEdtMakerID.Text            := '';
+        end;
+
+        if Not VarIsNull(GetBrandNameID) then begin
+          OpenSelQuBrandAndSetVal(ACnBrand, ADSBrand, ATrBrand, AQuBrand,
+          DBLCBBrandName, DBEdtBrandNameID, SQL_20140001, StrToInt(VarToStr(GetBrandNameID)));
+        end else begin
+          OpenSelQuBrandAndSetVal(ACnBrand, ADSBrand, ATrBrand, AQuBrand,
+            DBLCBBrandName, DBEdtBrandNameID, SQL_20140001, 0);
+          DBLCBBrandName.KeyValue.KeyValue := -1;
+          DBEdtBrandNameID.Text            := '';
+        end;
+
+        DBEdtExpKey1.Text := GetExpKey1;
+        SelectExp2(ACnExp2, ADSExp2, ATrExp2, AQuExp2);
+        if (Not VarIsNull(GetExpKey2))
+          And (VarToStr(GetExpKey2) <> '')
+          And (StrToInt(VarToStr(GetExpKey2)) > 0) then begin
+            DBEdtExpKey2.Text := VarToStr(GetExpKey2);
+            DBLCBExp2.KeyValue := GetExpKey2;
+        end else begin
+          DBLCBExp2.KeyValue.KeyValue := -1;
+          DBEdtExpKey2.Text  := '';
+        end;
+
+        SelectExp3(ACnExp3, ADSExp3, ATrExp3, AQuExp3);
+        if (Not VarIsNull(GetExpKey3))
+          And (VarToStr(GetExpKey3) <> '')
+          And (StrToInt(VarToStr(GetExpKey3)) > 0) then begin
+            DBEdtExpKey3.Text := VarToStr(GetExpKey3);
+            DBLCBExp3.KeyValue := GetExpKey3;
+        end else begin
+          DBLCBExp3.KeyValue.KeyValue := -1;
+          DBEdtExpKey3.Text           := '';
+        end;
+
+        if Not VarIsNull(GetUnitID) then begin
+          OpenSelQuUnitAndSetVal(ACnUnit, ADSUnit, ATrUnit, AQuUnit,
+            DBLCBUnit, DBEdtUnitID, SQL_20150001, StrToInt(VarToStr(GetUnitID)));
+        end else begin
+          OpenSelQuUnitAndSetVal(ACnUnit, ADSUnit, ATrUnit, AQuUnit,
+          DBLCBUnit, DBEdtUnitID, SQL_20150001, 0);
+          DBLCBUnit.KeyValue.KeyValue := -1;
+          DBEdtUnitID.Text   := '';
+        end;
+
+        if Not VarIsNull(GetTaxTypeID) then begin
+          OpenSelQuTaxTypeAndSetVal(ACnTaxType, ADSTaxType, ATrTaxType, AQuTaxType,
+          DBLCBTaxType, DBEdtTaxTypeID, SQL_20120004, StrToInt(VarToStr(GetTaxTypeID)));
+        end else begin
+          OpenSelQuTaxTypeAndSetVal(
+            ACnTaxType, ADSTaxType, ATrTaxType, AQuTaxType,
+            DBLCBTaxType, DBEdtTaxTypeID, SQL_20120004, 0);
+          DBLCBTaxType.KeyValue.KeyValue := -1;
+          DBEdtTaxTypeID.Text   := '';
+        end;
+
+        if GetQuantity > 0 then begin
+            DBEdtQuantity.Text := IntToStr(GetQuantity);
+            EdtQuantity.Text   := FormatFloat('#,##0', GetQuantity);
+        end else begin
+          EdtQuantity.Text     := FormatFloat('#,##0', 0);
+        end;
+
+        if GetExcludeTax <> 0 then begin
+            DBEdtExcludeTax.Text := IntToStr(GetExcludeTax);
+            EdtExcludeTax.Text   := FormatFloat('#,##0', GetExcludeTax);
+        end else begin
+          EdtExcludeTax.Text     := FormatFloat('#,##0', 0);
+        end;
+
+        if (GetExcludeTax <> 0)
+            And (GetQuantity > 0) then begin
+          EdtAmount.Text := FormatFloat('#,##0.000', GetExcludeTax / GetQuantity);
+        end else begin
+          EdtAmount.Text := FormatFloat('#,##0.000', 0);
+        end;
+
+        if GetTax > 0 then begin
+            DBEdtTax.Text := IntToStr(GetTax);
+            EdtTax.Text   := FormatFloat('#,##0', GetTax);
+        end else begin
+          EdtTax.Text     := FormatFloat('#,##0', 0);
+        end;
+
+        if GetSubTotal > 0 then begin
+            DBEdtSubTotal.Text := IntToStr(GetSubTotal);
+            EdtSubTotal.Text   := FormatFloat('#,##0', GetSubTotal);
+        end else begin
+          EdtSubTotal.Text     := FormatFloat('#,##0', 0);
+        end;
+
+        DBEdtUserID.Text   := GetUID.ToString;
+        DBEdtHeaderID.Text := GetHID.ToString;
+
+        SetEntryMaker(0);
+        SetEntryAccount(0);
+        SetEntryUnit(0);
+      end;
+
+      { Debug }
+      //FrmAddDetail.Width := 1272;
+    except
+      on E: ESQLDatabaseError do begin
+        ShowMessage(E.Message);
+      end;
     end;
-
-    if Not VarIsNull(GetBrandNameID) then begin
-      OpenSelQuBrandAndSetVal(ACnBrand, ADSBrand, ATrBrand, AQuBrand,
-      DBLCBBrandName, DBEdtBrandNameID, SQL_20140001, GetBrandNameID);
-    end else begin
-      OpenSelQuBrandAndSetVal(ACnBrand, ADSBrand, ATrBrand, AQuBrand,
-      DBLCBBrandName, DBEdtBrandNameID, SQL_20140001, 0);
-      DBLCBBrandName.KeyValue := -1;
-      DBEdtBrandNameID.Text   := '';
-    end;
-
-    DBEdtExpKey1.Text := GetExpKey1;
-    SelectExp2(ACnExp2, ADSExp2, ATrExp2, AQuExp2);
-    if (Not VarIsNull(GetExpKey2))
-      And (VarToStr(GetExpKey2) <> '')
-      And (StrToInt(VarToStr(GetExpKey2)) > 0) then begin
-        DBEdtExpKey2.Text := VarToStr(GetExpKey2);
-        DBLCBExp2.KeyValue := GetExpKey2;
-    end else begin
-      DBLCBExp2.KeyValue := -1;
-      DBEdtExpKey2.Text  := '';
-    end;
-
-    SelectExp3(ACnExp3, ADSExp3, ATrExp3, AQuExp3);
-    if (Not VarIsNull(GetExpKey3))
-      And (VarToStr(GetExpKey3) <> '')
-      And (StrToInt(VarToStr(GetExpKey3)) > 0) then begin
-        DBEdtExpKey3.Text := VarToStr(GetExpKey3);
-        DBLCBExp3.KeyValue := GetExpKey3;
-    end else begin
-      DBLCBExp3.KeyValue := -1;
-      DBEdtExpKey3.Text  := '';
-    end;
-
-    if Not VarIsNull(GetUnitID) then begin
-      OpenSelQuUnitAndSetVal(ACnUnit, ADSUnit, ATrUnit, AQuUnit,
-      DBLCBUnit, DBEdtUnitID, SQL_20150001, GetUnitID);
-    end else begin
-      OpenSelQuUnitAndSetVal(ACnUnit, ADSUnit, ATrUnit, AQuUnit,
-      DBLCBUnit, DBEdtUnitID, SQL_20150001, 0);
-      DBLCBUnit.KeyValue := -1;
-      DBEdtUnitID.Text   := '';
-    end;
-
-    if Not VarIsNull(GetTaxTypeID) then begin
-      OpenSelQuTaxTypeAndSetVal(ACnTaxType, ADSTaxType, ATrTaxType, AQuTaxType,
-      DBLCBTaxType, DBEdtTaxTypeID, SQL_20120004, GetTaxTypeID);
-    end else begin
-      OpenSelQuTaxTypeAndSetVal(ACnTaxType, ADSTaxType, ATrTaxType, AQuTaxType,
-      DBLCBTaxType, DBEdtTaxTypeID, SQL_20120004, 0);
-      DBLCBTaxType.KeyValue := -1;
-      DBEdtTaxTypeID.Text   := '';
-    end;
-
-    if GetQuantity > 0 then begin
-        DBEdtQuantity.Text := IntToStr(GetQuantity);
-        EdtQuantity.Text   := FormatFloat('#,##0', GetQuantity);
-    end else begin
-      EdtQuantity.Text     := FormatFloat('#,##0', 0);
-    end;
-
-    if GetExcludeTax <> 0 then begin
-        DBEdtExcludeTax.Text := IntToStr(GetExcludeTax);
-        EdtExcludeTax.Text   := FormatFloat('#,##0', GetExcludeTax);
-    end else begin
-      EdtExcludeTax.Text     := FormatFloat('#,##0', 0);
-    end;
-
-    if (GetExcludeTax <> 0)
-        And (GetQuantity > 0) then begin
-      EdtAmount.Text := FormatFloat('#,##0.000', GetExcludeTax / GetQuantity);
-    end else begin
-      EdtAmount.Text := FormatFloat('#,##0.000', 0);
-    end;
-
-    if GetTax > 0 then begin
-        DBEdtTax.Text := IntToStr(GetTax);
-        EdtTax.Text   := FormatFloat('#,##0', GetTax);
-    end else begin
-      EdtTax.Text     := FormatFloat('#,##0', 0);
-    end;
-
-    if GetSubTotal > 0 then begin
-        DBEdtSubTotal.Text := IntToStr(GetSubTotal);
-        EdtSubTotal.Text   := FormatFloat('#,##0', GetSubTotal);
-    end else begin
-      EdtSubTotal.Text     := FormatFloat('#,##0', 0);
-    end;
-
-    DBEdtUserID.Text   := GetUID.ToString;
-    DBEdtHeaderID.Text := GetHID.ToString;
-
-    SetEntryMaker(0);
-    SetEntryAccount(0);
-    SetEntryUnit(0);
+  finally
   end;
-
-  { Debug }
-  //FrmAddDetail.Width := 1272;
 end;
 
 end.

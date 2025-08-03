@@ -1332,7 +1332,6 @@ object FrmAddDetail: TFrmAddDetail
   object ACn: TSQLite3Connection
     Connected = False
     LoginPrompt = False
-    DatabaseName = './KakeiBonDB.sqlite3'
     KeepConnection = False
     Transaction = ATr
     AlwaysUseBigint = False
@@ -1342,7 +1341,6 @@ object FrmAddDetail: TFrmAddDetail
   object ACnNextID: TSQLite3Connection
     Connected = False
     LoginPrompt = False
-    DatabaseName = './KakeiBonDB.sqlite3'
     KeepConnection = False
     Transaction = ATrNextID
     AlwaysUseBigint = False
@@ -1352,7 +1350,6 @@ object FrmAddDetail: TFrmAddDetail
   object ACnMaker: TSQLite3Connection
     Connected = False
     LoginPrompt = False
-    DatabaseName = './KakeiBonDB.sqlite3'
     KeepConnection = False
     Transaction = ATrMaker
     AlwaysUseBigint = False
@@ -1362,7 +1359,6 @@ object FrmAddDetail: TFrmAddDetail
   object ACnBrand: TSQLite3Connection
     Connected = False
     LoginPrompt = False
-    DatabaseName = './KakeiBonDB.sqlite3'
     KeepConnection = False
     Transaction = ATrBrand
     AlwaysUseBigint = False
@@ -1372,7 +1368,6 @@ object FrmAddDetail: TFrmAddDetail
   object ACnExp2: TSQLite3Connection
     Connected = False
     LoginPrompt = False
-    DatabaseName = './KakeiBonDB.sqlite3'
     KeepConnection = False
     Transaction = ATrExp2
     AlwaysUseBigint = False
@@ -1382,7 +1377,6 @@ object FrmAddDetail: TFrmAddDetail
   object ACnExp3: TSQLite3Connection
     Connected = False
     LoginPrompt = False
-    DatabaseName = './KakeiBonDB.sqlite3'
     KeepConnection = False
     Transaction = ATrExp3
     AlwaysUseBigint = False
@@ -1392,7 +1386,6 @@ object FrmAddDetail: TFrmAddDetail
   object ACnUnit: TSQLite3Connection
     Connected = False
     LoginPrompt = False
-    DatabaseName = './KakeiBonDB.sqlite3'
     KeepConnection = False
     Transaction = ATrUnit
     AlwaysUseBigint = False
@@ -1402,7 +1395,6 @@ object FrmAddDetail: TFrmAddDetail
   object ACnTaxType: TSQLite3Connection
     Connected = False
     LoginPrompt = False
-    DatabaseName = './KakeiBonDB.sqlite3'
     KeepConnection = False
     Transaction = ATrTaxType
     AlwaysUseBigint = False

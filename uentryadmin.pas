@@ -40,6 +40,7 @@ type
   private
     Defs           : TDefs;
     procedure CloseTransactions;
+    procedure SetDatabaseNames;
     procedure ProcClearPaw;
     procedure ProcCommit;
   public
@@ -64,6 +65,13 @@ begin
   end;
 end;
 
+procedure TFrmEntryAdmin.SetDatabaseNames;
+begin
+  with FrmTopMenu.Defs do begin
+    ACn.DatabaseName       := GetHomeDir + DB_NAME;
+  end;
+end;
+
 procedure TFrmEntryAdmin.ProcClearPaw;
 begin
   Defs.ClearPaw(EdtPaw, EdtPawConfirm);
@@ -71,24 +79,21 @@ end;
 
 procedure TFrmEntryAdmin.ProcCommit;
 var
-  AConn        : TSQLite3Connection;
-  ATransaction : TSQLTransaction;
-  ASQLQuery    : TSQLQuery;
   AExistsDB    : Boolean;
 begin
   try
     // Initialize
     AExistsDB          := False;
-    AConn              := TSQLite3Connection.Create(nil);
-    AConn.DatabaseName := DB_NAME;
+    ACn              := TSQLite3Connection.Create(nil);
+    ACn.DatabaseName := DB_NAME;
 
-    if FileExists(AConn.DatabaseName) then begin
+    if FileExists(ACn.DatabaseName) then begin
       AExistsDB := True;
     end;
 
-    ATransaction       := TSQLTransaction.Create(AConn);
-    AConn.Transaction  := ATransaction;
-    ASQLQuery          := TSQLQuery.Create(AConn);
+    ATr              := TSQLTransaction.Create(ACn);
+    ACn.Transaction  := ATr;
+    AQu              := TSQLQuery.Create(ACn);
 
     if Not AExistsDB then begin
       if EdtAdminUserId.Text = '' then begin
@@ -109,8 +114,6 @@ begin
         try
           with ACn do begin
             Open;
-
-            ATransaction.StartTransaction;
 
             // Create USERS table and index
             // 1st query (USERS)
@@ -188,6 +191,7 @@ begin
           end;
 
           CloseTransactions;
+          SetDatabaseNames;
           ATr.Commit;
         finally
           FrmTopMenu.Visible := True;
@@ -227,9 +231,15 @@ end;
 
 procedure TFrmEntryAdmin.FormShow(Sender: TObject);
 begin
+  SetDatabaseNames;
+
   FrmEntryAdmin.Color := RGB(112, 168, 175);
   PnlClearPaw.Color  := RGB( 72, 122, 129);
   PnlCommit.Color     := RGB( 72, 122, 129);
+
+  with FrmTopMenu.Defs do begin
+    ACn.DatabaseName := GetHomeDir + DB_NAME;
+  end;
 
   FrmEntryAdmin.Height := 279;
 

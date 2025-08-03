@@ -63,10 +63,8 @@ type
     FInsert     : Boolean;
     FIsDisabled : Boolean;
     FDoCommit   : Boolean;
-    FUnitID     : Variant;
-    FUnit       : String;
-    FDisabled   : Boolean;
     procedure CloseTransactions;
+    procedure SetDatabaseNames;
     procedure BackupValues;
     procedure ProcInsert;
     procedure ProcCancel;
@@ -77,9 +75,9 @@ type
     procedure SetUnit(ArgUnit: String);
     function GetDisabled: Boolean;
     procedure SetDisabled(Disabled: Boolean);
-    property UnitID: Variant read GetUnitID write SetUnitID;
-    property ArgUnit: String read GetUnit write SetUnit;
-    property Disabled: Boolean read GetDisabled write SetDisabled;
+    property FUnitID: Variant read GetUnitID write SetUnitID;
+    property FArgUnit: String read GetUnit write SetUnit;
+    property FDisabled: Boolean read GetDisabled write SetDisabled;
   public
 
   end;
@@ -89,7 +87,7 @@ var
 
 implementation
 uses
-  UTopMenu, UManageDetails, UAddDetail, UEditDetail;
+  UConsts, UTopMenu, UManageDetails, UAddDetail, UEditDetail;
 
 {$R *.lfm}
 
@@ -103,10 +101,18 @@ begin
   end;
 end;
 
+procedure TFrmEntryUnit.SetDatabaseNames;
+begin
+  with FrmTopMenu.Defs do begin
+    ACn.DatabaseName       := GetHomeDir + DB_NAME;
+    ACnNextID.DatabaseName := GetHomeDir + DB_NAME;
+  end;
+end;
+
 procedure TFrmEntryUnit.BackupValues;
 begin
-if DBEdtUnitID.Text <> '' then begin;
-    SetUnitID(DBEdtUnitID.Text);
+  if DBEdtUnitID.Text <> '' then begin;
+    GetUnitID.SetUnitID(DBEdtUnitID.Text);
   end else begin
     SetUnitID(Null);
   end;
@@ -122,14 +128,23 @@ end;
 
 procedure TFrmEntryUnit.ProcCancel;
 begin
-  if FInsert then begin
-    FInsert := False;
+  try
+    try
+      with FrmTopMenu.Defs do begin
+        if FInsert then begin
+          FInsert := False;
+        end;
+        ATr.Rollback;
+        OpenSelectQueryByUnit(ACn, ADS, ATr, AQu, SQL_20150001);
+        DBEdtUnit.SetFocus;
+      end;
+    except
+      on E: ESQLDatabaseError do begin
+        ShowMessage(E.Message);
+      end;
+    end;
+  finally
   end;
-  ATr.Rollback;
-  with FrmTopMenu.Defs do begin
-    OpenSelectQueryByUnit(ACn, ADS, ATr, AQu, SQL_20150001);
-  end;
-  DBEdtUnit.SetFocus;
 end;
 
 procedure TFrmEntryUnit.ProcCommit;
@@ -138,31 +153,30 @@ var
 begin
   try
     try
-      with ATr do begin
-        if Not Active then begin
-          StartTransaction;
-        end;
-      end;
+      with FrmTopMenu.Defs do begin
+        with AQu do begin
+          SQL.Text := SQL_20150003;
+          if (VarIsNull(GetUnitID))
+              Or (VarToStr(GetUnitID) = '') then begin
+            OpenSelectQueryByUnit(ACnNextID, ADSNextID, ATrNextID, AQuNextID, SQL_20150002);
+            LNextUnitID                            := AQuNextID.FieldByName('NEXT_ID').AsInteger;
+            CloseConn(ACnNextID, ATrNextID);
+            SetDatabaseNames;
+            Params.ParamByName('pUnitID').AsInteger := LNextUnitID;
+          end else begin
+            Params.ParamByName('pUnitID').AsInteger := StrToInt(VarToStr(GetUnitID));
+          end;
+          Params.ParamByName('pUnit').AsAnsiString   := GetUnit;
+          Params.ParamByName('pOrderID').AsInteger   := Params.ParamByName('pUnitID').AsInteger;
+          Params.ParamByName('pDisabled').AsBoolean  := GetDisabled;
+          Params.ParamByName('pEntryDT').AsDateTime  := Now;
+          Params.ParamByName('pUpdateDT').AsDateTime := Now;
 
-      with AQu do begin
-        SQL.Text := SQL_20150003;
-        if (VarIsNull(GetUnitID)) Or (GetUnitID = '') then begin
-          FrmTopMenu.Defs.OpenSelectQueryByUnit(ACnNextID, ADSNextID, ATrNextID, AQuNextID, SQL_20150002);
-          LNextUnitID                            := AQuNextID.FieldByName('NEXT_ID').AsInteger;
-          FrmTopMenu.Defs.CloseConn(ACnNextID, ATrNextID);
-          Params.ParamByName('pUnitID').AsInteger := LNextUnitID;
-        end else begin
-          Params.ParamByName('pUnitID').AsInteger := GetUnitID;
+          CloseTransactions;
+          SetDatabaseNames;
+          ExecSQL;
+          ATr.Commit;
         end;
-        Params.ParamByName('pUnit').AsAnsiString   := GetUnit;
-        Params.ParamByName('pOrderID').AsInteger   := Params.ParamByName('pUnitID').AsInteger;
-        Params.ParamByName('pDisabled').AsBoolean  := GetDisabled;
-        Params.ParamByName('pEntryDT').AsDateTime  := Now;
-        Params.ParamByName('pUpdateDT').AsDateTime := Now;
-
-        CloseTransactions;
-        ExecSQL;
-        ATr.Commit;
       end;
     except
       on E: ESQLDatabaseError do
@@ -206,12 +220,12 @@ end;
 
 function TFrmEntryUnit.GetUnit: String;
 begin
-  Result := FUnit;
+  Result := FArgUnit;
 end;
 
 procedure TFrmEntryUnit.SetUnit(ArgUnit: String);
 begin
-  FUnit := ArgUnit;
+  FArgUnit := ArgUnit;
 end;
 
 function TFrmEntryUnit.GetDisabled: Boolean;
@@ -286,33 +300,54 @@ end;
 
 procedure TFrmEntryUnit.FormShow(Sender: TObject);
 begin
+  SetDatabaseNames;
+
   FReOpenDS   := False;
   FIsDisabled := False;
   FDoCommit   := False;
 
   try
-    FrmTopMenu.Defs.OpenSelectQueryByUnit(ACn, ADS, ATr, AQu, SQL_20150001);
-    ADBGrid.DataSource := ADS;
-    if AQu.RecordCount = 0 then begin
-      ProcInsert;
-    end else begin
-      FInsert := False;
+    try
+      with FrmTopMenu.Defs do begin
+        OpenSelectQueryByUnit(ACn, ADS, ATr, AQu, SQL_20150001);
+        ADBGrid.DataSource := ADS;
+        if AQu.RecordCount = 0 then begin
+          ProcInsert;
+        end else begin
+          FInsert := False;
+        end;
+        ADBGrid.AutoAdjustColumns;
+        DBEdtUnit.SetFocus;
+      end;
+    except
+      on E: ESQLDatabaseError do begin
+        ShowMessage(E.Message);
+      end;
     end;
-    ADBGrid.AutoAdjustColumns;
-    DBEdtUnit.SetFocus;
   finally
   end;
 end;
 
 procedure TFrmEntryUnit.TimerTimer(Sender: TObject);
 begin
-  if FReOpenDS then
-  begin
-    FrmTopMenu.Defs.OpenSelectQueryByUnit(ACn, ADS, ATr, AQu, SQL_20150001);
-    ADBGrid.DataSource := ADS;
+  try
+    try
+      with FrmTopMenu.Defs do begin
+        if FReOpenDS then
+        begin
+          OpenSelectQueryByUnit(ACn, ADS, ATr, AQu, SQL_20150001);
+          ADBGrid.DataSource := ADS;
 
-    FReOpenDS          := False;
-    Timer.Enabled      := False;
+          FReOpenDS          := False;
+          Timer.Enabled      := False;
+        end;
+      end;
+    except
+      on E: ESQLDatabaseError do begin
+        ShowMessage(E.Message);
+      end;
+    end;
+  finally
   end;
 end;
 

@@ -12,6 +12,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   Font.Name = '0xProto Nerd Font Mono'
   Font.Style = [fsBold]
   Position = poScreenCenter
+  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnShow = FormShow
   object LblDateTime1: TLabel
@@ -1410,7 +1411,6 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   object ACn: TSQLite3Connection
     Connected = False
     LoginPrompt = False
-    DatabaseName = './KakeiBonDB.sqlite3'
     KeepConnection = False
     Transaction = ATr
     CharSet = 'UTF-8'
@@ -1421,7 +1421,6 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   object ACnDetail: TSQLite3Connection
     Connected = False
     LoginPrompt = False
-    DatabaseName = './KakeiBonDB.sqlite3'
     KeepConnection = False
     Transaction = ATrDetail
     CharSet = 'UTF-8'
@@ -1432,7 +1431,6 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   object ACnNextID: TSQLite3Connection
     Connected = False
     LoginPrompt = False
-    DatabaseName = './KakeiBonDB.sqlite3'
     KeepConnection = False
     Transaction = ATrNextID
     CharSet = 'UTF-8'
@@ -1441,9 +1439,8 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     Top = 168
   end
   object ACnShop: TSQLite3Connection
-    Connected = True
+    Connected = False
     LoginPrompt = False
-    DatabaseName = './KakeiBonDB.sqlite3'
     KeepConnection = False
     Transaction = ATrShop
     CharSet = 'UTF-8'
@@ -1454,7 +1451,6 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   object ACnExp1: TSQLite3Connection
     Connected = False
     LoginPrompt = False
-    DatabaseName = './KakeiBonDB.sqlite3'
     KeepConnection = False
     Transaction = ATrExp1
     CharSet = 'UTF-8'
@@ -1465,7 +1461,6 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   object ACnFromAC: TSQLite3Connection
     Connected = False
     LoginPrompt = False
-    DatabaseName = './KakeiBonDB.sqlite3'
     KeepConnection = False
     Transaction = ATrFromAC
     CharSet = 'UTF-8'
@@ -1476,7 +1471,6 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   object ACnToAC: TSQLite3Connection
     Connected = False
     LoginPrompt = False
-    DatabaseName = './KakeiBonDB.sqlite3'
     KeepConnection = False
     Transaction = ATrToAC
     CharSet = 'UTF-8'

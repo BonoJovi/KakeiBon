@@ -555,7 +555,6 @@ object FrmManageExp: TFrmManageExp
   object ACn1: TSQLite3Connection
     Connected = False
     LoginPrompt = False
-    DatabaseName = './KakeiBonDB.sqlite3'
     KeepConnection = False
     Transaction = ATr1
     CharSet = 'UTF-8'
@@ -566,7 +565,6 @@ object FrmManageExp: TFrmManageExp
   object ACn2: TSQLite3Connection
     Connected = False
     LoginPrompt = False
-    DatabaseName = './KakeiBonDB.sqlite3'
     KeepConnection = False
     Transaction = ATr2
     CharSet = 'UTF-8'
@@ -577,7 +575,6 @@ object FrmManageExp: TFrmManageExp
   object ACn3: TSQLite3Connection
     Connected = False
     LoginPrompt = False
-    DatabaseName = './KakeiBonDB.sqlite3'
     KeepConnection = False
     Transaction = ATr3
     CharSet = 'UTF-8'

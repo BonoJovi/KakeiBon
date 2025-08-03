@@ -14,6 +14,14 @@ type
   { TFrmManageUser }
 
   TFrmManageUser = class(TForm)
+    ACn              : TSQLite3Connection;
+    ADS              : TDataSource;
+    ATr              : TSQLTransaction;
+    AQu              : TSQLQuery;
+    ACnByCount       : TSQLite3Connection;
+    ADSByCount       : TDataSource;
+    ATrByCount       : TSQLTransaction;
+    AQuByCount       : TSQLQuery;
     ActAddUser       : TAction;
     ActEditAdminUser : TAction;
     ActEditUser      : TAction;
@@ -22,24 +30,16 @@ type
     ActRemoveUser    : TAction;
     ADataSet         : TDataSet;
     ADBGrid          : TDBGrid;
-    ADS              : TDataSource;
-    ADSByCount       : TDataSource;
-    AQu              : TSQLQuery;
-    AQuByCount       : TSQLQuery;
-    ATr              : TSQLTransaction;
-    ATrByCount       : TSQLTransaction;
-    BtnAddUser: TButton;
-    BtnEditAdminUser: TButton;
-    BtnEditUser: TButton;
-    BtnGoBack: TButton;
-    BtnRemoveUser: TButton;
+    BtnAddUser       : TButton;
+    BtnEditAdminUser : TButton;
+    BtnEditUser      : TButton;
+    BtnGoBack        : TButton;
+    BtnRemoveUser    : TButton;
     PnlAddUser       : TPanel;
     PnlEditAdminUser : TPanel;
     PnlEditUser      : TPanel;
     PnlGoBack        : TPanel;
     PnlRemoveUser    : TPanel;
-    ACn: TSQLite3Connection;
-    ACnByCount: TSQLite3Connection;
     Timer            : TTimer;
     procedure ActAddUserExecute(Sender: TObject);
     procedure ActEditAdminUserExecute(Sender: TObject);
@@ -52,6 +52,9 @@ type
     procedure FormShow(Sender: TObject);
     procedure TimerTimer(Sender: TObject);
   private
+
+    procedure CloseTransactions;
+    procedure SetDatabaseNames;
     procedure ConnectUsersTable;
     function CountUser(RoleNum: Integer): Integer;
     procedure EnableButton(
@@ -76,6 +79,22 @@ uses
 {$R *.lfm}
 
 { TFrmManageUser }
+
+procedure TFrmManageUser.CloseTransactions;
+begin
+  with FrmTopMenu.Defs do begin
+    CloseConn(ACn       , ATr       );
+    CloseConn(ACnByCount, ATrByCount);
+  end;
+end;
+
+procedure TFrmManageUser.SetDatabaseNames;
+begin
+  with FrmTopMenu.Defs do begin
+    ACn.DatabaseName        := GetHomeDir + DB_NAME;
+    ACnByCount.DatabaseName := GetHomeDir + DB_NAME;
+  end;
+end;
 
 procedure TFrmManageUser.ConnectUsersTable;
 begin
@@ -155,8 +174,8 @@ end;
 
 procedure TFrmManageUser.OpenFormOrMsgDlg(Sender: TForm);
 begin
-  FrmTopMenu.Defs.CloseConn(ACn       , ATr       );
-  FrmTopMenu.Defs.CloseConn(ACnByCount, ATrByCount);
+  CloseTransactions;
+  SetDatabaseNames;
 
   with FrmTopMenu.Defs do begin
     if Not GetShowChildForm then
@@ -243,10 +262,7 @@ end;
 procedure TFrmManageUser.FormClose(Sender: TObject;
   var CloseAction: TCloseAction);
 begin
-  with FrmTopMenu.Defs do begin
-    CloseConn(ACn       , ATr       );
-    CloseConn(ACnByCount, ATrByCount);
-  end;
+  CloseTransactions;
 
   FrmTopMenu.Visible := True;
 
@@ -267,6 +283,8 @@ end;
 
 procedure TFrmManageUser.FormShow(Sender: TObject);
 begin
+  SetDatabaseNames;
+
   FrmManageUser.Color    := RGB(112, 168, 175);
   PnlAddUser.Color       := RGB( 72, 122, 129);
   PnlEditUser.Color      := RGB( 72, 122, 129);
@@ -274,7 +292,7 @@ begin
   PnlEditAdminUser.Color := RGB( 72, 122, 129);
   PnlGoBack.Color        := RGB( 72, 122, 129);
 
-  // Connecting users table with PostgreSQL
+  // Connecting users table with SQLite3
   ConnectUsersTable;
 
   with ADBGrid do begin

@@ -437,7 +437,6 @@ object FrmEntryUnit: TFrmEntryUnit
   object ACn: TSQLite3Connection
     Connected = False
     LoginPrompt = False
-    DatabaseName = './KakeiBonDB.sqlite3'
     KeepConnection = False
     Transaction = ATr
     AlwaysUseBigint = False
@@ -447,7 +446,6 @@ object FrmEntryUnit: TFrmEntryUnit
   object ACnNextID: TSQLite3Connection
     Connected = False
     LoginPrompt = False
-    DatabaseName = './KakeiBonDB.sqlite3'
     KeepConnection = False
     Transaction = ATrNextID
     AlwaysUseBigint = False

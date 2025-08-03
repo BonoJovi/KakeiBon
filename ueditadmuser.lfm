@@ -12,6 +12,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
   Font.Name = '0xProto'
   Font.Style = [fsBold]
   Position = poScreenCenter
+  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnShow = FormShow
   object LblUserID: TLabel
@@ -295,7 +296,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = 'ユーザID'
-        Width = 122
+        Width = 125
         FieldName = 'USER_ID'
       end    
       item
@@ -303,7 +304,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = 'ユーザ名'
-        Width = 122
+        Width = 125
         FieldName = 'NAME'
       end    
       item
@@ -311,7 +312,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '権限'
-        Width = 122
+        Width = 124
         FieldName = 'ROLE'
       end    
       item
@@ -319,7 +320,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '登録日'
-        Width = 122
+        Width = 124
         FieldName = 'ENTRY_DT'
       end    
       item
@@ -327,7 +328,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '更新日'
-        Width = 122
+        Width = 124
         FieldName = 'UPDATE_DT'
       end>
     DataSource = ADS
@@ -387,7 +388,6 @@ object FrmEditAdmUser: TFrmEditAdmUser
   object ACn: TSQLite3Connection
     Connected = False
     LoginPrompt = False
-    DatabaseName = './KakeiBonDB.sqlite3'
     KeepConnection = False
     Transaction = ATr
     AlwaysUseBigint = False

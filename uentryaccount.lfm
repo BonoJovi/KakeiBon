@@ -218,7 +218,6 @@ object FrmEntryAccount: TFrmEntryAccount
     ShowHint = True
     TabOrder = 5
     OnChange = DBEdtBrandNameChange
-    OnExit = DBEdtBrandNameExit
   end
   object LblSubName1: TLabel
     Left = 16
@@ -774,7 +773,6 @@ object FrmEntryAccount: TFrmEntryAccount
   object ACn: TSQLite3Connection
     Connected = False
     LoginPrompt = False
-    DatabaseName = './KakeiBonDB.sqlite3'
     KeepConnection = False
     Transaction = ATr
     AlwaysUseBigint = False
@@ -784,7 +782,6 @@ object FrmEntryAccount: TFrmEntryAccount
   object ACnNextID: TSQLite3Connection
     Connected = False
     LoginPrompt = False
-    DatabaseName = './KakeiBonDB.sqlite3'
     KeepConnection = False
     Transaction = ATrNextID
     AlwaysUseBigint = False

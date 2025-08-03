@@ -54,6 +54,7 @@ type
     FUName             : String;
     FPAW               : String;
     procedure CloseTransactions;
+    procedure SetDatabaseNames;
     function CheckMultiFields(NameField: Boolean): String;
     function CheckSQuoteInPAW: Boolean;
     function CheckSQuoteInUName: Boolean;
@@ -80,6 +81,13 @@ procedure TFrmEditUser.CloseTransactions;
 begin
   with FrmTopMenu.Defs do begin
     CloseConn(ACn, ATr);
+  end;
+end;
+
+procedure TFrmEditUser.SetDatabaseNames;
+begin
+  with FrmTopMenu.Defs do begin
+    ACn.DatabaseName        := GetHomeDir + DB_NAME;
   end;
 end;
 
@@ -203,7 +211,7 @@ begin
 
     with AQu do begin
       SQL.Text   := SQL_20040001;
-      if FrmTopMenu.Defs.Role = ROLE_USER then
+      if FrmTopMenu.Defs.GetRole = ROLE_USER then
       begin
         SQL.Text := SQL_20040002;
         Params.ParamByName('pName').AsAnsiString := FrmTopMenu.Defs.GetUName;
@@ -267,10 +275,11 @@ begin
         AQu.SQL.Text    := LSQL.Replace(':pFieldAndValue', LFieldAndValue);
 
         CloseTransactions;
+        SetDatabaseNames;
         AQu.ExecSQL;
 
         if (FUName <> '')
-           And (FrmTopMenu.Defs.UName = LOriginalUName)
+           And (FrmTopMenu.Defs.GetUName = LOriginalUName)
            And (FUName <> LOriginalUName) then
         begin
           ATr.Commit;
@@ -278,7 +287,7 @@ begin
         end;
 
         if (FPAW <> '')
-           And (FrmTopMenu.Defs.UName = LOriginalUName)
+           And (FrmTopMenu.Defs.GetUName = LOriginalUName)
            And (FPAW <> AQu.FieldByName('PAW').AsAnsiString) then
         begin
           ATr.Commit;
@@ -353,6 +362,8 @@ end;
 
 procedure TFrmEditUser.FormShow(Sender: TObject);
 begin
+  SetDatabaseNames;
+
   FrmEditUser.Color  := RGB(112, 168, 175);
   PnlClearPaw.Color := RGB( 72, 122, 129);
   PnlCancel.Color    := RGB( 72, 122, 129);
