@@ -841,7 +841,7 @@ begin
       end else begin
         DBEdtExcludeTax.Text := IntToStr(0);
         EdtSubTotal.Text
-          := FormatFloat('#,##0', StrToInt(DBEdtSubTotal.Text));
+          := FormatFloat('#,##0', 0);
       end;
     end;
   end;

@@ -21,8 +21,8 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="UAddDetail"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="513"/>
-        <CursorPos Y="525"/>
+        <TopLine Value="795"/>
+        <CursorPos Y="804"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -34,9 +34,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="UAddDetailsHeader"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <TopLine Value="408"/>
-        <CursorPos X="37" Y="415"/>
+        <CursorPos Y="412"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -153,10 +154,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="UEntryMaker"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
-        <TopLine Value="324"/>
-        <CursorPos Y="332"/>
+        <TopLine Value="325"/>
+        <CursorPos X="37" Y="328"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -395,76 +395,7 @@
         <UsageCount Value="9"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="24">
-      <Position>
-        <Filename Value="udbaccess.pas"/>
-        <Caret Line="310" Column="36" TopLine="302"/>
-      </Position>
-      <Position>
-        <Filename Value="uadddetailsheader.pas"/>
-        <Caret Line="649" Column="53" TopLine="644"/>
-      </Position>
-      <Position>
-        <Filename Value="uadddetail.pas"/>
-        <Caret Line="1040" Column="2" TopLine="924"/>
-      </Position>
-      <Position>
-        <Filename Value="uadddetail.pas"/>
-        <Caret Line="669" Column="17" TopLine="666"/>
-      </Position>
-      <Position>
-        <Filename Value="uadddetail.pas"/>
-      </Position>
-      <Position>
-        <Filename Value="uadddetail.pas"/>
-        <Caret Line="159" Column="29" TopLine="147"/>
-      </Position>
-      <Position>
-        <Filename Value="uentrymaker.pas"/>
-        <Caret Line="16" Column="52" TopLine="7"/>
-      </Position>
-      <Position>
-        <Filename Value="uentrymaker.pas"/>
-      </Position>
-      <Position>
-        <Filename Value="uentrymaker.pas"/>
-        <Caret Line="332" TopLine="325"/>
-      </Position>
-      <Position>
-        <Filename Value="uadddetail.pas"/>
-        <Caret Line="281" Column="26" TopLine="267"/>
-      </Position>
-      <Position>
-        <Filename Value="uadddetail.pas"/>
-        <Caret Line="669" Column="22" TopLine="665"/>
-      </Position>
-      <Position>
-        <Filename Value="uadddetail.pas"/>
-      </Position>
-      <Position>
-        <Filename Value="uadddetail.pas"/>
-        <Caret Line="158" Column="34" TopLine="146"/>
-      </Position>
-      <Position>
-        <Filename Value="uadddetail.pas"/>
-        <Caret Line="509" Column="42" TopLine="502"/>
-      </Position>
-      <Position>
-        <Filename Value="uadddetail.pas"/>
-        <Caret Line="521" TopLine="513"/>
-      </Position>
-      <Position>
-        <Filename Value="uadddetail.pas"/>
-        <Caret Line="522" TopLine="513"/>
-      </Position>
-      <Position>
-        <Filename Value="uadddetail.pas"/>
-        <Caret Line="524" TopLine="513"/>
-      </Position>
-      <Position>
-        <Filename Value="uadddetail.pas"/>
-        <Caret Line="525" TopLine="513"/>
-      </Position>
+    <JumpHistory HistoryIndex="29">
       <Position>
         <Filename Value="uentrymaker.pas"/>
         <Caret Line="332" TopLine="322"/>
@@ -493,28 +424,101 @@
         <Filename Value="uentrymaker.pas"/>
         <Caret Line="343" TopLine="335"/>
       </Position>
+      <Position>
+        <Filename Value="uadddetail.pas"/>
+        <Caret Line="520" Column="4" TopLine="513"/>
+      </Position>
+      <Position>
+        <Filename Value="uadddetail.pas"/>
+      </Position>
+      <Position>
+        <Filename Value="uadddetail.pas"/>
+        <Caret Line="132" Column="31" TopLine="119"/>
+      </Position>
+      <Position>
+        <Filename Value="uadddetail.pas"/>
+        <Caret Line="803" Column="26" TopLine="800"/>
+      </Position>
+      <Position>
+        <Filename Value="uadddetail.pas"/>
+        <Caret Line="804" TopLine="800"/>
+      </Position>
+      <Position>
+        <Filename Value="uadddetail.pas"/>
+        <Caret Line="806" TopLine="800"/>
+      </Position>
+      <Position>
+        <Filename Value="uadddetail.pas"/>
+        <Caret Line="807" TopLine="800"/>
+      </Position>
+      <Position>
+        <Filename Value="uadddetail.pas"/>
+        <Caret Line="808" TopLine="800"/>
+      </Position>
+      <Position>
+        <Filename Value="uadddetail.pas"/>
+        <Caret Line="809" TopLine="800"/>
+      </Position>
+      <Position>
+        <Filename Value="uadddetail.pas"/>
+        <Caret Line="810" TopLine="800"/>
+      </Position>
+      <Position>
+        <Filename Value="uadddetail.pas"/>
+        <Caret Line="818" TopLine="811"/>
+      </Position>
+      <Position>
+        <Filename Value="uadddetail.pas"/>
+        <Caret Line="819" TopLine="811"/>
+      </Position>
+      <Position>
+        <Filename Value="uadddetail.pas"/>
+        <Caret Line="827" TopLine="819"/>
+      </Position>
+      <Position>
+        <Filename Value="uadddetail.pas"/>
+        <Caret Line="829" TopLine="819"/>
+      </Position>
+      <Position>
+        <Filename Value="uadddetail.pas"/>
+        <Caret Line="830" TopLine="819"/>
+      </Position>
+      <Position>
+        <Filename Value="uadddetail.pas"/>
+        <Caret Line="831" TopLine="819"/>
+      </Position>
+      <Position>
+        <Filename Value="uadddetail.pas"/>
+        <Caret Line="832" TopLine="819"/>
+      </Position>
+      <Position>
+        <Filename Value="uadddetail.pas"/>
+        <Caret Line="834" TopLine="821"/>
+      </Position>
+      <Position>
+        <Filename Value="uadddetail.pas"/>
+        <Caret Line="835" TopLine="822"/>
+      </Position>
+      <Position>
+        <Filename Value="uadddetail.pas"/>
+        <Caret Line="836" TopLine="823"/>
+      </Position>
+      <Position>
+        <Filename Value="uadddetail.pas"/>
+        <Caret Line="842" TopLine="834"/>
+      </Position>
+      <Position>
+        <Filename Value="uadddetail.pas"/>
+        <Caret Line="841" Column="36" TopLine="834"/>
+      </Position>
+      <Position>
+        <Filename Value="uadddetail.pas"/>
+        <Caret Line="804" TopLine="795"/>
+      </Position>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
       <Modes ActiveMode=""/>
     </RunParams>
   </ProjectSession>
-  <Debugging>
-    <BreakPoints>
-      <Item>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="uadddetailsheader.pas"/>
-        <Line Value="412"/>
-      </Item>
-      <Item>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="uadddetail.pas"/>
-        <Line Value="521"/>
-      </Item>
-    </BreakPoints>
-  </Debugging>
 </CONFIG>
