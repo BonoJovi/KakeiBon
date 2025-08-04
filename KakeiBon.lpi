@@ -43,171 +43,149 @@
         <IsPartOfProject Value="True"/>
       </Unit>
       <Unit>
-        <Filename Value="uadddetail.pas"/>
+        <Filename Value="UAddDetail.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FrmAddDetail"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="UAddDetail"/>
       </Unit>
       <Unit>
-        <Filename Value="uadddetailsheader.pas"/>
+        <Filename Value="UAddDetailsHeader.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FrmAddDetailsHeader"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="UAddDetailsHeader"/>
       </Unit>
       <Unit>
-        <Filename Value="uadduser.pas"/>
+        <Filename Value="UAddUser.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FrmAddUser"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="UAddUser"/>
       </Unit>
       <Unit>
-        <Filename Value="udbaccess.pas"/>
+        <Filename Value="UDBAccess.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="UDBAccess"/>
       </Unit>
       <Unit>
-        <Filename Value="udefs.pas"/>
+        <Filename Value="UDefs.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="UDefs"/>
       </Unit>
       <Unit>
-        <Filename Value="ueditadmuser.pas"/>
+        <Filename Value="UEditAdmUser.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FrmEditAdmUser"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="UEditAdmUser"/>
       </Unit>
       <Unit>
-        <Filename Value="ueditdetail.pas"/>
+        <Filename Value="UEditDetail.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FrmEditDetail"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="UEditDetail"/>
       </Unit>
       <Unit>
-        <Filename Value="ueditdetailsheader.pas"/>
+        <Filename Value="UEditDetailsHeader.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FrmEditDetailsHeader"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="UEditDetailsHeader"/>
       </Unit>
       <Unit>
-        <Filename Value="uedituser.pas"/>
+        <Filename Value="UEditUser.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FrmEditUser"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="UEditUser"/>
       </Unit>
       <Unit>
-        <Filename Value="uentryaccount.pas"/>
+        <Filename Value="UEntryAccount.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FrmEntryAccount"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="UEntryAccount"/>
       </Unit>
       <Unit>
-        <Filename Value="uentryadmin.pas"/>
+        <Filename Value="UEntryAdmin.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FrmEntryAdmin"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="UEntryAdmin"/>
       </Unit>
       <Unit>
-        <Filename Value="uentrybrandname.pas"/>
+        <Filename Value="UEntryBrandName.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FrmEntryBrandName"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="UEntryBrandName"/>
       </Unit>
       <Unit>
-        <Filename Value="uentrymaker.pas"/>
+        <Filename Value="UEntryMaker.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FrmEntryMaker"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="UEntryMaker"/>
       </Unit>
       <Unit>
-        <Filename Value="uentryshop.pas"/>
+        <Filename Value="UEntryShop.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FrmEntryShop"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="UEntryShop"/>
       </Unit>
       <Unit>
-        <Filename Value="uentryunit.pas"/>
+        <Filename Value="UEntryUnit.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FrmEntryUnit"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="UEntryUnit"/>
       </Unit>
       <Unit>
-        <Filename Value="ulogin.pas"/>
+        <Filename Value="ULogin.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FrmLogin"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="ULogin"/>
       </Unit>
       <Unit>
-        <Filename Value="umanagedetails.pas"/>
+        <Filename Value="UManageDetails.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FrmManageDetails"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="UManageDetails"/>
       </Unit>
       <Unit>
-        <Filename Value="umanageexp.pas"/>
+        <Filename Value="UManageExp.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FrmManageExp"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="UManageExp"/>
       </Unit>
       <Unit>
-        <Filename Value="umanageuser.pas"/>
+        <Filename Value="UManageUser.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FrmManageUser"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="UManageUser"/>
       </Unit>
       <Unit>
-        <Filename Value="uremoveuser.pas"/>
+        <Filename Value="URemoveUser.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FrmRemoveUser"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="URemoveUser"/>
       </Unit>
       <Unit>
-        <Filename Value="utopmenu.pas"/>
+        <Filename Value="UTopMenu.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FrmTopMenu"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="UTopMenu"/>
       </Unit>
       <Unit>
-        <Filename Value="uconsts.pas"/>
+        <Filename Value="UConsts.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="UConsts"/>
       </Unit>
     </Units>
   </ProjectOptions>
@@ -230,6 +208,11 @@
         </Win32>
       </Options>
     </Linking>
+    <Other>
+      <CompilerMessages>
+        <IgnoredMessages idx5024="True" idx5023="True"/>
+      </CompilerMessages>
+    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions>

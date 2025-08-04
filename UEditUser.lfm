@@ -1,0 +1,401 @@
+object FrmEditUser: TFrmEditUser
+  Left = 709
+  Height = 612
+  Top = 174
+  Width = 658
+  BorderStyle = bsSingle
+  Caption = 'ユーザの編集'
+  ClientHeight = 612
+  ClientWidth = 658
+  Color = clWindowFrame
+  Font.Height = -21
+  Font.Name = '0xProto'
+  Font.Style = [fsBold]
+  Position = poScreenCenter
+  LCLVersion = '4.2.0.0'
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnShow = FormShow
+  object LblUserID: TLabel
+    Left = 16
+    Height = 32
+    Top = 12
+    Width = 89
+    Caption = 'ユーザID'
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object DBTextUserID: TDBText
+    Left = 200
+    Height = 26
+    Top = 16
+    Width = 443
+    AutoSize = False
+    DataField = 'USER_ID'
+    DataSource = ADS
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LblUserName: TLabel
+    Left = 17
+    Height = 32
+    Top = 56
+    Width = 144
+    Caption = 'ユーザ名 (旧)'
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object DBTextFromUserName: TDBText
+    Left = 201
+    Height = 26
+    Top = 56
+    Width = 442
+    AutoSize = False
+    DataField = 'NAME'
+    DataSource = ADS
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LblToUName: TLabel
+    Left = 280
+    Height = 32
+    Top = 80
+    Width = 21
+    Caption = '↓'
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LblUserName1: TLabel
+    Left = 16
+    Height = 32
+    Top = 115
+    Width = 144
+    Caption = 'ユーザ名 (新)'
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object EdtToUserName: TEdit
+    Cursor = crIBeam
+    Left = 199
+    Height = 49
+    Top = 108
+    Width = 443
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 0
+    OnChange = EdtToUserNameChange
+  end
+  object LblPaw: TLabel
+    Left = 17
+    Height = 32
+    Top = 171
+    Width = 105
+    Caption = 'パスワード'
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object EdtPaw: TEdit
+    Cursor = crIBeam
+    Left = 200
+    Height = 49
+    Top = 164
+    Width = 443
+    EchoMode = emNone
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
+    ParentFont = False
+    PasswordChar = ' '
+    TabOrder = 1
+  end
+  object LblPawConfirm: TLabel
+    Left = 16
+    Height = 32
+    Top = 227
+    Width = 173
+    Caption = 'パスワード(確認)'
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object EdtPawConfirm: TEdit
+    Cursor = crIBeam
+    Left = 200
+    Height = 49
+    Top = 220
+    Width = 443
+    EchoMode = emNone
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
+    ParentFont = False
+    PasswordChar = ' '
+    TabOrder = 2
+  end
+  object LblInfo: TLabel
+    Left = 309
+    Height = 32
+    Top = 268
+    Width = 334
+    Caption = '変更する項目だけ入力してください'
+    ParentColor = False
+  end
+  object DBNavigator: TDBNavigator
+    Cursor = crHandPoint
+    Left = 16
+    Height = 40
+    Top = 308
+    Width = 626
+    BevelOuter = bvNone
+    ChildSizing.EnlargeHorizontal = crsScaleChilds
+    ChildSizing.EnlargeVertical = crsScaleChilds
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 100
+    ClientHeight = 40
+    ClientWidth = 626
+    DataSource = ADS
+    Options = []
+    TabOrder = 3
+    TabStop = True
+    VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
+  end
+  object PnlClearPaw: TPanel
+    Left = 16
+    Height = 48
+    Top = 356
+    Width = 626
+    Caption = 'パスワードをクリア (CTRL+1)'
+    Color = clActiveCaption
+    Enabled = False
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto Nerd Font Mono'
+    Font.Pitch = fpFixed
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 4
+  end
+  object BtnClearPaw: TButton
+    Cursor = crHandPoint
+    Left = 24
+    Height = 32
+    Top = 364
+    Width = 610
+    Action = ActClearPaw
+    Caption = 'パスワードをクリア (CTRL+1)'
+    Color = clNone
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpFixed
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 5
+  end
+  object PnlCancel: TPanel
+    Left = 16
+    Height = 48
+    Top = 412
+    Width = 311
+    Caption = 'キャンセル (CTRL+2)'
+    Color = clActiveCaption
+    Enabled = False
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpFixed
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 6
+  end
+  object BtnCancel: TButton
+    Cursor = crHandPoint
+    Left = 24
+    Height = 32
+    Top = 420
+    Width = 296
+    Action = ActCancel
+    Caption = 'キャンセル (CTRL+2)'
+    Color = clNone
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpFixed
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 7
+  end
+  object PnlCommit: TPanel
+    Left = 332
+    Height = 48
+    Top = 412
+    Width = 310
+    Caption = '登　　　録 (CTRL+3)'
+    Color = clActiveCaption
+    Enabled = False
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpFixed
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 8
+  end
+  object BtnCommit: TButton
+    Cursor = crHandPoint
+    Left = 339
+    Height = 32
+    Top = 420
+    Width = 295
+    Action = ActCommit
+    Caption = '登　　　録 (CTRL+3)'
+    Color = clNone
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpFixed
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 9
+  end
+  object ADBGrid: TDBGrid
+    Left = 16
+    Height = 124
+    Top = 472
+    Width = 626
+    AutoFillColumns = True
+    Color = clWindow
+    Columns = <    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        Title.Caption = 'ユーザID'
+        Width = 123
+        FieldName = 'USER_ID'
+      end    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        Title.Caption = 'ユーザ名'
+        Width = 123
+        FieldName = 'NAME'
+      end    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        Title.Caption = '権限'
+        Width = 123
+        FieldName = 'ROLE'
+      end    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        Title.Caption = '登録日'
+        Width = 123
+        FieldName = 'ENTRY_DT'
+      end    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        Title.Caption = '更新日'
+        Width = 122
+        FieldName = 'UPDATE_DT'
+      end>
+    DataSource = ADS
+    ReadOnly = True
+    TabOrder = 10
+    TabStop = False
+  end
+  object ActionList: TActionList
+    Left = 480
+    Top = 144
+    object ActClearPaw: TAction
+      Caption = 'ActClearPaw'
+      ShortCut = 16433
+      OnExecute = ActClearPawExecute
+    end
+    object ActCancel: TAction
+      Caption = 'ActCancel'
+      ShortCut = 16434
+      OnExecute = ActCancelExecute
+    end
+    object ActCommit: TAction
+      Caption = 'ActCommit'
+      ShortCut = 16435
+      OnExecute = ActCommitExecute
+    end
+    object ActQuit: TAction
+      Caption = 'ActQuit'
+      ShortCut = 16465
+      OnExecute = ActQuitExecute
+    end
+  end
+  object ADS: TDataSource
+    DataSet = AQu
+    Left = 312
+    Top = 144
+  end
+  object ATr: TSQLTransaction
+    Active = False
+    Database = ACn
+    Left = 360
+    Top = 144
+  end
+  object AQu: TSQLQuery
+    FieldDefs = <>
+    Database = ACn
+    Transaction = ATr
+    SQL.Strings = (
+      'SELECT "NAME", "PAW" FROM "USERS" WHERE "ROLE" = 1;'
+    )
+    Params = <>
+    Macros = <>
+    Left = 408
+    Top = 144
+  end
+  object ACn: TSQLite3Connection
+    Connected = False
+    LoginPrompt = False
+    KeepConnection = False
+    Transaction = ATr
+    AlwaysUseBigint = False
+    Left = 264
+    Top = 144
+  end
+end

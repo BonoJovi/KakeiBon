@@ -1,0 +1,256 @@
+object FrmLogin: TFrmLogin
+  Left = 733
+  Height = 258
+  Top = 235
+  Width = 585
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
+  Caption = 'ログイン'
+  ClientHeight = 258
+  ClientWidth = 585
+  Color = clWindowFrame
+  ParentFont = True
+  PopupMode = pmAuto
+  Position = poScreenCenter
+  LCLVersion = '4.2.0.0'
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnShow = FormShow
+  object LblUserName: TLabel
+    Left = 16
+    Height = 32
+    Top = 24
+    Width = 84
+    Caption = 'ユーザ名'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpFixed
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object EdtUserName: TEdit
+    Cursor = crIBeam
+    Left = 128
+    Height = 49
+    Top = 16
+    Width = 441
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 0
+  end
+  object LblPaw: TLabel
+    Left = 16
+    Height = 32
+    Top = 81
+    Width = 105
+    Caption = 'パスワード'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpFixed
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object EdtPaw: TEdit
+    Cursor = crIBeam
+    Left = 128
+    Height = 49
+    Hint = '入力した文字は画面に表示されません'
+    Top = 73
+    Width = 441
+    EchoMode = emNone
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
+    ParentFont = False
+    ParentShowHint = False
+    PasswordChar = ' '
+    ShowHint = True
+    TabOrder = 1
+    Text = 'EdtPaw'
+  end
+  object pnlClearPaw: TPanel
+    Left = 16
+    Height = 48
+    Top = 138
+    Width = 553
+    Caption = 'パスワードをクリア (CTRL+1)'
+    Color = clActiveCaption
+    Enabled = False
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto Nerd Font Mono'
+    Font.Pitch = fpFixed
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 2
+  end
+  object pnlCancel: TPanel
+    Left = 16
+    Height = 48
+    Top = 194
+    Width = 271
+    Caption = 'キャンセル (CTRL+2)'
+    Color = clActiveCaption
+    Enabled = False
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto Nerd Font Mono'
+    Font.Pitch = fpFixed
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 4
+  end
+  object pnlLogin: TPanel
+    Left = 296
+    Height = 48
+    Top = 194
+    Width = 273
+    Caption = 'ログイン (CTRL+3)'
+    Color = clActiveCaption
+    Enabled = False
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto Nerd Font Mono'
+    Font.Pitch = fpFixed
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 6
+  end
+  object BtnLogin: TButton
+    Cursor = crHandPoint
+    Left = 304
+    Height = 32
+    Top = 202
+    Width = 256
+    Action = ActLogin
+    Caption = 'ログイン (CTRL+3)'
+    Color = clMenuHighlight
+    Default = True
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpFixed
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 7
+  end
+  object BtnCancel: TButton
+    Cursor = crHandPoint
+    Left = 24
+    Height = 32
+    Top = 202
+    Width = 256
+    Action = ActCancel
+    Caption = 'キャンセル (CTRL+2)'
+    Color = clNone
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpFixed
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 5
+  end
+  object BtnClearPaw: TButton
+    Cursor = crHandPoint
+    Left = 24
+    Height = 32
+    Top = 146
+    Width = 536
+    Action = ActClearPaw
+    Caption = 'パスワードをクリア (CTRL+1)'
+    Color = clMenuHighlight
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpFixed
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 3
+  end
+  object ActionList: TActionList
+    Left = 416
+    Top = 64
+    object ActClearPaw: TAction
+      Caption = 'ActClearPaw'
+      ShortCut = 16433
+      OnExecute = ActClearPawExecute
+    end
+    object ActCancel: TAction
+      Caption = 'ActCancel'
+      ShortCut = 16434
+      OnExecute = ActCancelExecute
+    end
+    object ActLogin: TAction
+      Caption = 'ActLogin'
+      ShortCut = 16435
+      OnExecute = ActLoginExecute
+    end
+    object ActQuit: TAction
+      Caption = 'ActQuit'
+      ShortCut = 16465
+      OnExecute = ActQuitExecute
+    end
+  end
+  object ADS: TDataSource
+    DataSet = AQu
+    Left = 248
+    Top = 64
+  end
+  object ATr: TSQLTransaction
+    Active = False
+    Database = ACn
+    Left = 296
+    Top = 64
+  end
+  object AQu: TSQLQuery
+    FieldDefs = <    
+      item
+        Name = 'USER_ID'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'NAME'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'ROLE'
+        DataType = ftUnknown
+      end>
+    Database = ACn
+    Transaction = ATr
+    Params = <>
+    Macros = <>
+    Left = 344
+    Top = 64
+  end
+  object ACn: TSQLite3Connection
+    Connected = False
+    LoginPrompt = False
+    KeepConnection = False
+    Transaction = ATr
+    AlwaysUseBigint = False
+    Left = 200
+    Top = 64
+  end
+end

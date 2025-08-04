@@ -1,0 +1,586 @@
+object FrmManageExp: TFrmManageExp
+  Left = 489
+  Height = 382
+  Top = 205
+  Width = 1016
+  BorderStyle = bsSingle
+  Caption = '費目管理'
+  ClientHeight = 382
+  ClientWidth = 1016
+  Color = clWindowFrame
+  Font.Height = -13
+  Font.Name = 'Sans'
+  Font.Style = [fsBold]
+  Position = poScreenCenter
+  LCLVersion = '4.2.0.0'
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnShow = FormShow
+  object ASG1: TStringGrid
+    Cursor = crHandPoint
+    Left = 16
+    Height = 252
+    Top = 16
+    Width = 264
+    AutoEdit = False
+    ColCount = 9
+    Columns = <    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        Title.Caption = 'USER_ID'
+        Width = 0
+      end    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        Title.Caption = 'ユーザ'
+        Width = 120
+      end    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        Title.Caption = 'EXP_KEY1'
+        Visible = False
+      end    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        Title.Caption = '費目(大)'
+        Width = 100
+      end    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        Title.Caption = 'DISABLED1'
+        Visible = False
+      end    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        Title.Caption = 'ORDER_KEY1'
+        Visible = False
+      end    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        Title.Caption = 'ENTRY_DT'
+      end    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        Title.Caption = 'UPDATE_DT'
+      end>
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing, goRowSelect, goColSpanning, goDblClickAutoSize, goSmoothScroll, goFixedRowNumbering, goSelectionActive, goFixedColSizing, goCellEllipsis]
+    Options2 = [goEditorParentColor, goEditorParentFont]
+    TabOrder = 0
+    OnClick = ASG1Click
+  end
+  object Label1: TLabel
+    Left = 288
+    Height = 32
+    Top = 122
+    Width = 21
+    Caption = '＞'
+    Font.Height = -21
+    Font.Name = '0xProto Nerd Font Mono'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object ASG2: TStringGrid
+    Cursor = crHandPoint
+    Left = 320
+    Height = 252
+    Top = 16
+    Width = 320
+    ColCount = 9
+    Columns = <    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        SizePriority = 0
+        Title.Caption = 'ID'
+        Width = 0
+      end    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        SizePriority = 0
+        Title.Caption = 'EXP_KEY1'
+        Width = 30
+      end    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        SizePriority = 0
+        Title.Caption = 'EXP_KEY2'
+        Width = 30
+      end    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        MaxSize = 500
+        Title.MultiLine = True
+        Title.Caption = '費目(中)'
+        Width = 64
+      end    
+      item
+        ButtonStyle = cbsCheckboxColumn
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        Title.Caption = '非表示'
+        Width = 64
+      end    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        Title.Caption = '並び順'
+        Width = 64
+      end    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        Title.Caption = '登録日'
+        Width = 64
+      end    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        Title.Caption = '更新日'
+        Width = 64
+      end>
+    Font.Height = -16
+    Font.Name = '0xProto Nerd Font Mono'
+    Font.Style = [fsBold]
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing, goEditing, goRowSelect, goAlwaysShowEditor, goColSpanning, goDblClickAutoSize, goSmoothScroll, goSelectionActive, goFixedColSizing, goCellEllipsis]
+    ParentFont = False
+    RowCount = 7
+    TabOrder = 1
+    OnCheckboxToggled = ASG2CheckboxToggled
+    OnClick = ASG2Click
+    OnKeyUp = ASG2KeyUp
+    OnPickListSelect = ASG2PickListSelect
+    ColWidths = (
+      64
+      0
+      30
+      30
+      64
+      64
+      64
+      64
+      64
+    )
+  end
+  object BtnAddExp2: TButton
+    Cursor = crHandPoint
+    Left = 320
+    Height = 29
+    Top = 280
+    Width = 320
+    Action = ActInsertExp2
+    Caption = '追　　　加 (CTRL+1)'
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 2
+  end
+  object Label2: TLabel
+    Left = 648
+    Height = 32
+    Top = 122
+    Width = 21
+    Caption = '＞'
+    Font.Height = -21
+    Font.Name = '0xProto Nerd Font Mono'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object ASG3: TStringGrid
+    Cursor = crHandPoint
+    Left = 680
+    Height = 252
+    Top = 16
+    Width = 320
+    ColCount = 10
+    Columns = <    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        SizePriority = 0
+        Title.Caption = 'ID'
+        Width = 0
+      end    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        SizePriority = 0
+        Title.Caption = 'EXP_KEY1'
+        Width = 0
+      end    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        SizePriority = 0
+        Title.Caption = 'EXP_KEY2'
+        Width = 0
+      end    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        Title.Caption = 'EXP_KEY3'
+        Width = 0
+      end    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        MaxSize = 500
+        Title.Caption = '費目(小)'
+        Width = 64
+      end    
+      item
+        Alignment = taCenter
+        ButtonStyle = cbsCheckboxColumn
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        Title.Caption = '非表示'
+        Width = 64
+      end    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        Title.Caption = '並び順'
+        Width = 64
+      end    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        Title.Caption = '登録日'
+        Width = 64
+      end    
+      item
+        Font.Height = -19
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
+        Title.Caption = '更新日'
+        Width = 64
+      end>
+    Font.Height = -16
+    Font.Name = '0xProto Nerd Font Mono'
+    Font.Style = [fsBold]
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing, goEditing, goRowSelect, goAlwaysShowEditor, goColSpanning, goDblClickAutoSize, goSmoothScroll, goSelectionActive, goFixedColSizing, goCellEllipsis]
+    ParentFont = False
+    RowCount = 7
+    TabOrder = 3
+    OnCheckboxToggled = ASG3CheckboxToggled
+    OnClick = ASG3Click
+    OnKeyUp = ASG3KeyUp
+    OnPickListSelect = ASG3PickListSelect
+    ColWidths = (
+      64
+      0
+      0
+      0
+      0
+      64
+      64
+      64
+      64
+      64
+    )
+  end
+  object BtnAddExp3: TButton
+    Cursor = crHandPoint
+    Left = 680
+    Height = 29
+    Top = 280
+    Width = 320
+    Action = ActInsertExp3
+    Caption = '追　　　加 (CTRL+2)'
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 4
+  end
+  object PnlGoBack: TPanel
+    Left = 16
+    Height = 48
+    Top = 320
+    Width = 984
+    Caption = '前の画面に戻る (CTRL+3)'
+    Color = clActiveCaption
+    Enabled = False
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto Nerd Font Mono'
+    Font.Pitch = fpFixed
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 5
+  end
+  object BtnGoBack: TButton
+    Cursor = crHandPoint
+    Left = 24
+    Height = 32
+    Top = 328
+    Width = 968
+    Action = ActQuit
+    Caption = '前の画面に戻る (CTRL+3)'
+    Color = clNone
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 6
+  end
+  object Timer1: TTimer
+    Enabled = False
+    Interval = 10
+    Left = 28
+    Top = 272
+  end
+  object ActionList: TActionList
+    Left = 120
+    Top = 272
+    object ActInsertExp2: TAction
+      Caption = 'ActInsertExp2'
+      ShortCut = 16433
+      OnExecute = ActInsertExp2Execute
+    end
+    object ActInsertExp3: TAction
+      Caption = 'ActInsertExp3'
+      ShortCut = 16434
+      OnExecute = ActInsertExp3Execute
+    end
+    object ActQuit: TAction
+      Caption = 'ActQuit'
+      ShortCut = 16465
+      OnExecute = ActQuitExecute
+    end
+  end
+  object ADS1: TDataSource
+    DataSet = AQu1
+    Left = 72
+    Top = 140
+  end
+  object ATr1: TSQLTransaction
+    Active = False
+    Database = ACn1
+    Left = 120
+    Top = 140
+  end
+  object AQu1: TSQLQuery
+    FieldDefs = <    
+      item
+        Name = 'USER_ID'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'EXP_KEY1'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'NAME1'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'DISABLED1'
+        DataType = ftBoolean
+      end    
+      item
+        Name = 'ORDER_KEY1'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'ENTRY_DT'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'UPDATE_DT'
+        DataType = ftUnknown
+      end>
+    Database = ACn1
+    Transaction = ATr1
+    ReadOnly = True
+    SQL.Strings = (
+      'SELECT * FROM "EXP1"'
+    )
+    Params = <>
+    Macros = <>
+    Left = 168
+    Top = 140
+  end
+  object ADS2: TDataSource
+    DataSet = AQu2
+    Left = 384
+    Top = 140
+  end
+  object ATr2: TSQLTransaction
+    Active = False
+    Database = ACn2
+    Left = 432
+    Top = 140
+  end
+  object AQu2: TSQLQuery
+    PacketRecords = 100
+    FieldDefs = <    
+      item
+        Name = 'USER_ID'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'EXP_KEY1'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'EXP_KEY2'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'NAME1'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'DISABLED2'
+        DataType = ftBoolean
+      end    
+      item
+        Name = 'ORDER_KEY2'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'ENTRY_DT'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'UPDATE_DT'
+        DataType = ftUnknown
+      end>
+    Database = ACn2
+    Transaction = ATr2
+    SQL.Strings = (
+      'SELECT * FROM "EXP1"'
+    )
+    Params = <>
+    Macros = <>
+    UsePrimaryKeyAsKey = False
+    Left = 480
+    Top = 140
+  end
+  object ADS3: TDataSource
+    DataSet = AQu3
+    Left = 752
+    Top = 140
+  end
+  object ATr3: TSQLTransaction
+    Active = False
+    Database = ACn3
+    Left = 800
+    Top = 140
+  end
+  object AQu3: TSQLQuery
+    PacketRecords = 100
+    FieldDefs = <    
+      item
+        Name = 'USER_ID'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'EXP_KEY1'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'EXP_KEY2'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'EXP_KEY3'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'NAME3'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'DISABLED3'
+        DataType = ftBoolean
+      end    
+      item
+        Name = 'ORDER_KEY3'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'ENTRY_DT'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'UPDATE_DT'
+        DataType = ftUnknown
+      end>
+    Database = ACn3
+    Transaction = ATr3
+    Params = <>
+    Macros = <>
+    Left = 848
+    Top = 140
+  end
+  object ACn1: TSQLite3Connection
+    Connected = False
+    LoginPrompt = False
+    KeepConnection = False
+    Transaction = ATr1
+    CharSet = 'UTF-8'
+    AlwaysUseBigint = False
+    Left = 24
+    Top = 140
+  end
+  object ACn2: TSQLite3Connection
+    Connected = False
+    LoginPrompt = False
+    KeepConnection = False
+    Transaction = ATr2
+    CharSet = 'UTF-8'
+    AlwaysUseBigint = False
+    Left = 336
+    Top = 140
+  end
+  object ACn3: TSQLite3Connection
+    Connected = False
+    LoginPrompt = False
+    KeepConnection = False
+    Transaction = ATr3
+    CharSet = 'UTF-8'
+    AlwaysUseBigint = False
+    Left = 696
+    Top = 140
+  end
+end
