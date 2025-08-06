@@ -12,15 +12,14 @@ object FrmEditAdmUser: TFrmEditAdmUser
   Font.Name = '0xProto'
   Font.Style = [fsBold]
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
   object LblUserID: TLabel
     Left = 16
-    Height = 32
+    Height = 24
     Top = 12
-    Width = 152
+    Width = 131
     Caption = '管理者ユーザID'
     Font.Height = -21
     Font.Name = '0xProto'
@@ -42,9 +41,9 @@ object FrmEditAdmUser: TFrmEditAdmUser
   end
   object LblUserName: TLabel
     Left = 16
-    Height = 32
+    Height = 24
     Top = 52
-    Width = 207
+    Width = 171
     Caption = '管理者ユーザ名 (旧)'
     Font.Height = -21
     Font.Name = '0xProto'
@@ -66,9 +65,9 @@ object FrmEditAdmUser: TFrmEditAdmUser
   end
   object LblToUserName: TLabel
     Left = 345
-    Height = 32
+    Height = 24
     Top = 80
-    Width = 21
+    Width = 11
     Caption = '↓'
     Font.Height = -21
     Font.Name = '0xProto'
@@ -77,9 +76,9 @@ object FrmEditAdmUser: TFrmEditAdmUser
   end
   object LblUserName1: TLabel
     Left = 16
-    Height = 32
+    Height = 24
     Top = 116
-    Width = 207
+    Width = 171
     Caption = '管理者ユーザ名 (新)'
     Font.Height = -21
     Font.Name = '0xProto'
@@ -89,7 +88,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
   object EdtToUserName: TEdit
     Cursor = crIBeam
     Left = 241
-    Height = 49
+    Height = 32
     Top = 108
     Width = 408
     TabOrder = 0
@@ -97,9 +96,9 @@ object FrmEditAdmUser: TFrmEditAdmUser
   end
   object LblPaw: TLabel
     Left = 16
-    Height = 32
+    Height = 24
     Top = 172
-    Width = 105
+    Width = 80
     Caption = 'パスワード'
     Font.Height = -21
     Font.Name = '0xProto'
@@ -109,7 +108,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
   object EdtPaw: TEdit
     Cursor = crIBeam
     Left = 241
-    Height = 49
+    Height = 32
     Top = 164
     Width = 408
     EchoMode = emNone
@@ -123,9 +122,9 @@ object FrmEditAdmUser: TFrmEditAdmUser
   end
   object LblPawConfirm: TLabel
     Left = 16
-    Height = 32
+    Height = 24
     Top = 228
-    Width = 173
+    Width = 134
     Caption = 'パスワード(確認)'
     Font.Height = -21
     Font.Name = '0xProto'
@@ -135,7 +134,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
   object EdtPawConfirm: TEdit
     Cursor = crIBeam
     Left = 241
-    Height = 49
+    Height = 32
     Top = 220
     Width = 408
     EchoMode = emNone
@@ -148,9 +147,9 @@ object FrmEditAdmUser: TFrmEditAdmUser
   end
   object LblInfo: TLabel
     Left = 315
-    Height = 32
+    Height = 24
     Top = 280
-    Width = 334
+    Width = 274
     Caption = '変更する項目だけ入力してください'
     ParentColor = False
   end
@@ -297,7 +296,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = 'ユーザID'
-        Width = 125
+        Width = 121
         FieldName = 'USER_ID'
       end    
       item
@@ -305,7 +304,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = 'ユーザ名'
-        Width = 125
+        Width = 120
         FieldName = 'NAME'
       end    
       item
@@ -313,7 +312,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '権限'
-        Width = 124
+        Width = 120
         FieldName = 'ROLE'
       end    
       item
@@ -321,7 +320,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '登録日'
-        Width = 124
+        Width = 120
         FieldName = 'ENTRY_DT'
       end    
       item
@@ -329,7 +328,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '更新日'
-        Width = 124
+        Width = 120
         FieldName = 'UPDATE_DT'
       end>
     DataSource = ADS
@@ -340,7 +339,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
     Visible = False
   end
   object ActionList: TActionList
-    Left = 504
+    Left = 216
     Top = 144
     object ActClearPaw: TAction
       Caption = 'ActClearPaw'
@@ -365,13 +364,13 @@ object FrmEditAdmUser: TFrmEditAdmUser
   end
   object ADS: TDataSource
     DataSet = AQu
-    Left = 328
+    Left = 344
     Top = 144
   end
   object ATr: TSQLTransaction
     Active = False
-    Database = ACn
-    Left = 376
+    Database = ACnUsers
+    Left = 400
     Top = 144
   end
   object AQu: TSQLQuery
@@ -383,16 +382,47 @@ object FrmEditAdmUser: TFrmEditAdmUser
     )
     Params = <>
     Macros = <>
-    Left = 424
+    Left = 456
     Top = 144
   end
   object ACn: TSQLite3Connection
     Connected = False
     LoginPrompt = False
     KeepConnection = False
-    Transaction = ATr
     AlwaysUseBigint = False
     Left = 280
     Top = 144
+  end
+  object ACnUsers: TSQLite3Connection
+    Connected = False
+    LoginPrompt = False
+    KeepConnection = False
+    Transaction = ATrUsers
+    AlwaysUseBigint = False
+    Left = 280
+    Top = 200
+  end
+  object ADSUsers: TDataSource
+    DataSet = AQuUsers
+    Left = 344
+    Top = 200
+  end
+  object ATrUsers: TSQLTransaction
+    Active = False
+    Database = ACnUsers
+    Left = 400
+    Top = 200
+  end
+  object AQuUsers: TSQLQuery
+    FieldDefs = <>
+    Database = ACnUsers
+    Transaction = ATrUsers
+    SQL.Strings = (
+      'SELECT "NAME", "PAW" FROM "USERS" WHERE "ROLE" = 1;'
+    )
+    Params = <>
+    Macros = <>
+    Left = 456
+    Top = 200
   end
 end

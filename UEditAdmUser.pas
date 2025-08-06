@@ -14,7 +14,10 @@ type
   { TFrmEditAdmUser }
 
   TFrmEditAdmUser = class(TForm)
+    ACnUsers: TSQLite3Connection;
     ADS                : TDataSource;
+    ADSUsers: TDataSource;
+    AQuUsers: TSQLQuery;
     ATr                : TSQLTransaction;
     AQu                : TSQLQuery;
     { ActionLists }
@@ -25,6 +28,7 @@ type
     ActQuit            : TAction;
     { Etc controls }
     ADBGrid            : TDBGrid;
+    ATrUsers: TSQLTransaction;
     BtnCancel: TButton;
     BtnClearPaw: TButton;
     BtnCommit: TButton;
@@ -62,7 +66,7 @@ type
     function CheckMultiFields(NameField: Boolean): String;
     function CheckSQuoteInPAW: Boolean;
     function CheckSQuoteInUName: Boolean;
-    procedure ConnectUsersTable;
+    //procedure ConnectUsersTable;
     procedure ProcCancel;
     procedure ProcClearPaw;
     procedure ProcCommit;
@@ -83,14 +87,16 @@ uses
 procedure TFrmEditAdmUser.SetDatabaseNames;
 begin
   with FrmTopMenu.Defs do begin
-    SetDatabaseName(ACn);
+    SetDatabaseName(ACn     );
+    SetDatabaseName(ACnUsers);
   end;
 end;
 
 procedure TFrmEditAdmUser.CloseTransactions;
 begin
   with FrmTopMenu.Defs do begin
-    CloseConn(ACn, ATr);
+    CloseConn(ACn     , ATr     );
+    CloseConn(ACnUsers, ATrUsers);
   end;
 end;
 
@@ -113,14 +119,14 @@ var
   LUserID        : String;
   LFieldAndValue : String;
   LRet           : String;
-  LOriginalUName : String;
+  LAdminName     : String;
+  LOriginalPaw   : String;
 begin
   try
     try
       with FrmTopMenu.Defs do begin
         // Initialize
         LFieldAndValue := '';
-        LOriginalUName := AQu.FieldByName('NAME').AsAnsiString;
 
         with AQu do begin
           DataBase    := ACn;
@@ -141,31 +147,44 @@ begin
         begin
           Exit;
         end else begin
+          CloseTransactions;
+          SetDatabaseNames;
+
+          with AQuUsers do begin
+            SQL.Text := SQL_20040001;
+            with Params do begin
+              ParamByName('pRole').AsInteger := ROLE_ADMIN;
+              Open;
+              LAdminName := FieldByName('NAME').AsAnsiString;
+              LOriginalPaw := AQuUsers.FieldByName('PAW').AsAnsiString;
+            end;
+          end;
+
+          CloseTransactions;
+          SetDatabaseNames;
+
           LFieldAndValue := LRet + ', UPDATE_DT = ''' +
           FormatDateTime('yyyy/mm/dd hh:mm:ss', Now, GetFS) + '''';
 
           AQu.SQL.Text   := LSQL.Replace(':pFieldAndValue', LFieldAndValue);
 
           CloseTransactions;
+          SetDatabaseNames;
           AQu.ExecSQL;
-          ATr.Commit;
 
           if (FUName <> '')
-             And (GetUName = LOriginalUName)
-             And (FUName <> LOriginalUName) then
-          begin
+              And (GetUName = LAdminName)
+              And ((FUName <> LAdminName)
+                  Or (FPAW <> LOriginalPaw)) then begin
+            ATr.Commit;
             SetChangedUserDef(True);
-          end;
-
-          if (FPAW <> '')
-             And (GetUName = LOriginalUName)
-             And (FPAW <> AQu.FieldByName('PAW').AsAnsiString) then
-          begin
-            SetChangedUserDef(True);
+          end else begin
+            ATr.Rollback;
+            SetChangedUserDef(False);
           end;
 
           CloseTransactions;
-          ATr.Commit;
+          SetDatabaseNames;
 
           FrmManageUser.Visible := True;
           if GetChangedUserDef then
@@ -188,41 +207,34 @@ begin
   end;
 end;
 
-procedure TFrmEditAdmUser.ConnectUsersTable;
-begin
-  try
-    try
-      with AQu do begin
-        if Not ACn.Connected then
-        begin
-          ACn.DatabaseName := DB_NAME;
-          ACn.Connected    := True;
-          ATr.DataBase     := ACn;
-          DataBase         := ACn;
-          ATr.Active       := True;
-        end;
-
-        SQL.Text           := SQL_20040001;
-        with Params do begin
-          ParamByName('pRole').AsInteger := ROLE_ADMIN;
-        end;
-
-        Open;
-      end;
-
-      ADS.DataSet             := AQu;
-      with ADBGrid do begin
-        DataSource      := ADS;
-        AutoFillColumns := True;
-      end;
-    except
-      on E: ESQLDatabaseError do begin
-        ShowMessage(E.Message);
-      end;
-    end;
-  finally
-  end;
-end;
+//procedure TFrmEditAdmUser.ConnectUsersTable;
+//begin
+//  try
+//    try
+//      with AQu do begin
+//        CloseTransactions;
+//        SetDatabaseNames;
+//        SQL.Text           := SQL_20040001;
+//        with Params do begin
+//          ParamByName('pRole').AsInteger := ROLE_ADMIN;
+//        end;
+//
+//        Open;
+//      end;
+//
+//      ADS.DataSet             := AQu;
+//      with ADBGrid do begin
+//        DataSource      := ADS;
+//        AutoFillColumns := True;
+//      end;
+//    except
+//      on E: ESQLDatabaseError do begin
+//        ShowMessage(E.Message);
+//      end;
+//    end;
+//  finally
+//  end;
+//end;
 
 function TFrmEditAdmUser.CheckMultiFields(NameField: Boolean): String;
 var
@@ -395,7 +407,30 @@ begin
   FrmEditAdmUser.Height := 442;
   FrmEditAdmUser.Width  := 667;
 
-  ConnectUsersTable;
+  try
+    try
+      with FrmTopMenu.Defs do begin
+        with AQu do begin
+          SQL.Text   := SQL_20040001;
+          with Params do begin
+            if GetRole = ROLE_ADMIN then
+            begin
+              SQL.Text := SQL_20040002;
+              ParamByName('pName').AsAnsiString := GetUName;
+            end;
+            ParamByName('pRole').AsInteger      := ROLE_ADMIN;
+          end;
+
+          Open;
+        end;
+      end;
+    except
+      on E: ESQLDatabaseError do begin
+        ShowMessage(E.Message);
+      end;
+    end;
+  finally
+  end;
 end;
 
 end.

@@ -1,5 +1,4 @@
 object FrmTopMenu: TFrmTopMenu
-  Cursor = crCross
   Left = 775
   Height = 377
   Top = 187
@@ -12,7 +11,6 @@ object FrmTopMenu: TFrmTopMenu
   DoubleBuffered = True
   ParentDoubleBuffered = False
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   Visible = True
   OnActivate = FormActivate
   OnClose = FormClose
@@ -27,8 +25,8 @@ object FrmTopMenu: TFrmTopMenu
     BevelInner = bvLowered
     BevelOuter = bvNone
     BorderStyle = bsSingle
-    ClientHeight = 72
-    ClientWidth = 595
+    ClientHeight = 68
+    ClientWidth = 591
     Color = clMoneyGreen
     ParentBackground = False
     ParentColor = False
@@ -66,7 +64,7 @@ object FrmTopMenu: TFrmTopMenu
     Caption = '入出金登録 (CTRL+1)'
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = '0xProto Nerd Font Mono'
     Font.Pitch = fpFixed
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -82,8 +80,8 @@ object FrmTopMenu: TFrmTopMenu
     BevelInner = bvLowered
     BevelOuter = bvNone
     BorderStyle = bsSingle
-    ClientHeight = 128
-    ClientWidth = 595
+    ClientHeight = 124
+    ClientWidth = 591
     Color = clMoneyGreen
     ParentBackground = False
     ParentColor = False
@@ -143,7 +141,7 @@ object FrmTopMenu: TFrmTopMenu
     Caption = 'ユーザ管理 (CTRL+U)'
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = '0xProto Nerd Font Mono'
     Font.Pitch = fpFixed
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -159,7 +157,7 @@ object FrmTopMenu: TFrmTopMenu
     Caption = '費目管理 (CTRL+E)'
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = '0xProto Nerd Font Mono'
     Font.Pitch = fpFixed
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -174,8 +172,8 @@ object FrmTopMenu: TFrmTopMenu
     BevelColor = clMoneyGreen
     BevelOuter = bvNone
     BorderStyle = bsSingle
-    ClientHeight = 128
-    ClientWidth = 595
+    ClientHeight = 124
+    ClientWidth = 591
     Color = clMoneyGreen
     ParentBackground = False
     ParentColor = False
@@ -258,8 +256,11 @@ object FrmTopMenu: TFrmTopMenu
     Action = ActLogin
     Caption = 'ログイン (CTRL+I)'
     Color = clMoneyGreen
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = '0xProto Nerd Font Mono'
+    Font.Pitch = fpFixed
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 6
@@ -274,7 +275,7 @@ object FrmTopMenu: TFrmTopMenu
     Caption = 'ログアウト (CTRL+O)'
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = '0xProto Nerd Font Mono'
     Font.Pitch = fpFixed
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -291,7 +292,7 @@ object FrmTopMenu: TFrmTopMenu
     Caption = 'KakeiBonを終了 (CTRL+Q)'
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = '0xProto Nerd Font Mono'
     Font.Pitch = fpFixed
     Font.Quality = fqDraft
     Font.Style = [fsBold]

@@ -41,6 +41,7 @@ type
     PnlManageUser    : TPanel;
     PnlQuit          : TPanel;
     Timer            : TTimer;
+    procedure SetDatabaseNames;
     procedure ActLoginExecute(Sender: TObject);
     procedure ActLogoutExecute(Sender: TObject);
     procedure ActEntryDetailsExecute(Sender: TObject);
@@ -56,7 +57,6 @@ type
     procedure ProcLogout;
   private
     FDefs            : TDefs;
-    procedure SetDatabaseNames;
     procedure OpenFormEntryAdmin;
     procedure OpenFormOrMsgDlg(Sender: TForm; NoMessageDlg: Boolean);
     procedure ProcEntryDetails;
@@ -88,8 +88,8 @@ begin
   try
     try
       with Defs do begin
-        SetOSHomeDir(GetEnvironmentVariable('HOME'));
-        SetDBPath(GetOSHomeDir + '/' + DB_DIR);
+        SetOSHomeDir(GetEnvironmentVariable('APPDATA'));
+        SetDBPath(GetOSHomeDir + '\' + DB_DIR);
         SetDBFullPath(GetDBPath + DB_NAME);
 
         if GetDoExitKakeiBon then begin
@@ -304,8 +304,6 @@ end;
 procedure TFrmTopMenu.FormCreate(Sender: TObject);
 var
   LFS        : TFormatSettings;
-  LHeight    : Longint = 52;
-  LWidth     : Longint = 572;
 begin
   FDefs := TDefs.Create;
 
@@ -316,17 +314,45 @@ begin
 
     ChngdAdmUserFlg   := False;
 
-    with FrmTopMenu do begin
-      Width  := 634;
-      Height := 374;
+    { TFormatSettings }
+    with LFS do begin
+      DateSeparator        := '/';
+      ShortDateFormat      := 'yyyy-mm-dd';
+      TimeSeparator        := ':';
+      ShortTimeFormat      := 'hh:nn:ss';
     end;
+    SetFS(LFS);
 
+    SetDatabaseNames;
+  end;
+end;
+
+procedure TFrmTopMenu.FormShow(Sender: TObject);
+var
+  LHeight    : Longint = 52;
+  LWidth     : Longint = 572;
+begin
+  FrmTopMenu.Color       := RGB(  0, 128, 128);
+  PnlManageDetails.Color := RGB(192, 220, 192);
+  PnlManagements.Color   := RGB(192, 220, 192);
+  PnlLogInAndOut.Color   := RGB(192, 220, 192);
+
+  if LoginFlg then
+  begin
+    PnlManageUser.Color := RGB(192, 220, 192);
+    PnlManageExp.Color  := RGB(192, 220, 192);
+  end;
+
+  with FrmTopMenu do begin
+    Width  := 634;
+    Height := 374;
+  end;
+
+  with Defs do begin
     if LoginFlg then
     begin
-      if GetRole = 1 then begin;
-      end;
+      BtnManageUser.Enabled     := True;
 
-      BtnManageUser.Enabled := True;
       if GetRole = 1 then begin;
         BtnEntryDetails.Enabled := True;
         BtnManageExp.Enabled    := True;
@@ -359,38 +385,14 @@ begin
     SetPanelPosAndSize(PnlLogin,         9 , 9, LHeight, LWidth + 0);
     SetPanelPosAndSize(PnlLogout,        9 , 9, LHeight, LWidth + 0);
     SetPanelPosAndSize(PnlQuit,          66, 9, LHeight, LWidth + 2);
-
-    { TFormatSettings }
-    with LFS do begin
-      DateSeparator        := '/';
-      ShortDateFormat      := 'yyyy-mm-dd';
-      TimeSeparator        := ':';
-      ShortTimeFormat      := 'hh:nn:ss';
-    end;
-    SetFS(LFS);
-
-    SetDatabaseNames;
-  end;
-end;
-
-procedure TFrmTopMenu.FormShow(Sender: TObject);
-begin
-  FrmTopMenu.Color       := RGB(  0, 128, 128);
-  PnlManageDetails.Color := RGB(192, 220, 192);
-  PnlManagements.Color   := RGB(192, 220, 192);
-  PnlLogInAndOut.Color   := RGB(192, 220, 192);
-
-  if LoginFlg then
-  begin
-    PnlManageUser.Color := RGB(192, 220, 192);
-    PnlManageExp.Color  := RGB(192, 220, 192);
   end;
 end;
 
 procedure TFrmTopMenu.TimerTimer(Sender: TObject);
 begin
   with Defs do begin
-    if Not FileExists(GetDBFullPath) then
+    if (Not Assigned(FrmEntryAdmin))
+        And (Not FileExists(GetDBFullPath)) then
     begin
       OpenFormEntryAdmin;
     end;
@@ -398,15 +400,15 @@ begin
     if ChngdAdmUserFlg then
     begin
       ProcLogout;
-      ChngdAdmUserFlg            := False;
+      ChngdAdmUserFlg           := False;
     end;
 
     if LoginFlg then
     begin
-      BtnManageUser.Enabled      := True;
+      BtnManageUser.Enabled     := True;
       if GetRole = 1 then begin
         BtnEntryDetails.Enabled := True;
-        BtnManageExp.Enabled       := True;
+        BtnManageExp.Enabled    := True;
       end;
 
       with BtnLogin do begin

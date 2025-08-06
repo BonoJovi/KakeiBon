@@ -231,18 +231,21 @@ end;
 
 procedure TFrmEntryAdmin.FormCreate(Sender: TObject);
 begin
-  with FrmTopMenu.Defs do begin
-    SetOSHomeDir(GetEnvironmentVariable('HOME'));
-    SetDBPath(GetOSHomeDir + '/' + DB_DIR);
-    SetDBFullPath(GetDBPath + DB_NAME);
+  with FrmTopMenu do begin
+    SetDatabaseNames;
+    //SetOSHomeDir(GetEnvironmentVariable('HOME'));
+    //SetDBPath(GetOSHomeDir + '/' + DB_DIR);
+    //SetDBFullPath(GetDBPath + DB_NAME);
 
-    if GetDoExitKakeiBon then begin
-      Application.Terminate;
-      Exit;
+    with Defs do begin
+      if GetDoExitKakeiBon then begin
+        Application.Terminate;
+        Exit;
+      end;
+
+      ForceDirectories(GetDBPath);
+      SetDatabaseName(ACn);
     end;
-
-    ForceDirectories(GetDBPath);
-    SetDatabaseName(ACn);
   end;
   SetDatabaseNames;
   with FrmTopMenu.Defs do begin
