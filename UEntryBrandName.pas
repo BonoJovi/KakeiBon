@@ -358,7 +358,7 @@ begin
           Insert;
           OpenSelectQuery(
             ACnMaker, ADSMaker, ATrMaker, AQuMaker, SQL_20130002);
-          DBLCBMaker.KeyValue := StrToInt(VarToStr(GetMakerID));
+          DBLCBMaker.KeyValue := GetMakerID;
         end;
         DBEdtUserID.Text := IntToStr(GetUID);
       end;

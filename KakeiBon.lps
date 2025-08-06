@@ -19,10 +19,12 @@
         <ComponentName Value="FrmAddDetail"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="674"/>
-        <CursorPos X="3" Y="681"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="791"/>
+        <CursorPos X="91" Y="801"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UAddDetailsHeader.pas"/>
@@ -63,10 +65,11 @@
         <ComponentName Value="FrmEditAdmUser"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="160"/>
-        <CursorPos X="54" Y="160"/>
+        <TopLine Value="40"/>
+        <CursorPos X="24" Y="59"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UEditDetail.pas"/>
@@ -74,9 +77,13 @@
         <ComponentName Value="FrmEditDetail"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
-        <CursorPos X="36" Y="12"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="5"/>
+        <TopLine Value="245"/>
+        <CursorPos X="18" Y="245"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UEditDetailsHeader.pas"/>
@@ -125,10 +132,12 @@
         <ComponentName Value="FrmEntryBrandName"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="275"/>
-        <CursorPos Y="283"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="126"/>
+        <CursorPos X="24" Y="136"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryMaker.pas"/>
@@ -136,9 +145,12 @@
         <ComponentName Value="FrmEntryMaker"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
-        <CursorPos X="41" Y="12"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="78"/>
+        <CursorPos X="14" Y="86"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryShop.pas"/>
@@ -155,8 +167,12 @@
         <ComponentName Value="FrmEntryUnit"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="109"/>
+        <CursorPos X="33" Y="119"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="ULogin.pas"/>
@@ -200,7 +216,6 @@
         <ComponentName Value="FrmRemoveUser"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
         <UsageCount Value="200"/>
       </Unit>
@@ -210,7 +225,6 @@
         <ComponentName Value="FrmTopMenu"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="416"/>
         <CursorPos X="33" Y="433"/>
@@ -386,7 +400,128 @@
         <UsageCount Value="10"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="-1"/>
+    <JumpHistory HistoryIndex="29">
+      <Position>
+        <Filename Value="UEntryBrandName.pas"/>
+        <Caret Line="143" Column="30" TopLine="126"/>
+      </Position>
+      <Position>
+        <Filename Value="UEntryBrandName.pas"/>
+        <Caret Line="134" Column="45" TopLine="124"/>
+      </Position>
+      <Position>
+        <Filename Value="UEntryBrandName.pas"/>
+        <Caret Line="136" Column="24" TopLine="126"/>
+      </Position>
+      <Position>
+        <Filename Value="UEntryMaker.pas"/>
+        <Caret Line="124" Column="35" TopLine="114"/>
+      </Position>
+      <Position>
+        <Filename Value="UEntryMaker.pas"/>
+        <Caret Line="298" Column="33" TopLine="288"/>
+      </Position>
+      <Position>
+        <Filename Value="UEntryMaker.pas"/>
+        <Caret Line="86" Column="14" TopLine="78"/>
+      </Position>
+      <Position>
+        <Filename Value="UEntryUnit.pas"/>
+        <Caret Line="119" Column="33" TopLine="109"/>
+      </Position>
+      <Position>
+        <Filename Value="UEditDetail.pas"/>
+        <Caret Line="239" Column="42" TopLine="229"/>
+      </Position>
+      <Position>
+        <Filename Value="UEditDetail.pas"/>
+        <Caret Line="246" Column="45" TopLine="236"/>
+      </Position>
+      <Position>
+        <Filename Value="UEditDetail.pas"/>
+        <Caret Line="251" Column="53" TopLine="241"/>
+      </Position>
+      <Position>
+        <Filename Value="UEditDetail.pas"/>
+        <Caret Line="273" Column="43" TopLine="256"/>
+      </Position>
+      <Position>
+        <Filename Value="UEditDetail.pas"/>
+        <Caret Line="261" Column="45" TopLine="251"/>
+      </Position>
+      <Position>
+        <Filename Value="UEditDetail.pas"/>
+        <Caret Line="267" Column="45" TopLine="257"/>
+      </Position>
+      <Position>
+        <Filename Value="UEditDetail.pas"/>
+        <Caret Line="279" Column="49" TopLine="269"/>
+      </Position>
+      <Position>
+        <Filename Value="UEditDetail.pas"/>
+        <Caret Line="302" Column="71" TopLine="292"/>
+      </Position>
+      <Position>
+        <Filename Value="UEditDetail.pas"/>
+        <Caret Line="377" Column="16" TopLine="367"/>
+      </Position>
+      <Position>
+        <Filename Value="UEditDetail.pas"/>
+        <Caret Line="383" Column="34" TopLine="373"/>
+      </Position>
+      <Position>
+        <Filename Value="UEditDetail.pas"/>
+        <Caret Line="384" Column="34" TopLine="374"/>
+      </Position>
+      <Position>
+        <Filename Value="UEditDetail.pas"/>
+        <Caret Line="385" Column="34" TopLine="375"/>
+      </Position>
+      <Position>
+        <Filename Value="UEditDetail.pas"/>
+        <Caret Line="386" Column="34" TopLine="376"/>
+      </Position>
+      <Position>
+        <Filename Value="UEditDetail.pas"/>
+        <Caret Line="387" Column="34" TopLine="377"/>
+      </Position>
+      <Position>
+        <Filename Value="UEditDetail.pas"/>
+        <Caret Line="388" Column="34" TopLine="378"/>
+      </Position>
+      <Position>
+        <Filename Value="UEditDetail.pas"/>
+        <Caret Line="439" Column="41" TopLine="430"/>
+      </Position>
+      <Position>
+        <Filename Value="UEditDetail.pas"/>
+        <Caret Line="865" Column="15" TopLine="855"/>
+      </Position>
+      <Position>
+        <Filename Value="UEditDetail.pas"/>
+        <Caret Line="889" Column="37" TopLine="879"/>
+      </Position>
+      <Position>
+        <Filename Value="UEditDetail.pas"/>
+        <Caret Line="899" Column="49" TopLine="889"/>
+      </Position>
+      <Position>
+        <Filename Value="UEditDetail.pas"/>
+        <Caret Line="901" Column="20" TopLine="891"/>
+      </Position>
+      <Position>
+        <Filename Value="UEditDetail.pas"/>
+        <Caret Line="939" Column="33" TopLine="929"/>
+      </Position>
+      <Position>
+        <Filename Value="UEditDetail.pas"/>
+        <Caret Line="977" Column="45" TopLine="967"/>
+      </Position>
+      <Position>
+        <Filename Value="UEditDetail.pas"/>
+        <Caret Line="979" Column="18" TopLine="970"/>
+      </Position>
+    </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
       <Modes ActiveMode=""/>

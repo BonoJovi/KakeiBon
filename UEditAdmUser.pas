@@ -16,8 +16,6 @@ type
   TFrmEditAdmUser = class(TForm)
     ACn                : TSQLite3Connection;
     ADS                : TDataSource;
-    ADSUsers: TDataSource;
-    AQuUsers: TSQLQuery;
     ATr                : TSQLTransaction;
     AQu                : TSQLQuery;
     ACnUsers           : TSQLite3Connection;
@@ -28,14 +26,13 @@ type
     ActionList         : TActionList;
     ActCancel          : TAction;
     ActClearPaw        : TAction;
-    ActSave          : TAction;
+    ActSave            : TAction;
     ActQuit            : TAction;
     { Etc controls }
     ADBGrid            : TDBGrid;
-    ATrUsers: TSQLTransaction;
-    BtnCancel: TButton;
-    BtnClearPaw: TButton;
-    BtnCommit: TButton;
+    BtnCancel          : TButton;
+    BtnClearPaw        : TButton;
+    BtnCommit          : TButton;
     DBNavigator        : TDBNavigator;
     DBTextFromUserName : TDBText;
     DBTextUserID       : TDBText;
