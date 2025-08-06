@@ -59,7 +59,6 @@ type
     function CheckMultiFields(NameField: Boolean): String;
     function CheckSQuoteInPAW: Boolean;
     function CheckSQuoteInUName: Boolean;
-    procedure ConnectUsersTable;
     procedure EdtPawChange(Sender: TObject);
     procedure ProcCancel;
     procedure ProcClearPaw;
@@ -96,76 +95,78 @@ function TFrmEditUser.CheckMultiFields(NameField: Boolean): String;
 var
   LRet: String = '';
 begin
-  if NameField then
-  begin
-    if Not CheckSQuoteInUName then
+  with FrmTopMenu.Defs do begin
+    if NameField then
     begin
-      LRet         := 'NAME = ''' + EdtToUserName.Text + '''';
-    end else begin
-      Result       := '';
-      Exit;
-    end;
+      if Not CheckSQuoteInUName then
+      begin
+        LRet         := 'NAME = ''' + EdtToUserName.Text + '''';
+      end else begin
+        Result       := '';
+        Exit;
+      end;
 
-    if EdtPaw.Text <> '' then
-    begin
-      if EdtPaw.Text = EdtPawConfirm.Text then
+      if EdtPaw.Text <> '' then
       begin
-        if CheckSQuoteInPAW then
+        if EdtPaw.Text = EdtPawConfirm.Text then
         begin
-          Result   := '';
-          Exit;
-        end;
-        Result     := LRet + ', PAW = ''' + EdtPaw.Text + '''';
-      end else begin // EdtPaw.Text <> EdtPawConfirm.Text
-        FrmTopMenu.Defs.ClearPaw(EdtPaw, EdtPawConfirm);
-        MessageDlg(MSG_JP_000005, mtWarning, [mbOk], 0);
-        Result     := '';
-      end;
-    end else begin // EdtPaw.Text = ''
-      if EdtPawConfirm.Text <> '' then
-      begin
-        FrmTopMenu.Defs.ClearPaw(nil, EdtPaw);
-        MessageDlg(MSG_JP_000005, mtWarning, [mbOk], 0);
-        Result     := '';
-      end else begin // EdtPawConfirm.Text = ''
-        if NameField then
-        begin
-          if Not CheckSQuoteInUName then
+          if CheckSQuoteInPAW then
           begin
-            Result := 'NAME = ''' + EdtToUserName.Text + '''';
-          end else begin // CheckSQuoteInUName = True
-            Result := '';
+            Result   := '';
+            Exit;
           end;
-        end else begin
-          Result   := '';
+          Result     := LRet + ', PAW = ''' + EdtPaw.Text + '''';
+        end else begin // EdtPaw.Text <> EdtPawConfirm.Text
+          ClearPaw(EdtPaw, EdtPawConfirm);
+          MessageDlg(MSG_JP_000005, mtWarning, [mbOk], 0);
+          Result     := '';
         end;
-      end;
-    end;
-  end else begin // Not NameField
-    if EdtPaw.Text <> '' then
-    begin
-      if EdtPaw.Text = EdtPawConfirm.Text then
-      begin
-        if CheckSQuoteInPAW then
+      end else begin // EdtPaw.Text = ''
+        if EdtPawConfirm.Text <> '' then
         begin
-          Result                                   := '';
-          Exit;
+          ClearPaw(nil, EdtPaw);
+          MessageDlg(MSG_JP_000005, mtWarning, [mbOk], 0);
+          Result     := '';
+        end else begin // EdtPawConfirm.Text = ''
+          if NameField then
+          begin
+            if Not CheckSQuoteInUName then
+            begin
+              Result := 'NAME = ''' + EdtToUserName.Text + '''';
+            end else begin // CheckSQuoteInUName = True
+              Result := '';
+            end;
+          end else begin
+            Result   := '';
+          end;
         end;
-        Result                                     := '"PAW" = ''' + EdtPaw.Text + '''';
-      end else begin // EdtPaw.Text <> EdtPawConfirm.Text
-        FrmTopMenu.Defs.ClearPaw(EdtPaw, EdtPawConfirm);
-        MessageDlg(MSG_JP_000005, mtWarning, [mbOk], 0);
-        Result                                     := '';
       end;
-    end else begin // EdtPaw.Text = ''
-      if EdtPawConfirm.Text <> '' then
+    end else begin // Not NameField
+      if EdtPaw.Text <> '' then
       begin
-        FrmTopMenu.Defs.ClearPaw(nil, EdtPaw);
-        MessageDlg(MSG_JP_000005, mtWarning, [mbOk], 0);
-        Result                                     := '';
-      end else begin // EdtPawConfirm.Text = ''
-        MessageDlg(MSG_JP_000020, mtWarning, [mbOk], 0);
-        Result                                     := '';
+        if EdtPaw.Text = EdtPawConfirm.Text then
+        begin
+          if CheckSQuoteInPAW then
+          begin
+            Result                                   := '';
+            Exit;
+          end;
+          Result                                     := '"PAW" = ''' + EdtPaw.Text + '''';
+        end else begin // EdtPaw.Text <> EdtPawConfirm.Text
+          ClearPaw(EdtPaw, EdtPawConfirm);
+          MessageDlg(MSG_JP_000005, mtWarning, [mbOk], 0);
+          Result                                     := '';
+        end;
+      end else begin // EdtPaw.Text = ''
+        if EdtPawConfirm.Text <> '' then
+        begin
+          ClearPaw(nil, EdtPaw);
+          MessageDlg(MSG_JP_000005, mtWarning, [mbOk], 0);
+          Result                                     := '';
+        end else begin // EdtPawConfirm.Text = ''
+          MessageDlg(MSG_JP_000020, mtWarning, [mbOk], 0);
+          Result                                     := '';
+        end;
       end;
     end;
   end;
@@ -193,44 +194,6 @@ begin
   end;
 end;
 
-procedure TFrmEditUser.ConnectUsersTable;
-begin
-  try
-    with ACn do begin
-      if Not Connected then
-      begin
-        DatabaseName := DB_NAME;
-        Connected    := True;
-        ATr.DataBase := ACn;
-        AQu.DataBase := ACn;
-        ATr.StartTransaction;
-      end else begin
-        ATr.CloseDataSets;
-        ATr.StartTransaction;
-      end;
-    end;
-
-    with AQu do begin
-      SQL.Text   := SQL_20040001;
-      if FrmTopMenu.Defs.GetRole = ROLE_USER then
-      begin
-        SQL.Text := SQL_20040002;
-        Params.ParamByName('pName').AsAnsiString := FrmTopMenu.Defs.GetUName;
-      end;
-      Params.ParamByName('pRole').AsInteger      := ROLE_USER;
-
-      Open;
-    end;
-
-    ADS.DataSet       := AQu;
-    with ADBGrid do begin
-      DataSource      := ADS;
-      AutoFillColumns := True;
-    end;
-  finally
-  end;
-end;
-
 procedure TFrmEditUser.ProcCancel;
 begin
   FrmManageUser.Visible := True;
@@ -239,7 +202,9 @@ end;
 
 procedure TFrmEditUser.ProcClearPaw;
 begin
-  FrmTopMenu.Defs.ClearPaw(nil, EdtPaw);
+  with FrmTopMenu.Defs do begin
+    ClearPaw(nil, EdtPaw);
+  end;
 end;
 
 procedure TFrmEditUser.ProcCommit;
@@ -252,53 +217,55 @@ var
 begin
   try
     try
-      // Initialize
-      LFieldAndValue    := '';
-      LOriginalUName    := AQu.FieldByName('NAME').AsAnsiString;
+      with FrmTopMenu.Defs do begin
+        // Initialize
+        LFieldAndValue    := '';
+        LOriginalUName    := AQu.FieldByName('NAME').AsAnsiString;
 
-      LUserID           := AQu.FieldByName('USER_ID').AsAnsiString;
-      LSql              := SQL_20040003.Replace(':pUserID', LUserID);
+        LUserID           := AQu.FieldByName('USER_ID').AsAnsiString;
+        LSql              := SQL_20040003.Replace(':pUserID', LUserID);
 
-      if EdtToUserName.Text <> '' then
-      begin
-        LRet            := CheckMultiFields(True);
-      end else begin
-        LRet            := CheckMultiFields(False);
-      end;
-
-      if LRet = '' then
-      begin
-        Exit;
-      end else begin
-        LFieldAndValue  := LRet + ', UPDATE_DT = ''' +
-        FormatDateTime('yyyy/mm/dd hh:mm:ss', Now, FrmTopMenu.Defs.GetFS) + '''';
-
-        AQu.SQL.Text    := LSQL.Replace(':pFieldAndValue', LFieldAndValue);
-
-        CloseTransactions;
-        AQu.ExecSQL;
-
-        if (FUName <> '')
-           And (FrmTopMenu.Defs.GetUName = LOriginalUName)
-           And (FUName <> LOriginalUName) then
+        if EdtToUserName.Text <> '' then
         begin
-          ATr.Commit;
-          FrmTopMenu.Defs.SetChangedUserDef(True);
+          LRet            := CheckMultiFields(True);
+        end else begin
+          LRet            := CheckMultiFields(False);
         end;
 
-        if (FPAW <> '')
-           And (FrmTopMenu.Defs.GetUName = LOriginalUName)
-           And (FPAW <> AQu.FieldByName('PAW').AsAnsiString) then
+        if LRet = '' then
         begin
-          ATr.Commit;
-          FrmTopMenu.Defs.SetChangedUserDef(True);
-        end;
+          Exit;
+        end else begin
+          LFieldAndValue  := LRet + ', UPDATE_DT = ''' +
+          FormatDateTime('yyyy/mm/dd hh:mm:ss', Now, GetFS) + '''';
 
-        FrmManageUser.Visible := True;
-        if FrmTopMenu.Defs.GetChangedUserDef then
-        begin
-          MessageDlg(MSG_JP_000021, mtInformation, [mbOk], 0);
-          FrmManageUser.ActGoBackExecute(FrmTopMenu);
+          AQu.SQL.Text    := LSQL.Replace(':pFieldAndValue', LFieldAndValue);
+
+          CloseTransactions;
+          AQu.ExecSQL;
+
+          if (FUName <> '')
+             And (GetUName = LOriginalUName)
+             And (FUName <> LOriginalUName) then
+          begin
+            ATr.Commit;
+            SetChangedUserDef(True);
+          end;
+
+          if (FPAW <> '')
+             And (GetUName = LOriginalUName)
+             And (FPAW <> AQu.FieldByName('PAW').AsAnsiString) then
+          begin
+            ATr.Commit;
+            SetChangedUserDef(True);
+          end;
+
+          FrmManageUser.Visible := True;
+          if GetChangedUserDef then
+          begin
+            MessageDlg(MSG_JP_000021, mtInformation, [mbOk], 0);
+            FrmManageUser.ActGoBackExecute(FrmTopMenu);
+          end;
         end;
       end;
     except
@@ -350,14 +317,16 @@ procedure TFrmEditUser.FormClose(Sender: TObject;
 begin
   CloseTransactions;
 
-  if FrmTopMenu.Defs.GetChangedUserDef = False then begin
-    FrmManageUser := TFrmManageUser.Create(Application);
-    FrmManageUser.Visible     := True;
-  end else begin
-    FrmTopMenu.Defs.SetChangedUserDef(False);
+  with FrmTopMenu.Defs do begin
+    if GetChangedUserDef = False then begin
+      FrmManageUser := TFrmManageUser.Create(Application);
+      FrmManageUser.Visible     := True;
+    end else begin
+      SetChangedUserDef(False);
+    end;
+    CloseAction            := caFree;
+    FrmEditUser            := nil;
   end;
-  CloseAction            := caFree;
-  FrmEditUser            := nil;
 end;
 
 procedure TFrmEditUser.FormCreate(Sender: TObject);
@@ -368,21 +337,42 @@ begin
       Application.Terminate;
     end;
   end;
+end;
 
+procedure TFrmEditUser.FormShow(Sender: TObject);
+begin
   FrmEditUser.Color  := RGB(112, 168, 175);
-  PnlClearPaw.Color := RGB( 72, 122, 129);
+  PnlClearPaw.Color  := RGB( 72, 122, 129);
   PnlCancel.Color    := RGB( 72, 122, 129);
   PnlCommit.Color    := RGB( 72, 122, 129);
   LblInfo.Font.Color := RGB(255,   0,   0);
 
   FrmEditUser.Height := 800;
 
-  ConnectUsersTable;
-end;
+  try
+    try
+      with FrmTopMenu.Defs do begin
+        with AQu do begin
+          SQL.Text   := SQL_20040001;
+          with Params do begin
+            if GetRole = ROLE_USER then
+            begin
+              SQL.Text := SQL_20040002;
+              ParamByName('pName').AsAnsiString := GetUName;
+            end;
+            ParamByName('pRole').AsInteger      := ROLE_USER;
+          end;
 
-procedure TFrmEditUser.FormShow(Sender: TObject);
-begin
-
+          Open;
+        end;
+      end;
+    except
+      on E: ESQLDatabaseError do begin
+        ShowMessage(E.Message);
+      end;
+    end;
+  finally
+  end;
 end;
 
 end.

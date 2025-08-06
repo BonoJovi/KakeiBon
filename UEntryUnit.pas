@@ -114,31 +114,36 @@ end;
 
 procedure TFrmEntryUnit.BackupValues;
 begin
-if DBEdtUnitID.Text <> '' then begin;
-    GetUnitID.SetUnitID(DBEdtUnitID.Text);
-  end else begin
-    SetUnitID(Null);
-  end;
+  with FrmTopMenu.Defs do begin
+    if DBEdtUnitID.Text <> '' then begin;
+      SetUnitID(DBEdtUnitID.Text);
+    end else begin
+      SetUnitID(Null);
+    end;
 
-  SetUnit(DBEdtUnit.Text);
+    SetUnit(DBEdtUnit.Text);
 
-  if DBCBDisabled.State = cbChecked then begin
-    SetDisabled(True);
-  end else begin
-    SetDisabled(False);
+    if DBCBDisabled.State = cbChecked then begin
+      SetDisabled(True);
+    end else begin
+      SetDisabled(False);
+    end;
   end;
 end;
 
 procedure TFrmEntryUnit.ProcCancel;
 begin
-  if FInsert then begin
-    FInsert := False;
-  end;
-  ATr.Rollback;
   with FrmTopMenu.Defs do begin
+    if FInsert then begin
+      FInsert := False;
+    end;
+    ATr.Rollback;
+    CloseTransactions;
+    //OpenConn(ACn, ADS, ATr, AQu);
+    SetDatabaseNames;
     OpenSelectQueryByUnit(ACn, ADS, ATr, AQu, SQL_20150001);
+    DBEdtUnit.SetFocus;
   end;
-  DBEdtUnit.SetFocus;
 end;
 
 procedure TFrmEntryUnit.ProcCommit;
@@ -147,31 +152,42 @@ var
 begin
   try
     try
-      with ATr do begin
-        if Not Active then begin
-          StartTransaction;
+      with FrmTopMenu.Defs do begin
+        with ATr do begin
+          if Not Active then begin
+            StartTransaction;
+          end;
         end;
-      end;
 
-      with AQu do begin
-        SQL.Text := SQL_20150003;
-        if (VarIsNull(GetUnitID)) Or (VarToStr(GetUnitID) = '') then begin
-          FrmTopMenu.Defs.OpenSelectQueryByUnit(ACnNextID, ADSNextID, ATrNextID, AQuNextID, SQL_20150002);
-          LNextUnitID                            := AQuNextID.FieldByName('NEXT_ID').AsInteger;
-          FrmTopMenu.Defs.CloseConn(ACnNextID, ATrNextID);
-          Params.ParamByName('pUnitID').AsInteger := LNextUnitID;
-        end else begin
-          Params.ParamByName('pUnitID').AsInteger := StrToInt(VarToStr(GetUnitID));
+        with AQu do begin
+          SQL.Text := SQL_20150003;
+          if (VarIsNull(GetUnitID)) Or (VarToStr(GetUnitID) = '') then begin
+            CloseConn(ACnNextID, ATrNextID);
+            //OpenConn(ACnNextID, ADSNextID, ATrNextID, AQuNextID);
+            SetDatabaseNames;
+            OpenSelectQueryByUnit(ACnNextID, ADSNextID, ATrNextID, AQuNextID, SQL_20150002);
+            LNextUnitID                            := AQuNextID.FieldByName('NEXT_ID').AsInteger;
+            CloseConn(ACnNextID, ATrNextID);
+            with Params do begin
+              ParamByName('pUnitID').AsInteger := LNextUnitID;
+            end;
+          end else begin
+            with Params do begin
+              ParamByName('pUnitID').AsInteger := StrToInt(VarToStr(GetUnitID));
+            end;
+          end;
+          with Params do begin
+            ParamByName('pUnit').AsAnsiString   := GetUnit;
+            ParamByName('pOrderID').AsInteger   := ParamByName('pUnitID').AsInteger;
+            ParamByName('pDisabled').AsBoolean  := GetDisabled;
+            ParamByName('pEntryDT').AsDateTime  := Now;
+            ParamByName('pUpdateDT').AsDateTime := Now;
+          end;
+
+          CloseTransactions;
+          ExecSQL;
+          ATr.Commit;
         end;
-        Params.ParamByName('pUnit').AsAnsiString   := GetUnit;
-        Params.ParamByName('pOrderID').AsInteger   := Params.ParamByName('pUnitID').AsInteger;
-        Params.ParamByName('pDisabled').AsBoolean  := GetDisabled;
-        Params.ParamByName('pEntryDT').AsDateTime  := Now;
-        Params.ParamByName('pUpdateDT').AsDateTime := Now;
-
-        CloseTransactions;
-        ExecSQL;
-        ATr.Commit;
       end;
     except
       on E: ESQLDatabaseError do
@@ -295,40 +311,50 @@ begin
   FReOpenDS   := False;
   FIsDisabled := False;
   FDoCommit   := False;
+end;
 
+procedure TFrmEntryUnit.FormShow(Sender: TObject);
+begin
   Color := RGB(112, 168, 175);
 
   PnlInsert.Color    := RGB( 72, 122, 129);
   PnlCancel.Color    := RGB( 72, 122, 129);
   PnlCommit.Color    := RGB( 72, 122, 129);
   PnlGoBack.Color    := RGB( 72, 122, 129);
-end;
 
-procedure TFrmEntryUnit.FormShow(Sender: TObject);
-begin
   try
-    FrmTopMenu.Defs.OpenSelectQueryByUnit(ACn, ADS, ATr, AQu, SQL_20150001);
-    ADBGrid.DataSource := ADS;
-    if AQu.RecordCount = 0 then begin
-      ProcInsert;
-    end else begin
-      FInsert := False;
+    with FrmTopMenu.Defs do begin
+      CloseTransactions;
+      //OpenConn(ACn, ADS, ATr, AQu);
+      SetDatabaseNames;
+      OpenSelectQueryByUnit(ACn, ADS, ATr, AQu, SQL_20150001);
+      ADBGrid.DataSource := ADS;
+      if AQu.RecordCount = 0 then begin
+        ProcInsert;
+      end else begin
+        FInsert := False;
+      end;
+      ADBGrid.AutoAdjustColumns;
+      DBEdtUnit.SetFocus;
     end;
-    ADBGrid.AutoAdjustColumns;
-    DBEdtUnit.SetFocus;
   finally
   end;
 end;
 
 procedure TFrmEntryUnit.TimerTimer(Sender: TObject);
 begin
-  if FReOpenDS then
-  begin
-    FrmTopMenu.Defs.OpenSelectQueryByUnit(ACn, ADS, ATr, AQu, SQL_20150001);
-    ADBGrid.DataSource := ADS;
+  with FrmTopMenu.Defs do begin
+    if FReOpenDS then
+    begin
+      CloseTransactions;
+      //OpenConn(ACn, ADS, ATr, AQu);
+      SetDatabaseNames;
+      OpenSelectQueryByUnit(ACn, ADS, ATr, AQu, SQL_20150001);
+      ADBGrid.DataSource := ADS;
 
-    FReOpenDS          := False;
-    Timer.Enabled      := False;
+      FReOpenDS          := False;
+      Timer.Enabled      := False;
+    end;
   end;
 end;
 

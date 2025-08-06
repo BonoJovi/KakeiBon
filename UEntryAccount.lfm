@@ -11,7 +11,6 @@ object FrmEntryAccount: TFrmEntryAccount
   Font.Name = '0xProto'
   Font.Style = [fsBold]
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
@@ -218,7 +217,6 @@ object FrmEntryAccount: TFrmEntryAccount
     ShowHint = True
     TabOrder = 5
     OnChange = DBEdtBrandNameChange
-    OnExit = DBEdtBrandNameExit
   end
   object LblSubName1: TLabel
     Left = 16
@@ -353,7 +351,6 @@ object FrmEntryAccount: TFrmEntryAccount
     Width = 412
     DataField = 'OPENING_BALANCE'
     DataSource = ADS
-    AutoSelect = False
     Font.Height = -21
     Font.Name = '0xProto'
     Font.Style = [fsBold]
@@ -380,7 +377,6 @@ object FrmEntryAccount: TFrmEntryAccount
     Width = 412
     DataField = 'CURRENT_BALANCE'
     DataSource = ADS
-    AutoSelect = False
     Font.Height = -21
     Font.Name = '0xProto'
     Font.Style = [fsBold]
@@ -629,14 +625,6 @@ object FrmEntryAccount: TFrmEntryAccount
   object ActionList: TActionList
     Left = 320
     Top = 224
-    object ActQuit: TAction
-      Caption = 'ActQuit'
-      SecondaryShortCuts.Strings = (
-        'Ctrl+4'
-      )
-      ShortCut = 16465
-      OnExecute = ActQuitExecute
-    end
     object ActInsert: TAction
       Caption = 'ActInsert'
       ShortCut = 16433
@@ -651,6 +639,14 @@ object FrmEntryAccount: TFrmEntryAccount
       Caption = 'ActCommit'
       ShortCut = 16435
       OnExecute = ActCommitExecute
+    end
+    object ActQuit: TAction
+      Caption = 'ActQuit'
+      SecondaryShortCuts.Strings = (
+        'Ctrl+4'
+      )
+      ShortCut = 16465
+      OnExecute = ActQuitExecute
     end
   end
   object ADS: TDataSource

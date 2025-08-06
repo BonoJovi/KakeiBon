@@ -189,23 +189,23 @@ begin
     end;
     if (AQuDetail.RecordCount > 0)
       And (AQuDetail.FieldByName('DETAIL_ID').AsInteger > 0) then begin
-      GetDID.SetDID(AQuDetail.FieldByName('DETAIL_ID').AsInteger);
+      SetDID(AQuDetail.FieldByName('DETAIL_ID').AsInteger);
     end;
     DBDTPHeaderDT.TimeFormat := tf24;
     SetHeaderDT(
       FormatDateTime('yyyy/mm/dd hh:mm:dd', DTPYear.DateTime, GetFS)
     );
     if DBEdtShopID.Text <> '' then begin
-      GetShopID.SetShopID(DBEdtShopID.Text);
+      SetShopID(DBEdtShopID.Text);
     end;
     if DBEdtExpKey1.Text <> '' then begin
-      GetExpKey1.SetExpKey1(DBEdtExpKey1.Text);
+      SetExpKey1(DBEdtExpKey1.Text);
     end;
     if (DBLCBFromAC.Enabled) And (DBEdtFromID.Text <> '') then begin
-      GetFromACID.SetFromACID(DBEdtFromID.Text);
+      SetFromACID(DBEdtFromID.Text);
     end;
     if (DBLCBToAC.Enabled) And (DBEdtToID.Text <> '') then begin
-      GetToACID.SetToACID(DBEdtToID.Text);
+      SetToACID(DBEdtToID.Text);
     end;
 
     SetExpKey2(Null);
@@ -253,46 +253,41 @@ begin
   try
     try
       if CheckInput then begin
-        with ATr do begin
-          ATr.DataBase := ACn;
-          if Not Active then begin
-            StartTransaction;
-          end;
-        end;
-
         with FrmTopMenu.Defs do begin
           OpenSelQuAndSetNextID(
             ACnNextID, ADSNextID, ATrNextID, AQuNextID, DBEdtHeaderID,
             SQL_20100005);
           LNextHeaderID := AQuNextID.FieldByName('NEXT_ID').AsInteger;
           CloseConn(ACnNextID, ATrNextID);
-        end;
 
-        with AQu do begin
-          SQL.Text := SQL_20100007;
-          Params.ParamByName('pUserID').AsInteger        := FrmTopMenu.Defs.GetUID;
-          Params.ParamByName('pHeaderID').AsInteger      := LNextHeaderID;
-          Params.ParamByName('pHeaderDT').AsDateTime     := DTPYear.DateTime;
-          Params.ParamByName('pShopID').AsInteger        := StrToInt(VarToStr(DBLCBShopName.KeyValue));
-          Params.ParamByName('pExpKey1').AsInteger       := StrToInt(VarToStr(DBLCBExp1.KeyValue));
-          if Not VarIsNull(DBLCBFromAC.KeyValue) then begin
-            Params.ParamByName('pFromID').AsInteger      := StrToInt(VarToStr(DBLCBFromAC.KeyValue));
-          end;
-          if Not VarIsNull(DBLCBToAC.KeyValue) then begin
-            Params.ParamByName('pToID').AsInteger        := StrToInt(VarToStr(DBLCBToAC.KeyValue));
-          end;
-          if EdtTotalAmount.Text = '' then begin
-            Params.ParamByName('pTotalAmount').AsInteger := 0;
-          end else begin
-            Params.ParamByName('pTotalAmount').AsInteger := StrToInt(StringReplace(EdtTotalAmount.Text, ',', '', [rfReplaceAll]));
-          end;
-          Params.ParamByName('pEntryDT').AsDateTime      := Now;
+          with AQu do begin
+            SQL.Text := SQL_20100007;
+            with Params do begin
+              ParamByName('pUserID').AsInteger        := GetUID;
+              ParamByName('pHeaderID').AsInteger      := LNextHeaderID;
+              ParamByName('pHeaderDT').AsDateTime     := DTPYear.DateTime;
+              ParamByName('pShopID').AsInteger        := StrToInt(VarToStr(DBLCBShopName.KeyValue));
+              ParamByName('pExpKey1').AsInteger       := StrToInt(VarToStr(DBLCBExp1.KeyValue));
+              if Not VarIsNull(DBLCBFromAC.KeyValue) then begin
+                ParamByName('pFromID').AsInteger      := StrToInt(VarToStr(DBLCBFromAC.KeyValue));
+              end;
+              if Not VarIsNull(DBLCBToAC.KeyValue) then begin
+                ParamByName('pToID').AsInteger        := StrToInt(VarToStr(DBLCBToAC.KeyValue));
+              end;
+              if EdtTotalAmount.Text = '' then begin
+                ParamByName('pTotalAmount').AsInteger := 0;
+              end else begin
+                ParamByName('pTotalAmount').AsInteger := StrToInt(StringReplace(EdtTotalAmount.Text, ',', '', [rfReplaceAll]));
+              end;
+              ParamByName('pEntryDT').AsDateTime      := Now;
+            end;
 
-          UpdateMode                                     := upWhereAll;
+            UpdateMode                                     := upWhereAll;
 
-          CloseTransactions;
-          ExecSQL;
-          ATr.Commit;
+            CloseTransactions;
+            ExecSQL;
+            ATr.Commit;
+          end;
         end;
 
         with FrmTopMenu.Defs do begin
@@ -334,33 +329,35 @@ begin
           end;
         end;
 
-        with AQu do begin
-          SQL.Text := SQL_20100008;
-          with Params do begin
-            ParamByName('pUserID').AsInteger        := FrmTopMenu.Defs.GetUID;
-            ParamByName('pHeaderID').AsInteger      := LNextHeaderID;
-            ParamByName('pHeaderDT').AsDateTime     := DTPYear.DateTime;
-            ParamByName('pShopID').AsInteger        := StrToInt(VarToStr(DBLCBShopName.KeyValue));
-            ParamByName('pExpKey1').AsInteger       := StrToInt(VarToStr(DBLCBExp1.KeyValue));
-            if Not VarIsNull(DBLCBFromAC.KeyValue) then begin
-              ParamByName('pFromID').AsInteger      := StrToInt(VarToStr(DBLCBFromAC.KeyValue));
+        with FrmTopMenu.Defs do begin
+          with AQu do begin
+            SQL.Text := SQL_20100008;
+            with Params do begin
+              ParamByName('pUserID').AsInteger        := GetUID;
+              ParamByName('pHeaderID').AsInteger      := LNextHeaderID;
+              ParamByName('pHeaderDT').AsDateTime     := DTPYear.DateTime;
+              ParamByName('pShopID').AsInteger        := StrToInt(VarToStr(DBLCBShopName.KeyValue));
+              ParamByName('pExpKey1').AsInteger       := StrToInt(VarToStr(DBLCBExp1.KeyValue));
+              if Not VarIsNull(DBLCBFromAC.KeyValue) then begin
+                ParamByName('pFromID').AsInteger      := StrToInt(VarToStr(DBLCBFromAC.KeyValue));
+              end;
+              if Not VarIsNull(DBLCBToAC.KeyValue) then begin
+                ParamByName('pToID').AsInteger        := StrToInt(VarToStr(DBLCBToAC.KeyValue));
+              end;
+              if EdtTotalAmount.Text = '' then begin
+                ParamByName('pTotalAmount').AsInteger := 0;
+              end else begin
+                ParamByName('pTotalAmount').AsInteger := StrToInt(EdtTotalAmount.Text);
+              end;
+              ParamByName('pEntryDT').AsDateTime      := Now;
             end;
-            if Not VarIsNull(DBLCBToAC.KeyValue) then begin
-              ParamByName('pToID').AsInteger        := StrToInt(VarToStr(DBLCBToAC.KeyValue));
-            end;
-            if EdtTotalAmount.Text = '' then begin
-              ParamByName('pTotalAmount').AsInteger := 0;
-            end else begin
-              ParamByName('pTotalAmount').AsInteger := StrToInt(EdtTotalAmount.Text);
-            end;
-            ParamByName('pEntryDT').AsDateTime      := Now;
+
+            UpdateMode                                     := upWhereAll;
+
+            CloseTransactions;
+            ExecSQL;
+            ATr.Commit;
           end;
-
-          UpdateMode                                     := upWhereAll;
-
-          CloseTransactions;
-          ExecSQL;
-          ATr.Commit;
         end;
 
         with FrmTopMenu.Defs do begin
@@ -421,34 +418,42 @@ end;
 
 procedure TFrmAddDetailsHeader.ActAddDetailExecute(Sender: TObject);
 begin
-  SetGoBack(False);
-  BackupValues;
-  FrmTopMenu.Defs.SetAddDetail(1);
-  ProcAddDetail;
+  with FrmTopMenu.Defs do begin
+    SetGoBack(False);
+    BackupValues;
+    SetAddDetail(1);
+    ProcAddDetail;
+  end;
 end;
 
 procedure TFrmAddDetailsHeader.ActEditDetailExecute(Sender: TObject);
 begin
-  SetGoBack(False);
-  BackupValues;
-  FrmTopMenu.Defs.SetEditDetail(1);
-  ProcEditDetail;
+  with FrmTopMenu.Defs do begin
+    SetGoBack(False);
+    BackupValues;
+    SetEditDetail(1);
+    ProcEditDetail;
+  end;
 end;
 
 procedure TFrmAddDetailsHeader.ActEntryAccountExecute(Sender: TObject);
 begin
-  SetGoBack(False);
-  BackupValues;
-  FrmTopMenu.Defs.SetEntryAccount(1);
-  ProcEntryAccount;
+  with FrmTopMenu.Defs do begin
+    SetGoBack(False);
+    BackupValues;
+    SetEntryAccount(1);
+    ProcEntryAccount;
+  end;
 end;
 
 procedure TFrmAddDetailsHeader.ActEntryShopExecute(Sender: TObject);
 begin
-  SetGoBack(False);
-  BackupValues;
-  FrmTopMenu.Defs.SetEntryShop(1);
-  ProcEntryShop;
+  with FrmTopMenu.Defs do begin
+    SetGoBack(False);
+    BackupValues;
+    SetEntryShop(1);
+    ProcEntryShop;
+  end;
 end;
 
 procedure TFrmAddDetailsHeader.ActQuitExecute(Sender: TObject);
@@ -459,19 +464,19 @@ end;
 
 procedure TFrmAddDetailsHeader.ActRemoveDetailExecute(Sender: TObject);
 begin
-  with AQuDetail do begin
-    SQL.Text := SQL_20100010;
-    with FrmTopMenu.Defs do begin
+  with FrmTopMenu.Defs do begin
+    with AQuDetail do begin
+      SQL.Text := SQL_20100010;
       with Params do begin
         ParamByName('pUserID').AsInteger   := GetUID;
         ParamByName('pHeaderID').AsInteger := GetHID;
         ParamByName('pDetailID').AsInteger := FieldByName('DETAIL_ID').AsInteger;
       end;
-    end;
 
-    CloseTransactions;
-    ExecSQL;
-    ATrDetail.Commit;
+      CloseTransactions;
+      ExecSQL;
+      ATrDetail.Commit;
+    end;
   end;
 end;
 
@@ -482,32 +487,44 @@ begin
     if Not VarIsNull(GetExpKey1) then begin
       if Not VarIsNull(GetExpKey1) then begin
         if StrToInt(VarToStr(GetExpKey1)) = 1 then begin
-          DBLCBFromAC.Enabled := True;
-          DBLCBFromAC.Cursor  := crHandPoint;
-          DBLCBToAC.Enabled   := False;
-          DBLCBToAC.ItemIndex := -1;
-          DBLCBToAC.Cursor    := crDefault;
+          with DBLCBFromAC do begin
+            Enabled := True;
+            Cursor  := crHandPoint;
+          end;
+          with DBLCBToAC do begin
+            Enabled   := False;
+            ItemIndex := -1;
+            Cursor    := crDefault;
+          end;
 
           if (DBLCBFromAC.Enabled) And (Not VarIsNull(DBLCBFromAC.KeyValue)) then begin
             DBEdtFromID.Text  := DBLCBFromAC.KeyValue;
           end;
           DBEdtToID.Text      := '';
         end else if StrToInt(VarToStr(GetExpKey1)) = 2 then begin
-          DBLCBFromAC.Enabled   := False;
-          DBLCBFromAC.Cursor    := crDefault;
-          DBLCBFromAC.ItemIndex := -1;
-          DBLCBToAC.Enabled     := True;
-          DBLCBToAC.Cursor      := crHandPoint;
+          with DBLCBFromAC do begin
+            Enabled   := False;
+            Cursor    := crDefault;
+            ItemIndex := -1;
+          end;
+          with DBLCBToAC do begin
+            Enabled     := True;
+            Cursor      := crHandPoint;
+          end;
 
           DBEdtFromID.Text      := '';
           if (DBLCBToAC.Enabled) And (Not VarIsNull(DBLCBToAC.KeyValue)) then begin
             DBEdtToID.Text        := DBLCBToAC.KeyValue;
           end;
         end else if StrToInt(VarToStr(GetExpKey1)) = 3 then begin
-          DBLCBFromAC.Enabled      := True;
-          DBLCBFromAC.Cursor       := crHandPoint;
-          DBLCBToAC.Enabled        := True;
-          DBLCBToAC.Cursor         := crHandPoint;
+          with DBLCBFromAC do begin
+            Enabled      := True;
+            Cursor       := crHandPoint;
+          end;
+          with DBLCBToAC do begin
+            Enabled        := True;
+            Cursor         := crHandPoint;
+          end;
           if (DBLCBFromAC.Enabled) then begin
             if (Not VarIsNull(GetFromACID)) And (VarToStr(GetFromACID) <> '') then begin
               DBEdtFromID.Text     := GetFromACID;
@@ -515,7 +532,7 @@ begin
             end else begin
               if Not VarIsNull(DBLCBFromAC.KeyValue) then begin
                 DBEdtFromID.Text   := DBLCBFromAC.KeyValue;
-                GetFromACID.SetFromACID(DBEdtFromID.Text);
+                SetFromACID(DBEdtFromID.Text);
               end;
             end;
           end;
@@ -526,7 +543,7 @@ begin
             end else begin
               if Not VarIsNull(DBLCBToAC.KeyValue) then begin
                 DBEdtToID.Text   := DBLCBToAC.KeyValue;
-                GetToACID.SetToACID(DBEdtToID.Text);
+                SetToACID(DBEdtToID.Text);
               end;
             end;
           end;
@@ -534,8 +551,8 @@ begin
       end;
       DBEdtExpKey1.Text          := DBLCBExp1.KeyValue;
     end else begin
-      GetFromACID.SetFromACID(DBEdtFromID.Text);
-      GetToACID.SetToACID(DBEdtToID.Text);
+      SetFromACID(DBEdtFromID.Text);
+      SetToACID(DBEdtToID.Text);
     end;
   end;
 end;
@@ -550,10 +567,10 @@ begin
       end else begin
         DBEdtShopID.Text := '';
       end;
-      GetShopID.SetShopID(DBEdtShopID.Text);
+      SetShopID(DBEdtShopID.Text);
     end else begin
       DBEdtShopID.Text := '';
-      GetShopID.SetShopID(DBEdtShopID.Text);
+      SetShopID(DBEdtShopID.Text);
     end;
   end;
 end;
@@ -568,10 +585,10 @@ begin
       end else begin
         DBEdtFromID.Text := '';
       end;
-      GetFromACID.SetFromACID(DBEdtFromID.Text);
+      SetFromACID(DBEdtFromID.Text);
     end else begin
       DBEdtFromID.Text := '';
-      GetFromACID.SetFromACID(DBEdtFromID.Text);
+      SetFromACID(DBEdtFromID.Text);
     end;
   end;
 end;
@@ -586,19 +603,21 @@ begin
       end else begin
         DBEdtToID.Text := '';
       end;
-      GetToACID.SetToACID(DBEdtToID.Text);
+      SetToACID(DBEdtToID.Text);
     end else begin
       DBEdtToID.Text := '';
-      GetToACID.SetToACID(DBEdtToID.Text);
+      SetToACID(DBEdtToID.Text);
     end;
   end;
 end;
 
 procedure TFrmAddDetailsHeader.DTPYearChange(Sender: TObject);
 begin
-  DTPMonth.DateTime := DTPYear.DateTime;
-  DTPDay.DateTime   := DTPYear.DateTime;
-  DTPHour.DateTime  := DTPYear.DateTime;
+  with DTPYear do begin
+    DTPMonth.DateTime := DateTime;
+    DTPDay.DateTime   := DateTime;
+    DTPHour.DateTime  := DateTime;
+  end;
 end;
 
 procedure TFrmAddDetailsHeader.EdtTotalAmountChange(Sender: TObject);
@@ -612,23 +631,29 @@ end;
 
 procedure TFrmAddDetailsHeader.DTPMonthChange(Sender: TObject);
 begin
-  DTPYear.DateTime := DTPMonth.DateTime;
-  DTPDay.DateTime  := DTPMonth.DateTime;
-  DTPHour.DateTime := DTPYear.DateTime;
+  with DTPMonth do begin
+    DTPYear.DateTime := DateTime;
+    DTPDay.DateTime  := DateTime;
+    DTPHour.DateTime := DTPYear.DateTime;
+  end;
 end;
 
 procedure TFrmAddDetailsHeader.DTPDayChange(Sender: TObject);
 begin
-  DTPYear.DateTime  := DTPDay.DateTime;
-  DTPMonth.DateTime := DTPDay.DateTime;
-  DTPHour.DateTime  := DTPYear.DateTime;
+  with DTPDay do begin
+    DTPYear.DateTime  := DateTime;
+    DTPMonth.DateTime := DateTime;
+    DTPHour.DateTime  := DTPYear.DateTime;
+  end;
 end;
 
 procedure TFrmAddDetailsHeader.DTPHourChange(Sender: TObject);
 begin
-  DTPYear.DateTime  := DTPHour.DateTime;
-  DTPMonth.DateTime := DTPHour.DateTime;
-  DTPDay.DateTime   := DTPHour.DateTime;
+  with DTPHour do begin
+    DTPYear.DateTime  := DateTime;
+    DTPMonth.DateTime := DateTime;
+    DTPDay.DateTime   := DateTime;
+  end;
 end;
 
 procedure TFrmAddDetailsHeader.FormClose(Sender: TObject;
@@ -654,7 +679,10 @@ begin
   end;
 
   SetGoBack(True);
+end;
 
+procedure TFrmAddDetailsHeader.FormShow(Sender: TObject);
+begin
   FrmAddDetailsHeader.Color := RGB(112, 168, 175);
   PnlEntryShop.Color        := RGB( 72, 122, 129);
   PnlEntryAccount.Color     := RGB( 72, 122, 129);
@@ -662,10 +690,7 @@ begin
   PnlEditDetail.Color       := RGB( 72, 122, 129);
   PnlRemoveDetail.Color     := RGB( 72, 122, 129);
   PnlGoBack.Color           := RGB( 72, 122, 129);
-end;
 
-procedure TFrmAddDetailsHeader.FormShow(Sender: TObject);
-begin
   try
     with FrmTopMenu.Defs do begin
       OpenSelQuAndSetVal(
@@ -695,17 +720,29 @@ begin
         DBEdtExpKey1, SQL_20100002, StrToInt(VarToStr(GetExpKey1)));
       DBLCBExp1Change(Self);
 
-      if Not VarIsNull(GetFromACID) then begin
+      if (Not VarIsNull(GetFromACID))
+          And (VarToStr(GetFromACID) <> '') then begin
         OpenSelQuAndSetVal(
           ACnFromAC, ADSFromAC, ATrFromAC, AQuFromAC, DBLCBFromAC  ,
           DBEdtFromID , SQL_20100003, StrToInt(VarToStr(GetFromACID)));
         DBLCBFromACChange(Self);
+      end else begin
+        OpenSelQuAndSetVal(
+          ACnFromAC, ADSFromAC, ATrFromAC, AQuFromAC, DBLCBFromAC  ,
+          DBEdtFromID , SQL_20100003, 0);
+        DBLCBFromACChange(Self);
       end;
 
-      if Not VarIsNull(GetToACID) then begin
+      if (Not VarIsNull(GetToACID))
+          And (VarToStr(GetToACID) <> '') then begin
         OpenSelQuAndSetVal(
           ACnToAC  , ADSToAC  , ATrToAC  , AQuToAC  , DBLCBToAC    ,
           DBEdtToID   , SQL_20100004, StrToInt(VarToStr(GetToACID)));
+        DBLCBToACChange(Self);
+      end else begin
+        OpenSelQuAndSetVal(
+          ACnToAC  , ADSToAC  , ATrToAC  , AQuToAC  , DBLCBToAC    ,
+          DBEdtToID   , SQL_20100004, 0);
         DBLCBToACChange(Self);
       end;
 
@@ -715,6 +752,9 @@ begin
           SQL_20100005);
         CloseConn(ACnNextID, ATrNextID);
       end else begin
+        CloseConn(ACnDetail, ATrDetail);
+        OpenConn(ACnDetail, ADSDetail, ATrDetail, AQuDetail);
+        SetDatabaseNames;
         OpenSelectQueryWithHeaderID(
           ACnDetail, ADSDetail, ATrDetail, AQuDetail,
           SQL_20120005, StrToInt(DBEdtHeaderID.Text));
@@ -744,7 +784,7 @@ begin
         end;
       end;
 
-      GetExpKey1.SetExpKey1(AQuDetail.FieldByName('EXP_KEY1').AsInteger);
+      SetExpKey1(AQuDetail.FieldByName('EXP_KEY1').AsInteger);
       SetHID(AQuDetail.FieldByName('HEADER_ID').AsInteger);
     end;
 

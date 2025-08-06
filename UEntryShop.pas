@@ -152,7 +152,7 @@ begin
   with FrmTopMenu.Defs do begin
     with DBEdtShopID do begin
       if Text <> '' then begin;
-        GetShopID.SetShopID(Text);
+        SetShopID(Text);
       end else begin
         SetShopID(Null);
       end;
@@ -164,14 +164,12 @@ begin
 
     SetStartBusinessDT(FormatDateTime(
       'yyyy/mm/dd hh:mm:ss',
-      DBDTPStartBusinessDT.Field.AsDateTime,
-      FrmTopMenu.Defs.GetFS));
+      DBDTPStartBusinessDT.Field.AsDateTime, GetFS));
 
     if Not DBDTPEndBusinessDT.Field.IsNull then begin;
       SetEndBusinessDT(FormatDateTime(
         'yyyy/mm/dd hh:mm:ss',
-        DBDTPEndBusinessDT.Field.AsDateTime,
-        FrmTopMenu.Defs.GetFS));
+        DBDTPEndBusinessDT.Field.AsDateTime, GetFS));
     end else begin
       SetEndBusinessDT('9999/12/31 23:59:59');
     end;
@@ -186,12 +184,17 @@ end;
 
 procedure TFrmEntryShop.ProcCancel;
 begin
-  if FInsert then begin
-    FInsert := False;
+  with FrmTopMenu.Defs do begin
+    if FInsert then begin
+      FInsert := False;
+    end;
+    ATr.Rollback;
+    CloseTransactions;
+    //OpenConn(ACn, ADS, ATr, AQu);
+    SetDatabaseNames;
+    OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20080001);
+    DBEdtShopName.SetFocus;
   end;
-  ATr.Rollback;
-  FrmTopMenu.Defs.OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20080001);
-  DBEdtShopName.SetFocus;
 end;
 
 procedure TFrmEntryShop.ProcCommit;
@@ -202,33 +205,42 @@ begin
   FDoCommit := True;
   try
     try
-      with AQu do begin
-        with FrmTopMenu.Defs do begin
+      with FrmTopMenu.Defs do begin
+        with AQu do begin
           SQL.Text := SQL_20080003;
-          Params.ParamByName('pUserID').AsInteger   := GetUID;
+          with Params do begin
+            ParamByName('pUserID').AsInteger   := GetUID;
+          end;
 
           if (VarIsNull(GetShopID)) Or (VarToStr(GetShopID) = '') then begin
+            CloseTransactions;
+            //OpenConn(ACnNextID, ADSNextID, ATrNextID, AQuNextID);
+            SetDatabaseNames;
             OpenSelectQuery(ACnNextID, ADSNextID, ATrNextID, AQuNextID, SQL_20080002);
             LNextShopID := AQuNextID.FieldByName('NEXT_ID').AsInteger;
             CloseConn(ACnNextID, ATrNextID);
-            Params.ParamByName('pShopID').AsInteger := LNextShopID;
+            with Params do begin
+              ParamByName('pShopID').AsInteger := LNextShopID;
+            end;
           end else begin
-            Params.ParamByName('pShopID').AsInteger := StrToInt(VarToStr(GetShopID));
-          end;
-          Params.ParamByName('pShopName').AsAnsiString := GetShopName;
-          Params.ParamByName('pPhoneNum').AsAnsiString := GetPhoneNum;
-          with FrmTopMenu.Defs do begin
-            Params.ParamByName('pStartBusinessDT').AsDateTime := StrToDateTime(GetStartBusinessDT, GetFS);
-            if GetEndBusinessDT <> '' then begin
-              Params.ParamByName('pEndBusinessDT').AsDateTime := StrToDateTime(GetEndBusinessDT, GetFS);
-            end else begin
-              Params.ParamByName('pEndBusinessDT').AsDateTime := StrToDateTime('9999/12/31 23:59:59', GetFS);
+            with Params do begin
+              ParamByName('pShopID').AsInteger := StrToInt(VarToStr(GetShopID));
             end;
           end;
-          Params.ParamByName('pDisabled').AsBoolean  := GetDisabled;
-          LNow                                       := Now;
-          Params.ParamByName('pEntryDT').AsDateTime  := LNow;
-          Params.ParamByName('pUpdateDT').AsDateTime := LNow;
+          with Params do begin
+            ParamByName('pShopName').AsAnsiString := GetShopName;
+            ParamByName('pPhoneNum').AsAnsiString := GetPhoneNum;
+            ParamByName('pStartBusinessDT').AsDateTime := StrToDateTime(GetStartBusinessDT, GetFS);
+            if GetEndBusinessDT <> '' then begin
+              ParamByName('pEndBusinessDT').AsDateTime := StrToDateTime(GetEndBusinessDT, GetFS);
+            end else begin
+              ParamByName('pEndBusinessDT').AsDateTime := StrToDateTime('9999/12/31 23:59:59', GetFS);
+            end;
+            ParamByName('pDisabled').AsBoolean  := GetDisabled;
+            LNow                                       := Now;
+            ParamByName('pEntryDT').AsDateTime  := LNow;
+            ParamByName('pUpdateDT').AsDateTime := LNow;
+          end;
 
           CloseTransactions;
           ExecSQL;
@@ -356,7 +368,7 @@ procedure TFrmEntryShop.DBEdtShopIDChange(Sender: TObject);
 begin
   if Not FDoCommit then begin
     with FrmTopMenu.Defs do begin
-      GetShopID.SetShopID(DBEdtShopID.Text);
+      SetShopID(DBEdtShopID.Text);
     end;
   end;
 end;
@@ -377,24 +389,26 @@ end;
 
 procedure TFrmEntryShop.DBDTPStartBusinessDTChange(Sender: TObject);
 begin
-  if Not FDoCommit then begin
-    SetStartBusinessDT(FormatDateTime(
-      'yyyy/mm/dd hh:mm:ss',
-      DBDTPStartBusinessDT.Field.AsDateTime,
-      FrmTopMenu.Defs.GetFS));
+  with FrmTopMenu.Defs do begin
+    if Not FDoCommit then begin
+      SetStartBusinessDT(FormatDateTime(
+        'yyyy/mm/dd hh:mm:ss',
+        DBDTPStartBusinessDT.Field.AsDateTime, GetFS));
+    end;
   end;
 end;
 
 procedure TFrmEntryShop.DBDTPEndBusinessDTChange(Sender: TObject);
 begin
-  if Not FDoCommit then begin
-    if Not DBDTPEndBusinessDT.Field.IsNull then begin;
-      SetEndBusinessDT(FormatDateTime(
-        'yyyy/mm/dd hh:mm:ss',
-        DBDTPEndBusinessDT.Field.AsDateTime,
-        FrmTopMenu.Defs.GetFS));
-    end else begin
-      SetEndBusinessDT('9999/12/31 23:59:59');
+  with FrmTopMenu.Defs do begin
+    if Not FDoCommit then begin
+      if Not DBDTPEndBusinessDT.Field.IsNull then begin;
+        SetEndBusinessDT(FormatDateTime(
+          'yyyy/mm/dd hh:mm:ss',
+          DBDTPEndBusinessDT.Field.AsDateTime, GetFS));
+      end else begin
+        SetEndBusinessDT('9999/12/31 23:59:59');
+      end;
     end;
   end;
 end;
@@ -446,7 +460,10 @@ begin
 
   FReOpenDS := False;
   FDoCommit := False;
+end;
 
+procedure TFrmEntryShop.FormShow(Sender: TObject);
+begin
   FrmEntryShop.Color := RGB(112, 168, 175);
   PnlInsert.Color    := RGB( 72, 122, 129);
   PnlCancel.Color    := RGB( 72, 122, 129);
@@ -456,12 +473,12 @@ begin
   with FrmTopMenu.Defs do begin
     FShopID := GetShopID;
   end;
-end;
 
-procedure TFrmEntryShop.FormShow(Sender: TObject);
-begin
   with AQu do begin
     with FrmTopMenu.Defs do begin
+      CloseTransactions;
+      //OpenConn(ACn, ADS, ATr, AQu);
+      SetDatabaseNames;
       OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20080001);
       ADBGrid.DataSource := ADS;
       if RecordCount = 0 then begin
@@ -477,13 +494,18 @@ end;
 
 procedure TFrmEntryShop.TimerTimer(Sender: TObject);
 begin
-  if FReOpenDS then
-  begin
-    FrmTopMenu.Defs.OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20080001);
-    ADBGrid.DataSource := ADS;
+  with FrmTopMenu.Defs do begin
+    if FReOpenDS then
+    begin
+      CloseTransactions;
+      //OpenConn(ACn, ADS, ATr, AQu);
+      SetDatabaseNames;
+      OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20080001);
+      ADBGrid.DataSource := ADS;
 
-    FReOpenDS          := False;
-    Timer.Enabled      := False;
+      FReOpenDS          := False;
+      Timer.Enabled      := False;
+    end;
   end;
 end;
 

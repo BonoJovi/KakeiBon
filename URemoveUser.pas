@@ -17,38 +17,38 @@ type
     ActionList     : TActionList;
     ActQuit        : TAction;
     ActRemoveUser  : TAction;
-    ADBGrid           : TDBGrid;
+    ADBGrid        : TDBGrid;
     ADS            : TDataSource;
     ATr            : TSQLTransaction;
-    BtnCancel: TButton;
-    BtnRemoveUser: TButton;
+    BtnCancel      : TButton;
+    BtnRemoveUser  : TButton;
     DBNav          : TDBNavigator;
     DBTextUserId   : TDBText;
     DBTextName     : TDBText;
     DBTextRole     : TDBText;
     DBTextEntryDT  : TDBText;
     DBTextUpdateDT : TDBText;
-    LblEntryDT1     : TLabel;
+    LblEntryDT1    : TLabel;
     LblEntryDT2    : TLabel;
     LblEntryDT3    : TLabel;
     LblName2       : TLabel;
     LblName3       : TLabel;
     LblName4       : TLabel;
-    LblName1        : TLabel;
-    LblRole1        : TLabel;
+    LblName1       : TLabel;
+    LblRole1       : TLabel;
     LblRole2       : TLabel;
-    LblUpdateDT1    : TLabel;
+    LblUpdateDT1   : TLabel;
     LblUpdateDT2   : TLabel;
     LblUpdateDT3   : TLabel;
-    LblUserId1      : TLabel;
+    LblUserId1     : TLabel;
     LblUserId2     : TLabel;
     LblUserId3     : TLabel;
     LblUserId4     : TLabel;
     LblUserId5     : TLabel;
     PnlCancel      : TPanel;
     PnlRemoveUser  : TPanel;
-    AQu: TSQLQuery;
-    ACn: TSQLite3Connection;
+    AQu            : TSQLQuery;
+    ACn            : TSQLite3Connection;
     procedure ActCancelExecute(Sender: TObject);
     procedure ActQuitExecute(Sender: TObject);
     procedure ActRemoveUserExecute(Sender: TObject);
@@ -58,7 +58,6 @@ type
   private
     procedure SetDatabaseNames;
     procedure CloseTransactions;
-    procedure ConnectUsersTable;
     procedure ProcCancel;
     procedure ProcRemoveUser;
   public
@@ -103,31 +102,35 @@ var
 begin
   try
     try
-      ADBGrid.AutoEdit  := True;
+      with FrmTopMenu.Defs do begin
+        ADBGrid.AutoEdit  := True;
 
-      LUID           := StrToInt(DBTextUserId.Caption);
+        LUID           := StrToInt(DBTextUserId.Caption);
 
-      with AQu do begin
-        SQL.Text := SQL_20050002;
-        Params.ParamByName('pUserID').AsInteger := LUID;
-
-        LRet := MessageDlg(MSG_JP_000011, mtWarning, [mbNo, mbYes], 0, mbNo);
-        if LRet = mrYes then
-        begin
-          CloseTransactions;
-          ExecSQL;
-          ATr.Commit;
-          FrmTopMenu.Defs.SetChangedUserDef(True);
-
-          FrmManageUser.Visible := True;
-          if FrmTopMenu.Defs.GetChangedUserDef then
-          begin
-            MessageDlg(MSG_JP_000031, mtInformation, [mbOk], 0);
-            FrmManageUser.ActGoBackExecute(FrmTopMenu);
+        with AQu do begin
+          SQL.Text := SQL_20050002;
+          with Params do begin
+            ParamByName('pUserID').AsInteger := LUID;
           end;
-        end else begin
-          MessageDlg(MSG_JP_000012, mtInformation, [mbOk], 0);
-          ATr.Rollback;
+
+          LRet := MessageDlg(MSG_JP_000011, mtWarning, [mbNo, mbYes], 0, mbNo);
+          if LRet = mrYes then
+          begin
+            CloseTransactions;
+            ExecSQL;
+            ATr.Commit;
+            SetChangedUserDef(True);
+
+            FrmManageUser.Visible := True;
+            if GetChangedUserDef then
+            begin
+              MessageDlg(MSG_JP_000031, mtInformation, [mbOk], 0);
+              FrmManageUser.ActGoBackExecute(FrmTopMenu);
+            end;
+          end else begin
+            MessageDlg(MSG_JP_000012, mtInformation, [mbOk], 0);
+            ATr.Rollback;
+          end;
         end;
       end;
     except
@@ -140,31 +143,6 @@ begin
   finally
     ATr.Active            := False;
     FrmRemoveUser.Close;
-  end;
-end;
-
-procedure TFrmRemoveUser.ConnectUsersTable;
-begin
-  try
-    if Not ACn.Connected then
-    begin
-      ACn.DatabaseName   := DB_NAME;
-      ATr.DataBase       := ACn;
-      AQu.DataBase       := ACn;
-      AQu.Transaction    := ATr;
-      ADS.DataSet        := AQu;
-      ACn.Open;
-      ATr.Active         := True;
-    end;
-
-    AQu.SQL.Text         := SQL_20050001;
-    AQu.Params.ParamByName('pRole').AsInteger := ROLE_USER;
-
-    AQu.Open;
-
-    ADBGrid.DataSource      := ADS;
-    ADBGrid.AutoFillColumns := True;
-  finally
   end;
 end;
 
@@ -186,16 +164,18 @@ end;
 procedure TFrmRemoveUser.FormClose(Sender: TObject;
   var CloseAction: TCloseAction);
 begin
-  CloseTransactions;
+  with FrmTopMenu.Defs do begin
+    CloseTransactions;
 
-  if FrmTopMenu.Defs.GetChangedUserDef = False then begin
-    FrmManageUser := TFrmManageUser.Create(Application);
-    FrmManageUser.Visible     := True;
-  end else begin
-    FrmTopMenu.Defs.SetChangedUserDef(False);
+    if GetChangedUserDef = False then begin
+      FrmManageUser := TFrmManageUser.Create(Application);
+      FrmManageUser.Visible     := True;
+    end else begin
+      SetChangedUserDef(False);
+    end;
+    CloseAction           := caFree;
+    FrmRemoveUser         := nil;
   end;
-  CloseAction           := caFree;
-  FrmRemoveUser         := nil;
 end;
 
 procedure TFrmRemoveUser.FormCreate(Sender: TObject);
@@ -206,22 +186,35 @@ begin
       Application.Terminate;
     end;
   end;
-
-  FrmRemoveUser.Color := RGB(112, 168, 175);
-  pnlCancel.Color     := RGB( 72, 122, 129);
-  PnlRemoveUser.Color := RGB( 72, 122, 129);
-
-  FrmRemoveUser.Height := 329;
-  FrmRemoveUser.Width  := 567;
-
-  ConnectUsersTable;
-
-  ADBGrid.AutoAdjustColumns;
 end;
 
 procedure TFrmRemoveUser.FormShow(Sender: TObject);
 begin
+  FrmRemoveUser.Color := RGB(112, 168, 175);
+  pnlCancel.Color     := RGB( 72, 122, 129);
+  PnlRemoveUser.Color := RGB( 72, 122, 129);
 
+  try
+    with AQu do begin
+      SQL.Text         := SQL_20050001;
+      with Params do begin
+        ParamByName('pRole').AsInteger := ROLE_USER;
+      end;
+
+      Open;
+    end;
+
+    with ADBGrid do begin
+      DataSource      := ADS;
+      AutoAdjustColumns;
+    end;
+  finally
+  end;
+
+  with FrmRemoveUser do begin
+    Height := 513;
+    Width  := 567;
+  end;
 end;
 
 end.

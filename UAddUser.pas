@@ -21,9 +21,9 @@ type
     ADS           : TDataSource;
     ATr           : TSQLTransaction;
     AQu           : TSQLQuery;
-    BtnCancel: TButton;
-    BtnClearPaw: TButton;
-    BtnCommit: TButton;
+    BtnCancel     : TButton;
+    BtnClearPaw   : TButton;
+    BtnCommit     : TButton;
     EdtPaw        : TEdit;
     EdtPawConfirm : TEdit;
     EdtUserName   : TEdit;
@@ -36,7 +36,7 @@ type
     PnlCancel     : TPanel;
     PnlClearPass  : TPanel;
     PnlCommit     : TPanel;
-    ACn: TSQLite3Connection;
+    ACn           : TSQLite3Connection;
     procedure ActCancelExecute(Sender: TObject);
     procedure ActClearPawExecute(Sender: TObject);
     procedure ActCommitExecute(Sender: TObject);
@@ -85,8 +85,10 @@ procedure TFrmAddUser.CallInsertSQL(UserID: Integer; SQLStr: String);
 begin
   with AQu do begin
     SQL.Text                                  := SQLStr;
-    Params.ParamByName('pUserID').AsInteger   := UserID;
-    Params.ParamByName('pEntryDT').AsDateTime := Now;
+    with Params do begin
+      ParamByName('pUserID').AsInteger   := UserID;
+      ParamByName('pEntryDT').AsDateTime := Now;
+    end;
     ExecSQL;
   end;
 end;
@@ -95,7 +97,9 @@ procedure TFrmAddUser.CallInsertSQLWithoutUserID(SQLStr: String);
 begin
   with AQu do begin
     SQL.Text                                  := SQLStr;
-    Params.ParamByName('pEntryDT').AsDateTime := Now;
+    with Params do begin
+      ParamByName('pEntryDT').AsDateTime := Now;
+    end;
     ExecSQL;
   end;
 end;
@@ -108,7 +112,9 @@ end;
 
 procedure TFrmAddUser.ProcClearPaw;
 begin
-  FrmTopMenu.Defs.ClearPaw(EdtPaw, EdtPawConfirm);
+  with FrmTopMenu.Defs do begin
+    ClearPaw(EdtPaw, EdtPawConfirm);
+  end;
 end;
 
 procedure TFrmAddUser.ProcCommit;
@@ -142,23 +148,26 @@ begin
       Exit;
     end;
 
-    // Input check
-    if EdtPaw.Text <> EdtPawConfirm.Text then
-    begin
-      FrmTopMenu.Defs.ClearPaw(EdtPaw, EdtPawConfirm);
-      MessageDlg(MSG_JP_000005, mtError, [mbOk], 0);
-      Exit;
+    with FrmTopMenu.Defs do begin
+      // Input check
+      if EdtPaw.Text <> EdtPawConfirm.Text then
+      begin
+        ClearPaw(EdtPaw, EdtPawConfirm);
+        MessageDlg(MSG_JP_000005, mtError, [mbOk], 0);
+        Exit;
+      end;
     end;
 
     try
       with AQu do begin
         // Add user
         SQL.Text                                  := SQL_20030001;
-
-        Params.ParamByName('pUName').AsUTF8String := EdtUserName.Text;
-        Params.ParamByName('pPaw').AsUTF8String   := EdtPaw.Text;
-        Params.ParamByName('pRole').AsInteger     := ROLE_USER;
-        Params.ParamByName('pEntryDT').AsDateTime := Now;
+        with Params do begin
+          ParamByName('pUName').AsUTF8String := EdtUserName.Text;
+          ParamByName('pPaw').AsUTF8String   := EdtPaw.Text;
+          ParamByName('pRole').AsInteger     := ROLE_USER;
+          ParamByName('pEntryDT').AsDateTime := Now;
+        end;
 
         CloseTransactions;
         ExecSQL;
@@ -377,7 +386,6 @@ begin
       // 振替
       CallInsertSQL(LUserID, SQL_93000001);
 
-      CloseTransactions;
       ATr.Commit;
     except
       on E: ESQLDatabaseError do begin
@@ -428,16 +436,14 @@ begin
       Application.Terminate;
     end;
   end;
-
-  FrmAddUser.Color   := RGB(112, 168, 175);
-  PnlClearPass.Color := RGB( 72, 122, 129);
-  PnlCancel.Color    := RGB( 72, 122, 129);
-  PnlCommit.Color    := RGB( 72, 122, 129);
 end;
 
 procedure TFrmAddUser.FormShow(Sender: TObject);
 begin
-
+  FrmAddUser.Color   := RGB(112, 168, 175);
+  PnlClearPass.Color := RGB( 72, 122, 129);
+  PnlCancel.Color    := RGB( 72, 122, 129);
+  PnlCommit.Color    := RGB( 72, 122, 129);
 end;
 
 end.

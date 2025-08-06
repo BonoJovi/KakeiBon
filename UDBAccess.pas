@@ -267,10 +267,17 @@ const
                  ':pUpdateDT WHERE USER_ID = :pUserID AND EXP_KEY1 = ' +
                  ':pExpKey1 AND EXP_KEY2 = :pExpKey2 AND EXP_KEY3 = ' +
                  ':pExpKey3';
+  SQL_20060014 = 'UPDATE EXP2 SET ORDER_KEY2 = EXP_KEY2, UPDATE_DT = ' +
+                 'datetime(''now'', ''+9 hours'') WHERE USER_ID = :pUserID ' +
+                 'AND EXP_KEY1 = :pExpKey1';
+  SQL_20060015 = 'UPDATE EXP3 SET ORDER_KEY3 = EXP_KEY3, UPDATE_DT = ' +
+                 'datetime(''now'', ''+9 hours'') WHERE USER_ID = :pUserID ' +
+                 'AND EXP_KEY1 = :pExpKey1 AND EXP_KEY2 = :pExpKey2';
 
   // UTopMenu
   SQL_20070001 = 'SELECT COUNT(USER_ID) AS COUNT FROM EXP1';
-  SQL_20070002 = 'SELECT * FROM USERS';
+  SQL_20070002 = 'SELECT COUNT(USER_ID) AS COUNT FROM EXP1 WHERE USER_ID = ' +
+                 ':pUserID';
 
   // UEntryShop
   SQL_20080001 = 'SELECT * FROM SHOP WHERE USER_ID = :pUserID ORDER BY ' +
@@ -324,7 +331,7 @@ const
   SQL_20100003 = 'SELECT USER_ID, ACCOUNT_ID FROM_ID, ' +
                  'CAST(BRAND_NAME||'' ''||SUB_NAME AS VARCHAR) ' +
                  'AS FROM_NAME, DISABLED FROM ACCOUNT WHERE USER_ID ' +
-                 '= :pUserID AND DISABLED = FALSE ORDER BY FROM_NAME ASC';
+                 '= :pUserID AND DISABLED = FALSE ORDER BY FROM_ID ASC';
   SQL_20100004 = 'SELECT USER_ID, ACCOUNT_ID TO_ID, ' +
                  'CAST(BRAND_NAME||'' ''||SUB_NAME AS VARCHAR) ' +
                  'AS TO_NAME, DISABLED FROM ACCOUNT WHERE USER_ID ' +
@@ -422,7 +429,7 @@ const
 
   // UEntryAccount
   SQL_20110001 = 'SELECT * FROM ACCOUNT WHERE USER_ID = :pUserID ORDER BY ' +
-                 'ACCOUNT_ID DESC';
+                 'ACCOUNT_ID ASC';
   SQL_20110002 = 'SELECT COALESCE(MAX(ACCOUNT_ID), 0) + 1 AS NEXT_ID ' +
                  'FROM ACCOUNT WHERE USER_ID = :pUserID';
   SQL_20110003 = 'INSERT INTO ACCOUNT(USER_ID, ACCOUNT_ID, BRAND_NAME, ' +
@@ -492,7 +499,7 @@ const
     // UEntryBrandName and UAddDetail and UEditDetail
     SQL_20140001 = 'SELECT USER_ID, MAKER_ID, BRAND_NAME_ID, BRAND_NAME, ' +
                    'END_OF_SALES, DISABLED, ENTRY_DT, UPDATE_DT FROM BRAND ' +
-                   'WHERE USER_ID = :pUserID AND MAKER_ID = :pMakerID ';
+                   'WHERE USER_ID = :pUserID AND MAKER_ID = :pMakerID';
     SQL_20140002 = 'SELECT COALESCE(MAX(BRAND_NAME_ID), 0) + 1 AS ' +
                    'NEXT_ID FROM BRAND WHERE USER_ID = :pUserID ' +
                    'AND MAKER_ID = :pMakerID';

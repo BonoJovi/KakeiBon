@@ -21,15 +21,16 @@ type
     ActManageExp     : TAction;
     ActManageUser    : TAction;
     ActQuit          : TAction;
+    ACn              : TSQLite3Connection;
     ADS              : TDataSource;
     AQu              : TSQLQuery;
     ATr              : TSQLTransaction;
-    BtnEntryDetails: TButton;
-    BtnLogin: TButton;
-    BtnLogout: TButton;
-    BtnManageExp: TButton;
-    BtnManageUser: TButton;
-    BtnQuit: TButton;
+    BtnEntryDetails  : TButton;
+    BtnLogin         : TButton;
+    BtnLogout        : TButton;
+    BtnManageExp     : TButton;
+    BtnManageUser    : TButton;
+    BtnQuit          : TButton;
     PnlManageDetails : TPanel;
     PnlLogin         : TPanel;
     PnlLogInAndOut   : TPanel;
@@ -39,7 +40,6 @@ type
     PnlManagements   : TPanel;
     PnlManageUser    : TPanel;
     PnlQuit          : TPanel;
-    ACn: TSQLite3Connection;
     Timer            : TTimer;
     procedure ActLoginExecute(Sender: TObject);
     procedure ActLogoutExecute(Sender: TObject);
@@ -56,6 +56,7 @@ type
     procedure ProcLogout;
   private
     FDefs            : TDefs;
+    procedure SetDatabaseNames;
     procedure OpenFormEntryAdmin;
     procedure OpenFormOrMsgDlg(Sender: TForm; NoMessageDlg: Boolean);
     procedure ProcEntryDetails;
@@ -82,6 +83,32 @@ uses
 
 { TFrmTopMenu }
 
+procedure TFrmTopMenu.SetDatabaseNames;
+begin
+  try
+    try
+      with Defs do begin
+        SetOSHomeDir(GetEnvironmentVariable('HOME'));
+        SetDBPath(GetOSHomeDir + '/' + DB_DIR);
+        SetDBFullPath(GetDBPath + DB_NAME);
+
+        if GetDoExitKakeiBon then begin
+          Application.Terminate;
+          Exit;
+        end;
+
+        ForceDirectories(GetDBPath);
+        SetDatabaseName(ACn);
+      end;
+    except
+      on E: Exception do begin
+        ShowMessage(E.Message);
+      end;
+    end;
+  finally
+  end;
+end;
+
 function TFrmTopMenu.Defs: TDefs;
 begin
   Result := FDefs;
@@ -89,27 +116,29 @@ end;
 
 procedure TFrmTopMenu.ProcEntryDetails;
 begin
-  Defs.OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20070001);
+  with Defs do begin
+    OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20070001);
 
-  if AQu.FieldByName('COUNT').AsInteger > 0 then
-  begin
-    ATr.Active         := False;
+    if AQu.FieldByName('COUNT').AsInteger > 0 then
+    begin
+      ATr.Active         := False;
 
-    Defs.CloseConn(ACn, ATr);
+      CloseConn(ACn, ATr);
 
-    if Defs.GetRole = 1 then
-    begin;
-      FrmManageDetails := TFrmManageDetails.Create(Application);
-      OpenFormOrMsgDlg(FrmManageDetails, False);
+      if GetRole = 1 then
+      begin;
+        FrmManageDetails := TFrmManageDetails.Create(Application);
+        OpenFormOrMsgDlg(FrmManageDetails, False);
+      end else begin
+        MessageDlg(MSG_JP_000024, mtInformation, [mbOk], 0);
+      end;
     end else begin
-      MessageDlg(MSG_JP_000024, mtInformation, [mbOk], 0);
+      ATr.Active         := False;
+
+      CloseConn(ACn, ATr);
+
+      MessageDlg(MSG_JP_000023, mtInformation, [mbOk], 0);
     end;
-  end else begin
-    ATr.Active         := False;
-
-    Defs.CloseConn(ACn, ATr);
-
-    MessageDlg(MSG_JP_000023, mtInformation, [mbOk], 0);
   end;
 end;
 
@@ -126,89 +155,101 @@ procedure TFrmTopMenu.ProcLogout;
 begin
   if LoginFlg then
   begin
-    BtnEntryDetails.Enabled   := False;
+    BtnEntryDetails.Enabled := False;
 
-    BtnManageUser.Enabled      := False;
-    BtnManageExp.Enabled       := False;
+    BtnManageUser.Enabled   := False;
+    BtnManageExp.Enabled    := False;
 
-    BtnLogin.Visible           := True;
-    BtnLogin.Enabled           := True;
+    with BtnLogin do begin
+      Visible          := True;
+      Enabled          := True;
+    end;
+    with BtnLogout do begin
+      Visible          := False;
+      Enabled          := False;
+    end;
 
-    BtnLogout.Visible          := False;
-    BtnLogout.Enabled          := False;
+    FrmTopMenu.Caption := APP_NAME;
 
-    FrmTopMenu.Caption         := APP_NAME;
-
-    LoginFlg                   := False;
+    LoginFlg           := False;
   end;
 end;
 
 procedure TFrmTopMenu.ProcManageExp;
 begin
-  Defs.OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20070001);
+  with Defs do begin
+    OpenSelectQueryWithUserID(ACn, ADS, ATr, AQu, SQL_20070002, GetUID);
+    if AQu.FieldByName('COUNT').AsInteger > 0 then
+    begin
+      ATr.Active      := False;
 
-  if AQu.FieldByName('COUNT').AsInteger > 0 then
-  begin
-    ATr.Active      := False;
+      CloseConn(ACn, ATr);
 
-    Defs.CloseConn(ACn, ATr);
+      FrmManageExp      := TFrmManageExp.Create(Application);
+      OpenFormOrMsgDlg(FrmManageExp, False);
+    end else begin
+      ATr.Active      := False;
 
-    FrmManageExp      := TFrmManageExp.Create(Application);
-    OpenFormOrMsgDlg(FrmManageExp, False);
-  end else begin
-    ATr.Active      := False;
+      CloseConn(ACn, ATr);
 
-    Defs.CloseConn(ACn, ATr);
-
-    MessageDlg(MSG_JP_000023, mtInformation, [mbOk], 0);
+      MessageDlg(MSG_JP_000023, mtInformation, [mbOk], 0);
+    end;
   end;
 end;
 
 procedure TFrmTopMenu.ProcManageUser;
 begin
-  Defs.OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20070001);
+  with Defs do begin
+    OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20070001);
 
-  ATr.Active      := False;
+    ATr.Active      := False;
 
-  Defs.CloseConn(ACn, ATr);
+    CloseConn(ACn, ATr);
 
-  FrmManageUser     := TFrmManageUser.Create(Application);
-  OpenFormOrMsgDlg(FrmManageUser, False);
+    FrmManageUser     := TFrmManageUser.Create(Application);
+    OpenFormOrMsgDlg(FrmManageUser, False);
+  end;
 end;
 
 procedure TFrmTopMenu.OpenFormOrMsgDlg(Sender: TForm; NoMessageDlg: Boolean);
 begin
-  if LoginFlg then
-  begin
-    FrmTopMenu.Visible         := False;
-    Sender.Show;
-  end else begin // LoginFlg = False
-    if NoMessageDlg then
+  with FrmTopMenu do begin
+    if LoginFlg then
     begin
-      FrmTopMenu.Visible       := False;
+      Visible         := False;
       Sender.Show;
-    end else begin // NoMessageDlg = False
-      MessageDlg(MSG_JP_000001, mtInformation, [mbOk], 0);
+    end else begin // LoginFlg = False
+      if NoMessageDlg then
+      begin
+        Visible       := False;
+        Sender.Show;
+      end else begin // NoMessageDlg = False
+        MessageDlg(MSG_JP_000001, mtInformation, [mbOk], 0);
+      end;
     end;
   end;
 end;
 
 procedure TFrmTopMenu.SetPanelPosAndSize(Sender: TPanel; PosTop, PosLeft, SizeHeight, SizeWidth: Longint);
 begin
-  Sender.Top    := PosTop;
-  Sender.Left   := PosLeft;
-  Sender.Height := SizeHeight;
-  Sender.Width  := SizeWidth;
+  with Sender do begin
+    Top    := PosTop;
+    Left   := PosLeft;
+    Height := SizeHeight;
+    Width  := SizeWidth;
+  end;
 end;
 
 procedure TFrmTopMenu.OpenFormEntryAdmin;
 begin
-  if Not FileExists(Defs.GetDBFullPath) then
-  begin
-    ProcLogout;
+  with Defs do begin
+    if Not FileExists(GetDBFullPath) then
+    begin
+      ProcLogout;
 
-    FrmEntryAdmin := TFrmEntryAdmin.Create(Application);
-    FrmEntryAdmin.ShowModal;
+      FrmEntryAdmin := TFrmEntryAdmin.Create(Application);
+      FrmEntryAdmin.ShowModal;
+    end;
   end;
 end;
 
@@ -244,8 +285,10 @@ end;
 
 procedure TFrmTopMenu.FormActivate(Sender: TObject);
 begin
-  FrmTopMenu.WindowState       := wsMaximized;
-  FrmTopMenu.WindowState       := wsNormal;
+  with FrmTopMenu do begin
+    WindowState       := wsMaximized;
+    WindowState       := wsNormal;
+  end;
 end;
 
 procedure TFrmTopMenu.FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -266,110 +309,115 @@ var
 begin
   FDefs := TDefs.Create;
 
-  if Defs.GetDoExitKakeiBon then begin
-    Application.Terminate;
-  end;
-
-  FrmTopMenu.Color       := RGB(  0, 128, 128);
-  PnlManageDetails.Color := RGB(192, 220, 192);
-  PnlManagements.Color   := RGB(192, 220, 192);
-  PnlLogInAndOut.Color   := RGB(192, 220, 192);
-
-  ChngdAdmUserFlg   := False;
-
-  with FrmTopMenu do begin
-    Width  := 634;
-    Height := 374;
-  end;
-
-  if LoginFlg then
-  begin
-    PnlManageUser.Color := RGB(192, 220, 192);
-    PnlManageExp.Color  := RGB(192, 220, 192);
-
-    if Defs.GetRole = 1 then begin;
-      BtnEntryDetails.Enabled  := True;
-    end;
-
-    BtnManageUser.Enabled := True;
-    if Defs.GetRole = 1 then begin;
-      BtnManageExp.Enabled  := True;
-    end else begin
-      BtnManageExp.Enabled  := False;
-    end;
-
-    BtnLogin.Enabled := False;
-
-    BtnLogout.Enabled := True;
-  end else begin
-    BtnEntryDetails.Enabled := False;
-    BtnManageUser.Enabled   := False;
-    BtnManageExp.Enabled    := False;
-
-    BtnLogin.Visible := True;
-    BtnLogin.Enabled := True;
-
-    BtnLogout.Visible := False;
-    BtnLogout.Enabled := False;
-  end;
-
-  SetPanelPosAndSize(PnlManageUser,    9 , 9, LHeight, LWidth + 2);
-  SetPanelPosAndSize(PnlManageExp,     64, 9, LHeight, LWidth + 2);
-  SetPanelPosAndSize(PnlEntryDetails,  9 , 9, LHeight, LWidth + 2);
-  SetPanelPosAndSize(PnlLogin,         9 , 9, LHeight, LWidth + 0);
-  SetPanelPosAndSize(PnlLogout,        9 , 9, LHeight, LWidth + 0);
-  SetPanelPosAndSize(PnlQuit,          66, 9, LHeight, LWidth + 2);
-
-  { TFormatSettings }
-  LFS.DateSeparator        := '/';
-  LFS.ShortDateFormat      := 'yyyy-mm-dd';
-  LFS.TimeSeparator        := ':';
-  LFS.ShortTimeFormat      := 'hh:nn:ss';
-  Defs.SetFS(LFS);
-
   with Defs do begin
-    SetOSHomeDir(GetEnvironmentVariable('HOME'));
-    SetDBPath(GetOSHomeDir + '/' + DB_DIR);
-    SetDBFullPath(GetDBPath + DB_NAME);
-
-    if Defs.GetDoExitKakeiBon then begin
+    if GetDoExitKakeiBon then begin
       Application.Terminate;
-      Exit;
     end;
 
-    ForceDirectories(GetDBPath);
-    SetDatabaseName(ACn);
+    ChngdAdmUserFlg   := False;
+
+    with FrmTopMenu do begin
+      Width  := 634;
+      Height := 374;
+    end;
+
+    if LoginFlg then
+    begin
+      if GetRole = 1 then begin;
+      end;
+
+      BtnManageUser.Enabled := True;
+      if GetRole = 1 then begin;
+        BtnEntryDetails.Enabled := True;
+        BtnManageExp.Enabled    := True;
+      end else begin
+        BtnEntryDetails.Enabled := False;
+        BtnManageExp.Enabled    := False;
+      end;
+
+      BtnLogin.Enabled := False;
+
+      BtnLogout.Enabled := True;
+    end else begin
+      BtnEntryDetails.Enabled := False;
+      BtnManageUser.Enabled   := False;
+      BtnManageExp.Enabled    := False;
+
+      with BtnLogin do begin
+        Visible          := True;
+        Enabled          := True;
+      end;
+      with BtnLogout do begin
+        Visible          := False;
+        Enabled          := False;
+      end;
+    end;
+
+    SetPanelPosAndSize(PnlManageUser,    9 , 9, LHeight, LWidth + 2);
+    SetPanelPosAndSize(PnlManageExp,     64, 9, LHeight, LWidth + 2);
+    SetPanelPosAndSize(PnlEntryDetails,  9 , 9, LHeight, LWidth + 2);
+    SetPanelPosAndSize(PnlLogin,         9 , 9, LHeight, LWidth + 0);
+    SetPanelPosAndSize(PnlLogout,        9 , 9, LHeight, LWidth + 0);
+    SetPanelPosAndSize(PnlQuit,          66, 9, LHeight, LWidth + 2);
+
+    { TFormatSettings }
+    with LFS do begin
+      DateSeparator        := '/';
+      ShortDateFormat      := 'yyyy-mm-dd';
+      TimeSeparator        := ':';
+      ShortTimeFormat      := 'hh:nn:ss';
+    end;
+    SetFS(LFS);
+
+    SetDatabaseNames;
   end;
 end;
 
 procedure TFrmTopMenu.FormShow(Sender: TObject);
 begin
+  FrmTopMenu.Color       := RGB(  0, 128, 128);
+  PnlManageDetails.Color := RGB(192, 220, 192);
+  PnlManagements.Color   := RGB(192, 220, 192);
+  PnlLogInAndOut.Color   := RGB(192, 220, 192);
 
+  if LoginFlg then
+  begin
+    PnlManageUser.Color := RGB(192, 220, 192);
+    PnlManageExp.Color  := RGB(192, 220, 192);
+  end;
 end;
 
 procedure TFrmTopMenu.TimerTimer(Sender: TObject);
 begin
-  if Not FileExists(Defs.GetDBFullPath) then
-  begin
-    OpenFormEntryAdmin;
-  end;
+  with Defs do begin
+    if Not FileExists(GetDBFullPath) then
+    begin
+      OpenFormEntryAdmin;
+    end;
 
-  if ChngdAdmUserFlg then
-  begin
-    ProcLogout;
-    ChngdAdmUserFlg            := False;
-  end;
+    if ChngdAdmUserFlg then
+    begin
+      ProcLogout;
+      ChngdAdmUserFlg            := False;
+    end;
 
-  if LoginFlg then
-  begin
-    BtnManageUser.Visible      := True;
-    BtnManageExp.Visible       := True;
+    if LoginFlg then
+    begin
+      BtnManageUser.Enabled      := True;
+      if GetRole = 1 then begin
+        BtnEntryDetails.Enabled := True;
+        BtnManageExp.Enabled       := True;
+      end;
 
-    BtnLogin.Visible           := False;
-    BtnLogin.Enabled           := False;
-
-    BtnLogout.Visible          := True;
-    BtnLogout.Enabled          := True;
+      with BtnLogin do begin
+        Visible          := False;
+        Enabled          := False;
+      end;
+      with BtnLogout do begin
+        Visible          := True;
+        Enabled          := True;
+      end;
+    end;
   end;
 end;
 

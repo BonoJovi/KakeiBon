@@ -231,15 +231,31 @@ end;
 
 procedure TFrmEntryAdmin.FormCreate(Sender: TObject);
 begin
+  with FrmTopMenu.Defs do begin
+    SetOSHomeDir(GetEnvironmentVariable('HOME'));
+    SetDBPath(GetOSHomeDir + '/' + DB_DIR);
+    SetDBFullPath(GetDBPath + DB_NAME);
+
+    if GetDoExitKakeiBon then begin
+      Application.Terminate;
+      Exit;
+    end;
+
+    ForceDirectories(GetDBPath);
+    SetDatabaseName(ACn);
+  end;
   SetDatabaseNames;
   with FrmTopMenu.Defs do begin
     if GetDoExitKakeiBon then begin
       Application.Terminate;
     end;
   end;
+end;
 
+procedure TFrmEntryAdmin.FormShow(Sender: TObject);
+begin
   FrmEntryAdmin.Color := RGB(112, 168, 175);
-  PnlClearPaw.Color  := RGB( 72, 122, 129);
+  PnlClearPaw.Color   := RGB( 72, 122, 129);
   PnlCommit.Color     := RGB( 72, 122, 129);
 
   FrmEntryAdmin.Height := 279;
@@ -247,11 +263,6 @@ begin
   EdtAdminUserId.Clear;
   EdtPaw.Clear;
   EdtPawConfirm.Clear;
-end;
-
-procedure TFrmEntryAdmin.FormShow(Sender: TObject);
-begin
-
 end;
 
 end.

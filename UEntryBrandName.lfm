@@ -690,6 +690,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
     LoginPrompt = False
     KeepConnection = False
     Transaction = ATrMaker
+    CharSet = 'UTF-8'
     AlwaysUseBigint = False
     Left = 120
     Top = 232

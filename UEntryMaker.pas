@@ -119,29 +119,36 @@ end;
 
 procedure TFrmEntryMaker.BackupValues;
 begin
-  if DBEdtMakerID.Text <> '' then begin;
-    GetMakerID.SetMakerID(DBEdtMakerID.Text);
-  end else begin
-    SetMakerID(Null);
-  end;
+  with FrmTopMenu.Defs do begin
+    if DBEdtMakerID.Text <> '' then begin;
+      SetMakerID(DBEdtMakerID.Text);
+    end else begin
+      SetMakerID(Null);
+    end;
 
-  SetMakerName(DBEdtMakerName.Text);
+    SetMakerName(DBEdtMakerName.Text);
 
-  if DBCBDisabled.State = cbChecked then begin
-    SetDisabled(True);
-  end else begin
-    SetDisabled(False);
+    if DBCBDisabled.State = cbChecked then begin
+      SetDisabled(True);
+    end else begin
+      SetDisabled(False);
+    end;
   end;
 end;
 
 procedure TFrmEntryMaker.ProcCancel;
 begin
-  if FInsert then begin
-    FInsert := False;
+  with FrmTopMenu.Defs do begin
+    if FInsert then begin
+      FInsert := False;
+    end;
+    ATr.Rollback;
+    CloseTransactions;
+    //OpenConn(ACn, ADS, ATr, AQu);
+    SetDatabaseNames;
+    OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20130001);
+    DBEdtMakerName.SetFocus;
   end;
-  ATr.Rollback;
-  FrmTopMenu.Defs.OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20130001);
-  DBEdtMakerName.SetFocus;
 end;
 
 procedure TFrmEntryMaker.ProcCommit;
@@ -151,31 +158,38 @@ begin
   FDoCommit := True;
   try
     try
-      with ATr do begin
-        if Not Active then begin
-          StartTransaction;
+      with FrmTopMenu.Defs do begin
+        with ATr do begin
+          if Not Active then begin
+            StartTransaction;
+          end;
         end;
-      end;
 
-      with AQu do begin
-        SQL.Text := SQL_20130004;
-        Params.ParamByName('pUserID').AsInteger := FrmTopMenu.Defs.GetUID;
-        if (VarIsNull(GetMakerID)) Or (VarToStr(GetMakerID) = '') then begin
-          FrmTopMenu.Defs.OpenSelectQuery(ACnNextID, ADSNextID, ATrNextID, AQuNextID, SQL_20130003);
-          LNextMakerID                             := AQuNextID.FieldByName('NEXT_ID').AsInteger;
-          FrmTopMenu.Defs.CloseConn(ACnNextID, ATrNextID);
-          Params.ParamByName('pMakerID').AsInteger := LNextMakerID;
-        end else begin
-          Params.ParamByName('pMakerID').AsInteger := StrToInt(VarToStr(GetMakerID));
+        with AQu do begin
+          SQL.Text := SQL_20130004;
+          with Params do begin
+            ParamByName('pUserID').AsInteger := GetUID;
+            if (VarIsNull(GetMakerID)) Or (VarToStr(GetMakerID) = '') then begin
+              CloseTransactions;
+              //OpenConn(ACnNextID, ADSNextID, ATrNextID, AQuNextID);
+              SetDatabaseNames;
+              OpenSelectQuery(ACnNextID, ADSNextID, ATrNextID, AQuNextID, SQL_20130003);
+              LNextMakerID                             := AQuNextID.FieldByName('NEXT_ID').AsInteger;
+              CloseConn(ACnNextID, ATrNextID);
+              ParamByName('pMakerID').AsInteger := LNextMakerID;
+            end else begin
+              ParamByName('pMakerID').AsInteger := StrToInt(VarToStr(GetMakerID));
+            end;
+            ParamByName('pMakerName').AsAnsiString := GetMakerName;
+            ParamByName('pDisabled').AsBoolean     := GetDisabled;
+            ParamByName('pEntryDT').AsDateTime     := Now;
+            ParamByName('pUpdateDT').AsDateTime    := Now;
+          end;
+
+          CloseTransactions;
+          ExecSQL;
+          ATr.Commit;
         end;
-        Params.ParamByName('pMakerName').AsAnsiString := GetMakerName;
-        Params.ParamByName('pDisabled').AsBoolean     := GetDisabled;
-        Params.ParamByName('pEntryDT').AsDateTime     := Now;
-        Params.ParamByName('pUpdateDT').AsDateTime    := Now;
-
-        CloseTransactions;
-        ExecSQL;
-        ATr.Commit;
       end;
     except
       on E: ESQLDatabaseError do
@@ -276,14 +290,16 @@ end;
 procedure TFrmEntryMaker.DBEdtMakerIDChange(Sender: TObject);
 begin
   if Not FDoCommit then begin
-    GetMakerID.SetMakerID(DBEdtMakerID.Text);
+    SetMakerID(DBEdtMakerID.Text);
   end;
 end;
 
 procedure TFrmEntryMaker.DBEdtMakerNameChange(Sender: TObject);
 begin
-  if Not FDoCommit then begin
-    FrmTopMenu.Defs.SetMakerName(DBEdtMakerName.Text);
+  with FrmTopMenu.Defs do begin
+    if Not FDoCommit then begin
+      SetMakerName(DBEdtMakerName.Text);
+    end;
   end;
 end;
 
@@ -334,39 +350,49 @@ begin
   FReOpenDS   := False;
   FIsDisabled := False;
   FDoCommit   := False;
+end;
 
+procedure TFrmEntryMaker.FormShow(Sender: TObject);
+begin
   FrmEntryMaker.Color := RGB(112, 168, 175);
   PnlInsert.Color     := RGB( 72, 122, 129);
   PnlCancel.Color     := RGB( 72, 122, 129);
   PnlCommit.Color     := RGB( 72, 122, 129);
   PnlGoBack.Color     := RGB( 72, 122, 129);
-end;
 
-procedure TFrmEntryMaker.FormShow(Sender: TObject);
-begin
   try
-    FrmTopMenu.Defs.OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20130001);
-    ADBGrid.DataSource := ADS;
-    if AQu.RecordCount = 0 then begin
-      ProcInsert;
-    end else begin
-      FInsert := False;
+    with FrmTopMenu.Defs do begin
+      CloseTransactions;
+      //OpenConn(ACn, ADS, ATr, AQu);
+      SetDatabaseNames;
+      OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20130001);
+      ADBGrid.DataSource := ADS;
+      if AQu.RecordCount = 0 then begin
+        ProcInsert;
+      end else begin
+        FInsert := False;
+      end;
+      ADBGrid.AutoAdjustColumns;
+      DBEdtMakerName.SetFocus;
     end;
-    ADBGrid.AutoAdjustColumns;
-    DBEdtMakerName.SetFocus;
   finally
   end;
 end;
 
 procedure TFrmEntryMaker.TimerTimer(Sender: TObject);
 begin
-  if FReOpenDS then
-  begin
-    FrmTopMenu.Defs.OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20130001);
-    ADBGrid.DataSource := ADS;
+  with FrmTopMenu.Defs do begin
+    if FReOpenDS then
+    begin
+      CloseTransactions;
+      //OpenConn(ACn, ADS, ATr, AQu);
+      SetDatabaseNames;
+      OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20130001);
+      ADBGrid.DataSource := ADS;
 
-    FReOpenDS       := False;
-    Timer.Enabled   := False;
+      FReOpenDS       := False;
+      Timer.Enabled   := False;
+    end;
   end;
 end;
 

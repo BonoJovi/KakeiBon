@@ -54,7 +54,6 @@ type
   private
     procedure SetDatabaseNames;
     procedure CloseTransactions;
-    procedure ConnectUsersTable;
     function CountUser(RoleNum: Integer): Integer;
     procedure EnableButton(
       AddUser, EditUser, RemoveUser, EditAdminUser: Boolean);
@@ -95,48 +94,6 @@ begin
   end;
 end;
 
-procedure TFrmManageUser.ConnectUsersTable;
-begin
-  try
-    FrmTopMenu.Defs.OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20020001);
-
-    if FrmTopMenu.Defs.MatchRole(ROLE_ADMIN) then begin
-      if AQu.RecordCount = 1 then
-      begin
-        EnableButton(True, False, False, True);
-      end else if AQu.RecordCount > 1 then begin
-        EnableButton(True, True, True, True);
-      end;
-    end else begin // Defs.MatchRole(ROLE_ADMIN) = False
-      with AQu do begin
-        ATr.CloseDataSets;
-        SQL.Text := SQL_20020002;
-        Params.ParamByName('pUName').AsAnsiString  := FrmTopMenu.Defs.GetUName;
-        Open;
-        if RecordCount = 1 then
-        begin
-          EnableButton(False, True, False, False);
-        end else begin
-          if Not FrmTopMenu.Defs.GetChangedUserDef then
-          begin
-            EnableButton(False, False, False, False);
-            MessageDlg(MSG_JP_000004, mtError, [mbOk], 0);
-            Close;
-          end;
-        end;
-      end;
-    end;
-
-    ADS.DataSet     := AQu;
-    with ADBGrid do begin
-      DataSource      := ADS;
-      AutoFillColumns := True;
-      AutoFillColumns := False;
-    end;
-  finally
-  end;
-end;
-
 function TFrmManageUser.CountUser(RoleNum: Integer): Integer;
 var
   LRet: Integer;
@@ -152,7 +109,9 @@ begin
     with AQuByCount do begin
       Database                              := ACn;
       SQL.Text                              := SQL_20020003;
-      Params.ParamByName('pRole').AsInteger := RoleNum;
+      with Params do begin
+        ParamByName('pRole').AsInteger := RoleNum;
+      end;
     end;
 
     AQuByCount.Open;
@@ -260,16 +219,20 @@ end;
 procedure TFrmManageUser.FormClose(Sender: TObject;
   var CloseAction: TCloseAction);
 begin
-  CloseTransactions;
+  with FrmTopMenu do begin
+    CloseTransactions;
 
-  FrmTopMenu.Visible := True;
+    Visible := True;
 
-  if FrmTopMenu.Defs.GetChangedUserDef then
-  begin
-    FrmTopMenu.ProcLogout;
+    with Defs do begin
+      if GetChangedUserDef then
+      begin
+        ProcLogout;
+      end;
+    end;
+    CloseAction        := caFree;
+    FrmManageUser      := nil;
   end;
-  CloseAction        := caFree;
-  FrmManageUser      := nil;
 end;
 
 procedure TFrmManageUser.FormCreate(Sender: TObject);
@@ -280,7 +243,10 @@ begin
       Application.Terminate;
     end;
   end;
+end;
 
+procedure TFrmManageUser.FormShow(Sender: TObject);
+begin
   FrmManageUser.Color    := RGB(112, 168, 175);
   PnlAddUser.Color       := RGB( 72, 122, 129);
   PnlEditUser.Color      := RGB( 72, 122, 129);
@@ -288,8 +254,52 @@ begin
   PnlEditAdminUser.Color := RGB( 72, 122, 129);
   PnlGoBack.Color        := RGB( 72, 122, 129);
 
-  // Connecting users table with PostgreSQL
-  ConnectUsersTable;
+  // Connecting users table with SQLite3
+  try
+    with FrmTopMenu.Defs do begin
+      //CloseConn(ACn, ATr);
+      //OpenConn(ACn, ADS, ATr, AQu);
+      //SetDatabaseNames;
+      OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20020001);
+
+      if MatchRole(ROLE_ADMIN) then begin
+        if AQu.RecordCount = 1 then
+        begin
+          EnableButton(True, False, False, True);
+        end else if AQu.RecordCount > 1 then begin
+          EnableButton(True, True, True, True);
+        end;
+      end else begin // Defs.MatchRole(ROLE_ADMIN) = False
+        with AQu do begin
+          ATr.CloseDataSets;
+          SQL.Text := SQL_20020002;
+          with Params do begin
+            ParamByName('pUName').AsAnsiString  := GetUName;
+          end;
+          Open;
+          if RecordCount = 1 then
+          begin
+            EnableButton(False, True, False, False);
+          end else begin
+            if Not GetChangedUserDef then
+            begin
+              EnableButton(False, False, False, False);
+              MessageDlg(MSG_JP_000004, mtError, [mbOk], 0);
+              Close;
+            end;
+          end;
+        end;
+      end;
+
+      ADS.DataSet     := AQu;
+      with ADBGrid do begin
+        DataSource      := ADS;
+        AutoFillColumns := True;
+        AutoFillColumns := False;
+      end;
+    end;
+  finally
+  end;
 
   with ADBGrid do begin
     Options := Options - [dgAutoSizeColumns];
@@ -303,17 +313,6 @@ begin
     AutoSize   := False;
     ScrollBars := ssAutoBoth;
   end;
-
-  //with FrmTopMenu.Defs do begin
-  //  //SetChangedUserDef(False);
-  //  SetRole(GetRole);
-  //  SetUName(GetUName);
-  //end;
-end;
-
-procedure TFrmManageUser.FormShow(Sender: TObject);
-begin
-
 end;
 
 procedure TFrmManageUser.TimerTimer(Sender: TObject);

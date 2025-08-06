@@ -1,12 +1,12 @@
 object FrmRemoveUser: TFrmRemoveUser
   Left = 818
-  Height = 462
+  Height = 513
   Top = 199
-  Width = 568
+  Width = 567
   BorderStyle = bsSingle
   Caption = 'ユーザの削除'
-  ClientHeight = 462
-  ClientWidth = 568
+  ClientHeight = 513
+  ClientWidth = 567
   Color = clWindowFrame
   Font.Height = -21
   Font.Name = '0xProto Nerd Font Mono'
@@ -364,7 +364,7 @@ object FrmRemoveUser: TFrmRemoveUser
   end
   object ADBGrid: TDBGrid
     Left = 16
-    Height = 112
+    Height = 160
     Top = 336
     Width = 536
     Color = clWindow
@@ -392,10 +392,9 @@ object FrmRemoveUser: TFrmRemoveUser
     DataSource = ADS
     TabOrder = 5
     TabStop = False
-    Visible = False
   end
   object ActionList: TActionList
-    Left = 332
+    Left = 336
     Top = 72
     object ActCancel: TAction
       Caption = 'ActCancel'

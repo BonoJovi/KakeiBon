@@ -1,11 +1,11 @@
 object FrmManageExp: TFrmManageExp
   Left = 489
-  Height = 382
+  Height = 422
   Top = 205
   Width = 1016
   BorderStyle = bsSingle
   Caption = '費目管理'
-  ClientHeight = 382
+  ClientHeight = 422
   ClientWidth = 1016
   Color = clWindowFrame
   Font.Height = -13
@@ -195,12 +195,26 @@ object FrmManageExp: TFrmManageExp
     Top = 280
     Width = 320
     Action = ActInsertExp2
-    Caption = '追　　　加 (CTRL+1)'
+    Caption = '　　追　　　加　　 (CTRL+1)'
     Font.Height = -21
     Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 2
+  end
+  object BtnDefaultOrderKey2: TButton
+    Cursor = crHandPoint
+    Left = 320
+    Height = 29
+    Top = 320
+    Width = 320
+    Action = ActDefaultOrderKey2
+    Caption = '並び順を初期状態に (CTRL+2)'
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 3
   end
   object Label2: TLabel
     Left = 648
@@ -296,7 +310,7 @@ object FrmManageExp: TFrmManageExp
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing, goEditing, goRowSelect, goAlwaysShowEditor, goColSpanning, goDblClickAutoSize, goSmoothScroll, goSelectionActive, goFixedColSizing, goCellEllipsis]
     ParentFont = False
     RowCount = 7
-    TabOrder = 3
+    TabOrder = 4
     OnCheckboxToggled = ASG3CheckboxToggled
     OnClick = ASG3Click
     OnKeyUp = ASG3KeyUp
@@ -321,17 +335,31 @@ object FrmManageExp: TFrmManageExp
     Top = 280
     Width = 320
     Action = ActInsertExp3
-    Caption = '追　　　加 (CTRL+2)'
+    Caption = '　　追　　　加　　 (CTRL+3)'
     Font.Height = -21
     Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 4
+    TabOrder = 5
+  end
+  object BtnDefaultOrderKey3: TButton
+    Cursor = crHandPoint
+    Left = 680
+    Height = 29
+    Top = 320
+    Width = 320
+    Action = ActDefaultOrderKey3
+    Caption = '並び順を初期状態に (CTRL+4)'
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 6
   end
   object PnlGoBack: TPanel
     Left = 16
     Height = 48
-    Top = 320
+    Top = 360
     Width = 984
     Caption = '前の画面に戻る (CTRL+3)'
     Color = clActiveCaption
@@ -345,13 +373,13 @@ object FrmManageExp: TFrmManageExp
     ParentBackground = False
     ParentColor = False
     ParentFont = False
-    TabOrder = 5
+    TabOrder = 7
   end
   object BtnGoBack: TButton
     Cursor = crHandPoint
     Left = 24
     Height = 32
-    Top = 328
+    Top = 368
     Width = 968
     Action = ActQuit
     Caption = '前の画面に戻る (CTRL+3)'
@@ -360,7 +388,7 @@ object FrmManageExp: TFrmManageExp
     Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 6
+    TabOrder = 8
   end
   object Timer1: TTimer
     Enabled = False
@@ -376,10 +404,20 @@ object FrmManageExp: TFrmManageExp
       ShortCut = 16433
       OnExecute = ActInsertExp2Execute
     end
+    object ActDefaultOrderKey2: TAction
+      Caption = 'ActDefaultOrderKey2'
+      ShortCut = 16434
+      OnExecute = ActDefaultOrderKey2Execute
+    end
     object ActInsertExp3: TAction
       Caption = 'ActInsertExp3'
-      ShortCut = 16434
+      ShortCut = 16435
       OnExecute = ActInsertExp3Execute
+    end
+    object ActDefaultOrderKey3: TAction
+      Caption = 'ActDefaultOrderKey3'
+      ShortCut = 16436
+      OnExecute = ActDefaultOrderKey3Execute
     end
     object ActQuit: TAction
       Caption = 'ActQuit'

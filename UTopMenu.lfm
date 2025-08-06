@@ -58,7 +58,7 @@ object FrmTopMenu: TFrmTopMenu
     end
   end
   object BtnEntryDetails: TButton
-    Left = 33
+    Left = 32
     Height = 44
     Top = 30
     Width = 567
@@ -307,6 +307,27 @@ object FrmTopMenu: TFrmTopMenu
   object ActionList: TActionList
     Left = 168
     Top = 152
+    object ActEntryDetails: TAction
+      Category = 'Managements'
+      Caption = 'ActEntryDetails'
+      Checked = True
+      ShortCut = 16433
+      OnExecute = ActEntryDetailsExecute
+    end
+    object ActManageUser: TAction
+      Category = 'Managements'
+      Caption = 'ActManageUser'
+      Checked = True
+      ShortCut = 16469
+      OnExecute = ActManageUserExecute
+    end
+    object ActManageExp: TAction
+      Category = 'Managements'
+      Caption = 'ActManageExp'
+      Checked = True
+      ShortCut = 16453
+      OnExecute = ActManageExpExecute
+    end
     object ActLogin: TAction
       Category = 'System'
       AutoCheck = True
@@ -336,27 +357,6 @@ object FrmTopMenu: TFrmTopMenu
       )
       ShortCut = 16465
       OnExecute = ActQuitExecute
-    end
-    object ActManageUser: TAction
-      Category = 'Managements'
-      Caption = 'ActManageUser'
-      Checked = True
-      ShortCut = 16469
-      OnExecute = ActManageUserExecute
-    end
-    object ActManageExp: TAction
-      Category = 'Managements'
-      Caption = 'ActManageExp'
-      Checked = True
-      ShortCut = 16453
-      OnExecute = ActManageExpExecute
-    end
-    object ActEntryDetails: TAction
-      Category = 'Managements'
-      Caption = 'ActEntryDetails'
-      Checked = True
-      ShortCut = 16433
-      OnExecute = ActEntryDetailsExecute
     end
   end
   object ADS: TDataSource

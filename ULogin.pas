@@ -63,7 +63,7 @@ uses
 procedure TFrmLogin.SetDatabaseNames;
 begin
   with FrmTopMenu.Defs do begin
-    SetDatabaseName(ACn      );
+    SetDatabaseName(ACn);
   end;
 
 end;
@@ -81,74 +81,71 @@ var
   LUName : String;
   LRole  : Integer;
 begin
-  if LoginFlg = False then
-  begin
+  try
     try
-      with ACn do begin
-        if Not Connected then
-        begin
-          DatabaseName := DB_NAME;
-          ATr.DataBase := ACn;
-          AQu.Database := ACn;
-          ADS.DataSet  := AQu;
-        end else begin
-          ATr.DataBase := ACn;
-          AQu.Database := ACn;
-          ADS.DataSet  := AQu;
-          Close;
+      if LoginFlg = False then begin
+        with FrmLogin do begin
+          with AQu do begin
+            ACn.Open;
+            SQL.Text := SQL_20010001;
+            with Params do begin
+              ParamByName('pUName').AsUTF8String := EdtUserName.Text;
+              ParamByName('pPaw').AsString       := EdtPaw.Text;
+            end;
+
+            Open;
+            First;
+            while Not EOF do begin
+              with FrmTopMenu do begin
+                with Defs do begin
+                  LUID   := FieldByName('USER_ID').AsInteger;
+                  SetUID(LUID);
+                  LUName := FieldByName('NAME').AsAnsiString;
+                  SetUName(LUName);
+                  LRole  := FieldByName('ROLE').AsInteger;
+                  SetRole(LRole);
+
+                  with BtnLogin do begin
+                    Visible  := False;
+                    Enabled  := False;
+                  end;
+                  with BtnLogout do begin
+                    Visible := True;
+                    Enabled := True;
+                  end;
+
+                  Caption           := GetUName + MSG_JP_000006;
+
+                  PnlManageUser.Color      := clMoneyGreen;
+                  PnlManageExp.Color       := clMoneyGreen;
+                  if GetRole = 1 then
+                  begin;
+                    PnlManageDetails.Color := clMoneyGreen;
+                  end;
+
+                  LoginFlg := True;
+                end;
+              end;
+              Next;
+            end;
+          end;
+          ATr.EndTransaction;
+
+          if Not LoginFlg then
+          begin
+            MessageDlg(MSG_JP_000007, mtInformation, [mbOk], 0);
+          end;
         end;
       end;
-
-      with AQu do begin
-        ACn.Open;
-        SQL.Text := SQL_20010001;
-        with Params do begin
-          ParamByName('pUName').AsUTF8String := FrmLogin.EdtUserName.Text;
-          ParamByName('pPaw').AsString       := FrmLogin.EdtPaw.Text;
-        end;
-        ATr.StartTransaction;
-
-        Open;
+    except
+      on E: ESQLDatabaseError do begin
+        ShowMessage(E.Message);
       end;
-
-      while Not AQu.EOF do
-      begin
-        LUID   := AQu.FieldByName('USER_ID').AsInteger;
-        FrmTopMenu.Defs.SetUID(LUID);
-        LUName := AQu.FieldByName('NAME').AsAnsiString;
-        FrmTopMenu.Defs.SetUName(LUName);
-        LRole  := AQu.FieldByName('ROLE').AsInteger;
-        FrmTopMenu.Defs.SetRole(LRole);
-
-        FrmTopMenu.BtnLogin.Visible  := False;
-        FrmTopMenu.BtnLogin.Enabled  := False;
-        FrmTopMenu.BtnLogout.Visible := True;
-        FrmTopMenu.BtnLogout.Enabled := True;
-
-        FrmTopMenu.Caption           := FrmTopMenu.Defs.GetUName + MSG_JP_000006;
-
-        FrmTopMenu.PnlManageUser.Color      := clMoneyGreen;
-        FrmTopMenu.PnlManageExp.Color       := clMoneyGreen;
-        if FrmTopMenu.Defs.GetRole = 1 then
-        begin;
-          FrmTopMenu.PnlManageDetails.Color := clMoneyGreen;
-        end;
-
-        LoginFlg := True;
-        AQu.Next;
-      end;
-      ATr.EndTransaction;
-
-      if Not LoginFlg then
-      begin
-        MessageDlg(MSG_JP_000007, mtInformation, [mbOk], 0);
-      end;
-    finally
-      if LoginFlg then
-      begin
-        FrmTopMenu.Visible := True;
-        FrmLogin.Close;
-      end;
+    end;
+  finally
+    if LoginFlg then begin
+      FrmTopMenu.Visible := True;
+      FrmLogin.Close;
     end;
   end;
 end;
@@ -175,13 +172,15 @@ end;
 
 procedure TFrmLogin.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
-  with FrmTopMenu.Defs do begin
-    CloseConn(ACn, ATr);
-  end;
+  with FrmTopMenu do begin
+    with Defs do begin
+      CloseConn(ACn, ATr);
+    end;
 
-  FrmTopMenu.Visible := True;
-  CloseAction        := caFree;
-  FrmLogin           := nil;
+    Visible := True;
+    CloseAction        := caFree;
+    FrmLogin           := nil;
+  end;
 end;
 
 procedure TFrmLogin.FormCreate(Sender: TObject);
@@ -192,7 +191,10 @@ begin
       Application.Terminate;
     end;
   end;
+end;
 
+procedure TFrmLogin.FormShow(Sender: TObject);
+begin
   FrmLogin.Color    := RGB(112, 168, 175);
   pnlClearPaw.Color := RGB( 72, 122, 129);
   pnlCancel.Color   := RGB( 72, 122, 129);
@@ -209,11 +211,6 @@ begin
   EdtPaw.Clear;
 
   FrmLogin.Height := 260;
-end;
-
-procedure TFrmLogin.FormShow(Sender: TObject);
-begin
-
 end;
 
 end.

@@ -78,7 +78,6 @@ type
     procedure DBCBDisabledChange(Sender: TObject);
     procedure DBEdtAccountIDChange(Sender: TObject);
     procedure DBEdtBrandNameChange(Sender: TObject);
-    procedure DBEdtBrandNameExit(Sender: TObject);
     procedure DBEdtCurrentBalanceChange(Sender: TObject);
     procedure DBEdtOpeningBalanceChange(Sender: TObject);
     procedure DBEdtPhoneNumChange(Sender: TObject);
@@ -159,33 +158,42 @@ end;
 
 procedure TFrmEntryAccount.BackupValues;
 begin
-  if DBEdtAccountID.Text <> '' then begin;
-    GetAccountID.SetAccountID(DBEdtAccountID.Text);
-  end else begin
-    SetAccountID(Null);
-  end;
+  with FrmTopMenu.Defs do begin
+    with DBEdtAccountID do begin
+      if Text <> '' then begin;
+        SetAccountID(Text);
+      end else begin
+        SetAccountID(Null);
+      end;
+    end;
 
-  SetBrandName(DBEdtBrandName.Text);
-  SetSubName(DBEdtSubName.Text);
-  SetPhoneNum(DBEdtPhoneNum.Text);
-  SetOpeningBalance(DBEdtOpeningBalance.Field.AsInteger);
-  SetCurrentBalance(DBEdtCurrentBalance.Field.AsInteger);
+    SetBrandName(DBEdtBrandName.Text);
+    SetSubName(DBEdtSubName.Text);
+    SetPhoneNum(DBEdtPhoneNum.Text);
+    SetOpeningBalance(DBEdtOpeningBalance.Field.AsInteger);
+    SetCurrentBalance(DBEdtCurrentBalance.Field.AsInteger);
 
-  if DBCBDisabled.State = cbChecked then begin
-    SetDisabled(True);
-  end else begin
-    SetDisabled(False);
+    if DBCBDisabled.State = cbChecked then begin
+      SetDisabled(True);
+    end else begin
+      SetDisabled(False);
+    end;
   end;
 end;
 
 procedure TFrmEntryAccount.ProcCancel;
 begin
-  if FInsert then begin
-    FInsert := False;
+  with FrmTopMenu.Defs do begin
+    if FInsert then begin
+      FInsert := False;
+    end;
+    ATr.Rollback;
+    CloseTransactions;
+    //OpenConn(ACn, ADS, ATr, AQu);
+    SetDatabaseNames;
+    OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20110001);
+    DBEdtBrandName.SetFocus;
   end;
-  ATr.Rollback;
-  FrmTopMenu.Defs.OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20110001);
-  DBEdtBrandName.SetFocus;
 end;
 
 procedure TFrmEntryAccount.ProcCommit;
@@ -196,38 +204,48 @@ begin
   FDoCommit := True;
   try
     try
-      with AQu do begin
-        if AQu.Active then begin
-          Edit;
-        end;
-        SQL.Text := SQL_20110003;
-        Params.ParamByName('pUserID').AsInteger         := FrmTopMenu.Defs.GetUID;
-        if (VarIsNull(GetAccountID)) Or (VarToStr(GetAccountID) = '') then begin
-          FrmTopMenu.Defs.OpenSelectQuery(ACnNextID, ADSNextID, ATrNextID, AQuNextID, SQL_20110002);
-          LNextAccountID := AQuNextID.FieldByName('NEXT_ID').AsInteger;
-          FrmTopMenu.Defs.CloseConn(ACnNextID, ATrNextID);
-          Params.ParamByName('pAccountID').AsInteger    := LNextAccountID;
-        end else begin
-          Params.ParamByName('pAccountID').AsInteger    := StrToInt(VarToStr(GetAccountID));
-        end;
-        Params.ParamByName('pBrandName').AsString       := GetBrandName;
-        Params.ParamByName('pSubName').AsString         := GetSubName;
-        Params.ParamByName('pPhoneNum').AsString        := GetPhoneNum;
-        Params.ParamByName('pOpeningBalance').AsInteger := GetOpeningBalance;
-        Params.ParamByName('pCurrentBalance').AsInteger := GetCurrentBalance;
-        Params.ParamByName('pDisabled').AsBoolean       := GetDisabled;
-        LNow                                            := Now;
-        Params.ParamByName('pEntryDT').AsDateTime       := LNow;
-        Params.ParamByName('pUpdateDT').AsDateTime      := LNow;
+      with FrmTopMenu.Defs do begin
+        with AQu do begin
+          SQL.Text := SQL_20110003;
+          with Params do begin
+            ParamByName('pUserID').AsInteger         := GetUID;
+          end;
 
-        CloseTransactions;
-        ExecSQL;
-        ATr.Commit;
+          if (VarIsNull(GetAccountID)) Or (VarToStr(GetAccountID) = '') then begin
+            CloseTransactions;
+            //OpenConn(ACnNextID, ADSNextID, ATrNextID, AQuNextID);
+            SetDatabaseNames;
+            OpenSelectQuery(ACnNextID, ADSNextID, ATrNextID, AQuNextID, SQL_20110002);
+            LNextAccountID := AQuNextID.FieldByName('NEXT_ID').AsInteger;
+            CloseConn(ACnNextID, ATrNextID);
+            with Params do begin
+              ParamByName('pAccountID').AsInteger    := LNextAccountID;
+            end;
+          end else begin
+            with Params do begin
+              ParamByName('pAccountID').AsInteger    := StrToInt(VarToStr(GetAccountID));
+            end;
+          end;
+          with Params do begin
+            ParamByName('pBrandName').AsAnsiString   := GetBrandName;
+            ParamByName('pSubName').AsAnsiString     := GetSubName;
+            ParamByName('pPhoneNum').AsAnsiString    := GetPhoneNum;
+            ParamByName('pOpeningBalance').AsInteger := GetOpeningBalance;
+            ParamByName('pCurrentBalance').AsInteger := GetCurrentBalance;
+            ParamByName('pDisabled').AsBoolean       := GetDisabled;
+            LNow                                            := Now;
+            ParamByName('pEntryDT').AsDateTime       := LNow;
+            ParamByName('pUpdateDT').AsDateTime      := LNow;
+          end;
+
+          CloseTransactions;
+          ExecSQL;
+          ATr.Commit;
+        end;
       end;
     except
       on E: ESQLDatabaseError do
       begin
-        //  MessageDlg(MSG_JP_000009, mtError, [mbOk], 0);
         ShowMessage(E.Message);
       end;
     end;
@@ -365,7 +383,7 @@ end;
 procedure TFrmEntryAccount.DBEdtAccountIDChange(Sender: TObject);
 begin
   if Not FDoCommit then begin
-    GetAccountID.SetAccountID(DBEdtAccountID.Text);
+    SetAccountID(DBEdtAccountID.Text);
   end;
 end;
 
@@ -374,11 +392,6 @@ begin
   if Not FDoCommit then begin
     SetBrandName(DBEdtBrandName.Text);
   end;
-end;
-
-procedure TFrmEntryAccount.DBEdtBrandNameExit(Sender: TObject);
-begin
-
 end;
 
 procedure TFrmEntryAccount.DBEdtSubNameChange(Sender: TObject);
@@ -463,7 +476,10 @@ begin
 
   FReOpenDS := False;
   FDoCommit := False;
+end;
 
+procedure TFrmEntryAccount.FormShow(Sender: TObject);
+begin
   Color := RGB(112, 168, 175);
 
   PnlInsert.Color       := RGB( 72, 122, 129);
@@ -472,21 +488,23 @@ begin
   PnlGoBack.Color       := RGB( 72, 122, 129);
 
   FAccountID := GetAccountID;
-end;
 
-procedure TFrmEntryAccount.FormShow(Sender: TObject);
-begin
   try
-    FrmTopMenu.Defs.OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20110001);
-    ADBGrid.DataSource := ADS;
-    if AQu.RecordCount = 0 then begin
-      ProcInsert;
-    end else begin
-      FInsert := False;
-    end;
+    with FrmTopMenu.Defs do begin
+      CloseTransactions;
+      //OpenConn(ACn, ADS, ATr, AQu);
+      SetDatabaseNames;
+      OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20110001);
+      ADBGrid.DataSource := ADS;
+      if AQu.RecordCount = 0 then begin
+        ProcInsert;
+      end else begin
+        FInsert := False;
+      end;
 
-    ADBGrid.AutoAdjustColumns;
-    DBEdtBrandName.SetFocus;
+      ADBGrid.AutoAdjustColumns;
+      DBEdtBrandName.SetFocus;
+    end;
   finally
   end;
 end;
@@ -495,11 +513,16 @@ procedure TFrmEntryAccount.TimerTimer(Sender: TObject);
 begin
   if FReOpenDS then
   begin
-    FrmTopMenu.Defs.OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20110001);
-    ADBGrid.DataSource := ADS;
+    with FrmTopMenu.Defs do begin
+      CloseTransactions;
+      //OpenConn(ACn, ADS, ATr, AQu);
+      SetDatabaseNames;
+      OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20110001);
+      ADBGrid.DataSource := ADS;
 
-    FReOpenDS       := False;
-    Timer.Enabled   := False;
+      FReOpenDS       := False;
+      Timer.Enabled   := False;
+    end;
   end;
 end;
 
