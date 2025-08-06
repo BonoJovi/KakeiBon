@@ -270,8 +270,7 @@ begin
           CloseTransactions;
           SetDatabaseNames;
 
-          LFieldAndValue  := LRet + ', UPDATE_DT = ''' +
-          FormatDateTime('yyyy/mm/dd hh:mm:ss', Now, GetFS) + '''';
+          LFieldAndValue := LRet + ', UPDATE_DT = datetime(''Now'', ''+9 hours'')';
 
           AQu.SQL.Text    := LSQL.Replace(':pFieldAndValue', LFieldAndValue);
 

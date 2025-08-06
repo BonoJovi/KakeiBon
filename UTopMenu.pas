@@ -57,6 +57,7 @@ type
     procedure ProcLogout;
   private
     FDefs            : TDefs;
+    procedure CloseTransactions;
     procedure OpenFormEntryAdmin;
     procedure OpenFormOrMsgDlg(Sender: TForm; NoMessageDlg: Boolean);
     procedure ProcEntryDetails;
@@ -109,6 +110,13 @@ begin
   end;
 end;
 
+procedure TFrmTopMenu.CloseTransactions;
+begin
+  with FrmTopMenu.Defs do begin
+    CloseConn(ACn, ATr);
+  end;
+end;
+
 function TFrmTopMenu.Defs: TDefs;
 begin
   Result := FDefs;
@@ -124,6 +132,7 @@ begin
       ATr.Active         := False;
 
       CloseConn(ACn, ATr);
+      SetDatabaseNames;
 
       if GetRole = 1 then
       begin;
@@ -136,6 +145,7 @@ begin
       ATr.Active         := False;
 
       CloseConn(ACn, ATr);
+      SetDatabaseNames;
 
       MessageDlg(MSG_JP_000023, mtInformation, [mbOk], 0);
     end;
@@ -184,6 +194,7 @@ begin
       ATr.Active      := False;
 
       CloseConn(ACn, ATr);
+      SetDatabaseNames;
 
       FrmManageExp      := TFrmManageExp.Create(Application);
       OpenFormOrMsgDlg(FrmManageExp, False);
@@ -191,6 +202,7 @@ begin
       ATr.Active      := False;
 
       CloseConn(ACn, ATr);
+      SetDatabaseNames;
 
       MessageDlg(MSG_JP_000023, mtInformation, [mbOk], 0);
     end;
@@ -205,6 +217,7 @@ begin
     ATr.Active      := False;
 
     CloseConn(ACn, ATr);
+    SetDatabaseNames;
 
     FrmManageUser     := TFrmManageUser.Create(Application);
     OpenFormOrMsgDlg(FrmManageUser, False);
@@ -291,11 +304,10 @@ begin
   end;
 end;
 
-procedure TFrmTopMenu.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+procedure TFrmTopMenu.FormClose(
+  Sender: TObject; var CloseAction: TCloseAction);
 begin
-  with FrmTopMenu.Defs do begin
-    CloseConn(ACn, ATr);
-  end;
+  CloseTransactions;
 
   CloseAction := caFree;
   FrmTopMenu  := nil;
@@ -306,6 +318,8 @@ var
   LFS        : TFormatSettings;
 begin
   FDefs := TDefs.Create;
+
+  SetDatabaseNames;
 
   with Defs do begin
     if GetDoExitKakeiBon then begin
@@ -322,8 +336,6 @@ begin
       ShortTimeFormat      := 'hh:nn:ss';
     end;
     SetFS(LFS);
-
-    SetDatabaseNames;
   end;
 end;
 
@@ -349,8 +361,7 @@ begin
   end;
 
   with Defs do begin
-    if LoginFlg then
-    begin
+    if LoginFlg then begin
       BtnManageUser.Enabled     := True;
 
       if GetRole = 1 then begin;
@@ -392,19 +403,16 @@ procedure TFrmTopMenu.TimerTimer(Sender: TObject);
 begin
   with Defs do begin
     if (Not Assigned(FrmEntryAdmin))
-        And (Not FileExists(GetDBFullPath)) then
-    begin
+        And (Not FileExists(GetDBFullPath)) then begin
       OpenFormEntryAdmin;
     end;
 
-    if ChngdAdmUserFlg then
-    begin
+    if ChngdAdmUserFlg then begin
       ProcLogout;
       ChngdAdmUserFlg           := False;
     end;
 
-    if LoginFlg then
-    begin
+    if LoginFlg then begin
       BtnManageUser.Enabled     := True;
       if GetRole = 1 then begin
         BtnEntryDetails.Enabled := True;
@@ -412,12 +420,12 @@ begin
       end;
 
       with BtnLogin do begin
-        Visible          := False;
-        Enabled          := False;
+        Visible                 := False;
+        Enabled                 := False;
       end;
       with BtnLogout do begin
-        Visible          := True;
-        Enabled          := True;
+        Visible                 := True;
+        Enabled                 := True;
       end;
     end;
   end;
