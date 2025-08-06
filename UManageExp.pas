@@ -136,6 +136,7 @@ begin
   with FrmTopMenu.Defs do begin
     CloseTransactions;
     SetDatabaseNames;
+
     SetDefaultOrderKey2(
       ACn2, ADS2, ATr2, AQu2, SQL_20060014,
       ASG1.Cells[3, ASG1.Row].ToInteger);
@@ -147,6 +148,7 @@ begin
   with FrmTopMenu.Defs do begin
     CloseTransactions;
     SetDatabaseNames;
+
     SetDefaultOrderKey3(
       ACn2, ADS2, ATr2, AQu2, SQL_20060015,
       ASG1.Cells[3, ASG1.Row].ToInteger,
@@ -172,6 +174,8 @@ var
         end;
 
         CloseTransactions;
+        SetDatabaseNames;
+
         ExecSQL;
         ATr2.Commit;
       end;
@@ -233,6 +237,8 @@ var
         end;
 
         CloseTransactions;
+        SetDatabaseNames;
+
         ExecSQL;
         ATr3.Commit;
       end;
@@ -402,6 +408,8 @@ begin
 
     CloseConn(ACn2, ATr2);
     SetDatabaseNames;
+
+    SetDatabaseNames;
     OpenSelectQueryWithExp1(
       ACn2, ADS2, ATr2, AQu2, SQL_20060003, StrToInt(ASG1.Cells[3, ASG1.Row]));
     SetValuesToASG2;
@@ -452,6 +460,7 @@ begin
 
     CloseConn(ACn3, ATr3);
     SetDatabaseNames;
+
     with ASG2 do begin
       OpenSelectQueryWithExp1AndExp2(
         ACn3, ADS3, ATr3, AQu3, SQL_20060004,
@@ -532,6 +541,8 @@ begin
             end;
 
             CloseTransactions;
+            SetDatabaseNames;
+
             ExecSQL;
             ATr2.Commit;
           end;
@@ -577,6 +588,8 @@ var
         end;
 
         CloseTransactions;
+        SetDatabaseNames;
+
         ExecSQL;
         ATr2.Commit;
       end;
@@ -625,6 +638,8 @@ begin
           with ASG2 do begin
             if FPrevOrderKey2 < FNewOrderKey2 then begin
               CloseTransactions;
+              SetDatabaseNames;
+
               CancelChangedOrderKey2(
                 SQL_20060012, ASG2, FPrevOrderKey2, FNewOrderKey2);
 
@@ -637,6 +652,8 @@ begin
               ATr2.Commit;
             end else if FPrevOrderKey2 > FNewOrderKey2 then begin
               CloseTransactions;
+              SetDatabaseNames;
+
               CancelChangedOrderKey2(
                 SQL_20060012, ASG2, FPrevOrderKey2, FPrevOrderKey2);
               for i := FNewOrderKey2 to FPrevOrderKey2 - 1 do begin
@@ -691,6 +708,8 @@ begin
           FNewOrderKey2 := Cells[6, ASG2.Row].ToInteger;
           if FPrevOrderKey2 < FNewOrderKey2 then begin
             CloseTransactions;
+            SetDatabaseNames;
+
             SaveChangedOrderKey2(
               SQL_20060012, ASG2, FPrevOrderKey2, FNewOrderKey2);
             for i := FPrevOrderKey2 + 1 to FNewOrderKey2 do begin
@@ -701,6 +720,8 @@ begin
             ATr2.Commit;
           end else if FPrevOrderKey2 > FNewOrderKey2 then begin
             CloseTransactions;
+            SetDatabaseNames;
+
             SaveChangedOrderKey2(
               SQL_20060012, ASG2, FPrevOrderKey2, FNewOrderKey2);
             for i := FNewOrderKey2 to FPrevOrderKey2 - 1 do begin
@@ -745,6 +766,8 @@ begin
             end;
 
             CloseTransactions;
+            SetDatabaseNames;
+
             ExecSQL;
             ATr3.Commit;
           end;
@@ -790,6 +813,8 @@ var
         end;
 
         CloseTransactions;
+        SetDatabaseNames;
+
         ExecSQL;
         ATr3.Commit;
       end;
@@ -904,6 +929,8 @@ begin
           FNewOrderKey3 := Cells[7, ASG3.Row].ToInteger;
           if FPrevOrderKey3 < FNewOrderKey3 then begin
             CloseTransactions;
+            SetDatabaseNames;
+
             SaveChangedOrderKey3(
                 SQL_20060013, ASG3, FPrevOrderKey3, FNewOrderKey3);
 
@@ -916,6 +943,8 @@ begin
             ATr3.Commit;
           end else if FPrevOrderKey3 > FNewOrderKey3 then begin
             CloseTransactions;
+            SetDatabaseNames;
+
             SaveChangedOrderKey3(
                 SQL_20060013, ASG3, FPrevOrderKey3, FNewOrderKey3);
             for i := FNewOrderKey3 to FPrevOrderKey3 - 1 do begin

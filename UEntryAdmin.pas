@@ -15,7 +15,7 @@ type
 
   TFrmEntryAdmin = class(TForm)
     ActClearPaw    : TAction;
-    ActCommit      : TAction;
+    ActSave      : TAction;
     ActionList     : TActionList;
     ActQuit        : TAction;
     ADS            : TDataSource;
@@ -33,7 +33,7 @@ type
     PnlCommit      : TPanel;
     ACn            : TSQLite3Connection;
     procedure ActClearPawExecute(Sender: TObject);
-    procedure ActCommitExecute(Sender: TObject);
+    procedure ActSaveExecute(Sender: TObject);
     procedure ActQuitExecute(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -191,7 +191,6 @@ begin
             ExecuteDirect(SQL_10000027);
           end;
 
-          // CloseTransactions;
           ATr.Commit;
         finally
           FrmTopMenu.Visible := True;
@@ -208,7 +207,7 @@ begin
   ProcClearPaw;
 end;
 
-procedure TFrmEntryAdmin.ActCommitExecute(Sender: TObject);
+procedure TFrmEntryAdmin.ActSaveExecute(Sender: TObject);
 begin
   ProcCommit;
 end;

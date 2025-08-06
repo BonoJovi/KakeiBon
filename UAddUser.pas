@@ -15,7 +15,7 @@ type
   TFrmAddUser = class(TForm)
     ActCancel     : TAction;
     ActClearPaw   : TAction;
-    ActCommit     : TAction;
+    ActSave     : TAction;
     ActionList    : TActionList;
     ActQuit       : TAction;
     ADS           : TDataSource;
@@ -39,7 +39,7 @@ type
     ACn           : TSQLite3Connection;
     procedure ActCancelExecute(Sender: TObject);
     procedure ActClearPawExecute(Sender: TObject);
-    procedure ActCommitExecute(Sender: TObject);
+    procedure ActSaveExecute(Sender: TObject);
     procedure ActQuitExecute(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -170,6 +170,8 @@ begin
         end;
 
         CloseTransactions;
+        SetDatabaseNames;
+
         ExecSQL;
         ATr.Commit;
       end;
@@ -182,6 +184,7 @@ begin
 
     try
       CloseTransactions;
+      SetDatabaseNames;
 
       with AQu do begin
         SQL.Text := SQL_20030002;
@@ -403,7 +406,7 @@ begin
   ProcClearPaw;
 end;
 
-procedure TFrmAddUser.ActCommitExecute(Sender: TObject);
+procedure TFrmAddUser.ActSaveExecute(Sender: TObject);
 begin
   ProcCommit;
 end;

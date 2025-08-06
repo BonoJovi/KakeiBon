@@ -45,6 +45,7 @@ type
     procedure ProcLogin;
   private
     procedure SetDatabaseNames;
+    procedure CloseTransactions;
   public
 
   end;
@@ -65,7 +66,13 @@ begin
   with FrmTopMenu.Defs do begin
     SetDatabaseName(ACn);
   end;
+end;
 
+procedure TFrmLogin.CloseTransactions;
+begin
+  with FrmTopMenu.Defs do begin
+    CloseConn(ACn, ATr);
+  end;
 end;
 
 procedure TFrmLogin.ProcCancel;
@@ -170,12 +177,11 @@ begin
   ProcCancel;
 end;
 
-procedure TFrmLogin.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+procedure TFrmLogin.FormClose(
+  Sender: TObject; var CloseAction: TCloseAction);
 begin
   with FrmTopMenu do begin
-    with Defs do begin
-      CloseConn(ACn, ATr);
-    end;
+    CloseTransactions;
 
     Visible := True;
     CloseAction        := caFree;

@@ -14,17 +14,21 @@ type
   { TFrmEditAdmUser }
 
   TFrmEditAdmUser = class(TForm)
-    ACnUsers: TSQLite3Connection;
+    ACn                : TSQLite3Connection;
     ADS                : TDataSource;
     ADSUsers: TDataSource;
     AQuUsers: TSQLQuery;
     ATr                : TSQLTransaction;
     AQu                : TSQLQuery;
+    ACnUsers           : TSQLite3Connection;
+    ADSUsers           : TDataSource;
+    ATrUsers           : TSQLTransaction;
+    AQuUsers           : TSQLQuery;
     { ActionLists }
     ActionList         : TActionList;
     ActCancel          : TAction;
     ActClearPaw        : TAction;
-    ActCommit          : TAction;
+    ActSave          : TAction;
     ActQuit            : TAction;
     { Etc controls }
     ADBGrid            : TDBGrid;
@@ -48,10 +52,9 @@ type
     PnlCancel          : TPanel;
     PnlClearPass       : TPanel;
     PnlCommit          : TPanel;
-    ACn: TSQLite3Connection;
     procedure ActCancelExecute(Sender: TObject);
     procedure ActClearPawExecute(Sender: TObject);
-    procedure ActCommitExecute(Sender: TObject);
+    procedure ActSaveExecute(Sender: TObject);
     procedure ActQuitExecute(Sender: TObject);
     procedure EdtPawChange(Sender: TObject);
     procedure EdtToUserNameChange(Sender: TObject);
@@ -317,7 +320,7 @@ begin
   ProcClearPaw;
 end;
 
-procedure TFrmEditAdmUser.ActCommitExecute(Sender: TObject);
+procedure TFrmEditAdmUser.ActSaveExecute(Sender: TObject);
 begin
   ProcCommit;
 end;

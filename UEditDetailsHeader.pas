@@ -55,7 +55,7 @@ type
     ActEntryAccount  : TAction;
     ActEntryShop     : TAction;
     ActEditDetail    : TAction;
-    ActRemoveDetail  : TAction;
+    ActDeleteDetail  : TAction;
     ActQuit          : TAction;
     { Etc components }
     ADBNav           : TDBNavigator;
@@ -120,7 +120,7 @@ type
     procedure ActEntryAccountExecute(Sender: TObject);
     procedure ActEntryShopExecute(Sender: TObject);
     procedure ActQuitExecute(Sender: TObject);
-    procedure ActRemoveDetailExecute(Sender: TObject);
+    procedure ActDeleteDetailExecute(Sender: TObject);
     procedure DBLCBExp1Change(Sender: TObject);
     procedure DBLCBFromACChange(Sender: TObject);
     procedure DBLCBShopNameChange(Sender: TObject);
@@ -291,6 +291,7 @@ begin
 
             CloseTransactions;
             SetDatabaseNames;
+
             ExecSQL;
             ATr.Commit;
           end;
@@ -345,6 +346,7 @@ begin
 
             CloseTransactions;
             SetDatabaseNames;
+
             ExecSQL;
             ATr.Commit;
           end;
@@ -394,6 +396,7 @@ begin
 
           CloseTransactions;
           SetDatabaseNames;
+
           Open;
 
           First;
@@ -635,6 +638,7 @@ begin
               // Calc TotalAmount (ROUND_UP)
               CloseConn(ACnDetail, ATrDetail);
               SetDatabaseNames;
+
               OpenSelectQueryWithHeaderID(
                 ACnDetail, ADSDetail, ATrDetail, AQuDetail, SQL_20100013, GetHID);
               if AQuDetail.FieldByName('TOTAL_AMOUNT').AsAnsiString <> '' then begin
@@ -744,7 +748,7 @@ begin
   Close;
 end;
 
-procedure TFrmEditDetailsHeader.ActRemoveDetailExecute(Sender: TObject);
+procedure TFrmEditDetailsHeader.ActDeleteDetailExecute(Sender: TObject);
 begin
   BackupValues;
   ProcRemoveDetail;

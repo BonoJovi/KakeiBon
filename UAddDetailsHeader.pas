@@ -41,7 +41,7 @@ type
     ActEntryAccount  : TAction;
     ActEntryShop     : TAction;
     ActEditDetail    : TAction;
-    ActRemoveDetail  : TAction;
+    ActDeleteDetail  : TAction;
     ActQuit          : TAction;
     { Screen controls }
     ADBNav           : TDBNavigator;
@@ -113,7 +113,7 @@ type
     procedure ActEntryAccountExecute(Sender: TObject);
     procedure ActEntryShopExecute(Sender: TObject);
     procedure ActQuitExecute(Sender: TObject);
-    procedure ActRemoveDetailExecute(Sender: TObject);
+    procedure ActDeleteDetailExecute(Sender: TObject);
     procedure DBLCBExp1Change(Sender: TObject);
     procedure DBLCBFromACChange(Sender: TObject);
     procedure DBLCBShopNameChange(Sender: TObject);
@@ -285,6 +285,8 @@ begin
             UpdateMode                                     := upWhereAll;
 
             CloseTransactions;
+            SetDatabaseNames;
+
             ExecSQL;
             ATr.Commit;
           end;
@@ -355,6 +357,8 @@ begin
             UpdateMode                                     := upWhereAll;
 
             CloseTransactions;
+            SetDatabaseNames;
+
             ExecSQL;
             ATr.Commit;
           end;
@@ -377,13 +381,7 @@ end;
 procedure TFrmAddDetailsHeader.ProcEntryAccount;
 begin
   with FrmTopMenu.Defs do begin
-    CloseConn(ACn      , ATr      );
-    CloseConn(ACnDetail, ATrDetail);
-    CloseConn(ACnNextID, ATrNextID);
-    CloseConn(ACnShop  , ATrShop  );
-    CloseConn(ACnExp1  , ATrExp1  );
-    CloseConn(ACnFromAC, ATrFromAC);
-    CloseConn(ACnToAC  , ATrToAC  );
+    CloseTransactions;
 
     FrmEntryAccount := TFrmEntryAccount.Create(Application);
     OpenForm(Self, FrmEntryAccount);
@@ -393,13 +391,7 @@ end;
 procedure TFrmAddDetailsHeader.ProcEntryShop;
 begin
   with FrmTopMenu.Defs do begin
-    CloseConn(ACn      , ATr      );
-    CloseConn(ACnDetail, ATrDetail);
-    CloseConn(ACnNextID, ATrNextID);
-    CloseConn(ACnShop  , ATrShop  );
-    CloseConn(ACnExp1  , ATrExp1  );
-    CloseConn(ACnFromAC, ATrFromAC);
-    CloseConn(ACnToAC  , ATrToAC  );
+    CloseTransactions;
 
     FrmEntryShop := TFrmEntryShop.Create(Application);
     OpenForm(Self, FrmEntryShop);
@@ -462,7 +454,7 @@ begin
   Close;
 end;
 
-procedure TFrmAddDetailsHeader.ActRemoveDetailExecute(Sender: TObject);
+procedure TFrmAddDetailsHeader.ActDeleteDetailExecute(Sender: TObject);
 begin
   with FrmTopMenu.Defs do begin
     with AQuDetail do begin
@@ -474,6 +466,8 @@ begin
       end;
 
       CloseTransactions;
+      SetDatabaseNames;
+
       ExecSQL;
       ATrDetail.Commit;
     end;

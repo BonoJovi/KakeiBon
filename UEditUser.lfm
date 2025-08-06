@@ -182,7 +182,7 @@ object FrmEditUser: TFrmEditUser
     Height = 48
     Top = 356
     Width = 626
-    Caption = 'パスワードをクリア (CTRL+1)'
+    Caption = 'パスワードをクリア (CTRL+X)'
     Color = clActiveCaption
     Enabled = False
     Font.CharSet = ANSI_CHARSET
@@ -203,7 +203,7 @@ object FrmEditUser: TFrmEditUser
     Top = 364
     Width = 610
     Action = ActClearPaw
-    Caption = 'パスワードをクリア (CTRL+1)'
+    Caption = 'パスワードをクリア (CTRL+X)'
     Color = clNone
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
@@ -219,7 +219,7 @@ object FrmEditUser: TFrmEditUser
     Height = 48
     Top = 412
     Width = 311
-    Caption = 'キャンセル (CTRL+2)'
+    Caption = 'キャンセル (CTRL+C)'
     Color = clActiveCaption
     Enabled = False
     Font.CharSet = ANSI_CHARSET
@@ -240,7 +240,7 @@ object FrmEditUser: TFrmEditUser
     Top = 420
     Width = 296
     Action = ActCancel
-    Caption = 'キャンセル (CTRL+2)'
+    Caption = 'キャンセル (CTRL+C)'
     Color = clNone
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
@@ -256,7 +256,7 @@ object FrmEditUser: TFrmEditUser
     Height = 48
     Top = 412
     Width = 310
-    Caption = '登　　　録 (CTRL+3)'
+    Caption = '保　　　存 (CTRL+S)'
     Color = clActiveCaption
     Enabled = False
     Font.CharSet = ANSI_CHARSET
@@ -276,8 +276,8 @@ object FrmEditUser: TFrmEditUser
     Height = 32
     Top = 420
     Width = 295
-    Action = ActCommit
-    Caption = '登　　　録 (CTRL+3)'
+    Action = ActSave
+    Caption = '保　　　存 (CTRL+S)'
     Color = clNone
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
@@ -301,7 +301,7 @@ object FrmEditUser: TFrmEditUser
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = 'ユーザID'
-        Width = 119
+        Width = 121
         FieldName = 'USER_ID'
       end    
       item
@@ -309,7 +309,7 @@ object FrmEditUser: TFrmEditUser
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = 'ユーザ名'
-        Width = 119
+        Width = 121
         FieldName = 'NAME'
       end    
       item
@@ -317,7 +317,7 @@ object FrmEditUser: TFrmEditUser
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '権限'
-        Width = 119
+        Width = 120
         FieldName = 'ROLE'
       end    
       item
@@ -325,7 +325,7 @@ object FrmEditUser: TFrmEditUser
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '登録日'
-        Width = 118
+        Width = 120
         FieldName = 'ENTRY_DT'
       end    
       item
@@ -333,7 +333,7 @@ object FrmEditUser: TFrmEditUser
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '更新日'
-        Width = 118
+        Width = 120
         FieldName = 'UPDATE_DT'
       end>
     DataSource = ADS
@@ -342,22 +342,31 @@ object FrmEditUser: TFrmEditUser
     TabStop = False
   end
   object ActionList: TActionList
-    Left = 216
+    Left = 208
     Top = 144
     object ActClearPaw: TAction
       Caption = 'ActClearPaw'
-      ShortCut = 16433
+      SecondaryShortCuts.Strings = (
+        'Ctrl+1'
+      )
+      ShortCut = 16472
       OnExecute = ActClearPawExecute
     end
     object ActCancel: TAction
       Caption = 'ActCancel'
-      ShortCut = 16434
+      SecondaryShortCuts.Strings = (
+        'Ctrl+2'
+      )
+      ShortCut = 16451
       OnExecute = ActCancelExecute
     end
-    object ActCommit: TAction
-      Caption = 'ActCommit'
-      ShortCut = 16435
-      OnExecute = ActCommitExecute
+    object ActSave: TAction
+      Caption = 'ActSave'
+      SecondaryShortCuts.Strings = (
+        'Ctrl+3'
+      )
+      ShortCut = 16467
+      OnExecute = ActSaveExecute
     end
     object ActQuit: TAction
       Caption = 'ActQuit'

@@ -12,7 +12,6 @@ object FrmEditDetail: TFrmEditDetail
   Font.Name = '0xProto'
   Font.Style = [fsBold]
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
@@ -551,7 +550,7 @@ object FrmEditDetail: TFrmEditDetail
     Height = 48
     Top = 483
     Width = 349
-    Caption = 'キャンセル (CTRL+4)'
+    Caption = 'キャンセル (CTRL+C)'
     Color = clActiveCaption
     Enabled = False
     ParentBackground = False
@@ -565,7 +564,7 @@ object FrmEditDetail: TFrmEditDetail
     Top = 491
     Width = 333
     Action = ActCancel
-    Caption = 'キャンセル (CTRL+4)'
+    Caption = 'キャンセル (CTRL+C)'
     Color = clSkyBlue
     Font.Height = -21
     Font.Name = '0xProto'
@@ -578,7 +577,7 @@ object FrmEditDetail: TFrmEditDetail
     Height = 48
     Top = 483
     Width = 349
-    Caption = '登録して入力継続 (CTRL+5)'
+    Caption = '保存して入力継続 (CTRL+S)'
     Color = clActiveCaption
     Enabled = False
     ParentBackground = False
@@ -591,8 +590,8 @@ object FrmEditDetail: TFrmEditDetail
     Height = 32
     Top = 491
     Width = 333
-    Action = ActCommit
-    Caption = '登録して入力継続 (CTRL+5)'
+    Action = ActSave
+    Caption = '保存して入力継続 (CTRL+S)'
     Color = clSkyBlue
     Font.Height = -21
     Font.Name = '0xProto'
@@ -605,7 +604,7 @@ object FrmEditDetail: TFrmEditDetail
     Height = 48
     Top = 540
     Width = 705
-    Caption = '前の画面に戻る (CTRL+6)'
+    Caption = '前の画面に戻る (CTRL+Q)'
     Color = clActiveCaption
     Enabled = False
     ParentBackground = False
@@ -619,7 +618,7 @@ object FrmEditDetail: TFrmEditDetail
     Top = 548
     Width = 690
     Action = ActQuit
-    Caption = '前の画面に戻る (CTRL+6)'
+    Caption = '前の画面に戻る (CTRL+Q)'
     Color = clSkyBlue
     Font.Height = -21
     Font.Name = '0xProto'
@@ -855,13 +854,19 @@ object FrmEditDetail: TFrmEditDetail
     end
     object ActCancel: TAction
       Caption = 'ActCancel'
-      ShortCut = 16436
+      SecondaryShortCuts.Strings = (
+        'Ctrl+4'
+      )
+      ShortCut = 16451
       OnExecute = ActCancelExecute
     end
-    object ActCommit: TAction
-      Caption = 'ActCommit'
-      ShortCut = 16437
-      OnExecute = ActCommitExecute
+    object ActSave: TAction
+      Caption = 'ActSave'
+      SecondaryShortCuts.Strings = (
+        'Ctrl+5'
+      )
+      ShortCut = 16467
+      OnExecute = ActSaveExecute
     end
     object ActQuit: TAction
       Caption = 'ActQuit'

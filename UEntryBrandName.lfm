@@ -8,7 +8,6 @@ object FrmEntryBrandName: TFrmEntryBrandName
   ClientWidth = 594
   Color = clWindowFrame
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
@@ -361,7 +360,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
     Height = 49
     Top = 706
     Width = 278
-    Caption = 'キャンセル (CTRL+3)'
+    Caption = 'キャンセル (CTRL+C)'
     Color = clActiveCaption
     Enabled = False
     Font.Height = -21
@@ -379,7 +378,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
     Top = 714
     Width = 262
     Action = ActCancel
-    Caption = 'キャンセル (CTRL+3)'
+    Caption = 'キャンセル (CTRL+C)'
     Color = clMenuHighlight
     Font.Height = -21
     Font.Name = '0xProto'
@@ -392,7 +391,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
     Height = 49
     Top = 706
     Width = 278
-    Caption = '登　　　録 (CTRL+4)'
+    Caption = '保　　　存 (CTRL+S)'
     Color = clActiveCaption
     Enabled = False
     Font.Height = -21
@@ -409,8 +408,8 @@ object FrmEntryBrandName: TFrmEntryBrandName
     Height = 33
     Top = 714
     Width = 262
-    Action = ActCommit
-    Caption = '登　　　録 (CTRL+4)'
+    Action = ActSave
+    Caption = '保　　　存 (CTRL+S)'
     Color = clMenuHighlight
     Font.Height = -21
     Font.Name = '0xProto'
@@ -423,7 +422,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
     Height = 49
     Top = 763
     Width = 562
-    Caption = '前の画面に戻る (CTRL+5)'
+    Caption = '前の画面に戻る (CTRL+Q)'
     Color = clActiveCaption
     Enabled = False
     Font.Height = -21
@@ -441,7 +440,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
     Top = 771
     Width = 546
     Action = ActQuit
-    Caption = '前の画面に戻る (CTRL+5)'
+    Caption = '前の画面に戻る (CTRL+Q)'
     Color = clMenuHighlight
     Font.Height = -21
     Font.Name = '0xProto'
@@ -486,8 +485,8 @@ object FrmEntryBrandName: TFrmEntryBrandName
     Top = 152
   end
   object ActionList: TActionList
-    Left = 500
-    Top = 152
+    Left = 48
+    Top = 112
     object ActEntryMaker: TAction
       Caption = 'ActEntryMaker'
       ShortCut = 16433
@@ -500,13 +499,19 @@ object FrmEntryBrandName: TFrmEntryBrandName
     end
     object ActCancel: TAction
       Caption = 'ActCancel'
-      ShortCut = 16435
+      SecondaryShortCuts.Strings = (
+        'Ctrl+3'
+      )
+      ShortCut = 16451
       OnExecute = ActCancelExecute
     end
-    object ActCommit: TAction
-      Caption = 'ActCommit'
-      ShortCut = 16436
-      OnExecute = ActCommitExecute
+    object ActSave: TAction
+      Caption = 'ActSave'
+      SecondaryShortCuts.Strings = (
+        'Ctrl+4'
+      )
+      ShortCut = 16467
+      OnExecute = ActSaveExecute
     end
     object ActQuit: TAction
       Caption = 'ActQuit'

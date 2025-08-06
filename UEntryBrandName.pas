@@ -17,7 +17,7 @@ type
     ACnNextID: TSQLite3Connection;
     ACnMaker: TSQLite3Connection;
     ActCancel        : TAction;
-    ActCommit        : TAction;
+    ActSave        : TAction;
     ActInsert        : TAction;
     ActEntryMaker    : TAction;
     ActionList       : TActionList;
@@ -63,7 +63,7 @@ type
     PnlEntryMaker    : TPanel;
     Timer            : TTimer;
     procedure ActCancelExecute(Sender: TObject);
-    procedure ActCommitExecute(Sender: TObject);
+    procedure ActSaveExecute(Sender: TObject);
     procedure ActEntryMakerExecute(Sender: TObject);
     procedure ActInsertExecute(Sender: TObject);
     procedure ActQuitExecute(Sender: TObject);
@@ -174,7 +174,6 @@ var
   LNextShopID  : Integer;
   LMakerID     : Integer;
   LNewMakerID  : Integer;
-  LBrandNameID : Integer;
 begin
   FDoCommit := True;
   try
@@ -197,7 +196,9 @@ begin
             OpenSelectQueryWithMakerID(
               ACnNextID, ADSNextID, ATrNextID, AQuNextID, SQL_20140002, LMakerID);
             LNextShopID := AQuNextID.FieldByName('NEXT_ID').AsInteger;
+
             CloseConn(ACnNextID, ATrNextID);
+
             SetDatabaseNames;
             if FCurrBrandNameID > 0 then begin
               ParamByName('pBrandNameID').AsInteger    := FCurrBrandNameID;
@@ -226,6 +227,7 @@ begin
 
           CloseTransactions;
           SetDatabaseNames;
+
           ExecSQL;
           ATr.Commit;
         end;
@@ -278,8 +280,6 @@ begin
 end;
 
 procedure TFrmEntryBrandName.ProcInsert;
-var
-  LNextBrandNameID : Integer;
 begin
   with FrmTopMenu.Defs do begin
     if Not FInsert then begin
@@ -309,7 +309,7 @@ begin
   ProcCancel;
 end;
 
-procedure TFrmEntryBrandName.ActCommitExecute(Sender: TObject);
+procedure TFrmEntryBrandName.ActSaveExecute(Sender: TObject);
 begin
   BackupValues;
   ProcCommit;
@@ -350,7 +350,9 @@ begin
         end else begin
           OpenSelectQuery(ACnNextID, ADSNextID, ATrNextID, AQuNextID, SQL_20140002);
           LNextBrandNameID := AQuNextID.FieldByName('NEXT_ID').AsInteger;
+
           CloseConn(ACnNextID, ATrNextID);
+
           DBEdtBrandNameID.Text := IntToStr(LNextBrandNameID);
           DBEdtBrandName.Text   := '';
           Insert;
@@ -386,7 +388,8 @@ begin
   end;
 end;
 
-procedure TFrmEntryBrandName.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+procedure TFrmEntryBrandName.FormClose(
+  Sender: TObject; var CloseAction: TCloseAction);
 begin
   CloseTransactions;
 

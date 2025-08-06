@@ -22,10 +22,10 @@ type
     ADSUsers           : TDataSource;
     ATrUsers           : TSQLTransaction;
     AQuUsers           : TSQLQuery;
+    ActionList         : TActionList;
     ActCancel          : TAction;
     ActClearPaw        : TAction;
-    ActCommit          : TAction;
-    ActionList         : TActionList;
+    ActSave          : TAction;
     ActQuit            : TAction;
     ADBGrid            : TDBGrid;
     BtnCancel          : TButton;
@@ -49,7 +49,7 @@ type
     PnlCommit          : TPanel;
     procedure ActCancelExecute(Sender: TObject);
     procedure ActClearPawExecute(Sender: TObject);
-    procedure ActCommitExecute(Sender: TObject);
+    procedure ActSaveExecute(Sender: TObject);
     procedure ActQuitExecute(Sender: TObject);
     procedure EdtToUserNameChange(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -325,7 +325,7 @@ begin
   ProcClearPaw;
 end;
 
-procedure TFrmEditUser.ActCommitExecute(Sender: TObject);
+procedure TFrmEditUser.ActSaveExecute(Sender: TObject);
 begin
   ProcCommit;
 end;

@@ -496,6 +496,7 @@ begin
     end;
   finally
   end;
+
 end;
 
 procedure TDefs.OpenSelectQueryWithMakerIDAndBrandNameID(

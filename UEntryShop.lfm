@@ -11,7 +11,6 @@ object FrmEntryShop: TFrmEntryShop
   Font.Name = '0xProto'
   Font.Style = [fsBold]
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
@@ -503,7 +502,7 @@ object FrmEntryShop: TFrmEntryShop
     Top = 672
     Width = 277
     Anchors = [akTop, akLeft, akRight]
-    Caption = 'キャンセル (CTRL+2)'
+    Caption = 'キャンセル (CTRL+C)'
     Color = clActiveCaption
     Enabled = False
     Font.Height = -21
@@ -522,7 +521,7 @@ object FrmEntryShop: TFrmEntryShop
     Width = 261
     Action = ActCancel
     Anchors = [akTop, akLeft, akRight]
-    Caption = 'キャンセル (CTRL+2)'
+    Caption = 'キャンセル (CTRL+C)'
     Color = clMenuHighlight
     Font.Height = -21
     Font.Name = '0xProto'
@@ -536,7 +535,7 @@ object FrmEntryShop: TFrmEntryShop
     Top = 672
     Width = 277
     Anchors = [akTop, akLeft, akRight]
-    Caption = '登　　　録 (CTRL+3)'
+    Caption = '保　　　存 (CTRL+S)'
     Color = clActiveCaption
     Enabled = False
     Font.Height = -21
@@ -553,9 +552,9 @@ object FrmEntryShop: TFrmEntryShop
     Height = 32
     Top = 680
     Width = 259
-    Action = ActCommit
+    Action = ActSave
     Anchors = [akTop, akLeft, akRight]
-    Caption = '登　　　録 (CTRL+3)'
+    Caption = '保　　　存 (CTRL+S)'
     Color = clMenuHighlight
     Font.Height = -21
     Font.Name = '0xProto'
@@ -569,7 +568,7 @@ object FrmEntryShop: TFrmEntryShop
     Top = 728
     Width = 563
     Anchors = [akTop, akLeft, akRight]
-    Caption = '前の画面に戻る (CTRL+4)'
+    Caption = '前の画面に戻る (CTRL+Q)'
     Color = clActiveCaption
     Enabled = False
     Font.Height = -21
@@ -588,7 +587,7 @@ object FrmEntryShop: TFrmEntryShop
     Width = 547
     Action = ActQuit
     Anchors = [akTop, akLeft, akRight]
-    Caption = '前の画面に戻る (CTRL+4)'
+    Caption = '前の画面に戻る (CTRL+Q)'
     Color = clMenuHighlight
     Font.Height = -21
     Font.Name = '0xProto'
@@ -673,7 +672,7 @@ object FrmEntryShop: TFrmEntryShop
     Top = 124
   end
   object ActionList: TActionList
-    Left = 472
+    Left = 24
     Top = 124
     object ActInsert: TAction
       Caption = 'ActInsert'
@@ -682,13 +681,19 @@ object FrmEntryShop: TFrmEntryShop
     end
     object ActCancel: TAction
       Caption = 'ActCancel'
-      ShortCut = 16434
+      SecondaryShortCuts.Strings = (
+        'Ctrl+2'
+      )
+      ShortCut = 16451
       OnExecute = ActCancelExecute
     end
-    object ActCommit: TAction
-      Caption = 'ActCommit'
-      ShortCut = 16435
-      OnExecute = ActCommitExecute
+    object ActSave: TAction
+      Caption = 'ActSave'
+      SecondaryShortCuts.Strings = (
+        'Ctrl+3'
+      )
+      ShortCut = 16467
+      OnExecute = ActSaveExecute
     end
     object ActQuit: TAction
       Caption = 'ActQuit'

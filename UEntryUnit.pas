@@ -15,7 +15,7 @@ type
 
   TFrmEntryUnit = class(TForm)
     ActCancel    : TAction;
-    ActCommit    : TAction;
+    ActSave    : TAction;
     ActInsert    : TAction;
     ActionList   : TActionList;
     ActQuit      : TAction;
@@ -49,7 +49,7 @@ type
     ACnNextID: TSQLite3Connection;
     Timer        : TTimer;
     procedure ActCancelExecute(Sender: TObject);
-    procedure ActCommitExecute(Sender: TObject);
+    procedure ActSaveExecute(Sender: TObject);
     procedure ActInsertExecute(Sender: TObject);
     procedure ActQuitExecute(Sender: TObject);
     procedure ADBGridSelectEditor(Sender: TObject; Column: TColumn;
@@ -138,6 +138,7 @@ begin
       FInsert := False;
     end;
     ATr.Rollback;
+
     CloseTransactions;
     SetDatabaseNames;
 
@@ -167,7 +168,9 @@ begin
 
             OpenSelectQueryByUnit(ACnNextID, ADSNextID, ATrNextID, AQuNextID, SQL_20150002);
             LNextUnitID                            := AQuNextID.FieldByName('NEXT_ID').AsInteger;
+
             CloseConn(ACnNextID, ATrNextID);
+
             with Params do begin
               ParamByName('pUnitID').AsInteger := LNextUnitID;
             end;
@@ -185,6 +188,8 @@ begin
           end;
 
           CloseTransactions;
+          SetDatabaseNames;
+
           ExecSQL;
           ATr.Commit;
         end;
@@ -254,7 +259,7 @@ begin
   ProcCancel;
 end;
 
-procedure TFrmEntryUnit.ActCommitExecute(Sender: TObject);
+procedure TFrmEntryUnit.ActSaveExecute(Sender: TObject);
 begin
   BackupValues;
   ProcCommit;

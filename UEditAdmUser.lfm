@@ -12,7 +12,6 @@ object FrmEditAdmUser: TFrmEditAdmUser
   Font.Name = '0xProto'
   Font.Style = [fsBold]
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
@@ -159,7 +158,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
     Height = 48
     Top = 320
     Width = 633
-    Caption = 'パスワードをクリア (CTRL+1)'
+    Caption = 'パスワードをクリア (CTRL+X)'
     Color = clActiveCaption
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
@@ -179,7 +178,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
     Top = 328
     Width = 616
     Action = ActClearPaw
-    Caption = 'パスワードをクリア (CTRL+1)'
+    Caption = 'パスワードをクリア (CTRL+X)'
     Color = clNone
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
@@ -195,7 +194,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
     Height = 48
     Top = 380
     Width = 312
-    Caption = 'キャンセル (CTRL+2)'
+    Caption = 'キャンセル (CTRL+C)'
     Color = clActiveCaption
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
@@ -215,7 +214,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
     Top = 388
     Width = 296
     Action = ActCancel
-    Caption = 'キャンセル (CTRL+2)'
+    Caption = 'キャンセル (CTRL+C)'
     Color = clNone
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
@@ -231,7 +230,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
     Height = 48
     Top = 380
     Width = 312
-    Caption = '登　　　録 (CTRL+3)'
+    Caption = '保　　　存 (CTRL+S)'
     Color = clActiveCaption
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
@@ -250,8 +249,8 @@ object FrmEditAdmUser: TFrmEditAdmUser
     Height = 32
     Top = 388
     Width = 296
-    Action = ActCommit
-    Caption = '登　　　録 (CTRL+3)'
+    Action = ActSave
+    Caption = '保　　　存 (CTRL+S)'
     Color = clNone
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
@@ -297,7 +296,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = 'ユーザID'
-        Width = 125
+        Width = 122
         FieldName = 'USER_ID'
       end    
       item
@@ -305,7 +304,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = 'ユーザ名'
-        Width = 125
+        Width = 122
         FieldName = 'NAME'
       end    
       item
@@ -313,7 +312,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '権限'
-        Width = 124
+        Width = 122
         FieldName = 'ROLE'
       end    
       item
@@ -321,7 +320,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '登録日'
-        Width = 124
+        Width = 122
         FieldName = 'ENTRY_DT'
       end    
       item
@@ -329,7 +328,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '更新日'
-        Width = 124
+        Width = 122
         FieldName = 'UPDATE_DT'
       end>
     DataSource = ADS
@@ -340,22 +339,31 @@ object FrmEditAdmUser: TFrmEditAdmUser
     Visible = False
   end
   object ActionList: TActionList
-    Left = 216
+    Left = 224
     Top = 144
     object ActClearPaw: TAction
       Caption = 'ActClearPaw'
-      ShortCut = 16433
+      SecondaryShortCuts.Strings = (
+        'Ctrl+1'
+      )
+      ShortCut = 16472
       OnExecute = ActClearPawExecute
     end
     object ActCancel: TAction
       Caption = 'ActCancel'
-      ShortCut = 16434
+      SecondaryShortCuts.Strings = (
+        'Ctrl+2'
+      )
+      ShortCut = 16451
       OnExecute = ActCancelExecute
     end
-    object ActCommit: TAction
-      Caption = 'ActCommit'
-      ShortCut = 16435
-      OnExecute = ActCommitExecute
+    object ActSave: TAction
+      Caption = 'ActSave'
+      SecondaryShortCuts.Strings = (
+        'Ctrl+3'
+      )
+      ShortCut = 16467
+      OnExecute = ActSaveExecute
     end
     object ActQuit: TAction
       Caption = 'ActQuit'
@@ -365,13 +373,13 @@ object FrmEditAdmUser: TFrmEditAdmUser
   end
   object ADS: TDataSource
     DataSet = AQu
-    Left = 344
+    Left = 336
     Top = 144
   end
   object ATr: TSQLTransaction
     Active = False
     Database = ACnUsers
-    Left = 400
+    Left = 392
     Top = 144
   end
   object AQu: TSQLQuery
@@ -383,7 +391,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
     )
     Params = <>
     Macros = <>
-    Left = 456
+    Left = 448
     Top = 144
   end
   object ACn: TSQLite3Connection
@@ -401,18 +409,18 @@ object FrmEditAdmUser: TFrmEditAdmUser
     Transaction = ATrUsers
     AlwaysUseBigint = False
     Left = 280
-    Top = 200
+    Top = 192
   end
   object ADSUsers: TDataSource
     DataSet = AQuUsers
-    Left = 344
-    Top = 200
+    Left = 336
+    Top = 192
   end
   object ATrUsers: TSQLTransaction
     Active = False
     Database = ACnUsers
-    Left = 400
-    Top = 200
+    Left = 392
+    Top = 192
   end
   object AQuUsers: TSQLQuery
     FieldDefs = <>
@@ -423,7 +431,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
     )
     Params = <>
     Macros = <>
-    Left = 456
-    Top = 200
+    Left = 448
+    Top = 192
   end
 end

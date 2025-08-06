@@ -16,7 +16,7 @@ type
     ActCancel      : TAction;
     ActionList     : TActionList;
     ActQuit        : TAction;
-    ActRemoveUser  : TAction;
+    ActDeleteUser  : TAction;
     ADBGrid        : TDBGrid;
     ADS            : TDataSource;
     ATr            : TSQLTransaction;
@@ -51,7 +51,7 @@ type
     ACn            : TSQLite3Connection;
     procedure ActCancelExecute(Sender: TObject);
     procedure ActQuitExecute(Sender: TObject);
-    procedure ActRemoveUserExecute(Sender: TObject);
+    procedure ActDeleteUserExecute(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -117,6 +117,8 @@ begin
           if LRet = mrYes then
           begin
             CloseTransactions;
+            SetDatabaseNames;
+
             ExecSQL;
             ATr.Commit;
             SetChangedUserDef(True);
@@ -156,13 +158,13 @@ begin
   Close;
 end;
 
-procedure TFrmRemoveUser.ActRemoveUserExecute(Sender: TObject);
+procedure TFrmRemoveUser.ActDeleteUserExecute(Sender: TObject);
 begin
   ProcRemoveUser;
 end;
 
-procedure TFrmRemoveUser.FormClose(Sender: TObject;
-  var CloseAction: TCloseAction);
+procedure TFrmRemoveUser.FormClose(
+  Sender: TObject; var CloseAction: TCloseAction);
 begin
   with FrmTopMenu.Defs do begin
     CloseTransactions;

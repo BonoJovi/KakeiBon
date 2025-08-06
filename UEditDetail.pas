@@ -52,7 +52,7 @@ type
     ActEntryBrandName : TAction;
     ActEntryUnit      : TAction;
     ActCancel         : TAction;
-    ActCommit         : TAction;
+    ActSave         : TAction;
     ActQuit           : TAction;
     { Screen controls }
     BtnEntryMaker     : TButton;
@@ -118,7 +118,7 @@ type
     PnlEntryUnit      : TPanel;
     PnlEntryBrandName : TPanel;
     procedure ActCancelExecute(Sender: TObject);
-    procedure ActCommitExecute(Sender: TObject);
+    procedure ActSaveExecute(Sender: TObject);
     procedure ActEntryBrandNameExecute(Sender: TObject);
     procedure ActEntryMakerExecute(Sender: TObject);
     procedure ActEntryUnitExecute(Sender: TObject);
@@ -362,6 +362,7 @@ begin
 
     OpenSelectQueryWithHeaderID(ACnNextID, ADSNextID, ATrNextID, AQuNextID, SQL_20120003, GetHID);
     LNextDetailID := AQuNextID.FieldByName('NEXT_ID').AsInteger;
+
     CloseConn(ACnNextID, ATrNextID);
     SetDatabaseNames;
 
@@ -429,12 +430,10 @@ begin
             Or (VarToStr(GetDID) = '')
             Or (StrToInt(VarToStr(GetDID)) = 0)then begin
           CloseConn(ACnNextID, ATrNextID);
-          SetDatabaseNames;
 
           OpenSelectQuery(ACnNextID, ADSNextID, ATrNextID, AQuNextID, SQL_20120003);
           LNextDetailID := AQuNextID.FieldByName('NEXT_ID').AsInteger;
           CloseConn(ACnNextID, ATrNextID);
-          SetDatabaseNames;
 
           DBEdtDetailID.Text := IntToStr(LNextDetailID);
           SetDID(LNextDetailID);
@@ -473,8 +472,10 @@ begin
             ParamByName('pEntryDT'    ).AsDateTime  := Now;
             ParamByName('pUpdateDT'   ).AsDateTime  := Now;
           end;
+
           CloseTransactions;
           SetDatabaseNames;
+
           ExecSQL;
           ATr.Commit;
         end;
@@ -666,7 +667,7 @@ begin
   ProcCancel;
 end;
 
-procedure TFrmEditDetail.ActCommitExecute(Sender: TObject);
+procedure TFrmEditDetail.ActSaveExecute(Sender: TObject);
 begin
   BackupValues;
   ProcCommit;

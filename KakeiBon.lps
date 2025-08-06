@@ -20,6 +20,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
+        <TopLine Value="674"/>
+        <CursorPos X="3" Y="681"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
@@ -44,12 +46,15 @@
         <Filename Value="UDBAccess.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
+        <CursorPos X="53" Y="12"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
         <Filename Value="UDefs.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
+        <TopLine Value="491"/>
+        <CursorPos Y="500"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
@@ -59,6 +64,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
+        <TopLine Value="160"/>
+        <CursorPos X="54" Y="160"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
@@ -68,6 +75,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
+        <CursorPos X="36" Y="12"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
@@ -77,6 +85,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
+        <CursorPos X="47" Y="12"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
@@ -86,6 +95,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
+        <TopLine Value="260"/>
+        <CursorPos Y="274"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
@@ -104,8 +115,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="178"/>
-        <CursorPos X="14" Y="194"/>
+        <TopLine Value="231"/>
+        <CursorPos X="51" Y="240"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
@@ -115,6 +126,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
+        <TopLine Value="275"/>
+        <CursorPos Y="283"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
@@ -124,6 +137,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
+        <CursorPos X="41" Y="12"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
@@ -186,6 +200,7 @@
         <ComponentName Value="FrmRemoveUser"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
         <UsageCount Value="200"/>
       </Unit>
@@ -197,6 +212,8 @@
         <ResourceBaseClass Value="Form"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
+        <TopLine Value="416"/>
+        <CursorPos X="33" Y="433"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
@@ -211,14 +228,14 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="4119"/>
         <CursorPos X="40" Y="4127"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="3"/>
       </Unit>
       <Unit>
         <Filename Value="../Software/Development/Lazarus-IDE/lazarus/lcl/include/customform.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="573"/>
         <CursorPos X="37" Y="586"/>
-        <UsageCount Value="1"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="../Software/Development/Lazarus-IDE/lazarus/lcl/grids.pas"/>
@@ -226,7 +243,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="13713"/>
         <CursorPos Y="13730"/>
-        <UsageCount Value="1"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="../Software/Development/Lazarus-IDE/lazarus/lcl/lcltype.pp"/>
@@ -234,21 +251,21 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="413"/>
         <CursorPos X="3" Y="430"/>
-        <UsageCount Value="1"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="/usr/share/lazarus/4.2.0/lcl/include/control.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="4316"/>
         <CursorPos Y="4324"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit>
       <Unit>
         <Filename Value="/usr/share/lazarus/4.2.0/lcl/include/customform.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="2297"/>
         <CursorPos Y="2308"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="/usr/share/lazarus/4.2.0/lcl/dbgrids.pas"/>
@@ -256,7 +273,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="4118"/>
         <CursorPos Y="4134"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="/usr/share/lazarus/4.2.0/lcl/grids.pas"/>
@@ -264,49 +281,49 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="10330"/>
         <CursorPos X="33" Y="10338"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="11"/>
       </Unit>
       <Unit>
         <Filename Value="/usr/share/lazarus/4.2.0/lcl/include/wincontrol.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="3643"/>
         <CursorPos Y="3654"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="/usr/share/lazarus/4.2.0/lcl/include/customcombobox.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="216"/>
         <CursorPos Y="225"/>
-        <UsageCount Value="13"/>
+        <UsageCount Value="12"/>
       </Unit>
       <Unit>
         <Filename Value="/usr/share/lazarus/4.2.0/lcl/include/dbedit.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="57"/>
         <CursorPos X="16" Y="66"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="/usr/share/lazarus/4.2.0/lcl/include/containedaction.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="89"/>
         <CursorPos Y="98"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit>
       <Unit>
         <Filename Value="/usr/share/lazarus/4.2.0/lcl/include/customaction.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="259"/>
         <CursorPos Y="274"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="4"/>
       </Unit>
       <Unit>
         <Filename Value="/usr/share/lazarus/4.2.0/lcl/include/customactionlist.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="204"/>
         <CursorPos X="38" Y="215"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="4"/>
       </Unit>
       <Unit>
         <Filename Value="/usr/share/lazarus/4.2.0/lcl/lclmessageglue.pas"/>
@@ -314,21 +331,21 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="115"/>
         <CursorPos Y="125"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="/usr/share/lazarus/4.2.0/lcl/interfaces/gtk2/gtk2proc.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="2540"/>
         <CursorPos Y="2554"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="/usr/share/lazarus/4.2.0/lcl/interfaces/gtk2/gtk2callback.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="791"/>
         <CursorPos Y="800"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="/usr/share/lazarus/4.2.0/lcl/controls.pp"/>
@@ -336,21 +353,21 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="2822"/>
         <CursorPos Y="2837"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit>
       <Unit>
         <Filename Value="/usr/share/lazarus/4.2.0/lcl/include/customedit.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="618"/>
         <CursorPos Y="620"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="4"/>
       </Unit>
       <Unit>
         <Filename Value="/usr/share/lazarus/4.2.0/lcl/include/application.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="2267"/>
         <CursorPos Y="2281"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit>
       <Unit>
         <Filename Value="/usr/share/lazarus/4.2.0/lcl/customtimer.pas"/>
@@ -358,7 +375,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="173"/>
         <CursorPos Y="182"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="../lazarus/lcl/dbgrids.pas"/>
@@ -375,15 +392,4 @@
       <Modes ActiveMode=""/>
     </RunParams>
   </ProjectSession>
-  <Debugging>
-    <BreakPoints>
-      <Item>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="UEditUser.pas"/>
-        <Line Value="228"/>
-      </Item>
-    </BreakPoints>
-  </Debugging>
 </CONFIG>

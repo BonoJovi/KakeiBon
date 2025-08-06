@@ -20,7 +20,7 @@ type
     ActionList             : TActionList;
     ActAddDetailsHeader    : TAction;
     ActEditDetailsHeader   : TAction;
-    ActRemoveDetailsHeader : TAction;
+    ActDeleteDetailsHeader : TAction;
     ActQuit                : TAction;
     { Etc controls }
     ADBG                   : TDBGrid;
@@ -39,7 +39,7 @@ type
     procedure ActEntryAccountExecute(Sender: TObject);
     procedure ActEntryShopExecute(Sender: TObject);
     procedure ActQuitExecute(Sender: TObject);
-    procedure ActRemoveDetailsHeaderExecute(Sender: TObject);
+    procedure ActDeleteDetailsHeaderExecute(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -92,6 +92,7 @@ begin
       FrmAddDetailsHeader := TFrmAddDetailsHeader.Create(Application);
       with FrmTopMenu.Defs do begin
         SetHeaderDT('');
+
         CloseTransactions;
         SetDatabaseNames;
 
@@ -264,13 +265,13 @@ begin
   Close;
 end;
 
-procedure TFrmManageDetails.ActRemoveDetailsHeaderExecute(Sender: TObject);
+procedure TFrmManageDetails.ActDeleteDetailsHeaderExecute(Sender: TObject);
 begin
   ProcRemoveDetailsHeader;
 end;
 
-procedure TFrmManageDetails.FormClose(Sender: TObject;
-  var CloseAction: TCloseAction);
+procedure TFrmManageDetails.FormClose(
+  Sender: TObject; var CloseAction: TCloseAction);
 begin
   with FrmTopMenu do begin
     CloseTransactions;
@@ -324,6 +325,7 @@ begin
     with FrmTopMenu.Defs do begin
       CloseTransactions;
       SetDatabaseNames;
+
       OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20090001);
       if AQu.RecordCount = 0 then begin
         BtnEditDetail.Enabled   := False;

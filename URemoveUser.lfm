@@ -12,7 +12,6 @@ object FrmRemoveUser: TFrmRemoveUser
   Font.Name = '0xProto Nerd Font Mono'
   Font.Style = [fsBold, fsItalic]
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
@@ -293,7 +292,7 @@ object FrmRemoveUser: TFrmRemoveUser
     Height = 48
     Top = 268
     Width = 264
-    Caption = 'キャンセル (CTRL+1)'
+    Caption = 'キャンセル (CTRL+C)'
     Color = clActiveCaption
     Enabled = False
     Font.CharSet = ANSI_CHARSET
@@ -314,7 +313,7 @@ object FrmRemoveUser: TFrmRemoveUser
     Top = 276
     Width = 248
     Action = ActCancel
-    Caption = 'キャンセル (CTRL+1)'
+    Caption = 'キャンセル (CTRL+C)'
     Color = clNone
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
@@ -330,7 +329,7 @@ object FrmRemoveUser: TFrmRemoveUser
     Height = 48
     Top = 268
     Width = 264
-    Caption = '削　　　除 (CTRL+2)'
+    Caption = '削　　　除 (CTRL+D)'
     Color = clActiveCaption
     Enabled = False
     Font.CharSet = ANSI_CHARSET
@@ -350,8 +349,8 @@ object FrmRemoveUser: TFrmRemoveUser
     Height = 32
     Top = 276
     Width = 248
-    Action = ActRemoveUser
-    Caption = '削　　　除 (CTRL+2)'
+    Action = ActDeleteUser
+    Caption = '削　　　除 (CTRL+D)'
     Color = clNone
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
@@ -398,13 +397,19 @@ object FrmRemoveUser: TFrmRemoveUser
     Top = 72
     object ActCancel: TAction
       Caption = 'ActCancel'
-      ShortCut = 16433
+      SecondaryShortCuts.Strings = (
+        'Ctrl+1'
+      )
+      ShortCut = 16451
       OnExecute = ActCancelExecute
     end
-    object ActRemoveUser: TAction
-      Caption = 'ActRemoveUser'
-      ShortCut = 16434
-      OnExecute = ActRemoveUserExecute
+    object ActDeleteUser: TAction
+      Caption = 'ActDeleteUser'
+      SecondaryShortCuts.Strings = (
+        'Ctrl+2'
+      )
+      ShortCut = 16452
+      OnExecute = ActDeleteUserExecute
     end
     object ActQuit: TAction
       Caption = 'ActQuit'

@@ -12,7 +12,6 @@ object FrmManageExp: TFrmManageExp
   Font.Name = 'Sans'
   Font.Style = [fsBold]
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
@@ -361,7 +360,7 @@ object FrmManageExp: TFrmManageExp
     Height = 48
     Top = 360
     Width = 984
-    Caption = '前の画面に戻る (CTRL+3)'
+    Caption = '前の画面に戻る (CTRL+Q)'
     Color = clActiveCaption
     Enabled = False
     Font.CharSet = ANSI_CHARSET
@@ -382,7 +381,7 @@ object FrmManageExp: TFrmManageExp
     Top = 368
     Width = 968
     Action = ActQuit
-    Caption = '前の画面に戻る (CTRL+3)'
+    Caption = '前の画面に戻る (CTRL+Q)'
     Color = clNone
     Font.Height = -21
     Font.Name = '0xProto'

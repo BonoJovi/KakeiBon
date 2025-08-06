@@ -12,7 +12,6 @@ object FrmLogin: TFrmLogin
   ParentFont = True
   PopupMode = pmAuto
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
@@ -81,7 +80,7 @@ object FrmLogin: TFrmLogin
     Height = 48
     Top = 138
     Width = 553
-    Caption = 'パスワードをクリア (CTRL+1)'
+    Caption = 'パスワードをクリア (CTRL+X)'
     Color = clActiveCaption
     Enabled = False
     Font.CharSet = ANSI_CHARSET
@@ -100,7 +99,7 @@ object FrmLogin: TFrmLogin
     Height = 48
     Top = 194
     Width = 271
-    Caption = 'キャンセル (CTRL+2)'
+    Caption = 'キャンセル (CTRL+C)'
     Color = clActiveCaption
     Enabled = False
     Font.CharSet = ANSI_CHARSET
@@ -119,7 +118,7 @@ object FrmLogin: TFrmLogin
     Height = 48
     Top = 194
     Width = 273
-    Caption = 'ログイン (CTRL+3)'
+    Caption = 'ログイン (CTRL+I)'
     Color = clActiveCaption
     Enabled = False
     Font.CharSet = ANSI_CHARSET
@@ -140,7 +139,7 @@ object FrmLogin: TFrmLogin
     Top = 202
     Width = 256
     Action = ActLogin
-    Caption = 'ログイン (CTRL+3)'
+    Caption = 'ログイン (CTRL+I)'
     Color = clMenuHighlight
     Default = True
     Font.CharSet = ANSI_CHARSET
@@ -159,7 +158,7 @@ object FrmLogin: TFrmLogin
     Top = 202
     Width = 256
     Action = ActCancel
-    Caption = 'キャンセル (CTRL+2)'
+    Caption = 'キャンセル (CTRL+C)'
     Color = clNone
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
@@ -177,7 +176,7 @@ object FrmLogin: TFrmLogin
     Top = 146
     Width = 536
     Action = ActClearPaw
-    Caption = 'パスワードをクリア (CTRL+1)'
+    Caption = 'パスワードをクリア (CTRL+X)'
     Color = clMenuHighlight
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
@@ -189,21 +188,30 @@ object FrmLogin: TFrmLogin
     TabOrder = 3
   end
   object ActionList: TActionList
-    Left = 416
+    Left = 144
     Top = 64
     object ActClearPaw: TAction
       Caption = 'ActClearPaw'
-      ShortCut = 16433
+      SecondaryShortCuts.Strings = (
+        'Ctrl+1'
+      )
+      ShortCut = 16472
       OnExecute = ActClearPawExecute
     end
     object ActCancel: TAction
       Caption = 'ActCancel'
-      ShortCut = 16434
+      SecondaryShortCuts.Strings = (
+        'Ctrl+2'
+      )
+      ShortCut = 16451
       OnExecute = ActCancelExecute
     end
     object ActLogin: TAction
       Caption = 'ActLogin'
-      ShortCut = 16435
+      SecondaryShortCuts.Strings = (
+        'Ctrl+3'
+      )
+      ShortCut = 16457
       OnExecute = ActLoginExecute
     end
     object ActQuit: TAction
