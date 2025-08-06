@@ -290,6 +290,7 @@ begin
             UpdateMode                                     := upWhereAll;
 
             CloseTransactions;
+            SetDatabaseNames;
             ExecSQL;
             ATr.Commit;
           end;
@@ -343,6 +344,7 @@ begin
             UpdateMode                                       := upWhereAll;
 
             CloseTransactions;
+            SetDatabaseNames;
             ExecSQL;
             ATr.Commit;
           end;
@@ -391,6 +393,7 @@ begin
           end;
 
           CloseTransactions;
+          SetDatabaseNames;
           Open;
 
           First;
@@ -472,7 +475,8 @@ begin
 
         with AQuDetail do begin
           CloseConn(ACnDetail, ATrDetail);
-          //OpenConn(ACnDetail, ADSDetail, ATrDetail, AQuDetail);
+          SetDatabaseNames;
+
           SQL.Text := SQL_20100009;
           with Params do begin
             ParamByName('pUserID').AsInteger   := GetUID;
@@ -522,14 +526,33 @@ end;
 procedure TFrmEditDetailsHeader.UpdateFractionProc(
   FractionProc: Integer; SS: String);
 begin
-  with FrmTopMenu.Defs do begin
-    if FractionProc = FRACTION_PROC_UNDEF then begin
-      CloseTransactions;
-      UpdateFractionProcQueryWithShopID(
-        ACnShop, ADSShop, ATrShop, AQuShop,
-        SS, StrToInt(VarToStr(GetShopID)));
-      ATrShop.Commit;
+  try
+    try
+      with FrmTopMenu.Defs do begin
+        if FractionProc = FRACTION_PROC_UNDEF then begin
+          with FrmTopMenu.Defs do begin
+            with AQuShop do begin
+              if Active = False then begin
+                SQL.Text                             := SS;
+                with Params do begin
+                  ParamByName('pUserID').AsInteger := GetUID;
+                  ParamByName('pShopID').AsInteger := StrToInt(VarToStr(GetShopID));
+                end;
+                CloseTransactions;
+                SetDatabaseNames;
+                ExecSQL;
+              end;
+            end;
+          end;
+          ATrShop.Commit;
+        end;
+      end;
+    except
+      on E: ESQLDatabaseError do begin
+        ShowMessage(E.Message);
+      end;
     end;
+  finally
   end;
 end;
 
@@ -537,8 +560,8 @@ procedure TFrmEditDetailsHeader.ReQuery;
 begin
   with FrmTopMenu.Defs do begin
     CloseConn(ACn, ATr);
-    //OpenConn(ACn, ADS, ATr, AQu);
     SetDatabaseNames;
+
     OpenSelectQueryWithHeaderID(
       ACn, ADS, ATr, AQu, SQL_20100006, GetHID);
     OpenSelQuAndSetVal(
@@ -577,8 +600,8 @@ begin
         end else begin
           with AQu do begin
             CloseConn(ACn, ATr);
-            //OpenConn(ACn, ADS, ATr, AQu);
             SetDatabaseNames;
+
             OpenSelectQueryWithHeaderID(
               ACn, ADS, ATr, AQu, SQL_20100006, GetHID);
             LTotalAmount := FieldByName('TOTAL_AMOUNT').AsInteger;
@@ -588,11 +611,11 @@ begin
         with FrmTopMenu.Defs do begin
           with AQuDetail do begin
             if (LFractionProc = FRACTION_PROC_TRUNCATE)
-              Or (LFractionProc = FRACTION_PROC_UNDEF) then begin
+                Or (LFractionProc = FRACTION_PROC_UNDEF) then begin
               // Calc TotalAmount (TRUNC)
-                CloseConn(ACnDetail, ATrDetail);
-                //OpenConn(ACnDetail, ADSDetail, ATrDetail, AQuDetail);
-                SetDatabaseNames;
+              CloseConn(ACnDetail, ATrDetail);
+              SetDatabaseNames;
+
               OpenSelectQueryWithHeaderID(
                 ACnDetail, ADSDetail, ATrDetail, AQuDetail, SQL_20100012, GetHID);
               if AQuDetail.FieldByName('TOTAL_AMOUNT').AsAnsiString <> '' then begin
@@ -608,10 +631,9 @@ begin
 
           with AQuDetail do begin
             if (LFractionProc = FRACTION_PROC_ROUND_UP)
-              Or (LFractionProc = FRACTION_PROC_UNDEF) then begin
+                Or (LFractionProc = FRACTION_PROC_UNDEF) then begin
               // Calc TotalAmount (ROUND_UP)
               CloseConn(ACnDetail, ATrDetail);
-              //OpenConn(ACnDetail, ADSDetail, ATrDetail, AQuDetail);
               SetDatabaseNames;
               OpenSelectQueryWithHeaderID(
                 ACnDetail, ADSDetail, ATrDetail, AQuDetail, SQL_20100013, GetHID);
@@ -631,8 +653,8 @@ begin
                 Or (LFractionProc = FRACTION_PROC_UNDEF) then begin
               // Calc TotalAmount (ROUND)
               CloseConn(ACnDetail, ATrDetail);
-              //OpenConn(ACnDetail, ADSDetail, ATrDetail, AQuDetail);
               SetDatabaseNames;
+
               OpenSelectQueryWithHeaderID(
                 ACnDetail, ADSDetail, ATrDetail, AQuDetail, SQL_20100011, GetHID);
               if AQuDetail.FieldByName('TOTAL_AMOUNT').AsAnsiString <> '' then begin
@@ -766,9 +788,6 @@ begin
       DBEdtFromID.Text        := '';
       DBEdtToID.Text          := '';
     end;
-
-    //SetFromACID(DBEdtFromID.Text);
-    //SetToACID(DBEdtToID.Text);
   end;
 end;
 
@@ -887,8 +906,8 @@ begin
   with FrmTopMenu.Defs do begin
     with AQu do begin
       CloseConn(ACn, ATr);
-      //OpenConn(ACn, ADS, ATr, AQu);
       SetDatabaseNames;
+
       SQL.Text := SQL_20100006;
       with Params do begin
         ParamByName('pUserID').AsInteger   := GetUID;
@@ -981,8 +1000,8 @@ begin
 
       with AQuDetail do begin
         CloseConn(ACnDetail, ATrDetail);
-        //OpenConn(ACnDetail, ADSDetail, ATrDetail, AQuDetail);
         SetDatabaseNames;
+
         OpenSelectQueryWithHeaderID(
           ACnDetail, ADSDetail, ATrDetail, AQuDetail, SQL_20100009, GetHID);
 
@@ -1007,8 +1026,8 @@ begin
       Summarize;
 
       CloseConn(ACnDetail, ATrDetail);
-      //OpenConn(ACnDetail, ADSDetail, ATrDetail, AQuDetail);
       SetDatabaseNames;
+
       OpenSelectQueryWithHeaderID(
         ACnDetail, ADSDetail, ATrDetail, AQuDetail, SQL_20100009, GetHID);
     end;

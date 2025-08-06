@@ -358,11 +358,12 @@ begin
     DBEdtHeaderID.Text      := IntToStr(GetHID);
 
     CloseConn(ACnNextID, ATrNextID);
-    //OpenConn(ACnNextID, ADSNextID, ATrNextID, AQuNextID);
     SetDatabaseNames;
+
     OpenSelectQueryWithHeaderID(ACnNextID, ADSNextID, ATrNextID, AQuNextID, SQL_20120003, GetHID);
     LNextDetailID := AQuNextID.FieldByName('NEXT_ID').AsInteger;
     CloseConn(ACnNextID, ATrNextID);
+    SetDatabaseNames;
 
     SetMakerID(Null);
     SetBrandNameID(Null);
@@ -428,12 +429,13 @@ begin
             Or (VarToStr(GetDID) = '')
             Or (StrToInt(VarToStr(GetDID)) = 0)then begin
           CloseConn(ACnNextID, ATrNextID);
-          //OpenConn(ACnNextID, ADSNextID, ATrNextID, AQuNextID);
           SetDatabaseNames;
+
           OpenSelectQuery(ACnNextID, ADSNextID, ATrNextID, AQuNextID, SQL_20120003);
           LNextDetailID := AQuNextID.FieldByName('NEXT_ID').AsInteger;
-
           CloseConn(ACnNextID, ATrNextID);
+          SetDatabaseNames;
+
           DBEdtDetailID.Text := IntToStr(LNextDetailID);
           SetDID(LNextDetailID);
         end;
@@ -472,6 +474,7 @@ begin
             ParamByName('pUpdateDT'   ).AsDateTime  := Now;
           end;
           CloseTransactions;
+          SetDatabaseNames;
           ExecSQL;
           ATr.Commit;
         end;
@@ -479,6 +482,7 @@ begin
         // Clear input values
         with FrmTopMenu.Defs do begin
           CloseTransactions;
+          SetDatabaseNames;
 
           DBEdtMakerID.Text     := '';
           DBEdtBrandNameID.Text := '';
@@ -620,8 +624,6 @@ begin
   try
     with FrmTopMenu.Defs do begin
       with Qu2 do begin
-        //OpenConn(Cn2, DS2, Tr2, Qu2);
-
         SQL.Text     := SQL_20120001;
         with Params do begin
           ParamByName('pUserID').AsInteger  := GetUID;
@@ -642,8 +644,6 @@ begin
   try
     with FrmTopMenu.Defs do begin
       with Qu3 do begin
-        //OpenConn(Cn3, DS3, Tr3, Qu3);
-
         SQL.Text     := SQL_20120002;
         with Params do begin
           ParamByName('pUserID').AsInteger  := GetUID;
@@ -1089,9 +1089,9 @@ begin
   PnlGoBack.Color         := RGB( 72, 122, 129);
 
   with FrmTopMenu.Defs do begin
-    //OpenConn(ACn, ADS, ATr, AQu);
     CloseTransactions;
     SetDatabaseNames;
+
     with AQu do begin
       if Active = False then
       begin

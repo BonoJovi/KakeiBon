@@ -18,9 +18,9 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   OnShow = FormShow
   object LblDateTime1: TLabel
     Left = 16
-    Height = 32
+    Height = 24
     Top = 16
-    Width = 21
+    Width = 20
     Caption = '日'
     Font.Height = -21
     Font.Name = '0xProto'
@@ -29,9 +29,9 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   end
   object LblDateTime2: TLabel
     Left = 100
-    Height = 32
+    Height = 24
     Top = 16
-    Width = 21
+    Width = 20
     Caption = '時'
     Font.Height = -21
     Font.Name = '0xProto'
@@ -43,7 +43,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Left = 128
     Height = 32
     Top = 16
-    Width = 73
+    Width = 71
     CenturyFrom = 1941
     DateDisplayOrder = ddoYMD
     MaxDate = 2958465
@@ -76,9 +76,9 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   end
   object LblYear: TLabel
     Left = 200
-    Height = 32
+    Height = 24
     Top = 17
-    Width = 21
+    Width = 20
     Caption = '年'
     Font.Height = -21
     Font.Name = '0xProto'
@@ -122,9 +122,9 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   end
   object LblMonth: TLabel
     Left = 272
-    Height = 32
+    Height = 24
     Top = 17
-    Width = 21
+    Width = 20
     Caption = '月'
     Font.Height = -21
     Font.Name = '0xProto'
@@ -168,9 +168,9 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   end
   object LblDay: TLabel
     Left = 344
-    Height = 32
+    Height = 24
     Top = 17
-    Width = 21
+    Width = 20
     Caption = '日'
     Font.Height = -21
     Font.Name = '0xProto'
@@ -214,9 +214,9 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   end
   object LblHour: TLabel
     Left = 449
-    Height = 32
+    Height = 24
     Top = 17
-    Width = 21
+    Width = 20
     Caption = '時'
     Font.Height = -21
     Font.Name = '0xProto'
@@ -225,9 +225,9 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   end
   object LblShopName1: TLabel
     Left = 16
-    Height = 32
+    Height = 24
     Top = 62
-    Width = 21
+    Width = 20
     Caption = '店'
     Font.Height = -21
     Font.Name = '0xProto'
@@ -236,9 +236,9 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   end
   object LblShopName2: TLabel
     Left = 100
-    Height = 32
+    Height = 24
     Top = 62
-    Width = 21
+    Width = 20
     Caption = '名'
     Font.Height = -21
     Font.Name = '0xProto'
@@ -248,7 +248,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   object DBLCBShopName: TDBLookupComboBox
     Cursor = crHandPoint
     Left = 128
-    Height = 44
+    Height = 32
     Top = 56
     Width = 340
     AutoComplete = True
@@ -295,9 +295,9 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   end
   object LblPhoneNum1: TLabel
     Left = 16
-    Height = 32
+    Height = 24
     Top = 116
-    Width = 21
+    Width = 20
     Alignment = taCenter
     Caption = '電'
     Font.Height = -21
@@ -307,9 +307,9 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   end
   object LblPhoneNum2: TLabel
     Left = 44
-    Height = 32
+    Height = 24
     Top = 116
-    Width = 21
+    Width = 20
     Alignment = taCenter
     Caption = '話'
     Font.Height = -21
@@ -319,9 +319,9 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   end
   object LblPhoneNum3: TLabel
     Left = 72
-    Height = 32
+    Height = 24
     Top = 116
-    Width = 21
+    Width = 20
     Alignment = taCenter
     Caption = '番'
     Font.Height = -21
@@ -331,9 +331,9 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   end
   object LblPhoneNum4: TLabel
     Left = 100
-    Height = 32
+    Height = 24
     Top = 116
-    Width = 21
+    Width = 20
     Alignment = taCenter
     Caption = '号'
     Font.Height = -21
@@ -343,12 +343,14 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   end
   object DBEdtPhoneNum: TDBEdit
     Left = 128
-    Height = 49
+    Height = 32
     Top = 108
     Width = 340
     DataField = 'PHONE_NUM'
     DataSource = ADSShop
     ReadOnly = True
+    AutoSelect = False
+    Enabled = False
     Font.Height = -21
     Font.Name = '0xProto'
     Font.Style = [fsBold]
@@ -359,9 +361,9 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   end
   object LblCategory: TLabel
     Left = 16
-    Height = 32
+    Height = 24
     Top = 171
-    Width = 105
+    Width = 100
     Alignment = taCenter
     Caption = '入出金区分'
     Font.Height = -21
@@ -372,7 +374,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   object DBLCBExp1: TDBLookupComboBox
     Cursor = crHandPoint
     Left = 128
-    Height = 44
+    Height = 32
     Top = 165
     Width = 340
     AutoComplete = True
@@ -393,9 +395,9 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   end
   object LblFrom1: TLabel
     Left = 16
-    Height = 32
+    Height = 24
     Top = 223
-    Width = 21
+    Width = 20
     Alignment = taCenter
     Caption = '出'
     Font.Height = -21
@@ -405,9 +407,9 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   end
   object LblFrom2: TLabel
     Left = 58
-    Height = 32
+    Height = 24
     Top = 223
-    Width = 21
+    Width = 20
     Alignment = taCenter
     Caption = '金'
     Font.Height = -21
@@ -417,9 +419,9 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   end
   object LblFrom3: TLabel
     Left = 100
-    Height = 32
+    Height = 24
     Top = 223
-    Width = 21
+    Width = 20
     Alignment = taCenter
     Caption = '元'
     Font.Height = -21
@@ -429,7 +431,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   end
   object DBLCBFromAC: TDBLookupComboBox
     Left = 128
-    Height = 44
+    Height = 32
     Top = 217
     Width = 340
     AutoComplete = True
@@ -478,9 +480,9 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   end
   object LblTo1: TLabel
     Left = 16
-    Height = 32
+    Height = 24
     Top = 275
-    Width = 21
+    Width = 20
     Alignment = taCenter
     Caption = '入'
     Font.Height = -21
@@ -490,9 +492,9 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   end
   object LblTo2: TLabel
     Left = 58
-    Height = 32
+    Height = 24
     Top = 275
-    Width = 21
+    Width = 20
     Alignment = taCenter
     Caption = '金'
     Font.Height = -21
@@ -502,9 +504,9 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   end
   object LblTo3: TLabel
     Left = 100
-    Height = 32
+    Height = 24
     Top = 275
-    Width = 21
+    Width = 20
     Alignment = taCenter
     Caption = '先'
     Font.Height = -21
@@ -514,7 +516,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   end
   object DBLCBToAC: TDBLookupComboBox
     Left = 128
-    Height = 44
+    Height = 32
     Top = 269
     Width = 340
     AutoComplete = True
@@ -536,9 +538,9 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   end
   object LblTotalAmount1: TLabel
     Left = 16
-    Height = 32
+    Height = 24
     Top = 328
-    Width = 21
+    Width = 20
     Caption = '合'
     Font.Height = -21
     Font.Name = '0xProto'
@@ -547,9 +549,9 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   end
   object LblTotalAmount2: TLabel
     Left = 44
-    Height = 32
+    Height = 24
     Top = 328
-    Width = 21
+    Width = 20
     Caption = '計'
     Font.Height = -21
     Font.Name = '0xProto'
@@ -558,9 +560,9 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   end
   object LblTotalAmount3: TLabel
     Left = 72
-    Height = 32
+    Height = 24
     Top = 328
-    Width = 21
+    Width = 20
     Caption = '金'
     Font.Height = -21
     Font.Name = '0xProto'
@@ -569,9 +571,9 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   end
   object LblTotalAmount4: TLabel
     Left = 100
-    Height = 32
+    Height = 24
     Top = 328
-    Width = 21
+    Width = 20
     Caption = '額'
     Font.Height = -21
     Font.Name = '0xProto'
@@ -580,7 +582,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   end
   object EdtTotalAmount: TEdit
     Left = 128
-    Height = 46
+    Height = 31
     Top = 320
     Width = 340
     Alignment = taRightJustify
@@ -718,7 +720,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Height = 232
     Top = 496
     Width = 827
-    Color = clMenuHighlight
+    Color = clWindow
     Columns = <    
       item
         Font.Height = -19
@@ -726,7 +728,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
         Font.Style = [fsBold]
         Title.MultiLine = True
         Title.Caption = '品名'
-        Width = 41
+        Width = 39
         FieldName = 'BRAND_NAME'
       end    
       item
@@ -734,7 +736,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '費目 (大)'
-        Width = 66
+        Width = 62
         FieldName = 'EXP1'
       end    
       item
@@ -742,7 +744,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '費目 (中)'
-        Width = 66
+        Width = 62
         FieldName = 'EXP2'
       end    
       item
@@ -750,7 +752,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '費目 (小)'
-        Width = 66
+        Width = 62
         FieldName = 'EXP3'
       end    
       item
@@ -758,7 +760,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '数量'
-        Width = 41
+        Width = 39
         FieldName = 'QUANTITY'
       end    
       item
@@ -766,7 +768,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '単位'
-        Width = 41
+        Width = 39
         FieldName = 'UNIT'
       end    
       item
@@ -774,7 +776,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '税別価格'
-        Width = 67
+        Width = 63
         FieldName = 'EXCLUDE_TAX'
       end    
       item
@@ -782,7 +784,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '税区分'
-        Width = 54
+        Width = 51
         FieldName = 'TAX_TYPE'
       end    
       item
@@ -790,7 +792,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '税額'
-        Width = 41
+        Width = 39
         FieldName = 'TAX'
       end    
       item
@@ -798,7 +800,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '小計'
-        Width = 41
+        Width = 39
         FieldName = 'SUB_TOTAL'
       end>
     DataSource = ADSDetail
@@ -807,7 +809,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   end
   object DBEdtUserID: TDBEdit
     Left = 888
-    Height = 46
+    Height = 30
     Top = 8
     Width = 100
     DataField = 'USER_ID'
@@ -822,7 +824,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   end
   object DBEdtHeaderID: TDBEdit
     Left = 992
-    Height = 46
+    Height = 30
     Top = 8
     Width = 100
     DataField = 'HEADER_ID'
@@ -840,7 +842,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Left = 888
     Height = 30
     Top = 62
-    Width = 263
+    Width = 225
     DataField = 'HEADER_DT'
     DataSource = ADS
     ReadOnly = False
@@ -869,7 +871,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   end
   object DBEdtShopID: TDBEdit
     Left = 888
-    Height = 46
+    Height = 30
     Top = 100
     Width = 100
     DataField = 'SHOP_ID'
@@ -885,7 +887,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   end
   object DBEdtExpKey1: TDBEdit
     Left = 992
-    Height = 46
+    Height = 30
     Top = 100
     Width = 100
     DataField = 'EXP_KEY1'
@@ -901,7 +903,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   end
   object DBEdtFromID: TDBEdit
     Left = 888
-    Height = 46
+    Height = 30
     Top = 154
     Width = 100
     DataField = 'FROM_ID'
@@ -917,7 +919,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   end
   object DBEdtToID: TDBEdit
     Left = 992
-    Height = 46
+    Height = 30
     Top = 154
     Width = 100
     DataField = 'TO_ID'
@@ -933,7 +935,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   end
   object DBEdtTotalAmount: TDBEdit
     Left = 888
-    Height = 46
+    Height = 30
     Top = 208
     Width = 100
     DataField = 'TOTAL_AMOUNT'
@@ -951,7 +953,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Left = 888
     Height = 30
     Top = 262
-    Width = 263
+    Width = 225
     DataField = 'ENTRY_DT'
     DataSource = ADS
     ReadOnly = False
@@ -982,7 +984,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Left = 888
     Height = 30
     Top = 300
-    Width = 263
+    Width = 225
     DataField = 'UPDATE_DT'
     DataSource = ADS
     ReadOnly = False

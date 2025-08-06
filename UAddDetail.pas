@@ -364,7 +364,6 @@ begin
     DBEdtHeaderID.Text      := IntToStr(GetHID);
 
     CloseConn(ACnNextID, ATrNextID);
-    //OpenConn(ACnNextID, ADSNextID, ATrNextID, AQuNextID);
     SetDatabaseNames;
     OpenSelectQueryWithHeaderID(ACnNextID, ADSNextID, ATrNextID, AQuNextID, SQL_20120003, GetHID);
     LNextDetailID := AQuNextID.FieldByName('NEXT_ID').AsInteger;
@@ -434,7 +433,6 @@ begin
             Or (VarToStr(GetDID) = '')
             Or (StrToInt(VarToStr(GetDID)) = 0)then begin
           CloseConn(ACnNextID, ATrNextID);
-          //OpenConn(ACnNextID, ADSNextID, ATrNextID, AQuNextID);
           SetDatabaseNames;
           OpenSelectQueryWithHeaderID(ACnNextID, ADSNextID, ATrNextID, AQuNextID, SQL_20120003, GetHID);
           LNextDetailID := AQuNextID.FieldByName('NEXT_ID').AsInteger;
@@ -517,7 +515,6 @@ procedure TFrmAddDetail.ProcInsert;
 begin
   if Not FInsert then begin
     with AQu do begin
-      //Edit;
       if AQu.RecordCount > 0 then begin;
         Insert;
       end;
@@ -628,8 +625,6 @@ begin
   try
     with FrmTopMenu.Defs do begin
       with Qu2 do begin
-        //OpenConn(Cn2, DS2, Tr2, Qu2);
-
         SQL.Text     := SQL_20120001;
         with Params do begin
           ParamByName('pUserID').AsInteger  := GetUID;
@@ -650,8 +645,6 @@ begin
   try
     with FrmTopMenu.Defs do begin
       with Qu3 do begin
-        //OpenConn(Cn3, DS3, Tr3, Qu3);
-
         SQL.Text     := SQL_20120002;
         with Params do begin
           ParamByName('pUserID').AsInteger  := GetUID;
@@ -712,7 +705,6 @@ begin
       DBEdtMakerID.Text := DBLCBMaker.KeyValue;
       with FrmTopMenu.Defs do begin
         SetMakerID(DBLCBMaker.KeyValue);
-        ShowMessage('GetMakerID : ' + VarToStr(GetMakerID));
         CloseConn(ACnBrand, ATrBrand);
         SetDatabaseNames;
         // Set BrandName ComboBox

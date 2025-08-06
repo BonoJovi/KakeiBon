@@ -87,16 +87,13 @@ end;
 
 procedure TFrmManageDetails.ProcAddDetailsHeader;
 begin
-  with FrmTopMenu.Defs do begin
-    CloseConn(ACn, ATr);
-  end;
-
   try
     try
       FrmAddDetailsHeader := TFrmAddDetailsHeader.Create(Application);
       with FrmTopMenu.Defs do begin
         SetHeaderDT('');
-        CloseConn(ACn, ATr);
+        CloseTransactions;
+        SetDatabaseNames;
 
         FrmAddDetailsHeader := TFrmAddDetailsHeader.Create(Application);
         OpenForm(Self, FrmAddDetailsHeader);
@@ -126,7 +123,8 @@ begin
             SetToACID(FieldByName('TO_ID').AsInteger);
           end;
 
-          CloseConn(ACn, ATr);
+          CloseTransactions;
+          SetDatabaseNames;
 
           FrmEditDetailsHeader := TFrmEditDetailsHeader.Create(Application);
           OpenForm(Self, FrmEditDetailsHeader);
@@ -153,7 +151,8 @@ begin
       with FrmTopMenu.Defs do begin
         LHeaderID := AQu.FieldByName('HEADER_ID').AsInteger;
         with AQu do begin
-          CloseConn(ACn, ATr);
+          CloseTransactions;
+          SetDatabaseNames;
 
           LResult:= QuestionDlg(
             REMOVE_DETAILS_HEADER_CAPTION, REMOVE_DETAILS_HEADER_MESSAGE,
@@ -188,9 +187,9 @@ begin
     end;
   finally
     with FrmTopMenu.Defs do begin
-      CloseConn(ACn, ATr);
-      OpenConn(ACn, ADS, ATr, AQu);
+      CloseTransactions;
       SetDatabaseNames;
+
       OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20090001);
       if AQu.RecordCount = 0 then begin
         BtnEditDetail.Enabled   := False;
@@ -207,7 +206,8 @@ end;
 procedure TFrmManageDetails.ProcEntryAccount;
 begin
   with FrmTopMenu.Defs do begin
-    CloseConn(ACn, ATr);
+    CloseTransactions;
+    SetDatabaseNames;
 
     FrmEntryAccount := TFrmEntryAccount.Create(Application);
     OpenForm(Self, FrmEntryAccount);
@@ -217,7 +217,8 @@ end;
 procedure TFrmManageDetails.ProcEntryShop;
 begin
   with FrmTopMenu.Defs do begin
-    CloseConn(ACn, ATr);
+    CloseTransactions;
+    SetDatabaseNames;
 
     FrmEntryShop := TFrmEntryShop.Create(Application);
     OpenForm(Self, FrmEntryShop);

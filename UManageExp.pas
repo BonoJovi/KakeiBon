@@ -184,7 +184,6 @@ begin
       with FrmTopMenu.Defs do begin
         with AQu2 do begin
           CloseConn(ACn2, ATr2);
-          OpenConn(ACn2, ADS2, ATr2, AQu2);
           SetDatabaseNames;
 
           UpdateExpName2;
@@ -246,7 +245,6 @@ begin
       with FrmTopMenu.Defs do begin
         with AQu3 do begin
           CloseConn(ACn3, ATr3);
-          OpenConn(ACn3, ADS3, ATr3, AQu3);
           SetDatabaseNames;
 
           UpdateExpName3;

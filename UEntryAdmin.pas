@@ -191,7 +191,7 @@ begin
             ExecuteDirect(SQL_10000027);
           end;
 
-          //CloseTransactions;
+          // CloseTransactions;
           ATr.Commit;
         finally
           FrmTopMenu.Visible := True;
@@ -233,9 +233,6 @@ procedure TFrmEntryAdmin.FormCreate(Sender: TObject);
 begin
   with FrmTopMenu do begin
     SetDatabaseNames;
-    //SetOSHomeDir(GetEnvironmentVariable('HOME'));
-    //SetDBPath(GetOSHomeDir + '/' + DB_DIR);
-    //SetDBFullPath(GetDBPath + DB_NAME);
 
     with Defs do begin
       if GetDoExitKakeiBon then begin

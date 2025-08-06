@@ -189,8 +189,8 @@ begin
     end;
     ATr.Rollback;
     CloseTransactions;
-    //OpenConn(ACn, ADS, ATr, AQu);
     SetDatabaseNames;
+
     OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20110001);
     DBEdtBrandName.SetFocus;
   end;
@@ -213,8 +213,8 @@ begin
 
           if (VarIsNull(GetAccountID)) Or (VarToStr(GetAccountID) = '') then begin
             CloseTransactions;
-            //OpenConn(ACnNextID, ADSNextID, ATrNextID, AQuNextID);
             SetDatabaseNames;
+
             OpenSelectQuery(ACnNextID, ADSNextID, ATrNextID, AQuNextID, SQL_20110002);
             LNextAccountID := AQuNextID.FieldByName('NEXT_ID').AsInteger;
             CloseConn(ACnNextID, ATrNextID);
@@ -492,8 +492,8 @@ begin
   try
     with FrmTopMenu.Defs do begin
       CloseTransactions;
-      //OpenConn(ACn, ADS, ATr, AQu);
       SetDatabaseNames;
+
       OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20110001);
       ADBGrid.DataSource := ADS;
       if AQu.RecordCount = 0 then begin
@@ -515,8 +515,8 @@ begin
   begin
     with FrmTopMenu.Defs do begin
       CloseTransactions;
-      //OpenConn(ACn, ADS, ATr, AQu);
       SetDatabaseNames;
+
       OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20110001);
       ADBGrid.DataSource := ADS;
 

@@ -139,8 +139,8 @@ begin
     end;
     ATr.Rollback;
     CloseTransactions;
-    //OpenConn(ACn, ADS, ATr, AQu);
     SetDatabaseNames;
+
     OpenSelectQueryByUnit(ACn, ADS, ATr, AQu, SQL_20150001);
     DBEdtUnit.SetFocus;
   end;
@@ -163,8 +163,8 @@ begin
           SQL.Text := SQL_20150003;
           if (VarIsNull(GetUnitID)) Or (VarToStr(GetUnitID) = '') then begin
             CloseConn(ACnNextID, ATrNextID);
-            //OpenConn(ACnNextID, ADSNextID, ATrNextID, AQuNextID);
             SetDatabaseNames;
+
             OpenSelectQueryByUnit(ACnNextID, ADSNextID, ATrNextID, AQuNextID, SQL_20150002);
             LNextUnitID                            := AQuNextID.FieldByName('NEXT_ID').AsInteger;
             CloseConn(ACnNextID, ATrNextID);
@@ -325,8 +325,8 @@ begin
   try
     with FrmTopMenu.Defs do begin
       CloseTransactions;
-      //OpenConn(ACn, ADS, ATr, AQu);
       SetDatabaseNames;
+
       OpenSelectQueryByUnit(ACn, ADS, ATr, AQu, SQL_20150001);
       ADBGrid.DataSource := ADS;
       if AQu.RecordCount = 0 then begin
@@ -347,8 +347,8 @@ begin
     if FReOpenDS then
     begin
       CloseTransactions;
-      //OpenConn(ACn, ADS, ATr, AQu);
       SetDatabaseNames;
+
       OpenSelectQueryByUnit(ACn, ADS, ATr, AQu, SQL_20150001);
       ADBGrid.DataSource := ADS;
 

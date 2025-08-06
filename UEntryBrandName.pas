@@ -161,9 +161,9 @@ begin
 
   ATr.Rollback;
   with FrmTopMenu.Defs do begin
-    //CloseConn(ACn, ATr);
     CloseTransactions;
     SetDatabaseNames;
+
     OpenSelQuAndSetVal(ACnMaker, ADSMaker, ATrMaker, AQuMaker,
     DBLCBMaker, DBEdtMakerID, SQL_20130002, StrToInt(VarToStr(GetMakerID)));
   end;
@@ -232,8 +232,8 @@ begin
 
         with FrmTopMenu.Defs do begin
           CloseConn(ACn, ATr);
-          //CloseTransactions;
           SetDatabaseNames;
+
           OpenSelectQuery(ACnMaker, ADSMaker, ATrMaker, AQuMaker, SQL_20130002);
           if DBEdtBrandNameID.Text <> '' then begin
             OpenSelectQueryWithMakerIDAndBrandNameID(
@@ -284,31 +284,11 @@ begin
   with FrmTopMenu.Defs do begin
     if Not FInsert then begin
       with AQu do begin
-        //if DBEdtMakerID.Text <> '' then begin
-        //  SetMakerID(StrToInt(DBEdtMakerID.Text));
-        //end else begin
-        //  SetMakerID(1);
-        //end;
-        //CloseConn(ACn, ATr);
-        ////CloseTransactions;
-        //SetDatabaseNames;
-        //if DBEdtMakerID.Text <> '' then begin
-        //  OpenSelectQueryWithMakerID(
-        //    ACn, ADS, ATr, AQu, SQL_20140001, StrToInt(DBEdtMakerID.Text));
-        //  DBLCBMaker.KeyValue := GetMakerID;
-        //end;
-      end;
-      with AQu do begin
         CloseConn(ACn, ATr);
         SetDatabaseNames;
         OpenSelectQueryWithMakerIDAndBrandNameID(
           ACn, ADS, ATr, AQu, SQL_20140001, StrToInt(VarToStr(GetMakerID)), 1);
-        //Edit;
-        //if RecordCount > 0 then begin
-          Insert;
-        //end else begin
-        //  Edit;
-        //end;
+        Insert;
         FInsert := True;
       end;
 
@@ -359,12 +339,11 @@ begin
     with FrmTopMenu.Defs do begin
       CloseConn(ACn, ATr);
       SetDatabaseNames;
-      //ProcCancel;
+
       with AQu do begin
         SetMakerID(DBLCBMaker.KeyValue);
         DBEdtMakerID.Text := VarToStr(GetMakerID);
 
-        //OpenSelectQueryWithMakerIDAndBrandNameID(ACn, ADS, ATr, AQu, SQL_20140001, StrToInt(VarToStr(GetMakerID)), StrToInt(VarToStr(GetBrandNameID)));
         OpenSelectQueryWithMakerIDAndBrandNameID(ACn, ADS, ATr, AQu, SQL_20140001, StrToInt(VarToStr(GetMakerID)), 1);
         if AQu.RecordCount > 0 then begin
           Edit;
@@ -486,7 +465,6 @@ begin
   if FReOpenDS then
   begin
     with FrmTopMenu.Defs do begin
-      //OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20140001);
       ADBGrid.DataSource := ADS;
 
       FReOpenDS       := False;

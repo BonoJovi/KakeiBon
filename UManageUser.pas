@@ -257,9 +257,6 @@ begin
   // Connecting users table with SQLite3
   try
     with FrmTopMenu.Defs do begin
-      //CloseConn(ACn, ATr);
-      //OpenConn(ACn, ADS, ATr, AQu);
-      //SetDatabaseNames;
       OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20020001);
 
       if MatchRole(ROLE_ADMIN) then begin

@@ -21,7 +21,7 @@ object FrmManageDetails: TFrmManageDetails
     Height = 320
     Top = 16
     Width = 827
-    Color = clMenuHighlight
+    Color = clWindow
     Columns = <    
       item
         Font.Height = -19

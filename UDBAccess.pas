@@ -335,7 +335,7 @@ const
   SQL_20100004 = 'SELECT USER_ID, ACCOUNT_ID TO_ID, ' +
                  'CAST(BRAND_NAME||'' ''||SUB_NAME AS VARCHAR) ' +
                  'AS TO_NAME, DISABLED FROM ACCOUNT WHERE USER_ID ' +
-                 '= :pUserID AND DISABLED = FALSE ORDER BY TO_NAME ASC';
+                 '= :pUserID AND DISABLED = FALSE ORDER BY TO_ID ASC';
   SQL_20100005 = 'SELECT COALESCE(MAX(HEADER_ID), 0) + 1 AS ' +
                  'NEXT_ID FROM DETAILS_HEADER WHERE USER_ID = :pUserID';
   SQL_20100006 = 'SELECT USER_ID, HEADER_ID, HEADER_DT, SHOP_ID, EXP_KEY1, ' +
@@ -482,58 +482,58 @@ const
                  'TAX_RATE_ID = :pTaxRateID, TAX = :pTax, SUB_TOTAL = ' +
                  ':pSubTotal, UPDATE_DT = :pUpdateDT';
 
-    // UEntryMaker and UAddDetail and UEditDetail and UEntryBrandName
-    SQL_20130001 = 'SELECT * FROM MAKER WHERE USER_ID = :pUserID ORDER BY ' +
-                   'MAKER_NAME';
-    SQL_20130002 = 'SELECT * FROM MAKER WHERE USER_ID = :pUserID AND ' +
-                   'DISABLED = False ORDER BY MAKER_NAME ASC';
-    SQL_20130003 = 'SELECT COALESCE(MAX(MAKER_ID), 0) + 1 AS NEXT_ID ' +
-                   'FROM MAKER WHERE USER_ID = :pUserID';
-    SQL_20130004 = 'INSERT INTO MAKER(USER_ID, MAKER_ID, MAKER_NAME, ' +
-                   'DISABLED, ENTRY_DT, UPDATE_DT) VALUES(:pUserID, ' +
-                   ':pMakerID, :pMakerName, :pDisabled, :pEntryDT, ' +
-                   'NULL) ON CONFLICT (USER_ID, MAKER_ID) ' +
-                   'DO UPDATE SET MAKER_NAME = :pMakerName, DISABLED ' +
-                   '= :pDisabled, UPDATE_DT = :pUpdateDT';
+  // UEntryMaker and UAddDetail and UEditDetail and UEntryBrandName
+  SQL_20130001 = 'SELECT * FROM MAKER WHERE USER_ID = :pUserID ORDER BY ' +
+                 'MAKER_NAME';
+  SQL_20130002 = 'SELECT * FROM MAKER WHERE USER_ID = :pUserID AND ' +
+                 'DISABLED = False ORDER BY MAKER_NAME ASC';
+  SQL_20130003 = 'SELECT COALESCE(MAX(MAKER_ID), 0) + 1 AS NEXT_ID ' +
+                 'FROM MAKER WHERE USER_ID = :pUserID';
+  SQL_20130004 = 'INSERT INTO MAKER(USER_ID, MAKER_ID, MAKER_NAME, ' +
+                 'DISABLED, ENTRY_DT, UPDATE_DT) VALUES(:pUserID, ' +
+                 ':pMakerID, :pMakerName, :pDisabled, :pEntryDT, ' +
+                 'NULL) ON CONFLICT (USER_ID, MAKER_ID) ' +
+                 'DO UPDATE SET MAKER_NAME = :pMakerName, DISABLED ' +
+                 '= :pDisabled, UPDATE_DT = :pUpdateDT';
 
-    // UEntryBrandName and UAddDetail and UEditDetail
-    SQL_20140001 = 'SELECT USER_ID, MAKER_ID, BRAND_NAME_ID, BRAND_NAME, ' +
-                   'END_OF_SALES, DISABLED, ENTRY_DT, UPDATE_DT FROM BRAND ' +
-                   'WHERE USER_ID = :pUserID AND MAKER_ID = :pMakerID';
-    SQL_20140002 = 'SELECT COALESCE(MAX(BRAND_NAME_ID), 0) + 1 AS ' +
-                   'NEXT_ID FROM BRAND WHERE USER_ID = :pUserID ' +
-                   'AND MAKER_ID = :pMakerID';
-    SQL_20140003 = 'SELECT B.USER_ID, B.BRAND_NAME_ID, B.MAKER_ID, ' +
-                   'M.MAKER_NAME, B.BRAND_NAME, B.END_OF_SALES, B.DISABLED, ' +
-                   'B.ENTRY_DT, B.UPDATE_DT FROM BRAND B LEFT OUTER JOIN ' +
-                   'MAKER M ON M.USER_ID = B.USER_ID AND M.MAKER_ID = ' +
-                   'B.MAKER_ID AND B.USER_ID = :pUserID ORDER BY ' +
-                   'M.MAKER_NAME ASC';
-    SQL_20140004 = 'INSERT INTO BRAND(USER_ID, MAKER_ID, BRAND_NAME_ID, ' +
-                   'BRAND_NAME, END_OF_SALES, DISABLED, ENTRY_DT, UPDATE_DT) ' +
-                   'VALUES(:pUserID, :pMakerID, :pBrandNameID, :pBrandName, ' +
-                   ':pEndOfSales, :pDisabled, :pEntryDT, NULL) ON CONFLICT ' +
-                   '(USER_ID, MAKER_ID, BRAND_NAME_ID) DO UPDATE SET ' +
-                   'MAKER_ID = :pNewMakerID, BRAND_NAME_ID = ' +
-                   ':pNewBrandNameID, BRAND_NAME = :pBrandName, END_OF_SALES ' +
-                   '= :pEndOfSales, DISABLED = :pDisabled, UPDATE_DT = ' +
-                   ':pUpdateDT';
-    SQL_20140006 = 'UPDATE BRAND SET USER_ID = :pUserID, MAKER_ID = ' +
-                   ':pMakerID, BRAND_NAME_ID = :pBrandNameID, BRAND_NAME = ' +
-                   ':pBrandName, END_OF_SALES = :pEndOfSales, DISABLED = ' +
-                   ':pDisabled, UPDATE_DT = :pUpdateDT WHERE USER_ID = ' +
-                   ':pUserID AND MAKER_ID = :pCurrMakerID AND BRAND_NAME_ID ' +
-                   '= :pCurrBrandNameID';
+  // UEntryBrandName and UAddDetail and UEditDetail
+  SQL_20140001 = 'SELECT USER_ID, MAKER_ID, BRAND_NAME_ID, BRAND_NAME, ' +
+                 'END_OF_SALES, DISABLED, ENTRY_DT, UPDATE_DT FROM BRAND ' +
+                 'WHERE USER_ID = :pUserID AND MAKER_ID = :pMakerID';
+  SQL_20140002 = 'SELECT COALESCE(MAX(BRAND_NAME_ID), 0) + 1 AS ' +
+                 'NEXT_ID FROM BRAND WHERE USER_ID = :pUserID ' +
+                 'AND MAKER_ID = :pMakerID';
+  SQL_20140003 = 'SELECT B.USER_ID, B.BRAND_NAME_ID, B.MAKER_ID, ' +
+                 'M.MAKER_NAME, B.BRAND_NAME, B.END_OF_SALES, B.DISABLED, ' +
+                 'B.ENTRY_DT, B.UPDATE_DT FROM BRAND B LEFT OUTER JOIN ' +
+                 'MAKER M ON M.USER_ID = B.USER_ID AND M.MAKER_ID = ' +
+                 'B.MAKER_ID AND B.USER_ID = :pUserID ORDER BY ' +
+                 'M.MAKER_NAME ASC';
+  SQL_20140004 = 'INSERT INTO BRAND(USER_ID, MAKER_ID, BRAND_NAME_ID, ' +
+                 'BRAND_NAME, END_OF_SALES, DISABLED, ENTRY_DT, UPDATE_DT) ' +
+                 'VALUES(:pUserID, :pMakerID, :pBrandNameID, :pBrandName, ' +
+                 ':pEndOfSales, :pDisabled, :pEntryDT, NULL) ON CONFLICT ' +
+                 '(USER_ID, MAKER_ID, BRAND_NAME_ID) DO UPDATE SET ' +
+                 'MAKER_ID = :pNewMakerID, BRAND_NAME_ID = ' +
+                 ':pNewBrandNameID, BRAND_NAME = :pBrandName, END_OF_SALES ' +
+                 '= :pEndOfSales, DISABLED = :pDisabled, UPDATE_DT = ' +
+                 ':pUpdateDT';
+  SQL_20140006 = 'UPDATE BRAND SET USER_ID = :pUserID, MAKER_ID = ' +
+                 ':pMakerID, BRAND_NAME_ID = :pBrandNameID, BRAND_NAME = ' +
+                 ':pBrandName, END_OF_SALES = :pEndOfSales, DISABLED = ' +
+                 ':pDisabled, UPDATE_DT = :pUpdateDT WHERE USER_ID = ' +
+                 ':pUserID AND MAKER_ID = :pCurrMakerID AND BRAND_NAME_ID ' +
+                 '= :pCurrBrandNameID';
 
-    // UEntryUnit and UAddDetail and UEditDetail
-    SQL_20150001 = 'SELECT * FROM UNIT ORDER BY ORDER_ID ASC';
-    SQL_20150002 = 'SELECT COALESCE(MAX(UNIT_ID), 0) + 1 AS NEXT_ID ' +
-                   'FROM UNIT';
-    SQL_20150003 = 'INSERT INTO UNIT(UNIT_ID, UNIT, ORDER_ID, DISABLED, ' +
-                   'ENTRY_DT, UPDATE_DT) VALUES(:pUnitID, :pUnit, :pOrderID, ' +
-                   ':pDisabled, :pEntryDT, NULL) ON CONFLICT (UNIT_ID) ' +
-                   'DO UPDATE SET UNIT = :pUnit, DISABLED = :pDisabled, ' +
-                   'UPDATE_DT = :pUpdateDT';
+  // UEntryUnit and UAddDetail and UEditDetail
+  SQL_20150001 = 'SELECT * FROM UNIT ORDER BY ORDER_ID ASC';
+  SQL_20150002 = 'SELECT COALESCE(MAX(UNIT_ID), 0) + 1 AS NEXT_ID ' +
+                 'FROM UNIT';
+  SQL_20150003 = 'INSERT INTO UNIT(UNIT_ID, UNIT, ORDER_ID, DISABLED, ' +
+                 'ENTRY_DT, UPDATE_DT) VALUES(:pUnitID, :pUnit, :pOrderID, ' +
+                 ':pDisabled, :pEntryDT, NULL) ON CONFLICT (UNIT_ID) ' +
+                 'DO UPDATE SET UNIT = :pUnit, DISABLED = :pDisabled, ' +
+                 'UPDATE_DT = :pUpdateDT';
 
 
   //============================================================================

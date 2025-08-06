@@ -753,8 +753,8 @@ begin
         CloseConn(ACnNextID, ATrNextID);
       end else begin
         CloseConn(ACnDetail, ATrDetail);
-        OpenConn(ACnDetail, ADSDetail, ATrDetail, AQuDetail);
         SetDatabaseNames;
+
         OpenSelectQueryWithHeaderID(
           ACnDetail, ADSDetail, ATrDetail, AQuDetail,
           SQL_20120005, StrToInt(DBEdtHeaderID.Text));

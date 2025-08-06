@@ -26,8 +26,6 @@ type
     procedure ClearPawAndUserId(EdtUserId, EdtPaw, EdtPawConfirm: TEdit);
     procedure CloseConn(var Cn: TSQLite3Connection; var Tr: TSQLTransaction);
     function MatchRole(Sender: Integer): Boolean;
-    procedure OpenConn(var Cn: TSQLite3Connection;
-      var DS: TDataSource; var Tr: TSQLTransaction; var Qu: TSQLQuery);
     procedure OpenForm(Sender, NextForm: TForm);
     procedure OpenSelectQuery(
       var Cn: TSQLite3Connection; var DS: TDataSource;
@@ -301,27 +299,6 @@ begin
   end else begin
     Result       := False;
   end;
-end;
-
-procedure TDefs.OpenConn(var Cn: TSQLite3Connection;
-  var DS: TDataSource; var Tr: TSQLTransaction; var Qu: TSQLQuery);
-begin
-  if Not Cn.Connected then
-  begin
-    Cn.DatabaseName := DB_NAME;
-    Tr.DataBase     := Cn;
-    Qu.Database     := Cn;
-    Qu.Transaction  := Tr;
-    DS.DataSet      := Qu;
-  end else begin
-    Cn.Close;
-    Cn.DatabaseName := DB_NAME;
-    Tr.DataBase     := Cn;
-    Qu.Database     := Cn;
-    Qu.Transaction  := Tr;
-    DS.DataSet      := Qu;
-  end;
-  Cn.Open;
 end;
 
 procedure TDefs.OpenForm(Sender, NextForm: TForm);
@@ -680,14 +657,11 @@ begin
     try
       with FrmTopMenu.Defs do begin
         with Qu do begin
-          //if Active = False then
-          //begin
-            SQL.Text                                := SS;
-            with Params do begin
-              ParamByName('pUserID').AsInteger := GetUID;
-            end;
-            Open;
-          //end;
+          SQL.Text                                := SS;
+          with Params do begin
+            ParamByName('pUserID').AsInteger := GetUID;
+          end;
+          Open;
           if KeyValue > 0 then begin
             if Assigned(DBLCBObj) then begin
               DBLCBObj.KeyValue := KeyValue;

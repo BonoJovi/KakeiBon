@@ -66,7 +66,6 @@ type
     function CheckMultiFields(NameField: Boolean): String;
     function CheckSQuoteInPAW: Boolean;
     function CheckSQuoteInUName: Boolean;
-    //procedure ConnectUsersTable;
     procedure ProcCancel;
     procedure ProcClearPaw;
     procedure ProcCommit;
@@ -191,7 +190,6 @@ begin
           begin
             MessageDlg(MSG_JP_000021, mtInformation, [mbOk], 0);
             FrmManageUser.ActGoBackExecute(FrmTopMenu);
-            //FrmEditAdmUser.Close;
           end;
         end;
       end;
@@ -206,35 +204,6 @@ begin
     FrmEditAdmUser.Close;
   end;
 end;
-
-//procedure TFrmEditAdmUser.ConnectUsersTable;
-//begin
-//  try
-//    try
-//      with AQu do begin
-//        CloseTransactions;
-//        SetDatabaseNames;
-//        SQL.Text           := SQL_20040001;
-//        with Params do begin
-//          ParamByName('pRole').AsInteger := ROLE_ADMIN;
-//        end;
-//
-//        Open;
-//      end;
-//
-//      ADS.DataSet             := AQu;
-//      with ADBGrid do begin
-//        DataSource      := ADS;
-//        AutoFillColumns := True;
-//      end;
-//    except
-//      on E: ESQLDatabaseError do begin
-//        ShowMessage(E.Message);
-//      end;
-//    end;
-//  finally
-//  end;
-//end;
 
 function TFrmEditAdmUser.CheckMultiFields(NameField: Boolean): String;
 var
