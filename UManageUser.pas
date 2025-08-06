@@ -19,7 +19,7 @@ type
     ActEditUser      : TAction;
     ActionList       : TActionList;
     ActQuit          : TAction;
-    ActRemoveUser    : TAction;
+    ActDeleteUser    : TAction;
     ADataSet         : TDataSet;
     ADBGrid          : TDBGrid;
     ADS              : TDataSource;
@@ -46,7 +46,7 @@ type
     procedure ActEditUserExecute(Sender: TObject);
     procedure ActGoBackExecute(Sender: TObject);
     procedure ActQuitExecute(Sender: TObject);
-    procedure ActRemoveUserExecute(Sender: TObject);
+    procedure ActDeleteUserExecute(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -133,6 +133,7 @@ end;
 procedure TFrmManageUser.OpenFormOrMsgDlg(Sender: TForm);
 begin
   CloseTransactions;
+  SetDatabaseNames;
 
   with FrmTopMenu.Defs do begin
     if Not GetShowChildForm then
@@ -211,13 +212,13 @@ begin
   Close;
 end;
 
-procedure TFrmManageUser.ActRemoveUserExecute(Sender: TObject);
+procedure TFrmManageUser.ActDeleteUserExecute(Sender: TObject);
 begin
   ProcRemoveUser;
 end;
 
-procedure TFrmManageUser.FormClose(Sender: TObject;
-  var CloseAction: TCloseAction);
+procedure TFrmManageUser.FormClose(
+    Sender: TObject; var CloseAction: TCloseAction);
 begin
   with FrmTopMenu do begin
     CloseTransactions;
@@ -257,9 +258,6 @@ begin
   // Connecting users table with SQLite3
   try
     with FrmTopMenu.Defs do begin
-      //CloseConn(ACn, ATr);
-      //OpenConn(ACn, ADS, ATr, AQu);
-      //SetDatabaseNames;
       OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20020001);
 
       if MatchRole(ROLE_ADMIN) then begin
@@ -271,7 +269,9 @@ begin
         end;
       end else begin // Defs.MatchRole(ROLE_ADMIN) = False
         with AQu do begin
-          ATr.CloseDataSets;
+          CloseTransactions;
+          SetDatabaseNames;
+
           SQL.Text := SQL_20020002;
           with Params do begin
             ParamByName('pUName').AsAnsiString  := GetUName;

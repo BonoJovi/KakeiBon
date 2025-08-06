@@ -10,7 +10,6 @@ object FrmAddUser: TFrmAddUser
   Color = clWindowFrame
   FormStyle = fsMDIForm
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
@@ -125,7 +124,7 @@ object FrmAddUser: TFrmAddUser
     Height = 48
     Top = 188
     Width = 680
-    Caption = 'パスワードをクリア (CTRL+1)'
+    Caption = 'パスワードをクリア (CTRL+X)'
     Color = clActiveCaption
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
@@ -145,7 +144,7 @@ object FrmAddUser: TFrmAddUser
     Top = 196
     Width = 664
     Action = ActClearPaw
-    Caption = 'パスワードをクリア (CTRL+1)'
+    Caption = 'パスワードをクリア (CTRL+X)'
     Color = clNone
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
@@ -161,7 +160,7 @@ object FrmAddUser: TFrmAddUser
     Height = 48
     Top = 248
     Width = 336
-    Caption = 'キャンセル (CTRL+2)'
+    Caption = 'キャンセル (CTRL+C)'
     Color = clActiveCaption
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
@@ -181,7 +180,7 @@ object FrmAddUser: TFrmAddUser
     Top = 256
     Width = 320
     Action = ActCancel
-    Caption = 'キャンセル (CTRL+2)'
+    Caption = 'キャンセル (CTRL+C)'
     Color = clNone
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
@@ -197,7 +196,7 @@ object FrmAddUser: TFrmAddUser
     Height = 48
     Top = 248
     Width = 336
-    Caption = '登　　　録 (CTRL+3)'
+    Caption = '保　　　存 (CTRL+S)'
     Color = clActiveCaption
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
@@ -216,8 +215,8 @@ object FrmAddUser: TFrmAddUser
     Height = 32
     Top = 256
     Width = 320
-    Action = ActCommit
-    Caption = '登　　　録 (CTRL+3)'
+    Action = ActSave
+    Caption = '保　　　存 (CTRL+S)'
     Color = clNone
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
@@ -233,18 +232,27 @@ object FrmAddUser: TFrmAddUser
     Top = 40
     object ActClearPaw: TAction
       Caption = 'ActClearPaw'
-      ShortCut = 16433
+      SecondaryShortCuts.Strings = (
+        'Ctrl+1'
+      )
+      ShortCut = 16472
       OnExecute = ActClearPawExecute
     end
     object ActCancel: TAction
       Caption = 'ActCancel'
-      ShortCut = 16434
+      SecondaryShortCuts.Strings = (
+        'Ctrl+2'
+      )
+      ShortCut = 16451
       OnExecute = ActCancelExecute
     end
-    object ActCommit: TAction
-      Caption = 'ActCommit'
-      ShortCut = 16435
-      OnExecute = ActCommitExecute
+    object ActSave: TAction
+      Caption = 'ActSave'
+      SecondaryShortCuts.Strings = (
+        'Ctrl+3'
+      )
+      ShortCut = 16467
+      OnExecute = ActSaveExecute
     end
     object ActQuit: TAction
       Caption = 'ActQuit'

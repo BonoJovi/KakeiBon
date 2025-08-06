@@ -12,7 +12,6 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   Font.Name = '0xProto Nerd Font Mono'
   Font.Style = [fsBold]
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
@@ -593,7 +592,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Height = 48
     Top = 386
     Width = 273
-    Caption = '明細を追加 (CTRL+3)'
+    Caption = '明細を追加 (CTRL+A)'
     Color = clActiveCaption
     ParentBackground = False
     ParentColor = False
@@ -606,7 +605,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Top = 394
     Width = 256
     Action = ActAddDetail
-    Caption = '明細を追加 (CTRL+3)'
+    Caption = '明細を追加 (CTRL+A)'
     Color = clSkyBlue
     Font.Height = -21
     Font.Name = '0xProto'
@@ -619,7 +618,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Height = 48
     Top = 386
     Width = 272
-    Caption = '明細を編集 (CTRL+4)'
+    Caption = '明細を編集 (CTRL+E)'
     Color = clActiveCaption
     ParentBackground = False
     ParentColor = False
@@ -632,7 +631,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Top = 394
     Width = 256
     Action = ActEditDetail
-    Caption = '明細を編集 (CTRL+4)'
+    Caption = '明細を編集 (CTRL+E)'
     Color = clSkyBlue
     Font.Height = -21
     Font.Name = '0xProto'
@@ -645,7 +644,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Height = 48
     Top = 386
     Width = 272
-    Caption = '明細を削除 (CTRL+5)'
+    Caption = '明細を削除 (CTRL+D)'
     Color = clActiveCaption
     ParentBackground = False
     ParentColor = False
@@ -657,8 +656,8 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Height = 32
     Top = 394
     Width = 256
-    Action = ActRemoveDetail
-    Caption = '明細を削除 (CTRL+5)'
+    Action = ActDeleteDetail
+    Caption = '明細を削除 (CTRL+D)'
     Color = clSkyBlue
     Font.Height = -21
     Font.Name = '0xProto'
@@ -671,7 +670,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Height = 48
     Top = 442
     Width = 550
-    Caption = '前の画面に戻る (CTRL+6)'
+    Caption = '前の画面に戻る (CTRL+Q)'
     Color = clActiveCaption
     ParentBackground = False
     ParentColor = False
@@ -684,7 +683,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Top = 450
     Width = 534
     Action = ActQuit
-    Caption = '前の画面に戻る (CTRL+6)'
+    Caption = '前の画面に戻る (CTRL+Q)'
     Color = clSkyBlue
     Font.Height = -21
     Font.Name = '0xProto'
@@ -1024,16 +1023,27 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     end
     object ActAddDetail: TAction
       Caption = 'ActAddDetail'
-      ShortCut = 16435
+      SecondaryShortCuts.Strings = (
+        'Ctrl+3'
+      )
+      ShortCut = 16449
       OnExecute = ActAddDetailExecute
     end
     object ActEditDetail: TAction
       Caption = 'ActEditDetail'
+      SecondaryShortCuts.Strings = (
+        'Ctrl+4'
+      )
+      ShortCut = 16453
       OnExecute = ActEditDetailExecute
     end
-    object ActRemoveDetail: TAction
-      Caption = 'ActRemoveDetail'
-      OnExecute = ActRemoveDetailExecute
+    object ActDeleteDetail: TAction
+      Caption = 'ActDeleteDetail'
+      SecondaryShortCuts.Strings = (
+        'Ctrl+5'
+      )
+      ShortCut = 16452
+      OnExecute = ActDeleteDetailExecute
     end
     object ActQuit: TAction
       Caption = 'ActQuit'

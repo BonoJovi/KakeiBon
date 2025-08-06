@@ -4,12 +4,11 @@ object FrmManageUser: TFrmManageUser
   Top = 224
   Width = 710
   BorderStyle = bsSingle
-  Caption = 'object Panel1: TPanel'#10'  Left = 544'#10'  Height = 190'#10'  Top = 9'#10'  Width = 160'#10'  Caption = ''Panel1'''#10'  ParentBackground = False'#10'  TabOrder = 6'#10'end'#10
+  Caption = 'ユーザ管理'
   ClientHeight = 424
   ClientWidth = 710
   Color = clWindowFrame
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
@@ -75,7 +74,7 @@ object FrmManageUser: TFrmManageUser
     Height = 48
     Top = 248
     Width = 334
-    Caption = 'ユーザの追加 (CTRL+1)'
+    Caption = 'ユーザの追加 (CTRL+A)'
     Color = clActiveCaption
     Enabled = False
     ParentBackground = False
@@ -89,7 +88,7 @@ object FrmManageUser: TFrmManageUser
     Top = 256
     Width = 318
     Action = ActAddUser
-    Caption = 'ユーザの追加 (CTRL+1)'
+    Caption = 'ユーザの追加 (CTRL+A)'
     Color = clNone
     Font.Height = -21
     Font.Name = '0xProto'
@@ -102,7 +101,7 @@ object FrmManageUser: TFrmManageUser
     Height = 48
     Top = 248
     Width = 334
-    Caption = 'ユーザ の編集 (CTRL+2)'
+    Caption = 'ユーザ の編集 (CTRL+E)'
     Color = clActiveCaption
     Enabled = False
     ParentBackground = False
@@ -116,7 +115,7 @@ object FrmManageUser: TFrmManageUser
     Top = 256
     Width = 318
     Action = ActEditUser
-    Caption = 'ユーザ の編集 (CTRL+2)'
+    Caption = 'ユーザ の編集 (CTRL+E)'
     Color = clNone
     Font.Height = -21
     Font.Name = '0xProto'
@@ -129,7 +128,7 @@ object FrmManageUser: TFrmManageUser
     Height = 48
     Top = 304
     Width = 334
-    Caption = 'ユーザの削除 (CTRL+3)'
+    Caption = 'ユーザの削除 (CTRL+D)'
     Color = clActiveCaption
     Enabled = False
     ParentBackground = False
@@ -142,8 +141,8 @@ object FrmManageUser: TFrmManageUser
     Height = 32
     Top = 312
     Width = 318
-    Action = ActRemoveUser
-    Caption = 'ユーザの削除 (CTRL+3)'
+    Action = ActDeleteUser
+    Caption = 'ユーザの削除 (CTRL+D)'
     Color = clNone
     Font.Height = -21
     Font.Name = '0xProto'
@@ -156,7 +155,7 @@ object FrmManageUser: TFrmManageUser
     Height = 48
     Top = 304
     Width = 334
-    Caption = '管理者ユーザの編集 (CTRL+4)'
+    Caption = '管理者ユーザの編集 (CTRL+S)'
     Color = clActiveCaption
     Enabled = False
     ParentBackground = False
@@ -170,7 +169,7 @@ object FrmManageUser: TFrmManageUser
     Top = 312
     Width = 318
     Action = ActEditAdminUser
-    Caption = '管理者ユーザの編集 (CTRL+4)'
+    Caption = '管理者ユーザの編集 (CTRL+S)'
     Color = clNone
     Font.Height = -21
     Font.Name = '0xProto'
@@ -183,7 +182,7 @@ object FrmManageUser: TFrmManageUser
     Height = 48
     Top = 360
     Width = 678
-    Caption = '前の画面に戻る (CTRL+5)'
+    Caption = '前の画面に戻る (CTRL+Q)'
     Color = clActiveCaption
     Enabled = False
     ParentBackground = False
@@ -197,7 +196,7 @@ object FrmManageUser: TFrmManageUser
     Top = 368
     Width = 662
     Action = ActQuit
-    Caption = '前の画面に戻る (CTRL+5)'
+    Caption = '前の画面に戻る (CTRL+Q)'
     Color = clNone
     Font.Height = -21
     Font.Name = '0xProto'
@@ -211,26 +210,38 @@ object FrmManageUser: TFrmManageUser
     Top = 96
   end
   object ActionList: TActionList
-    Left = 496
+    Left = 32
     Top = 96
     object ActAddUser: TAction
       Caption = 'ActAddUser'
-      ShortCut = 16433
+      SecondaryShortCuts.Strings = (
+        'Ctrl+1'
+      )
+      ShortCut = 16449
       OnExecute = ActAddUserExecute
     end
     object ActEditUser: TAction
       Caption = 'ActEditUser'
-      ShortCut = 16434
+      SecondaryShortCuts.Strings = (
+        'Ctrl+2'
+      )
+      ShortCut = 16453
       OnExecute = ActEditUserExecute
     end
-    object ActRemoveUser: TAction
-      Caption = 'ActRemoveUser'
-      ShortCut = 16435
-      OnExecute = ActRemoveUserExecute
+    object ActDeleteUser: TAction
+      Caption = 'ActDeleteUser'
+      SecondaryShortCuts.Strings = (
+        'Ctrl+3'
+      )
+      ShortCut = 16452
+      OnExecute = ActDeleteUserExecute
     end
     object ActEditAdminUser: TAction
       Caption = 'ActEditAdminUser'
-      ShortCut = 16436
+      SecondaryShortCuts.Strings = (
+        'Ctrl+4'
+      )
+      ShortCut = 16467
       OnExecute = ActEditAdminUserExecute
     end
     object ActQuit: TAction
@@ -244,13 +255,13 @@ object FrmManageUser: TFrmManageUser
   end
   object ADS: TDataSource
     DataSet = AQu
-    Left = 144
+    Left = 184
     Top = 96
   end
   object ATr: TSQLTransaction
     Active = False
     Database = ACn
-    Left = 224
+    Left = 264
     Top = 96
   end
   object AQu: TSQLQuery
@@ -259,18 +270,18 @@ object FrmManageUser: TFrmManageUser
     Transaction = ATr
     Params = <>
     Macros = <>
-    Left = 304
+    Left = 344
     Top = 96
   end
   object ADSByCount: TDataSource
     DataSet = AQuByCount
-    Left = 144
+    Left = 184
     Top = 152
   end
   object ATrByCount: TSQLTransaction
     Active = False
     Database = ACnByCount
-    Left = 224
+    Left = 264
     Top = 152
   end
   object AQuByCount: TSQLQuery
@@ -279,7 +290,7 @@ object FrmManageUser: TFrmManageUser
     Transaction = ATrByCount
     Params = <>
     Macros = <>
-    Left = 304
+    Left = 344
     Top = 152
   end
   object ACn: TSQLite3Connection
@@ -289,7 +300,7 @@ object FrmManageUser: TFrmManageUser
     Transaction = ATr
     CharSet = 'UTF-8'
     AlwaysUseBigint = False
-    Left = 64
+    Left = 104
     Top = 96
   end
   object ACnByCount: TSQLite3Connection
@@ -299,7 +310,7 @@ object FrmManageUser: TFrmManageUser
     Transaction = ATrByCount
     CharSet = 'UTF-8'
     AlwaysUseBigint = False
-    Left = 64
+    Left = 104
     Top = 152
   end
 end

@@ -442,7 +442,7 @@ object FrmEntryAccount: TFrmEntryAccount
     Height = 48
     Top = 767
     Width = 336
-    Caption = 'キャンセル (CTRL+2)'
+    Caption = 'キャンセル (CTRL+C)'
     Color = clActiveCaption
     Enabled = False
     Font.Height = -21
@@ -460,7 +460,7 @@ object FrmEntryAccount: TFrmEntryAccount
     Top = 775
     Width = 320
     Action = ActCancel
-    Caption = 'キャンセル (CTRL+2)'
+    Caption = 'キャンセル (CTRL+C)'
     Color = clMenuHighlight
     Font.Height = -21
     Font.Name = '0xProto'
@@ -473,7 +473,7 @@ object FrmEntryAccount: TFrmEntryAccount
     Height = 48
     Top = 767
     Width = 336
-    Caption = '登　　　録 (CTRL+3)'
+    Caption = '保　　　存 (CTRL+S)'
     Color = clActiveCaption
     Enabled = False
     Font.Height = -21
@@ -490,8 +490,8 @@ object FrmEntryAccount: TFrmEntryAccount
     Height = 32
     Top = 775
     Width = 320
-    Action = ActCommit
-    Caption = '登　　　録 (CTRL+3)'
+    Action = ActSave
+    Caption = '保　　　存 (CTRL+S)'
     Color = clMenuHighlight
     Font.Height = -21
     Font.Name = '0xProto'
@@ -504,7 +504,7 @@ object FrmEntryAccount: TFrmEntryAccount
     Height = 48
     Top = 823
     Width = 676
-    Caption = '前の画面に戻る (CTRL+4)'
+    Caption = '前の画面に戻る (CTRL+Q)'
     Color = clActiveCaption
     Enabled = False
     Font.Height = -21
@@ -522,7 +522,7 @@ object FrmEntryAccount: TFrmEntryAccount
     Top = 831
     Width = 660
     Action = ActQuit
-    Caption = '前の画面に戻る (CTRL+4)'
+    Caption = '前の画面に戻る (CTRL+Q)'
     Color = clMenuHighlight
     Font.Height = -21
     Font.Name = '0xProto'
@@ -623,8 +623,8 @@ object FrmEntryAccount: TFrmEntryAccount
     Top = 224
   end
   object ActionList: TActionList
-    Left = 320
-    Top = 224
+    Left = 64
+    Top = 91
     object ActInsert: TAction
       Caption = 'ActInsert'
       ShortCut = 16433
@@ -632,13 +632,19 @@ object FrmEntryAccount: TFrmEntryAccount
     end
     object ActCancel: TAction
       Caption = 'ActCancel'
-      ShortCut = 16434
+      SecondaryShortCuts.Strings = (
+        'Ctrl+2'
+      )
+      ShortCut = 16451
       OnExecute = ActCancelExecute
     end
-    object ActCommit: TAction
-      Caption = 'ActCommit'
-      ShortCut = 16435
-      OnExecute = ActCommitExecute
+    object ActSave: TAction
+      Caption = 'ActSave'
+      SecondaryShortCuts.Strings = (
+        'Ctrl+3'
+      )
+      ShortCut = 16467
+      OnExecute = ActSaveExecute
     end
     object ActQuit: TAction
       Caption = 'ActQuit'

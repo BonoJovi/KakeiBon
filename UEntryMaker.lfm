@@ -11,7 +11,6 @@ object FrmEntryMaker: TFrmEntryMaker
   Font.Name = '0xProto'
   Font.Style = [fsBold]
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
@@ -38,12 +37,12 @@ object FrmEntryMaker: TFrmEntryMaker
       item
         MaxSize = 400
         Title.Caption = 'メーカー名'
-        Width = 275
+        Width = 269
         FieldName = 'MAKER_NAME'
       end    
       item
         Title.Caption = '非表示'
-        Width = 275
+        Width = 269
         FieldName = 'DISABLED'
       end>
     Constraints.MaxWidth = 2000
@@ -237,7 +236,7 @@ object FrmEntryMaker: TFrmEntryMaker
     Height = 49
     Top = 526
     Width = 278
-    Caption = 'キャンセル (CTRL+2)'
+    Caption = 'キャンセル (CTRL+C)'
     Color = clActiveCaption
     Enabled = False
     Font.Height = -21
@@ -255,7 +254,7 @@ object FrmEntryMaker: TFrmEntryMaker
     Top = 534
     Width = 262
     Action = ActCancel
-    Caption = 'キャンセル (CTRL+2)'
+    Caption = 'キャンセル (CTRL+C)'
     Color = clMenuHighlight
     Font.Height = -21
     Font.Name = '0xProto'
@@ -268,7 +267,7 @@ object FrmEntryMaker: TFrmEntryMaker
     Height = 49
     Top = 526
     Width = 278
-    Caption = '登　　　録 (CTRL+3)'
+    Caption = '保　　　存 (CTRL+S)'
     Color = clActiveCaption
     Enabled = False
     Font.Height = -21
@@ -285,8 +284,8 @@ object FrmEntryMaker: TFrmEntryMaker
     Height = 33
     Top = 534
     Width = 262
-    Action = ActCommit
-    Caption = '登　　　録 (CTRL+3)'
+    Action = ActSave
+    Caption = '保　　　存 (CTRL+S)'
     Color = clMenuHighlight
     Font.Height = -21
     Font.Name = '0xProto'
@@ -299,7 +298,7 @@ object FrmEntryMaker: TFrmEntryMaker
     Height = 49
     Top = 582
     Width = 562
-    Caption = '前の画面に戻る (CTRL+4)'
+    Caption = '前の画面に戻る (CTRL+Q)'
     Color = clActiveCaption
     Enabled = False
     Font.Height = -21
@@ -317,7 +316,7 @@ object FrmEntryMaker: TFrmEntryMaker
     Top = 590
     Width = 546
     Action = ActQuit
-    Caption = '前の画面に戻る (CTRL+4)'
+    Caption = '前の画面に戻る (CTRL+Q)'
     Color = clMenuHighlight
     Font.Height = -21
     Font.Name = '0xProto'
@@ -332,8 +331,8 @@ object FrmEntryMaker: TFrmEntryMaker
     Top = 136
   end
   object ActionList: TActionList
-    Left = 480
-    Top = 136
+    Left = 40
+    Top = 104
     object ActInsert: TAction
       Caption = 'ActInsert'
       ShortCut = 16433
@@ -341,13 +340,19 @@ object FrmEntryMaker: TFrmEntryMaker
     end
     object ActCancel: TAction
       Caption = 'ActCancel'
-      ShortCut = 16434
+      SecondaryShortCuts.Strings = (
+        'Ctrl+2'
+      )
+      ShortCut = 16451
       OnExecute = ActCancelExecute
     end
-    object ActCommit: TAction
-      Caption = 'ActCommit'
-      ShortCut = 16435
-      OnExecute = ActCommitExecute
+    object ActSave: TAction
+      Caption = 'ActSave'
+      SecondaryShortCuts.Strings = (
+        'Ctrl+3'
+      )
+      ShortCut = 16467
+      OnExecute = ActSaveExecute
     end
     object ActQuit: TAction
       Caption = 'ActQuit'

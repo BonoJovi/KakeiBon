@@ -52,7 +52,7 @@ type
     ActEntryBrandName : TAction;
     ActEntryUnit      : TAction;
     ActCancel         : TAction;
-    ActCommit         : TAction;
+    ActSave         : TAction;
     ActQuit           : TAction;
     { Screen controls }
     BtnEntryMaker     : TButton;
@@ -118,7 +118,7 @@ type
     PnlEntryUnit      : TPanel;
     PnlEntryBrandName : TPanel;
     procedure ActCancelExecute(Sender: TObject);
-    procedure ActCommitExecute(Sender: TObject);
+    procedure ActSaveExecute(Sender: TObject);
     procedure ActEntryBrandNameExecute(Sender: TObject);
     procedure ActEntryMakerExecute(Sender: TObject);
     procedure ActEntryUnitExecute(Sender: TObject);
@@ -358,10 +358,11 @@ begin
     DBEdtHeaderID.Text      := IntToStr(GetHID);
 
     CloseConn(ACnNextID, ATrNextID);
-    //OpenConn(ACnNextID, ADSNextID, ATrNextID, AQuNextID);
     SetDatabaseNames;
+
     OpenSelectQueryWithHeaderID(ACnNextID, ADSNextID, ATrNextID, AQuNextID, SQL_20120003, GetHID);
     LNextDetailID := AQuNextID.FieldByName('NEXT_ID').AsInteger;
+
     CloseConn(ACnNextID, ATrNextID);
 
     SetMakerID(Null);
@@ -428,12 +429,12 @@ begin
             Or (VarToStr(GetDID) = '')
             Or (StrToInt(VarToStr(GetDID)) = 0)then begin
           CloseConn(ACnNextID, ATrNextID);
-          //OpenConn(ACnNextID, ADSNextID, ATrNextID, AQuNextID);
-          SetDatabaseNames;
+
           OpenSelectQuery(ACnNextID, ADSNextID, ATrNextID, AQuNextID, SQL_20120003);
           LNextDetailID := AQuNextID.FieldByName('NEXT_ID').AsInteger;
 
           CloseConn(ACnNextID, ATrNextID);
+
           DBEdtDetailID.Text := IntToStr(LNextDetailID);
           SetDID(LNextDetailID);
         end;
@@ -471,7 +472,10 @@ begin
             ParamByName('pEntryDT'    ).AsDateTime  := Now;
             ParamByName('pUpdateDT'   ).AsDateTime  := Now;
           end;
+
           CloseTransactions;
+          SetDatabaseNames;
+
           ExecSQL;
           ATr.Commit;
         end;
@@ -479,6 +483,7 @@ begin
         // Clear input values
         with FrmTopMenu.Defs do begin
           CloseTransactions;
+          SetDatabaseNames;
 
           DBEdtMakerID.Text     := '';
           DBEdtBrandNameID.Text := '';
@@ -666,7 +671,7 @@ begin
   ProcCancel;
 end;
 
-procedure TFrmEditDetail.ActCommitExecute(Sender: TObject);
+procedure TFrmEditDetail.ActSaveExecute(Sender: TObject);
 begin
   BackupValues;
   ProcCommit;
@@ -1089,9 +1094,9 @@ begin
   PnlGoBack.Color         := RGB( 72, 122, 129);
 
   with FrmTopMenu.Defs do begin
-    //OpenConn(ACn, ADS, ATr, AQu);
     CloseTransactions;
     SetDatabaseNames;
+
     with AQu do begin
       if Active = False then
       begin

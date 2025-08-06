@@ -20,7 +20,7 @@ type
     ActionList             : TActionList;
     ActAddDetailsHeader    : TAction;
     ActEditDetailsHeader   : TAction;
-    ActRemoveDetailsHeader : TAction;
+    ActDeleteDetailsHeader : TAction;
     ActQuit                : TAction;
     { Etc controls }
     ADBG                   : TDBGrid;
@@ -39,7 +39,7 @@ type
     procedure ActEntryAccountExecute(Sender: TObject);
     procedure ActEntryShopExecute(Sender: TObject);
     procedure ActQuitExecute(Sender: TObject);
-    procedure ActRemoveDetailsHeaderExecute(Sender: TObject);
+    procedure ActDeleteDetailsHeaderExecute(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -96,7 +96,9 @@ begin
       FrmAddDetailsHeader := TFrmAddDetailsHeader.Create(Application);
       with FrmTopMenu.Defs do begin
         SetHeaderDT('');
+
         CloseConn(ACn, ATr);
+        SetDatabaseNames;
 
         FrmAddDetailsHeader := TFrmAddDetailsHeader.Create(Application);
         OpenForm(Self, FrmAddDetailsHeader);
@@ -127,6 +129,7 @@ begin
           end;
 
           CloseConn(ACn, ATr);
+          SetDatabaseNames;
 
           FrmEditDetailsHeader := TFrmEditDetailsHeader.Create(Application);
           OpenForm(Self, FrmEditDetailsHeader);
@@ -154,6 +157,7 @@ begin
         LHeaderID := AQu.FieldByName('HEADER_ID').AsInteger;
         with AQu do begin
           CloseConn(ACn, ATr);
+          SetDatabaseNames;
 
           LResult:= QuestionDlg(
             REMOVE_DETAILS_HEADER_CAPTION, REMOVE_DETAILS_HEADER_MESSAGE,
@@ -189,8 +193,8 @@ begin
   finally
     with FrmTopMenu.Defs do begin
       CloseConn(ACn, ATr);
-      OpenConn(ACn, ADS, ATr, AQu);
       SetDatabaseNames;
+
       OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20090001);
       if AQu.RecordCount = 0 then begin
         BtnEditDetail.Enabled   := False;
@@ -208,6 +212,7 @@ procedure TFrmManageDetails.ProcEntryAccount;
 begin
   with FrmTopMenu.Defs do begin
     CloseConn(ACn, ATr);
+    SetDatabaseNames;
 
     FrmEntryAccount := TFrmEntryAccount.Create(Application);
     OpenForm(Self, FrmEntryAccount);
@@ -218,6 +223,7 @@ procedure TFrmManageDetails.ProcEntryShop;
 begin
   with FrmTopMenu.Defs do begin
     CloseConn(ACn, ATr);
+    SetDatabaseNames;
 
     FrmEntryShop := TFrmEntryShop.Create(Application);
     OpenForm(Self, FrmEntryShop);
@@ -263,13 +269,13 @@ begin
   Close;
 end;
 
-procedure TFrmManageDetails.ActRemoveDetailsHeaderExecute(Sender: TObject);
+procedure TFrmManageDetails.ActDeleteDetailsHeaderExecute(Sender: TObject);
 begin
   ProcRemoveDetailsHeader;
 end;
 
-procedure TFrmManageDetails.FormClose(Sender: TObject;
-  var CloseAction: TCloseAction);
+procedure TFrmManageDetails.FormClose(
+  Sender: TObject; var CloseAction: TCloseAction);
 begin
   with FrmTopMenu do begin
     CloseTransactions;
@@ -323,6 +329,7 @@ begin
     with FrmTopMenu.Defs do begin
       CloseTransactions;
       SetDatabaseNames;
+
       OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20090001);
       if AQu.RecordCount = 0 then begin
         BtnEditDetail.Enabled   := False;

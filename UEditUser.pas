@@ -14,18 +14,23 @@ type
   { TFrmEditUser }
 
   TFrmEditUser = class(TForm)
+    ACn                : TSQLite3Connection;
+    ADS                : TDataSource;
+    ATr                : TSQLTransaction;
+    AQu                : TSQLQuery;
+    ACnUsers           : TSQLite3Connection;
+    ADSUsers           : TDataSource;
+    ATrUsers           : TSQLTransaction;
+    AQuUsers           : TSQLQuery;
+    ActionList         : TActionList;
     ActCancel          : TAction;
     ActClearPaw        : TAction;
-    ActCommit          : TAction;
-    ActionList         : TActionList;
+    ActSave          : TAction;
     ActQuit            : TAction;
     ADBGrid            : TDBGrid;
-    ADS                : TDataSource;
-    AQu                : TSQLQuery;
-    ATr                : TSQLTransaction;
-    BtnCancel: TButton;
-    BtnClearPaw: TButton;
-    BtnCommit: TButton;
+    BtnCancel          : TButton;
+    BtnClearPaw        : TButton;
+    BtnCommit          : TButton;
     DBNavigator        : TDBNavigator;
     DBTextFromUserName : TDBText;
     DBTextUserID       : TDBText;
@@ -42,10 +47,9 @@ type
     PnlCancel          : TPanel;
     PnlClearPaw       : TPanel;
     PnlCommit          : TPanel;
-    ACn: TSQLite3Connection;
     procedure ActCancelExecute(Sender: TObject);
     procedure ActClearPawExecute(Sender: TObject);
-    procedure ActCommitExecute(Sender: TObject);
+    procedure ActSaveExecute(Sender: TObject);
     procedure ActQuitExecute(Sender: TObject);
     procedure EdtToUserNameChange(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -80,14 +84,16 @@ uses
 procedure TFrmEditUser.SetDatabaseNames;
 begin
   with FrmTopMenu.Defs do begin
-    SetDatabaseName(ACn);
+    SetDatabaseName(ACn     );
+    SetDatabaseName(ACnUsers);
   end;
 end;
 
 procedure TFrmEditUser.CloseTransactions;
 begin
   with FrmTopMenu.Defs do begin
-    CloseConn(ACn, ATr);
+    CloseConn(ACn     , ATr     );
+    CloseConn(ACnUsers, ATrUsers);
   end;
 end;
 
@@ -214,6 +220,8 @@ var
   LFieldAndValue : String;
   LRet           : String;
   LOriginalUName : String;
+  LAdminName     : String;
+  LOriginalPaw   : String;
 begin
   try
     try
@@ -236,29 +244,54 @@ begin
         begin
           Exit;
         end else begin
-          LFieldAndValue  := LRet + ', UPDATE_DT = ''' +
-          FormatDateTime('yyyy/mm/dd hh:mm:ss', Now, GetFS) + '''';
+          CloseTransactions;
+          SetDatabaseNames;
+
+          with AQuUsers do begin
+            SQL.Text := SQL_20040001;
+            with Params do begin
+              ParamByName('pRole').AsInteger := ROLE_ADMIN;
+              Open;
+              LAdminName := FieldByName('NAME').AsAnsiString;
+            end;
+
+            CloseConn(ACnUsers, ATrUsers);
+            SetDatabaseNames;
+
+            SQL.Text := SQL_20040002;
+            with Params do begin
+              ParamByName('pRole').AsInteger    := ROLE_USER;
+              ParamByName('pName').AsAnsiString := DBTextFromUserName.ToString;
+              Open;
+              LOriginalPaw := AQuUsers.FieldByName('PAW').AsAnsiString;
+            end;
+          end;
+
+          CloseTransactions;
+          SetDatabaseNames;
+
+          LFieldAndValue := LRet + ', UPDATE_DT = datetime(''Now'', ''+9 hours'')';
 
           AQu.SQL.Text    := LSQL.Replace(':pFieldAndValue', LFieldAndValue);
 
           CloseTransactions;
+          SetDatabaseNames;
           AQu.ExecSQL;
 
           if (FUName <> '')
-             And (GetUName = LOriginalUName)
-             And (FUName <> LOriginalUName) then
-          begin
+              And ((GetUName = LAdminName)
+                  Or (GetUName = LOriginalUName))
+              And ((FUName <> LOriginalUName)
+                  Or (FPAW <> LOriginalPaw)) then begin
             ATr.Commit;
             SetChangedUserDef(True);
+          end else begin
+            ATr.Rollback;
+            SetChangedUserDef(False);
           end;
 
-          if (FPAW <> '')
-             And (GetUName = LOriginalUName)
-             And (FPAW <> AQu.FieldByName('PAW').AsAnsiString) then
-          begin
-            ATr.Commit;
-            SetChangedUserDef(True);
-          end;
+          CloseTransactions;
+          SetDatabaseNames;
 
           FrmManageUser.Visible := True;
           if GetChangedUserDef then
@@ -292,7 +325,7 @@ begin
   ProcClearPaw;
 end;
 
-procedure TFrmEditUser.ActCommitExecute(Sender: TObject);
+procedure TFrmEditUser.ActSaveExecute(Sender: TObject);
 begin
   ProcCommit;
 end;

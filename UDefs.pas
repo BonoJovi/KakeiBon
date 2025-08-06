@@ -26,8 +26,6 @@ type
     procedure ClearPawAndUserId(EdtUserId, EdtPaw, EdtPawConfirm: TEdit);
     procedure CloseConn(var Cn: TSQLite3Connection; var Tr: TSQLTransaction);
     function MatchRole(Sender: Integer): Boolean;
-    procedure OpenConn(var Cn: TSQLite3Connection;
-      var DS: TDataSource; var Tr: TSQLTransaction; var Qu: TSQLQuery);
     procedure OpenForm(Sender, NextForm: TForm);
     procedure OpenSelectQuery(
       var Cn: TSQLite3Connection; var DS: TDataSource;
@@ -303,27 +301,6 @@ begin
   end;
 end;
 
-procedure TDefs.OpenConn(var Cn: TSQLite3Connection;
-  var DS: TDataSource; var Tr: TSQLTransaction; var Qu: TSQLQuery);
-begin
-  if Not Cn.Connected then
-  begin
-    Cn.DatabaseName := DB_NAME;
-    Tr.DataBase     := Cn;
-    Qu.Database     := Cn;
-    Qu.Transaction  := Tr;
-    DS.DataSet      := Qu;
-  end else begin
-    Cn.Close;
-    Cn.DatabaseName := DB_NAME;
-    Tr.DataBase     := Cn;
-    Qu.Database     := Cn;
-    Qu.Transaction  := Tr;
-    DS.DataSet      := Qu;
-  end;
-  Cn.Open;
-end;
-
 procedure TDefs.OpenForm(Sender, NextForm: TForm);
 begin
   Sender.Visible := False;
@@ -519,6 +496,7 @@ begin
     end;
   finally
   end;
+
 end;
 
 procedure TDefs.OpenSelectQueryWithMakerIDAndBrandNameID(

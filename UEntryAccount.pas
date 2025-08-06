@@ -25,7 +25,7 @@ type
     ATr                 : TSQLTransaction;
     ATrNextID           : TSQLTransaction;
     ActCancel           : TAction;
-    ActCommit           : TAction;
+    ActSave           : TAction;
     ActInsert           : TAction;
     ActionList          : TActionList;
     ActQuit             : TAction;
@@ -68,7 +68,7 @@ type
     ACnNextID: TSQLite3Connection;
     Timer               : TTimer;
     procedure ActCancelExecute(Sender: TObject);
-    procedure ActCommitExecute(Sender: TObject);
+    procedure ActSaveExecute(Sender: TObject);
     procedure ActInsertExecute(Sender: TObject);
     procedure ActQuitExecute(Sender: TObject);
     procedure ADBGridKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState
@@ -188,9 +188,10 @@ begin
       FInsert := False;
     end;
     ATr.Rollback;
+
     CloseTransactions;
-    //OpenConn(ACn, ADS, ATr, AQu);
     SetDatabaseNames;
+
     OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20110001);
     DBEdtBrandName.SetFocus;
   end;
@@ -213,11 +214,13 @@ begin
 
           if (VarIsNull(GetAccountID)) Or (VarToStr(GetAccountID) = '') then begin
             CloseTransactions;
-            //OpenConn(ACnNextID, ADSNextID, ATrNextID, AQuNextID);
             SetDatabaseNames;
+
             OpenSelectQuery(ACnNextID, ADSNextID, ATrNextID, AQuNextID, SQL_20110002);
             LNextAccountID := AQuNextID.FieldByName('NEXT_ID').AsInteger;
+
             CloseConn(ACnNextID, ATrNextID);
+
             with Params do begin
               ParamByName('pAccountID').AsInteger    := LNextAccountID;
             end;
@@ -239,6 +242,8 @@ begin
           end;
 
           CloseTransactions;
+          SetDatabaseNames;
+
           ExecSQL;
           ATr.Commit;
         end;
@@ -349,7 +354,7 @@ begin
   ProcCancel;
 end;
 
-procedure TFrmEntryAccount.ActCommitExecute(Sender: TObject);
+procedure TFrmEntryAccount.ActSaveExecute(Sender: TObject);
 begin
   BackupValues;
   ProcCommit;
@@ -445,8 +450,7 @@ procedure TFrmEntryAccount.FormClose(Sender: TObject;
   var CloseAction: TCloseAction);
 begin
   with FrmTopMenu.Defs do begin
-    CloseConn(ACn      , ATr      );
-    CloseConn(ACnNextID, ATrNextID);
+    CloseTransactions;
 
     SetAccountID(FAccountID);
 
@@ -492,8 +496,8 @@ begin
   try
     with FrmTopMenu.Defs do begin
       CloseTransactions;
-      //OpenConn(ACn, ADS, ATr, AQu);
       SetDatabaseNames;
+
       OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20110001);
       ADBGrid.DataSource := ADS;
       if AQu.RecordCount = 0 then begin
@@ -515,8 +519,8 @@ begin
   begin
     with FrmTopMenu.Defs do begin
       CloseTransactions;
-      //OpenConn(ACn, ADS, ATr, AQu);
       SetDatabaseNames;
+
       OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20110001);
       ADBGrid.DataSource := ADS;
 

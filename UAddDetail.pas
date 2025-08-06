@@ -52,7 +52,7 @@ type
     ActEntryBrandName : TAction;
     ActEntryUnit      : TAction;
     ActCancel         : TAction;
-    ActCommit         : TAction;
+    ActSave         : TAction;
     ActQuit           : TAction;
     { Screen controls }
     BtnEntryMaker     : TButton;
@@ -118,7 +118,7 @@ type
     PnlEntryBrandName : TPanel;
     PnlEntryMaker     : TPanel;
     procedure ActCancelExecute(Sender: TObject);
-    procedure ActCommitExecute(Sender: TObject);
+    procedure ActSaveExecute(Sender: TObject);
     procedure ActEntryBrandNameExecute(Sender: TObject);
     procedure ActEntryMakerExecute(Sender: TObject);
     procedure ActEntryUnitExecute(Sender: TObject);
@@ -364,7 +364,6 @@ begin
     DBEdtHeaderID.Text      := IntToStr(GetHID);
 
     CloseConn(ACnNextID, ATrNextID);
-    //OpenConn(ACnNextID, ADSNextID, ATrNextID, AQuNextID);
     SetDatabaseNames;
     OpenSelectQueryWithHeaderID(ACnNextID, ADSNextID, ATrNextID, AQuNextID, SQL_20120003, GetHID);
     LNextDetailID := AQuNextID.FieldByName('NEXT_ID').AsInteger;
@@ -434,12 +433,12 @@ begin
             Or (VarToStr(GetDID) = '')
             Or (StrToInt(VarToStr(GetDID)) = 0)then begin
           CloseConn(ACnNextID, ATrNextID);
-          //OpenConn(ACnNextID, ADSNextID, ATrNextID, AQuNextID);
-          SetDatabaseNames;
+
           OpenSelectQueryWithHeaderID(ACnNextID, ADSNextID, ATrNextID, AQuNextID, SQL_20120003, GetHID);
           LNextDetailID := AQuNextID.FieldByName('NEXT_ID').AsInteger;
 
           CloseConn(ACnNextID, ATrNextID);
+
           DBEdtDetailID.Text := IntToStr(LNextDetailID);
           SetDID(LNextDetailID);
         end;
@@ -481,6 +480,8 @@ begin
           end;
         end;
         CloseTransactions;
+        SetDatabaseNames;
+
         ExecSQL;
         ATr.Commit;
       end;
@@ -488,6 +489,7 @@ begin
       // Clear input values
       with FrmTopMenu.Defs do begin
         CloseTransactions;
+        SetDatabaseNames;
 
         DBEdtMakerID.Text     := '';
         DBEdtBrandNameID.Text := '';
@@ -674,7 +676,7 @@ begin
   ProcCancel;
 end;
 
-procedure TFrmAddDetail.ActCommitExecute(Sender: TObject);
+procedure TFrmAddDetail.ActSaveExecute(Sender: TObject);
 begin
   BackupValues;
   ProcCommit;
@@ -712,9 +714,10 @@ begin
       DBEdtMakerID.Text := DBLCBMaker.KeyValue;
       with FrmTopMenu.Defs do begin
         SetMakerID(DBLCBMaker.KeyValue);
-        ShowMessage('GetMakerID : ' + VarToStr(GetMakerID));
+
         CloseConn(ACnBrand, ATrBrand);
         SetDatabaseNames;
+
         // Set BrandName ComboBox
         OpenSelQuBrandAndSetVal(ACnBrand, ADSBrand, ATrBrand, AQuBrand,
         DBLCBBrandName, DBEdtBrandNameID, SQL_20140001, 0);

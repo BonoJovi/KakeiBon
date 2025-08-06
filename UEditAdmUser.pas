@@ -14,14 +14,19 @@ type
   { TFrmEditAdmUser }
 
   TFrmEditAdmUser = class(TForm)
+    ACn                : TSQLite3Connection;
     ADS                : TDataSource;
     ATr                : TSQLTransaction;
     AQu                : TSQLQuery;
+    ACnUsers           : TSQLite3Connection;
+    ADSUsers           : TDataSource;
+    ATrUsers           : TSQLTransaction;
+    AQuUsers           : TSQLQuery;
     { ActionLists }
     ActionList         : TActionList;
     ActCancel          : TAction;
     ActClearPaw        : TAction;
-    ActCommit          : TAction;
+    ActSave          : TAction;
     ActQuit            : TAction;
     { Etc controls }
     ADBGrid            : TDBGrid;
@@ -44,10 +49,9 @@ type
     PnlCancel          : TPanel;
     PnlClearPass       : TPanel;
     PnlCommit          : TPanel;
-    ACn: TSQLite3Connection;
     procedure ActCancelExecute(Sender: TObject);
     procedure ActClearPawExecute(Sender: TObject);
-    procedure ActCommitExecute(Sender: TObject);
+    procedure ActSaveExecute(Sender: TObject);
     procedure ActQuitExecute(Sender: TObject);
     procedure EdtPawChange(Sender: TObject);
     procedure EdtToUserNameChange(Sender: TObject);
@@ -62,7 +66,6 @@ type
     function CheckMultiFields(NameField: Boolean): String;
     function CheckSQuoteInPAW: Boolean;
     function CheckSQuoteInUName: Boolean;
-    procedure ConnectUsersTable;
     procedure ProcCancel;
     procedure ProcClearPaw;
     procedure ProcCommit;
@@ -83,14 +86,16 @@ uses
 procedure TFrmEditAdmUser.SetDatabaseNames;
 begin
   with FrmTopMenu.Defs do begin
-    SetDatabaseName(ACn);
+    SetDatabaseName(ACn     );
+    SetDatabaseName(ACnUsers);
   end;
 end;
 
 procedure TFrmEditAdmUser.CloseTransactions;
 begin
   with FrmTopMenu.Defs do begin
-    CloseConn(ACn, ATr);
+    CloseConn(ACn     , ATr     );
+    CloseConn(ACnUsers, ATrUsers);
   end;
 end;
 
@@ -113,14 +118,14 @@ var
   LUserID        : String;
   LFieldAndValue : String;
   LRet           : String;
-  LOriginalUName : String;
+  LAdminName     : String;
+  LOriginalPaw   : String;
 begin
   try
     try
       with FrmTopMenu.Defs do begin
         // Initialize
         LFieldAndValue := '';
-        LOriginalUName := AQu.FieldByName('NAME').AsAnsiString;
 
         with AQu do begin
           DataBase    := ACn;
@@ -141,38 +146,49 @@ begin
         begin
           Exit;
         end else begin
-          LFieldAndValue := LRet + ', UPDATE_DT = ''' +
-          FormatDateTime('yyyy/mm/dd hh:mm:ss', Now, GetFS) + '''';
+          CloseTransactions;
+          SetDatabaseNames;
+
+          with AQuUsers do begin
+            SQL.Text := SQL_20040001;
+            with Params do begin
+              ParamByName('pRole').AsInteger := ROLE_ADMIN;
+              Open;
+              LAdminName := FieldByName('NAME').AsAnsiString;
+              LOriginalPaw := AQuUsers.FieldByName('PAW').AsAnsiString;
+            end;
+          end;
+
+          CloseTransactions;
+          SetDatabaseNames;
+
+          LFieldAndValue := LRet + ', UPDATE_DT = datetime(''Now'', ''+9 hours'')';
 
           AQu.SQL.Text   := LSQL.Replace(':pFieldAndValue', LFieldAndValue);
 
           CloseTransactions;
+          SetDatabaseNames;
           AQu.ExecSQL;
-          ATr.Commit;
 
           if (FUName <> '')
-             And (GetUName = LOriginalUName)
-             And (FUName <> LOriginalUName) then
-          begin
+              And (GetUName = LAdminName)
+              And ((FUName <> LAdminName)
+                  Or (FPAW <> LOriginalPaw)) then begin
+            ATr.Commit;
             SetChangedUserDef(True);
-          end;
-
-          if (FPAW <> '')
-             And (GetUName = LOriginalUName)
-             And (FPAW <> AQu.FieldByName('PAW').AsAnsiString) then
-          begin
-            SetChangedUserDef(True);
+          end else begin
+            ATr.Rollback;
+            SetChangedUserDef(False);
           end;
 
           CloseTransactions;
-          ATr.Commit;
+          SetDatabaseNames;
 
           FrmManageUser.Visible := True;
           if GetChangedUserDef then
           begin
             MessageDlg(MSG_JP_000021, mtInformation, [mbOk], 0);
             FrmManageUser.ActGoBackExecute(FrmTopMenu);
-            //FrmEditAdmUser.Close;
           end;
         end;
       end;
@@ -185,42 +201,6 @@ begin
     end;
   finally
     FrmEditAdmUser.Close;
-  end;
-end;
-
-procedure TFrmEditAdmUser.ConnectUsersTable;
-begin
-  try
-    try
-      with AQu do begin
-        if Not ACn.Connected then
-        begin
-          ACn.DatabaseName := DB_NAME;
-          ACn.Connected    := True;
-          ATr.DataBase     := ACn;
-          DataBase         := ACn;
-          ATr.Active       := True;
-        end;
-
-        SQL.Text           := SQL_20040001;
-        with Params do begin
-          ParamByName('pRole').AsInteger := ROLE_ADMIN;
-        end;
-
-        Open;
-      end;
-
-      ADS.DataSet             := AQu;
-      with ADBGrid do begin
-        DataSource      := ADS;
-        AutoFillColumns := True;
-      end;
-    except
-      on E: ESQLDatabaseError do begin
-        ShowMessage(E.Message);
-      end;
-    end;
-  finally
   end;
 end;
 
@@ -337,7 +317,7 @@ begin
   ProcClearPaw;
 end;
 
-procedure TFrmEditAdmUser.ActCommitExecute(Sender: TObject);
+procedure TFrmEditAdmUser.ActSaveExecute(Sender: TObject);
 begin
   ProcCommit;
 end;
@@ -395,7 +375,30 @@ begin
   FrmEditAdmUser.Height := 442;
   FrmEditAdmUser.Width  := 667;
 
-  ConnectUsersTable;
+  try
+    try
+      with FrmTopMenu.Defs do begin
+        with AQu do begin
+          SQL.Text   := SQL_20040001;
+          with Params do begin
+            if GetRole = ROLE_ADMIN then
+            begin
+              SQL.Text := SQL_20040002;
+              ParamByName('pName').AsAnsiString := GetUName;
+            end;
+            ParamByName('pRole').AsInteger      := ROLE_ADMIN;
+          end;
+
+          Open;
+        end;
+      end;
+    except
+      on E: ESQLDatabaseError do begin
+        ShowMessage(E.Message);
+      end;
+    end;
+  finally
+  end;
 end;
 
 end.

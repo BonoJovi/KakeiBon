@@ -17,7 +17,7 @@ type
     ACnNextID: TSQLite3Connection;
     ACnMaker: TSQLite3Connection;
     ActCancel        : TAction;
-    ActCommit        : TAction;
+    ActSave        : TAction;
     ActInsert        : TAction;
     ActEntryMaker    : TAction;
     ActionList       : TActionList;
@@ -63,7 +63,7 @@ type
     PnlEntryMaker    : TPanel;
     Timer            : TTimer;
     procedure ActCancelExecute(Sender: TObject);
-    procedure ActCommitExecute(Sender: TObject);
+    procedure ActSaveExecute(Sender: TObject);
     procedure ActEntryMakerExecute(Sender: TObject);
     procedure ActInsertExecute(Sender: TObject);
     procedure ActQuitExecute(Sender: TObject);
@@ -161,9 +161,9 @@ begin
 
   ATr.Rollback;
   with FrmTopMenu.Defs do begin
-    //CloseConn(ACn, ATr);
     CloseTransactions;
     SetDatabaseNames;
+
     OpenSelQuAndSetVal(ACnMaker, ADSMaker, ATrMaker, AQuMaker,
     DBLCBMaker, DBEdtMakerID, SQL_20130002, StrToInt(VarToStr(GetMakerID)));
   end;
@@ -174,7 +174,6 @@ var
   LNextShopID  : Integer;
   LMakerID     : Integer;
   LNewMakerID  : Integer;
-  LBrandNameID : Integer;
 begin
   FDoCommit := True;
   try
@@ -197,7 +196,9 @@ begin
             OpenSelectQueryWithMakerID(
               ACnNextID, ADSNextID, ATrNextID, AQuNextID, SQL_20140002, LMakerID);
             LNextShopID := AQuNextID.FieldByName('NEXT_ID').AsInteger;
+
             CloseConn(ACnNextID, ATrNextID);
+
             SetDatabaseNames;
             if FCurrBrandNameID > 0 then begin
               ParamByName('pBrandNameID').AsInteger    := FCurrBrandNameID;
@@ -226,14 +227,15 @@ begin
 
           CloseTransactions;
           SetDatabaseNames;
+
           ExecSQL;
           ATr.Commit;
         end;
 
         with FrmTopMenu.Defs do begin
           CloseConn(ACn, ATr);
-          //CloseTransactions;
           SetDatabaseNames;
+
           OpenSelectQuery(ACnMaker, ADSMaker, ATrMaker, AQuMaker, SQL_20130002);
           if DBEdtBrandNameID.Text <> '' then begin
             OpenSelectQueryWithMakerIDAndBrandNameID(
@@ -278,37 +280,15 @@ begin
 end;
 
 procedure TFrmEntryBrandName.ProcInsert;
-var
-  LNextBrandNameID : Integer;
 begin
   with FrmTopMenu.Defs do begin
     if Not FInsert then begin
-      with AQu do begin
-        //if DBEdtMakerID.Text <> '' then begin
-        //  SetMakerID(StrToInt(DBEdtMakerID.Text));
-        //end else begin
-        //  SetMakerID(1);
-        //end;
-        //CloseConn(ACn, ATr);
-        ////CloseTransactions;
-        //SetDatabaseNames;
-        //if DBEdtMakerID.Text <> '' then begin
-        //  OpenSelectQueryWithMakerID(
-        //    ACn, ADS, ATr, AQu, SQL_20140001, StrToInt(DBEdtMakerID.Text));
-        //  DBLCBMaker.KeyValue := GetMakerID;
-        //end;
-      end;
       with AQu do begin
         CloseConn(ACn, ATr);
         SetDatabaseNames;
         OpenSelectQueryWithMakerIDAndBrandNameID(
           ACn, ADS, ATr, AQu, SQL_20140001, StrToInt(VarToStr(GetMakerID)), 1);
-        //Edit;
-        //if RecordCount > 0 then begin
-          Insert;
-        //end else begin
-        //  Edit;
-        //end;
+        Insert;
         FInsert := True;
       end;
 
@@ -329,7 +309,7 @@ begin
   ProcCancel;
 end;
 
-procedure TFrmEntryBrandName.ActCommitExecute(Sender: TObject);
+procedure TFrmEntryBrandName.ActSaveExecute(Sender: TObject);
 begin
   BackupValues;
   ProcCommit;
@@ -359,7 +339,7 @@ begin
     with FrmTopMenu.Defs do begin
       CloseConn(ACn, ATr);
       SetDatabaseNames;
-      //ProcCancel;
+
       with AQu do begin
         SetMakerID(DBLCBMaker.KeyValue);
         DBEdtMakerID.Text := VarToStr(GetMakerID);
@@ -371,7 +351,9 @@ begin
         end else begin
           OpenSelectQuery(ACnNextID, ADSNextID, ATrNextID, AQuNextID, SQL_20140002);
           LNextBrandNameID := AQuNextID.FieldByName('NEXT_ID').AsInteger;
+
           CloseConn(ACnNextID, ATrNextID);
+
           DBEdtBrandNameID.Text := IntToStr(LNextBrandNameID);
           DBEdtBrandName.Text   := '';
           Insert;
@@ -407,7 +389,8 @@ begin
   end;
 end;
 
-procedure TFrmEntryBrandName.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+procedure TFrmEntryBrandName.FormClose(
+  Sender: TObject; var CloseAction: TCloseAction);
 begin
   CloseTransactions;
 

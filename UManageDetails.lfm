@@ -12,7 +12,6 @@ object FrmManageDetails: TFrmManageDetails
   Font.Name = '0xProto Nerd Font Mono'
   Font.Style = [fsBold]
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
@@ -160,7 +159,7 @@ object FrmManageDetails: TFrmManageDetails
     Height = 48
     Top = 344
     Width = 273
-    Caption = '入出金を登録 (CTRL+1)'
+    Caption = '入出金を追加 (CTRL+A)'
     Color = clActiveCaption
     Enabled = False
     ParentBackground = False
@@ -174,7 +173,7 @@ object FrmManageDetails: TFrmManageDetails
     Top = 352
     Width = 256
     Action = ActAddDetailsHeader
-    Caption = '入出金を登録 (CTRL+1)'
+    Caption = '入出金を追加 (CTRL+A)'
     Color = clSkyBlue
     Font.Height = -21
     Font.Name = '0xProto'
@@ -187,7 +186,7 @@ object FrmManageDetails: TFrmManageDetails
     Height = 48
     Top = 344
     Width = 272
-    Caption = '入出金を編集 (CTRL+2)'
+    Caption = '入出金を編集 (CTRL+E)'
     Color = clActiveCaption
     Enabled = False
     ParentBackground = False
@@ -201,7 +200,7 @@ object FrmManageDetails: TFrmManageDetails
     Top = 352
     Width = 256
     Action = ActEditDetailsHeader
-    Caption = '入出金を編集 (CTRL+2)'
+    Caption = '入出金を編集 (CTRL+E)'
     Color = clSkyBlue
     Font.Height = -21
     Font.Name = '0xProto'
@@ -214,7 +213,7 @@ object FrmManageDetails: TFrmManageDetails
     Height = 48
     Top = 400
     Width = 272
-    Caption = '入出金を削除 (CTRL+3)'
+    Caption = '入出金を削除 (CTRL+D)'
     Color = clActiveCaption
     Enabled = False
     ParentBackground = False
@@ -227,8 +226,8 @@ object FrmManageDetails: TFrmManageDetails
     Height = 32
     Top = 408
     Width = 256
-    Action = ActRemoveDetailsHeader
-    Caption = '入出金を削除 (CTRL+3)'
+    Action = ActDeleteDetailsHeader
+    Caption = '入出金を削除 (CTRL+D)'
     Color = clSkyBlue
     Font.Height = -21
     Font.Name = '0xProto'
@@ -241,7 +240,7 @@ object FrmManageDetails: TFrmManageDetails
     Height = 48
     Top = 400
     Width = 549
-    Caption = '前の画面に戻る (CTRL+4)'
+    Caption = '前の画面に戻る (CTRL+Q)'
     Color = clActiveCaption
     Enabled = False
     ParentBackground = False
@@ -255,7 +254,7 @@ object FrmManageDetails: TFrmManageDetails
     Top = 408
     Width = 533
     Action = ActQuit
-    Caption = '前の画面に戻る (CTRL+4)'
+    Caption = '前の画面に戻る (CTRL+Q)'
     Color = clSkyBlue
     Font.Height = -21
     Font.Name = '0xProto'
@@ -268,18 +267,27 @@ object FrmManageDetails: TFrmManageDetails
     Top = 176
     object ActAddDetailsHeader: TAction
       Caption = 'ActAddDetailsHeader'
-      ShortCut = 16433
+      SecondaryShortCuts.Strings = (
+        'Ctrl+1'
+      )
+      ShortCut = 16449
       OnExecute = ActAddDetailsHeaderExecute
     end
     object ActEditDetailsHeader: TAction
       Caption = 'ActEditDetailsHeader'
-      ShortCut = 16434
+      SecondaryShortCuts.Strings = (
+        'Ctrl+2'
+      )
+      ShortCut = 16453
       OnExecute = ActEditDetailsHeaderExecute
     end
-    object ActRemoveDetailsHeader: TAction
-      Caption = 'ActRemoveDetailsHeader'
-      ShortCut = 16435
-      OnExecute = ActRemoveDetailsHeaderExecute
+    object ActDeleteDetailsHeader: TAction
+      Caption = 'ActDeleteDetailsHeader'
+      SecondaryShortCuts.Strings = (
+        'Ctrl+3'
+      )
+      ShortCut = 16452
+      OnExecute = ActDeleteDetailsHeaderExecute
     end
     object ActQuit: TAction
       Caption = 'ActQuit'
