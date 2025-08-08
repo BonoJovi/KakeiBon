@@ -305,7 +305,7 @@ procedure TDefs.OpenForm(Sender, NextForm: TForm);
 begin
   Sender.Visible := False;
   NextForm.Show;
-  Sender.Release;
+  Sender.Close;
 end;
 
 procedure TDefs.OpenSelectQuery(
@@ -658,14 +658,11 @@ begin
     try
       with FrmTopMenu.Defs do begin
         with Qu do begin
-          //if Active = False then
-          //begin
-            SQL.Text                                := SS;
-            with Params do begin
-              ParamByName('pUserID').AsInteger := GetUID;
-            end;
-            Open;
-          //end;
+          SQL.Text                                := SS;
+          with Params do begin
+            ParamByName('pUserID').AsInteger := GetUID;
+          end;
+          Open;
           if KeyValue > 0 then begin
             if Assigned(DBLCBObj) then begin
               DBLCBObj.KeyValue := KeyValue;
@@ -695,20 +692,18 @@ begin
     try
       with FrmTopMenu.Defs do begin
         with Qu do begin
-          if Active = False then begin
-            SQL.Text                                := SS;
-            with Params do begin
-              ParamByName('pUserID').AsInteger := GetUID;
-              if (Not VarIsNull(GetMakerID))
-                  And (VarToStr(GetMakerID) <> '')
-                  And (StrToInt(VarToStr(GetMakerID)) > 0) then begin
-                ParamByName('pMakerID').AsInteger := StrToInt(VarToStr(GetMakerID));
-              end else begin
-                ParamByName('pMakerID').AsInteger := 0;
-              end;
+          SQL.Text                                := SS;
+          with Params do begin
+            ParamByName('pUserID').AsInteger := GetUID;
+            if (Not VarIsNull(GetMakerID))
+                And (VarToStr(GetMakerID) <> '')
+                And (StrToInt(VarToStr(GetMakerID)) > 0) then begin
+              ParamByName('pMakerID').AsInteger := StrToInt(VarToStr(GetMakerID));
+            end else begin
+              ParamByName('pMakerID').AsInteger := 0;
             end;
-            Open;
           end;
+          Open;
           if KeyValue > 0 then begin
             if Assigned(DBLCBObj) then begin
               DBLCBObj.KeyValue := KeyValue;
@@ -737,11 +732,8 @@ begin
   try
     try
       with Qu do begin
-        if Active = False then
-        begin
-          SQL.Text                                := SS;
-          Open;
-        end;
+        SQL.Text                                := SS;
+        Open;
         if KeyValue > 0 then begin
           if Assigned(DBLCBObj) then begin
             DBLCBObj.KeyValue := KeyValue;

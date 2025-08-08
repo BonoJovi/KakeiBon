@@ -14,7 +14,7 @@ uses
   UDefs, UEditAdmUser, UEditDetail, UEditDetailsHeader, UEditUser,
   UEntryAccount, UEntryAdmin, UEntryBrandName, UEntryMaker, UEntryShop,
   UEntryUnit, ULogin, UManageDetails, UManageExp, UManageUser, URemoveUser,
-  UTopMenu, UConsts;
+  UTopMenu, UConsts, USummary;
 
 {$R *.res}
 
@@ -26,6 +26,7 @@ begin
   {$POP}
   Application.Initialize;
   Application.CreateForm(TFrmTopMenu, FrmTopMenu);
+  Application.CreateForm(TFrmSummary, FrmSummary);
   Application.Run;
 end.
 

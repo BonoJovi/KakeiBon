@@ -12,6 +12,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   Font.Name = '0xProto Nerd Font Mono'
   Font.Style = [fsBold]
   Position = poScreenCenter
+  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
@@ -348,6 +349,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     DataField = 'PHONE_NUM'
     DataSource = ADSShop
     ReadOnly = True
+    Enabled = False
     Font.Height = -21
     Font.Name = '0xProto'
     Font.Style = [fsBold]

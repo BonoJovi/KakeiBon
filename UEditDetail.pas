@@ -529,6 +529,7 @@ procedure TFrmEditDetail.ProcEntryBrandName;
 begin
   with FrmTopMenu.Defs do begin
     SetGoBack(False);
+    SetEntryMaker(999);
     SetEntryBrandName(2);
 
     FrmEntryBrandName := TFrmEntryBrandName.Create(Application);
@@ -1117,15 +1118,13 @@ begin
   end;
 
   with FrmTopMenu.Defs do begin
-    //SetMakerID(StrToInt(DBEdtMakerID.Text));
     SetMakerID(AQu.FieldByName('MAKER_ID').AsVariant);
     OpenSelQuAndSetVal(ACnMaker, ADSMaker, ATrMaker, AQuMaker,
-    DBLCBMaker, DBEdtMakerID, SQL_20130002, StrToInt(VarToStr(GetMakerID)));
+      DBLCBMaker, DBEdtMakerID, SQL_20130002, StrToInt(VarToStr(GetMakerID)));
 
-    //SetBrandNameID(StrToInt(DBEdtBrandNameID.Text));
     SetBrandNameID(AQu.FieldByName('BRAND_NAME_ID').AsVariant);
     OpenSelQuBrandAndSetVal(ACnBrand, ADSBrand, ATrBrand, AQuBrand,
-    DBLCBBrandName, DBEdtBrandNameID, SQL_20140001, StrToInt(VarToStr(GetBrandNameID)));
+      DBLCBBrandName, DBEdtBrandNameID, SQL_20140001, StrToInt(VarToStr(GetBrandNameID)));
 
     DBEdtExpKey1.Text := GetExpKey1;
 

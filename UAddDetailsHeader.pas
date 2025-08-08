@@ -526,7 +526,10 @@ begin
             end else begin
               if Not VarIsNull(DBLCBFromAC.KeyValue) then begin
                 DBEdtFromID.Text   := DBLCBFromAC.KeyValue;
-                SetFromACID(DBEdtFromID.Text);
+                if (DBLCBFromAC.Enabled)
+                    And (DBEdtFromID.Text <> '') then begin
+                  SetFromACID(DBEdtFromID.Text);
+                end;
               end;
             end;
           end;
@@ -537,16 +540,16 @@ begin
             end else begin
               if Not VarIsNull(DBLCBToAC.KeyValue) then begin
                 DBEdtToID.Text   := DBLCBToAC.KeyValue;
-                SetToACID(DBEdtToID.Text);
+                if (DBLCBToAC.Enabled)
+                    And (DBEdtToID.Text <> '') then begin
+                  SetToACID(DBEdtToID.Text);
+                end;
               end;
             end;
           end;
         end;
       end;
       DBEdtExpKey1.Text          := DBLCBExp1.KeyValue;
-    end else begin
-      SetFromACID(DBEdtFromID.Text);
-      SetToACID(DBEdtToID.Text);
     end;
   end;
 end;
@@ -794,7 +797,7 @@ begin
     DBLCBExp1.Height        := 46;
 
     { Debug }
-    //FrmAddDetailsHeader.Width := 1167;
+    FrmAddDetailsHeader.Width := 1167;
   finally
   end;
 end;

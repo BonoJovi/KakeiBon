@@ -349,6 +349,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     DataField = 'PHONE_NUM'
     DataSource = ADSShop
     ReadOnly = True
+    Enabled = False
     Font.Height = -21
     Font.Name = '0xProto'
     Font.Style = [fsBold]

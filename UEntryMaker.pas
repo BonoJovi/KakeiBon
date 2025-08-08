@@ -330,6 +330,7 @@ begin
     if GetEntryMaker = 0 then begin
       FrmEntryBrandName := TFrmEntryBrandName.Create(Application);
       FrmEntryBrandName.Visible := True;
+      SetEntryMaker(999);
     end else if GetEntryMaker = 1 then begin
       FrmAddDetail      := TFrmAddDetail.Create(Application);
       FrmAddDetail.Visible := True;

@@ -11,6 +11,7 @@ object FrmEntryMaker: TFrmEntryMaker
   Font.Name = '0xProto'
   Font.Style = [fsBold]
   Position = poScreenCenter
+  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
@@ -37,12 +38,12 @@ object FrmEntryMaker: TFrmEntryMaker
       item
         MaxSize = 400
         Title.Caption = 'メーカー名'
-        Width = 269
+        Width = 275
         FieldName = 'MAKER_NAME'
       end    
       item
         Title.Caption = '非表示'
-        Width = 269
+        Width = 275
         FieldName = 'DISABLED'
       end>
     Constraints.MaxWidth = 2000
