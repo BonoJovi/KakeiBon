@@ -514,10 +514,9 @@ const
                  'VALUES(:pUserID, :pMakerID, :pBrandNameID, :pBrandName, ' +
                  ':pEndOfSales, :pDisabled, :pEntryDT, NULL) ON CONFLICT ' +
                  '(USER_ID, MAKER_ID, BRAND_NAME_ID) DO UPDATE SET ' +
-                 'MAKER_ID = :pNewMakerID, BRAND_NAME_ID = ' +
-                 ':pNewBrandNameID, BRAND_NAME = :pBrandName, END_OF_SALES ' +
-                 '= :pEndOfSales, DISABLED = :pDisabled, UPDATE_DT = ' +
-                 ':pUpdateDT';
+                 'MAKER_ID = :pMakerID, BRAND_NAME_ID = :pBrandNameID, ' +
+                 'BRAND_NAME = :pBrandName, END_OF_SALES = :pEndOfSales, ' +
+                 'DISABLED = :pDisabled, UPDATE_DT = :pUpdateDT';
   SQL_20140006 = 'UPDATE BRAND SET USER_ID = :pUserID, MAKER_ID = ' +
                  ':pMakerID, BRAND_NAME_ID = :pBrandNameID, BRAND_NAME = ' +
                  ':pBrandName, END_OF_SALES = :pEndOfSales, DISABLED = ' +
@@ -535,6 +534,22 @@ const
                  'DO UPDATE SET UNIT = :pUnit, DISABLED = :pDisabled, ' +
                  'UPDATE_DT = :pUpdateDT';
 
+  // USummary
+  SQL_20160001 = 'SELECT SUM(SUB_TOTAL) AS SUM FROM DETAILS WHERE ' +
+                 'USER_ID = :pUserID AND EXP_KEY1 = 1';
+  SQL_20160002 = 'SELECT NAME1, NAME2, NAME3, SUM1, PRINTF(''%.2f'', ' +
+                 'CAST(CAST(SUM1 AS REAL) / CAST(SUM2 AS REAL) * 100 ' +
+                 'AS REAL)) AS PER FROM (SELECT SUM(D1.SUB_TOTAL) AS SUM2 ' +
+                 'FROM DETAILS D1 WHERE D1.USER_ID = :pUserID AND ' +
+                 'D1.EXP_KEY1 = 1), (SELECT (SELECT E1.NAME1 FROM EXP1 E1 ' +
+                 'WHERE E1.EXP_KEY1 = D.EXP_KEY1) AS NAME1, (SELECT E2.NAME2 ' +
+                 'FROM EXP2 E2 WHERE E2.EXP_KEY1 = D.EXP_KEY1 AND ' +
+                 'E2.EXP_KEY2 = D.EXP_KEY2) AS NAME2, (SELECT E3.NAME3 FROM ' +
+                 'EXP3 E3 WHERE E3.EXP_KEY1 = D.EXP_KEY1 AND E3.EXP_KEY2 = ' +
+                 'D.EXP_KEY2 AND E3.EXP_KEY3 = D.EXP_KEY3) AS NAME3, ' +
+                 'SUM(SUB_TOTAL) AS SUM1 FROM DETAILS D WHERE D.USER_ID = ' +
+                 ':pUserID AND D.EXP_KEY1 = 1 GROUP BY D.EXP_KEY1, ' +
+                 'D.EXP_KEY2, D.EXP_KEY3) ORDER BY SUM1 DESC';
 
   //============================================================================
   // Default Datas

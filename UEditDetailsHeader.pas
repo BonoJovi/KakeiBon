@@ -763,34 +763,15 @@ begin
         DBLCBFromAC.Enabled   := True;
         DBLCBToAC.Enabled     := False;
         DBLCBToAC.ItemIndex   := -1;
-
-        if (DBLCBFromAC.Enabled) And (Not VarIsNull(DBLCBFromAC.KeyValue)) then begin
-          DBEdtFromID.Text    := DBLCBFromAC.KeyValue;
-        end;
-        DBEdtToID.Text        := '';
       end else if StrToInt(VarToStr(GetExpKey1)) = 2 then begin
-        DBLCBFromAC.Enabled   := False;
-        DBLCBFromAC.ItemIndex := -1;
-        DBLCBToAC.Enabled     := True;
-
-        DBEdtFromID.Text      := '';
-        if (DBLCBToAC.Enabled) And (Not VarIsNull(DBLCBToAC.KeyValue)) then begin
-          DBEdtToID.Text      := DBLCBToAC.KeyValue;
-        end;
+        DBLCBFromAC.Enabled    := False;
+        DBLCBFromAC.ItemIndex  := -1;
+        DBLCBToAC.Enabled      := True;
       end else if StrToInt(VarToStr(GetExpKey1)) = 3 then begin
-        DBLCBFromAC.Enabled   := True;
-        DBLCBToAC.Enabled     := True;
-        if (DBLCBFromAC.Enabled) And (Not VarIsNull(DBLCBFromAC.KeyValue)) then begin
-          DBEdtFromID.Text    := DBLCBFromAC.KeyValue;
-        end;
-        if (DBLCBToAC.Enabled) And (Not VarIsNull(DBLCBToAC.KeyValue)) then begin
-          DBEdtToID.Text      := DBLCBToAC.KeyValue;
-        end;
+        DBLCBFromAC.Enabled    := True;
+        DBLCBToAC.Enabled      := True;
       end;
-      DBEdtExpKey1.Text       := DBLCBExp1.KeyValue;
-    end else begin
-      DBEdtFromID.Text        := '';
-      DBEdtToID.Text          := '';
+      DBEdtExpKey1.Text        := GetExpKey1;
     end;
   end;
 end;
@@ -810,24 +791,28 @@ end;
 procedure TFrmEditDetailsHeader.DBLCBFromACChange(Sender: TObject);
 begin
   with FrmTopMenu.Defs do begin
-    if DBLCBFromAC.Enabled then begin
+    if (DBLCBFromAC.Enabled)
+        And (VarToStr(DBLCBFromAC.KeyValue) <> '')
+        And (StrToInt(VarToStr(DBLCBFromAC.KeyValue)) > 0) then begin
       DBEdtFromID.Text := VarToStr(DBLCBFromAC.KeyValue);
     end else begin
-      DBEdtFromID.Text := '';
+      DBEdtFromID.Text := IntToStr(0);
     end;
-    SetFromACID(DBLCBFromAC.KeyValue);
+    SetFromACID(StrToInt(DBEdtFromID.Text));
   end;
 end;
 
 procedure TFrmEditDetailsHeader.DBLCBToACChange(Sender: TObject);
 begin
   with FrmTopMenu.Defs do begin
-    if DBLCBToAC.Enabled then begin
+    if (DBLCBToAC.Enabled)
+        And (VarToStr(DBLCBToAC.KeyValue) <> '')
+        And (StrToInt(VarToStr(DBLCBToAC.KeyValue)) > 0) then begin
       DBEdtToID.Text := VarToStr(DBLCBToAC.KeyValue);
     end else begin
-      DBEdtToID.Text := '';
+      DBEdtToID.Text := IntToStr(0);
     end;
-    SetToACID(DBLCBToAC.KeyValue);
+    SetToACID(StrToInt(DBEdtToID.Text));
   end;
 end;
 
@@ -909,7 +894,7 @@ begin
 
   with FrmTopMenu.Defs do begin
     with AQu do begin
-      CloseConn(ACn, ATr);
+      CloseTransactions;
       SetDatabaseNames;
 
       SQL.Text := SQL_20100006;
@@ -937,57 +922,66 @@ begin
 
   try
     with FrmTopMenu.Defs do begin
+      SetShopID(AQu.FieldByName('SHOP_ID').AsVariant);
       OpenSelQuAndSetVal(
-        ACnShop  , ADSShop  , ATrShop  , AQuShop  , DBLCBShopName,
-        DBEdtShopID , SQL_20100001, StrToInt(VarToStr(GetShopID)));
+        ACnShop, ADSShop, ATrShop, AQuShop, DBLCBShopName,
+        DBEdtShopID, SQL_20100001, StrToInt(VarToStr(GetShopID)));
 
       if (Not VarIsNull(GetShopID))
-        And (VarToStr(GetShopID) <> '') And (StrToInt(VarToStr(GetShopID)) > 0) then begin
-          with AQuShop do begin
-            First;
-            while Not EOF do begin
-              if FieldByName('SHOP_ID').AsInteger = StrToInt(VarToStr(GetShopID)) then begin
-                Break;
-              end;
-              Next;
+          And (VarToStr(GetShopID) <> '') And (StrToInt(VarToStr(GetShopID)) > 0) then begin
+        with AQuShop do begin
+          First;
+          while Not EOF do begin
+            if FieldByName('SHOP_ID').AsInteger = StrToInt(VarToStr(GetShopID)) then begin
+              Break;
             end;
-            if FieldByName('PHONE_NUM').AsAnsiString <> '' then begin
-              DBEdtPhoneNum.Text := FieldByName('PHONE_NUM').AsAnsiString;
-            end;
+            Next;
           end;
+          if FieldByName('PHONE_NUM').AsAnsiString <> '' then begin
+            DBEdtPhoneNum.Text := FieldByName('PHONE_NUM').AsAnsiString;
+          end;
+        end;
       end else begin
         DBEdtPhoneNum.Text := '';
       end;
 
-      OpenSelQuAndSetVal(
-        ACnExp1  , ADSExp1  , ATrExp1  , AQuExp1  , DBLCBExp1    ,
-        DBEdtExpKey1, SQL_20100002, StrToInt(VarToStr(GetExpKey1)));
-      DBLCBExp1Change(Self);
-
-      if (Not VarIsNull(GetFromACID))
-          And (VarToStr(GetFromACID) <> '') then begin
-        OpenSelQuAndSetVal(
-          ACnFromAC, ADSFromAC, ATrFromAC, AQuFromAC, DBLCBFromAC  ,
-          DBEdtFromID , SQL_20100003, StrToInt(VarToStr(GetFromACID)));
-        DBLCBFromACChange(Self);
+      SetExpKey1(AQu.FieldByName('EXP_KEY1').AsVariant);
+      OpenSelectQuery(
+        ACnExp1, ADSExp1, ATrExp1, AQuExp1, SQL_20100002);
+      if (Not VarIsNull(GetExpKey1))
+        And (VarToStr(GetExpKey1) <> '')
+        And (StrToInt(VarToStr(GetExpKey1)) > 0) then begin
+          DBEdtExpKey1.Text := VarToStr(GetExpKey1);
+          DBLCBExp1.KeyValue := GetExpKey1;
       end else begin
-        OpenSelQuAndSetVal(
-          ACnFromAC, ADSFromAC, ATrFromAC, AQuFromAC, DBLCBFromAC  ,
-          DBEdtFromID , SQL_20100003, 0);
-        DBLCBFromACChange(Self);
+        DBLCBExp1.KeyValue := -1;
+        DBEdtExpKey1.Text  := '';
       end;
 
-      if Not VarIsNull(GetToACID)
-          And (VarToStr(GetToACID) <> '') then begin
-        OpenSelQuAndSetVal(
-          ACnToAC  , ADSToAC  , ATrToAC  , AQuToAC  , DBLCBToAC    ,
-          DBEdtToID   , SQL_20100004, StrToInt(VarToStr(GetToACID)));
-        DBLCBToACChange(Self);
+      SetFromACID(AQu.FieldByName('FROM_ID').AsVariant);
+      OpenSelectQuery(
+        ACnFromAC, ADSFromAC, ATrFromAC, AQuFromAC, SQL_20100003);
+      if (Not VarIsNull(GetFromACID))
+          And (VarToStr(GetFromACID) <> '')
+          And (StrToInt(VarToStr(GetFromACID)) > 0) then begin
+        DBEdtFromID.Text     := VarToStr(GetFromACID);
+        DBLCBFromAC.KeyValue := GetFromACID;
       end else begin
-        OpenSelQuAndSetVal(
-          ACnToAC  , ADSToAC  , ATrToAC  , AQuToAC  , DBLCBToAC    ,
-          DBEdtToID   , SQL_20100004, 0);
-        DBLCBToACChange(Self);
+        DBLCBFromAC.KeyValue := -1;
+        DBEdtFromID.Text     := '';
+      end;
+
+      SetToACID(AQu.FieldByName('TO_ID').AsVariant);
+      OpenSelectQuery(
+        ACnToAC, ADSToAC, ATrToAC, AQuToAC, SQL_20100004);
+      if (Not VarIsNull(GetToACID))
+          And (VarToStr(GetToACID) <> '')
+          And (StrToInt(VarToStr(GetToACID)) > 0) then begin
+        DBEdtToID.Text     := VarToStr(GetToACID);
+        DBLCBToAC.KeyValue := GetToACID;
+      end else begin
+        DBLCBToAC.KeyValue := -1;
+        DBEdtToID.Text     := '';
       end;
 
       if GetHeaderDT = '' then begin
@@ -1034,6 +1028,18 @@ begin
 
       OpenSelectQueryWithHeaderID(
         ACnDetail, ADSDetail, ATrDetail, AQuDetail, SQL_20100009, GetHID);
+    end;
+
+    // Clear next screen fields
+    with FrmTopMenu.Defs do begin
+      SetMakerID(Null);
+      SetBrandNameID(Null);
+      SetExpKey2(Null);
+      SetExpKey3(Null);
+      SetQuantity(0);
+      SetExcludeTax(0);
+      SetTax(0);
+      SetSubTotal(0);
     end;
 
     DBLCBShopName.Height := 46;

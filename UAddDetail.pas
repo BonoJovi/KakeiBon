@@ -533,6 +533,7 @@ procedure TFrmAddDetail.ProcEntryBrandName;
 begin
   with FrmTopMenu.Defs do begin
     SetGoBack(False);
+    SetEntryMaker(999);
     SetEntryBrandName(1);
 
     FrmEntryBrandName := TFrmEntryBrandName.Create(Application);
@@ -649,6 +650,9 @@ begin
   try
     with FrmTopMenu.Defs do begin
       with Qu3 do begin
+        CloseConn(Cn3, Tr3);
+        SetDatabaseNames;
+
         SQL.Text     := SQL_20120002;
         with Params do begin
           ParamByName('pUserID').AsInteger  := GetUID;
@@ -886,7 +890,7 @@ begin
     And (Not VarIsNull(GetQuantity))
     And (VarToStr(GetQuantity) <> '')
     And (StrToInt(VarToStr(GetQuantity)) > 0) then begin
-      SetExcludeTax(AQu.FieldByName('EXCLUDE_TAX').AsVariant);
+      SetExcludeTax(StrToInt(DBEdtExcludeTax.Text));
       EdtAmount.Text
         := FormatFloat(
           '#,##0.000',
@@ -978,7 +982,8 @@ end;
 
 procedure TFrmAddDetail.EdtSubTotalExit(Sender: TObject);
 begin
-  if StrToInt(StringReplace(EdtSubTotal.Text, ',', '', [rfReplaceAll])) <> 0 then begin
+  if (EdtSubTotal.Text <> '')
+      And (StrToInt(StringReplace(EdtSubTotal.Text, ',', '', [rfReplaceAll])) <> 0) then begin
     DBEdtSubTotal.Text := StringReplace(EdtSubTotal.Text, ',', '', [rfReplaceAll]);
   end else begin
     DBEdtSubTotal.Text := '';
@@ -1069,9 +1074,7 @@ begin
         FrmEditDetailsHeader.Visible := True;
       end;
     end;
-
-    SetAddDetail(0);
-  end;
+end;
 
   CloseAction                  := caFree;
   FrmAddDetail                 := nil;
@@ -1188,14 +1191,14 @@ begin
       EdtAmount.Text := FormatFloat('#,##0.000', 0);
     end;
 
-    if GetTax > 0 then begin
+    if GetTax <> 0 then begin
         DBEdtTax.Text := IntToStr(GetTax);
         EdtTax.Text   := FormatFloat('#,##0', GetTax);
     end else begin
       EdtTax.Text     := FormatFloat('#,##0', 0);
     end;
 
-    if GetSubTotal > 0 then begin
+    if GetSubTotal <> 0 then begin
         DBEdtSubTotal.Text := IntToStr(GetSubTotal);
         EdtSubTotal.Text   := FormatFloat('#,##0', GetSubTotal);
     end else begin
@@ -1211,7 +1214,7 @@ begin
   end;
 
   { Debug }
-  //FrmAddDetail.Width := 1272;
+  FrmAddDetail.Width := 1272;
 end;
 
 end.

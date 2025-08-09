@@ -14,16 +14,18 @@ type
   { TFrmEntryShop }
 
   TFrmEntryShop = class(TForm)
+    ACn                  : TSQLite3Connection;
     ADS                  : TDataSource;
-    ADSNextID            : TDataSource;
-    AQu                  : TSQLQuery;
-    AQuNextID            : TSQLQuery;
     ATr                  : TSQLTransaction;
+    AQu                  : TSQLQuery;
+    ACnNextID            : TSQLite3Connection;
+    ADSNextID            : TDataSource;
     ATrNextID            : TSQLTransaction;
-    ActCancel            : TAction;
-    ActSave            : TAction;
-    ActInsert            : TAction;
+    AQuNextID            : TSQLQuery;
     ActionList           : TActionList;
+    ActInsert            : TAction;
+    ActCancel            : TAction;
+    ActSave              : TAction;
     ActQuit              : TAction;
     ADBGrid              : TDBGrid;
     ADBNav               : TDBNavigator;
@@ -63,8 +65,6 @@ type
     PnlCommit            : TPanel;
     PnlGoBack            : TPanel;
     PnlInsert            : TPanel;
-    ACn: TSQLite3Connection;
-    ACnNextID: TSQLite3Connection;
     Timer                : TTimer;
     procedure ActCancelExecute(Sender: TObject);
     procedure ActSaveExecute(Sender: TObject);

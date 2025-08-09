@@ -79,7 +79,6 @@ type
     FInsert          : Boolean;
     FDoCommit        : Boolean;
     FCurrMakerID     : Integer;
-    FCurrBrandNameID : Integer;
     FMakerID         : Variant;
     FBrandNameID     : Variant;
     procedure SetDatabaseNames;
@@ -190,8 +189,6 @@ begin
               ParamByName('pMakerID').AsInteger  := StrToInt(VarToStr(GetMakerID));
             end;
             LMakerID := ParamByName('pMakerID').AsInteger;
-            ParamByName('pNewMakerID').AsInteger := StrToInt(VarToStr(GetMakerID));
-            LNewMakerID := ParamByName('pNewMakerID').AsInteger;
 
             OpenSelectQueryWithMakerID(
               ACnNextID, ADSNextID, ATrNextID, AQuNextID, SQL_20140002, LMakerID);
@@ -200,19 +197,10 @@ begin
             CloseConn(ACnNextID, ATrNextID);
 
             SetDatabaseNames;
-            if FCurrBrandNameID > 0 then begin
-              ParamByName('pBrandNameID').AsInteger    := FCurrBrandNameID;
+            if VarToStr(GetBrandNameID) <> '' then begin
+              ParamByName('pBrandNameID').AsInteger  := StrToInt(VarToStr(GetBrandNameID));
             end else begin
-              if VarToStr(GetBrandNameID) <> '' then begin
-                ParamByName('pBrandNameID').AsInteger  := StrToInt(VarToStr(GetBrandNameID));
-              end else begin
-                ParamByName('pBrandNameID').AsInteger  := LNextShopID;
-              end;
-            end;
-            if FCurrMakerID = StrToInt(VarToStr(GetMakerID)) then begin
-              ParamByName('pNewBrandNameID').AsInteger := StrToInt(VarToStr(GetBrandNameID));
-            end else begin
-              ParamByName('pNewBrandNameID').AsInteger := LNextShopID;
+              ParamByName('pBrandNameID').AsInteger  := LNextShopID;
             end;
 
             ParamByName('pBrandName').AsAnsiString     := GetBrandName;
@@ -237,6 +225,8 @@ begin
           SetDatabaseNames;
 
           OpenSelectQuery(ACnMaker, ADSMaker, ATrMaker, AQuMaker, SQL_20130002);
+          DBLCBMaker.KeyValue := GetMakerID;
+
           if DBEdtBrandNameID.Text <> '' then begin
             OpenSelectQueryWithMakerIDAndBrandNameID(
               ACn, ADS, ATr, AQu, SQL_20140001, StrToInt(VarToStr(DBLCBMaker.KeyValue)), StrToInt(DBEdtBrandNameID.Text));
@@ -244,9 +234,6 @@ begin
             if (LMakerID > 0) then begin
               OpenSelectQueryWithMakerIDAndBrandNameID(
                 ACn, ADS, ATr, AQu, SQL_20140001, LMakerID, 1);
-            end else if (LNewMakerID > 0) then begin
-              OpenSelectQueryWithMakerIDAndBrandNameID(
-                ACn, ADS, ATr, AQu, SQL_20140001, LNewMakerID, 1);
             end else begin
               MessageDlg(MSG_JP_000034, mtInformation, [mbOk], 0);
             end;
@@ -274,8 +261,8 @@ end;
 procedure TFrmEntryBrandName.ProcEntryMaker;
 begin
   with FrmTopMenu.Defs do begin
-    FrmEntryMaker := TFrmEntryMaker.Create(Application);
-    OpenForm(Self, FrmEntryMaker);
+    SetEntryMaker(0);
+    Close;
   end;
 end;
 
@@ -295,7 +282,6 @@ begin
       with FrmTopMenu.Defs do begin
         DBEdtUserID.Text     := IntToStr(GetUID);
         FCurrMakerID         := 0;
-        FCurrBrandNameID     := 0;
         DBLCBMaker.SetFocus;
         DBCBEndOfSales.State := cbUnchecked;
         DBCBDisabled.State   := cbUnchecked;
@@ -395,12 +381,15 @@ begin
 
   with FrmTopMenu.Defs do begin
     // Restore values of previous screen
-    SetMakerID(FMakerID);
-    SetBrandNameID(FBrandNameID);
+    //SetMakerID(FMakerID);
+    //SetBrandNameID(FBrandNameID);
 
-    if GetEntryBrandName = 0 then begin
-      FrmManageDetails         := TFrmManageDetails.Create(Application);
-      FrmManageDetails.Visible := True;
+    if GetEntryMaker = 0 then begin
+      FrmEntryMaker            := TFrmEntryMaker.Create(Application);
+      FrmEntryMaker.Visible    := True;
+    //end else if GetEntryBrandName = 0 then begin
+    //  FrmManageDetails         := TFrmManageDetails.Create(Application);
+    //  FrmManageDetails.Visible := True;
     end else if GetEntryBrandName = 1 then begin
       FrmAddDetail             := TFrmAddDetail.Create(Application);
       FrmAddDetail.Visible     := True;
