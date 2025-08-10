@@ -228,7 +228,7 @@ begin
     with Defs do begin
       if GetChangedUserDef then
       begin
-        ProcLogout;
+        ProcLogout(Sender);
       end;
     end;
     CloseAction        := caFree;

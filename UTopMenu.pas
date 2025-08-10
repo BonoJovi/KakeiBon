@@ -6,45 +6,121 @@ interface
 
 uses
   Classes, SysUtils, SQLDB, SQLite3Conn, DB, Forms, Controls, Graphics,
-  Dialogs, ExtCtrls, StdCtrls, ActnList, LCLIntf, UConsts, UDefs,
-  UEntryAdmin;
+  Dialogs, ExtCtrls, StdCtrls, ActnList, LCLIntf, UConsts, UDefs, UEntryAdmin,
+  USummary;
 
 type
 
   { TFrmTopMenu }
 
   TFrmTopMenu = class(TForm)
-    ActEntryDetails  : TAction;
-    ActionList       : TActionList;
-    ActLogin         : TAction;
-    ActLogout        : TAction;
-    ActManageExp     : TAction;
-    ActManageUser    : TAction;
-    ActQuit          : TAction;
-    ACn              : TSQLite3Connection;
-    ADS              : TDataSource;
-    AQu              : TSQLQuery;
-    ATr              : TSQLTransaction;
-    BtnEntryDetails  : TButton;
-    BtnLogin         : TButton;
-    BtnLogout        : TButton;
-    BtnManageExp     : TButton;
-    BtnManageUser    : TButton;
-    BtnQuit          : TButton;
-    PnlManageDetails : TPanel;
-    PnlLogin         : TPanel;
-    PnlLogInAndOut   : TPanel;
-    PnlLogout        : TPanel;
-    PnlEntryDetails  : TPanel;
-    PnlManageExp     : TPanel;
-    PnlManagements   : TPanel;
-    PnlManageUser    : TPanel;
-    PnlQuit          : TPanel;
-    Timer            : TTimer;
+    ACn                   : TSQLite3Connection;
+    ADS                   : TDataSource;
+    AQu                   : TSQLQuery;
+    ATr                   : TSQLTransaction;
+    ActionList            : TActionList;
+    ActEntryDetails       : TAction;
+    ActSummary            : TAction;
+    ActManageUser         : TAction;
+    ActManageExp          : TAction;
+    ActLogin              : TAction;
+    ActLogout             : TAction;
+    ActQuit               : TAction;
+    Panel1                : TPanel;
+    Panel2                : TPanel;
+    Panel3                : TPanel;
+    Panel4                : TPanel;
+    Panel5                : TPanel;
+    Panel6                : TPanel;
+    Panel7                : TPanel;
+    Panel8                : TPanel;
+    Panel9                : TPanel;
+    Panel10               : TPanel;
+    Panel11               : TPanel;
+    Panel12               : TPanel;
+    Panel13               : TPanel;
+    Panel14               : TPanel;
+    Panel15               : TPanel;
+    Panel16               : TPanel;
+    Panel17               : TPanel;
+    Panel18               : TPanel;
+    Panel19               : TPanel;
+    Panel20               : TPanel;
+    Panel21               : TPanel;
+    Panel22               : TPanel;
+    Panel23               : TPanel;
+    Panel24               : TPanel;
+    Panel25               : TPanel;
+    Panel26               : TPanel;
+    Panel27               : TPanel;
+    Panel28               : TPanel;
+    Panel29               : TPanel;
+    Panel30               : TPanel;
+    Panel31               : TPanel;
+    Panel32               : TPanel;
+    Panel33               : TPanel;
+    Panel34               : TPanel;
+    Panel35               : TPanel;
+    Panel36               : TPanel;
+    Panel37               : TPanel;
+    Panel38               : TPanel;
+    Panel39               : TPanel;
+    Panel40               : TPanel;
+    Panel41               : TPanel;
+    Panel42               : TPanel;
+    Panel43               : TPanel;
+    BtnEnterManageDetails : TPanel;
+    BtnEnterSummary       : TPanel;
+    BtnEnterManageUser    : TPanel;
+    BtnEnterManageExp     : TPanel;
+    BtnLogin              : TPanel;
+    BtnLogout             : TPanel;
+    BtnQuit               : TPanel;
+    PnlManageDetails      : TPanel;
+    PnlEntryDetails       : TPanel;
+    PnlSummary            : TPanel;
+    PnlEnterSummary       : TPanel;
+    PnlManagements        : TPanel;
+    PnlManageUser         : TPanel;
+    PnlManageExp          : TPanel;
+    PnlLogInAndOut        : TPanel;
+    PnlLogin              : TPanel;
+    PnlLogout             : TPanel;
+    PnlQuit               : TPanel;
+    Timer                 : TTimer;
+    procedure ActEntryDetailsExecute(Sender: TObject);
+    procedure ActSummaryExecute(Sender: TObject);
+    procedure ManageDetailsMouseOver(NewColor: TColor);
+    procedure BtnEnterManageDetailsMouseEnter(Sender: TObject);
+    procedure BtnEnterManageDetailsMouseLeave(Sender: TObject);
+    procedure SummaryMouseOver(NewColor: TColor);
+    procedure BtnEnterSummaryMouseEnter(Sender: TObject);
+    procedure BtnEnterSummaryMouseLeave(Sender: TObject);
+    procedure ManageUserMouseOver(NewColor: TColor);
+    procedure BtnEnterManageUserMouseEnter(Sender: TObject);
+    procedure BtnEnterManageUserMouseLeave(Sender: TObject);
+    procedure ManageExpMouseOver(NewColor: TColor);
+    procedure BtnEnterManageExpMouseEnter(Sender: TObject);
+    procedure BtnEnterManageExpMouseLeave(Sender: TObject);
+    procedure LoginMouseOver(NewColor: TColor);
+    procedure BtnLoginMouseEnter(Sender: TObject);
+    procedure BtnLoginMouseLeave(Sender: TObject);
+    procedure LogoutMouseOver(NewColor: TColor);
+    procedure BtnLogoutMouseEnter(Sender: TObject);
+    procedure BtnLogoutMouseLeave(Sender: TObject);
+    procedure QuitMouseOver(NewColor: TColor);
+    procedure BtnQuitMouseEnter(Sender: TObject);
+    procedure BtnQuitMouseLeave(Sender: TObject);
+    procedure ProcManageDetails(Sender: TObject);
+    procedure ProcSummary(Sender: TObject);
+    procedure ProcManageUser(Sender: TObject);
+    procedure ProcManageExp(Sender: TObject);
+    procedure ProcLogin(Sender: TObject);
+    procedure ProcLogout(Sender: TObject);
+    procedure ProcQuit(Sender: TObject);
     procedure SetDatabaseNames;
     procedure ActLoginExecute(Sender: TObject);
     procedure ActLogoutExecute(Sender: TObject);
-    procedure ActEntryDetailsExecute(Sender: TObject);
     procedure ActManageExpExecute(Sender: TObject);
     procedure ActManageUserExecute(Sender: TObject);
     procedure ActQuitExecute(Sender: TObject);
@@ -54,18 +130,15 @@ type
     procedure FormShow(Sender: TObject);
     procedure TimerTimer(Sender: TObject);
     function Defs: TDefs;
-    procedure ProcLogout;
   private
     FDefs            : TDefs;
     procedure CloseTransactions;
-    procedure OpenFormEntryAdmin;
+    procedure OpenFormEntryAdmin(Sender: TObject);
     procedure OpenFormOrMsgDlg(Sender: TForm; NoMessageDlg: Boolean);
-    procedure ProcEntryDetails;
-    procedure ProcLogin;
-    procedure ProcManageExp;
-    procedure ProcManageUser;
-    procedure SetPanelPosAndSize(Sender: TPanel;
-      PosTop, PosLeft, SizeHeight, SizeWidth: Longint);
+    procedure SetBtnEnterManageDetailsEnabled(IsEnable: Boolean);
+    procedure SetBtnEnterSummaryEnabled(IsEnable: Boolean);
+    procedure SetBtnEnterManageUserEnabled(IsEnable: Boolean);
+    procedure SetBtnEnterManageExpEnabled(IsEnable: Boolean);
   public
   end;
 
@@ -122,20 +195,208 @@ begin
   Result := FDefs;
 end;
 
-procedure TFrmTopMenu.ProcEntryDetails;
+procedure TFrmTopMenu.ManageDetailsMouseOver(NewColor: TColor);
+begin
+  BtnEnterManageDetails.Color := NewColor;
+  Panel37.Color               := NewColor;
+  Panel1.Color                := NewColor;
+  Panel2.Color                := NewColor;
+  Panel3.Color                := NewColor;
+  Panel4.Color                := NewColor;
+  Panel5.Color                := NewColor;
+end;
+
+procedure TFrmTopMenu.BtnEnterManageDetailsMouseEnter(Sender: TObject);
+begin
+  ManageDetailsMouseOver(clSkyBlue);
+  SummaryMouseOver(clBtnFace);
+  ManageUserMouseOver(clBtnFace);
+  ManageExpMouseOver(clBtnFace);
+  LoginMouseOver(clBtnFace);
+  LogoutMouseOver(clBtnFace);
+  QuitMouseOver(clBtnFace);
+end;
+
+procedure TFrmTopMenu.BtnEnterManageDetailsMouseLeave(Sender: TObject);
+begin
+  ManageDetailsMouseOver(clBtnFace);
+end;
+
+procedure TFrmTopMenu.SummaryMouseOver(NewColor: TColor);
+begin
+  BtnEnterSummary.Color := NewColor;
+  Panel38.Color         := NewColor;
+  Panel6.Color          := NewColor;
+  Panel7.Color          := NewColor;
+end;
+
+procedure TFrmTopMenu.BtnEnterSummaryMouseEnter(Sender: TObject);
+begin
+  ManageDetailsMouseOver(clBtnFace);
+  SummaryMouseOver(clSkyBlue);
+  ManageUserMouseOver(clBtnFace);
+  ManageExpMouseOver(clBtnFace);
+  LoginMouseOver(clBtnFace);
+  LogoutMouseOver(clBtnFace);
+  QuitMouseOver(clBtnFace);
+end;
+
+procedure TFrmTopMenu.BtnEnterSummaryMouseLeave(Sender: TObject);
+begin
+  SummaryMouseOver(clBtnFace);
+end;
+
+procedure TFrmTopMenu.ManageUserMouseOver(NewColor: TColor);
+begin
+  BtnEnterManageUser.Color := NewColor;
+  Panel39.Color            := NewColor;
+  Panel8.Color             := NewColor;
+  Panel9.Color             := NewColor;
+  Panel10.Color            := NewColor;
+  Panel11.Color            := NewColor;
+  Panel12.Color            := NewColor;
+end;
+
+procedure TFrmTopMenu.BtnEnterManageUserMouseEnter(Sender: TObject);
+begin
+  ManageDetailsMouseOver(clBtnFace);
+  SummaryMouseOver(clBtnFace);
+  ManageUserMouseOver(clSkyBlue);
+  ManageExpMouseOver(clBtnFace);
+  LoginMouseOver(clBtnFace);
+  LogoutMouseOver(clBtnFace);
+  QuitMouseOver(clBtnFace);
+end;
+
+procedure TFrmTopMenu.BtnEnterManageUserMouseLeave(Sender: TObject);
+begin
+  ManageUserMouseOver(clBtnFace);
+end;
+
+procedure TFrmTopMenu.ManageExpMouseOver(NewColor: TColor);
+begin
+  BtnEnterManageExp.Color := NewColor;
+  Panel40.Color           := NewColor;
+  Panel13.Color           := NewColor;
+  Panel14.Color           := NewColor;
+  Panel15.Color           := NewColor;
+  Panel16.Color           := NewColor;
+end;
+
+procedure TFrmTopMenu.BtnEnterManageExpMouseEnter(Sender: TObject);
+begin
+  ManageDetailsMouseOver(clBtnFace);
+  SummaryMouseOver(clBtnFace);
+  ManageUserMouseOver(clBtnFace);
+  ManageExpMouseOver(clSkyBlue);
+  LoginMouseOver(clBtnFace);
+  LogoutMouseOver(clBtnFace);
+  QuitMouseOver(clBtnFace);
+end;
+
+procedure TFrmTopMenu.BtnEnterManageExpMouseLeave(Sender: TObject);
+begin
+  ManageExpMouseOver(clBtnFace);
+end;
+
+procedure TFrmTopMenu.LoginMouseOver(NewColor: TColor);
+begin
+  BtnLogin.Color := NewColor;
+  Panel41.Color  := NewColor;
+  Panel17.Color  := NewColor;
+  Panel18.Color  := NewColor;
+  Panel19.Color  := NewColor;
+  Panel20.Color  := NewColor;
+end;
+
+procedure TFrmTopMenu.BtnLoginMouseEnter(Sender: TObject);
+begin
+  ManageDetailsMouseOver(clBtnFace);
+  SummaryMouseOver(clBtnFace);
+  ManageUserMouseOver(clBtnFace);
+  ManageExpMouseOver(clBtnFace);
+  LoginMouseOver(clSkyBlue);
+  LogoutMouseOver(clBtnFace);
+  QuitMouseOver(clBtnFace);
+end;
+
+procedure TFrmTopMenu.BtnLoginMouseLeave(Sender: TObject);
+begin
+  LoginMouseOver(clBtnFace);
+end;
+
+procedure TFrmTopMenu.LogoutMouseOver(NewColor: TColor);
+begin
+  BtnLogout.Color := NewColor;
+  Panel42.Color   := NewColor;
+  Panel21.Color   := NewColor;
+  Panel22.Color   := NewColor;
+  Panel23.Color   := NewColor;
+  Panel24.Color   := NewColor;
+  Panel25.Color   := NewColor;
+end;
+
+procedure TFrmTopMenu.BtnLogoutMouseEnter(Sender: TObject);
+begin
+  ManageDetailsMouseOver(clBtnFace);
+  SummaryMouseOver(clBtnFace);
+  ManageUserMouseOver(clBtnFace);
+  ManageExpMouseOver(clBtnFace);
+  LoginMouseOver(clBtnFace);
+  LogoutMouseOver(clSkyBlue);
+  QuitMouseOver(clBtnFace);
+end;
+
+procedure TFrmTopMenu.BtnLogoutMouseLeave(Sender: TObject);
+begin
+  LogoutMouseOver(clBtnFace);
+end;
+
+procedure TFrmTopMenu.QuitMouseOver(NewColor: TColor);
+begin
+  BtnQuit.Color := NewColor;
+  Panel43.Color := NewColor;
+  Panel26.Color := NewColor;
+  Panel27.Color := NewColor;
+  Panel28.Color := NewColor;
+  Panel29.Color := NewColor;
+  Panel30.Color := NewColor;
+  Panel31.Color := NewColor;
+  Panel32.Color := NewColor;
+  Panel33.Color := NewColor;
+  Panel34.Color := NewColor;
+  Panel35.Color := NewColor;
+  Panel36.Color := NewColor;
+end;
+
+procedure TFrmTopMenu.BtnQuitMouseEnter(Sender: TObject);
+begin
+  ManageDetailsMouseOver(clBtnFace);
+  SummaryMouseOver(clBtnFace);
+  ManageUserMouseOver(clBtnFace);
+  ManageExpMouseOver(clBtnFace);
+  LoginMouseOver(clBtnFace);
+  LogoutMouseOver(clBtnFace);
+  QuitMouseOver(clSkyBlue);
+end;
+
+procedure TFrmTopMenu.BtnQuitMouseLeave(Sender: TObject);
+begin
+  QuitMouseOver(clBtnFace);
+end;
+
+procedure TFrmTopMenu.ProcManageDetails(Sender: TObject);
 begin
   with Defs do begin
     OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20070001);
 
-    if AQu.FieldByName('COUNT').AsInteger > 0 then
-    begin
+    if AQu.FieldByName('COUNT').AsInteger > 0 then begin
       ATr.Active         := False;
 
       CloseConn(ACn, ATr);
       SetDatabaseNames;
 
-      if GetRole = 1 then
-      begin;
+      if GetRole = 1 then begin;
         FrmManageDetails := TFrmManageDetails.Create(Application);
         OpenFormOrMsgDlg(FrmManageDetails, False);
       end else begin
@@ -152,45 +413,32 @@ begin
   end;
 end;
 
-procedure TFrmTopMenu.ProcLogin;
+procedure TFrmTopMenu.ProcSummary(Sender: TObject);
 begin
-  if Not LoginFlg then
-  begin
-    FrmLogin := TFrmLogin.Create(Application);
-    OpenFormOrMsgDlg(FrmLogin, True);
+  FrmSummary := TFrmSummary.Create(Application);
+  OpenFormOrMsgDlg(FrmSummary, False);
+end;
+
+procedure TFrmTopMenu.ProcManageUser(Sender: TObject);
+begin
+  with Defs do begin
+    OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20070001);
+
+    ATr.Active      := False;
+
+    CloseConn(ACn, ATr);
+    SetDatabaseNames;
+
+    FrmManageUser     := TFrmManageUser.Create(Application);
+    OpenFormOrMsgDlg(FrmManageUser, False);
   end;
 end;
 
-procedure TFrmTopMenu.ProcLogout;
-begin
-  if LoginFlg then
-  begin
-    BtnEntryDetails.Enabled := False;
-
-    BtnManageUser.Enabled   := False;
-    BtnManageExp.Enabled    := False;
-
-    with BtnLogin do begin
-      Visible          := True;
-      Enabled          := True;
-    end;
-    with BtnLogout do begin
-      Visible          := False;
-      Enabled          := False;
-    end;
-
-    FrmTopMenu.Caption := APP_NAME;
-
-    LoginFlg           := False;
-  end;
-end;
-
-procedure TFrmTopMenu.ProcManageExp;
+procedure TFrmTopMenu.ProcManageExp(Sender: TObject);
 begin
   with Defs do begin
     OpenSelectQueryWithUserID(ACn, ADS, ATr, AQu, SQL_20070002, GetUID);
-    if AQu.FieldByName('COUNT').AsInteger > 0 then
-    begin
+    if AQu.FieldByName('COUNT').AsInteger > 0 then begin
       ATr.Active      := False;
 
       CloseConn(ACn, ATr);
@@ -209,31 +457,65 @@ begin
   end;
 end;
 
-procedure TFrmTopMenu.ProcManageUser;
+procedure TFrmTopMenu.ProcLogin(Sender: TObject);
 begin
-  with Defs do begin
-    OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20070001);
-
-    ATr.Active      := False;
-
-    CloseConn(ACn, ATr);
-    SetDatabaseNames;
-
-    FrmManageUser     := TFrmManageUser.Create(Application);
-    OpenFormOrMsgDlg(FrmManageUser, False);
+  if Not LoginFlg then begin
+    FrmLogin := TFrmLogin.Create(Application);
+    OpenFormOrMsgDlg(FrmLogin, True);
   end;
+end;
+
+procedure TFrmTopMenu.ProcLogout(Sender: TObject);
+begin
+  if LoginFlg then begin
+    SetBtnEnterManageDetailsEnabled(False);
+    SetBtnEnterSummaryEnabled(False);
+    SetBtnEnterManageUserEnabled(False);
+    SetBtnEnterManageExpEnabled(False);
+
+    with PnlLogin do begin
+      Visible          := True;
+      Enabled          := True;
+    end;
+    with BtnLogin do begin
+      Visible          := True;
+      Enabled          := True;
+    end;
+
+    with PnlLogout do begin
+      Visible          := False;
+      Enabled          := False;
+    end;
+
+    FrmTopMenu.Caption := APP_NAME;
+
+    LoginFlg           := False;
+  end;
+end;
+
+procedure TFrmTopMenu.ProcQuit(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TFrmTopMenu.ActEntryDetailsExecute(Sender: TObject);
+begin
+  ProcManageDetails(Sender);
+end;
+
+procedure TFrmTopMenu.ActSummaryExecute(Sender: TObject);
+begin
+  ProcSummary(Sender);
 end;
 
 procedure TFrmTopMenu.OpenFormOrMsgDlg(Sender: TForm; NoMessageDlg: Boolean);
 begin
   with FrmTopMenu do begin
-    if LoginFlg then
-    begin
+    if LoginFlg then begin
       Visible         := False;
       Sender.Show;
     end else begin // LoginFlg = False
-      if NoMessageDlg then
-      begin
+      if NoMessageDlg then begin
         Visible       := False;
         Sender.Show;
       end else begin // NoMessageDlg = False
@@ -243,22 +525,51 @@ begin
   end;
 end;
 
-procedure TFrmTopMenu.SetPanelPosAndSize(Sender: TPanel; PosTop, PosLeft, SizeHeight, SizeWidth: Longint);
+procedure TFrmTopMenu.SetBtnEnterManageDetailsEnabled(IsEnable: Boolean);
 begin
-  with Sender do begin
-    Top    := PosTop;
-    Left   := PosLeft;
-    Height := SizeHeight;
-    Width  := SizeWidth;
-  end;
+  BtnEnterManageDetails.Enabled := IsEnable;
+  Panel37.Enabled               := IsEnable;
+  Panel1.Enabled                := IsEnable;
+  Panel2.Enabled                := IsEnable;
+  Panel3.Enabled                := IsEnable;
+  Panel4.Enabled                := IsEnable;
+  Panel5.Enabled                := IsEnable;
 end;
 
-procedure TFrmTopMenu.OpenFormEntryAdmin;
+procedure TFrmTopMenu.SetBtnEnterSummaryEnabled(IsEnable: Boolean);
+begin
+  BtnEnterSummary.Enabled := IsEnable;
+  Panel38.Enabled         := IsEnable;
+  Panel6.Enabled          := IsEnable;
+  Panel7.Enabled          := IsEnable;
+end;
+
+procedure TFrmTopMenu.SetBtnEnterManageUserEnabled(IsEnable: Boolean);
+begin
+  BtnEnterManageUser.Enabled := IsEnable;
+  Panel39.Enabled            := IsEnable;
+  Panel8.Enabled             := IsEnable;
+  Panel9.Enabled             := IsEnable;
+  Panel10.Enabled            := IsEnable;
+  Panel11.Enabled            := IsEnable;
+  Panel12.Enabled            := IsEnable;
+end;
+
+procedure TFrmTopMenu.SetBtnEnterManageExpEnabled(IsEnable: Boolean);
+begin
+  BtnEnterManageExp.Enabled := IsEnable;
+  Panel40.Enabled           := IsEnable;
+  Panel13.Enabled           := IsEnable;
+  Panel14.Enabled           := IsEnable;
+  Panel15.Enabled           := IsEnable;
+  Panel16.Enabled           := IsEnable;
+end;
+
+procedure TFrmTopMenu.OpenFormEntryAdmin(Sender: TObject);
 begin
   with Defs do begin
-    if Not FileExists(GetDBFullPath) then
-    begin
-      ProcLogout;
+    if Not FileExists(GetDBFullPath) then begin
+      ProcLogout(Sender);
 
       FrmEntryAdmin := TFrmEntryAdmin.Create(Application);
       FrmEntryAdmin.ShowModal;
@@ -266,34 +577,29 @@ begin
   end;
 end;
 
-procedure TFrmTopMenu.ActEntryDetailsExecute(Sender: TObject);
-begin
-  ProcEntryDetails;
-end;
-
 procedure TFrmTopMenu.ActLoginExecute(Sender: TObject);
 begin
-  ProcLogin;
+  ProcLogin(Sender);
 end;
 
 procedure TFrmTopMenu.ActLogoutExecute(Sender: TObject);
 begin
-  ProcLogout;
+  ProcLogout(Sender);
 end;
 
 procedure TFrmTopMenu.ActManageExpExecute(Sender: TObject);
 begin
-  ProcManageExp;
+  ProcManageExp(Sender);
 end;
 
 procedure TFrmTopMenu.ActManageUserExecute(Sender: TObject);
 begin
-  ProcManageUser;
+  ProcManageUser(Sender);
 end;
 
 procedure TFrmTopMenu.ActQuitExecute(Sender: TObject);
 begin
-  Close;
+  ProcQuit(Sender);
 end;
 
 procedure TFrmTopMenu.FormActivate(Sender: TObject);
@@ -340,62 +646,68 @@ begin
 end;
 
 procedure TFrmTopMenu.FormShow(Sender: TObject);
-var
-  LHeight    : Longint = 52;
-  LWidth     : Longint = 572;
 begin
   FrmTopMenu.Color       := RGB(  0, 128, 128);
   PnlManageDetails.Color := RGB(192, 220, 192);
   PnlManagements.Color   := RGB(192, 220, 192);
   PnlLogInAndOut.Color   := RGB(192, 220, 192);
 
-  if LoginFlg then
-  begin
+  SetBtnEnterManageDetailsEnabled(False);
+  SetBtnEnterSummaryEnabled(False);
+  SetBtnEnterManageUserEnabled(False);
+  SetBtnEnterManageExpEnabled(False);
+
+  if LoginFlg then begin
     PnlManageUser.Color := RGB(192, 220, 192);
     PnlManageExp.Color  := RGB(192, 220, 192);
   end;
 
   with FrmTopMenu do begin
     Width  := 634;
-    Height := 374;
+    Height := 464;
   end;
 
   with Defs do begin
     if LoginFlg then begin
-      BtnManageUser.Enabled     := True;
+      SetBtnEnterManageUserEnabled(True);
 
-      if GetRole = 1 then begin;
-        BtnEntryDetails.Enabled := True;
-        BtnManageExp.Enabled    := True;
+      if GetRole = ROLE_USER then begin;
+        SetBtnEnterManageDetailsEnabled(True);
+        SetBtnEnterSummaryEnabled(True);
+        //SetBtnEnterManageUserEnabled(True);
+        SetBtnEnterManageExpEnabled(True);
       end else begin
-        BtnEntryDetails.Enabled := False;
-        BtnManageExp.Enabled    := False;
+        SetBtnEnterManageDetailsEnabled(False);
+        SetBtnEnterSummaryEnabled(False);
+        //SetBtnEnterManageUserEnabled(True);
+        SetBtnEnterManageExpEnabled(False);
       end;
 
-      BtnLogin.Enabled := False;
+      with PnlLogin do begin
+        Visible := False;
+        Enabled := False;
+      end;
 
-      BtnLogout.Enabled := True;
+      with PnlLogout do begin
+        Visible := True;
+        Enabled := True;
+      end;
     end else begin
-      BtnEntryDetails.Enabled := False;
-      BtnManageUser.Enabled   := False;
-      BtnManageExp.Enabled    := False;
+      SetBtnEnterManageDetailsEnabled(False);
+      SetBtnEnterSummaryEnabled(False);
+      SetBtnEnterManageUserEnabled(False);
+      SetBtnEnterManageExpEnabled(False);
 
-      with BtnLogin do begin
+      with PnlLogin do begin
         Visible          := True;
         Enabled          := True;
       end;
-      with BtnLogout do begin
+
+      with PnlLogout do begin
         Visible          := False;
         Enabled          := False;
       end;
     end;
-
-    SetPanelPosAndSize(PnlManageUser,    9 , 9, LHeight, LWidth + 2);
-    SetPanelPosAndSize(PnlManageExp,     64, 9, LHeight, LWidth + 2);
-    SetPanelPosAndSize(PnlEntryDetails,  9 , 9, LHeight, LWidth + 2);
-    SetPanelPosAndSize(PnlLogin,         9 , 9, LHeight, LWidth + 0);
-    SetPanelPosAndSize(PnlLogout,        9 , 9, LHeight, LWidth + 0);
-    SetPanelPosAndSize(PnlQuit,          66, 9, LHeight, LWidth + 2);
   end;
 end;
 
@@ -404,28 +716,43 @@ begin
   with Defs do begin
     if (Not Assigned(FrmEntryAdmin))
         And (Not FileExists(GetDBFullPath)) then begin
-      OpenFormEntryAdmin;
+      OpenFormEntryAdmin(Sender);
     end;
 
     if ChngdAdmUserFlg then begin
-      ProcLogout;
+      ProcLogout(Sender);
       ChngdAdmUserFlg           := False;
     end;
 
     if LoginFlg then begin
-      BtnManageUser.Enabled     := True;
-      if GetRole = 1 then begin
-        BtnEntryDetails.Enabled := True;
-        BtnManageExp.Enabled    := True;
+      SetBtnEnterManageUserEnabled(True);
+      if GetRole = ROLE_USER then begin
+        SetBtnEnterManageDetailsEnabled(True);
+        SetBtnEnterManageExpEnabled(True);
       end;
 
-      with BtnLogin do begin
+      with PnlLogin do begin
         Visible                 := False;
         Enabled                 := False;
       end;
-      with BtnLogout do begin
+
+      with PnlLogout do begin
         Visible                 := True;
         Enabled                 := True;
+      end;
+    end else begin
+      with PnlLogin do begin
+        Visible                 := True;
+        Enabled                 := True;
+      end;
+      with BtnLogin do begin
+        Visible                 := True;
+        Enabled                 := True;
+      end;
+
+      with PnlLogout do begin
+        Visible                 := False;
+        Enabled                 := False;
       end;
     end;
   end;
