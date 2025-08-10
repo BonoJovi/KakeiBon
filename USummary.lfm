@@ -9,6 +9,7 @@ object FrmSummary: TFrmSummary
   ClientWidth = 1000
   Color = clWindowFrame
   Position = poScreenCenter
+  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
