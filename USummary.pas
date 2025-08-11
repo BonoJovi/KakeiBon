@@ -89,6 +89,7 @@ procedure TFrmSummary.FormShow(Sender: TObject);
 var
   i            : Integer;
   LWidth       : Integer = 0;
+  LLeftPos     : Integer = 0;
 begin
   CloseTransactions;
   SetDatabaseNames;
@@ -109,6 +110,9 @@ begin
       FrmSummary.Width   := LWidth + 16 + 16;
     end;
   end;
+
+  LLeftPos := Trunc((Screen.Width - FrmSummary.Width) / 2);
+  FrmSummary.Left := LLeftPos;
 end;
 
 end.

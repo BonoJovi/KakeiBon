@@ -172,7 +172,6 @@ procedure TFrmEntryBrandName.ProcCommit;
 var
   LNextShopID  : Integer;
   LMakerID     : Integer;
-  LNewMakerID  : Integer;
 begin
   FDoCommit := True;
   try

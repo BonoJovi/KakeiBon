@@ -5,9 +5,9 @@ unit UManageUser;
 interface
 
 uses
-  Classes, SysUtils, SQLDB, SQLite3Conn, DB, BufDataset, Forms, Controls,
-  Graphics, Dialogs, DBGrids, StdCtrls, ExtCtrls, DBCtrls, LCLIntf, ActnList,
-  UDefs;
+  Classes, LCLType, SysUtils, SQLDB, SQLite3Conn, DB, BufDataset, Forms,
+  Controls, Graphics, Dialogs, DBGrids, StdCtrls, ExtCtrls, DBCtrls, LCLIntf,
+  ActnList, UDefs;
 
 type
 
@@ -19,7 +19,7 @@ type
     ActEditUser      : TAction;
     ActionList       : TActionList;
     ActQuit          : TAction;
-    ActDeleteUser    : TAction;
+    ActRemoveUser    : TAction;
     ADataSet         : TDataSet;
     ADBGrid          : TDBGrid;
     ADS              : TDataSource;
@@ -28,25 +28,45 @@ type
     AQuByCount       : TSQLQuery;
     ATr              : TSQLTransaction;
     ATrByCount       : TSQLTransaction;
-    BtnAddUser: TButton;
-    BtnEditAdminUser: TButton;
-    BtnEditUser: TButton;
-    BtnGoBack: TButton;
-    BtnRemoveUser: TButton;
+    BtnAddUser           : TPanel;
+    BtnEditUser: TPanel;
+    BtnRemoveUser: TPanel;
+    BtnEditAdminUser: TPanel;
+    BtnGoBack: TPanel;
     PnlAddUser       : TPanel;
     PnlEditAdminUser : TPanel;
     PnlEditUser      : TPanel;
     PnlGoBack        : TPanel;
     PnlRemoveUser    : TPanel;
-    ACn: TSQLite3Connection;
-    ACnByCount: TSQLite3Connection;
+    ACn              : TSQLite3Connection;
+    ACnByCount       : TSQLite3Connection;
     Timer            : TTimer;
+    procedure ProcAddUser(Sender: TObject);
+    procedure ProcEditUser(Sender: TObject);
+    procedure ProcRemoveUser(Sender: TObject);
+    procedure ProcEditAdminUser(Sender: TObject);
+    procedure ProcGoBack(Sender: TObject);
+    procedure AddUserMouseOver(NewColor: TColor);
+    procedure BtnAddUserEnter(Sender: TObject);
+    procedure BtnAddUserExit(Sender: TObject);
+    procedure EditUserMouseOver(NewColor: TColor);
+    procedure BtnEditUserEnter(Sender: TObject);
+    procedure BtnEditUserExit(Sender: TObject);
+    procedure RemoveUserMouseOver(NewColor: TColor);
+    procedure BtnRemoveUserEnter(Sender: TObject);
+    procedure BtnRemoveUserExit(Sender: TObject);
+    procedure EditAdminUserMouseOver(NewColor: TColor);
+    procedure BtnEditAdminUserEnter(Sender: TObject);
+    procedure BtnEditAdminUserExit(Sender: TObject);
+    procedure GoBackMouseOver(NewColor: TColor);
+    procedure BtnGoBackEnter(Sender: TObject);
+    procedure BtnGoBackExit(Sender: TObject);
     procedure ActAddUserExecute(Sender: TObject);
     procedure ActEditAdminUserExecute(Sender: TObject);
     procedure ActEditUserExecute(Sender: TObject);
     procedure ActGoBackExecute(Sender: TObject);
     procedure ActQuitExecute(Sender: TObject);
-    procedure ActDeleteUserExecute(Sender: TObject);
+    procedure ActRemoveUserExecute(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -58,13 +78,7 @@ type
     procedure EnableButton(
       AddUser, EditUser, RemoveUser, EditAdminUser: Boolean);
     procedure OpenFormOrMsgDlg(Sender: TForm);
-    procedure ProcAddUser;
-    procedure ProcEditAdminUser;
-    procedure ProcEditUser;
-    procedure ProcGoBack;
-    procedure ProcRemoveUser;
   public
-
   end;
 
 var
@@ -147,19 +161,13 @@ begin
   Sender.Show;
 end;
 
-procedure TFrmManageUser.ProcAddUser;
+procedure TFrmManageUser.ProcAddUser(Sender: TObject);
 begin
   FrmAddUser := TFrmAddUser.Create(Application);
   OpenFormOrMsgDlg(FrmAddUser);
 end;
 
-procedure TFrmManageUser.ProcEditAdminUser;
-begin
-  FrmEditAdmUser := TFrmEditAdmUser.Create(Application);
-  OpenFormOrMsgDlg(FrmEditAdmUser);
-end;
-
-procedure TFrmManageUser.ProcEditUser;
+procedure TFrmManageUser.ProcEditUser(Sender: TObject);
 begin
   if CountUser(ROLE_USER) > 0 then
   begin
@@ -170,13 +178,7 @@ begin
   end;
 end;
 
-procedure TFrmManageUser.ProcGoBack;
-begin
-  FrmTopMenu.Visible         := True;
-  FrmManageUser.Close;
-end;
-
-procedure TFrmManageUser.ProcRemoveUser;
+procedure TFrmManageUser.ProcRemoveUser(Sender: TObject);
 begin
   if CountUser(ROLE_USER) > 0 then
   begin
@@ -187,34 +189,121 @@ begin
   end;
 end;
 
-procedure TFrmManageUser.ActAddUserExecute(Sender: TObject);
+procedure TFrmManageUser.ProcEditAdminUser(Sender: TObject);
 begin
-  ProcAddUser;
+  FrmEditAdmUser := TFrmEditAdmUser.Create(Application);
+  OpenFormOrMsgDlg(FrmEditAdmUser);
 end;
 
-procedure TFrmManageUser.ActEditAdminUserExecute(Sender: TObject);
+procedure TFrmManageUser.ProcGoBack(Sender: TObject);
 begin
-  ProcEditAdminUser;
+  FrmTopMenu.Visible         := True;
+  FrmManageUser.Close;
+end;
+
+procedure TFrmManageUser.AddUserMouseOver(NewColor: TColor);
+begin
+  BtnAddUser.Color := NewColor;
+end;
+
+procedure TFrmManageUser.BtnAddUserEnter(Sender: TObject);
+begin
+  AddUserMouseOver(clSkyBlue);
+end;
+
+procedure TFrmManageUser.BtnAddUserExit(Sender: TObject);
+begin
+  AddUserMouseOver(clBtnFace);
+end;
+
+procedure TFrmManageUser.EditUserMouseOver(NewColor: TColor);
+begin
+  BtnEditUser.Color := NewColor;
+end;
+
+procedure TFrmManageUser.BtnEditUserEnter(Sender: TObject);
+begin
+  EditUserMouseOver(clSkyBlue);
+end;
+
+procedure TFrmManageUser.BtnEditUserExit(Sender: TObject);
+begin
+  EditUserMouseOver(clBtnFace);
+end;
+
+procedure TFrmManageUser.RemoveUserMouseOver(NewColor: TColor);
+begin
+  BtnRemoveUser.Color := NewColor;
+end;
+
+procedure TFrmManageUser.BtnRemoveUserEnter(Sender: TObject);
+begin
+  RemoveUserMouseOver(clSkyBlue);
+end;
+
+procedure TFrmManageUser.BtnRemoveUserExit(Sender: TObject);
+begin
+  RemoveUserMouseOver(clBtnFace);
+end;
+
+procedure TFrmManageUser.EditAdminUserMouseOver(NewColor: TColor);
+begin
+  BtnEditAdminUser.Color := NewColor;
+end;
+
+procedure TFrmManageUser.BtnEditAdminUserEnter(Sender: TObject);
+begin
+  EditAdminUserMouseOver(clSkyBlue);
+end;
+
+procedure TFrmManageUser.BtnEditAdminUserExit(Sender: TObject);
+begin
+  EditAdminUserMouseOver(clBtnFace);
+end;
+
+procedure TFrmManageUser.GoBackMouseOver(NewColor: TColor);
+begin
+  BtnGoBack.Color := NewColor;
+end;
+
+procedure TFrmManageUser.BtnGoBackEnter(Sender: TObject);
+begin
+  GoBackMouseOver(clSkyBlue);
+end;
+
+procedure TFrmManageUser.BtnGoBackExit(Sender: TObject);
+begin
+  GoBackMouseOver(clBtnFace);
+end;
+
+procedure TFrmManageUser.ActAddUserExecute(Sender: TObject);
+begin
+  ProcAddUser(Sender);
 end;
 
 procedure TFrmManageUser.ActEditUserExecute(Sender: TObject);
 begin
-  ProcEditUser;
+  ProcEditUser(Sender);
+end;
+
+procedure TFrmManageUser.ActRemoveUserExecute(Sender: TObject);
+begin
+  ProcRemoveUser(Sender);
+end;
+
+procedure TFrmManageUser.ActEditAdminUserExecute(Sender: TObject);
+begin
+  ProcEditAdminUser(Sender);
 end;
 
 procedure TFrmManageUser.ActGoBackExecute(Sender: TObject);
 begin
-  ProcGoBack;
+  ProcGoBack(Sender);
 end;
 
 procedure TFrmManageUser.ActQuitExecute(Sender: TObject);
 begin
   Close;
-end;
-
-procedure TFrmManageUser.ActDeleteUserExecute(Sender: TObject);
-begin
-  ProcRemoveUser;
 end;
 
 procedure TFrmManageUser.FormClose(
@@ -228,7 +317,7 @@ begin
     with Defs do begin
       if GetChangedUserDef then
       begin
-        ProcLogout;
+        ProcLogout(Sender);
       end;
     end;
     CloseAction        := caFree;

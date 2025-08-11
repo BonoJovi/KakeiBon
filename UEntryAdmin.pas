@@ -21,17 +21,25 @@ type
     ADS            : TDataSource;
     AQu            : TSQLQuery;
     ATr            : TSQLTransaction;
-    BtnClearPaw    : TButton;
-    BtnCommit      : TButton;
     EdtPaw         : TEdit;
     EdtPawConfirm  : TEdit;
     EdtAdminUserId : TEdit;
     LblAdminUserID : TLabel;
     LblPaw         : TLabel;
     LblPawConfirm  : TLabel;
+    BtnClearPaw: TPanel;
+    BtnCommit: TPanel;
     PnlClearPaw    : TPanel;
     PnlCommit      : TPanel;
     ACn            : TSQLite3Connection;
+    procedure ProcClearPaw(Sender: TObject);
+    procedure ProcCommit(Sender: TObject);
+    procedure ClearPawMouseOver(NewColor: TColor);
+    procedure BtnClearPawEnter(Sender: TObject);
+    procedure BtnClearPawExit(Sender: TObject);
+    procedure CommitMouseOver(NewColor: TColor);
+    procedure BtnCommitEnter(Sender: TObject);
+    procedure BtnCommitExit(Sender: TObject);
     procedure ActClearPawExecute(Sender: TObject);
     procedure ActSaveExecute(Sender: TObject);
     procedure ActQuitExecute(Sender: TObject);
@@ -42,8 +50,6 @@ type
     Defs           : TDefs;
     procedure SetDatabaseNames;
     procedure CloseTransactions;
-    procedure ProcClearPaw;
-    procedure ProcCommit;
   public
   end;
 
@@ -73,12 +79,12 @@ begin
   end;
 end;
 
-procedure TFrmEntryAdmin.ProcClearPaw;
+procedure TFrmEntryAdmin.ProcClearPaw(Sender: TObject);
 begin
   Defs.ClearPaw(EdtPaw, EdtPawConfirm);
 end;
 
-procedure TFrmEntryAdmin.ProcCommit;
+procedure TFrmEntryAdmin.ProcCommit(Sender: TObject);
 var
   AExistsDB : Boolean = False;
 begin
@@ -202,14 +208,44 @@ begin
   end;
 end;
 
+procedure TFrmEntryAdmin.ClearPawMouseOver(NewColor: TColor);
+begin
+  BtnClearPaw.Color := NewColor;
+end;
+
+procedure TFrmEntryAdmin.BtnClearPawEnter(Sender: TObject);
+begin
+  ClearPawMouseOver(clSkyBlue);
+end;
+
+procedure TFrmEntryAdmin.BtnClearPawExit(Sender: TObject);
+begin
+  ClearPawMouseOver(clBtnFace);
+end;
+
+procedure TFrmEntryAdmin.CommitMouseOver(NewColor: TColor);
+begin
+  BtnCommit.Color := NewColor;
+end;
+
+procedure TFrmEntryAdmin.BtnCommitEnter(Sender: TObject);
+begin
+  CommitMouseOver(clSkyBlue);
+end;
+
+procedure TFrmEntryAdmin.BtnCommitExit(Sender: TObject);
+begin
+  CommitMouseOver(clBtnFace);
+end;
+
 procedure TFrmEntryAdmin.ActClearPawExecute(Sender: TObject);
 begin
-  ProcClearPaw;
+  ProcClearPaw(Sender);
 end;
 
 procedure TFrmEntryAdmin.ActSaveExecute(Sender: TObject);
 begin
-  ProcCommit;
+  ProcCommit(Sender);
 end;
 
 procedure TFrmEntryAdmin.ActQuitExecute(Sender: TObject);

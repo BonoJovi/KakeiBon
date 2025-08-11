@@ -23,26 +23,37 @@ type
     ADS          : TDataSource;
     AQu          : TSQLQuery;
     ATr          : TSQLTransaction;
-    BtnCancel    : TButton;
-    BtnClearPaw  : TButton;
-    BtnLogin     : TButton;
+    BtnClearPaw  : TPanel;
     EdtPaw       : TEdit;
     EdtUserName  : TEdit;
     LblUserName  : TLabel;
     LblPaw       : TLabel;
+    BtnCancel    : TPanel;
+    BtnLogin: TPanel;
     pnlLogin     : TPanel;
     pnlCancel    : TPanel;
     pnlClearPaw  : TPanel;
     ACn: TSQLite3Connection;
+    procedure ClearPawMouseOver(NewColor: TColor);
+    procedure BtnClearPawEnter(Sender: TObject);
+    procedure BtnClearPawExit(Sender: TObject);
+    procedure CancelMouseOver(NewColor: TColor);
+    procedure BtnCancelEnter(Sender: TObject);
+    procedure BtnCancelExit(Sender: TObject);
+    procedure LoginMouseOver(NewColor: TColor);
     procedure ActCancelExecute(Sender: TObject);
     procedure ActClearPawExecute(Sender: TObject);
     procedure ActLoginExecute(Sender: TObject);
     procedure ActQuitExecute(Sender: TObject);
+    procedure EdtPawChange(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure ProcCancel;
-    procedure ProcLogin;
+    procedure BtnLoginEnter(Sender: TObject);
+    procedure BtnLoginExit(Sender: TObject);
+    procedure ProcClearPaw(Sender: TObject);
+    procedure ProcCancel(Sender: TObject);
+    procedure ProcLogin(Sender: TObject);
   private
     procedure SetDatabaseNames;
     procedure CloseTransactions;
@@ -75,14 +86,70 @@ begin
   end;
 end;
 
-procedure TFrmLogin.ProcCancel;
+procedure TFrmLogin.ClearPawMouseOver(NewColor: TColor);
+begin
+  BtnClearPaw.Color := NewColor;
+end;
+
+procedure TFrmLogin.BtnClearPawEnter(Sender: TObject);
+begin
+  ClearPawMouseOver(clSkyBlue);
+  CancelMouseOver(clBtnFace);
+  LoginMouseOver(clBtnFace);
+end;
+
+procedure TFrmLogin.BtnClearPawExit(Sender: TObject);
+begin
+  ClearPawMouseOver(clBtnFace);
+end;
+
+procedure TFrmLogin.CancelMouseOver(NewColor: TColor);
+begin
+  BtnCancel.Color := NewColor;
+end;
+
+procedure TFrmLogin.BtnCancelEnter(Sender: TObject);
+begin
+  ClearPawMouseOver(clBtnFace);
+  CancelMouseOver(clSkyBlue);
+  LoginMouseOver(clBtnFace);
+end;
+
+procedure TFrmLogin.BtnCancelExit(Sender: TObject);
+begin
+  CancelMouseOver(clBtnFace);
+end;
+
+procedure TFrmLogin.LoginMouseOver(NewColor: TColor);
+begin
+  BtnLogin.Color := NewColor;
+end;
+
+procedure TFrmLogin.BtnLoginEnter(Sender: TObject);
+begin
+  ClearPawMouseOver(clBtnFace);
+  CancelMouseOver(clBtnFace);
+    LoginMouseOver(clSkyBlue);
+end;
+
+procedure TFrmLogin.BtnLoginExit(Sender: TObject);
+begin
+  LoginMouseOver(clBtnFace);
+end;
+
+procedure TFrmLogin.ProcClearPaw(Sender: TObject);
+begin
+  EdtPaw.Clear;
+end;
+
+procedure TFrmLogin.ProcCancel(Sender: TObject);
 begin
   UTopMenu.LoginFlg  := False;
   FrmTopMenu.Visible := True;
   FrmLogin.Close;
 end;
 
-procedure TFrmLogin.ProcLogin;
+procedure TFrmLogin.ProcLogin(Sender: TObject);
 var
   LUID   : Integer;
   LUName : String;
@@ -159,12 +226,12 @@ end;
 
 procedure TFrmLogin.ActClearPawExecute(Sender: TObject);
 begin
-  EdtPaw.Clear;
+  ProcClearPaw(Sender);
 end;
 
 procedure TFrmLogin.ActLoginExecute(Sender: TObject);
 begin
-  ProcLogin;
+  ProcLogin(Sender);
 end;
 
 procedure TFrmLogin.ActQuitExecute(Sender: TObject);
@@ -172,9 +239,18 @@ begin
   Close;
 end;
 
+procedure TFrmLogin.EdtPawChange(Sender: TObject);
+begin
+  if Length(EdtPaw.Text) > 0 then begin
+    BtnClearPaw.Enabled := True;
+  end else begin
+    BtnClearPaw.Enabled := False;
+  end;
+end;
+
 procedure TFrmLogin.ActCancelExecute(Sender: TObject);
 begin
-  ProcCancel;
+  ProcCancel(Sender);
 end;
 
 procedure TFrmLogin.FormClose(
@@ -201,16 +277,13 @@ end;
 
 procedure TFrmLogin.FormShow(Sender: TObject);
 begin
-  FrmLogin.Color    := RGB(112, 168, 175);
-  pnlClearPaw.Color := RGB( 72, 122, 129);
-  pnlCancel.Color   := RGB( 72, 122, 129);
-  pnlLogin.Color    := RGB( 72, 122, 129);
+  //FrmLogin.Color    := RGB(112, 168, 175);
+  //pnlClearPaw.Color := RGB( 72, 122, 129);
+  //pnlCancel.Color   := RGB( 72, 122, 129);
+  //pnlLogin.Color    := RGB( 72, 122, 129);
 
-  BtnClearPaw.Visible := True;
-  BtnClearPaw.Enabled := True;
-  BtnCancel.Visible   := True;
+  BtnClearPaw.Enabled := False;
   BtnCancel.Enabled   := True;
-  BtnLogIn.Visible    := True;
   BtnLogIn.Enabled    := True;
 
   EdtUserName.Clear;

@@ -122,23 +122,33 @@ object FrmEntryAdmin: TFrmEntryAdmin
     ParentFont = False
     TabOrder = 3
   end
-  object BtnClearPaw: TButton
-    Cursor = crHandPoint
+  object BtnClearPaw: TPanel
+    Cursor = crCross
     Left = 24
     Height = 32
     Top = 196
     Width = 320
-    Action = ActClearPaw
+    BevelColor = clNone
+    BevelOuter = bvNone
     Caption = 'パスワードをクリア (CTRL+X)'
-    Color = clNone
+    Color = clBtnFace
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = '0xProto Nerd Font Mono'
     Font.Pitch = fpFixed
     Font.Quality = fqDraft
     Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
     ParentFont = False
+    ShowAccelChar = True
     TabOrder = 4
+    TabStop = True
+    OnClick = ProcClearPaw
+    OnEnter = BtnClearPawEnter
+    OnExit = BtnClearPawExit
+    OnMouseEnter = BtnClearPawEnter
+    OnMouseLeave = BtnClearPawExit
   end
   object PnlCommit: TPanel
     Left = 360
@@ -159,29 +169,41 @@ object FrmEntryAdmin: TFrmEntryAdmin
     ParentFont = False
     TabOrder = 5
   end
-  object BtnCommit: TButton
-    Cursor = crHandPoint
+  object BtnCommit: TPanel
+    Cursor = crCross
     Left = 368
     Height = 32
     Top = 196
     Width = 320
-    Action = ActSave
+    BevelColor = clNone
+    BevelOuter = bvNone
     Caption = '保　　　存 (CTRL+S)'
-    Color = clNone
+    Color = clBtnFace
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = '0xProto Nerd Font Mono'
     Font.Pitch = fpFixed
     Font.Quality = fqDraft
     Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
     ParentFont = False
+    ShowAccelChar = True
     TabOrder = 6
+    TabStop = True
+    OnClick = ProcCommit
+    OnEnter = BtnCommitEnter
+    OnExit = BtnCommitExit
+    OnMouseEnter = BtnCommitEnter
+    OnMouseLeave = BtnCommitExit
   end
   object ActionList: TActionList
     Left = 184
     Top = 48
     object ActClearPaw: TAction
+      AutoCheck = True
       Caption = 'ActClearPaw'
+      Checked = True
       SecondaryShortCuts.Strings = (
         'Ctrl+1'
       )
@@ -189,7 +211,9 @@ object FrmEntryAdmin: TFrmEntryAdmin
       OnExecute = ActClearPawExecute
     end
     object ActSave: TAction
+      AutoCheck = True
       Caption = 'ActSave'
+      Checked = True
       SecondaryShortCuts.Strings = (
         'Ctrl+2'
       )
@@ -197,7 +221,9 @@ object FrmEntryAdmin: TFrmEntryAdmin
       OnExecute = ActSaveExecute
     end
     object ActQuit: TAction
+      AutoCheck = True
       Caption = 'ActQuit'
+      Checked = True
       ShortCut = 16465
       OnExecute = ActQuitExecute
     end
