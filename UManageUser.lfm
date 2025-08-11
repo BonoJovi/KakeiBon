@@ -8,6 +8,9 @@ object FrmManageUser: TFrmManageUser
   ClientHeight = 424
   ClientWidth = 710
   Color = clWindowFrame
+  Font.Height = -21
+  Font.Name = '0xProto'
+  Font.Style = [fsBold]
   Position = poScreenCenter
   LCLVersion = '4.2.0.0'
   OnClose = FormClose
@@ -78,24 +81,40 @@ object FrmManageUser: TFrmManageUser
     Caption = 'ユーザの追加 (CTRL+A)'
     Color = clActiveCaption
     Enabled = False
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
+    ParentFont = False
     TabOrder = 1
   end
-  object BtnAddUser: TButton
-    Cursor = crHandPoint
+  object BtnAddUser: TPanel
+    Cursor = crCross
     Left = 24
     Height = 32
     Top = 256
     Width = 318
-    Action = ActAddUser
+    BevelColor = clNone
+    BevelOuter = bvNone
     Caption = 'ユーザの追加 (CTRL+A)'
-    Color = clNone
+    Color = clBtnFace
     Font.Height = -21
     Font.Name = '0xProto'
     Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
     ParentFont = False
+    ParentShowHint = False
+    ShowAccelChar = True
+    ShowHint = True
     TabOrder = 2
+    TabStop = True
+    OnClick = ProcAddUser
+    OnEnter = BtnAddUserEnter
+    OnExit = BtnAddUserExit
+    OnMouseEnter = BtnAddUserEnter
+    OnMouseLeave = BtnAddUserExit
   end
   object PnlEditUser: TPanel
     Left = 360
@@ -105,24 +124,40 @@ object FrmManageUser: TFrmManageUser
     Caption = 'ユーザ の編集 (CTRL+E)'
     Color = clActiveCaption
     Enabled = False
-    ParentBackground = False
-    ParentColor = False
-    TabOrder = 3
-  end
-  object BtnEditUser: TButton
-    Cursor = crHandPoint
-    Left = 368
-    Height = 32
-    Top = 256
-    Width = 318
-    Action = ActEditUser
-    Caption = 'ユーザ の編集 (CTRL+E)'
-    Color = clNone
     Font.Height = -21
     Font.Name = '0xProto'
     Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
     ParentFont = False
+    TabOrder = 3
+  end
+  object BtnEditUser: TPanel
+    Cursor = crCross
+    Left = 368
+    Height = 31
+    Top = 256
+    Width = 318
+    BevelColor = clNone
+    BevelOuter = bvNone
+    Caption = ' 　ユーザ の編集　  (CTRL+E)'
+    Color = clBtnFace
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    ParentShowHint = False
+    ShowAccelChar = True
+    ShowHint = True
     TabOrder = 4
+    TabStop = True
+    OnClick = ProcEditUser
+    OnEnter = BtnEditUserEnter
+    OnExit = BtnEditUserExit
+    OnMouseEnter = BtnEditUserEnter
+    OnMouseLeave = BtnEditUserExit
   end
   object PnlRemoveUser: TPanel
     Left = 16
@@ -132,24 +167,40 @@ object FrmManageUser: TFrmManageUser
     Caption = 'ユーザの削除 (CTRL+D)'
     Color = clActiveCaption
     Enabled = False
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
+    ParentFont = False
     TabOrder = 5
   end
-  object BtnRemoveUser: TButton
-    Cursor = crHandPoint
+  object BtnRemoveUser: TPanel
+    Cursor = crCross
     Left = 24
     Height = 32
     Top = 312
     Width = 318
-    Action = ActDeleteUser
+    BevelColor = clNone
+    BevelOuter = bvNone
     Caption = 'ユーザの削除 (CTRL+D)'
-    Color = clNone
+    Color = clBtnFace
     Font.Height = -21
     Font.Name = '0xProto'
     Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
     ParentFont = False
+    ParentShowHint = False
+    ShowAccelChar = True
+    ShowHint = True
     TabOrder = 6
+    TabStop = True
+    OnClick = ProcRemoveUser
+    OnEnter = BtnRemoveUserEnter
+    OnExit = BtnRemoveUserExit
+    OnMouseEnter = BtnRemoveUserEnter
+    OnMouseLeave = BtnRemoveUserExit
   end
   object PnlEditAdminUser: TPanel
     Left = 360
@@ -159,24 +210,40 @@ object FrmManageUser: TFrmManageUser
     Caption = '管理者ユーザの編集 (CTRL+S)'
     Color = clActiveCaption
     Enabled = False
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
+    ParentFont = False
     TabOrder = 7
   end
-  object BtnEditAdminUser: TButton
-    Cursor = crHandPoint
+  object BtnEditAdminUser: TPanel
+    Cursor = crCross
     Left = 368
     Height = 32
     Top = 312
     Width = 318
-    Action = ActEditAdminUser
+    BevelColor = clNone
+    BevelOuter = bvNone
     Caption = '管理者ユーザの編集 (CTRL+S)'
-    Color = clNone
+    Color = clBtnFace
     Font.Height = -21
     Font.Name = '0xProto'
     Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
     ParentFont = False
+    ParentShowHint = False
+    ShowAccelChar = True
+    ShowHint = True
     TabOrder = 8
+    TabStop = True
+    OnClick = ProcEditAdminUser
+    OnEnter = BtnEditAdminUserEnter
+    OnExit = BtnEditAdminUserExit
+    OnMouseEnter = BtnEditAdminUserEnter
+    OnMouseLeave = BtnEditAdminUserExit
   end
   object PnlGoBack: TPanel
     Left = 16
@@ -186,24 +253,40 @@ object FrmManageUser: TFrmManageUser
     Caption = '前の画面に戻る (CTRL+Q)'
     Color = clActiveCaption
     Enabled = False
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
+    ParentFont = False
     TabOrder = 9
   end
-  object BtnGoBack: TButton
-    Cursor = crHandPoint
+  object BtnGoBack: TPanel
+    Cursor = crCross
     Left = 24
     Height = 32
     Top = 368
     Width = 662
-    Action = ActQuit
+    BevelColor = clNone
+    BevelOuter = bvNone
     Caption = '前の画面に戻る (CTRL+Q)'
-    Color = clNone
+    Color = clBtnFace
     Font.Height = -21
     Font.Name = '0xProto'
     Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
     ParentFont = False
+    ParentShowHint = False
+    ShowAccelChar = True
+    ShowHint = True
     TabOrder = 10
+    TabStop = True
+    OnClick = ProcEditAdminUser
+    OnEnter = BtnGoBackEnter
+    OnExit = BtnGoBackExit
+    OnMouseEnter = BtnGoBackEnter
+    OnMouseLeave = BtnGoBackExit
   end
   object Timer: TTimer
     OnTimer = TimerTimer
@@ -214,7 +297,9 @@ object FrmManageUser: TFrmManageUser
     Left = 32
     Top = 96
     object ActAddUser: TAction
+      AutoCheck = True
       Caption = 'ActAddUser'
+      Checked = True
       SecondaryShortCuts.Strings = (
         'Ctrl+1'
       )
@@ -222,23 +307,29 @@ object FrmManageUser: TFrmManageUser
       OnExecute = ActAddUserExecute
     end
     object ActEditUser: TAction
+      AutoCheck = True
       Caption = 'ActEditUser'
+      Checked = True
       SecondaryShortCuts.Strings = (
         'Ctrl+2'
       )
       ShortCut = 16453
       OnExecute = ActEditUserExecute
     end
-    object ActDeleteUser: TAction
-      Caption = 'ActDeleteUser'
+    object ActRemoveUser: TAction
+      AutoCheck = True
+      Caption = 'ActRemoveUser'
+      Checked = True
       SecondaryShortCuts.Strings = (
         'Ctrl+3'
       )
       ShortCut = 16452
-      OnExecute = ActDeleteUserExecute
+      OnExecute = ActRemoveUserExecute
     end
     object ActEditAdminUser: TAction
+      AutoCheck = True
       Caption = 'ActEditAdminUser'
+      Checked = True
       SecondaryShortCuts.Strings = (
         'Ctrl+4'
       )
@@ -246,7 +337,9 @@ object FrmManageUser: TFrmManageUser
       OnExecute = ActEditAdminUserExecute
     end
     object ActQuit: TAction
+      AutoCheck = True
       Caption = 'ActQuit'
+      Checked = True
       SecondaryShortCuts.Strings = (
         'Ctrl+5'
       )

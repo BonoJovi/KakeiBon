@@ -106,6 +106,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
+        <TopLine Value="30"/>
+        <CursorPos Y="39"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
@@ -152,13 +154,10 @@
         <ComponentName Value="FrmLogin"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
-        <TopLine Value="247"/>
-        <CursorPos X="28" Y="254"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="119"/>
+        <CursorPos X="23" Y="122"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UManageDetails.pas"/>
@@ -184,10 +183,13 @@
         <ComponentName Value="FrmManageUser"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="223"/>
-        <CursorPos X="27" Y="231"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="37"/>
+        <CursorPos Y="44"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="URemoveUser.pas"/>
@@ -213,7 +215,7 @@
       <Unit>
         <Filename Value="UConsts.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="1"/>
         <CursorPos X="45" Y="12"/>
         <UsageCount Value="203"/>
         <Loaded Value="True"/>
@@ -227,7 +229,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="103"/>
         <CursorPos Y="113"/>
-        <UsageCount Value="113"/>
+        <UsageCount Value="120"/>
       </Unit>
       <Unit>
         <Filename Value="../../../Software/Development/Lazarus-IDE/lazarus/lcl/include/customform.inc"/>
@@ -394,121 +396,122 @@
     </Units>
     <JumpHistory HistoryIndex="29">
       <Position>
-        <Filename Value="ULogin.pas"/>
-        <Caret Line="46" TopLine="36"/>
+        <Filename Value="UManageUser.pas"/>
+        <Caret Line="228" Column="3" TopLine="215"/>
       </Position>
       <Position>
-        <Filename Value="ULogin.pas"/>
-        <Caret Line="81" Column="3" TopLine="66"/>
+        <Filename Value="UManageUser.pas"/>
+        <Caret Line="238" Column="3" TopLine="236"/>
       </Position>
       <Position>
-        <Filename Value="ULogin.pas"/>
+        <Filename Value="UManageUser.pas"/>
+        <Caret Line="237" Column="3" TopLine="235"/>
       </Position>
       <Position>
-        <Filename Value="ULogin.pas"/>
-        <Caret Line="81" Column="23" TopLine="66"/>
+        <Filename Value="UManageUser.pas"/>
+        <Caret Line="263" Column="3" TopLine="261"/>
       </Position>
       <Position>
-        <Filename Value="ULogin.pas"/>
-        <Caret Line="44" Column="29" TopLine="36"/>
+        <Filename Value="UManageUser.pas"/>
+        <Caret Line="165" Column="3" TopLine="163"/>
       </Position>
       <Position>
-        <Filename Value="ULogin.pas"/>
-        <Caret Line="80" Column="21" TopLine="65"/>
+        <Filename Value="UManageUser.pas"/>
+        <Caret Line="243" Column="30" TopLine="227"/>
       </Position>
       <Position>
-        <Filename Value="ULogin.pas"/>
-        <Caret Line="184" Column="3" TopLine="182"/>
+        <Filename Value="UManageUser.pas"/>
+        <Caret Line="236" Column="3" TopLine="228"/>
       </Position>
       <Position>
-        <Filename Value="ULogin.pas"/>
-        <Caret Line="187" Column="29" TopLine="179"/>
+        <Filename Value="UManageUser.pas"/>
+        <Caret Line="259" Column="32" TopLine="243"/>
       </Position>
       <Position>
-        <Filename Value="ULogin.pas"/>
-        <Caret Line="226" TopLine="223"/>
+        <Filename Value="UManageUser.pas"/>
+        <Caret Line="253" Column="3" TopLine="244"/>
       </Position>
       <Position>
-        <Filename Value="ULogin.pas"/>
-        <Caret Line="240" Column="3" TopLine="56"/>
+        <Filename Value="UManageUser.pas"/>
+        <Caret Line="258" Column="3" TopLine="244"/>
       </Position>
       <Position>
-        <Filename Value="ULogin.pas"/>
-        <Caret Line="244" TopLine="227"/>
+        <Filename Value="UManageUser.pas"/>
+        <Caret Line="280" TopLine="267"/>
       </Position>
       <Position>
-        <Filename Value="ULogin.pas"/>
-        <Caret Line="98" Column="30" TopLine="81"/>
+        <Filename Value="UManageUser.pas"/>
+        <Caret Line="200" Column="36" TopLine="192"/>
       </Position>
       <Position>
-        <Filename Value="ULogin.pas"/>
-        <Caret Line="94" Column="28" TopLine="81"/>
+        <Filename Value="UManageUser.pas"/>
       </Position>
       <Position>
-        <Filename Value="ULogin.pas"/>
-        <Caret Line="83" TopLine="73"/>
+        <Filename Value="UManageUser.pas"/>
+        <Caret Line="63" TopLine="51"/>
       </Position>
       <Position>
-        <Filename Value="ULogin.pas"/>
-        <Caret Line="34" TopLine="34"/>
+        <Filename Value="UManageUser.pas"/>
+        <Caret Line="172" Column="3" TopLine="169"/>
       </Position>
       <Position>
-        <Filename Value="ULogin.pas"/>
-        <Caret Line="92" Column="3" TopLine="89"/>
+        <Filename Value="UManageUser.pas"/>
+        <Caret Line="177" Column="3" TopLine="169"/>
       </Position>
       <Position>
-        <Filename Value="ULogin.pas"/>
-        <Caret Line="101" Column="7" TopLine="92"/>
+        <Filename Value="UManageUser.pas"/>
+        <Caret Line="67" TopLine="52"/>
       </Position>
       <Position>
-        <Filename Value="ULogin.pas"/>
-        <Caret Line="113" TopLine="107"/>
+        <Filename Value="UManageUser.pas"/>
+        <Caret Line="144" Column="5" TopLine="133"/>
       </Position>
       <Position>
-        <Filename Value="ULogin.pas"/>
+        <Filename Value="UManageUser.pas"/>
+        <Caret Line="306" Column="22" TopLine="298"/>
       </Position>
       <Position>
-        <Filename Value="ULogin.pas"/>
-        <Caret Line="113" TopLine="98"/>
+        <Filename Value="UManageUser.pas"/>
+        <Caret Line="286" Column="31" TopLine="270"/>
       </Position>
       <Position>
-        <Filename Value="ULogin.pas"/>
-        <Caret Line="199" Column="15" TopLine="191"/>
+        <Filename Value="UManageUser.pas"/>
+        <Caret Line="209" Column="61" TopLine="201"/>
       </Position>
       <Position>
-        <Filename Value="ULogin.pas"/>
+        <Filename Value="UManageUser.pas"/>
       </Position>
       <Position>
-        <Filename Value="ULogin.pas"/>
-        <Caret Line="50" Column="27" TopLine="36"/>
+        <Filename Value="UManageUser.pas"/>
+        <Caret Line="49" Column="50" TopLine="36"/>
       </Position>
       <Position>
-        <Filename Value="ULogin.pas"/>
-        <Caret Line="106" Column="40" TopLine="95"/>
+        <Filename Value="UManageUser.pas"/>
+        <Caret Line="210" TopLine="194"/>
       </Position>
       <Position>
-        <Filename Value="ULogin.pas"/>
-        <Caret Line="204" Column="27" TopLine="197"/>
+        <Filename Value="UManageUser.pas"/>
+        <Caret Line="211" TopLine="195"/>
       </Position>
       <Position>
-        <Filename Value="ULogin.pas"/>
-        <Caret Line="205" Column="27" TopLine="198"/>
+        <Filename Value="UManageUser.pas"/>
+        <Caret Line="210" TopLine="194"/>
       </Position>
       <Position>
-        <Filename Value="ULogin.pas"/>
-        <Caret Line="204" Column="6" TopLine="198"/>
+        <Filename Value="UManageUser.pas"/>
+        <Caret Line="211" Column="36" TopLine="202"/>
       </Position>
       <Position>
-        <Filename Value="ULogin.pas"/>
-        <Caret Line="257" Column="17" TopLine="251"/>
+        <Filename Value="UManageUser.pas"/>
+        <Caret Line="175" Column="12" TopLine="172"/>
       </Position>
       <Position>
-        <Filename Value="ULogin.pas"/>
-        <Caret Line="256" Column="17" TopLine="250"/>
+        <Filename Value="UManageUser.pas"/>
+        <Caret Line="10" Column="13"/>
       </Position>
       <Position>
-        <Filename Value="ULogin.pas"/>
-        <Caret Line="255" Column="17" TopLine="249"/>
+        <Filename Value="UManageUser.pas"/>
+        <Caret Line="171" TopLine="168"/>
       </Position>
     </JumpHistory>
     <RunParams>
@@ -516,4 +519,15 @@
       <Modes ActiveMode=""/>
     </RunParams>
   </ProjectSession>
+  <Debugging>
+    <BreakPoints>
+      <Item>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="UManageUser.pas"/>
+        <Line Value="169"/>
+      </Item>
+    </BreakPoints>
+  </Debugging>
 </CONFIG>

@@ -5,11 +5,12 @@ object FrmLogin: TFrmLogin
   Width = 585
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
-  Caption = 'ログイン'
   ClientHeight = 258
   ClientWidth = 585
   Color = clWindowFrame
-  ParentFont = True
+  Font.Height = -21
+  Font.Name = '0xProto'
+  Font.Style = [fsBold]
   PopupMode = pmAuto
   Position = poScreenCenter
   OnClose = FormClose
@@ -21,11 +22,8 @@ object FrmLogin: TFrmLogin
     Top = 24
     Width = 84
     Caption = 'ユーザ名'
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpFixed
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
@@ -49,11 +47,8 @@ object FrmLogin: TFrmLogin
     Top = 81
     Width = 105
     Caption = 'パスワード'
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpFixed
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
@@ -74,6 +69,7 @@ object FrmLogin: TFrmLogin
     ShowHint = True
     TabOrder = 1
     Text = 'EdtPaw'
+    OnChange = EdtPawChange
   end
   object pnlClearPaw: TPanel
     Left = 16
@@ -83,109 +79,125 @@ object FrmLogin: TFrmLogin
     Caption = 'パスワードをクリア (CTRL+X)'
     Color = clActiveCaption
     Enabled = False
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto Nerd Font Mono'
-    Font.Pitch = fpFixed
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
     ParentFont = False
     TabOrder = 2
   end
+  object BtnClearPaw: TPanel
+    Cursor = crCross
+    Left = 24
+    Height = 32
+    Top = 146
+    Width = 537
+    BevelColor = clNone
+    BevelOuter = bvNone
+    Caption = 'パスワードをクリア (CTRL+X)'
+    Color = clBtnFace
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    ParentShowHint = False
+    ShowAccelChar = True
+    ShowHint = True
+    TabOrder = 3
+    TabStop = True
+    OnClick = ProcClearPaw
+    OnEnter = BtnClearPawEnter
+    OnExit = BtnClearPawExit
+    OnMouseEnter = BtnClearPawEnter
+    OnMouseLeave = BtnClearPawExit
+  end
   object pnlCancel: TPanel
     Left = 16
     Height = 48
     Top = 194
-    Width = 271
+    Width = 272
     Caption = 'キャンセル (CTRL+C)'
     Color = clActiveCaption
     Enabled = False
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto Nerd Font Mono'
-    Font.Pitch = fpFixed
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
     ParentFont = False
     TabOrder = 4
   end
+  object BtnCancel: TPanel
+    Cursor = crCross
+    Left = 24
+    Height = 32
+    Top = 202
+    Width = 256
+    BevelColor = clNone
+    BevelOuter = bvNone
+    Caption = 'キャンセル (CTRL+C)'
+    Color = clBtnFace
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    ParentShowHint = False
+    ShowAccelChar = True
+    ShowHint = True
+    TabOrder = 5
+    TabStop = True
+    OnClick = ProcCancel
+    OnEnter = BtnCancelEnter
+    OnExit = BtnCancelExit
+    OnMouseEnter = BtnCancelEnter
+    OnMouseLeave = BtnCancelExit
+  end
   object pnlLogin: TPanel
-    Left = 296
+    Left = 297
     Height = 48
     Top = 194
-    Width = 273
+    Width = 272
     Caption = 'ログイン (CTRL+I)'
     Color = clActiveCaption
     Enabled = False
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto Nerd Font Mono'
-    Font.Pitch = fpFixed
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
     ParentFont = False
     TabOrder = 6
   end
-  object BtnLogin: TButton
-    Cursor = crHandPoint
-    Left = 304
+  object BtnLogin: TPanel
+    Left = 305
     Height = 32
     Top = 202
     Width = 256
-    Action = ActLogin
+    BevelColor = clNone
+    BevelOuter = bvNone
     Caption = 'ログイン (CTRL+I)'
-    Color = clMenuHighlight
-    Default = True
-    Font.CharSet = ANSI_CHARSET
+    Color = clBtnFace
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpFixed
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
     ParentFont = False
+    ParentShowHint = False
+    ShowAccelChar = True
+    ShowHint = True
     TabOrder = 7
-  end
-  object BtnCancel: TButton
-    Cursor = crHandPoint
-    Left = 24
-    Height = 32
-    Top = 202
-    Width = 256
-    Action = ActCancel
-    Caption = 'キャンセル (CTRL+C)'
-    Color = clNone
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpFixed
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
-    TabOrder = 5
-  end
-  object BtnClearPaw: TButton
-    Cursor = crHandPoint
-    Left = 24
-    Height = 32
-    Top = 146
-    Width = 536
-    Action = ActClearPaw
-    Caption = 'パスワードをクリア (CTRL+X)'
-    Color = clMenuHighlight
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpFixed
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
-    TabOrder = 3
+    TabStop = True
+    OnClick = ProcLogin
+    OnEnter = BtnLoginEnter
+    OnExit = BtnLoginExit
+    OnMouseEnter = BtnLoginEnter
+    OnMouseLeave = BtnLoginExit
   end
   object ActionList: TActionList
     Left = 144
