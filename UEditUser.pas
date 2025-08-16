@@ -28,9 +28,6 @@ type
     ActSave          : TAction;
     ActQuit            : TAction;
     ADBGrid            : TDBGrid;
-    BtnCancel          : TButton;
-    BtnClearPaw        : TButton;
-    BtnCommit          : TButton;
     DBNavigator        : TDBNavigator;
     DBTextFromUserName : TDBText;
     DBTextUserID       : TDBText;
@@ -44,11 +41,26 @@ type
     LblUserName        : TLabel;
     LblUserName1       : TLabel;
     LblUserID          : TLabel;
+    BtnClearPaw: TPanel;
+    BtnCancel: TPanel;
+    BtnSave: TPanel;
     PnlCancel          : TPanel;
     PnlClearPaw        : TPanel;
     PnlCommit          : TPanel;
-    procedure ActCancelExecute(Sender: TObject);
+    procedure ProcClearPaw(Sender: TObject);
+    procedure ProcCancel(Sender: TObject);
+    procedure ProcSave(Sender: TObject);
+    procedure ClearPawMouseOver(NewColor: TColor);
+    procedure BtnClearPawEnter(Sender: TObject);
+    procedure BtnClearPawExit(Sender: TObject);
+    procedure CancelMouseOver(NewColor: TColor);
+    procedure BtnCancelEnter(Sender: TObject);
+    procedure BtnCancelExit(Sender: TObject);
+    procedure SaveMouseOver(NewColor: TColor);
+    procedure BtnSaveEnter(Sender: TObject);
+    procedure BtnSaveExit(Sender: TObject);
     procedure ActClearPawExecute(Sender: TObject);
+    procedure ActCancelExecute(Sender: TObject);
     procedure ActSaveExecute(Sender: TObject);
     procedure ActQuitExecute(Sender: TObject);
     procedure EdtToUserNameChange(Sender: TObject);
@@ -64,9 +76,6 @@ type
     function CheckSQuoteInPAW: Boolean;
     function CheckSQuoteInUName: Boolean;
     procedure EdtPawChange(Sender: TObject);
-    procedure ProcCancel;
-    procedure ProcClearPaw;
-    procedure ProcCommit;
   public
   end;
 
@@ -200,20 +209,20 @@ begin
   end;
 end;
 
-procedure TFrmEditUser.ProcCancel;
-begin
-  FrmManageUser.Visible := True;
-  FrmEditUser.close;
-end;
-
-procedure TFrmEditUser.ProcClearPaw;
+procedure TFrmEditUser.ProcClearPaw(Sender: TObject);
 begin
   with FrmTopMenu.Defs do begin
     ClearPaw(nil, EdtPaw);
   end;
 end;
 
-procedure TFrmEditUser.ProcCommit;
+procedure TFrmEditUser.ProcCancel(Sender: TObject);
+begin
+  FrmManageUser.Visible := True;
+  FrmEditUser.close;
+end;
+
+procedure TFrmEditUser.ProcSave(Sender: TObject);
 var
   LSql           : String;
   LUserID        : String;
@@ -315,19 +324,70 @@ begin
   end;
 end;
 
-procedure TFrmEditUser.ActCancelExecute(Sender: TObject);
+procedure TFrmEditUser.ClearPawMouseOver(NewColor: TColor);
 begin
-  ProcCancel;
+  BtnClearPaw.Color := NewColor;
+end;
+
+procedure TFrmEditUser.BtnClearPawEnter(Sender: TObject);
+begin
+  ClearPawMouseOver(clSkyBlue);
+  CancelMouseOver(clBtnFace);
+  SaveMouseOver(clBtnFace);
+end;
+
+procedure TFrmEditUser.BtnClearPawExit(Sender: TObject);
+begin
+  ClearPawMouseOver(clBtnFace);
+end;
+
+procedure TFrmEditUser.CancelMouseOver(NewColor: TColor);
+begin
+  BtnCancel.Color := NewColor;
+end;
+
+procedure TFrmEditUser.BtnCancelEnter(Sender: TObject);
+begin
+  ClearPawMouseOver(clBtnFace);
+  CancelMouseOver(clSkyBlue);
+  SaveMouseOver(clBtnFace);
+end;
+
+procedure TFrmEditUser.BtnCancelExit(Sender: TObject);
+begin
+  CancelMouseOver(clBtnFace);
+end;
+
+procedure TFrmEditUser.SaveMouseOver(NewColor: TColor);
+begin
+  BtnSave.Color := NewColor;
+end;
+
+procedure TFrmEditUser.BtnSaveEnter(Sender: TObject);
+begin
+  ClearPawMouseOver(clBtnFace);
+  CancelMouseOver(clBtnFace);
+  SaveMouseOver(clSkyBlue);
+end;
+
+procedure TFrmEditUser.BtnSaveExit(Sender: TObject);
+begin
+  SaveMouseOver(clBtnFace);
 end;
 
 procedure TFrmEditUser.ActClearPawExecute(Sender: TObject);
 begin
-  ProcClearPaw;
+  ProcClearPaw(Sender);
+end;
+
+procedure TFrmEditUser.ActCancelExecute(Sender: TObject);
+begin
+  ProcCancel(Sender);
 end;
 
 procedure TFrmEditUser.ActSaveExecute(Sender: TObject);
 begin
-  ProcCommit;
+  ProcSave(Sender);
 end;
 
 procedure TFrmEditUser.ActQuitExecute(Sender: TObject);

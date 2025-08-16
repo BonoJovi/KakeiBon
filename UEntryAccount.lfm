@@ -158,24 +158,38 @@ object FrmEntryAccount: TFrmEntryAccount
     Caption = '新規登録 (CTRL+1)'
     Color = clActiveCaption
     Enabled = False
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
+    ParentFont = False
     TabOrder = 3
   end
-  object BtnInsert: TButton
-    Cursor = crHandPoint
+  object BtnInsert: TPanel
+    Cursor = crCross
     Left = 270
     Height = 31
     Top = 368
     Width = 272
-    Action = ActInsert
+    BevelColor = clNone
+    BevelOuter = bvNone
     Caption = '新規登録 (CTRL+1)'
-    Color = clMenuHighlight
+    Color = clBtnFace
     Font.Height = -21
     Font.Name = '0xProto'
     Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
     ParentFont = False
+    ShowAccelChar = True
     TabOrder = 4
+    TabStop = True
+    OnClick = ActInsertExecute
+    OnEnter = BtnInsertEnter
+    OnExit = BtnInsertExit
+    OnMouseEnter = BtnInsertEnter
+    OnMouseLeave = BtnInsertExit
   end
   object LblBrandName1: TLabel
     Left = 16
@@ -454,22 +468,32 @@ object FrmEntryAccount: TFrmEntryAccount
     ParentFont = False
     TabOrder = 11
   end
-  object BtnCancel: TButton
-    Cursor = crHandPoint
+  object BtnCancel: TPanel
+    Cursor = crCross
     Left = 24
     Height = 32
     Top = 775
     Width = 320
-    Action = ActCancel
+    BevelColor = clNone
+    BevelOuter = bvNone
     Caption = 'キャンセル (CTRL+C)'
-    Color = clMenuHighlight
+    Color = clBtnFace
     Font.Height = -21
     Font.Name = '0xProto'
     Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
     ParentFont = False
+    ShowAccelChar = True
     TabOrder = 12
+    TabStop = True
+    OnClick = ActCancelExecute
+    OnEnter = BtnCancelEnter
+    OnExit = BtnCancelExit
+    OnMouseEnter = BtnCancelEnter
+    OnMouseLeave = BtnCancelExit
   end
-  object PnlCommit: TPanel
+  object PnlSave: TPanel
     Left = 356
     Height = 48
     Top = 767
@@ -485,20 +509,30 @@ object FrmEntryAccount: TFrmEntryAccount
     ParentFont = False
     TabOrder = 13
   end
-  object BtnCommit: TButton
-    Cursor = crHandPoint
+  object BtnSave: TPanel
+    Cursor = crCross
     Left = 364
     Height = 32
     Top = 775
     Width = 320
-    Action = ActSave
+    BevelColor = clNone
+    BevelOuter = bvNone
     Caption = '保　　　存 (CTRL+S)'
-    Color = clMenuHighlight
+    Color = clBtnFace
     Font.Height = -21
     Font.Name = '0xProto'
     Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
     ParentFont = False
+    ShowAccelChar = True
     TabOrder = 14
+    TabStop = True
+    OnClick = ActSaveExecute
+    OnEnter = BtnSaveEnter
+    OnExit = BtnSaveExit
+    OnMouseEnter = BtnSaveEnter
+    OnMouseLeave = BtnSaveExit
   end
   object PnlGoBack: TPanel
     Left = 16
@@ -516,20 +550,30 @@ object FrmEntryAccount: TFrmEntryAccount
     ParentFont = False
     TabOrder = 15
   end
-  object BtnGoBack: TButton
-    Cursor = crHandPoint
+  object BtnGoBack: TPanel
+    Cursor = crCross
     Left = 24
     Height = 32
     Top = 831
     Width = 660
-    Action = ActQuit
+    BevelColor = clNone
+    BevelOuter = bvNone
     Caption = '前の画面に戻る (CTRL+Q)'
-    Color = clMenuHighlight
+    Color = clBtnFace
     Font.Height = -21
     Font.Name = '0xProto'
     Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
     ParentFont = False
+    ShowAccelChar = True
     TabOrder = 16
+    TabStop = True
+    OnClick = ActQuitExecute
+    OnEnter = BtnGoBackEnter
+    OnExit = BtnGoBackExit
+    OnMouseEnter = BtnGoBackEnter
+    OnMouseLeave = BtnGoBackExit
   end
   object DBDTPEntryDT: TDBDateTimePicker
     Left = 176

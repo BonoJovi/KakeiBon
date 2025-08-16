@@ -15,15 +15,12 @@ type
   TFrmAddUser = class(TForm)
     ActCancel     : TAction;
     ActClearPaw   : TAction;
-    ActSave     : TAction;
+    ActSave       : TAction;
     ActionList    : TActionList;
     ActQuit       : TAction;
     ADS           : TDataSource;
     ATr           : TSQLTransaction;
     AQu           : TSQLQuery;
-    BtnCancel     : TButton;
-    BtnClearPaw   : TButton;
-    BtnCommit     : TButton;
     EdtPaw        : TEdit;
     EdtPawConfirm : TEdit;
     EdtUserName   : TEdit;
@@ -33,10 +30,25 @@ type
     LblUserID2    : TLabel;
     LblUserID3    : TLabel;
     LblUserID4    : TLabel;
+    BtnClearPaw   : TPanel;
+    BtnCancel: TPanel;
+    BtnSave: TPanel;
     PnlCancel     : TPanel;
     PnlClearPass  : TPanel;
-    PnlCommit     : TPanel;
+    PnlSave     : TPanel;
     ACn           : TSQLite3Connection;
+    procedure ProcClearPaw(Sender: TObject);
+    procedure ProcCancel(Sender: TObject);
+    procedure ProcSave(Sender: TObject);
+    procedure ClearPawMouseOver(NewColor: TColor);
+    procedure BtnClearPawEnter(Sender: TObject);
+    procedure BtnClearPawExit(Sender: TObject);
+    procedure CancelMouseOver(NewColor: TColor);
+    procedure BtnCancelEnter(Sender: TObject);
+    procedure BtnCancelExit(Sender: TObject);
+    procedure SaveMouseOver(NewColor: TColor);
+    procedure BtnSaveEnter(Sender: TObject);
+    procedure BtnSaveExit(Sender: TObject);
     procedure ActCancelExecute(Sender: TObject);
     procedure ActClearPawExecute(Sender: TObject);
     procedure ActSaveExecute(Sender: TObject);
@@ -49,9 +61,6 @@ type
     procedure CloseTransactions;
     procedure CallInsertSQL(UserID: Integer; SQLStr: String);
     procedure CallInsertSQLWithoutUserID(SQLStr: String);
-    procedure ProcCancel;
-    procedure ProcClearPaw;
-    procedure ProcCommit;
   public
 
   end;
@@ -104,20 +113,20 @@ begin
   end;
 end;
 
-procedure TFrmAddUser.ProcCancel;
+procedure TFrmAddUser.ProcCancel(Sender: TObject);
 begin
   FrmManageUser.Visible := True;
   FrmAddUser.close;
 end;
 
-procedure TFrmAddUser.ProcClearPaw;
+procedure TFrmAddUser.ProcClearPaw(Sender: TObject);
 begin
   with FrmTopMenu.Defs do begin
     ClearPaw(EdtPaw, EdtPawConfirm);
   end;
 end;
 
-procedure TFrmAddUser.ProcCommit;
+procedure TFrmAddUser.ProcSave(Sender: TObject);
 var
   LUserID   : Integer;
 begin
@@ -401,24 +410,75 @@ begin
   end;
 end;
 
+procedure TFrmAddUser.ClearPawMouseOver(NewColor: TColor);
+begin
+  BtnClearPaw.Color := NewColor;
+end;
+
+procedure TFrmAddUser.BtnClearPawEnter(Sender: TObject);
+begin
+  ClearPawMouseOver(clSkyBlue);
+  CancelMouseOver(clBtnFace);
+  SaveMouseOver(clBtnFace);
+end;
+
+procedure TFrmAddUser.BtnClearPawExit(Sender: TObject);
+begin
+  ClearPawMouseOver(clBtnFace);
+end;
+
+procedure TFrmAddUser.CancelMouseOver(NewColor: TColor);
+begin
+  BtnCancel.Color := NewColor;
+end;
+
+procedure TFrmAddUser.BtnCancelEnter(Sender: TObject);
+begin
+  ClearPawMouseOver(clBtnFace);
+  CancelMouseOver(clSkyBlue);
+  SaveMouseOver(clBtnFace);
+end;
+
+procedure TFrmAddUser.BtnCancelExit(Sender: TObject);
+begin
+  CancelMouseOver(clBtnFace);
+end;
+
+procedure TFrmAddUser.SaveMouseOver(NewColor: TColor);
+begin
+  BtnSave.Color := NewColor;
+end;
+
+procedure TFrmAddUser.BtnSaveEnter(Sender: TObject);
+begin
+  ClearPawMouseOver(clBtnFace);
+  CancelMouseOver(clBtnFace);
+  SaveMouseOver(clSkyBlue);
+end;
+
+procedure TFrmAddUser.BtnSaveExit(Sender: TObject);
+begin
+  SaveMouseOver(clBtnFace);
+end;
+
 procedure TFrmAddUser.ActClearPawExecute(Sender: TObject);
 begin
-  ProcClearPaw;
+  ProcClearPaw(Sender);
+end;
+
+procedure TFrmAddUser.ActCancelExecute(Sender: TObject);
+begin
+  ProcCancel(Sender);
 end;
 
 procedure TFrmAddUser.ActSaveExecute(Sender: TObject);
 begin
-  ProcCommit;
+  ProcSave(Sender);
 end;
 
 procedure TFrmAddUser.ActQuitExecute(Sender: TObject);
 begin
   Close;
-end;
-
-procedure TFrmAddUser.ActCancelExecute(Sender: TObject);
-begin
-  ProcCancel;
 end;
 
 procedure TFrmAddUser.FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -446,7 +506,7 @@ begin
   FrmAddUser.Color   := RGB(112, 168, 175);
   PnlClearPass.Color := RGB( 72, 122, 129);
   PnlCancel.Color    := RGB( 72, 122, 129);
-  PnlCommit.Color    := RGB( 72, 122, 129);
+  PnlSave.Color    := RGB( 72, 122, 129);
 end;
 
 end.

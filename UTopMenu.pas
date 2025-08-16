@@ -90,27 +90,27 @@ type
     Timer                 : TTimer;
     procedure ActEntryDetailsExecute(Sender: TObject);
     procedure ActSummaryExecute(Sender: TObject);
+    procedure BtnEnterManageExpEnter(Sender: TObject);
+    procedure BtnEnterManageExpExit(Sender: TObject);
+    procedure BtnLoginEnter(Sender: TObject);
+    procedure BtnLoginExit(Sender: TObject);
+    procedure BtnLogoutEnter(Sender: TObject);
+    procedure BtnLogoutExit(Sender: TObject);
+    procedure BtnQuitEnter(Sender: TObject);
+    procedure BtnQuitExit(Sender: TObject);
     procedure ManageDetailsMouseOver(NewColor: TColor);
-    procedure BtnEnterManageDetailsMouseEnter(Sender: TObject);
-    procedure BtnEnterManageDetailsMouseLeave(Sender: TObject);
+    procedure BtnEnterManageDetailsEnter(Sender: TObject);
+    procedure BtnEnterManageDetailsExit(Sender: TObject);
     procedure SummaryMouseOver(NewColor: TColor);
-    procedure BtnEnterSummaryMouseEnter(Sender: TObject);
-    procedure BtnEnterSummaryMouseLeave(Sender: TObject);
+    procedure BtnEnterSummaryEnter(Sender: TObject);
+    procedure BtnEnterSummaryExit(Sender: TObject);
     procedure ManageUserMouseOver(NewColor: TColor);
-    procedure BtnEnterManageUserMouseEnter(Sender: TObject);
-    procedure BtnEnterManageUserMouseLeave(Sender: TObject);
+    procedure BtnEnterManageUserEnter(Sender: TObject);
+    procedure BtnEnterManageUserExit(Sender: TObject);
     procedure ManageExpMouseOver(NewColor: TColor);
-    procedure BtnEnterManageExpMouseEnter(Sender: TObject);
-    procedure BtnEnterManageExpMouseLeave(Sender: TObject);
     procedure LoginMouseOver(NewColor: TColor);
-    procedure BtnLoginMouseEnter(Sender: TObject);
-    procedure BtnLoginMouseLeave(Sender: TObject);
     procedure LogoutMouseOver(NewColor: TColor);
-    procedure BtnLogoutMouseEnter(Sender: TObject);
-    procedure BtnLogoutMouseLeave(Sender: TObject);
     procedure QuitMouseOver(NewColor: TColor);
-    procedure BtnQuitMouseEnter(Sender: TObject);
-    procedure BtnQuitMouseLeave(Sender: TObject);
     procedure ProcManageDetails(Sender: TObject);
     procedure ProcSummary(Sender: TObject);
     procedure ProcManageUser(Sender: TObject);
@@ -206,7 +206,7 @@ begin
   Panel5.Color                := NewColor;
 end;
 
-procedure TFrmTopMenu.BtnEnterManageDetailsMouseEnter(Sender: TObject);
+procedure TFrmTopMenu.BtnEnterManageDetailsEnter(Sender: TObject);
 begin
   ManageDetailsMouseOver(clSkyBlue);
   SummaryMouseOver(clBtnFace);
@@ -217,7 +217,7 @@ begin
   QuitMouseOver(clBtnFace);
 end;
 
-procedure TFrmTopMenu.BtnEnterManageDetailsMouseLeave(Sender: TObject);
+procedure TFrmTopMenu.BtnEnterManageDetailsExit(Sender: TObject);
 begin
   ManageDetailsMouseOver(clBtnFace);
 end;
@@ -230,7 +230,7 @@ begin
   Panel7.Color          := NewColor;
 end;
 
-procedure TFrmTopMenu.BtnEnterSummaryMouseEnter(Sender: TObject);
+procedure TFrmTopMenu.BtnEnterSummaryEnter(Sender: TObject);
 begin
   ManageDetailsMouseOver(clBtnFace);
   SummaryMouseOver(clSkyBlue);
@@ -241,7 +241,7 @@ begin
   QuitMouseOver(clBtnFace);
 end;
 
-procedure TFrmTopMenu.BtnEnterSummaryMouseLeave(Sender: TObject);
+procedure TFrmTopMenu.BtnEnterSummaryExit(Sender: TObject);
 begin
   SummaryMouseOver(clBtnFace);
 end;
@@ -257,7 +257,7 @@ begin
   Panel12.Color            := NewColor;
 end;
 
-procedure TFrmTopMenu.BtnEnterManageUserMouseEnter(Sender: TObject);
+procedure TFrmTopMenu.BtnEnterManageUserEnter(Sender: TObject);
 begin
   ManageDetailsMouseOver(clBtnFace);
   SummaryMouseOver(clBtnFace);
@@ -268,7 +268,7 @@ begin
   QuitMouseOver(clBtnFace);
 end;
 
-procedure TFrmTopMenu.BtnEnterManageUserMouseLeave(Sender: TObject);
+procedure TFrmTopMenu.BtnEnterManageUserExit(Sender: TObject);
 begin
   ManageUserMouseOver(clBtnFace);
 end;
@@ -283,7 +283,7 @@ begin
   Panel16.Color           := NewColor;
 end;
 
-procedure TFrmTopMenu.BtnEnterManageExpMouseEnter(Sender: TObject);
+procedure TFrmTopMenu.BtnEnterManageExpEnter(Sender: TObject);
 begin
   ManageDetailsMouseOver(clBtnFace);
   SummaryMouseOver(clBtnFace);
@@ -294,7 +294,7 @@ begin
   QuitMouseOver(clBtnFace);
 end;
 
-procedure TFrmTopMenu.BtnEnterManageExpMouseLeave(Sender: TObject);
+procedure TFrmTopMenu.BtnEnterManageExpExit(Sender: TObject);
 begin
   ManageExpMouseOver(clBtnFace);
 end;
@@ -309,7 +309,7 @@ begin
   Panel20.Color  := NewColor;
 end;
 
-procedure TFrmTopMenu.BtnLoginMouseEnter(Sender: TObject);
+procedure TFrmTopMenu.BtnLoginEnter(Sender: TObject);
 begin
   ManageDetailsMouseOver(clBtnFace);
   SummaryMouseOver(clBtnFace);
@@ -320,7 +320,7 @@ begin
   QuitMouseOver(clBtnFace);
 end;
 
-procedure TFrmTopMenu.BtnLoginMouseLeave(Sender: TObject);
+procedure TFrmTopMenu.BtnLoginExit(Sender: TObject);
 begin
   LoginMouseOver(clBtnFace);
 end;
@@ -336,7 +336,7 @@ begin
   Panel25.Color   := NewColor;
 end;
 
-procedure TFrmTopMenu.BtnLogoutMouseEnter(Sender: TObject);
+procedure TFrmTopMenu.BtnLogoutEnter(Sender: TObject);
 begin
   ManageDetailsMouseOver(clBtnFace);
   SummaryMouseOver(clBtnFace);
@@ -347,7 +347,7 @@ begin
   QuitMouseOver(clBtnFace);
 end;
 
-procedure TFrmTopMenu.BtnLogoutMouseLeave(Sender: TObject);
+procedure TFrmTopMenu.BtnLogoutExit(Sender: TObject);
 begin
   LogoutMouseOver(clBtnFace);
 end;
@@ -369,7 +369,7 @@ begin
   Panel36.Color := NewColor;
 end;
 
-procedure TFrmTopMenu.BtnQuitMouseEnter(Sender: TObject);
+procedure TFrmTopMenu.BtnQuitEnter(Sender: TObject);
 begin
   ManageDetailsMouseOver(clBtnFace);
   SummaryMouseOver(clBtnFace);
@@ -380,7 +380,7 @@ begin
   QuitMouseOver(clSkyBlue);
 end;
 
-procedure TFrmTopMenu.BtnQuitMouseLeave(Sender: TObject);
+procedure TFrmTopMenu.BtnQuitExit(Sender: TObject);
 begin
   QuitMouseOver(clBtnFace);
 end;

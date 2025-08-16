@@ -86,7 +86,7 @@ var
 
 implementation
 uses
-  UConsts, UDBAccess, UTopMenu, UAddUser, UEditUser, URemoveUser, UEditAdmUser;
+  UConsts, UDBAccess, UTopMenu, UAddUser, UEditUser, UDeleteUser, UEditAdmUser;
 
 {$R *.lfm}
 
@@ -182,8 +182,8 @@ procedure TFrmManageUser.ProcRemoveUser(Sender: TObject);
 begin
   if CountUser(ROLE_USER) > 0 then
   begin
-    FrmRemoveUser := TFrmRemoveUser.Create(Application);
-    OpenFormOrMsgDlg(FrmRemoveUser);
+    FrmDeleteUser := TFrmDeleteUser.Create(Application);
+    OpenFormOrMsgDlg(FrmDeleteUser);
   end else begin
     ShowMessage(MSG_JP_000016);
   end;

@@ -171,8 +171,14 @@ object FrmEditUser: TFrmEditUser
     ChildSizing.ControlsPerLine = 100
     ClientHeight = 40
     ClientWidth = 626
+    Color = clWindowFrame
     DataSource = ADS
-    Options = []
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
+    Options = [navFocusableButtons]
+    ParentColor = False
+    ParentFont = False
     TabOrder = 3
     TabStop = True
     VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
@@ -196,23 +202,30 @@ object FrmEditUser: TFrmEditUser
     ParentFont = False
     TabOrder = 4
   end
-  object BtnClearPaw: TButton
-    Cursor = crHandPoint
+  object BtnClearPaw: TPanel
+    Cursor = crCross
     Left = 24
     Height = 32
     Top = 364
     Width = 610
-    Action = ActClearPaw
+    BevelColor = clNone
+    BevelOuter = bvNone
     Caption = 'パスワードをクリア (CTRL+X)'
-    Color = clNone
-    Font.CharSet = ANSI_CHARSET
+    Color = clBtnFace
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpFixed
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
     ParentFont = False
+    ShowAccelChar = True
     TabOrder = 5
+    TabStop = True
+    OnClick = ActClearPawExecute
+    OnEnter = BtnClearPawEnter
+    OnExit = BtnClearPawExit
+    OnMouseEnter = BtnClearPawEnter
+    OnMouseLeave = BtnClearPawExit
   end
   object PnlCancel: TPanel
     Left = 16
@@ -233,23 +246,30 @@ object FrmEditUser: TFrmEditUser
     ParentFont = False
     TabOrder = 6
   end
-  object BtnCancel: TButton
-    Cursor = crHandPoint
+  object BtnCancel: TPanel
+    Cursor = crCross
     Left = 24
     Height = 32
     Top = 420
     Width = 296
-    Action = ActCancel
+    BevelColor = clNone
+    BevelOuter = bvNone
     Caption = 'キャンセル (CTRL+C)'
-    Color = clNone
-    Font.CharSet = ANSI_CHARSET
+    Color = clBtnFace
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpFixed
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
     ParentFont = False
+    ShowAccelChar = True
     TabOrder = 7
+    TabStop = True
+    OnClick = ActCancelExecute
+    OnEnter = BtnCancelEnter
+    OnExit = BtnCancelExit
+    OnMouseEnter = BtnCancelEnter
+    OnMouseLeave = BtnCancelExit
   end
   object PnlCommit: TPanel
     Left = 332
@@ -270,23 +290,30 @@ object FrmEditUser: TFrmEditUser
     ParentFont = False
     TabOrder = 8
   end
-  object BtnCommit: TButton
-    Cursor = crHandPoint
+  object BtnSave: TPanel
+    Cursor = crCross
     Left = 339
     Height = 32
     Top = 420
     Width = 295
-    Action = ActSave
+    BevelColor = clNone
+    BevelOuter = bvNone
     Caption = '保　　　存 (CTRL+S)'
-    Color = clNone
-    Font.CharSet = ANSI_CHARSET
+    Color = clBtnFace
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpFixed
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
     ParentFont = False
+    ShowAccelChar = True
     TabOrder = 9
+    TabStop = True
+    OnClick = ActSaveExecute
+    OnEnter = BtnSaveEnter
+    OnExit = BtnSaveExit
+    OnMouseEnter = BtnSaveEnter
+    OnMouseLeave = BtnSaveExit
   end
   object ADBGrid: TDBGrid
     Left = 16

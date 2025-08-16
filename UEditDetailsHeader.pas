@@ -59,12 +59,6 @@ type
     ActQuit          : TAction;
     { Etc components }
     ADBNav           : TDBNavigator;
-    BtnAddDetail     : TButton;
-    BtnEditDetail    : TButton;
-    BtnEntryAccount  : TButton;
-    BtnEntryShop     : TButton;
-    BtnGoBack        : TButton;
-    BtnRemoveDetail  : TButton;
     DBDTPHeaderDT    : TDBDateTimePicker;
     DBDTPEntryDT     : TDBDateTimePicker;
     DBDTPUpdateDT    : TDBDateTimePicker;
@@ -109,12 +103,41 @@ type
     LblTotalAmount2  : TLabel;
     LblTotalAmount3  : TLabel;
     LblTotalAmount4  : TLabel;
+    BtnEntryShop: TPanel;
+    BtnEntryAccount: TPanel;
+    BtnAddDetail: TPanel;
+    BtnEditDetail: TPanel;
+    BtnDeleteDetail: TPanel;
+    BtnGoBack: TPanel;
     PnlEntryShop     : TPanel;
     PnlAddDetail     : TPanel;
     PnlEntryAccount  : TPanel;
     PnlEditDetail    : TPanel;
-    PnlRemoveDetail  : TPanel;
+    PnlDeleteDetail  : TPanel;
     PnlGoBack        : TPanel;
+    procedure ProcEntryShop(Sender: TObject);
+    procedure ProcEntryAccount(Sender: TObject);
+    procedure ProcAddDetail(Sender: TObject);
+    procedure ProcEditDetail(Sender: TObject);
+    procedure ProcRemoveDetail(Sender: TObject);
+    procedure EntryShopMouseOver(NewColor: TColor);
+    procedure BtnEntryShopEnter(Sender: TObject);
+    procedure BtnEntryShopExit(Sender: TObject);
+    procedure EntryAccountMouseOver(NewColor: TColor);
+    procedure BtnEntryAccountEnter(Sender: TObject);
+    procedure BtnEntryAccountExit(Sender: TObject);
+    procedure AddDetailMouseOver(NewColor: TColor);
+    procedure BtnAddDetailEnter(Sender: TObject);
+    procedure BtnAddDetailExit(Sender: TObject);
+    procedure EditDetailMouseOver(NewColor: TColor);
+    procedure BtnEditDetailEnter(Sender: TObject);
+    procedure BtnEditDetailExit(Sender: TObject);
+    procedure DeleteDetailMouseOver(NewColor: TColor);
+    procedure BtnDeleteDetailEnter(Sender: TObject);
+    procedure BtnDeleteDetailExit(Sender: TObject);
+    procedure GoBackMouseOver(NewColor: TColor);
+    procedure BtnGoBackEnter(Sender: TObject);
+    procedure BtnGoBackExit(Sender: TObject);
     procedure ActAddDetailExecute(Sender: TObject);
     procedure ActEditDetailExecute(Sender: TObject);
     procedure ActEntryAccountExecute(Sender: TObject);
@@ -139,11 +162,6 @@ type
     procedure CloseTransactions;
     procedure BackupValues;
     function CheckInput: Boolean;
-    procedure ProcAddDetail;
-    procedure ProcEditDetail;
-    procedure ProcEntryAccount;
-    procedure ProcEntryShop;
-    procedure ProcRemoveDetail;
     procedure SetButtonEnabled(Qu: TSQLQuery);
     function GetFractionProc: Integer;
     procedure UpdateFractionProc(FractionProc: Integer; SS: String);
@@ -259,7 +277,23 @@ begin
   Result    := LResult;
 end;
 
-procedure TFrmEditDetailsHeader.ProcAddDetail;
+procedure TFrmEditDetailsHeader.ProcEntryShop(Sender: TObject);
+begin
+  with FrmTopMenu.Defs do begin
+    FrmEntryShop := TFrmEntryShop.Create(Application);
+    OpenForm(Self, FrmEntryShop);
+  end;
+end;
+
+procedure TFrmEditDetailsHeader.ProcEntryAccount(Sender: TObject);
+begin
+  with FrmTopMenu.Defs do begin
+    FrmEntryAccount := TFrmEntryAccount.Create(Application);
+    OpenForm(Self, FrmEntryAccount);
+  end;
+end;
+
+procedure TFrmEditDetailsHeader.ProcAddDetail(Sender: TObject);
 begin
   try
     try
@@ -311,7 +345,7 @@ begin
   end;
 end;
 
-procedure TFrmEditDetailsHeader.ProcEditDetail;
+procedure TFrmEditDetailsHeader.ProcEditDetail(Sender: TObject);
 begin
   try
     try
@@ -364,23 +398,7 @@ begin
   end;
 end;
 
-procedure TFrmEditDetailsHeader.ProcEntryAccount;
-begin
-  with FrmTopMenu.Defs do begin
-    FrmEntryAccount := TFrmEntryAccount.Create(Application);
-    OpenForm(Self, FrmEntryAccount);
-  end;
-end;
-
-procedure TFrmEditDetailsHeader.ProcEntryShop;
-begin
-  with FrmTopMenu.Defs do begin
-    FrmEntryShop := TFrmEntryShop.Create(Application);
-    OpenForm(Self, FrmEntryShop);
-  end;
-end;
-
-procedure TFrmEditDetailsHeader.ProcRemoveDetail;
+procedure TFrmEditDetailsHeader.ProcRemoveDetail(Sender: TObject);
 var
   LResult   : TModalResult;
 begin
@@ -504,11 +522,11 @@ procedure TFrmEditDetailsHeader.SetButtonEnabled(Qu: TSQLQuery);
 begin
   with Qu do begin
     if RecordCount <= 0 then begin
-      BtnRemoveDetail.Enabled := False;
-      PnlRemoveDetail.Enabled := False;
+      BtnDeleteDetail.Enabled := False;
+      PnlDeleteDetail.Enabled := False;
     end else begin
-      BtnRemoveDetail.Enabled := True;
-      PnlRemoveDetail.Enabled := True;
+      BtnDeleteDetail.Enabled := True;
+      PnlDeleteDetail.Enabled := True;
     end;
   end;
 end;
@@ -683,6 +701,126 @@ begin
   end;
 end;
 
+procedure TFrmEditDetailsHeader.EntryShopMouseOver(NewColor: TColor);
+begin
+  BtnEntryShop.Color := NewColor;
+end;
+
+procedure TFrmEditDetailsHeader.BtnEntryShopEnter(Sender: TObject);
+begin
+  EntryShopMouseOver(clSkyBlue);
+  EntryAccountMouseOver(clBtnFace);
+  AddDetailMouseOver(clBtnFace);
+  EditDetailMouseOver(clBtnFace);
+  DeleteDetailMouseOver(clBtnFace);
+  GoBackMouseOver(clBtnFace);
+end;
+
+procedure TFrmEditDetailsHeader.BtnEntryShopExit(Sender: TObject);
+begin
+  EntryShopMouseOver(clBtnFace);
+end;
+
+procedure TFrmEditDetailsHeader.EntryAccountMouseOver(NewColor: TColor);
+begin
+  BtnEntryAccount.Color := NewColor;
+end;
+
+procedure TFrmEditDetailsHeader.BtnEntryAccountEnter(Sender: TObject);
+begin
+  EntryShopMouseOver(clBtnFace);
+  EntryAccountMouseOver(clSkyBlue);
+  AddDetailMouseOver(clBtnFace);
+  EditDetailMouseOver(clBtnFace);
+  DeleteDetailMouseOver(clBtnFace);
+  GoBackMouseOver(clBtnFace);
+end;
+
+procedure TFrmEditDetailsHeader.BtnEntryAccountExit(Sender: TObject);
+begin
+  EntryAccountMouseOver(clBtnFace);
+end;
+
+procedure TFrmEditDetailsHeader.AddDetailMouseOver(NewColor: TColor);
+begin
+  BtnAddDetail.Color := NewColor;
+end;
+
+procedure TFrmEditDetailsHeader.BtnAddDetailEnter(Sender: TObject);
+begin
+  EntryShopMouseOver(clBtnFace);
+  EntryAccountMouseOver(clBtnFace);
+  AddDetailMouseOver(clSkyBlue);
+  EditDetailMouseOver(clBtnFace);
+  DeleteDetailMouseOver(clBtnFace);
+  GoBackMouseOver(clBtnFace);
+end;
+
+procedure TFrmEditDetailsHeader.BtnAddDetailExit(Sender: TObject);
+begin
+  AddDetailMouseOver(clBtnFace);
+end;
+
+procedure TFrmEditDetailsHeader.EditDetailMouseOver(NewColor: TColor);
+begin
+  BtnEditDetail.Color := NewColor;
+end;
+
+procedure TFrmEditDetailsHeader.BtnEditDetailEnter(Sender: TObject);
+begin
+  EntryShopMouseOver(clBtnFace);
+  EntryAccountMouseOver(clBtnFace);
+  AddDetailMouseOver(clBtnFace);
+  EditDetailMouseOver(clSkyBlue);
+  DeleteDetailMouseOver(clBtnFace);
+  GoBackMouseOver(clBtnFace);
+end;
+
+procedure TFrmEditDetailsHeader.BtnEditDetailExit(Sender: TObject);
+begin
+  EditDetailMouseOver(clBtnFace);
+end;
+
+procedure TFrmEditDetailsHeader.DeleteDetailMouseOver(NewColor: TColor);
+begin
+  BtnDeleteDetail.Color := NewColor;
+end;
+
+procedure TFrmEditDetailsHeader.BtnDeleteDetailEnter(Sender: TObject);
+begin
+  EntryShopMouseOver(clBtnFace);
+  EntryAccountMouseOver(clBtnFace);
+  AddDetailMouseOver(clBtnFace);
+  EditDetailMouseOver(clBtnFace);
+  DeleteDetailMouseOver(clSkyBlue);
+  GoBackMouseOver(clBtnFace);
+end;
+
+procedure TFrmEditDetailsHeader.BtnDeleteDetailExit(Sender: TObject);
+begin
+  DeleteDetailMouseOver(clBtnFace);
+end;
+
+procedure TFrmEditDetailsHeader.GoBackMouseOver(NewColor: TColor);
+begin
+  BtnGoBack.Color := NewColor;
+end;
+
+procedure TFrmEditDetailsHeader.BtnGoBackEnter(Sender: TObject);
+begin
+  EntryShopMouseOver(clBtnFace);
+  EntryAccountMouseOver(clBtnFace);
+  AddDetailMouseOver(clBtnFace);
+  EditDetailMouseOver(clBtnFace);
+  DeleteDetailMouseOver(clBtnFace);
+  GoBackMouseOver(clSkyBlue);
+end;
+
+procedure TFrmEditDetailsHeader.BtnGoBackExit(Sender: TObject);
+begin
+  GoBackMouseOver(clBtnFace);
+end;
+
 function TFrmEditDetailsHeader.GetGoBack: Boolean;
 begin
   Result  := FGoBack;
@@ -706,7 +844,7 @@ begin
   end;
 
   BackupValues;
-  ProcAddDetail;
+  ProcAddDetail(Sender);
   Summarize;
 end;
 
@@ -718,7 +856,7 @@ begin
   end;
 
   BackupValues;
-  ProcEditDetail;
+  ProcEditDetail(Sender);
   Summarize;
 end;
 
@@ -728,7 +866,7 @@ begin
     SetGoBack(False);
     BackupValues;
     SetEntryAccount(2);
-    ProcEntryAccount;
+    ProcEntryAccount(Sender);
   end;
 end;
 
@@ -738,7 +876,7 @@ begin
     SetGoBack(False);
     BackupValues;
     SetEntryShop(2);
-    ProcEntryShop;
+    ProcEntryShop(Sender);
   end;
 end;
 
@@ -751,7 +889,7 @@ end;
 procedure TFrmEditDetailsHeader.ActDeleteDetailExecute(Sender: TObject);
 begin
   BackupValues;
-  ProcRemoveDetail;
+  ProcRemoveDetail(Sender);
 end;
 
 procedure TFrmEditDetailsHeader.DBLCBExp1Change(Sender: TObject);
@@ -889,7 +1027,7 @@ begin
   PnlEntryAccount.Color      := RGB( 72, 122, 129);
   PnlAddDetail.Color         := RGB( 72, 122, 129);
   PnlEditDetail.Color        := RGB( 72, 122, 129);
-  PnlRemoveDetail.Color      := RGB( 72, 122, 129);
+  PnlDeleteDetail.Color      := RGB( 72, 122, 129);
   PnlGoBack.Color            := RGB( 72, 122, 129);
 
   with FrmTopMenu.Defs do begin
@@ -953,6 +1091,7 @@ begin
         And (StrToInt(VarToStr(GetExpKey1)) > 0) then begin
           DBEdtExpKey1.Text := VarToStr(GetExpKey1);
           DBLCBExp1.KeyValue := GetExpKey1;
+          DBLCBExp1Change(Self);
       end else begin
         DBLCBExp1.KeyValue := -1;
         DBEdtExpKey1.Text  := '';
@@ -1005,10 +1144,10 @@ begin
 
         if RecordCount <= 0 then begin
           BtnEditDetail.Enabled   := False;
-          BtnRemoveDetail.Enabled := False;
+          BtnDeleteDetail.Enabled := False;
         end else begin
           BtnEditDetail.Enabled   := True;
-          BtnRemoveDetail.Enabled := True;
+          BtnDeleteDetail.Enabled := True;
         end;
       end;
 

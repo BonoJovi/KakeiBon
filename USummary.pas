@@ -13,15 +13,18 @@ type
   { TFrmSummary }
 
   TFrmSummary = class(TForm)
-    ActQuit: TAction;
-    ActionList1: TActionList;
-    ADS: TDataSource;
-    BtnGoBack: TButton;
-    DBGrid1: TDBGrid;
-    ACn: TSQLite3Connection;
-    ATr: TSQLTransaction;
-    AQu: TSQLQuery;
+    ACn        : TSQLite3Connection;
+    ADS        : TDataSource;
+    ATr        : TSQLTransaction;
+    AQu        : TSQLQuery;
+    ActionList : TActionList;
+    ActQuit    : TAction;
+    DBGrid1    : TDBGrid;
+    BtnGoBack: TPanel;
     PnlGoBack: TPanel;
+    procedure GoBackMouseOver(NewColor: TColor);
+    procedure BtnGoBackEnter(Sender: TObject);
+    procedure BtnGoBackExit(Sender: TObject);
     procedure ActQuitExecute(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -83,6 +86,21 @@ end;
 procedure TFrmSummary.ActQuitExecute(Sender: TObject);
 begin
   Close;
+end;
+
+procedure TFrmSummary.GoBackMouseOver(NewColor: TColor);
+begin
+  BtnGoBack.COlor := NewColor;
+end;
+
+procedure TFrmSummary.BtnGoBackEnter(Sender: TObject);
+begin
+  GoBackMouseOver(clSkyBlue);
+end;
+
+procedure TFrmSummary.BtnGoBackExit(Sender: TObject);
+begin
+  GoBackMouseOver(clBtnFace);
 end;
 
 procedure TFrmSummary.FormShow(Sender: TObject);

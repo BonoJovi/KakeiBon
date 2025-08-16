@@ -54,13 +54,6 @@ type
     ActCancel         : TAction;
     ActSave         : TAction;
     ActQuit           : TAction;
-    { Screen controls }
-    BtnEntryMaker     : TButton;
-    BtnEntryBrandName : TButton;
-    BtnEntryUnit      : TButton;
-    BtnCancel         : TButton;
-    BtnCommit         : TButton;
-    BtnGoBack         : TButton;
     EdtExcludeTax     : TEdit;
     DBDTPEntryDT      : TDBDateTimePicker;
     DBDTPUpdateDT     : TDBDateTimePicker;
@@ -110,13 +103,43 @@ type
     LblTax2           : TLabel;
     LblSubTotal1      : TLabel;
     LblSubTotal2      : TLabel;
+    BtnEntryMaker: TPanel;
+    BtnEntryBrandName: TPanel;
+    BtnEntryUnit: TPanel;
+    BtnCancel: TPanel;
+    BtnSave: TPanel;
+    BtnGoBack: TPanel;
     PnlSeparator      : TPanel;
     PnlCancel         : TPanel;
-    PnlCommit         : TPanel;
+    PnlSave         : TPanel;
     PnlGoBack         : TPanel;
     PnlEntryUnit      : TPanel;
     PnlEntryBrandName : TPanel;
     PnlEntryMaker     : TPanel;
+    procedure ProcInsert(Sender: TObject);
+    procedure ProcEntryBrandName(Sender: TObject);
+    procedure ProcEntryMaker(Sender: TObject);
+    procedure ProcEntryUnit(Sender: TObject);
+    procedure ProcCancel(Sender: TObject);
+    function ProcSave(Sender: TObject): Boolean;
+    procedure EntryMakerMouseOver(NewColor: TColor);
+    procedure BtnEntryMakerEnter(Sender: TObject);
+    procedure BtnEntryMakerExit(Sender: TObject);
+    procedure EntryBrandNameMouseOver(NewColor: TColor);
+    procedure BtnEntryBrandNameEnter(Sender: TObject);
+    procedure BtnEntryBrandNameExit(Sender: TObject);
+    procedure EntryUnitMouseOver(NewColor: TColor);
+    procedure BtnEntryUnitEnter(Sender: TObject);
+    procedure BtnEntryUnitExit(Sender: TObject);
+    procedure CancelMouseOver(NewColor: TColor);
+    procedure BtnCancelEnter(Sender: TObject);
+    procedure BtnCancelExit(Sender: TObject);
+    procedure SaveMouseOver(NewColor: TColor);
+    procedure BtnSaveEnter(Sender: TObject);
+    procedure BtnSaveExit(Sender: TObject);
+    procedure GoBackMouseOver(NewColor: TColor);
+    procedure BtnGoBackEnter(Sender: TObject);
+    procedure BtnGoBackExit(Sender: TObject);
     procedure ActCancelExecute(Sender: TObject);
     procedure ActSaveExecute(Sender: TObject);
     procedure ActEntryBrandNameExecute(Sender: TObject);
@@ -154,12 +177,6 @@ type
     procedure BackupValues;
     procedure CalcInclusiveTax;
     procedure ClearInputFields;
-    procedure ProcCancel;
-    procedure ProcCommit;
-    procedure ProcInsert;
-    procedure ProcEntryBrandName;
-    procedure ProcEntryMaker;
-    procedure ProcEntryUnit;
     function GetGoBack: Boolean;
     procedure SetGoBack(GoBack: boolean);
     function GetQuantity: Variant;
@@ -281,20 +298,23 @@ begin
       SetTaxTypeID(Null);
     end;
 
-    if AQuTaxType.Active then begin;
-      if (Not VarIsNull(DBLCBTaxType.KeyValue))
-          And (VarToStr(DBLCBTaxType.KeyValue) <> '')
-          And (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) > 0) then begin
-        AQuTaxType.First;
-        while AQuTaxType.FieldByName('TAX_TYPE_ID').AsInteger <> StrToInt(VarToStr(DBLCBTaxType.KeyValue)) do begin
-          if AQuTaxType.EOF then begin
-            break;
+    with AQuTaxType do begin
+      if Active then begin;
+        if (Not VarIsNull(DBLCBTaxType.KeyValue))
+            And (VarToStr(DBLCBTaxType.KeyValue) <> '')
+            And (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) > 0) then begin
+          First;
+          while FieldByName('TAX_TYPE_ID').AsInteger <> StrToInt(VarToStr(DBLCBTaxType.KeyValue)) do begin
+            if EOF then begin
+              break;
+            end;
+            Next;
           end;
-          AQuTaxType.Next;
+          SetTaxRateID(FieldByName('TAX_RATE_ID').AsVariant);
+        end else begin
+          SetTaxTypeID(Null);
+          SetTaxRateID(Null);
         end;
-        SetTaxRateID(AQuTaxType.FieldByName('TAX_RATE_ID').AsVariant);
-      end else begin
-        SetTaxRateID(Null);
       end;
     end;
 
@@ -410,7 +430,56 @@ begin
   end;
 end;
 
-procedure TFrmAddDetail.ProcCancel;
+procedure TFrmAddDetail.ProcInsert(Sender: TObject);
+begin
+  if Not FInsert then begin
+    with AQu do begin
+      //Edit;
+      if AQu.RecordCount > 0 then begin;
+        Insert;
+      end;
+      FInsert := True;
+    end;
+
+    DBLCBMaker.SetFocus;
+  end;
+end;
+
+procedure TFrmAddDetail.ProcEntryBrandName(Sender: TObject);
+begin
+  with FrmTopMenu.Defs do begin
+    SetGoBack(False);
+    SetEntryMaker(999);
+    SetEntryBrandName(1);
+
+    FrmEntryBrandName := TFrmEntryBrandName.Create(Application);
+    OpenForm(Self, FrmEntryBrandName);
+  end;
+end;
+
+procedure TFrmAddDetail.ProcEntryMaker(Sender: TObject);
+begin
+  with FrmTopMenu.Defs do begin
+    SetGoBack(False);
+    SetEntryMaker(1);
+
+    FrmEntryMaker := TFrmEntryMaker.Create(Application);
+    OpenForm(Self, FrmEntryMaker);
+  end;
+end;
+
+procedure TFrmAddDetail.ProcEntryUnit(Sender: TObject);
+begin
+  with FrmTopMenu.Defs do begin
+    SetGoBack(False);
+    SetEntryUnit(1);
+
+    FrmEntryUnit := TFrmEntryUnit.Create(Application);
+    OpenForm(Self, FrmEntryUnit);
+  end;
+end;
+
+procedure TFrmAddDetail.ProcCancel(Sender: TObject);
 begin
   if FInsert then begin
     FInsert := False;
@@ -422,10 +491,11 @@ begin
   DBLCBMaker.SetFocus;
 end;
 
-procedure TFrmAddDetail.ProcCommit;
+function TFrmAddDetail.ProcSave(Sender: TObject): Boolean;
 var
   LNextDetailID : Integer = 0;
 begin
+  result := False;
   try
     try
       with FrmTopMenu.Defs do begin
@@ -434,7 +504,8 @@ begin
             Or (StrToInt(VarToStr(GetDID)) = 0)then begin
           CloseConn(ACnNextID, ATrNextID);
 
-          OpenSelectQueryWithHeaderID(ACnNextID, ADSNextID, ATrNextID, AQuNextID, SQL_20120003, GetHID);
+          OpenSelectQueryWithHeaderID(
+            ACnNextID, ADSNextID, ATrNextID, AQuNextID, SQL_20120003, GetHID);
           LNextDetailID := AQuNextID.FieldByName('NEXT_ID').AsInteger;
 
           CloseConn(ACnNextID, ATrNextID);
@@ -453,25 +524,63 @@ begin
             ParamByName('pDetailID'   ).AsInteger   := StrToInt(VarToStr(GetDID));
             ParamByName('pExpKey1'    ).AsInteger   := StrToInt(VarToStr(GetExpKey1));
             if (Not VarIsNull(GetExpKey2))
-              And (VarToStr(GetExpKey2) <> '')
-              And (StrToInt(VarToStr(GetExpKey2)) > 0) then begin
+                And (VarToStr(GetExpKey2) <> '')
+                And (StrToInt(VarToStr(GetExpKey2)) > 0) then begin
               ParamByName('pExpKey2'    ).AsInteger   := StrToInt(VarToStr(GetExpKey2));
             end else begin
               ParamByName('pExpKey2'    ).AsInteger   := 0;
             end;
             if (Not VarIsNull(GetExpKey3))
-              And (VarToStr(GetExpKey3) <> '')
-              And (StrToInt(VarToStr(GetExpKey3)) > 0) then begin
+                And (VarToStr(GetExpKey3) <> '')
+                And (StrToInt(VarToStr(GetExpKey3)) > 0) then begin
               ParamByName('pExpKey3'    ).AsInteger   := StrToInt(VarToStr(GetExpKey3));
             end else begin
               ParamByName('pExpKey3'    ).AsInteger   := 0;
             end;
-            ParamByName('pMakerID'    ).AsInteger   := StrToInt(VarToStr(GetMakerID));
-            ParamByName('pBrandNameID').AsInteger   := StrToInt(VarToStr(GetBrandNameID));
-            ParamByName('pUnitID'     ).AsInteger   := StrToInt(VarToStr(GetUnitID));
-            ParamByName('pTaxTypeID'  ).AsInteger   := StrToInt(VarToStr(GetTaxTypeID));
-            ParamByName('pTaxRateID'  ).AsInteger   := StrToInt(VarToStr(GetTaxRateID));
-            ParamByName('pQuantity'   ).AsInteger   := GetQuantity;
+            if (Not VarIsNull(GetMakerID))
+                And (VarToStr(GetMakerID) <> '')
+                And (StrToInt(VarToStr(GetMakerID)) > 0) then begin
+              ParamByName('pMakerID'    ).AsInteger   := StrToInt(VarToStr(GetMakerID));
+            end else begin
+              MessageDlg(MSG_JP_000032, mtInformation, [mbOK], 0);
+              DBLCBMaker.SetFocus;
+              Exit;
+            end;
+            if (Not VarIsNull(GetBrandNameID))
+                And (VarToStr(GetBrandNameID) <> '')
+                And (StrToInt(VarToStr(GetBrandNameID)) > 0) then begin
+              ParamByName('pBrandNameID').AsInteger   := StrToInt(VarToStr(GetBrandNameID));
+            end else begin
+              MessageDlg(MSG_JP_000035, mtInformation, [mbOK], 0);
+              DBLCBBrandName.SetFocus;
+              Exit;
+            end;
+            if (Not VarIsNull(GetUnitID))
+                And (VarToStr(GetUnitID) <> '')
+                And (StrToInt(VarToStr(GetUnitID)) > 0) then begin
+              ParamByName('pUnitID'     ).AsInteger   := StrToInt(VarToStr(GetUnitID));
+            end else begin
+              MessageDlg(MSG_JP_000036, mtInformation, [mbOK], 0);
+              DBLCBUnit.SetFocus;
+              Exit;
+            end;
+            if (Not VarIsNull(GetTaxTypeID))
+                And (VarToStr(GetTaxTypeID) <> '')
+                And (StrToInt(VarToStr(GetTaxTypeID)) > 0) then begin
+              ParamByName('pTaxTypeID'  ).AsInteger   := StrToInt(VarToStr(GetTaxTypeID));
+              ParamByName('pTaxRateID'  ).AsInteger   := StrToInt(VarToStr(GetTaxRateID));
+            end else begin
+              MessageDlg(MSG_JP_000037, mtInformation, [mbOK], 0);
+              DBLCBTaxType.SetFocus;
+              Exit;
+            end;
+            if GetQuantity > 0 then begin
+              ParamByName('pQuantity'   ).AsInteger   := GetQuantity;
+            end else begin
+              MessageDlg(MSG_JP_000038, mtInformation, [mbOK], 0);
+              EdtQuantity.SetFocus;
+              Exit;
+            end;
             ParamByName('pExcludeTax' ).AsInteger   := GetExcludeTax;
             ParamByName('pTax'        ).AsInteger   := GetTax;
             ParamByName('pSubTotal'   ).AsInteger   := GetSubTotal;
@@ -479,6 +588,7 @@ begin
             ParamByName('pUpdateDT'   ).AsDateTime  := Now;
           end;
         end;
+
         CloseTransactions;
         SetDatabaseNames;
 
@@ -505,6 +615,7 @@ begin
 
         FormShow(Self);
       end;
+      result := True;
     except
       on E: ESQLDatabaseError do begin
         ShowMessage(E.Message);
@@ -515,52 +626,124 @@ begin
   end;
 end;
 
-procedure TFrmAddDetail.ProcInsert;
+procedure TFrmAddDetail.EntryMakerMouseOver(NewColor: TColor);
 begin
-  if Not FInsert then begin
-    with AQu do begin
-      if AQu.RecordCount > 0 then begin;
-        Insert;
-      end;
-      FInsert := True;
-    end;
-
-    DBLCBMaker.SetFocus;
-  end;
+  BtnEntryMaker.Color := NewColor;
 end;
 
-procedure TFrmAddDetail.ProcEntryBrandName;
+procedure TFrmAddDetail.BtnEntryMakerEnter(Sender: TObject);
 begin
-  with FrmTopMenu.Defs do begin
-    SetGoBack(False);
-    SetEntryMaker(999);
-    SetEntryBrandName(1);
-
-    FrmEntryBrandName := TFrmEntryBrandName.Create(Application);
-    OpenForm(Self, FrmEntryBrandName);
-  end;
+  EntryMakerMouseOver(clSkyBlue);
+  EntryBrandNameMouseOver(clBtnFace);
+  EntryUnitMouseOver(clBtnFace);
+  CancelMouseOver(clBtnFace);
+  SaveMouseOver(clBtnFace);
+  GoBackMouseOver(clBtnFace);
 end;
 
-procedure TFrmAddDetail.ProcEntryMaker;
+procedure TFrmAddDetail.BtnEntryMakerExit(Sender: TObject);
 begin
-  with FrmTopMenu.Defs do begin
-    SetGoBack(False);
-    SetEntryMaker(1);
-
-    FrmEntryMaker := TFrmEntryMaker.Create(Application);
-    OpenForm(Self, FrmEntryMaker);
-  end;
+  EntryMakerMouseOver(clBtnFace);
 end;
 
-procedure TFrmAddDetail.ProcEntryUnit;
+procedure TFrmAddDetail.EntryBrandNameMouseOver(NewColor: TColor);
 begin
-  with FrmTopMenu.Defs do begin
-    SetGoBack(False);
-    SetEntryUnit(1);
+  BtnEntryBrandName.Color := NewColor;
+end;
 
-    FrmEntryUnit := TFrmEntryUnit.Create(Application);
-    OpenForm(Self, FrmEntryUnit);
-  end;
+procedure TFrmAddDetail.BtnEntryBrandNameEnter(Sender: TObject);
+begin
+  EntryMakerMouseOver(clBtnFace);
+  EntryBrandNameMouseOver(clSkyBlue);
+  EntryUnitMouseOver(clBtnFace);
+  CancelMouseOver(clBtnFace);
+  SaveMouseOver(clBtnFace);
+  GoBackMouseOver(clBtnFace);
+end;
+
+procedure TFrmAddDetail.BtnEntryBrandNameExit(Sender: TObject);
+begin
+  EntryBrandNameMouseOver(clBtnFace);
+end;
+
+procedure TFrmAddDetail.EntryUnitMouseOver(NewColor: TColor);
+begin
+  BtnEntryUnit.Color := NewColor;
+end;
+
+procedure TFrmAddDetail.BtnEntryUnitEnter(Sender: TObject);
+begin
+  EntryMakerMouseOver(clBtnFace);
+  EntryBrandNameMouseOver(clBtnFace);
+  EntryUnitMouseOver(clSkyBlue);
+  CancelMouseOver(clBtnFace);
+  SaveMouseOver(clBtnFace);
+  GoBackMouseOver(clBtnFace);
+end;
+
+procedure TFrmAddDetail.BtnEntryUnitExit(Sender: TObject);
+begin
+  EntryUnitMouseOver(clBtnFace);
+end;
+
+procedure TFrmAddDetail.CancelMouseOver(NewColor: TColor);
+begin
+  BtnCancel.Color := NewColor;
+end;
+
+procedure TFrmAddDetail.BtnCancelEnter(Sender: TObject);
+begin
+  EntryMakerMouseOver(clBtnFace);
+  EntryBrandNameMouseOver(clBtnFace);
+  EntryUnitMouseOver(clBtnFace);
+  CancelMouseOver(clSkyBlue);
+  SaveMouseOver(clBtnFace);
+  GoBackMouseOver(clBtnFace);
+end;
+
+procedure TFrmAddDetail.BtnCancelExit(Sender: TObject);
+begin
+  CancelMouseOver(clBtnFace);
+end;
+
+procedure TFrmAddDetail.SaveMouseOver(NewColor: TColor);
+begin
+  BtnSave.Color := NewColor;
+end;
+
+procedure TFrmAddDetail.BtnSaveEnter(Sender: TObject);
+begin
+  EntryMakerMouseOver(clBtnFace);
+  EntryBrandNameMouseOver(clBtnFace);
+  EntryUnitMouseOver(clBtnFace);
+  CancelMouseOver(clBtnFace);
+  SaveMouseOver(clSkyBlue);
+  GoBackMouseOver(clBtnFace);
+end;
+
+procedure TFrmAddDetail.BtnSaveExit(Sender: TObject);
+begin
+  SaveMouseOver(clBtnFace);
+end;
+
+procedure TFrmAddDetail.GoBackMouseOver(NewColor: TColor);
+begin
+  BtnGoBack.Color := NewColor;
+end;
+
+procedure TFrmAddDetail.BtnGoBackEnter(Sender: TObject);
+begin
+  EntryMakerMouseOver(clBtnFace);
+  EntryBrandNameMouseOver(clBtnFace);
+  EntryUnitMouseOver(clBtnFace);
+  CancelMouseOver(clBtnFace);
+  SaveMouseOver(clBtnFace);
+  GoBackMouseOver(clSkyBlue);
+end;
+
+procedure TFrmAddDetail.BtnGoBackExit(Sender: TObject);
+begin
+  GoBackMouseOver(clBtnFace);
 end;
 
 function TFrmAddDetail.GetGoBack: Boolean;
@@ -672,33 +855,34 @@ end;
 
 procedure TFrmAddDetail.ActCancelExecute(Sender: TObject);
 begin
-  ProcCancel;
+  ProcCancel(Sender);
 end;
 
 procedure TFrmAddDetail.ActSaveExecute(Sender: TObject);
 begin
   BackupValues;
-  ProcCommit;
-  ProcInsert;
-  ClearInputFields;
+  if ProcSave(Sender) then begin
+    ProcInsert(Sender);
+    ClearInputFields;
+  end;
 end;
 
 procedure TFrmAddDetail.ActEntryBrandNameExecute(Sender: TObject);
 begin
   BackupValues;
-  ProcEntryBrandName;
+  ProcEntryBrandName(Sender);
 end;
 
 procedure TFrmAddDetail.ActEntryMakerExecute(Sender: TObject);
 begin
   BackupValues;
-  ProcEntryMaker;
+  ProcEntryMaker(Sender);
 end;
 
 procedure TFrmAddDetail.ActEntryUnitExecute(Sender: TObject);
 begin
   BackupValues;
-  ProcEntryUnit;
+  ProcEntryUnit(Sender);
 end;
 
 procedure TFrmAddDetail.ActQuitExecute(Sender: TObject);
@@ -917,8 +1101,9 @@ begin
     SetExcludeTax(0);
   end;
 
-  if ((StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 1)
-    Or (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 2))
+  if (Not VarIsNull(DBLCBTaxType.KeyValue))
+    And ((StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 1)
+      Or (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 2))
     And (Not VarIsNull(GetExcludeTax))
     And (VarToStr(GetExcludeTax) <> '')
     And (StrToInt(VarToStr(GetExcludeTax)) <> 0)
@@ -982,63 +1167,69 @@ end;
 
 procedure TFrmAddDetail.EdtSubTotalExit(Sender: TObject);
 begin
-  if (EdtSubTotal.Text <> '')
-      And (StrToInt(StringReplace(EdtSubTotal.Text, ',', '', [rfReplaceAll])) <> 0) then begin
+  if (EdtSubTotal.Text <> '') then begin
     DBEdtSubTotal.Text := StringReplace(EdtSubTotal.Text, ',', '', [rfReplaceAll]);
   end else begin
     DBEdtSubTotal.Text := '';
   end;
 
   if (DBEdtSubTotal.Text <> '')
-    And (StrToInt(DBEdtSubTotal.Text) > 0) then begin
+    And (StrToInt(DBEdtSubTotal.Text) >= 0) then begin
     SetSubTotal(DBEdtSubTotal.Text);
   end else begin
     SetSubTotal(0);
   end;
 
-  if (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 1)
-    Or (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 2) then begin
-    if StrToInt(VarToStr(GetSubTotal)) > 0 then begin
-      EdtSubTotal.Text := FormatFloat('#,##0', StrToInt(VarToStr(GetSubTotal)));
-    end else begin
-      EdtQuantity.Text   := '';
-      EdtExcludeTax.Text := '';
-      EdtTax.Text        := '';
-      EdtSubTotal.Text   := '';
-    end;
-  end else if (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 3)
-    Or (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 4) then begin
-    if StrToInt(VarToStr(GetSubTotal)) > 0 then begin
-      CalcInclusiveTax;
-    end else begin
-      EdtQuantity.Text   := '';
-      EdtExcludeTax.Text := '';
-      EdtTax.Text        := '';
-      EdtSubTotal.Text   := '';
-    end;
-  end else if (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 5) then begin
-    // Tax Free
-    DBEdtTax.Text := IntToStr(0);
-    EdtTax.Text := DBEdtTax.Text;
-    if DBEdtSubTotal.Text <> '' then begin
-      EdtSubTotal.Text
-        := FormatFloat('#,##0', StrToInt(DBEdtSubTotal.Text));
-      DBEdtExcludeTax.Text := DBEdtSubTotal.Text;
-      SetExcludeTax(DBEdtExcludeTax.Text);
-      EdtExcludeTax.Text   := FormatFloat('#,##0', StrToInt(VarToStr(GetExcludeTax)));
-
-      if (Not VarIsNull(GetExcludeTax))
-          And (VarToStr(GetExcludeTax) <> '')
-          And (StrToInt(VarToStr(GetExcludeTax)) <> 0)
-          And (Not VarIsNull(GetQuantity))
-          And (VarToStr(GetQuantity) <> '')
-          And (StrToInt(VarToStr(GetQuantity)) <> 0) then begin
-        EdtAmount.Text
-          := FormatFloat('#,##0.000',
-            StrToInt(VarToStr(GetExcludeTax)) /
-            StrToInt(VarToStr(GetQuantity)));
+  if Not VarIsNull(DBLCBTaxType.KeyValue) then begin
+    if (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 1)
+      Or (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 2) then begin
+      if StrToInt(VarToStr(GetSubTotal)) >= 0 then begin
+        EdtSubTotal.Text := FormatFloat('#,##0', StrToInt(VarToStr(GetSubTotal)));
       end else begin
-        EdtAmount.Text   := FormatFloat('#,##0.000', 0);
+        EdtQuantity.Text   := '';
+        EdtExcludeTax.Text := '';
+        EdtTax.Text        := '';
+        EdtSubTotal.Text   := '';
+      end;
+    end else if (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 3)
+      Or (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 4) then begin
+      if StrToInt(VarToStr(GetSubTotal)) >= 0 then begin
+        CalcInclusiveTax;
+      end else begin
+        EdtQuantity.Text   := '';
+        EdtExcludeTax.Text := '';
+        EdtTax.Text        := '';
+        EdtSubTotal.Text   := '';
+      end;
+    end else if (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 5) then begin
+      // Tax Free
+      DBEdtTax.Text := IntToStr(0);
+      EdtTax.Text := DBEdtTax.Text;
+      if DBEdtSubTotal.Text <> '' then begin
+        EdtSubTotal.Text
+          := FormatFloat('#,##0', StrToInt(DBEdtSubTotal.Text));
+        DBEdtExcludeTax.Text := DBEdtSubTotal.Text;
+        SetExcludeTax(DBEdtExcludeTax.Text);
+        EdtExcludeTax.Text   := FormatFloat('#,##0', StrToInt(VarToStr(GetExcludeTax)));
+
+        if (Not VarIsNull(GetExcludeTax))
+            And (VarToStr(GetExcludeTax) <> '')
+            //And (StrToInt(VarToStr(GetExcludeTax)) <> 0)
+            And (Not VarIsNull(GetQuantity))
+            And (VarToStr(GetQuantity) <> '')
+            And (StrToInt(VarToStr(GetQuantity)) > 0) then begin
+          EdtAmount.Text
+            := FormatFloat('#,##0.000',
+              StrToInt(VarToStr(GetExcludeTax)) /
+              StrToInt(VarToStr(GetQuantity)));
+        end else begin
+          EdtAmount.Text   := FormatFloat('#,##0.000', 0);
+        end;
+      end else begin
+        EdtQuantity.Text   := '';
+        EdtExcludeTax.Text := '';
+        EdtTax.Text        := '';
+        EdtSubTotal.Text   := '';
       end;
     end else begin
       EdtQuantity.Text   := '';
@@ -1046,11 +1237,6 @@ begin
       EdtTax.Text        := '';
       EdtSubTotal.Text   := '';
     end;
-  end else begin
-    EdtQuantity.Text   := '';
-    EdtExcludeTax.Text := '';
-    EdtTax.Text        := '';
-    EdtSubTotal.Text   := '';
   end;
 end;
 
@@ -1101,7 +1287,7 @@ begin
   PnlEntryBrandName.Color := RGB( 72, 122, 129);
   PnlEntryUnit.Color      := RGB( 72, 122, 129);
   PnlCancel.Color         := RGB( 72, 122, 129);
-  PnlCommit.Color         := RGB( 72, 122, 129);
+  PnlSave.Color         := RGB( 72, 122, 129);
   PnlGoBack.Color         := RGB( 72, 122, 129);
 
   with FrmTopMenu.Defs do begin
@@ -1214,7 +1400,7 @@ begin
   end;
 
   { Debug }
-  FrmAddDetail.Width := 1272;
+  //FrmAddDetail.Width := 1272;
 end;
 
 end.

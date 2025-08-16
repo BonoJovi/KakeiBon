@@ -12,7 +12,6 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   Font.Name = '0xProto Nerd Font Mono'
   Font.Style = [fsBold]
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
@@ -270,28 +269,44 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   object PnlEntryShop: TPanel
     Left = 474
     Height = 44
-    Top = 59
+    Top = 56
     Width = 246
     Caption = '店名を登録 (CTRL+1)'
+    ClientHeight = 44
+    ClientWidth = 246
     Color = clActiveCaption
+    Font.Height = -19
+    Font.Name = '0xProto Nerd Font Mono'
+    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    TabOrder = 5
-  end
-  object BtnEntryShop: TButton
-    Cursor = crHandPoint
-    Left = 482
-    Height = 28
-    Top = 67
-    Width = 230
-    Action = ActEntryShop
-    Caption = '店名を登録 (CTRL+1)'
-    Color = clMenuHighlight
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 6
+    TabOrder = 5
+    object BtnEntryShop: TPanel
+      Cursor = crCross
+      Left = 8
+      Height = 28
+      Top = 8
+      Width = 230
+      BevelColor = clNone
+      BevelOuter = bvNone
+      Caption = '店名を登録 (CTRL+1)'
+      Color = clBtnFace
+      Font.Height = -19
+      Font.Name = '0xProto Nerd Font Mono'
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentColor = False
+      ParentFont = False
+      ShowAccelChar = True
+      TabOrder = 0
+      TabStop = True
+      OnClick = ActEntryShopExecute
+      OnEnter = BtnEntryShopEnter
+      OnExit = BtnEntryShopExit
+      OnMouseEnter = BtnEntryShopEnter
+      OnMouseLeave = BtnEntryShopExit
+    end
   end
   object LblPhoneNum1: TLabel
     Left = 16
@@ -355,7 +370,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
-    TabOrder = 7
+    TabOrder = 6
     TabStop = False
   end
   object LblCategory: TLabel
@@ -389,7 +404,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     ReadOnly = True
     ScrollListDataset = True
     Style = csDropDownList
-    TabOrder = 8
+    TabOrder = 7
     OnChange = DBLCBExp1Change
   end
   object LblFrom1: TLabel
@@ -447,7 +462,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     ReadOnly = True
     ScrollListDataset = True
     Style = csDropDownList
-    TabOrder = 9
+    TabOrder = 8
     OnChange = DBLCBFromACChange
   end
   object PnlEntryAccount: TPanel
@@ -456,26 +471,41 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Top = 217
     Width = 246
     Caption = '口座を登録 (CTRL+2)'
+    ClientHeight = 44
+    ClientWidth = 246
     Color = clActiveCaption
+    Font.Height = -19
+    Font.Name = '0xProto Nerd Font Mono'
+    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    TabOrder = 10
-  end
-  object BtnEntryAccount: TButton
-    Cursor = crHandPoint
-    Left = 482
-    Height = 28
-    Top = 225
-    Width = 230
-    Action = ActEntryAccount
-    BorderSpacing.InnerBorder = 1
-    Caption = '口座を登録 (CTRL+2)'
-    Color = clMenuHighlight
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 11
+    TabOrder = 9
+    object BtnEntryAccount: TPanel
+      Cursor = crCross
+      Left = 8
+      Height = 28
+      Top = 8
+      Width = 230
+      BevelColor = clNone
+      BevelOuter = bvNone
+      Caption = '口座を登録 (CTRL+2)'
+      Color = clBtnFace
+      Font.Height = -19
+      Font.Name = '0xProto Nerd Font Mono'
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentColor = False
+      ParentFont = False
+      ShowAccelChar = True
+      TabOrder = 0
+      TabStop = True
+      OnClick = ActEntryAccountExecute
+      OnEnter = BtnEntryAccountEnter
+      OnExit = BtnEntryAccountExit
+      OnMouseEnter = BtnEntryAccountEnter
+      OnMouseLeave = BtnEntryAccountExit
+    end
   end
   object LblTo1: TLabel
     Left = 16
@@ -532,7 +562,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     ReadOnly = True
     ScrollListDataset = True
     Style = csDropDownList
-    TabOrder = 12
+    TabOrder = 10
     OnChange = DBLCBToACChange
   end
   object LblTotalAmount1: TLabel
@@ -585,7 +615,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Top = 320
     Width = 340
     Alignment = taRightJustify
-    TabOrder = 13
+    TabOrder = 11
     Text = '0'
     OnChange = EdtTotalAmountChange
   end
@@ -595,25 +625,41 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Top = 386
     Width = 273
     Caption = '明細を追加 (CTRL+A)'
+    ClientHeight = 48
+    ClientWidth = 273
     Color = clActiveCaption
+    Font.Height = -19
+    Font.Name = '0xProto Nerd Font Mono'
+    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    TabOrder = 14
-  end
-  object BtnAddDetail: TButton
-    Cursor = crHandPoint
-    Left = 24
-    Height = 32
-    Top = 394
-    Width = 256
-    Action = ActAddDetail
-    Caption = '明細を追加 (CTRL+A)'
-    Color = clSkyBlue
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 15
+    TabOrder = 12
+    object BtnAddDetail: TPanel
+      Cursor = crCross
+      Left = 8
+      Height = 32
+      Top = 8
+      Width = 256
+      BevelColor = clNone
+      BevelOuter = bvNone
+      Caption = '明細を追加 (CTRL+A)'
+      Color = clBtnFace
+      Font.Height = -19
+      Font.Name = '0xProto Nerd Font Mono'
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentColor = False
+      ParentFont = False
+      ShowAccelChar = True
+      TabOrder = 0
+      TabStop = True
+      OnClick = ActAddDetailExecute
+      OnEnter = BtnAddDetailEnter
+      OnExit = BtnAddDetailExit
+      OnMouseEnter = BtnAddDetailEnter
+      OnMouseLeave = BtnAddDetailExit
+    end
   end
   object PnlEditDetail: TPanel
     Left = 294
@@ -621,51 +667,83 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Top = 386
     Width = 272
     Caption = '明細を編集 (CTRL+E)'
+    ClientHeight = 48
+    ClientWidth = 272
     Color = clActiveCaption
+    Font.Height = -19
+    Font.Name = '0xProto Nerd Font Mono'
+    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    TabOrder = 16
-  end
-  object BtnEditDetail: TButton
-    Cursor = crHandPoint
-    Left = 302
-    Height = 32
-    Top = 394
-    Width = 256
-    Action = ActEditDetail
-    Caption = '明細を編集 (CTRL+E)'
-    Color = clSkyBlue
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 17
+    TabOrder = 13
+    object BtnEditDetail: TPanel
+      Cursor = crCross
+      Left = 8
+      Height = 32
+      Top = 8
+      Width = 256
+      BevelColor = clNone
+      BevelOuter = bvNone
+      Caption = '明細を編集 (CTRL+E)'
+      Color = clBtnFace
+      Font.Height = -19
+      Font.Name = '0xProto Nerd Font Mono'
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentColor = False
+      ParentFont = False
+      ShowAccelChar = True
+      TabOrder = 0
+      TabStop = True
+      OnClick = ActEditDetailExecute
+      OnEnter = BtnEditDetailEnter
+      OnExit = BtnEditDetailExit
+      OnMouseEnter = BtnEditDetailEnter
+      OnMouseLeave = BtnEditDetailExit
+    end
   end
-  object PnlRemoveDetail: TPanel
+  object PnlDeleteDetail: TPanel
     Left = 571
     Height = 48
     Top = 386
     Width = 272
     Caption = '明細を削除 (CTRL+D)'
+    ClientHeight = 48
+    ClientWidth = 272
     Color = clActiveCaption
+    Font.Height = -19
+    Font.Name = '0xProto Nerd Font Mono'
+    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    TabOrder = 18
-  end
-  object BtnRemoveDetail: TButton
-    Cursor = crHandPoint
-    Left = 579
-    Height = 32
-    Top = 394
-    Width = 256
-    Action = ActDeleteDetail
-    Caption = '明細を削除 (CTRL+D)'
-    Color = clSkyBlue
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 19
+    TabOrder = 14
+    object BtnDeleteDetail: TPanel
+      Cursor = crCross
+      Left = 8
+      Height = 32
+      Top = 8
+      Width = 256
+      BevelColor = clNone
+      BevelOuter = bvNone
+      Caption = '明細を削除 (CTRL+D)'
+      Color = clBtnFace
+      Font.Height = -19
+      Font.Name = '0xProto Nerd Font Mono'
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentColor = False
+      ParentFont = False
+      ShowAccelChar = True
+      TabOrder = 0
+      TabStop = True
+      OnClick = ActDeleteDetailExecute
+      OnEnter = BtnDeleteDetailEnter
+      OnExit = BtnDeleteDetailExit
+      OnMouseEnter = BtnDeleteDetailEnter
+      OnMouseLeave = BtnDeleteDetailExit
+    end
   end
   object PnlGoBack: TPanel
     Left = 16
@@ -673,25 +751,37 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Top = 442
     Width = 550
     Caption = '前の画面に戻る (CTRL+Q)'
+    ClientHeight = 48
+    ClientWidth = 550
     Color = clActiveCaption
     ParentBackground = False
     ParentColor = False
-    TabOrder = 20
-  end
-  object BtnGoBack: TButton
-    Cursor = crHandPoint
-    Left = 24
-    Height = 32
-    Top = 450
-    Width = 534
-    Action = ActQuit
-    Caption = '前の画面に戻る (CTRL+Q)'
-    Color = clSkyBlue
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
-    ParentFont = False
-    TabOrder = 21
+    TabOrder = 15
+    object BtnGoBack: TPanel
+      Cursor = crCross
+      Left = 8
+      Height = 32
+      Top = 8
+      Width = 534
+      BevelColor = clNone
+      BevelOuter = bvNone
+      Caption = '前の画面に戻る (CTRL+Q)'
+      Color = clBtnFace
+      Font.Height = -19
+      Font.Name = '0xProto Nerd Font Mono'
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentColor = False
+      ParentFont = False
+      ShowAccelChar = True
+      TabOrder = 0
+      TabStop = True
+      OnClick = ActQuitExecute
+      OnEnter = BtnGoBackEnter
+      OnExit = BtnGoBackExit
+      OnMouseEnter = BtnGoBackEnter
+      OnMouseLeave = BtnGoBackExit
+    end
   end
   object ADBNav: TDBNavigator
     Cursor = crHandPoint
@@ -710,7 +800,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     ClientWidth = 272
     DataSource = ADS
     Options = [navFocusableButtons]
-    TabOrder = 22
+    TabOrder = 16
     TabStop = True
     VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast, nbRefresh]
   end
@@ -804,7 +894,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
       end>
     DataSource = ADSDetail
     Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns, dgDblClickAutoSize]
-    TabOrder = 23
+    TabOrder = 17
   end
   object DBEdtUserID: TDBEdit
     Left = 888
@@ -818,7 +908,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
-    TabOrder = 24
+    TabOrder = 18
     TabStop = False
   end
   object DBEdtHeaderID: TDBEdit
@@ -834,7 +924,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
-    TabOrder = 25
+    TabOrder = 19
     TabStop = False
   end
   object DBDTPHeaderDT: TDBDateTimePicker
@@ -852,7 +942,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 26
+    TabOrder = 20
     TabStop = False
     DateSeparator = '/'
     TrailingSeparator = False
@@ -881,7 +971,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
-    TabOrder = 27
+    TabOrder = 21
     TabStop = False
   end
   object DBEdtExpKey1: TDBEdit
@@ -897,7 +987,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
-    TabOrder = 28
+    TabOrder = 22
     TabStop = False
   end
   object DBEdtFromID: TDBEdit
@@ -913,7 +1003,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
-    TabOrder = 29
+    TabOrder = 23
     TabStop = False
   end
   object DBEdtToID: TDBEdit
@@ -929,7 +1019,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
-    TabOrder = 31
+    TabOrder = 25
     TabStop = False
   end
   object DBEdtTotalAmount: TDBEdit
@@ -945,7 +1035,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
-    TabOrder = 30
+    TabOrder = 24
     TabStop = False
   end
   object DBDTPEntryDT: TDBDateTimePicker
@@ -963,7 +1053,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 32
+    TabOrder = 26
     TabStop = False
     DateSeparator = '/'
     TrailingSeparator = False
@@ -994,7 +1084,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 33
+    TabOrder = 27
     TabStop = False
     DateSeparator = '/'
     TrailingSeparator = False

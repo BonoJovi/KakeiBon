@@ -12,7 +12,6 @@ object FrmAddDetail: TFrmAddDetail
   Font.Name = '0xProto'
   Font.Style = [fsBold]
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
@@ -55,26 +54,41 @@ object FrmAddDetail: TFrmAddDetail
     Top = 16
     Width = 289
     Caption = 'メーカーを登録 (CTRL+1)'
+    ClientHeight = 49
+    ClientWidth = 289
     Color = clActiveCaption
-    ParentBackground = False
-    ParentColor = False
-    TabOrder = 1
-  end
-  object BtnEntryMaker: TButton
-    Cursor = crHandPoint
-    Left = 440
-    Height = 33
-    Top = 24
-    Width = 273
-    Action = ActEntryMaker
-    BorderSpacing.InnerBorder = 1
-    Caption = 'メーカーを登録 (CTRL+1)'
-    Color = clMenuHighlight
     Font.Height = -21
     Font.Name = '0xProto'
     Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
     ParentFont = False
-    TabOrder = 2
+    TabOrder = 1
+    object BtnEntryMaker: TPanel
+      Cursor = crCross
+      Left = 8
+      Height = 33
+      Top = 8
+      Width = 273
+      BevelColor = clNone
+      BevelOuter = bvNone
+      Caption = 'メーカーを登録 (CTRL+1)'
+      Color = clBtnFace
+      Font.Height = -21
+      Font.Name = '0xProto'
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentColor = False
+      ParentFont = False
+      ShowAccelChar = True
+      TabOrder = 0
+      TabStop = True
+      OnClick = ActEntryMakerExecute
+      OnEnter = BtnEntryMakerEnter
+      OnExit = BtnEntryMakerExit
+      OnMouseEnter = BtnEntryMakerEnter
+      OnMouseLeave = BtnEntryMakerExit
+    end
   end
   object LblBrandName1: TLabel
     Left = 16
@@ -117,7 +131,7 @@ object FrmAddDetail: TFrmAddDetail
     ReadOnly = True
     ScrollListDataset = True
     Style = csDropDownList
-    TabOrder = 3
+    TabOrder = 2
     OnChange = DBLCBBrandNameChange
   end
   object PnlEntryBrandName: TPanel
@@ -126,26 +140,40 @@ object FrmAddDetail: TFrmAddDetail
     Top = 72
     Width = 289
     Caption = '  品    名  を登録 (CTRL+2)'
+    ClientHeight = 49
+    ClientWidth = 289
     Color = clActiveCaption
-    ParentBackground = False
-    ParentColor = False
-    TabOrder = 4
-  end
-  object BtnEntryBrandName: TButton
-    Cursor = crHandPoint
-    Left = 440
-    Height = 33
-    Top = 80
-    Width = 272
-    Action = ActEntryBrandName
-    BorderSpacing.InnerBorder = 1
-    Caption = '  品    名  を登録 (CTRL+2)'
-    Color = clMenuHighlight
     Font.Height = -21
     Font.Name = '0xProto'
     Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
     ParentFont = False
-    TabOrder = 5
+    TabOrder = 3
+    object BtnEntryBrandName: TPanel
+      Left = 8
+      Height = 33
+      Top = 8
+      Width = 273
+      BevelColor = clNone
+      BevelOuter = bvNone
+      Caption = '  品    名  を登録 (CTRL+2)'
+      Color = clBtnFace
+      Font.Height = -21
+      Font.Name = '0xProto'
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentColor = False
+      ParentFont = False
+      ShowAccelChar = True
+      TabOrder = 0
+      TabStop = True
+      OnClick = ActEntryBrandNameExecute
+      OnEnter = BtnEntryBrandNameEnter
+      OnExit = BtnEntryBrandNameExit
+      OnMouseEnter = BtnEntryBrandNameEnter
+      OnMouseLeave = BtnEntryBrandNameExit
+    end
   end
   object LblExp1: TLabel
     Left = 16
@@ -188,7 +216,7 @@ object FrmAddDetail: TFrmAddDetail
     ReadOnly = True
     ScrollListDataset = True
     Style = csDropDownList
-    TabOrder = 6
+    TabOrder = 4
     OnChange = DBLCBExp2Change
   end
   object DBLCBExp3: TDBLookupComboBox
@@ -208,7 +236,7 @@ object FrmAddDetail: TFrmAddDetail
     LookupCache = False
     ParentFont = False
     Style = csDropDownList
-    TabOrder = 7
+    TabOrder = 5
     OnChange = DBLCBExp3Change
   end
   object LblUnit1: TLabel
@@ -252,7 +280,7 @@ object FrmAddDetail: TFrmAddDetail
     ReadOnly = True
     ScrollListDataset = True
     Style = csDropDownList
-    TabOrder = 8
+    TabOrder = 6
     OnChange = DBLCBUnitChange
   end
   object PnlEntryUnit: TPanel
@@ -261,26 +289,40 @@ object FrmAddDetail: TFrmAddDetail
     Top = 239
     Width = 329
     Caption = '  単    位  を登録 (CTRL+3)'
+    ClientHeight = 49
+    ClientWidth = 329
     Color = clActiveCaption
-    ParentBackground = False
-    ParentColor = False
-    TabOrder = 9
-  end
-  object BtnEntryUnit: TButton
-    Cursor = crHandPoint
-    Left = 24
-    Height = 33
-    Top = 247
-    Width = 313
-    Action = ActEntryUnit
-    BorderSpacing.InnerBorder = 1
-    Caption = '  単    位  を登録 (CTRL+3)'
-    Color = clMenuHighlight
     Font.Height = -21
     Font.Name = '0xProto'
     Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
     ParentFont = False
-    TabOrder = 10
+    TabOrder = 7
+    object BtnEntryUnit: TPanel
+      Left = 8
+      Height = 33
+      Top = 8
+      Width = 313
+      BevelColor = clNone
+      BevelOuter = bvNone
+      Caption = '  単    位  を登録 (CTRL+3)'
+      Color = clBtnFace
+      Font.Height = -21
+      Font.Name = '0xProto'
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentColor = False
+      ParentFont = False
+      ShowAccelChar = True
+      TabOrder = 0
+      TabStop = True
+      OnClick = ActEntryUnitExecute
+      OnEnter = BtnEntryUnitEnter
+      OnExit = BtnEntryUnitExit
+      OnMouseEnter = BtnEntryUnitEnter
+      OnMouseLeave = BtnEntryUnitExit
+    end
   end
   object LblTaxType1: TLabel
     Left = 16
@@ -334,7 +376,7 @@ object FrmAddDetail: TFrmAddDetail
     ReadOnly = True
     ScrollListDataset = True
     Style = csDropDownList
-    TabOrder = 11
+    TabOrder = 8
     OnChange = DBLCBTaxTypeChange
     OnExit = DBLCBTaxTypeExit
   end
@@ -371,7 +413,7 @@ object FrmAddDetail: TFrmAddDetail
     Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 12
+    TabOrder = 9
     OnExit = EdtQuantityExit
   end
   object LblAmount1: TLabel
@@ -410,7 +452,7 @@ object FrmAddDetail: TFrmAddDetail
     ParentFont = False
     ReadOnly = True
     TabStop = False
-    TabOrder = 13
+    TabOrder = 10
     OnChange = EdtAmountChange
   end
   object LblExcludeTax1: TLabel
@@ -468,7 +510,7 @@ object FrmAddDetail: TFrmAddDetail
     Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 14
+    TabOrder = 11
     OnExit = EdtExcludeTaxExit
   end
   object LblTax1: TLabel
@@ -504,7 +546,7 @@ object FrmAddDetail: TFrmAddDetail
     Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 15
+    TabOrder = 12
     OnChange = EdtTaxChange
     OnExit = EdtTaxExit
   end
@@ -515,7 +557,7 @@ object FrmAddDetail: TFrmAddDetail
     Width = 361
     BevelColor = clWhite
     ParentBackground = False
-    TabOrder = 16
+    TabOrder = 13
   end
   object LblSubTotal1: TLabel
     Left = 360
@@ -550,7 +592,7 @@ object FrmAddDetail: TFrmAddDetail
     Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 17
+    TabOrder = 14
     OnChange = EdtSubTotalChange
     OnExit = EdtSubTotalExit
   end
@@ -560,51 +602,81 @@ object FrmAddDetail: TFrmAddDetail
     Top = 483
     Width = 349
     Caption = 'キャンセル (CTRL+C)'
+    ClientHeight = 49
+    ClientWidth = 349
     Color = clActiveCaption
-    ParentBackground = False
-    ParentColor = False
-    TabOrder = 18
-  end
-  object BtnCancel: TButton
-    Cursor = crHandPoint
-    Left = 24
-    Height = 33
-    Top = 491
-    Width = 333
-    Action = ActCancel
-    Caption = 'キャンセル (CTRL+C)'
-    Color = clSkyBlue
     Font.Height = -21
     Font.Name = '0xProto'
     Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
     ParentFont = False
-    TabOrder = 19
+    TabOrder = 15
+    object BtnCancel: TPanel
+      Left = 8
+      Height = 33
+      Top = 8
+      Width = 333
+      BevelColor = clNone
+      BevelOuter = bvNone
+      Caption = 'キャンセル (CTRL+C)'
+      Color = clBtnFace
+      Font.Height = -21
+      Font.Name = '0xProto'
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentColor = False
+      ParentFont = False
+      ShowAccelChar = True
+      TabOrder = 0
+      TabStop = True
+      OnClick = ActCancelExecute
+      OnEnter = BtnCancelEnter
+      OnExit = BtnCancelExit
+      OnMouseEnter = BtnCancelEnter
+      OnMouseLeave = BtnCancelExit
+    end
   end
-  object PnlCommit: TPanel
+  object PnlSave: TPanel
     Left = 372
     Height = 49
     Top = 483
     Width = 349
     Caption = '保存して入力継続 (CTRL+S)'
+    ClientHeight = 49
+    ClientWidth = 349
     Color = clActiveCaption
-    ParentBackground = False
-    ParentColor = False
-    TabOrder = 20
-  end
-  object BtnCommit: TButton
-    Cursor = crHandPoint
-    Left = 380
-    Height = 33
-    Top = 491
-    Width = 333
-    Action = ActSave
-    Caption = '保存して入力継続 (CTRL+S)'
-    Color = clSkyBlue
     Font.Height = -21
     Font.Name = '0xProto'
     Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
     ParentFont = False
-    TabOrder = 21
+    TabOrder = 16
+    object BtnSave: TPanel
+      Left = 8
+      Height = 33
+      Top = 8
+      Width = 333
+      BevelColor = clNone
+      BevelOuter = bvNone
+      Caption = '保存して入力継続 (CTRL+S)'
+      Color = clBtnFace
+      Font.Height = -21
+      Font.Name = '0xProto'
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentColor = False
+      ParentFont = False
+      ShowAccelChar = True
+      TabOrder = 0
+      TabStop = True
+      OnClick = ActSaveExecute
+      OnEnter = BtnSaveEnter
+      OnExit = BtnSaveExit
+      OnMouseEnter = BtnSaveEnter
+      OnMouseLeave = BtnSaveExit
+    end
   end
   object PnlGoBack: TPanel
     Left = 16
@@ -612,26 +684,41 @@ object FrmAddDetail: TFrmAddDetail
     Top = 540
     Width = 705
     Caption = '前の画面に戻る (CTRL+Q)'
+    ClientHeight = 49
+    ClientWidth = 705
     Color = clActiveCaption
-    ParentBackground = False
-    ParentColor = False
-    TabOrder = 22
-    TabStop = True
-  end
-  object BtnGoBack: TButton
-    Cursor = crHandPoint
-    Left = 24
-    Height = 33
-    Top = 548
-    Width = 690
-    Action = ActQuit
-    Caption = '前の画面に戻る (CTRL+Q)'
-    Color = clSkyBlue
     Font.Height = -21
     Font.Name = '0xProto'
     Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
     ParentFont = False
-    TabOrder = 23
+    TabOrder = 17
+    TabStop = True
+    object BtnGoBack: TPanel
+      Left = 8
+      Height = 33
+      Top = 8
+      Width = 690
+      BevelColor = clNone
+      BevelOuter = bvNone
+      Caption = '前の画面に戻る (CTRL+Q)'
+      Color = clBtnFace
+      Font.Height = -21
+      Font.Name = '0xProto'
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentColor = False
+      ParentFont = False
+      ShowAccelChar = True
+      TabOrder = 0
+      TabStop = True
+      OnClick = ActQuitExecute
+      OnEnter = BtnGoBackEnter
+      OnExit = BtnGoBackExit
+      OnMouseEnter = BtnGoBackEnter
+      OnMouseLeave = BtnGoBackExit
+    end
   end
   object DBEdtUserID: TDBEdit
     Left = 752
@@ -641,7 +728,7 @@ object FrmAddDetail: TFrmAddDetail
     DataField = 'USER_ID'
     DataSource = ADS
     MaxLength = 0
-    TabOrder = 24
+    TabOrder = 18
     TabStop = False
   end
   object DBEdtHeaderID: TDBEdit
@@ -652,7 +739,7 @@ object FrmAddDetail: TFrmAddDetail
     DataField = 'HEADER_ID'
     DataSource = ADS
     MaxLength = 0
-    TabOrder = 25
+    TabOrder = 19
     TabStop = False
   end
   object DBEdtDetailID: TDBEdit
@@ -663,7 +750,7 @@ object FrmAddDetail: TFrmAddDetail
     DataField = 'DETAIL_ID'
     DataSource = ADS
     MaxLength = 0
-    TabOrder = 26
+    TabOrder = 20
     TabStop = False
   end
   object DBEdtMakerID: TDBEdit
@@ -674,7 +761,7 @@ object FrmAddDetail: TFrmAddDetail
     DataField = 'MAKER_ID'
     DataSource = ADS
     MaxLength = 0
-    TabOrder = 27
+    TabOrder = 21
     TabStop = False
   end
   object DBEdtBrandNameID: TDBEdit
@@ -685,7 +772,7 @@ object FrmAddDetail: TFrmAddDetail
     DataField = 'BRAND_NAME_ID'
     DataSource = ADS
     MaxLength = 0
-    TabOrder = 28
+    TabOrder = 22
     TabStop = False
   end
   object DBEdtExpKey1: TDBEdit
@@ -696,7 +783,7 @@ object FrmAddDetail: TFrmAddDetail
     DataField = 'EXP_KEY1'
     DataSource = ADS
     MaxLength = 0
-    TabOrder = 29
+    TabOrder = 23
     TabStop = False
   end
   object DBEdtExpKey2: TDBEdit
@@ -707,7 +794,7 @@ object FrmAddDetail: TFrmAddDetail
     DataField = 'EXP_KEY2'
     DataSource = ADS
     MaxLength = 0
-    TabOrder = 30
+    TabOrder = 24
     TabStop = False
   end
   object DBEdtExpKey3: TDBEdit
@@ -718,7 +805,7 @@ object FrmAddDetail: TFrmAddDetail
     DataField = 'EXP_KEY3'
     DataSource = ADS
     MaxLength = 0
-    TabOrder = 31
+    TabOrder = 25
     TabStop = False
   end
   object DBEdtUnitID: TDBEdit
@@ -729,7 +816,7 @@ object FrmAddDetail: TFrmAddDetail
     DataField = 'UNIT_ID'
     DataSource = ADS
     MaxLength = 0
-    TabOrder = 32
+    TabOrder = 26
     TabStop = False
   end
   object DBEdtTaxTypeID: TDBEdit
@@ -740,7 +827,7 @@ object FrmAddDetail: TFrmAddDetail
     DataField = 'TAX_TYPE_ID'
     DataSource = ADS
     MaxLength = 0
-    TabOrder = 33
+    TabOrder = 27
     TabStop = False
   end
   object DBEdtQuantity: TDBEdit
@@ -751,7 +838,7 @@ object FrmAddDetail: TFrmAddDetail
     DataField = 'QUANTITY'
     DataSource = ADS
     MaxLength = 0
-    TabOrder = 34
+    TabOrder = 28
     TabStop = False
   end
   object DBEdtExcludeTax: TDBEdit
@@ -762,7 +849,7 @@ object FrmAddDetail: TFrmAddDetail
     DataField = 'EXCLUDE_TAX'
     DataSource = ADS
     MaxLength = 0
-    TabOrder = 35
+    TabOrder = 29
     TabStop = False
   end
   object DBEdtTax: TDBEdit
@@ -773,7 +860,7 @@ object FrmAddDetail: TFrmAddDetail
     DataField = 'TAX'
     DataSource = ADS
     MaxLength = 0
-    TabOrder = 36
+    TabOrder = 30
     TabStop = False
   end
   object DBEdtSubTotal: TDBEdit
@@ -784,7 +871,7 @@ object FrmAddDetail: TFrmAddDetail
     DataField = 'SUB_TOTAL'
     DataSource = ADS
     MaxLength = 0
-    TabOrder = 37
+    TabOrder = 31
     TabStop = False
   end
   object DBDTPEntryDT: TDBDateTimePicker
@@ -798,7 +885,7 @@ object FrmAddDetail: TFrmAddDetail
     CenturyFrom = 1941
     MaxDate = 2958465
     MinDate = -53780
-    TabOrder = 38
+    TabOrder = 32
     TabStop = False
     DateSeparator = '/'
     TrailingSeparator = False
@@ -825,7 +912,7 @@ object FrmAddDetail: TFrmAddDetail
     CenturyFrom = 1941
     MaxDate = 2958465
     MinDate = -53780
-    TabOrder = 39
+    TabOrder = 33
     TabStop = False
     DateSeparator = '/'
     TrailingSeparator = False
@@ -845,22 +932,30 @@ object FrmAddDetail: TFrmAddDetail
     Left = 312
     Top = 360
     object ActEntryMaker: TAction
+      AutoCheck = True
       Caption = 'ActEntryMaker'
+      Checked = True
       ShortCut = 16433
       OnExecute = ActEntryMakerExecute
     end
     object ActEntryBrandName: TAction
+      AutoCheck = True
       Caption = 'ActEntryBrandName'
+      Checked = True
       ShortCut = 16434
       OnExecute = ActEntryBrandNameExecute
     end
     object ActEntryUnit: TAction
+      AutoCheck = True
       Caption = 'ActEntryUnit'
+      Checked = True
       ShortCut = 16435
       OnExecute = ActEntryUnitExecute
     end
     object ActCancel: TAction
+      AutoCheck = True
       Caption = 'ActCancel'
+      Checked = True
       SecondaryShortCuts.Strings = (
         'Ctrl+4'
       )
@@ -868,7 +963,9 @@ object FrmAddDetail: TFrmAddDetail
       OnExecute = ActCancelExecute
     end
     object ActSave: TAction
+      AutoCheck = True
       Caption = 'ActSave'
+      Checked = True
       SecondaryShortCuts.Strings = (
         'Ctrl+5'
       )
@@ -876,7 +973,9 @@ object FrmAddDetail: TFrmAddDetail
       OnExecute = ActSaveExecute
     end
     object ActQuit: TAction
+      AutoCheck = True
       Caption = 'ActQuit'
+      Checked = True
       SecondaryShortCuts.Strings = (
         'Ctrl+6'
       )

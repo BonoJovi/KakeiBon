@@ -19,42 +19,62 @@ type
   { TFrmManageExp }
 
   TFrmManageExp = class(TForm)
-    ActDefaultOrderKey2: TAction;
-    ActDefaultOrderKey3: TAction;
-    ADS1          : TDataSource;
-    ADS2          : TDataSource;
-    ADS3          : TDataSource;
-    ATr1          : TSQLTransaction;
-    ATr2          : TSQLTransaction;
-    ATr3          : TSQLTransaction;
-    AQu1          : TSQLQuery;
-    AQu2          : TSQLQuery;
-    AQu3          : TSQLQuery;
+    ACn1                : TSQLite3Connection;
+    ADS1                : TDataSource;
+    ATr1                : TSQLTransaction;
+    AQu1                : TSQLQuery;
+    ACn2                : TSQLite3Connection;
+    ADS2                : TDataSource;
+    ATr2                : TSQLTransaction;
+    AQu2                : TSQLQuery;
+    ACn3                : TSQLite3Connection;
+    ADS3                : TDataSource;
+    ATr3                : TSQLTransaction;
+    AQu3                : TSQLQuery;
     { ActionLists}
-    ActionList    : TActionList;
-    ActInsertExp2 : TAction;
-    ActInsertExp3 : TAction;
-    ActQuit       : TAction;
-    ASG1          : TStringGrid;
-    ASG2          : TStringGrid;
-    ASG3          : TStringGrid;
-    BtnAddExp2    : TButton;
-    BtnAddExp3    : TButton;
-    BtnDefaultOrderKey2: TButton;
-    BtnDefaultOrderKey3: TButton;
-    BtnGoBack     : TButton;
-    Label1        : TLabel;
-    Label2        : TLabel;
-    PnlGoBack     : TPanel;
-    ACn1: TSQLite3Connection;
-    ACn2: TSQLite3Connection;
-    ACn3: TSQLite3Connection;
-    Timer1        : TTimer;
+    ActionList          : TActionList;
+    ActAddExp2          : TAction;
+    ActDefaultOrderKey2 : TAction;
+    ActAddExp3          : TAction;
+    ActDefaultOrderKey3 : TAction;
+    ActQuit             : TAction;
+    ASG1                : TStringGrid;
+    ASG2                : TStringGrid;
+    ASG3                : TStringGrid;
+    Label1              : TLabel;
+    Label2              : TLabel;
+    BtnAddExp2          : TPanel;
+    BtnDefaultOrderKey2 : TPanel;
+    BtnAddExp3          : TPanel;
+    BtnDefaultOrderKey3 : TPanel;
+    BtnGoBack           : TPanel;
+    PnlGoBack           : TPanel;
+    Timer1              : TTimer;
+    procedure ProcAddExp2(Sender: TObject);
+    procedure ProcDefaultOrderKey2(Sender: TObject);
+    procedure ProcAddExp3(Sender: TObject);
+    procedure ProcDefaultOrderKey3(Sender: TObject);
+    procedure ProcGoBack(Sender: TObject);
+    procedure AddExp2MouseOver(NewColor: TColor);
+    procedure BtnAddExp2Enter(Sender: TObject);
+    procedure BtnAddExp2Exit(Sender: TObject);
+    procedure DefaultOrderKey2MouseOver(NewColor: TColor);
+    procedure BtnDefaultOrderKey2Enter(Sender: TObject);
+    procedure BtnDefaultOrderKey2Exit(Sender: TObject);
+    procedure AddExp3MouseOver(NewColor: TColor);
+    procedure BtnAddExp3Enter(Sender: TObject);
+    procedure BtnAddExp3Exit(Sender: TObject);
+    procedure DefaultOrderKey3MouseOver(NewColor: TColor);
+    procedure BtnDefaultOrderKey3Enter(Sender: TObject);
+    procedure BtnDefaultOrderKey3Exit(Sender: TObject);
+    procedure GoBackMouseOver(NewColor: TColor);
+    procedure BtnGoBackEnter(Sender: TObject);
+    procedure BtnGoBackExit(Sender: TObject);
+    procedure ActAddExp2Execute(Sender: TObject);
     procedure ActDefaultOrderKey2Execute(Sender: TObject);
+    procedure ActAddExp3Execute(Sender: TObject);
     procedure ActDefaultOrderKey3Execute(Sender: TObject);
     procedure ActGoBackExecute(Sender: TObject);
-    procedure ActInsertExp2Execute(Sender: TObject);
-    procedure ActInsertExp3Execute(Sender: TObject);
     procedure ActQuitExecute(Sender: TObject);
     procedure ASG1Click(Sender: TObject);
     procedure ASG2CheckboxToggled(Sender: TObject; aCol, aRow: Integer;
@@ -79,11 +99,6 @@ type
     FPrevExp3       : String;
     procedure SetDatabaseNames;
     procedure CloseTransactions;
-    procedure ProcGoBack;
-    procedure ProcDefaultOrderKey2;
-    procedure ProcDefaultOrderKey3;
-    procedure ProcInsertExp2;
-    procedure ProcInsertExp3;
     function GetMaxOrderKey(Qu: TSQLQuery; FieldName: String): Integer;
     function GeneratePickList(MaxIndex: Integer): TStringList;
     procedure SetPickList(StrGrid: TStringGrid;
@@ -125,38 +140,7 @@ begin
   end;
 end;
 
-procedure TFrmManageExp.ProcGoBack;
-begin
-  FrmTopMenu.Visible := True;
-  FrmManageExp.Close;
-end;
-
-procedure TFrmManageExp.ProcDefaultOrderKey2;
-begin
-  with FrmTopMenu.Defs do begin
-    CloseTransactions;
-    SetDatabaseNames;
-
-    SetDefaultOrderKey2(
-      ACn2, ADS2, ATr2, AQu2, SQL_20060014,
-      ASG1.Cells[3, ASG1.Row].ToInteger);
-  end;
-end;
-
-procedure TFrmManageExp.ProcDefaultOrderKey3;
-begin
-  with FrmTopMenu.Defs do begin
-    CloseTransactions;
-    SetDatabaseNames;
-
-    SetDefaultOrderKey3(
-      ACn2, ADS2, ATr2, AQu2, SQL_20060015,
-      ASG1.Cells[3, ASG1.Row].ToInteger,
-      ASG2.Cells[3, ASG2.Row].ToInteger);
-  end;
-end;
-
-procedure TFrmManageExp.ProcInsertExp2;
+procedure TFrmManageExp.ProcAddExp2(Sender: TObject);
 var
   LMaxOrderKey2 : Integer;
   LPickList     : TStringList;
@@ -174,8 +158,6 @@ var
         end;
 
         CloseTransactions;
-        SetDatabaseNames;
-
         ExecSQL;
         ATr2.Commit;
       end;
@@ -218,7 +200,18 @@ begin
   end;
 end;
 
-procedure TFrmManageExp.ProcInsertExp3;
+procedure TFrmManageExp.ProcDefaultOrderKey2(Sender: TObject);
+begin
+  with FrmTopMenu.Defs do begin
+    CloseTransactions;
+    SetDatabaseNames;
+    SetDefaultOrderKey2(
+      ACn2, ADS2, ATr2, AQu2, SQL_20060014,
+      ASG1.Cells[3, ASG1.Row].ToInteger);
+  end;
+end;
+
+procedure TFrmManageExp.ProcAddExp3(Sender: TObject);
 var
   LMaxOrderKey3 : Integer;
   LPickList     : TStringList;
@@ -237,8 +230,6 @@ var
         end;
 
         CloseTransactions;
-        SetDatabaseNames;
-
         ExecSQL;
         ATr3.Commit;
       end;
@@ -274,6 +265,119 @@ begin
     end;
   finally
   end;
+end;
+
+procedure TFrmManageExp.ProcDefaultOrderKey3(Sender: TObject);
+begin
+  with FrmTopMenu.Defs do begin
+    CloseTransactions;
+    SetDatabaseNames;
+    SetDefaultOrderKey3(
+      ACn2, ADS2, ATr2, AQu2, SQL_20060015,
+      ASG1.Cells[3, ASG1.Row].ToInteger,
+      ASG2.Cells[3, ASG2.Row].ToInteger);
+  end;
+end;
+
+procedure TFrmManageExp.ProcGoBack(Sender: TObject);
+begin
+  FrmTopMenu.Visible := True;
+  FrmManageExp.Close;
+end;
+
+procedure TFrmManageExp.AddExp2MouseOver(NewColor: TColor);
+begin
+  BtnAddExp2.Color := NewColor;
+end;
+
+procedure TFrmManageExp.BtnAddExp2Enter(Sender: TObject);
+begin
+  AddExp2MouseOver(clSkyBlue);
+  DefaultOrderKey2MouseOver(clBtnFace);
+  AddExp3MouseOver(clBtnFace);
+  DefaultOrderKey3MouseOver(clBtnFace);
+  GoBackMouseOver(clBtnFace);
+end;
+
+procedure TFrmManageExp.BtnAddExp2Exit(Sender: TObject);
+begin
+  AddExp2MouseOver(clBtnFace);
+end;
+
+procedure TFrmManageExp.DefaultOrderKey2MouseOver(NewColor: TColor);
+begin
+  BtnDefaultOrderKey2.Color := NewColor;
+end;
+
+procedure TFrmManageExp.BtnDefaultOrderKey2Enter(Sender: TObject);
+begin
+  AddExp2MouseOver(clBtnFace);
+  DefaultOrderKey2MouseOver(clSkyBlue);
+  AddExp3MouseOver(clBtnFace);
+  DefaultOrderKey3MouseOver(clBtnFace);
+  GoBackMouseOver(clBtnFace);
+end;
+
+procedure TFrmManageExp.BtnDefaultOrderKey2Exit(Sender: TObject);
+begin
+  DefaultOrderKey2MouseOver(clBtnFace);
+end;
+
+procedure TFrmManageExp.AddExp3MouseOver(NewColor: TColor);
+begin
+  BtnAddExp3.Color := NewColor;
+end;
+
+procedure TFrmManageExp.BtnAddExp3Enter(Sender: TObject);
+begin
+  AddExp2MouseOver(clBtnFace);
+  DefaultOrderKey2MouseOver(clBtnFace);
+  AddExp3MouseOver(clSkyBlue);
+  DefaultOrderKey3MouseOver(clBtnFace);
+  GoBackMouseOver(clBtnFace);
+end;
+
+procedure TFrmManageExp.BtnAddExp3Exit(Sender: TObject);
+begin
+  AddExp3MouseOver(clBtnFace);
+end;
+
+procedure TFrmManageExp.DefaultOrderKey3MouseOver(NewColor: TColor);
+begin
+  BtnDefaultOrderKey3.Color := NewColor;
+end;
+
+procedure TFrmManageExp.BtnDefaultOrderKey3Enter(Sender: TObject);
+begin
+  AddExp2MouseOver(clBtnFace);
+  DefaultOrderKey2MouseOver(clBtnFace);
+  AddExp3MouseOver(clBtnFace);
+  DefaultOrderKey3MouseOver(clSkyBlue);
+  GoBackMouseOver(clBtnFace);
+end;
+
+procedure TFrmManageExp.BtnDefaultOrderKey3Exit(Sender: TObject);
+begin
+  DefaultOrderKey3MouseOver(clBtnFace);
+end;
+
+procedure TFrmManageExp.GoBackMouseOver(NewColor: TColor);
+begin
+  BtnGoBack.Color := NewColor;
+end;
+
+procedure TFrmManageExp.BtnGoBackEnter(Sender: TObject);
+begin
+  AddExp2MouseOver(clBtnFace);
+  DefaultOrderKey2MouseOver(clBtnFace);
+  AddExp3MouseOver(clBtnFace);
+  DefaultOrderKey3MouseOver(clBtnFace);
+  GoBackMouseOver(clSkyBlue);
+end;
+
+procedure TFrmManageExp.BtnGoBackExit(Sender: TObject);
+begin
+  GoBackMouseOver(clBtnFace);
 end;
 
 function TFrmManageExp.GetMaxOrderKey(
@@ -408,8 +512,6 @@ begin
 
     CloseConn(ACn2, ATr2);
     SetDatabaseNames;
-
-    SetDatabaseNames;
     OpenSelectQueryWithExp1(
       ACn2, ADS2, ATr2, AQu2, SQL_20060003, StrToInt(ASG1.Cells[3, ASG1.Row]));
     SetValuesToASG2;
@@ -460,7 +562,6 @@ begin
 
     CloseConn(ACn3, ATr3);
     SetDatabaseNames;
-
     with ASG2 do begin
       OpenSelectQueryWithExp1AndExp2(
         ACn3, ADS3, ATr3, AQu3, SQL_20060004,
@@ -476,32 +577,32 @@ begin
   end;
 end;
 
-procedure TFrmManageExp.ActGoBackExecute(Sender: TObject);
+procedure TFrmManageExp.ActAddExp2Execute(Sender: TObject);
 begin
-  ProcGoBack;
+  ProcAddExp2(Sender);
 end;
 
 procedure TFrmManageExp.ActDefaultOrderKey2Execute(Sender: TObject);
 begin
-  ProcDefaultOrderKey2;
+  ProcDefaultOrderKey2(Sender);
   SelectExp2;
   SelectExp3;
 end;
 
+procedure TFrmManageExp.ActAddExp3Execute(Sender: TObject);
+begin
+  ProcAddExp3(Sender);
+end;
+
 procedure TFrmManageExp.ActDefaultOrderKey3Execute(Sender: TObject);
 begin
-  ProcDefaultOrderKey3;
+  ProcDefaultOrderKey3(Sender);
   SelectExp3;
 end;
 
-procedure TFrmManageExp.ActInsertExp2Execute(Sender: TObject);
+procedure TFrmManageExp.ActGoBackExecute(Sender: TObject);
 begin
-  ProcInsertExp2;
-end;
-
-procedure TFrmManageExp.ActInsertExp3Execute(Sender: TObject);
-begin
-  ProcInsertExp3;
+  ProcGoBack(Sender);
 end;
 
 procedure TFrmManageExp.ActQuitExecute(Sender: TObject);
@@ -541,8 +642,6 @@ begin
             end;
 
             CloseTransactions;
-            SetDatabaseNames;
-
             ExecSQL;
             ATr2.Commit;
           end;
@@ -588,8 +687,6 @@ var
         end;
 
         CloseTransactions;
-        SetDatabaseNames;
-
         ExecSQL;
         ATr2.Commit;
       end;
@@ -638,8 +735,6 @@ begin
           with ASG2 do begin
             if FPrevOrderKey2 < FNewOrderKey2 then begin
               CloseTransactions;
-              SetDatabaseNames;
-
               CancelChangedOrderKey2(
                 SQL_20060012, ASG2, FPrevOrderKey2, FNewOrderKey2);
 
@@ -652,8 +747,6 @@ begin
               ATr2.Commit;
             end else if FPrevOrderKey2 > FNewOrderKey2 then begin
               CloseTransactions;
-              SetDatabaseNames;
-
               CancelChangedOrderKey2(
                 SQL_20060012, ASG2, FPrevOrderKey2, FPrevOrderKey2);
               for i := FNewOrderKey2 to FPrevOrderKey2 - 1 do begin
@@ -708,8 +801,6 @@ begin
           FNewOrderKey2 := Cells[6, ASG2.Row].ToInteger;
           if FPrevOrderKey2 < FNewOrderKey2 then begin
             CloseTransactions;
-            SetDatabaseNames;
-
             SaveChangedOrderKey2(
               SQL_20060012, ASG2, FPrevOrderKey2, FNewOrderKey2);
             for i := FPrevOrderKey2 + 1 to FNewOrderKey2 do begin
@@ -720,8 +811,6 @@ begin
             ATr2.Commit;
           end else if FPrevOrderKey2 > FNewOrderKey2 then begin
             CloseTransactions;
-            SetDatabaseNames;
-
             SaveChangedOrderKey2(
               SQL_20060012, ASG2, FPrevOrderKey2, FNewOrderKey2);
             for i := FNewOrderKey2 to FPrevOrderKey2 - 1 do begin
@@ -766,8 +855,6 @@ begin
             end;
 
             CloseTransactions;
-            SetDatabaseNames;
-
             ExecSQL;
             ATr3.Commit;
           end;
@@ -813,8 +900,6 @@ var
         end;
 
         CloseTransactions;
-        SetDatabaseNames;
-
         ExecSQL;
         ATr3.Commit;
       end;
@@ -929,8 +1014,6 @@ begin
           FNewOrderKey3 := Cells[7, ASG3.Row].ToInteger;
           if FPrevOrderKey3 < FNewOrderKey3 then begin
             CloseTransactions;
-            SetDatabaseNames;
-
             SaveChangedOrderKey3(
                 SQL_20060013, ASG3, FPrevOrderKey3, FNewOrderKey3);
 
@@ -943,8 +1026,6 @@ begin
             ATr3.Commit;
           end else if FPrevOrderKey3 > FNewOrderKey3 then begin
             CloseTransactions;
-            SetDatabaseNames;
-
             SaveChangedOrderKey3(
                 SQL_20060013, ASG3, FPrevOrderKey3, FNewOrderKey3);
             for i := FNewOrderKey3 to FPrevOrderKey3 - 1 do begin

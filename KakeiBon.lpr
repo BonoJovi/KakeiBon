@@ -13,7 +13,7 @@ uses
   Forms, datetimectrls, UAddDetail, UAddDetailsHeader, UAddUser, UDBAccess,
   UDefs, UEditAdmUser, UEditDetail, UEditDetailsHeader, UEditUser,
   UEntryAccount, UEntryAdmin, UEntryBrandName, UEntryMaker, UEntryShop,
-  UEntryUnit, ULogin, UManageDetails, UManageExp, UManageUser, URemoveUser,
+  UEntryUnit, ULogin, UManageDetails, UManageExp, UManageUser, UDeleteUser,
   UTopMenu, UConsts, USummary;
 
 {$R *.res}

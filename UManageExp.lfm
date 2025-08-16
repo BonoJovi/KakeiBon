@@ -8,8 +8,8 @@ object FrmManageExp: TFrmManageExp
   ClientHeight = 422
   ClientWidth = 1016
   Color = clWindowFrame
-  Font.Height = -13
-  Font.Name = 'Sans'
+  Font.Height = -21
+  Font.Name = '0xProto'
   Font.Style = [fsBold]
   Position = poScreenCenter
   OnClose = FormClose
@@ -78,9 +78,14 @@ object FrmManageExp: TFrmManageExp
         Font.Style = [fsBold]
         Title.Caption = 'UPDATE_DT'
       end>
+    Font.Height = -19
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing, goRowSelect, goColSpanning, goDblClickAutoSize, goSmoothScroll, goFixedRowNumbering, goSelectionActive, goFixedColSizing, goCellEllipsis]
     Options2 = [goEditorParentColor, goEditorParentFont]
+    ParentFont = False
     TabOrder = 0
+    TabStop = False
     OnClick = ASG1Click
   end
   object Label1: TLabel
@@ -164,13 +169,14 @@ object FrmManageExp: TFrmManageExp
         Title.Caption = '更新日'
         Width = 64
       end>
-    Font.Height = -16
-    Font.Name = '0xProto Nerd Font Mono'
+    Font.Height = -19
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing, goEditing, goRowSelect, goAlwaysShowEditor, goColSpanning, goDblClickAutoSize, goSmoothScroll, goSelectionActive, goFixedColSizing, goCellEllipsis]
     ParentFont = False
     RowCount = 7
     TabOrder = 1
+    TabStop = False
     OnCheckboxToggled = ASG2CheckboxToggled
     OnClick = ASG2Click
     OnKeyUp = ASG2KeyUp
@@ -187,33 +193,55 @@ object FrmManageExp: TFrmManageExp
       64
     )
   end
-  object BtnAddExp2: TButton
-    Cursor = crHandPoint
+  object BtnAddExp2: TPanel
+    Cursor = crCross
     Left = 320
     Height = 29
     Top = 280
     Width = 320
-    Action = ActInsertExp2
+    BevelColor = clNone
+    BevelOuter = bvNone
     Caption = '　　追　　　加　　 (CTRL+1)'
+    Color = clBtnFace
     Font.Height = -21
     Font.Name = '0xProto'
     Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
     ParentFont = False
+    ShowAccelChar = True
     TabOrder = 2
+    TabStop = True
+    OnClick = ActAddExp2Execute
+    OnEnter = BtnAddExp2Enter
+    OnExit = BtnAddExp2Exit
+    OnMouseEnter = BtnAddExp2Enter
+    OnMouseLeave = BtnAddExp2Exit
   end
-  object BtnDefaultOrderKey2: TButton
-    Cursor = crHandPoint
+  object BtnDefaultOrderKey2: TPanel
+    Cursor = crCross
     Left = 320
     Height = 29
     Top = 320
     Width = 320
-    Action = ActDefaultOrderKey2
+    BevelColor = clNone
+    BevelOuter = bvNone
     Caption = '並び順を初期状態に (CTRL+2)'
+    Color = clBtnFace
     Font.Height = -21
     Font.Name = '0xProto'
     Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
     ParentFont = False
+    ShowAccelChar = True
     TabOrder = 3
+    TabStop = True
+    OnClick = ActDefaultOrderKey2Execute
+    OnEnter = BtnDefaultOrderKey2Enter
+    OnExit = BtnDefaultOrderKey2Exit
+    OnMouseEnter = BtnDefaultOrderKey2Enter
+    OnMouseLeave = BtnDefaultOrderKey2Exit
   end
   object Label2: TLabel
     Left = 648
@@ -303,13 +331,14 @@ object FrmManageExp: TFrmManageExp
         Title.Caption = '更新日'
         Width = 64
       end>
-    Font.Height = -16
-    Font.Name = '0xProto Nerd Font Mono'
+    Font.Height = -17
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing, goEditing, goRowSelect, goAlwaysShowEditor, goColSpanning, goDblClickAutoSize, goSmoothScroll, goSelectionActive, goFixedColSizing, goCellEllipsis]
     ParentFont = False
     RowCount = 7
     TabOrder = 4
+    TabStop = False
     OnCheckboxToggled = ASG3CheckboxToggled
     OnClick = ASG3Click
     OnKeyUp = ASG3KeyUp
@@ -327,40 +356,62 @@ object FrmManageExp: TFrmManageExp
       64
     )
   end
-  object BtnAddExp3: TButton
-    Cursor = crHandPoint
+  object BtnAddExp3: TPanel
+    Cursor = crCross
     Left = 680
     Height = 29
     Top = 280
     Width = 320
-    Action = ActInsertExp3
+    BevelColor = clNone
+    BevelOuter = bvNone
     Caption = '　　追　　　加　　 (CTRL+3)'
+    Color = clBtnFace
     Font.Height = -21
     Font.Name = '0xProto'
     Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
     ParentFont = False
+    ShowAccelChar = True
     TabOrder = 5
+    TabStop = True
+    OnClick = ActAddExp3Execute
+    OnEnter = BtnAddExp3Enter
+    OnExit = BtnAddExp3Exit
+    OnMouseEnter = BtnAddExp3Enter
+    OnMouseLeave = BtnAddExp3Exit
   end
-  object BtnDefaultOrderKey3: TButton
-    Cursor = crHandPoint
+  object BtnDefaultOrderKey3: TPanel
+    Cursor = crCross
     Left = 680
     Height = 29
     Top = 320
     Width = 320
-    Action = ActDefaultOrderKey3
+    BevelColor = clNone
+    BevelOuter = bvNone
     Caption = '並び順を初期状態に (CTRL+4)'
+    Color = clBtnFace
     Font.Height = -21
     Font.Name = '0xProto'
     Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
     ParentFont = False
+    ShowAccelChar = True
     TabOrder = 6
+    TabStop = True
+    OnClick = ActDefaultOrderKey3Execute
+    OnEnter = BtnDefaultOrderKey3Enter
+    OnExit = BtnDefaultOrderKey3Exit
+    OnMouseEnter = BtnDefaultOrderKey3Enter
+    OnMouseLeave = BtnDefaultOrderKey3Exit
   end
   object PnlGoBack: TPanel
     Left = 16
     Height = 48
     Top = 360
     Width = 984
-    Caption = '前の画面に戻る (CTRL+Q)'
+    Caption = '前の画面に戻る (CTRL+3)'
     Color = clActiveCaption
     Enabled = False
     Font.CharSet = ANSI_CHARSET
@@ -374,20 +425,30 @@ object FrmManageExp: TFrmManageExp
     ParentFont = False
     TabOrder = 7
   end
-  object BtnGoBack: TButton
-    Cursor = crHandPoint
+  object BtnGoBack: TPanel
+    Cursor = crCross
     Left = 24
     Height = 32
     Top = 368
     Width = 968
-    Action = ActQuit
-    Caption = '前の画面に戻る (CTRL+Q)'
-    Color = clNone
+    BevelColor = clNone
+    BevelOuter = bvNone
+    Caption = '前の画面に戻る (CTRL+3)'
+    Color = clBtnFace
     Font.Height = -21
     Font.Name = '0xProto'
     Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
     ParentFont = False
+    ShowAccelChar = True
     TabOrder = 8
+    TabStop = True
+    OnClick = ActGoBackExecute
+    OnEnter = BtnGoBackEnter
+    OnExit = BtnGoBackExit
+    OnMouseEnter = BtnGoBackEnter
+    OnMouseLeave = BtnGoBackExit
   end
   object Timer1: TTimer
     Enabled = False
@@ -398,20 +459,20 @@ object FrmManageExp: TFrmManageExp
   object ActionList: TActionList
     Left = 120
     Top = 272
-    object ActInsertExp2: TAction
-      Caption = 'ActInsertExp2'
+    object ActAddExp2: TAction
+      Caption = 'ActAddExp2'
       ShortCut = 16433
-      OnExecute = ActInsertExp2Execute
+      OnExecute = ActAddExp2Execute
     end
     object ActDefaultOrderKey2: TAction
       Caption = 'ActDefaultOrderKey2'
       ShortCut = 16434
       OnExecute = ActDefaultOrderKey2Execute
     end
-    object ActInsertExp3: TAction
-      Caption = 'ActInsertExp3'
+    object ActAddExp3: TAction
+      Caption = 'ActAddExp3'
       ShortCut = 16435
-      OnExecute = ActInsertExp3Execute
+      OnExecute = ActAddExp3Execute
     end
     object ActDefaultOrderKey3: TAction
       Caption = 'ActDefaultOrderKey3'
