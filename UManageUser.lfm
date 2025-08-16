@@ -71,6 +71,7 @@ object FrmManageUser: TFrmManageUser
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
     ParentFont = False
     TabOrder = 0
+    TabStop = False
     TitleStyle = tsStandard
   end
   object PnlAddUser: TPanel

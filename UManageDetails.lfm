@@ -132,6 +132,7 @@ object FrmManageDetails: TFrmManageDetails
     DataSource = ADS
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgDisableInsert]
     TabOrder = 0
+    TabStop = False
   end
   object ADBNav: TDBNavigator
     Cursor = crHandPoint
@@ -162,24 +163,36 @@ object FrmManageDetails: TFrmManageDetails
     Caption = '入出金を追加 (CTRL+A)'
     Color = clActiveCaption
     Enabled = False
+    Font.Height = -19
+    Font.Name = '0xProto Nerd Font Mono'
+    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
+    ParentFont = False
     TabOrder = 2
   end
-  object BtnAddDetail: TButton
-    Cursor = crHandPoint
+  object BtnAddDetailHeader: TPanel
+    Cursor = crCross
     Left = 24
     Height = 32
     Top = 352
     Width = 256
-    Action = ActAddDetailsHeader
+    BevelColor = clNone
+    BevelOuter = bvNone
     Caption = '入出金を追加 (CTRL+A)'
-    Color = clSkyBlue
-    Font.Height = -21
-    Font.Name = '0xProto'
+    Color = clBtnFace
+    Font.Height = -19
+    Font.Name = '0xProto Nerd Font Mono'
     Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
     ParentFont = False
+    ShowAccelChar = True
     TabOrder = 3
+    TabStop = True
+    OnClick = ActAddDetailsHeaderExecute
+    OnEnter = BtnAddDetailHeaderEnter
+    OnExit = BtnAddDetailHeaderExit
   end
   object PnlEditDetail: TPanel
     Left = 294
@@ -189,24 +202,38 @@ object FrmManageDetails: TFrmManageDetails
     Caption = '入出金を編集 (CTRL+E)'
     Color = clActiveCaption
     Enabled = False
+    Font.Height = -19
+    Font.Name = '0xProto Nerd Font Mono'
+    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
+    ParentFont = False
     TabOrder = 4
   end
-  object BtnEditDetail: TButton
-    Cursor = crHandPoint
+  object BtnEditDetailHeader: TPanel
+    Cursor = crCross
     Left = 302
     Height = 32
     Top = 352
     Width = 256
-    Action = ActEditDetailsHeader
+    BevelColor = clNone
+    BevelOuter = bvNone
     Caption = '入出金を編集 (CTRL+E)'
-    Color = clSkyBlue
-    Font.Height = -21
-    Font.Name = '0xProto'
+    Color = clBtnFace
+    Font.Height = -19
+    Font.Name = '0xProto Nerd Font Mono'
     Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
     ParentFont = False
+    ShowAccelChar = True
     TabOrder = 5
+    TabStop = True
+    OnClick = ActEditDetailsHeaderExecute
+    OnEnter = BtnEditDetailHeaderEnter
+    OnExit = BtnEditDetailHeaderExit
+    OnMouseEnter = BtnEditDetailHeaderEnter
+    OnMouseLeave = BtnEditDetailHeaderExit
   end
   object PnlRemoveDetail: TPanel
     Left = 16
@@ -216,24 +243,38 @@ object FrmManageDetails: TFrmManageDetails
     Caption = '入出金を削除 (CTRL+D)'
     Color = clActiveCaption
     Enabled = False
+    Font.Height = -19
+    Font.Name = '0xProto Nerd Font Mono'
+    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
+    ParentFont = False
     TabOrder = 6
   end
-  object BtnRemoveDetail: TButton
-    Cursor = crHandPoint
+  object BtnDeleteDetailHeader: TPanel
+    Cursor = crCross
     Left = 24
     Height = 32
     Top = 408
     Width = 256
-    Action = ActDeleteDetailsHeader
+    BevelColor = clNone
+    BevelOuter = bvNone
     Caption = '入出金を削除 (CTRL+D)'
-    Color = clSkyBlue
-    Font.Height = -21
-    Font.Name = '0xProto'
+    Color = clBtnFace
+    Font.Height = -19
+    Font.Name = '0xProto Nerd Font Mono'
     Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
     ParentFont = False
+    ShowAccelChar = True
     TabOrder = 7
+    TabStop = True
+    OnClick = ActDeleteDetailsHeaderExecute
+    OnEnter = BtnDeleteDetailHeaderEnter
+    OnExit = BtnDeleteDetailHeaderExit
+    OnMouseEnter = BtnDeleteDetailHeaderEnter
+    OnMouseLeave = BtnDeleteDetailHeaderExit
   end
   object PnlGoBack: TPanel
     Left = 294
@@ -243,24 +284,38 @@ object FrmManageDetails: TFrmManageDetails
     Caption = '前の画面に戻る (CTRL+Q)'
     Color = clActiveCaption
     Enabled = False
+    Font.Height = -19
+    Font.Name = '0xProto Nerd Font Mono'
+    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
+    ParentFont = False
     TabOrder = 8
   end
-  object BtnGoBack: TButton
-    Cursor = crHandPoint
+  object BtnGoBack: TPanel
+    Cursor = crCross
     Left = 302
     Height = 32
     Top = 408
     Width = 533
-    Action = ActQuit
+    BevelColor = clNone
+    BevelOuter = bvNone
     Caption = '前の画面に戻る (CTRL+Q)'
-    Color = clSkyBlue
-    Font.Height = -21
-    Font.Name = '0xProto'
+    Color = clBtnFace
+    Font.Height = -19
+    Font.Name = '0xProto Nerd Font Mono'
     Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
     ParentFont = False
+    ShowAccelChar = True
     TabOrder = 9
+    TabStop = True
+    OnClick = ActQuitExecute
+    OnEnter = BtnGoBackEnter
+    OnExit = BtnGoBackExit
+    OnMouseEnter = BtnGoBackEnter
+    OnMouseLeave = BtnGoBackExit
   end
   object ActionList: TActionList
     Left = 504

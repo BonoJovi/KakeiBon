@@ -173,9 +173,9 @@
         <ResourceBaseClass Value="Form"/>
       </Unit>
       <Unit>
-        <Filename Value="URemoveUser.pas"/>
+        <Filename Value="UDeleteUser.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="FrmRemoveUser"/>
+        <ComponentName Value="FrmDeleteUser"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit>

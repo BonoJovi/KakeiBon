@@ -76,10 +76,10 @@ object FrmTopMenu: TFrmTopMenu
         TabOrder = 0
         TabStop = True
         OnClick = ProcManageDetails
-        OnEnter = BtnEnterManageDetailsMouseEnter
-        OnExit = BtnEnterManageDetailsMouseLeave
-        OnMouseEnter = BtnEnterManageDetailsMouseEnter
-        OnMouseLeave = BtnEnterManageDetailsMouseLeave
+        OnEnter = BtnEnterManageDetailsEnter
+        OnExit = BtnEnterManageDetailsExit
+        OnMouseEnter = BtnEnterManageDetailsEnter
+        OnMouseLeave = BtnEnterManageDetailsExit
         object Panel37: TPanel
           Cursor = crCross
           Left = 98
@@ -99,10 +99,10 @@ object FrmTopMenu: TFrmTopMenu
           ParentFont = False
           TabOrder = 0
           OnClick = ProcManageDetails
-          OnEnter = BtnEnterManageDetailsMouseEnter
-          OnExit = BtnEnterManageDetailsMouseLeave
-          OnMouseEnter = BtnEnterManageDetailsMouseEnter
-          OnMouseLeave = BtnEnterManageDetailsMouseLeave
+          OnEnter = BtnEnterManageDetailsEnter
+          OnExit = BtnEnterManageDetailsExit
+          OnMouseEnter = BtnEnterManageDetailsEnter
+          OnMouseLeave = BtnEnterManageDetailsExit
           object Panel1: TPanel
             Cursor = crCross
             Left = 0
@@ -121,10 +121,10 @@ object FrmTopMenu: TFrmTopMenu
             ParentFont = False
             TabOrder = 0
             OnClick = ProcManageDetails
-            OnEnter = BtnEnterManageDetailsMouseEnter
-            OnExit = BtnEnterManageDetailsMouseLeave
-            OnMouseEnter = BtnEnterManageDetailsMouseEnter
-            OnMouseLeave = BtnEnterManageDetailsMouseLeave
+            OnEnter = BtnEnterManageDetailsEnter
+            OnExit = BtnEnterManageDetailsExit
+            OnMouseEnter = BtnEnterManageDetailsEnter
+            OnMouseLeave = BtnEnterManageDetailsExit
           end
           object Panel2: TPanel
             Cursor = crCross
@@ -144,10 +144,10 @@ object FrmTopMenu: TFrmTopMenu
             ParentFont = False
             TabOrder = 1
             OnClick = ProcManageDetails
-            OnEnter = BtnEnterManageDetailsMouseEnter
-            OnExit = BtnEnterManageDetailsMouseLeave
-            OnMouseEnter = BtnEnterManageDetailsMouseEnter
-            OnMouseLeave = BtnEnterManageDetailsMouseLeave
+            OnEnter = BtnEnterManageDetailsEnter
+            OnExit = BtnEnterManageDetailsExit
+            OnMouseEnter = BtnEnterManageDetailsEnter
+            OnMouseLeave = BtnEnterManageDetailsExit
           end
           object Panel3: TPanel
             Cursor = crCross
@@ -167,10 +167,10 @@ object FrmTopMenu: TFrmTopMenu
             ParentFont = False
             TabOrder = 2
             OnClick = ProcManageDetails
-            OnEnter = BtnEnterManageDetailsMouseEnter
-            OnExit = BtnEnterManageDetailsMouseLeave
-            OnMouseEnter = BtnEnterManageDetailsMouseEnter
-            OnMouseLeave = BtnEnterManageDetailsMouseLeave
+            OnEnter = BtnEnterManageDetailsEnter
+            OnExit = BtnEnterManageDetailsExit
+            OnMouseEnter = BtnEnterManageDetailsEnter
+            OnMouseLeave = BtnEnterManageDetailsExit
           end
           object Panel4: TPanel
             Cursor = crCross
@@ -190,10 +190,10 @@ object FrmTopMenu: TFrmTopMenu
             ParentFont = False
             TabOrder = 3
             OnClick = ProcManageDetails
-            OnEnter = BtnEnterManageDetailsMouseEnter
-            OnExit = BtnEnterManageDetailsMouseLeave
-            OnMouseEnter = BtnEnterManageDetailsMouseEnter
-            OnMouseLeave = BtnEnterManageDetailsMouseLeave
+            OnEnter = BtnEnterManageDetailsEnter
+            OnExit = BtnEnterManageDetailsExit
+            OnMouseEnter = BtnEnterManageDetailsEnter
+            OnMouseLeave = BtnEnterManageDetailsExit
           end
           object Panel5: TPanel
             Cursor = crCross
@@ -213,10 +213,10 @@ object FrmTopMenu: TFrmTopMenu
             ParentFont = False
             TabOrder = 4
             OnClick = ProcManageDetails
-            OnEnter = BtnEnterManageDetailsMouseEnter
-            OnExit = BtnEnterManageDetailsMouseLeave
-            OnMouseEnter = BtnEnterManageDetailsMouseEnter
-            OnMouseLeave = BtnEnterManageDetailsMouseLeave
+            OnEnter = BtnEnterManageDetailsEnter
+            OnExit = BtnEnterManageDetailsExit
+            OnMouseEnter = BtnEnterManageDetailsEnter
+            OnMouseLeave = BtnEnterManageDetailsExit
           end
         end
       end
@@ -278,10 +278,10 @@ object FrmTopMenu: TFrmTopMenu
         TabOrder = 0
         TabStop = True
         OnClick = ProcSummary
-        OnEnter = BtnEnterSummaryMouseEnter
-        OnExit = BtnEnterSummaryMouseLeave
-        OnMouseEnter = BtnEnterSummaryMouseEnter
-        OnMouseLeave = BtnEnterSummaryMouseLeave
+        OnEnter = BtnEnterSummaryEnter
+        OnExit = BtnEnterSummaryExit
+        OnMouseEnter = BtnEnterSummaryEnter
+        OnMouseLeave = BtnEnterSummaryExit
         object Panel38: TPanel
           Cursor = crCross
           Left = 98
@@ -301,10 +301,10 @@ object FrmTopMenu: TFrmTopMenu
           ParentFont = False
           TabOrder = 0
           OnClick = ProcSummary
-          OnEnter = BtnEnterSummaryMouseEnter
-          OnExit = BtnEnterSummaryMouseLeave
-          OnMouseEnter = BtnEnterSummaryMouseEnter
-          OnMouseLeave = BtnEnterSummaryMouseLeave
+          OnEnter = BtnEnterSummaryEnter
+          OnExit = BtnEnterSummaryExit
+          OnMouseEnter = BtnEnterSummaryEnter
+          OnMouseLeave = BtnEnterSummaryExit
           object Panel6: TPanel
             Cursor = crCross
             Left = 0
@@ -323,10 +323,10 @@ object FrmTopMenu: TFrmTopMenu
             ParentFont = False
             TabOrder = 0
             OnClick = ProcSummary
-            OnEnter = BtnEnterSummaryMouseEnter
-            OnExit = BtnEnterSummaryMouseLeave
-            OnMouseEnter = BtnEnterSummaryMouseEnter
-            OnMouseLeave = BtnEnterSummaryMouseLeave
+            OnEnter = BtnEnterSummaryEnter
+            OnExit = BtnEnterSummaryExit
+            OnMouseEnter = BtnEnterSummaryEnter
+            OnMouseLeave = BtnEnterSummaryExit
           end
           object Panel7: TPanel
             Cursor = crCross
@@ -346,10 +346,10 @@ object FrmTopMenu: TFrmTopMenu
             ParentFont = False
             TabOrder = 1
             OnClick = ProcSummary
-            OnEnter = BtnEnterSummaryMouseEnter
-            OnExit = BtnEnterSummaryMouseLeave
-            OnMouseEnter = BtnEnterSummaryMouseEnter
-            OnMouseLeave = BtnEnterSummaryMouseLeave
+            OnEnter = BtnEnterSummaryEnter
+            OnExit = BtnEnterSummaryExit
+            OnMouseEnter = BtnEnterSummaryEnter
+            OnMouseLeave = BtnEnterSummaryExit
           end
         end
       end
@@ -414,10 +414,10 @@ object FrmTopMenu: TFrmTopMenu
         TabOrder = 0
         TabStop = True
         OnClick = ProcManageUser
-        OnEnter = BtnEnterManageUserMouseEnter
-        OnExit = BtnEnterManageUserMouseLeave
-        OnMouseEnter = BtnEnterManageUserMouseEnter
-        OnMouseLeave = BtnEnterManageUserMouseLeave
+        OnEnter = BtnEnterManageUserEnter
+        OnExit = BtnEnterManageUserExit
+        OnMouseEnter = BtnEnterManageUserEnter
+        OnMouseLeave = BtnEnterManageUserExit
         object Panel39: TPanel
           Cursor = crCross
           Left = 98
@@ -437,10 +437,10 @@ object FrmTopMenu: TFrmTopMenu
           ParentFont = False
           TabOrder = 0
           OnClick = ProcManageUser
-          OnEnter = BtnEnterManageUserMouseEnter
-          OnExit = BtnEnterManageUserMouseLeave
-          OnMouseEnter = BtnEnterManageUserMouseEnter
-          OnMouseLeave = BtnEnterManageUserMouseLeave
+          OnEnter = BtnEnterManageUserEnter
+          OnExit = BtnEnterManageUserExit
+          OnMouseEnter = BtnEnterManageUserEnter
+          OnMouseLeave = BtnEnterManageUserExit
           object Panel8: TPanel
             Cursor = crCross
             Left = 0
@@ -459,10 +459,10 @@ object FrmTopMenu: TFrmTopMenu
             ParentFont = False
             TabOrder = 0
             OnClick = ProcManageUser
-            OnEnter = BtnEnterManageUserMouseEnter
-            OnExit = BtnEnterManageUserMouseLeave
-            OnMouseEnter = BtnEnterManageUserMouseEnter
-            OnMouseLeave = BtnEnterManageUserMouseLeave
+            OnEnter = BtnEnterManageUserEnter
+            OnExit = BtnEnterManageUserExit
+            OnMouseEnter = BtnEnterManageUserEnter
+            OnMouseLeave = BtnEnterManageUserExit
           end
           object Panel9: TPanel
             Cursor = crCross
@@ -482,10 +482,10 @@ object FrmTopMenu: TFrmTopMenu
             ParentFont = False
             TabOrder = 1
             OnClick = ProcManageUser
-            OnEnter = BtnEnterManageUserMouseEnter
-            OnExit = BtnEnterManageUserMouseLeave
-            OnMouseEnter = BtnEnterManageUserMouseEnter
-            OnMouseLeave = BtnEnterManageUserMouseLeave
+            OnEnter = BtnEnterManageUserEnter
+            OnExit = BtnEnterManageUserExit
+            OnMouseEnter = BtnEnterManageUserEnter
+            OnMouseLeave = BtnEnterManageUserExit
           end
           object Panel10: TPanel
             Cursor = crCross
@@ -505,10 +505,10 @@ object FrmTopMenu: TFrmTopMenu
             ParentFont = False
             TabOrder = 2
             OnClick = ProcManageUser
-            OnEnter = BtnEnterManageUserMouseEnter
-            OnExit = BtnEnterManageUserMouseLeave
-            OnMouseEnter = BtnEnterManageUserMouseEnter
-            OnMouseLeave = BtnEnterManageUserMouseLeave
+            OnEnter = BtnEnterManageUserEnter
+            OnExit = BtnEnterManageUserExit
+            OnMouseEnter = BtnEnterManageUserEnter
+            OnMouseLeave = BtnEnterManageUserExit
           end
           object Panel11: TPanel
             Cursor = crCross
@@ -528,10 +528,10 @@ object FrmTopMenu: TFrmTopMenu
             ParentFont = False
             TabOrder = 3
             OnClick = ProcManageUser
-            OnEnter = BtnEnterManageUserMouseEnter
-            OnExit = BtnEnterManageUserMouseLeave
-            OnMouseEnter = BtnEnterManageUserMouseEnter
-            OnMouseLeave = BtnEnterManageUserMouseLeave
+            OnEnter = BtnEnterManageUserEnter
+            OnExit = BtnEnterManageUserExit
+            OnMouseEnter = BtnEnterManageUserEnter
+            OnMouseLeave = BtnEnterManageUserExit
           end
           object Panel12: TPanel
             Cursor = crCross
@@ -551,10 +551,10 @@ object FrmTopMenu: TFrmTopMenu
             ParentFont = False
             TabOrder = 4
             OnClick = ProcManageUser
-            OnEnter = BtnEnterManageUserMouseEnter
-            OnExit = BtnEnterManageUserMouseLeave
-            OnMouseEnter = BtnEnterManageUserMouseEnter
-            OnMouseLeave = BtnEnterManageUserMouseLeave
+            OnEnter = BtnEnterManageUserEnter
+            OnExit = BtnEnterManageUserExit
+            OnMouseEnter = BtnEnterManageUserEnter
+            OnMouseLeave = BtnEnterManageUserExit
           end
         end
       end
@@ -599,10 +599,10 @@ object FrmTopMenu: TFrmTopMenu
         TabOrder = 0
         TabStop = True
         OnClick = ProcManageExp
-        OnEnter = BtnEnterManageExpMouseEnter
-        OnExit = BtnEnterManageExpMouseLeave
-        OnMouseEnter = BtnEnterManageExpMouseEnter
-        OnMouseLeave = BtnEnterManageExpMouseLeave
+        OnEnter = BtnEnterManageExpEnter
+        OnExit = BtnEnterManageExpExit
+        OnMouseEnter = BtnEnterManageExpEnter
+        OnMouseLeave = BtnEnterManageExpExit
         object Panel40: TPanel
           Cursor = crCross
           Left = 98
@@ -622,10 +622,10 @@ object FrmTopMenu: TFrmTopMenu
           ParentFont = False
           TabOrder = 0
           OnClick = ProcManageExp
-          OnEnter = BtnEnterManageExpMouseEnter
-          OnExit = BtnEnterManageExpMouseLeave
-          OnMouseEnter = BtnEnterManageExpMouseEnter
-          OnMouseLeave = BtnEnterManageExpMouseLeave
+          OnEnter = BtnEnterManageExpEnter
+          OnExit = BtnEnterManageExpExit
+          OnMouseEnter = BtnEnterManageExpEnter
+          OnMouseLeave = BtnEnterManageExpExit
           object Panel13: TPanel
             Cursor = crCross
             Left = 0
@@ -644,10 +644,10 @@ object FrmTopMenu: TFrmTopMenu
             ParentFont = False
             TabOrder = 0
             OnClick = ProcManageExp
-            OnEnter = BtnEnterManageExpMouseEnter
-            OnExit = BtnEnterManageExpMouseLeave
-            OnMouseEnter = BtnEnterManageExpMouseEnter
-            OnMouseLeave = BtnEnterManageExpMouseLeave
+            OnEnter = BtnEnterManageExpEnter
+            OnExit = BtnEnterManageExpExit
+            OnMouseEnter = BtnEnterManageExpEnter
+            OnMouseLeave = BtnEnterManageExpExit
           end
           object Panel14: TPanel
             Cursor = crCross
@@ -667,10 +667,10 @@ object FrmTopMenu: TFrmTopMenu
             ParentFont = False
             TabOrder = 1
             OnClick = ProcManageExp
-            OnEnter = BtnEnterManageExpMouseEnter
-            OnExit = BtnEnterManageExpMouseLeave
-            OnMouseEnter = BtnEnterManageExpMouseEnter
-            OnMouseLeave = BtnEnterManageExpMouseLeave
+            OnEnter = BtnEnterManageExpEnter
+            OnExit = BtnEnterManageExpExit
+            OnMouseEnter = BtnEnterManageExpEnter
+            OnMouseLeave = BtnEnterManageExpExit
           end
           object Panel15: TPanel
             Cursor = crCross
@@ -690,10 +690,10 @@ object FrmTopMenu: TFrmTopMenu
             ParentFont = False
             TabOrder = 2
             OnClick = ProcManageExp
-            OnEnter = BtnEnterManageExpMouseEnter
-            OnExit = BtnEnterManageExpMouseLeave
-            OnMouseEnter = BtnEnterManageExpMouseEnter
-            OnMouseLeave = BtnEnterManageExpMouseLeave
+            OnEnter = BtnEnterManageExpEnter
+            OnExit = BtnEnterManageExpExit
+            OnMouseEnter = BtnEnterManageExpEnter
+            OnMouseLeave = BtnEnterManageExpExit
           end
           object Panel16: TPanel
             Cursor = crCross
@@ -713,10 +713,10 @@ object FrmTopMenu: TFrmTopMenu
             ParentFont = False
             TabOrder = 3
             OnClick = ProcManageExp
-            OnEnter = BtnEnterManageExpMouseEnter
-            OnExit = BtnEnterManageExpMouseLeave
-            OnMouseEnter = BtnEnterManageExpMouseEnter
-            OnMouseLeave = BtnEnterManageExpMouseLeave
+            OnEnter = BtnEnterManageExpEnter
+            OnExit = BtnEnterManageExpExit
+            OnMouseEnter = BtnEnterManageExpEnter
+            OnMouseLeave = BtnEnterManageExpExit
           end
         end
       end
@@ -779,10 +779,10 @@ object FrmTopMenu: TFrmTopMenu
         TabOrder = 0
         TabStop = True
         OnClick = ProcLogin
-        OnEnter = BtnLoginMouseEnter
-        OnExit = BtnLoginMouseLeave
-        OnMouseEnter = BtnLoginMouseEnter
-        OnMouseLeave = BtnLoginMouseLeave
+        OnEnter = BtnLoginEnter
+        OnExit = BtnLoginExit
+        OnMouseEnter = BtnLoginEnter
+        OnMouseLeave = BtnLoginExit
         object Panel41: TPanel
           Left = 98
           Height = 46
@@ -801,10 +801,10 @@ object FrmTopMenu: TFrmTopMenu
           ParentFont = False
           TabOrder = 0
           OnClick = ProcLogin
-          OnEnter = BtnLoginMouseEnter
-          OnExit = BtnLoginMouseLeave
-          OnMouseEnter = BtnLoginMouseEnter
-          OnMouseLeave = BtnLoginMouseLeave
+          OnEnter = BtnLoginEnter
+          OnExit = BtnLoginExit
+          OnMouseEnter = BtnLoginEnter
+          OnMouseLeave = BtnLoginExit
           object Panel17: TPanel
             Left = 0
             Height = 40
@@ -822,10 +822,10 @@ object FrmTopMenu: TFrmTopMenu
             ParentFont = False
             TabOrder = 0
             OnClick = ProcLogin
-            OnEnter = BtnLoginMouseEnter
-            OnExit = BtnLoginMouseLeave
-            OnMouseEnter = BtnLoginMouseEnter
-            OnMouseLeave = BtnLoginMouseLeave
+            OnEnter = BtnLoginEnter
+            OnExit = BtnLoginExit
+            OnMouseEnter = BtnLoginEnter
+            OnMouseLeave = BtnLoginExit
           end
           object Panel18: TPanel
             Left = 61
@@ -844,10 +844,10 @@ object FrmTopMenu: TFrmTopMenu
             ParentFont = False
             TabOrder = 1
             OnClick = ProcLogin
-            OnEnter = BtnLoginMouseEnter
-            OnExit = BtnLoginMouseLeave
-            OnMouseEnter = BtnLoginMouseEnter
-            OnMouseLeave = BtnLoginMouseLeave
+            OnEnter = BtnLoginEnter
+            OnExit = BtnLoginExit
+            OnMouseEnter = BtnLoginEnter
+            OnMouseLeave = BtnLoginExit
           end
           object Panel19: TPanel
             Left = 122
@@ -866,10 +866,10 @@ object FrmTopMenu: TFrmTopMenu
             ParentFont = False
             TabOrder = 2
             OnClick = ProcLogin
-            OnEnter = BtnLoginMouseEnter
-            OnExit = BtnLoginMouseLeave
-            OnMouseEnter = BtnLoginMouseEnter
-            OnMouseLeave = BtnLoginMouseLeave
+            OnEnter = BtnLoginEnter
+            OnExit = BtnLoginExit
+            OnMouseEnter = BtnLoginEnter
+            OnMouseLeave = BtnLoginExit
           end
           object Panel20: TPanel
             Left = 183
@@ -888,10 +888,10 @@ object FrmTopMenu: TFrmTopMenu
             ParentFont = False
             TabOrder = 3
             OnClick = ProcLogin
-            OnEnter = BtnLoginMouseEnter
-            OnExit = BtnLoginMouseLeave
-            OnMouseEnter = BtnLoginMouseEnter
-            OnMouseLeave = BtnLoginMouseLeave
+            OnEnter = BtnLoginEnter
+            OnExit = BtnLoginExit
+            OnMouseEnter = BtnLoginEnter
+            OnMouseLeave = BtnLoginExit
           end
         end
       end
@@ -937,10 +937,10 @@ object FrmTopMenu: TFrmTopMenu
         TabOrder = 0
         TabStop = True
         OnClick = ProcLogout
-        OnEnter = BtnLogoutMouseEnter
-        OnExit = BtnLogoutMouseLeave
-        OnMouseEnter = BtnLogoutMouseEnter
-        OnMouseLeave = BtnLogoutMouseLeave
+        OnEnter = BtnLogoutEnter
+        OnExit = BtnLogoutExit
+        OnMouseEnter = BtnLogoutEnter
+        OnMouseLeave = BtnLogoutExit
         object Panel42: TPanel
           Cursor = crCross
           Left = 98
@@ -960,10 +960,10 @@ object FrmTopMenu: TFrmTopMenu
           ParentFont = False
           TabOrder = 0
           OnClick = ProcLogout
-          OnEnter = BtnLogoutMouseEnter
-          OnExit = BtnLogoutMouseLeave
-          OnMouseEnter = BtnLogoutMouseEnter
-          OnMouseLeave = BtnLogoutMouseLeave
+          OnEnter = BtnLogoutEnter
+          OnExit = BtnLogoutExit
+          OnMouseEnter = BtnLogoutEnter
+          OnMouseLeave = BtnLogoutExit
           object Panel21: TPanel
             Cursor = crCross
             Left = 0
@@ -982,10 +982,10 @@ object FrmTopMenu: TFrmTopMenu
             ParentFont = False
             TabOrder = 0
             OnClick = ProcLogout
-            OnEnter = BtnLogoutMouseEnter
-            OnExit = BtnLogoutMouseLeave
-            OnMouseEnter = BtnLogoutMouseEnter
-            OnMouseLeave = BtnLogoutMouseLeave
+            OnEnter = BtnLogoutEnter
+            OnExit = BtnLogoutExit
+            OnMouseEnter = BtnLogoutEnter
+            OnMouseLeave = BtnLogoutExit
           end
           object Panel22: TPanel
             Cursor = crCross
@@ -1005,10 +1005,10 @@ object FrmTopMenu: TFrmTopMenu
             ParentFont = False
             TabOrder = 1
             OnClick = ProcLogout
-            OnEnter = BtnLogoutMouseEnter
-            OnExit = BtnLogoutMouseLeave
-            OnMouseEnter = BtnLogoutMouseEnter
-            OnMouseLeave = BtnLogoutMouseLeave
+            OnEnter = BtnLogoutEnter
+            OnExit = BtnLogoutExit
+            OnMouseEnter = BtnLogoutEnter
+            OnMouseLeave = BtnLogoutExit
           end
           object Panel23: TPanel
             Cursor = crCross
@@ -1028,10 +1028,10 @@ object FrmTopMenu: TFrmTopMenu
             ParentFont = False
             TabOrder = 2
             OnClick = ProcLogout
-            OnEnter = BtnLogoutMouseEnter
-            OnExit = BtnLogoutMouseLeave
-            OnMouseEnter = BtnLogoutMouseEnter
-            OnMouseLeave = BtnLogoutMouseLeave
+            OnEnter = BtnLogoutEnter
+            OnExit = BtnLogoutExit
+            OnMouseEnter = BtnLogoutEnter
+            OnMouseLeave = BtnLogoutExit
           end
           object Panel24: TPanel
             Cursor = crCross
@@ -1051,10 +1051,10 @@ object FrmTopMenu: TFrmTopMenu
             ParentFont = False
             TabOrder = 3
             OnClick = ProcLogout
-            OnEnter = BtnLogoutMouseEnter
-            OnExit = BtnLogoutMouseLeave
-            OnMouseEnter = BtnLogoutMouseEnter
-            OnMouseLeave = BtnLogoutMouseLeave
+            OnEnter = BtnLogoutEnter
+            OnExit = BtnLogoutExit
+            OnMouseEnter = BtnLogoutEnter
+            OnMouseLeave = BtnLogoutExit
           end
           object Panel25: TPanel
             Cursor = crCross
@@ -1074,10 +1074,10 @@ object FrmTopMenu: TFrmTopMenu
             ParentFont = False
             TabOrder = 4
             OnClick = ProcLogout
-            OnEnter = BtnLogoutMouseEnter
-            OnExit = BtnLogoutMouseLeave
-            OnMouseEnter = BtnLogoutMouseEnter
-            OnMouseLeave = BtnLogoutMouseLeave
+            OnEnter = BtnLogoutEnter
+            OnExit = BtnLogoutExit
+            OnMouseEnter = BtnLogoutEnter
+            OnMouseLeave = BtnLogoutExit
           end
         end
       end
@@ -1122,10 +1122,10 @@ object FrmTopMenu: TFrmTopMenu
         TabOrder = 0
         TabStop = True
         OnClick = ProcQuit
-        OnEnter = BtnQuitMouseEnter
-        OnExit = BtnQuitMouseLeave
-        OnMouseEnter = BtnQuitMouseEnter
-        OnMouseLeave = BtnQuitMouseLeave
+        OnEnter = BtnQuitEnter
+        OnExit = BtnQuitExit
+        OnMouseEnter = BtnQuitEnter
+        OnMouseLeave = BtnQuitExit
         object Panel43: TPanel
           Cursor = crCross
           Left = 98
@@ -1145,10 +1145,10 @@ object FrmTopMenu: TFrmTopMenu
           ParentFont = False
           TabOrder = 0
           OnClick = ProcQuit
-          OnEnter = BtnQuitMouseEnter
-          OnExit = BtnQuitMouseLeave
-          OnMouseEnter = BtnQuitMouseEnter
-          OnMouseLeave = BtnQuitMouseLeave
+          OnEnter = BtnQuitEnter
+          OnExit = BtnQuitExit
+          OnMouseEnter = BtnQuitEnter
+          OnMouseLeave = BtnQuitExit
           object Panel26: TPanel
             Cursor = crCross
             Left = 0
@@ -1167,10 +1167,10 @@ object FrmTopMenu: TFrmTopMenu
             ParentFont = False
             TabOrder = 0
             OnClick = ProcQuit
-            OnEnter = BtnQuitMouseEnter
-            OnExit = BtnQuitMouseLeave
-            OnMouseEnter = BtnQuitMouseEnter
-            OnMouseLeave = BtnQuitMouseLeave
+            OnEnter = BtnQuitEnter
+            OnExit = BtnQuitExit
+            OnMouseEnter = BtnQuitEnter
+            OnMouseLeave = BtnQuitExit
           end
           object Panel27: TPanel
             Cursor = crCross
@@ -1190,10 +1190,10 @@ object FrmTopMenu: TFrmTopMenu
             ParentFont = False
             TabOrder = 1
             OnClick = ProcQuit
-            OnEnter = BtnQuitMouseEnter
-            OnExit = BtnQuitMouseLeave
-            OnMouseEnter = BtnQuitMouseEnter
-            OnMouseLeave = BtnQuitMouseLeave
+            OnEnter = BtnQuitEnter
+            OnExit = BtnQuitExit
+            OnMouseEnter = BtnQuitEnter
+            OnMouseLeave = BtnQuitExit
           end
           object Panel28: TPanel
             Cursor = crCross
@@ -1213,10 +1213,10 @@ object FrmTopMenu: TFrmTopMenu
             ParentFont = False
             TabOrder = 2
             OnClick = ProcQuit
-            OnEnter = BtnQuitMouseEnter
-            OnExit = BtnQuitMouseLeave
-            OnMouseEnter = BtnQuitMouseEnter
-            OnMouseLeave = BtnQuitMouseLeave
+            OnEnter = BtnQuitEnter
+            OnExit = BtnQuitExit
+            OnMouseEnter = BtnQuitEnter
+            OnMouseLeave = BtnQuitExit
           end
           object Panel29: TPanel
             Cursor = crCross
@@ -1236,10 +1236,10 @@ object FrmTopMenu: TFrmTopMenu
             ParentFont = False
             TabOrder = 3
             OnClick = ProcQuit
-            OnEnter = BtnQuitMouseEnter
-            OnExit = BtnQuitMouseLeave
-            OnMouseEnter = BtnQuitMouseEnter
-            OnMouseLeave = BtnQuitMouseLeave
+            OnEnter = BtnQuitEnter
+            OnExit = BtnQuitExit
+            OnMouseEnter = BtnQuitEnter
+            OnMouseLeave = BtnQuitExit
           end
           object Panel30: TPanel
             Cursor = crCross
@@ -1259,10 +1259,10 @@ object FrmTopMenu: TFrmTopMenu
             ParentFont = False
             TabOrder = 4
             OnClick = ProcQuit
-            OnEnter = BtnQuitMouseEnter
-            OnExit = BtnQuitMouseLeave
-            OnMouseEnter = BtnQuitMouseEnter
-            OnMouseLeave = BtnQuitMouseLeave
+            OnEnter = BtnQuitEnter
+            OnExit = BtnQuitExit
+            OnMouseEnter = BtnQuitEnter
+            OnMouseLeave = BtnQuitExit
           end
           object Panel31: TPanel
             Cursor = crCross
@@ -1282,10 +1282,10 @@ object FrmTopMenu: TFrmTopMenu
             ParentFont = False
             TabOrder = 5
             OnClick = ProcQuit
-            OnEnter = BtnQuitMouseEnter
-            OnExit = BtnQuitMouseLeave
-            OnMouseEnter = BtnQuitMouseEnter
-            OnMouseLeave = BtnQuitMouseLeave
+            OnEnter = BtnQuitEnter
+            OnExit = BtnQuitExit
+            OnMouseEnter = BtnQuitEnter
+            OnMouseLeave = BtnQuitExit
           end
           object Panel32: TPanel
             Cursor = crCross
@@ -1305,10 +1305,10 @@ object FrmTopMenu: TFrmTopMenu
             ParentFont = False
             TabOrder = 6
             OnClick = ProcQuit
-            OnEnter = BtnQuitMouseEnter
-            OnExit = BtnQuitMouseLeave
-            OnMouseEnter = BtnQuitMouseEnter
-            OnMouseLeave = BtnQuitMouseLeave
+            OnEnter = BtnQuitEnter
+            OnExit = BtnQuitExit
+            OnMouseEnter = BtnQuitEnter
+            OnMouseLeave = BtnQuitExit
           end
           object Panel33: TPanel
             Cursor = crCross
@@ -1328,10 +1328,10 @@ object FrmTopMenu: TFrmTopMenu
             ParentFont = False
             TabOrder = 7
             OnClick = ProcQuit
-            OnEnter = BtnQuitMouseEnter
-            OnExit = BtnQuitMouseLeave
-            OnMouseEnter = BtnQuitMouseEnter
-            OnMouseLeave = BtnQuitMouseLeave
+            OnEnter = BtnQuitEnter
+            OnExit = BtnQuitExit
+            OnMouseEnter = BtnQuitEnter
+            OnMouseLeave = BtnQuitExit
           end
           object Panel34: TPanel
             Cursor = crCross
@@ -1351,10 +1351,10 @@ object FrmTopMenu: TFrmTopMenu
             ParentFont = False
             TabOrder = 8
             OnClick = ProcQuit
-            OnEnter = BtnQuitMouseEnter
-            OnExit = BtnQuitMouseLeave
-            OnMouseEnter = BtnQuitMouseEnter
-            OnMouseLeave = BtnQuitMouseLeave
+            OnEnter = BtnQuitEnter
+            OnExit = BtnQuitExit
+            OnMouseEnter = BtnQuitEnter
+            OnMouseLeave = BtnQuitExit
           end
           object Panel35: TPanel
             Cursor = crCross
@@ -1374,10 +1374,10 @@ object FrmTopMenu: TFrmTopMenu
             ParentFont = False
             TabOrder = 9
             OnClick = ProcQuit
-            OnEnter = BtnQuitMouseEnter
-            OnExit = BtnQuitMouseLeave
-            OnMouseEnter = BtnQuitMouseEnter
-            OnMouseLeave = BtnQuitMouseLeave
+            OnEnter = BtnQuitEnter
+            OnExit = BtnQuitExit
+            OnMouseEnter = BtnQuitEnter
+            OnMouseLeave = BtnQuitExit
           end
           object Panel36: TPanel
             Cursor = crCross
@@ -1397,10 +1397,10 @@ object FrmTopMenu: TFrmTopMenu
             ParentFont = False
             TabOrder = 10
             OnClick = ProcQuit
-            OnEnter = BtnQuitMouseEnter
-            OnExit = BtnQuitMouseLeave
-            OnMouseEnter = BtnQuitMouseEnter
-            OnMouseLeave = BtnQuitMouseLeave
+            OnEnter = BtnQuitEnter
+            OnExit = BtnQuitExit
+            OnMouseEnter = BtnQuitEnter
+            OnMouseLeave = BtnQuitExit
           end
         end
       end

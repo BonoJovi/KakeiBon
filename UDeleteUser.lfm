@@ -1,4 +1,4 @@
-object FrmRemoveUser: TFrmRemoveUser
+object FrmDeleteUser: TFrmDeleteUser
   Left = 818
   Height = 513
   Top = 199
@@ -282,8 +282,14 @@ object FrmRemoveUser: TFrmRemoveUser
     ChildSizing.ControlsPerLine = 100
     ClientHeight = 37
     ClientWidth = 536
+    Color = clWindowFrame
     DataSource = ADS
-    Options = []
+    Font.Height = -21
+    Font.Name = '0xProto Nerd Font Mono'
+    Font.Style = [fsBold, fsItalic]
+    Options = [navFocusableButtons]
+    ParentColor = False
+    ParentFont = False
     TabOrder = 0
     VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
   end
@@ -306,25 +312,32 @@ object FrmRemoveUser: TFrmRemoveUser
     ParentFont = False
     TabOrder = 1
   end
-  object BtnCancel: TButton
-    Cursor = crHandPoint
+  object BtnCancel: TPanel
+    Cursor = crCross
     Left = 24
     Height = 32
     Top = 276
     Width = 248
-    Action = ActCancel
+    BevelColor = clNone
+    BevelOuter = bvNone
     Caption = 'キャンセル (CTRL+C)'
-    Color = clNone
-    Font.CharSet = ANSI_CHARSET
+    Color = clBtnFace
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpFixed
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
     ParentFont = False
+    ShowAccelChar = True
     TabOrder = 2
+    TabStop = True
+    OnClick = ActCancelExecute
+    OnEnter = BtnCancelEnter
+    OnExit = BtnCancelExit
+    OnMouseEnter = BtnCancelEnter
+    OnMouseLeave = BtnCancelExit
   end
-  object PnlRemoveUser: TPanel
+  object PnlDeleteUser: TPanel
     Left = 288
     Height = 48
     Top = 268
@@ -343,23 +356,30 @@ object FrmRemoveUser: TFrmRemoveUser
     ParentFont = False
     TabOrder = 3
   end
-  object BtnRemoveUser: TButton
-    Cursor = crHandPoint
+  object BtnDeleteUser: TPanel
+    Cursor = crCross
     Left = 296
     Height = 32
     Top = 276
     Width = 248
-    Action = ActDeleteUser
+    BevelColor = clNone
+    BevelOuter = bvNone
     Caption = '削　　　除 (CTRL+D)'
-    Color = clNone
-    Font.CharSet = ANSI_CHARSET
+    Color = clBtnFace
     Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpFixed
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
+    Font.Name = '0xProto Nerd Font Mono'
+    Font.Style = [fsBold, fsItalic]
+    ParentBackground = False
+    ParentColor = False
     ParentFont = False
+    ShowAccelChar = True
     TabOrder = 4
+    TabStop = True
+    OnClick = ActDeleteUserExecute
+    OnEnter = BtnDeleteUserEnter
+    OnExit = BtnDeleteUserExit
+    OnMouseEnter = BtnDeleteUserEnter
+    OnMouseLeave = BtnDeleteUserExit
   end
   object ADBGrid: TDBGrid
     Left = 16

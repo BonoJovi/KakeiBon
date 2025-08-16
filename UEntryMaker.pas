@@ -14,24 +14,25 @@ type
   { TFrmEntryMaker }
 
   TFrmEntryMaker = class(TForm)
-    ActCancel      : TAction;
-    ActSave      : TAction;
-    ActInsert      : TAction;
-    ActEntryMaker  : TAction;
+    ACn            : TSQLite3Connection;
+    ActCancel1: TAction;
+    ActCommit1: TAction;
+    ActInsert1: TAction;
+    ActQuit1: TAction;
+    ADS            : TDataSource;
+    ATr            : TSQLTransaction;
+    AQu            : TSQLQuery;
+    ACnNextID      : TSQLite3Connection;
+    ADSNextID      : TDataSource;
+    ATrNextID      : TSQLTransaction;
+    AQuNextID      : TSQLQuery;
     ActionList     : TActionList;
+    ActInsert      : TAction;
+    ActCancel      : TAction;
+    ActSave        : TAction;
     ActQuit        : TAction;
     ADBGrid        : TDBGrid;
     ADBNav         : TDBNavigator;
-    ADS            : TDataSource;
-    ADSNextID      : TDataSource;
-    AQu            : TSQLQuery;
-    AQuNextID      : TSQLQuery;
-    ATr            : TSQLTransaction;
-    ATrNextID      : TSQLTransaction;
-    BtnCancel      : TButton;
-    BtnCommit      : TButton;
-    BtnGoBack      : TButton;
-    BtnInsert      : TButton;
     DBCBDisabled   : TDBCheckBox;
     DBEdtMakerID   : TDBEdit;
     DBEdtMakerName : TDBEdit;
@@ -41,16 +42,33 @@ type
     LblMakerID1    : TLabel;
     LblMakerID2    : TLabel;
     LblMakerName   : TLabel;
+    BtnInsert: TPanel;
+    BtnCancel: TPanel;
+    BtnSave: TPanel;
+    BtnGoBack: TPanel;
     PnlCancel      : TPanel;
-    PnlCommit      : TPanel;
+    PnlSave      : TPanel;
     PnlGoBack      : TPanel;
     PnlInsert      : TPanel;
-    ACn: TSQLite3Connection;
-    ACnNextID: TSQLite3Connection;
     Timer          : TTimer;
+    procedure ProcInsert(Sender: TObject);
+    procedure ProcCancel(Sender: TObject);
+    procedure ProcSave(Sender: TObject);
+    procedure InsertMouseOver(NewColor: TColor);
+    procedure BtnInsertEnter(Sender: TObject);
+    procedure BtnInsertExit(Sender: TObject);
+    procedure CancelMouseOver(NewColor: TColor);
+    procedure BtnCancelEnter(Sender: TObject);
+    procedure BtnCancelExit(Sender: TObject);
+    procedure SaveMouseOver(NewColor: TColor);
+    procedure BtnSaveEnter(Sender: TObject);
+    procedure BtnSaveExit(Sender: TObject);
+    procedure GoBackMouseOver(NewColor: TColor);
+    procedure BtnGoBackEnter(Sender: TObject);
+    procedure BtnGoBackExit(Sender: TObject);
+    procedure ActInsertExecute(Sender: TObject);
     procedure ActCancelExecute(Sender: TObject);
     procedure ActSaveExecute(Sender: TObject);
-    procedure ActInsertExecute(Sender: TObject);
     procedure ActQuitExecute(Sender: TObject);
     procedure ADBGridKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -74,9 +92,6 @@ type
     procedure SetDatabaseNames;
     procedure CloseTransactions;
     procedure BackupValues;
-    procedure ProcCancel;
-    procedure ProcCommit;
-    procedure ProcInsert;
     function GetMakerID: Variant;
     procedure SetMakerID(MakerID: Variant);
     function GetMakerName: String;
@@ -136,7 +151,23 @@ begin
   end;
 end;
 
-procedure TFrmEntryMaker.ProcCancel;
+procedure TFrmEntryMaker.ProcInsert(Sender: TObject);
+begin
+  if Not FInsert then begin
+    with AQu do begin
+      Edit;
+      if AQu.RecordCount > 0 then begin;
+        Insert;
+      end;
+      FInsert := True;
+    end;
+
+    DBCBDisabled.Field.AsBoolean := False;
+    DBEdtMakerName.SetFocus;
+  end;
+end;
+
+procedure TFrmEntryMaker.ProcCancel(Sender: TObject);
 begin
   with FrmTopMenu.Defs do begin
     if FInsert then begin
@@ -152,7 +183,7 @@ begin
   end;
 end;
 
-procedure TFrmEntryMaker.ProcCommit;
+procedure TFrmEntryMaker.ProcSave(Sender: TObject);
 var
   LNextMakerID : Integer;
 begin
@@ -211,20 +242,76 @@ begin
   FDoCommit     := False;
 end;
 
-procedure TFrmEntryMaker.ProcInsert;
+procedure TFrmEntryMaker.InsertMouseOver(NewColor: TColor);
 begin
-  if Not FInsert then begin
-    with AQu do begin
-      Edit;
-      if AQu.RecordCount > 0 then begin;
-        Insert;
-      end;
-      FInsert := True;
-    end;
+  BtnInsert.Color := NewColor;
+end;
 
-    DBCBDisabled.Field.AsBoolean := False;
-    DBEdtMakerName.SetFocus;
-  end;
+procedure TFrmEntryMaker.BtnInsertEnter(Sender: TObject);
+begin
+  InsertMouseOver(clSkyBlue);
+  CancelMouseOver(clBtnFace);
+  SaveMouseOver(clBtnFace);
+  GoBackMouseOver(clBtnFace);
+end;
+
+procedure TFrmEntryMaker.BtnInsertExit(Sender: TObject);
+begin
+  InsertMouseOver(clBtnFace);
+end;
+
+procedure TFrmEntryMaker.CancelMouseOver(NewColor: TColor);
+begin
+  BtnCancel.Color := NewColor;
+end;
+
+procedure TFrmEntryMaker.BtnCancelEnter(Sender: TObject);
+begin
+  InsertMouseOver(clBtnFace);
+  CancelMouseOver(clSkyBlue);
+  SaveMouseOver(clBtnFace);
+  GoBackMouseOver(clBtnFace);
+end;
+
+procedure TFrmEntryMaker.BtnCancelExit(Sender: TObject);
+begin
+  CancelMouseOver(clBtnFace);
+end;
+
+procedure TFrmEntryMaker.SaveMouseOver(NewColor: TColor);
+begin
+  BtnSave.Color := NewColor;
+end;
+
+procedure TFrmEntryMaker.BtnSaveEnter(Sender: TObject);
+begin
+  InsertMouseOver(clBtnFace);
+  CancelMouseOver(clBtnFace);
+  SaveMouseOver(clSkyBlue);
+  GoBackMouseOver(clBtnFace);
+end;
+
+procedure TFrmEntryMaker.BtnSaveExit(Sender: TObject);
+begin
+  SaveMouseOver(clBtnFace);
+end;
+
+procedure TFrmEntryMaker.GoBackMouseOver(NewColor: TColor);
+begin
+  BtnGoBack.Color := NewColor;
+end;
+
+procedure TFrmEntryMaker.BtnGoBackEnter(Sender: TObject);
+begin
+  InsertMouseOver(clBtnFace);
+  CancelMouseOver(clBtnFace);
+  SaveMouseOver(clBtnFace);
+  GoBackMouseOver(clSkyBlue);
+end;
+
+procedure TFrmEntryMaker.BtnGoBackExit(Sender: TObject);
+begin
+  GoBackMouseOver(clBtnFace);
 end;
 
 function TFrmEntryMaker.GetMakerID: Variant;
@@ -256,20 +343,20 @@ begin
   FDisabled := Disabled;
 end;
 
+procedure TFrmEntryMaker.ActInsertExecute(Sender: TObject);
+begin
+  ProcInsert(Sender);
+end;
+
 procedure TFrmEntryMaker.ActCancelExecute(Sender: TObject);
 begin
-  ProcCancel;
+  ProcCancel(Sender);
 end;
 
 procedure TFrmEntryMaker.ActSaveExecute(Sender: TObject);
 begin
   BackupValues;
-  ProcCommit;
-end;
-
-procedure TFrmEntryMaker.ActInsertExecute(Sender: TObject);
-begin
-  ProcInsert;
+  ProcSave(Sender);
 end;
 
 procedure TFrmEntryMaker.ActQuitExecute(Sender: TObject);
@@ -363,7 +450,7 @@ begin
   FrmEntryMaker.Color := RGB(112, 168, 175);
   PnlInsert.Color     := RGB( 72, 122, 129);
   PnlCancel.Color     := RGB( 72, 122, 129);
-  PnlCommit.Color     := RGB( 72, 122, 129);
+  PnlSave.Color     := RGB( 72, 122, 129);
   PnlGoBack.Color     := RGB( 72, 122, 129);
 
   try
@@ -374,7 +461,7 @@ begin
       OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20130001);
       ADBGrid.DataSource := ADS;
       if AQu.RecordCount = 0 then begin
-        ProcInsert;
+        ProcInsert(Sender);
       end else begin
         FInsert := False;
       end;

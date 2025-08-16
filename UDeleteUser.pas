@@ -1,4 +1,4 @@
-unit URemoveUser;
+unit UDeleteUser;
 
 {$mode ObjFPC}{$H+}
 
@@ -10,18 +10,19 @@ uses
 
 type
 
-  { TFrmRemoveUser }
+  { TFrmDeleteUser }
 
-  TFrmRemoveUser = class(TForm)
-    ActCancel      : TAction;
-    ActionList     : TActionList;
-    ActQuit        : TAction;
-    ActDeleteUser  : TAction;
-    ADBGrid        : TDBGrid;
+  TFrmDeleteUser = class(TForm)
+    ACn            : TSQLite3Connection;
     ADS            : TDataSource;
     ATr            : TSQLTransaction;
+    AQu            : TSQLQuery;
+    ActionList     : TActionList;
+    ActCancel      : TAction;
+    ActDeleteUser  : TAction;
+    ActQuit        : TAction;
+    ADBGrid        : TDBGrid;
     BtnCancel      : TButton;
-    BtnRemoveUser  : TButton;
     DBNav          : TDBNavigator;
     DBTextUserId   : TDBText;
     DBTextName     : TDBText;
@@ -45,27 +46,32 @@ type
     LblUserId3     : TLabel;
     LblUserId4     : TLabel;
     LblUserId5     : TLabel;
+    BtnDeleteUser  : TPanel;
     PnlCancel      : TPanel;
-    PnlRemoveUser  : TPanel;
-    AQu            : TSQLQuery;
-    ACn            : TSQLite3Connection;
+    PnlDeleteUser  : TPanel;
+    procedure ProcCancel(Sender: TObject);
+    procedure ProcDeleteUser(Sender: TObject);
+    procedure CancelMouseOver(NewColor: TColor);
+    procedure BtnCancelEnter(Sender: TObject);
+    procedure BtnCancelExit(Sender: TObject);
+    procedure DeleteUserMouseOver(NewColor: TColor);
+    procedure BtnDeleteUserEnter(Sender: TObject);
+    procedure BtnDeleteUserExit(Sender: TObject);
     procedure ActCancelExecute(Sender: TObject);
-    procedure ActQuitExecute(Sender: TObject);
     procedure ActDeleteUserExecute(Sender: TObject);
+    procedure ActQuitExecute(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
     procedure SetDatabaseNames;
     procedure CloseTransactions;
-    procedure ProcCancel;
-    procedure ProcRemoveUser;
   public
 
   end;
 
 var
-  FrmRemoveUser: TFrmRemoveUser;
+  FrmDeleteUser: TFrmDeleteUser;
 
 implementation
 uses
@@ -73,29 +79,29 @@ uses
 
 {$R *.lfm}
 
-{ TFrmRemoveUser }
+{ TFrmDeleteUser }
 
-procedure TFrmRemoveUser.SetDatabaseNames;
+procedure TFrmDeleteUser.SetDatabaseNames;
 begin
   with FrmTopMenu.Defs do begin
     SetDatabaseName(ACn);
   end;
 end;
 
-procedure TFrmRemoveUser.CloseTransactions;
+procedure TFrmDeleteUser.CloseTransactions;
 begin
   with FrmTopMenu.Defs do begin
     CloseConn(ACn, ATr);
   end;
 end;
 
-procedure TFrmRemoveUser.ProcCancel;
+procedure TFrmDeleteUser.ProcCancel(Sender: TObject);
 begin
   FrmManageUser.Visible := True;
-  FrmRemoveUser.Close;
+  FrmDeleteUser.Close;
 end;
 
-procedure TFrmRemoveUser.ProcRemoveUser;
+procedure TFrmDeleteUser.ProcDeleteUser(Sender: TObject);
 var
   LRet : Integer;
   LUID : Integer;
@@ -144,26 +150,58 @@ begin
     end;
   finally
     ATr.Active            := False;
-    FrmRemoveUser.Close;
+    FrmDeleteUser.Close;
   end;
 end;
 
-procedure TFrmRemoveUser.ActCancelExecute(Sender: TObject);
+procedure TFrmDeleteUser.CancelMouseOver(NewColor: TColor);
 begin
-  ProcCancel;
+  BtnCancel.Color := NewColor;
 end;
 
-procedure TFrmRemoveUser.ActQuitExecute(Sender: TObject);
+procedure TFrmDeleteUser.BtnCancelEnter(Sender: TObject);
+begin
+  CancelMouseOver(clSkyBlue);
+  DeleteUserMouseOver(clBtnFace);
+end;
+
+procedure TFrmDeleteUser.BtnCancelExit(Sender: TObject);
+begin
+  CancelMouseOver(clBtnFace);
+end;
+
+procedure TFrmDeleteUser.DeleteUserMouseOver(NewColor: TColor);
+begin
+  BtnDeleteUser.Color := NewColor;
+end;
+
+procedure TFrmDeleteUser.BtnDeleteUserEnter(Sender: TObject);
+begin
+  CancelMouseOver(clBtnFace);
+  DeleteUserMouseOver(clSkyBlue);
+end;
+
+procedure TFrmDeleteUser.BtnDeleteUserExit(Sender: TObject);
+begin
+  DeleteUserMouseOver(clBtnFace);
+end;
+
+procedure TFrmDeleteUser.ActCancelExecute(Sender: TObject);
+begin
+  ProcCancel(Sender);
+end;
+
+procedure TFrmDeleteUser.ActQuitExecute(Sender: TObject);
 begin
   Close;
 end;
 
-procedure TFrmRemoveUser.ActDeleteUserExecute(Sender: TObject);
+procedure TFrmDeleteUser.ActDeleteUserExecute(Sender: TObject);
 begin
-  ProcRemoveUser;
+  ProcDeleteUser(Sender);
 end;
 
-procedure TFrmRemoveUser.FormClose(
+procedure TFrmDeleteUser.FormClose(
   Sender: TObject; var CloseAction: TCloseAction);
 begin
   with FrmTopMenu.Defs do begin
@@ -176,11 +214,11 @@ begin
       SetChangedUserDef(False);
     end;
     CloseAction           := caFree;
-    FrmRemoveUser         := nil;
+    FrmDeleteUser         := nil;
   end;
 end;
 
-procedure TFrmRemoveUser.FormCreate(Sender: TObject);
+procedure TFrmDeleteUser.FormCreate(Sender: TObject);
 begin
   SetDatabaseNames;
   with FrmTopMenu.Defs do begin
@@ -190,11 +228,11 @@ begin
   end;
 end;
 
-procedure TFrmRemoveUser.FormShow(Sender: TObject);
+procedure TFrmDeleteUser.FormShow(Sender: TObject);
 begin
-  FrmRemoveUser.Color := RGB(112, 168, 175);
+  FrmDeleteUser.Color := RGB(112, 168, 175);
   pnlCancel.Color     := RGB( 72, 122, 129);
-  PnlRemoveUser.Color := RGB( 72, 122, 129);
+  PnlDeleteUser.Color := RGB( 72, 122, 129);
 
   try
     with AQu do begin
@@ -213,7 +251,7 @@ begin
   finally
   end;
 
-  with FrmRemoveUser do begin
+  with FrmDeleteUser do begin
     Height := 513;
     Width  := 567;
   end;

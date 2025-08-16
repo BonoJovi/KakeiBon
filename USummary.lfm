@@ -9,7 +9,6 @@ object FrmSummary: TFrmSummary
   ClientWidth = 1000
   Color = clWindowFrame
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
@@ -56,6 +55,7 @@ object FrmSummary: TFrmSummary
     Options = [dgTitles, dgIndicator, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete]
     ParentFont = False
     TabOrder = 0
+    TabStop = False
   end
   object PnlGoBack: TPanel
     Left = 16
@@ -65,25 +65,34 @@ object FrmSummary: TFrmSummary
     Anchors = [akTop, akLeft, akRight]
     Caption = '前の画面に戻る (CTRL+Q)'
     Color = clActiveCaption
+    Enabled = False
     ParentBackground = False
     ParentColor = False
+    ParentFont = False
     TabOrder = 1
   end
-  object BtnGoBack: TButton
-    Cursor = crHandPoint
+  object BtnGoBack: TPanel
+    Cursor = crCross
     Left = 24
     Height = 33
     Top = 491
     Width = 952
-    Action = ActQuit
     Anchors = [akTop, akLeft, akRight]
+    BevelColor = clNone
+    BevelOuter = bvNone
     Caption = '前の画面に戻る (CTRL+Q)'
-    Color = clSkyBlue
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
+    Color = clBtnFace
+    ParentBackground = False
+    ParentColor = False
     ParentFont = False
+    ShowAccelChar = True
     TabOrder = 2
+    TabStop = True
+    OnClick = ActQuitExecute
+    OnEnter = BtnGoBackEnter
+    OnExit = BtnGoBackExit
+    OnMouseEnter = BtnGoBackEnter
+    OnMouseLeave = BtnGoBackExit
   end
   object ACn: TSQLite3Connection
     Connected = False

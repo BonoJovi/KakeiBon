@@ -30,9 +30,6 @@ type
     ActQuit            : TAction;
     { Etc controls }
     ADBGrid            : TDBGrid;
-    BtnCancel: TButton;
-    BtnClearPaw: TButton;
-    BtnCommit: TButton;
     DBNavigator        : TDBNavigator;
     DBTextFromUserName : TDBText;
     DBTextUserID       : TDBText;
@@ -46,9 +43,24 @@ type
     LblUserID          : TLabel;
     LblUserName        : TLabel;
     LblUserName1       : TLabel;
+    BtnClearPaw: TPanel;
+    BtnCancel: TPanel;
+    BtnSave: TPanel;
     PnlCancel          : TPanel;
-    PnlClearPass       : TPanel;
-    PnlCommit          : TPanel;
+    PnlClearPaw       : TPanel;
+    PnlSave          : TPanel;
+    procedure ProcClearPaw(Sender: TObject);
+    procedure ProcCancel(Sender: TObject);
+    procedure ProcSave(Sender: TObject);
+    procedure ClearPawMouseOver(NewColor: TColor);
+    procedure BtnClearPawEnter(Sender: TObject);
+    procedure BtnClearPawExit(Sender: TObject);
+    procedure CancelMouseOver(NewColor: TColor);
+    procedure BtnCancelEnter(Sender: TObject);
+    procedure BtnCancelExit(Sender: TObject);
+    procedure SaveMouseOver(NewColor: TColor);
+    procedure BtnSaveEnter(Sender: TObject);
+    procedure BtnSaveExit(Sender: TObject);
     procedure ActCancelExecute(Sender: TObject);
     procedure ActClearPawExecute(Sender: TObject);
     procedure ActSaveExecute(Sender: TObject);
@@ -66,9 +78,6 @@ type
     function CheckMultiFields(NameField: Boolean): String;
     function CheckSQuoteInPAW: Boolean;
     function CheckSQuoteInUName: Boolean;
-    procedure ProcCancel;
-    procedure ProcClearPaw;
-    procedure ProcCommit;
   public
   end;
 
@@ -99,20 +108,20 @@ begin
   end;
 end;
 
-procedure TFrmEditAdmUser.ProcCancel;
-begin
-  FrmManageUser.Visible := True;
-  FrmEditAdmUser.Close;
-end;
-
-procedure TFrmEditAdmUser.ProcClearPaw;
+procedure TFrmEditAdmUser.ProcClearPaw(Sender: TObject);
 begin
   with FrmTopMenu.Defs do begin
     ClearPaw(EdtPaw, EdtPawConfirm);
   end;
 end;
 
-procedure TFrmEditAdmUser.ProcCommit;
+procedure TFrmEditAdmUser.ProcCancel(Sender: TObject);
+begin
+  FrmManageUser.Visible := True;
+  FrmEditAdmUser.Close;
+end;
+
+procedure TFrmEditAdmUser.ProcSave(Sender: TObject);
 var
   LSql           : String;
   LUserID        : String;
@@ -202,6 +211,57 @@ begin
   finally
     FrmEditAdmUser.Close;
   end;
+end;
+
+procedure TFrmEditAdmUser.ClearPawMouseOver(NewColor: TColor);
+begin
+  BtnClearPaw.Color := NewColor;
+end;
+
+procedure TFrmEditAdmUser.BtnClearPawEnter(Sender: TObject);
+begin
+  ClearPawMouseOver(clSkyBlue);
+  CancelMouseOver(clBtnFace);
+  SaveMouseOver(clBtnFace);
+end;
+
+procedure TFrmEditAdmUser.BtnClearPawExit(Sender: TObject);
+begin
+  ClearPawMouseOver(clBtnFace);
+end;
+
+procedure TFrmEditAdmUser.CancelMouseOver(NewColor: TColor);
+begin
+  BtnCancel.Color := NewColor;
+end;
+
+procedure TFrmEditAdmUser.BtnCancelEnter(Sender: TObject);
+begin
+  ClearPawMouseOver(clBtnFace);
+  CancelMouseOver(clSkyBlue);
+  SaveMouseOver(clBtnFace);
+end;
+
+procedure TFrmEditAdmUser.BtnCancelExit(Sender: TObject);
+begin
+  CancelMouseOver(clBtnFace);
+end;
+
+procedure TFrmEditAdmUser.SaveMouseOver(NewColor: TColor);
+begin
+  BtnSave.Color := NewColor;
+end;
+
+procedure TFrmEditAdmUser.BtnSaveEnter(Sender: TObject);
+begin
+  ClearPawMouseOver(clBtnFace);
+  CancelMouseOver(clBtnFace);
+  SaveMouseOver(clSkyBlue);
+end;
+
+procedure TFrmEditAdmUser.BtnSaveExit(Sender: TObject);
+begin
+  SaveMouseOver(clBtnFace);
 end;
 
 function TFrmEditAdmUser.CheckMultiFields(NameField: Boolean): String;
@@ -314,22 +374,22 @@ end;
 
 procedure TFrmEditAdmUser.ActClearPawExecute(Sender: TObject);
 begin
-  ProcClearPaw;
+  ProcClearPaw(Sender);
+end;
+
+procedure TFrmEditAdmUser.ActCancelExecute(Sender: TObject);
+begin
+  ProcCancel(Sender);
 end;
 
 procedure TFrmEditAdmUser.ActSaveExecute(Sender: TObject);
 begin
-  ProcCommit;
+  ProcSave(Sender);
 end;
 
 procedure TFrmEditAdmUser.ActQuitExecute(Sender: TObject);
 begin
   Close;
-end;
-
-procedure TFrmEditAdmUser.ActCancelExecute(Sender: TObject);
-begin
-  ProcCancel;
 end;
 
 procedure TFrmEditAdmUser.EdtToUserNameChange(Sender: TObject);
@@ -367,9 +427,9 @@ end;
 procedure TFrmEditAdmUser.FormShow(Sender: TObject);
 begin
   FrmEditAdmUser.Color := RGB(112, 168, 175);
-  PnlClearPass.Color   := RGB( 72, 122, 129);
+  PnlClearPaw.Color   := RGB( 72, 122, 129);
   PnlCancel.Color      := RGB( 72, 122, 129);
-  PnlCommit.Color      := RGB( 72, 122, 129);
+  PnlSave.Color      := RGB( 72, 122, 129);
   LblInfo.Font.Color   := RGB(255,   0,   0);
 
   FrmEditAdmUser.Height := 442;
