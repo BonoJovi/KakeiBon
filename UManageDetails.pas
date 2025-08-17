@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, Dialogs, Variants, SysUtils, SQLDB, SQLite3Conn, DB, Forms, Controls,
-  Graphics, StdCtrls, DBCtrls, DBGrids, ExtCtrls, LCLIntf, ActnList;
+  Graphics, StdCtrls, DBCtrls, DBGrids, ExtCtrls, LCLIntf, LCLType, ActnList;
 
 type
 
@@ -21,7 +21,7 @@ type
     ActAddDetailsHeader    : TAction;
     ActEditDetailsHeader   : TAction;
     ActDeleteDetailsHeader : TAction;
-    ActQuit                : TAction;
+    ActGoBack                : TAction;
     { Etc controls }
     ADBG                   : TDBGrid;
     ADBNav                 : TDBNavigator;
@@ -52,10 +52,11 @@ type
     procedure ActAddDetailsHeaderExecute(Sender: TObject);
     procedure ActEditDetailsHeaderExecute(Sender: TObject);
     procedure ActDeleteDetailsHeaderExecute(Sender: TObject);
-    procedure ActQuitExecute(Sender: TObject);
+    procedure ActGoBackExecute(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     FGoBack : Boolean;
     procedure SetDatabaseNames;
@@ -311,7 +312,7 @@ begin
   ProcDeleteDetailsHeader(Sender);
 end;
 
-procedure TFrmManageDetails.ActQuitExecute(Sender: TObject);
+procedure TFrmManageDetails.ActGoBackExecute(Sender: TObject);
 begin
   Close;
 end;
@@ -344,6 +345,8 @@ end;
 
 procedure TFrmManageDetails.FormShow(Sender: TObject);
 begin
+  FrmManageDetails.KeyPreview := True;
+
   FrmManageDetails.Color := RGB(112, 168, 175);
   PnlAddDetail.Color     := RGB( 72, 122, 129);
   PnlEditDetail.Color    := RGB( 72, 122, 129);
@@ -383,6 +386,22 @@ begin
     end;
     ADBG.AutoAdjustColumns;
   finally
+  end;
+end;
+
+procedure TFrmManageDetails.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_SPACE) Or (Key = VK_RETURN) then begin
+    if ActiveControl.Name = 'BtnAddDetailHeader' then begin
+      ActAddDetailsHeader.Execute;
+    end else if ActiveControl.Name = 'BtnEditDetailHeader' then begin
+      ActEditDetailsHeader.Execute;
+    end else if ActiveControl.Name = 'BtnDeleteDetailHeader' then begin
+      ActDeleteDetailsHeader.Execute;
+    end else if ActiveControl.Name = 'BtnGoBack' then begin
+      ActGoBack.Execute;
+    end;
   end;
 end;
 

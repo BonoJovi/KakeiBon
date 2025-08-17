@@ -14,6 +14,7 @@ object FrmManageDetails: TFrmManageDetails
   Position = poScreenCenter
   OnClose = FormClose
   OnCreate = FormCreate
+  OnKeyUp = FormKeyUp
   OnShow = FormShow
   object ADBG: TDBGrid
     Left = 16
@@ -193,6 +194,8 @@ object FrmManageDetails: TFrmManageDetails
     OnClick = ActAddDetailsHeaderExecute
     OnEnter = BtnAddDetailHeaderEnter
     OnExit = BtnAddDetailHeaderExit
+    OnMouseEnter = BtnAddDetailHeaderEnter
+    OnMouseLeave = BtnAddDetailHeaderExit
   end
   object PnlEditDetail: TPanel
     Left = 294
@@ -311,7 +314,7 @@ object FrmManageDetails: TFrmManageDetails
     ShowAccelChar = True
     TabOrder = 9
     TabStop = True
-    OnClick = ActQuitExecute
+    OnClick = ActGoBackExecute
     OnEnter = BtnGoBackEnter
     OnExit = BtnGoBackExit
     OnMouseEnter = BtnGoBackEnter
@@ -344,13 +347,13 @@ object FrmManageDetails: TFrmManageDetails
       ShortCut = 16452
       OnExecute = ActDeleteDetailsHeaderExecute
     end
-    object ActQuit: TAction
-      Caption = 'ActQuit'
+    object ActGoBack: TAction
+      Caption = 'ActGoBack'
       SecondaryShortCuts.Strings = (
         'Ctrl+4'
       )
       ShortCut = 16465
-      OnExecute = ActQuitExecute
+      OnExecute = ActGoBackExecute
     end
   end
   object ADS: TDataSource

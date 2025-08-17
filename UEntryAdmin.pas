@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, DateUtils, SysUtils, DB, SQLDB, SQLite3Conn, Forms, Controls,
-  Graphics, Dialogs, StdCtrls, ExtCtrls, Buttons, LCLIntf, ActnList,
+  Graphics, Dialogs, StdCtrls, ExtCtrls, Buttons, LCLIntf, LCLType, ActnList,
   UDefs;
 
 type
@@ -27,25 +27,37 @@ type
     LblAdminUserID : TLabel;
     LblPaw         : TLabel;
     LblPawConfirm  : TLabel;
-    BtnClearPaw: TPanel;
-    BtnCommit: TPanel;
+    BtnClearPaw    : TPanel;
+    BtnSave        : TPanel;
     PnlClearPaw    : TPanel;
     PnlCommit      : TPanel;
     ACn            : TSQLite3Connection;
+    Shape1         : TShape;
+    Shape2         : TShape;
+    Shape3         : TShape;
+    procedure EdtAdminUserIdEnter(Sender: TObject);
+    procedure EdtAdminUserIdExit(Sender: TObject);
+    procedure EdtPawChange(Sender: TObject);
+    procedure EdtPawConfirmChange(Sender: TObject);
+    procedure EdtPawConfirmEnter(Sender: TObject);
+    procedure EdtPawConfirmExit(Sender: TObject);
+    procedure EdtPawEnter(Sender: TObject);
+    procedure EdtPawExit(Sender: TObject);
     procedure ProcClearPaw(Sender: TObject);
     procedure ProcCommit(Sender: TObject);
     procedure ClearPawMouseOver(NewColor: TColor);
     procedure BtnClearPawEnter(Sender: TObject);
     procedure BtnClearPawExit(Sender: TObject);
     procedure CommitMouseOver(NewColor: TColor);
-    procedure BtnCommitEnter(Sender: TObject);
-    procedure BtnCommitExit(Sender: TObject);
+    procedure BtnSaveEnter(Sender: TObject);
+    procedure BtnSaveExit(Sender: TObject);
     procedure ActClearPawExecute(Sender: TObject);
     procedure ActSaveExecute(Sender: TObject);
     procedure ActQuitExecute(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     Defs           : TDefs;
     procedure SetDatabaseNames;
@@ -82,6 +94,60 @@ end;
 procedure TFrmEntryAdmin.ProcClearPaw(Sender: TObject);
 begin
   Defs.ClearPaw(EdtPaw, EdtPawConfirm);
+end;
+
+procedure TFrmEntryAdmin.EdtAdminUserIdEnter(Sender: TObject);
+begin
+  Shape1.Visible := True;
+end;
+
+procedure TFrmEntryAdmin.EdtAdminUserIdExit(Sender: TObject);
+begin
+  Shape1.Visible := False;
+end;
+
+procedure TFrmEntryAdmin.EdtPawChange(Sender: TObject);
+begin
+  if (Length(EdtPaw.Text) = 0)
+      And (Length(EdtPawConfirm.Text) = 0) then begin
+    BtnClearPaw.Enabled := False;
+    ActClearPaw.Enabled := False;
+  end else begin
+    BtnClearPaw.Enabled := True;
+    ActClearPaw.Enabled := True;
+  end;
+end;
+
+procedure TFrmEntryAdmin.EdtPawConfirmChange(Sender: TObject);
+begin
+  if (Length(EdtPaw.Text) = 0)
+      And (Length(EdtPawConfirm.Text) = 0) then begin
+    BtnClearPaw.Enabled := False;
+    ActClearPaw.Enabled := False;
+  end else begin
+    BtnClearPaw.Enabled := True;
+    ActClearPaw.Enabled := True;
+  end;
+end;
+
+procedure TFrmEntryAdmin.EdtPawConfirmEnter(Sender: TObject);
+begin
+  Shape3.Visible := True;
+end;
+
+procedure TFrmEntryAdmin.EdtPawConfirmExit(Sender: TObject);
+begin
+  Shape3.Visible := False;
+end;
+
+procedure TFrmEntryAdmin.EdtPawEnter(Sender: TObject);
+begin
+  Shape2.Visible := True;
+end;
+
+procedure TFrmEntryAdmin.EdtPawExit(Sender: TObject);
+begin
+  Shape2.Visible := False;
 end;
 
 procedure TFrmEntryAdmin.ProcCommit(Sender: TObject);
@@ -225,15 +291,15 @@ end;
 
 procedure TFrmEntryAdmin.CommitMouseOver(NewColor: TColor);
 begin
-  BtnCommit.Color := NewColor;
+  BtnSave.Color := NewColor;
 end;
 
-procedure TFrmEntryAdmin.BtnCommitEnter(Sender: TObject);
+procedure TFrmEntryAdmin.BtnSaveEnter(Sender: TObject);
 begin
   CommitMouseOver(clSkyBlue);
 end;
 
-procedure TFrmEntryAdmin.BtnCommitExit(Sender: TObject);
+procedure TFrmEntryAdmin.BtnSaveExit(Sender: TObject);
 begin
   CommitMouseOver(clBtnFace);
 end;
@@ -289,6 +355,8 @@ end;
 
 procedure TFrmEntryAdmin.FormShow(Sender: TObject);
 begin
+  FrmEntryAdmin.KeyPreview := True;
+
   FrmEntryAdmin.Color := RGB(112, 168, 175);
   PnlClearPaw.Color   := RGB( 72, 122, 129);
   PnlCommit.Color     := RGB( 72, 122, 129);
@@ -298,6 +366,24 @@ begin
   EdtAdminUserId.Clear;
   EdtPaw.Clear;
   EdtPawConfirm.Clear;
+
+  if (Length(EdtPaw.Text) = 0)
+      And (Length(EdtPawConfirm.Text) = 0) then begin
+    BtnClearPaw.Enabled := False;
+    ActClearPaw.Enabled := False;
+  end;
+end;
+
+procedure TFrmEntryAdmin.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_SPACE) Or (Key = VK_RETURN) then begin
+    if ActiveControl.Name = 'BtnClearPaw' then begin
+      ActClearPaw.Execute;
+    end else if ActiveControl.Name = 'BtnSave' then begin
+      ActSave.Execute;
+    end;
+  end;
 end;
 
 end.

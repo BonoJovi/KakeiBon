@@ -37,7 +37,7 @@ type
     ActDefaultOrderKey2 : TAction;
     ActAddExp3          : TAction;
     ActDefaultOrderKey3 : TAction;
-    ActQuit             : TAction;
+    ActGoBack             : TAction;
     ASG1                : TStringGrid;
     ASG2                : TStringGrid;
     ASG3                : TStringGrid;
@@ -75,7 +75,6 @@ type
     procedure ActAddExp3Execute(Sender: TObject);
     procedure ActDefaultOrderKey3Execute(Sender: TObject);
     procedure ActGoBackExecute(Sender: TObject);
-    procedure ActQuitExecute(Sender: TObject);
     procedure ASG1Click(Sender: TObject);
     procedure ASG2CheckboxToggled(Sender: TObject; aCol, aRow: Integer;
       aState: TCheckboxState);
@@ -90,6 +89,7 @@ type
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     FPrevOrderKey2  : Integer;
     FPrevOrderKey3  : Integer;
@@ -605,11 +605,6 @@ begin
   ProcGoBack(Sender);
 end;
 
-procedure TFrmManageExp.ActQuitExecute(Sender: TObject);
-begin
-  Close;
-end;
-
 procedure TFrmManageExp.ASG1Click(Sender: TObject);
 begin
   SelectExp2;
@@ -1116,6 +1111,8 @@ end;
 
 procedure TFrmManageExp.FormShow(Sender: TObject);
 begin
+  FrmManageExp.KeyPreview := True;
+
   FrmManageExp.Color := RGB(112, 168, 175);
   PnlGoBack.Color    := RGB( 72, 122, 129);
 
@@ -1125,6 +1122,24 @@ begin
     SelectExp3;
   end else begin
     DeleteAllRecords(ASG3);
+  end;
+end;
+
+procedure TFrmManageExp.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+    if (Key = VK_SPACE) Or (Key = VK_RETURN) then begin
+    if ActiveControl.Name = 'BtnAddExp2' then begin
+      ActAddExp2.Execute;
+    end else if ActiveControl.Name = 'BtnDefaultOrderKey2' then begin
+      ActDefaultOrderKey2.Execute;
+    end else if ActiveControl.Name = 'BtnAddExp3' then begin
+      ActAddExp3.Execute;
+    end else if ActiveControl.Name = 'BtnDefaultOrderKey3' then begin
+      ActDefaultOrderKey3.Execute;
+    end else if ActiveControl.Name = 'BtnGoBack' then begin
+      ActGoBack.Execute;
+    end;
   end;
 end;
 

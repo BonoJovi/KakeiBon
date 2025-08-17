@@ -5,6 +5,7 @@ object FrmLogin: TFrmLogin
   Width = 585
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
+  Caption = 'ログイン'
   ClientHeight = 258
   ClientWidth = 585
   Color = clWindowFrame
@@ -13,8 +14,10 @@ object FrmLogin: TFrmLogin
   Font.Style = [fsBold]
   PopupMode = pmAuto
   Position = poScreenCenter
+  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
+  OnKeyUp = FormKeyUp
   OnShow = FormShow
   object LblUserName: TLabel
     Left = 16
@@ -29,10 +32,10 @@ object FrmLogin: TFrmLogin
   end
   object EdtUserName: TEdit
     Cursor = crIBeam
-    Left = 128
+    Left = 152
     Height = 49
     Top = 16
-    Width = 441
+    Width = 417
     Font.Height = -21
     Font.Name = '0xProto'
     Font.Style = [fsBold]
@@ -40,6 +43,8 @@ object FrmLogin: TFrmLogin
     ParentShowHint = False
     ShowHint = True
     TabOrder = 0
+    OnEnter = EdtUserNameEnter
+    OnExit = EdtUserNameExit
   end
   object LblPaw: TLabel
     Left = 16
@@ -54,11 +59,11 @@ object FrmLogin: TFrmLogin
   end
   object EdtPaw: TEdit
     Cursor = crIBeam
-    Left = 128
+    Left = 152
     Height = 49
     Hint = '入力した文字は画面に表示されません'
     Top = 73
-    Width = 441
+    Width = 417
     EchoMode = emNone
     Font.Height = -21
     Font.Name = '0xProto'
@@ -70,6 +75,8 @@ object FrmLogin: TFrmLogin
     TabOrder = 1
     Text = 'EdtPaw'
     OnChange = EdtPawChange
+    OnEnter = EdtPawEnter
+    OnExit = EdtPawExit
   end
   object pnlClearPaw: TPanel
     Left = 16
@@ -174,6 +181,7 @@ object FrmLogin: TFrmLogin
     TabOrder = 6
   end
   object BtnLogin: TPanel
+    Cursor = crCross
     Left = 305
     Height = 32
     Top = 202
@@ -199,9 +207,33 @@ object FrmLogin: TFrmLogin
     OnMouseEnter = BtnLoginEnter
     OnMouseLeave = BtnLoginExit
   end
+  object Shape1: TShape
+    Left = 128
+    Height = 16
+    Top = 32
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
+  object Shape2: TShape
+    Left = 128
+    Height = 16
+    Top = 88
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
   object ActionList: TActionList
-    Left = 144
-    Top = 64
+    Left = 240
+    Top = 56
     object ActClearPaw: TAction
       Caption = 'ActClearPaw'
       SecondaryShortCuts.Strings = (
@@ -226,22 +258,22 @@ object FrmLogin: TFrmLogin
       ShortCut = 16457
       OnExecute = ActLoginExecute
     end
-    object ActQuit: TAction
-      Caption = 'ActQuit'
+    object ActGoBack: TAction
+      Caption = 'ActGoBack'
       ShortCut = 16465
-      OnExecute = ActQuitExecute
+      OnExecute = ActGoBackExecute
     end
   end
   object ADS: TDataSource
     DataSet = AQu
-    Left = 248
-    Top = 64
+    Left = 352
+    Top = 56
   end
   object ATr: TSQLTransaction
     Active = False
     Database = ACn
-    Left = 296
-    Top = 64
+    Left = 408
+    Top = 56
   end
   object AQu: TSQLQuery
     FieldDefs = <    
@@ -261,8 +293,8 @@ object FrmLogin: TFrmLogin
     Transaction = ATr
     Params = <>
     Macros = <>
-    Left = 344
-    Top = 64
+    Left = 464
+    Top = 56
   end
   object ACn: TSQLite3Connection
     Connected = False
@@ -270,7 +302,7 @@ object FrmLogin: TFrmLogin
     KeepConnection = False
     Transaction = ATr
     AlwaysUseBigint = False
-    Left = 200
-    Top = 64
+    Left = 296
+    Top = 56
   end
 end

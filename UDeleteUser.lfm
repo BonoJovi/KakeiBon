@@ -14,6 +14,7 @@ object FrmDeleteUser: TFrmDeleteUser
   Position = poScreenCenter
   OnClose = FormClose
   OnCreate = FormCreate
+  OnKeyUp = FormKeyUp
   OnShow = FormShow
   object LblUserId1: TLabel
     Left = 16
@@ -73,7 +74,7 @@ object FrmDeleteUser: TFrmDeleteUser
   object DBTextUserId: TDBText
     Left = 138
     Height = 26
-    Top = 19
+    Top = 22
     Width = 414
     AutoSize = False
     DataField = 'USER_ID'
@@ -130,7 +131,7 @@ object FrmDeleteUser: TFrmDeleteUser
   object DBTextName: TDBText
     Left = 138
     Height = 26
-    Top = 59
+    Top = 62
     Width = 414
     AutoSize = False
     DataField = 'NAME'
@@ -165,7 +166,7 @@ object FrmDeleteUser: TFrmDeleteUser
   object DBTextRole: TDBText
     Left = 138
     Height = 26
-    Top = 99
+    Top = 102
     Width = 414
     AutoSize = False
     DataField = 'ROLE'
@@ -211,7 +212,7 @@ object FrmDeleteUser: TFrmDeleteUser
   object DBTextEntryDT: TDBText
     Left = 136
     Height = 26
-    Top = 139
+    Top = 142
     Width = 414
     AutoSize = False
     DataField = 'ENTRY_DT'
@@ -257,7 +258,7 @@ object FrmDeleteUser: TFrmDeleteUser
   object DBTextUpdateDT: TDBText
     Left = 138
     Height = 26
-    Top = 179
+    Top = 182
     Width = 414
     AutoSize = False
     DataField = 'UPDATE_DT'
@@ -285,8 +286,8 @@ object FrmDeleteUser: TFrmDeleteUser
     Color = clWindowFrame
     DataSource = ADS
     Font.Height = -21
-    Font.Name = '0xProto Nerd Font Mono'
-    Font.Style = [fsBold, fsItalic]
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
     Options = [navFocusableButtons]
     ParentColor = False
     ParentFont = False
@@ -301,11 +302,8 @@ object FrmDeleteUser: TFrmDeleteUser
     Caption = 'キャンセル (CTRL+C)'
     Color = clActiveCaption
     Enabled = False
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto Nerd Font Mono'
-    Font.Pitch = fpFixed
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
@@ -345,11 +343,8 @@ object FrmDeleteUser: TFrmDeleteUser
     Caption = '削　　　除 (CTRL+D)'
     Color = clActiveCaption
     Enabled = False
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto Nerd Font Mono'
-    Font.Pitch = fpFixed
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
@@ -367,8 +362,8 @@ object FrmDeleteUser: TFrmDeleteUser
     Caption = '削　　　除 (CTRL+D)'
     Color = clBtnFace
     Font.Height = -21
-    Font.Name = '0xProto Nerd Font Mono'
-    Font.Style = [fsBold, fsItalic]
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
     ParentFont = False
@@ -389,22 +384,37 @@ object FrmDeleteUser: TFrmDeleteUser
     Color = clWindow
     Columns = <    
       item
+        Font.Height = -21
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
         Title.Caption = 'ユーザID'
         FieldName = 'USER_ID'
       end    
       item
+        Font.Height = -21
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
         Title.Caption = 'ユーザ名'
         FieldName = 'NAME'
       end    
       item
+        Font.Height = -21
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
         Title.Caption = '権限'
         FieldName = 'ROLE'
       end    
       item
+        Font.Height = -21
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
         Title.Caption = '登録日'
         FieldName = 'ENTRY_DT'
       end    
       item
+        Font.Height = -21
+        Font.Name = '0xProto'
+        Font.Style = [fsBold]
         Title.Caption = '更新日'
         FieldName = 'UPDATE_DT'
       end>

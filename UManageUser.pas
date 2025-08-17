@@ -18,7 +18,7 @@ type
     ActEditAdminUser : TAction;
     ActEditUser      : TAction;
     ActionList       : TActionList;
-    ActQuit          : TAction;
+    ActGoBack          : TAction;
     ActRemoveUser    : TAction;
     ADataSet         : TDataSet;
     ADBGrid          : TDBGrid;
@@ -30,7 +30,7 @@ type
     ATrByCount       : TSQLTransaction;
     BtnAddUser           : TPanel;
     BtnEditUser: TPanel;
-    BtnRemoveUser: TPanel;
+    BtnDeleteUser: TPanel;
     BtnEditAdminUser: TPanel;
     BtnGoBack: TPanel;
     PnlAddUser       : TPanel;
@@ -53,8 +53,8 @@ type
     procedure BtnEditUserEnter(Sender: TObject);
     procedure BtnEditUserExit(Sender: TObject);
     procedure RemoveUserMouseOver(NewColor: TColor);
-    procedure BtnRemoveUserEnter(Sender: TObject);
-    procedure BtnRemoveUserExit(Sender: TObject);
+    procedure BtnDeleteUserEnter(Sender: TObject);
+    procedure BtnDeleteUserExit(Sender: TObject);
     procedure EditAdminUserMouseOver(NewColor: TColor);
     procedure BtnEditAdminUserEnter(Sender: TObject);
     procedure BtnEditAdminUserExit(Sender: TObject);
@@ -65,12 +65,12 @@ type
     procedure ActEditAdminUserExecute(Sender: TObject);
     procedure ActEditUserExecute(Sender: TObject);
     procedure ActGoBackExecute(Sender: TObject);
-    procedure ActQuitExecute(Sender: TObject);
     procedure ActRemoveUserExecute(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure TimerTimer(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     procedure SetDatabaseNames;
     procedure CloseTransactions;
@@ -139,9 +139,16 @@ procedure TFrmManageUser.EnableButton(
     AddUser, EditUser, RemoveUser, EditAdminUser: Boolean);
 begin
     BtnAddUser.Enabled       := AddUser;
+    ActAddUser.Enabled       := AddUser;
+
     BtnEditUser.Enabled      := EditUser;
-    BtnRemoveUser.Enabled    := RemoveUser;
+    ActEditUser.Enabled      := EditUser;
+
+    BtnDeleteUser.Enabled    := RemoveUser;
+    ActRemoveUser.Enabled    := RemoveUser;
+
     BtnEditAdminUser.Enabled := EditAdminUser;
+    ActEditAdminUser.Enabled := EditAdminUser;
 end;
 
 procedure TFrmManageUser.OpenFormOrMsgDlg(Sender: TForm);
@@ -233,15 +240,15 @@ end;
 
 procedure TFrmManageUser.RemoveUserMouseOver(NewColor: TColor);
 begin
-  BtnRemoveUser.Color := NewColor;
+  BtnDeleteUser.Color := NewColor;
 end;
 
-procedure TFrmManageUser.BtnRemoveUserEnter(Sender: TObject);
+procedure TFrmManageUser.BtnDeleteUserEnter(Sender: TObject);
 begin
   RemoveUserMouseOver(clSkyBlue);
 end;
 
-procedure TFrmManageUser.BtnRemoveUserExit(Sender: TObject);
+procedure TFrmManageUser.BtnDeleteUserExit(Sender: TObject);
 begin
   RemoveUserMouseOver(clBtnFace);
 end;
@@ -301,11 +308,6 @@ begin
   ProcGoBack(Sender);
 end;
 
-procedure TFrmManageUser.ActQuitExecute(Sender: TObject);
-begin
-  Close;
-end;
-
 procedure TFrmManageUser.FormClose(
     Sender: TObject; var CloseAction: TCloseAction);
 begin
@@ -328,6 +330,7 @@ end;
 procedure TFrmManageUser.FormCreate(Sender: TObject);
 begin
   SetDatabaseNames;
+
   with FrmTopMenu.Defs do begin
     if GetDoExitKakeiBon then begin
       Application.Terminate;
@@ -337,6 +340,8 @@ end;
 
 procedure TFrmManageUser.FormShow(Sender: TObject);
 begin
+  FrmManageUser.KeyPreview := True;
+
   FrmManageUser.Color    := RGB(112, 168, 175);
   PnlAddUser.Color       := RGB( 72, 122, 129);
   PnlEditUser.Color      := RGB( 72, 122, 129);
@@ -409,6 +414,24 @@ begin
   if ChngdAdmUserFlg then
   begin
     FrmManageUser.Close;
+  end;
+end;
+
+procedure TFrmManageUser.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_SPACE) Or (Key = VK_RETURN) then begin
+    if ActiveControl.Name = 'BtnAddUser' then begin
+      ActAddUser.Execute;
+    end else if ActiveControl.Name = 'BtnEditUser' then begin
+      ActEditUser.Execute;
+    end else if ActiveControl.Name = 'BtnDeleteUser' then begin
+      ActRemoveUser.Execute;
+    end else if ActiveControl.Name = 'BtnEditAdminUser' then begin
+      ActEditAdminUser.Execute;
+    end else if ActiveControl.Name = 'BtnGoBack' then begin
+      ActGoBack.Execute;
+    end;
   end;
 end;
 

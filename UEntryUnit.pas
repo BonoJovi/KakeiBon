@@ -5,28 +5,30 @@ unit UEntryUnit;
 interface
 
 uses
-  Classes, LCLType, SysUtils, Variants, SQLDB, SQLite3Conn, DB, Forms, Controls,
-  Graphics, Dialogs, DBGrids, DBCtrls, StdCtrls, ExtCtrls, LCLIntf, ActnList,
-  UDBAccess;
+  Classes, SysUtils, Variants, SQLDB, SQLite3Conn, DB, Forms, Controls,
+  Graphics, Dialogs, DBGrids, DBCtrls, StdCtrls, ExtCtrls, LCLIntf, LCLType,
+  ActnList, UDBAccess;
 
 type
 
   { TFrmEntryUnit }
 
   TFrmEntryUnit = class(TForm)
-    ActCancel    : TAction;
-    ActSave    : TAction;
-    ActInsert    : TAction;
+    ACn          : TSQLite3Connection;
+    ADS          : TDataSource;
+    ATr          : TSQLTransaction;
+    AQu          : TSQLQuery;
+    ACnNextID    : TSQLite3Connection;
+    ADSNextID    : TDataSource;
+    ATrNextID    : TSQLTransaction;
+    AQuNextID    : TSQLQuery;
     ActionList   : TActionList;
-    ActQuit      : TAction;
+    ActInsert    : TAction;
+    ActCancel    : TAction;
+    ActSave      : TAction;
+    ActGoBack    : TAction;
     ADBGrid      : TDBGrid;
     ADBNav       : TDBNavigator;
-    ADS          : TDataSource;
-    ADSNextID    : TDataSource;
-    AQu          : TSQLQuery;
-    AQuNextID    : TSQLQuery;
-    ATr          : TSQLTransaction;
-    ATrNextID    : TSQLTransaction;
     DBCBDisabled : TDBCheckBox;
     DBEdtUnitID  : TDBEdit;
     DBEdtUnit    : TDBEdit;
@@ -37,17 +39,25 @@ type
     LblUnitID2   : TLabel;
     LblUnit1     : TLabel;
     LblUnit2     : TLabel;
-    BtnInsert: TPanel;
-    BtnCancel: TPanel;
-    BtnSave: TPanel;
-    BtnGoBack: TPanel;
+    BtnInsert    : TPanel;
+    BtnCancel    : TPanel;
+    BtnSave      : TPanel;
+    BtnGoBack    : TPanel;
     PnlCancel    : TPanel;
-    PnlSave    : TPanel;
+    PnlSave      : TPanel;
     PnlGoBack    : TPanel;
     PnlInsert    : TPanel;
-    ACn: TSQLite3Connection;
-    ACnNextID: TSQLite3Connection;
+    Shape1       : TShape;
+    Shape2       : TShape;
+    Shape3       : TShape;
     Timer        : TTimer;
+    TimerKeyPreview: TTimer;
+    procedure DBCBDisabledEnter(Sender: TObject);
+    procedure DBCBDisabledExit(Sender: TObject);
+    procedure DBEdtUnitEnter(Sender: TObject);
+    procedure DBEdtUnitExit(Sender: TObject);
+    procedure DBEdtUnitIDEnter(Sender: TObject);
+    procedure DBEdtUnitIDExit(Sender: TObject);
     procedure ProcInsert(Sender: TObject);
     procedure ProcCancel(Sender: TObject);
     procedure ProcSave(Sender: TObject);
@@ -66,13 +76,15 @@ type
     procedure ActInsertExecute(Sender: TObject);
     procedure ActCancelExecute(Sender: TObject);
     procedure ActSaveExecute(Sender: TObject);
-    procedure ActQuitExecute(Sender: TObject);
+    procedure ActGoBackExecute(Sender: TObject);
     procedure ADBGridSelectEditor(Sender: TObject; Column: TColumn;
       var Editor: TWinControl);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure TimerKeyPreviewTimer(Sender: TObject);
     procedure TimerTimer(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     FReOpenDS   : Boolean;
     FInsert     : Boolean;
@@ -157,6 +169,36 @@ begin
     DBCBDisabled.Field.AsBoolean := False;
     DBEdtUnit.SetFocus;
   end;
+end;
+
+procedure TFrmEntryUnit.DBEdtUnitIDEnter(Sender: TObject);
+begin
+  Shape1.Visible := True;
+end;
+
+procedure TFrmEntryUnit.DBEdtUnitEnter(Sender: TObject);
+begin
+  Shape2.Visible := True;
+end;
+
+procedure TFrmEntryUnit.DBCBDisabledEnter(Sender: TObject);
+begin
+  Shape3.Visible := True;
+end;
+
+procedure TFrmEntryUnit.DBCBDisabledExit(Sender: TObject);
+begin
+  Shape3.Visible := False;
+end;
+
+procedure TFrmEntryUnit.DBEdtUnitExit(Sender: TObject);
+begin
+  Shape2.Visible := False;
+end;
+
+procedure TFrmEntryUnit.DBEdtUnitIDExit(Sender: TObject);
+begin
+  Shape1.Visible := False;
 end;
 
 procedure TFrmEntryUnit.ProcCancel(Sender: TObject);
@@ -354,7 +396,7 @@ begin
   ProcSave(Sender);
 end;
 
-procedure TFrmEntryUnit.ActQuitExecute(Sender: TObject);
+procedure TFrmEntryUnit.ActGoBackExecute(Sender: TObject);
 begin
   Close;
 end;
@@ -404,6 +446,8 @@ end;
 
 procedure TFrmEntryUnit.FormShow(Sender: TObject);
 begin
+  //FrmEntryUnit.KeyPreview := True;
+
   Color := RGB(112, 168, 175);
 
   PnlInsert.Color    := RGB( 72, 122, 129);
@@ -430,6 +474,14 @@ begin
   end;
 end;
 
+procedure TFrmEntryUnit.TimerKeyPreviewTimer(Sender: TObject);
+begin
+  ShowMessage('OnTimer');
+  FrmEntryUnit.KeyPreview := True;
+  TimerKeyPreview.Enabled := False;
+end;
+
+
 procedure TFrmEntryUnit.TimerTimer(Sender: TObject);
 begin
   with FrmTopMenu.Defs do begin
@@ -443,6 +495,22 @@ begin
 
       FReOpenDS          := False;
       Timer.Enabled      := False;
+    end;
+  end;
+end;
+
+procedure TFrmEntryUnit.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_SPACE) Or (Key = VK_RETURN) then begin
+    if ActiveControl.Name = 'BtnInsert' then begin
+      ActInsert.Execute;
+    end else if ActiveControl.Name = 'BtnCancel' then begin
+      ActCancel.Execute;
+    end else if ActiveControl.Name = 'BtnSave' then begin
+      ActSave.Execute;
+    end else if ActiveControl.Name = 'BtnGoBack' then begin
+      ActGoBack.Execute;
     end;
   end;
 end;

@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SQLDB, SQLite3Conn, DB, SysUtils, Forms, Controls, Graphics, Dialogs,
-  StdCtrls, ExtCtrls, Buttons, LCLIntf, ActnList;
+  StdCtrls, ExtCtrls, Buttons, LCLIntf, LCLType, ActnList;
 
 type
 
@@ -15,25 +15,30 @@ type
   { TFrmLogin }
 
   TFrmLogin = class(TForm)
-    ActCancel    : TAction;
-    ActClearPaw  : TAction;
-    ActionList   : TActionList;
-    ActLogin     : TAction;
-    ActQuit      : TAction;
+    ACn          : TSQLite3Connection;
     ADS          : TDataSource;
     AQu          : TSQLQuery;
     ATr          : TSQLTransaction;
+    ActionList   : TActionList;
+    ActClearPaw  : TAction;
+    ActCancel    : TAction;
+    ActLogin     : TAction;
+    ActGoBack    : TAction;
     BtnClearPaw  : TPanel;
     EdtPaw       : TEdit;
     EdtUserName  : TEdit;
     LblUserName  : TLabel;
     LblPaw       : TLabel;
     BtnCancel    : TPanel;
-    BtnLogin: TPanel;
+    BtnLogin     : TPanel;
     pnlLogin     : TPanel;
     pnlCancel    : TPanel;
     pnlClearPaw  : TPanel;
-    ACn: TSQLite3Connection;
+    Shape1       : TShape;
+    Shape2       : TShape;
+    procedure ProcClearPaw(Sender: TObject);
+    procedure ProcCancel(Sender: TObject);
+    procedure ProcLogin(Sender: TObject);
     procedure ClearPawMouseOver(NewColor: TColor);
     procedure BtnClearPawEnter(Sender: TObject);
     procedure BtnClearPawExit(Sender: TObject);
@@ -41,19 +46,21 @@ type
     procedure BtnCancelEnter(Sender: TObject);
     procedure BtnCancelExit(Sender: TObject);
     procedure LoginMouseOver(NewColor: TColor);
+    procedure BtnLoginEnter(Sender: TObject);
+    procedure BtnLoginExit(Sender: TObject);
+    procedure EdtUserNameEnter(Sender: TObject);
+    procedure EdtUserNameExit(Sender: TObject);
+    procedure EdtPawEnter(Sender: TObject);
+    procedure EdtPawExit(Sender: TObject);
     procedure ActCancelExecute(Sender: TObject);
     procedure ActClearPawExecute(Sender: TObject);
     procedure ActLoginExecute(Sender: TObject);
-    procedure ActQuitExecute(Sender: TObject);
+    procedure ActGoBackExecute(Sender: TObject);
     procedure EdtPawChange(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure BtnLoginEnter(Sender: TObject);
-    procedure BtnLoginExit(Sender: TObject);
-    procedure ProcClearPaw(Sender: TObject);
-    procedure ProcCancel(Sender: TObject);
-    procedure ProcLogin(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     procedure SetDatabaseNames;
     procedure CloseTransactions;
@@ -118,6 +125,26 @@ end;
 procedure TFrmLogin.BtnCancelExit(Sender: TObject);
 begin
   CancelMouseOver(clBtnFace);
+end;
+
+procedure TFrmLogin.EdtPawEnter(Sender: TObject);
+begin
+  Shape2.Visible := True;
+end;
+
+procedure TFrmLogin.EdtPawExit(Sender: TObject);
+begin
+  Shape2.Visible := False;
+end;
+
+procedure TFrmLogin.EdtUserNameEnter(Sender: TObject);
+begin
+  Shape1.Visible := True;
+end;
+
+procedure TFrmLogin.EdtUserNameExit(Sender: TObject);
+begin
+  Shape1.Visible := False;
 end;
 
 procedure TFrmLogin.LoginMouseOver(NewColor: TColor);
@@ -234,7 +261,7 @@ begin
   ProcLogin(Sender);
 end;
 
-procedure TFrmLogin.ActQuitExecute(Sender: TObject);
+procedure TFrmLogin.ActGoBackExecute(Sender: TObject);
 begin
   Close;
 end;
@@ -277,6 +304,8 @@ end;
 
 procedure TFrmLogin.FormShow(Sender: TObject);
 begin
+  FrmLogin.KeyPreview := True;
+
   //FrmLogin.Color    := RGB(112, 168, 175);
   //pnlClearPaw.Color := RGB( 72, 122, 129);
   //pnlCancel.Color   := RGB( 72, 122, 129);
@@ -290,6 +319,20 @@ begin
   EdtPaw.Clear;
 
   FrmLogin.Height := 260;
+end;
+
+procedure TFrmLogin.FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState
+  );
+begin
+  if (Key = VK_SPACE) Or (Key = VK_RETURN) then begin
+    if ActiveControl.Name = 'BtnClearPaw' then begin
+      ActClearPaw.Execute;
+    end else if ActiveControl.Name = 'BtnCancel' then begin
+      ActCancel.Execute;
+    end else if ActiveControl.Name = 'BtnLogin' then begin
+      ActLogin.Execute;
+    end;
+  end;
 end;
 
 end.

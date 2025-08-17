@@ -6,8 +6,8 @@ interface
 
 uses
   Classes, Variants, SysUtils, SQLDB, SQLite3Conn, DB, Forms, Controls,
-  Graphics, Dialogs, StdCtrls, DBCtrls, DBGrids, ExtCtrls, LCLIntf, ActnList,
-  DateTimePicker, DBDateTimePicker, UDefs;
+  Graphics, Dialogs, StdCtrls, DBCtrls, DBGrids, ExtCtrls, LCLIntf, LCLType,
+  ActnList, DateTimePicker, DBDateTimePicker, UDefs;
 
 type
 
@@ -56,7 +56,7 @@ type
     ActEntryShop     : TAction;
     ActEditDetail    : TAction;
     ActDeleteDetail  : TAction;
-    ActQuit          : TAction;
+    ActGoBack          : TAction;
     { Etc components }
     ADBNav           : TDBNavigator;
     DBDTPHeaderDT    : TDBDateTimePicker;
@@ -115,6 +115,26 @@ type
     PnlEditDetail    : TPanel;
     PnlDeleteDetail  : TPanel;
     PnlGoBack        : TPanel;
+    Shape1: TShape;
+    Shape2: TShape;
+    Shape3: TShape;
+    Shape4: TShape;
+    Shape5: TShape;
+    Shape6: TShape;
+    Shape7: TShape;
+    procedure DBEdtPhoneNumEnter(Sender: TObject);
+    procedure DBEdtPhoneNumExit(Sender: TObject);
+    procedure DBLCBExp1Enter(Sender: TObject);
+    procedure DBLCBExp1Exit(Sender: TObject);
+    procedure DBLCBFromACEnter(Sender: TObject);
+    procedure DBLCBFromACExit(Sender: TObject);
+    procedure DBLCBShopNameEnter(Sender: TObject);
+    procedure DBLCBShopNameExit(Sender: TObject);
+    procedure DBLCBToACEnter(Sender: TObject);
+    procedure DBLCBToACExit(Sender: TObject);
+    procedure EdtTotalAmountEnter(Sender: TObject);
+    procedure HeaderDTEnter(Sender: TObject);
+    procedure HeaderDTExit(Sender: TObject);
     procedure ProcEntryShop(Sender: TObject);
     procedure ProcEntryAccount(Sender: TObject);
     procedure ProcAddDetail(Sender: TObject);
@@ -142,7 +162,7 @@ type
     procedure ActEditDetailExecute(Sender: TObject);
     procedure ActEntryAccountExecute(Sender: TObject);
     procedure ActEntryShopExecute(Sender: TObject);
-    procedure ActQuitExecute(Sender: TObject);
+    procedure ActGoBackExecute(Sender: TObject);
     procedure ActDeleteDetailExecute(Sender: TObject);
     procedure DBLCBExp1Change(Sender: TObject);
     procedure DBLCBFromACChange(Sender: TObject);
@@ -156,6 +176,7 @@ type
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     FGoBack      : Boolean;
     procedure SetDatabaseNames;
@@ -283,6 +304,71 @@ begin
     FrmEntryShop := TFrmEntryShop.Create(Application);
     OpenForm(Self, FrmEntryShop);
   end;
+end;
+
+procedure TFrmEditDetailsHeader.HeaderDTEnter(Sender: TObject);
+begin
+  Shape1.Visible := True;
+end;
+
+procedure TFrmEditDetailsHeader.DBLCBShopNameEnter(Sender: TObject);
+begin
+  Shape2.Visible := True;
+end;
+
+procedure TFrmEditDetailsHeader.DBEdtPhoneNumEnter(Sender: TObject);
+begin
+  Shape3.Visible := True;
+end;
+
+procedure TFrmEditDetailsHeader.DBEdtPhoneNumExit(Sender: TObject);
+begin
+  Shape3.Visible := False;
+end;
+
+procedure TFrmEditDetailsHeader.DBLCBExp1Enter(Sender: TObject);
+begin
+  Shape4.Visible := True;
+end;
+
+procedure TFrmEditDetailsHeader.DBLCBExp1Exit(Sender: TObject);
+begin
+  Shape4.Visible := False;
+end;
+
+procedure TFrmEditDetailsHeader.DBLCBFromACEnter(Sender: TObject);
+begin
+  Shape5.Visible := True;
+end;
+
+procedure TFrmEditDetailsHeader.DBLCBFromACExit(Sender: TObject);
+begin
+  Shape5.Visible := False;
+end;
+
+procedure TFrmEditDetailsHeader.DBLCBShopNameExit(Sender: TObject);
+begin
+  Shape2.Visible := False;
+end;
+
+procedure TFrmEditDetailsHeader.DBLCBToACEnter(Sender: TObject);
+begin
+  Shape6.Visible := True;
+end;
+
+procedure TFrmEditDetailsHeader.DBLCBToACExit(Sender: TObject);
+begin
+  Shape6.Visible := False;
+end;
+
+procedure TFrmEditDetailsHeader.EdtTotalAmountEnter(Sender: TObject);
+begin
+  Shape7.Visible := True;
+end;
+
+procedure TFrmEditDetailsHeader.HeaderDTExit(Sender: TObject);
+begin
+  Shape1.Visible := False;
 end;
 
 procedure TFrmEditDetailsHeader.ProcEntryAccount(Sender: TObject);
@@ -524,9 +610,11 @@ begin
     if RecordCount <= 0 then begin
       BtnDeleteDetail.Enabled := False;
       PnlDeleteDetail.Enabled := False;
+      ActDeleteDetail.Enabled := False;
     end else begin
       BtnDeleteDetail.Enabled := True;
       PnlDeleteDetail.Enabled := True;
+      ActDeleteDetail.Enabled := True;
     end;
   end;
 end;
@@ -880,7 +968,7 @@ begin
   end;
 end;
 
-procedure TFrmEditDetailsHeader.ActQuitExecute(Sender: TObject);
+procedure TFrmEditDetailsHeader.ActGoBackExecute(Sender: TObject);
 begin
   SetGoBack(True);
   Close;
@@ -966,6 +1054,7 @@ end;
 procedure TFrmEditDetailsHeader.EdtTotalAmountExit(Sender: TObject);
 begin
   DBEdtTotalAmount.Text := StringReplace(EdtTotalAmount.Text, ',', '', [rfReplaceAll]);
+  Shape7.Visible := False;
 end;
 
 procedure TFrmEditDetailsHeader.DTPMonthChange(Sender: TObject);
@@ -1022,6 +1111,8 @@ end;
 
 procedure TFrmEditDetailsHeader.FormShow(Sender: TObject);
 begin
+  FrmEditDetailsHeader.KeyPreview := True;
+
   FrmEditDetailsHeader.Color := RGB(112, 168, 175);
   PnlEntryShop.Color         := RGB( 72, 122, 129);
   PnlEntryAccount.Color      := RGB( 72, 122, 129);
@@ -1188,6 +1279,26 @@ begin
     { Debug }
     //FrmEditDetailsHeader.Width := 1167;
   finally
+  end;
+end;
+
+procedure TFrmEditDetailsHeader.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_SPACE) Or (Key = VK_RETURN) then begin
+    if ActiveControl.Name = 'BtnEntryShop' then begin
+      ActEntryShop.Execute;
+    end else if ActiveControl.Name = 'BtnEntryAccount' then begin
+      ActEntryAccount.Execute;
+    end else if ActiveControl.Name = 'BtnAddDetail' then begin
+      ActAddDetail.Execute;
+    end else if ActiveControl.Name = 'BtnEditDetail' then begin
+      ActEditDetail.Execute;
+    end else if ActiveControl.Name = 'BtnDeleteDetail' then begin
+      ActDeleteDetail.Execute;
+    end else if ActiveControl.Name = 'BtnGoBack' then begin
+      ActGoBack.Execute;
+    end;
   end;
 end;
 

@@ -12,9 +12,9 @@ object FrmManageUser: TFrmManageUser
   Font.Name = '0xProto'
   Font.Style = [fsBold]
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
+  OnKeyUp = FormKeyUp
   OnShow = FormShow
   object ADBGrid: TDBGrid
     Left = 16
@@ -176,7 +176,7 @@ object FrmManageUser: TFrmManageUser
     ParentFont = False
     TabOrder = 5
   end
-  object BtnRemoveUser: TPanel
+  object BtnDeleteUser: TPanel
     Cursor = crCross
     Left = 24
     Height = 32
@@ -198,10 +198,10 @@ object FrmManageUser: TFrmManageUser
     TabOrder = 6
     TabStop = True
     OnClick = ProcRemoveUser
-    OnEnter = BtnRemoveUserEnter
-    OnExit = BtnRemoveUserExit
-    OnMouseEnter = BtnRemoveUserEnter
-    OnMouseLeave = BtnRemoveUserExit
+    OnEnter = BtnDeleteUserEnter
+    OnExit = BtnDeleteUserExit
+    OnMouseEnter = BtnDeleteUserEnter
+    OnMouseLeave = BtnDeleteUserExit
   end
   object PnlEditAdminUser: TPanel
     Left = 360
@@ -337,15 +337,15 @@ object FrmManageUser: TFrmManageUser
       ShortCut = 16467
       OnExecute = ActEditAdminUserExecute
     end
-    object ActQuit: TAction
+    object ActGoBack: TAction
       AutoCheck = True
-      Caption = 'ActQuit'
+      Caption = 'ActGoBack'
       Checked = True
       SecondaryShortCuts.Strings = (
         'Ctrl+5'
       )
       ShortCut = 16465
-      OnExecute = ActQuitExecute
+      OnExecute = ActGoBackExecute
     end
   end
   object ADS: TDataSource

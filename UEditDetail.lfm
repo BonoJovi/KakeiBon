@@ -4,7 +4,7 @@ object FrmEditDetail: TFrmEditDetail
   Top = 163
   Width = 737
   BorderStyle = bsSingle
-  Caption = 'FrmEditDetail'
+  Caption = '明細編集'
   ClientHeight = 604
   ClientWidth = 737
   Color = clWindowFrame
@@ -12,9 +12,9 @@ object FrmEditDetail: TFrmEditDetail
   Font.Name = '0xProto'
   Font.Style = [fsBold]
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
+  OnKeyUp = FormKeyUp
   OnShow = FormShow
   object LblMaker: TLabel
     Left = 16
@@ -27,12 +27,24 @@ object FrmEditDetail: TFrmEditDetail
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Shape1: TShape
+    Left = 136
+    Height = 16
+    Top = 32
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
   object DBLCBMaker: TDBLookupComboBox
     Cursor = crHandPoint
-    Left = 136
+    Left = 160
     Height = 44
     Top = 18
-    Width = 288
+    Width = 264
     AutoComplete = True
     Font.Height = -21
     Font.Name = '0xProto'
@@ -46,6 +58,8 @@ object FrmEditDetail: TFrmEditDetail
     Style = csDropDownList
     TabOrder = 0
     OnChange = DBLCBMakerChange
+    OnEnter = DBLCBMakerEnter
+    OnExit = DBLCBMakerExit
   end
   object PnlEntryMaker: TPanel
     Left = 432
@@ -91,7 +105,7 @@ object FrmEditDetail: TFrmEditDetail
   object LblBrandName1: TLabel
     Left = 16
     Height = 32
-    Top = 80
+    Top = 79
     Width = 21
     Caption = '品'
     Font.Height = -21
@@ -102,7 +116,7 @@ object FrmEditDetail: TFrmEditDetail
   object LblBrandName2: TLabel
     Left = 100
     Height = 32
-    Top = 80
+    Top = 79
     Width = 21
     Caption = '名'
     Font.Height = -21
@@ -110,12 +124,24 @@ object FrmEditDetail: TFrmEditDetail
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Shape2: TShape
+    Left = 136
+    Height = 16
+    Top = 87
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
   object DBLCBBrandName: TDBLookupComboBox
     Cursor = crHandPoint
-    Left = 136
+    Left = 160
     Height = 44
     Top = 73
-    Width = 288
+    Width = 264
     AutoComplete = True
     Font.Height = -21
     Font.Name = '0xProto'
@@ -129,6 +155,8 @@ object FrmEditDetail: TFrmEditDetail
     Style = csDropDownList
     TabOrder = 3
     OnChange = DBLCBBrandNameChange
+    OnEnter = DBLCBBrandNameEnter
+    OnExit = DBLCBBrandNameExit
   end
   object PnlEntryBrandName: TPanel
     Left = 432
@@ -174,7 +202,7 @@ object FrmEditDetail: TFrmEditDetail
   object LblExp1: TLabel
     Left = 16
     Height = 32
-    Top = 135
+    Top = 134
     Width = 21
     Caption = '費'
     Font.Height = -21
@@ -185,7 +213,7 @@ object FrmEditDetail: TFrmEditDetail
   object LblExp2: TLabel
     Left = 100
     Height = 32
-    Top = 135
+    Top = 134
     Width = 21
     Caption = '目'
     Font.Height = -21
@@ -193,12 +221,24 @@ object FrmEditDetail: TFrmEditDetail
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Shape3: TShape
+    Left = 136
+    Height = 16
+    Top = 142
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
   object DBLCBExp2: TDBLookupComboBox
     Cursor = crHandPoint
-    Left = 136
+    Left = 160
     Height = 44
     Top = 128
-    Width = 288
+    Width = 264
     AutoComplete = True
     Font.Height = -21
     Font.Name = '0xProto'
@@ -212,13 +252,27 @@ object FrmEditDetail: TFrmEditDetail
     Style = csDropDownList
     TabOrder = 6
     OnChange = DBLCBExp2Change
+    OnEnter = DBLCBExp2Enter
+    OnExit = DBLCBExp2Exit
+  end
+  object Shape4: TShape
+    Left = 440
+    Height = 16
+    Top = 142
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
   end
   object DBLCBExp3: TDBLookupComboBox
     Cursor = crHandPoint
-    Left = 432
+    Left = 464
     Height = 44
     Top = 128
-    Width = 288
+    Width = 256
     AutoComplete = True
     Font.Height = -21
     Font.Name = '0xProto'
@@ -232,11 +286,13 @@ object FrmEditDetail: TFrmEditDetail
     Style = csDropDownList
     TabOrder = 7
     OnChange = DBLCBExp3Change
+    OnEnter = DBLCBExp3Enter
+    OnExit = DBLCBExp3Exit
   end
   object LblUnit1: TLabel
     Left = 16
     Height = 32
-    Top = 189
+    Top = 190
     Width = 21
     Caption = '単'
     Font.Height = -21
@@ -247,7 +303,7 @@ object FrmEditDetail: TFrmEditDetail
   object LblUnit2: TLabel
     Left = 100
     Height = 32
-    Top = 189
+    Top = 190
     Width = 21
     Caption = '位'
     Font.Height = -21
@@ -255,12 +311,24 @@ object FrmEditDetail: TFrmEditDetail
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Shape5: TShape
+    Left = 136
+    Height = 16
+    Top = 198
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
   object DBLCBUnit: TDBLookupComboBox
     Cursor = crHandPoint
-    Left = 136
+    Left = 160
     Height = 44
     Top = 184
-    Width = 209
+    Width = 185
     AutoComplete = True
     Font.Height = -21
     Font.Name = '0xProto'
@@ -274,6 +342,8 @@ object FrmEditDetail: TFrmEditDetail
     Style = csDropDownList
     TabOrder = 8
     OnChange = DBLCBUnitChange
+    OnEnter = DBLCBUnitEnter
+    OnExit = DBLCBUnitExit
   end
   object PnlEntryUnit: TPanel
     Left = 16
@@ -349,12 +419,24 @@ object FrmEditDetail: TFrmEditDetail
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Shape6: TShape
+    Left = 136
+    Height = 16
+    Top = 312
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
   object DBLCBTaxType: TDBLookupComboBox
     Cursor = crHandPoint
-    Left = 136
+    Left = 160
     Height = 44
-    Top = 296
-    Width = 209
+    Top = 298
+    Width = 185
     AutoComplete = True
     Font.Height = -21
     Font.Name = '0xProto'
@@ -368,12 +450,13 @@ object FrmEditDetail: TFrmEditDetail
     Style = csDropDownList
     TabOrder = 11
     OnChange = DBLCBTaxTypeChange
+    OnEnter = DBLCBTaxTypeEnter
     OnExit = DBLCBTaxTypeExit
   end
   object LblQuantity1: TLabel
     Left = 360
     Height = 32
-    Top = 190
+    Top = 189
     Width = 21
     Caption = '数'
     Font.Height = -21
@@ -384,7 +467,7 @@ object FrmEditDetail: TFrmEditDetail
   object LblQuantity2: TLabel
     Left = 440
     Height = 32
-    Top = 190
+    Top = 189
     Width = 21
     Caption = '量'
     Font.Height = -21
@@ -392,18 +475,31 @@ object FrmEditDetail: TFrmEditDetail
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Shape7: TShape
+    Left = 472
+    Height = 16
+    Top = 197
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
   object EdtQuantity: TEdit
     Cursor = crIBeam
-    Left = 472
+    Left = 497
     Height = 49
     Top = 181
-    Width = 249
+    Width = 224
     Alignment = taRightJustify
     Font.Height = -21
     Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 12
+    OnEnter = EdtQuantityEnter
     OnExit = EdtQuantityExit
   end
   object LblAmount1: TLabel
@@ -428,12 +524,24 @@ object FrmEditDetail: TFrmEditDetail
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Shape8: TShape
+    Left = 472
+    Height = 16
+    Top = 255
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
   object EdtAmount: TEdit
     Cursor = crIBeam
-    Left = 472
+    Left = 497
     Height = 49
     Top = 239
-    Width = 249
+    Width = 224
     Alignment = taRightJustify
     Font.Height = -21
     Font.Name = '0xProto'
@@ -443,6 +551,8 @@ object FrmEditDetail: TFrmEditDetail
     TabStop = False
     TabOrder = 13
     OnChange = EdtAmountChange
+    OnEnter = EdtAmountEnter
+    OnExit = EdtAmountExit
   end
   object LblExcludeTax1: TLabel
     Left = 360
@@ -488,18 +598,31 @@ object FrmEditDetail: TFrmEditDetail
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Shape9: TShape
+    Left = 472
+    Height = 16
+    Top = 312
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
   object EdtExcludeTax: TEdit
     Cursor = crIBeam
-    Left = 472
+    Left = 497
     Height = 49
     Top = 296
-    Width = 249
+    Width = 224
     Alignment = taRightJustify
     Font.Height = -21
     Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 14
+    OnEnter = EdtExcludeTaxEnter
     OnExit = EdtExcludeTaxExit
   end
   object LblTax1: TLabel
@@ -524,12 +647,24 @@ object FrmEditDetail: TFrmEditDetail
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Shape10: TShape
+    Left = 472
+    Height = 16
+    Top = 369
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
   object EdtTax: TEdit
     Cursor = crIBeam
-    Left = 472
+    Left = 496
     Height = 49
     Top = 353
-    Width = 249
+    Width = 225
     Alignment = taRightJustify
     Font.Height = -21
     Font.Name = '0xProto'
@@ -537,6 +672,7 @@ object FrmEditDetail: TFrmEditDetail
     ParentFont = False
     TabOrder = 15
     OnChange = EdtTaxChange
+    OnEnter = EdtTaxEnter
     OnExit = EdtTaxExit
   end
   object PnlSeparator: TPanel
@@ -570,12 +706,24 @@ object FrmEditDetail: TFrmEditDetail
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Shape11: TShape
+    Left = 472
+    Height = 16
+    Top = 435
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
   object EdtSubTotal: TEdit
     Cursor = crIBeam
-    Left = 471
+    Left = 496
     Height = 49
     Top = 419
-    Width = 249
+    Width = 224
     Alignment = taRightJustify
     Font.Height = -21
     Font.Name = '0xProto'
@@ -583,6 +731,7 @@ object FrmEditDetail: TFrmEditDetail
     ParentFont = False
     TabOrder = 17
     OnChange = EdtSubTotalChange
+    OnEnter = EdtSubTotalEnter
     OnExit = EdtSubTotalExit
   end
   object PnlCancel: TPanel
@@ -701,7 +850,7 @@ object FrmEditDetail: TFrmEditDetail
     ShowAccelChar = True
     TabOrder = 23
     TabStop = True
-    OnClick = ActQuitExecute
+    OnClick = ActGoBackExecute
     OnEnter = BtnGoBackEnter
     OnExit = BtnGoBackExit
     OnMouseEnter = BtnGoBackEnter
@@ -959,15 +1108,15 @@ object FrmEditDetail: TFrmEditDetail
       ShortCut = 16467
       OnExecute = ActSaveExecute
     end
-    object ActQuit: TAction
+    object ActGoBack: TAction
       AutoCheck = True
-      Caption = 'ActQuit'
+      Caption = 'ActGoBack'
       Checked = True
       SecondaryShortCuts.Strings = (
         'Ctrl+6'
       )
       ShortCut = 16465
-      OnExecute = ActQuitExecute
+      OnExecute = ActGoBackExecute
     end
   end
   object ADS: TDataSource

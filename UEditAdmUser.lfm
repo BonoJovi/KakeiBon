@@ -4,7 +4,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
   Top = 193
   Width = 665
   BorderStyle = bsSingle
-  Caption = '管理者アカウントの修正'
+  Caption = '管理者アカウントの編集'
   ClientHeight = 632
   ClientWidth = 665
   Color = clWindowFrame
@@ -86,14 +86,28 @@ object FrmEditAdmUser: TFrmEditAdmUser
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Shape1: TShape
+    Left = 240
+    Height = 16
+    Top = 124
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
   object EdtToUserName: TEdit
     Cursor = crIBeam
-    Left = 241
-    Height = 32
+    Left = 265
+    Height = 49
     Top = 108
-    Width = 408
+    Width = 384
     TabOrder = 0
     OnChange = EdtToUserNameChange
+    OnEnter = EdtToUserNameEnter
+    OnExit = EdtToUserNameExit
   end
   object LblPaw: TLabel
     Left = 16
@@ -106,12 +120,24 @@ object FrmEditAdmUser: TFrmEditAdmUser
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Shape2: TShape
+    Left = 240
+    Height = 16
+    Top = 180
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
   object EdtPaw: TEdit
     Cursor = crIBeam
-    Left = 241
-    Height = 32
+    Left = 265
+    Height = 49
     Top = 164
-    Width = 408
+    Width = 384
     EchoMode = emNone
     Font.Height = -21
     Font.Name = '0xProto'
@@ -120,6 +146,8 @@ object FrmEditAdmUser: TFrmEditAdmUser
     PasswordChar = ' '
     TabOrder = 1
     OnChange = EdtPawChange
+    OnEnter = EdtPawEnter
+    OnExit = EdtPawExit
   end
   object LblPawConfirm: TLabel
     Left = 16
@@ -132,12 +160,24 @@ object FrmEditAdmUser: TFrmEditAdmUser
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Shape3: TShape
+    Left = 240
+    Height = 16
+    Top = 236
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
   object EdtPawConfirm: TEdit
     Cursor = crIBeam
-    Left = 241
-    Height = 32
+    Left = 264
+    Height = 49
     Top = 220
-    Width = 408
+    Width = 385
     EchoMode = emNone
     Font.Height = -21
     Font.Name = '0xProto'
@@ -145,6 +185,8 @@ object FrmEditAdmUser: TFrmEditAdmUser
     ParentFont = False
     PasswordChar = ' '
     TabOrder = 2
+    OnEnter = EdtPawConfirmEnter
+    OnExit = EdtPawConfirmExit
   end
   object LblInfo: TLabel
     Left = 315
@@ -160,8 +202,6 @@ object FrmEditAdmUser: TFrmEditAdmUser
     Top = 320
     Width = 633
     Caption = 'パスワードをクリア (CTRL+X)'
-    ClientHeight = 48
-    ClientWidth = 633
     Color = clActiveCaption
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
@@ -173,43 +213,17 @@ object FrmEditAdmUser: TFrmEditAdmUser
     ParentColor = False
     ParentFont = False
     TabOrder = 3
-    object BtnClearPaw: TPanel
-      Left = 8
-      Height = 32
-      Top = 8
-      Width = 616
-      BevelColor = clNone
-      BevelOuter = bvNone
-      Caption = 'パスワードをクリア (CTRL+X)'
-      Color = clBtnFace
-      Font.CharSet = ANSI_CHARSET
-      Font.Height = -21
-      Font.Name = '0xProto Nerd Font Mono'
-      Font.Pitch = fpFixed
-      Font.Quality = fqDraft
-      Font.Style = [fsBold]
-      ParentBackground = False
-      ParentColor = False
-      ParentFont = False
-      ShowAccelChar = True
-      TabOrder = 0
-      TabStop = True
-      OnClick = ActClearPawExecute
-      OnEnter = BtnClearPawEnter
-      OnExit = BtnClearPawExit
-      OnMouseEnter = BtnClearPawEnter
-      OnMouseLeave = BtnClearPawExit
-    end
   end
-  object PnlCancel: TPanel
-    Left = 16
-    Height = 48
-    Top = 380
-    Width = 312
-    Caption = 'キャンセル (CTRL+C)'
-    ClientHeight = 48
-    ClientWidth = 312
-    Color = clActiveCaption
+  object BtnClearPaw: TPanel
+    Cursor = crCross
+    Left = 24
+    Height = 32
+    Top = 328
+    Width = 617
+    BevelColor = clNone
+    BevelOuter = bvNone
+    Caption = 'パスワードをクリア (CTRL+X)'
+    Color = clBtnFace
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto Nerd Font Mono'
@@ -219,43 +233,21 @@ object FrmEditAdmUser: TFrmEditAdmUser
     ParentBackground = False
     ParentColor = False
     ParentFont = False
+    ShowAccelChar = True
     TabOrder = 4
-    object BtnCancel: TPanel
-      Left = 8
-      Height = 32
-      Top = 8
-      Width = 296
-      BevelColor = clNone
-      BevelOuter = bvNone
-      Caption = 'キャンセル (CTRL+C)'
-      Color = clBtnFace
-      Font.CharSet = ANSI_CHARSET
-      Font.Height = -21
-      Font.Name = '0xProto Nerd Font Mono'
-      Font.Pitch = fpFixed
-      Font.Quality = fqDraft
-      Font.Style = [fsBold]
-      ParentBackground = False
-      ParentColor = False
-      ParentFont = False
-      ShowAccelChar = True
-      TabOrder = 0
-      TabStop = True
-      OnClick = ActCancelExecute
-      OnEnter = BtnCancelEnter
-      OnExit = BtnCancelExit
-      OnMouseEnter = BtnCancelEnter
-      OnMouseLeave = BtnCancelExit
-    end
+    TabStop = True
+    OnClick = ActClearPawExecute
+    OnEnter = BtnClearPawEnter
+    OnExit = BtnClearPawExit
+    OnMouseEnter = BtnClearPawEnter
+    OnMouseLeave = BtnClearPawExit
   end
-  object PnlSave: TPanel
-    Left = 337
+  object PnlCancel: TPanel
+    Left = 16
     Height = 48
     Top = 380
     Width = 312
-    Caption = '保　　　存 (CTRL+S)'
-    ClientHeight = 48
-    ClientWidth = 312
+    Caption = 'キャンセル (CTRL+C)'
     Color = clActiveCaption
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
@@ -267,33 +259,80 @@ object FrmEditAdmUser: TFrmEditAdmUser
     ParentColor = False
     ParentFont = False
     TabOrder = 5
-    object BtnSave: TPanel
-      Left = 8
-      Height = 32
-      Top = 8
-      Width = 296
-      BevelColor = clNone
-      BevelOuter = bvNone
-      Caption = '保　　　存 (CTRL+S)'
-      Color = clBtnFace
-      Font.CharSet = ANSI_CHARSET
-      Font.Height = -21
-      Font.Name = '0xProto Nerd Font Mono'
-      Font.Pitch = fpFixed
-      Font.Quality = fqDraft
-      Font.Style = [fsBold]
-      ParentBackground = False
-      ParentColor = False
-      ParentFont = False
-      ShowAccelChar = True
-      TabOrder = 0
-      TabStop = True
-      OnClick = ActSaveExecute
-      OnEnter = BtnSaveEnter
-      OnExit = BtnSaveExit
-      OnMouseEnter = BtnSaveEnter
-      OnMouseLeave = BtnSaveExit
-    end
+  end
+  object BtnCancel: TPanel
+    Cursor = crCross
+    Left = 24
+    Height = 32
+    Top = 388
+    Width = 296
+    BevelColor = clNone
+    BevelOuter = bvNone
+    Caption = 'キャンセル (CTRL+C)'
+    Color = clBtnFace
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto Nerd Font Mono'
+    Font.Pitch = fpFixed
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    ShowAccelChar = True
+    TabOrder = 6
+    TabStop = True
+    OnClick = ActCancelExecute
+    OnEnter = BtnCancelEnter
+    OnExit = BtnCancelExit
+    OnMouseEnter = BtnCancelEnter
+    OnMouseLeave = BtnCancelExit
+  end
+  object PnlSave: TPanel
+    Left = 337
+    Height = 48
+    Top = 380
+    Width = 312
+    Caption = '保　　　存 (CTRL+S)'
+    Color = clActiveCaption
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto Nerd Font Mono'
+    Font.Pitch = fpFixed
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 7
+  end
+  object BtnSave: TPanel
+    Cursor = crCross
+    Left = 345
+    Height = 32
+    Top = 388
+    Width = 296
+    BevelColor = clNone
+    BevelOuter = bvNone
+    Caption = '保　　　存 (CTRL+S)'
+    Color = clBtnFace
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto Nerd Font Mono'
+    Font.Pitch = fpFixed
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    ShowAccelChar = True
+    TabOrder = 8
+    TabStop = True
+    OnClick = ActSaveExecute
+    OnEnter = BtnSaveEnter
+    OnExit = BtnSaveExit
+    OnMouseEnter = BtnSaveEnter
+    OnMouseLeave = BtnSaveExit
   end
   object DBNavigator: TDBNavigator
     Cursor = crHandPoint
@@ -313,7 +352,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
     DataSource = ADS
     Enabled = False
     Options = []
-    TabOrder = 6
+    TabOrder = 9
     Visible = False
     VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
   end
@@ -368,12 +407,12 @@ object FrmEditAdmUser: TFrmEditAdmUser
     DataSource = ADS
     Enabled = False
     ReadOnly = True
-    TabOrder = 7
+    TabOrder = 10
     TabStop = False
     Visible = False
   end
   object ActionList: TActionList
-    Left = 224
+    Left = 352
     Top = 144
     object ActClearPaw: TAction
       Caption = 'ActClearPaw'
@@ -407,13 +446,13 @@ object FrmEditAdmUser: TFrmEditAdmUser
   end
   object ADS: TDataSource
     DataSet = AQu
-    Left = 336
+    Left = 464
     Top = 144
   end
   object ATr: TSQLTransaction
     Active = False
     Database = ACnUsers
-    Left = 392
+    Left = 520
     Top = 144
   end
   object AQu: TSQLQuery
@@ -425,7 +464,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
     )
     Params = <>
     Macros = <>
-    Left = 448
+    Left = 576
     Top = 144
   end
   object ACn: TSQLite3Connection
@@ -433,7 +472,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
     LoginPrompt = False
     KeepConnection = False
     AlwaysUseBigint = False
-    Left = 280
+    Left = 408
     Top = 144
   end
   object ACnUsers: TSQLite3Connection
@@ -442,18 +481,18 @@ object FrmEditAdmUser: TFrmEditAdmUser
     KeepConnection = False
     Transaction = ATrUsers
     AlwaysUseBigint = False
-    Left = 280
+    Left = 408
     Top = 192
   end
   object ADSUsers: TDataSource
     DataSet = AQuUsers
-    Left = 336
+    Left = 464
     Top = 192
   end
   object ATrUsers: TSQLTransaction
     Active = False
     Database = ACnUsers
-    Left = 392
+    Left = 520
     Top = 192
   end
   object AQuUsers: TSQLQuery
@@ -465,7 +504,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
     )
     Params = <>
     Macros = <>
-    Left = 448
+    Left = 576
     Top = 192
   end
 end

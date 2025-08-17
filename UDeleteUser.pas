@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, LazUTF8, SysUtils, DB, SQLDB, SQLite3Conn, Forms, Controls, Graphics,
-  Dialogs, DBCtrls, DBGrids, StdCtrls, ExtCtrls, LCLIntf, ActnList;
+  Dialogs, DBCtrls, DBGrids, StdCtrls, ExtCtrls, LCLIntf, LCLType, ActnList;
 
 type
 
@@ -63,6 +63,7 @@ type
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     procedure SetDatabaseNames;
     procedure CloseTransactions;
@@ -230,6 +231,8 @@ end;
 
 procedure TFrmDeleteUser.FormShow(Sender: TObject);
 begin
+  FrmDeleteUser.KeyPreview := True;
+
   FrmDeleteUser.Color := RGB(112, 168, 175);
   pnlCancel.Color     := RGB( 72, 122, 129);
   PnlDeleteUser.Color := RGB( 72, 122, 129);
@@ -254,6 +257,18 @@ begin
   with FrmDeleteUser do begin
     Height := 513;
     Width  := 567;
+  end;
+end;
+
+procedure TFrmDeleteUser.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_SPACE) Or (Key = VK_RETURN) then begin
+    if ActiveControl.Name = 'BtnCancel' then begin
+      ActCancel.Execute;
+    end else if ActiveControl.Name = 'BtnDeleteUser' then begin
+      ActDeleteUser.Execute;
+    end;
   end;
 end;
 

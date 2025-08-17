@@ -5,8 +5,9 @@ unit UEntryBrandName;
 interface
 
 uses
-  Classes, LCLType, SysUtils, Variants, SQLDB, SQLite3Conn, DB, Forms, Controls,
-  Graphics, Dialogs, DBGrids, DBCtrls, StdCtrls, ExtCtrls, LCLIntf, ActnList;
+  Classes, SysUtils, Variants, SQLDB, SQLite3Conn, DB, Forms, Controls,
+  Graphics, Dialogs, DBGrids, DBCtrls, StdCtrls, ExtCtrls, LCLIntf, LCLType,
+  ActnList;
 
 type
 
@@ -14,29 +15,29 @@ type
 
   TFrmEntryBrandName = class(TForm)
     ACn              : TSQLite3Connection;
-    ACnNextID        : TSQLite3Connection;
     ActCancel1: TAction;
     ActCommit1: TAction;
     ActInsert1: TAction;
-    ActionList       : TActionList;
+    ActQuit1: TAction;
+    ADS              : TDataSource;
+    ATr              : TSQLTransaction;
+    AQu              : TSQLQuery;
+    ACnNextID        : TSQLite3Connection;
+    ADSNextID        : TDataSource;
+    ATrNextID        : TSQLTransaction;
+    AQuNextID        : TSQLQuery;
     ACnMaker         : TSQLite3Connection;
+    ADSMaker         : TDataSource;
+    ATrMaker         : TSQLTransaction;
+    AQuMaker         : TSQLQuery;
+    ActionList       : TActionList;
+    ActEntryMaker    : TAction;
     ActInsert        : TAction;
     ActCancel        : TAction;
-    ActQuit1: TAction;
     ActSave          : TAction;
-    ActEntryMaker    : TAction;
-    ActQuit          : TAction;
+    ActGoBack          : TAction;
     ADBGrid          : TDBGrid;
     ADBNav           : TDBNavigator;
-    ADS              : TDataSource;
-    ADSNextID        : TDataSource;
-    ADSMaker         : TDataSource;
-    AQu              : TSQLQuery;
-    AQuNextID        : TSQLQuery;
-    AQuMaker         : TSQLQuery;
-    ATr              : TSQLTransaction;
-    ATrNextID        : TSQLTransaction;
-    ATrMaker         : TSQLTransaction;
     DBCBDisabled     : TDBCheckBox;
     DBCBEndOfSales   : TDBCheckBox;
     DBEdtBrandNameID : TDBEdit;
@@ -55,16 +56,30 @@ type
     LblBrandName2    : TLabel;
     LblMaker         : TLabel;
     BtnEntryMaker    : TPanel;
-    BtnInsert: TPanel;
-    BtnCancel: TPanel;
-    BtnSave: TPanel;
-    BtnGoBack: TPanel;
+    BtnInsert        : TPanel;
+    BtnCancel        : TPanel;
+    BtnSave          : TPanel;
+    BtnGoBack        : TPanel;
     PnlCancel        : TPanel;
-    PnlSave        : TPanel;
+    PnlSave          : TPanel;
     PnlGoBack        : TPanel;
     PnlInsert        : TPanel;
     PnlEntryMaker    : TPanel;
+    Shape1           : TShape;
+    Shape2           : TShape;
+    Shape3           : TShape;
+    Shape4           : TShape;
+    Shape5           : TShape;
     Timer            : TTimer;
+    procedure DBCBDisabledEnter(Sender: TObject);
+    procedure DBCBDisabledExit(Sender: TObject);
+    procedure DBCBEndOfSalesEnter(Sender: TObject);
+    procedure DBCBEndOfSalesExit(Sender: TObject);
+    procedure DBEdtBrandNameEnter(Sender: TObject);
+    procedure DBEdtBrandNameIDEnter(Sender: TObject);
+    procedure DBEdtBrandNameIDExit(Sender: TObject);
+    procedure DBLCBMakerEnter(Sender: TObject);
+    procedure DBLCBMakerExit(Sender: TObject);
     procedure ProcEntryMaker(Sender: TObject);
     procedure ProcInsert(Sender: TObject);
     procedure ProcCancel(Sender: TObject);
@@ -88,7 +103,7 @@ type
     procedure ActInsertExecute(Sender: TObject);
     procedure ActCancelExecute(Sender: TObject);
     procedure ActSaveExecute(Sender: TObject);
-    procedure ActQuitExecute(Sender: TObject);
+    procedure ActGoBackExecute(Sender: TObject);
     procedure DBEdtBrandNameExit(Sender: TObject);
     procedure DBEdtBrandNameIDChange(Sender: TObject);
     procedure DBLCBMakerSelect(Sender: TObject);
@@ -96,6 +111,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure TimerTimer(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     FReOpenDS        : Boolean;
     FInsert          : Boolean;
@@ -176,6 +192,51 @@ begin
     SetEntryMaker(0);
     Close;
   end;
+end;
+
+procedure TFrmEntryBrandName.DBLCBMakerEnter(Sender: TObject);
+begin
+  Shape1.Visible := True;
+end;
+
+procedure TFrmEntryBrandName.DBEdtBrandNameIDEnter(Sender: TObject);
+begin
+  Shape2.Visible := True;
+end;
+
+procedure TFrmEntryBrandName.DBEdtBrandNameEnter(Sender: TObject);
+begin
+  Shape3.Visible := True;
+end;
+
+procedure TFrmEntryBrandName.DBCBEndOfSalesEnter(Sender: TObject);
+begin
+  Shape4.Visible := True;
+end;
+
+procedure TFrmEntryBrandName.DBCBDisabledEnter(Sender: TObject);
+begin
+  Shape5.Visible := True;
+end;
+
+procedure TFrmEntryBrandName.DBCBDisabledExit(Sender: TObject);
+begin
+  Shape5.Visible := False;
+end;
+
+procedure TFrmEntryBrandName.DBCBEndOfSalesExit(Sender: TObject);
+begin
+  Shape4.Visible := False;
+end;
+
+procedure TFrmEntryBrandName.DBEdtBrandNameIDExit(Sender: TObject);
+begin
+  Shape2.Visible := False;
+end;
+
+procedure TFrmEntryBrandName.DBLCBMakerExit(Sender: TObject);
+begin
+  Shape1.Visible := False;
 end;
 
 procedure TFrmEntryBrandName.ProcInsert(Sender: TObject);
@@ -424,7 +485,7 @@ begin
   ProcSave(Sender);
 end;
 
-procedure TFrmEntryBrandName.ActQuitExecute(Sender: TObject);
+procedure TFrmEntryBrandName.ActGoBackExecute(Sender: TObject);
 begin
   Close;
 end;
@@ -484,6 +545,8 @@ begin
       SetBrandName(DBEdtBrandName.Text);
     end;
   end;
+
+  Shape3.Visible := False;
 end;
 
 procedure TFrmEntryBrandName.FormClose(
@@ -532,6 +595,8 @@ end;
 
 procedure TFrmEntryBrandName.FormShow(Sender: TObject);
 begin
+  FrmEntryBrandName.KeyPreview := True;
+
   FReOpenDS       := False;
   Timer.Enabled   := False;
   FDoCommit       := False;
@@ -573,6 +638,24 @@ begin
 
       FReOpenDS       := False;
       Timer.Enabled   := False;
+    end;
+  end;
+end;
+
+procedure TFrmEntryBrandName.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_SPACE) Or (Key = VK_RETURN) then begin
+    if ActiveControl.Name = 'BtnEntryMaker' then begin
+      ActEntryMaker.Execute;
+    end else if ActiveControl.Name = 'BtnInsert' then begin
+      ActInsert.Execute;
+    end else if ActiveControl.Name = 'BtnCancel' then begin
+      ActCancel.Execute;
+    end else if ActiveControl.Name = 'BtnSave' then begin
+      ActSave.Execute;
+    end else if ActiveControl.Name = 'BtnGoBack' then begin
+      ActGoBack.Execute;
     end;
   end;
 end;

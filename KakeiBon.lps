@@ -20,8 +20,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="605"/>
-        <CursorPos X="20" Y="621"/>
+        <TopLine Value="112"/>
+        <CursorPos X="35" Y="116"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
@@ -31,6 +31,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
+        <TopLine Value="1043"/>
+        <CursorPos Y="1061"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
@@ -40,23 +42,24 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="32"/>
-        <CursorPos X="46" Y="35"/>
+        <TopLine Value="147"/>
+        <CursorPos X="13" Y="151"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
         <Filename Value="UDBAccess.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="459"/>
-        <CursorPos X="40" Y="478"/>
+        <TopLine Value="173"/>
+        <CursorPos X="26" Y="176"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
         <Filename Value="UDefs.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <CursorPos X="22" Y="8"/>
+        <TopLine Value="272"/>
+        <CursorPos Y="278"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
@@ -66,8 +69,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="255"/>
-        <CursorPos X="28" Y="264"/>
+        <TopLine Value="127"/>
+        <CursorPos X="44" Y="134"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
@@ -77,6 +80,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
+        <TopLine Value="1557"/>
+        <CursorPos Y="1575"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
@@ -86,8 +91,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="245"/>
-        <CursorPos Y="255"/>
+        <TopLine Value="1270"/>
+        <CursorPos X="7" Y="1283"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
@@ -97,8 +102,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="360"/>
-        <CursorPos Y="377"/>
+        <TopLine Value="579"/>
+        <CursorPos X="38" Y="587"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
@@ -108,8 +113,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="352"/>
-        <CursorPos Y="365"/>
+        <TopLine Value="653"/>
+        <CursorPos Y="660"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
@@ -119,8 +124,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="32"/>
-        <CursorPos X="57" Y="39"/>
+        <TopLine Value="108"/>
+        <CursorPos X="21" Y="114"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
@@ -130,8 +135,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="387"/>
-        <CursorPos Y="404"/>
+        <TopLine Value="639"/>
+        <CursorPos X="20" Y="651"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
@@ -141,8 +146,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="299"/>
-        <CursorPos Y="316"/>
+        <TopLine Value="528"/>
+        <CursorPos Y="536"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
@@ -152,8 +157,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="357"/>
-        <CursorPos Y="369"/>
+        <TopLine Value="632"/>
+        <CursorPos X="3" Y="636"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
@@ -163,8 +168,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="290"/>
-        <CursorPos Y="310"/>
+        <TopLine Value="76"/>
+        <CursorPos Y="85"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
@@ -174,8 +179,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="197"/>
-        <CursorPos X="39" Y="210"/>
+        <TopLine Value="317"/>
+        <CursorPos Y="336"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
@@ -185,8 +190,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="271"/>
-        <CursorPos Y="290"/>
+        <TopLine Value="392"/>
+        <CursorPos X="48" Y="401"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
@@ -196,8 +201,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="45"/>
-        <CursorPos Y="53"/>
+        <TopLine Value="598"/>
+        <CursorPos X="29" Y="608"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
@@ -207,8 +212,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="51"/>
-        <CursorPos X="47" Y="62"/>
+        <TopLine Value="418"/>
+        <CursorPos X="8" Y="427"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
@@ -218,8 +223,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="206"/>
-        <CursorPos X="26" Y="226"/>
+        <TopLine Value="217"/>
+        <CursorPos X="58" Y="223"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
@@ -228,17 +233,18 @@
         <ComponentName Value="FrmTopMenu"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="388"/>
-        <CursorPos X="3" Y="390"/>
+        <TopLine Value="636"/>
+        <CursorPos X="3" Y="656"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
         <Filename Value="UConsts.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="56"/>
-        <CursorPos X="3" Y="72"/>
+        <TopLine Value="33"/>
+        <CursorPos X="16" Y="43"/>
         <UsageCount Value="203"/>
       </Unit>
       <Unit>
@@ -247,19 +253,17 @@
         <ComponentName Value="FrmSummary"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="89"/>
         <CursorPos X="48" Y="97"/>
-        <UsageCount Value="170"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
+        <UsageCount Value="193"/>
       </Unit>
       <Unit>
         <Filename Value="../Software/Development/Lazarus-IDE/lazarus/lcl/include/customform.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="573"/>
         <CursorPos X="37" Y="586"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="6"/>
       </Unit>
       <Unit>
         <Filename Value="../Software/Development/Lazarus-IDE/lazarus/lcl/grids.pas"/>
@@ -267,7 +271,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="13713"/>
         <CursorPos Y="13730"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="6"/>
       </Unit>
       <Unit>
         <Filename Value="../Software/Development/Lazarus-IDE/lazarus/lcl/lcltype.pp"/>
@@ -275,21 +279,21 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="413"/>
         <CursorPos X="3" Y="430"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="6"/>
       </Unit>
       <Unit>
         <Filename Value="/usr/share/lazarus/4.2.0/lcl/include/control.inc"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="1615"/>
-        <CursorPos Y="1627"/>
-        <UsageCount Value="9"/>
+        <TopLine Value="2295"/>
+        <CursorPos Y="2305"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="/usr/share/lazarus/4.2.0/lcl/include/customform.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="2592"/>
         <CursorPos Y="2605"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="/usr/share/lazarus/4.2.0/lcl/dbgrids.pas"/>
@@ -297,28 +301,28 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="4118"/>
         <CursorPos Y="4134"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="4"/>
       </Unit>
       <Unit>
         <Filename Value="/usr/share/lazarus/4.2.0/lcl/include/wincontrol.inc"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="5468"/>
+        <TopLine Value="5469"/>
         <CursorPos Y="5479"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="/usr/share/lazarus/4.2.0/lcl/include/customcombobox.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="132"/>
         <CursorPos Y="147"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="/usr/share/lazarus/4.2.0/lcl/include/dbedit.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="57"/>
         <CursorPos X="16" Y="66"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="4"/>
       </Unit>
       <Unit>
         <Filename Value="/usr/share/lazarus/4.2.0/lcl/lclmessageglue.pas"/>
@@ -326,21 +330,21 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="117"/>
         <CursorPos Y="125"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="/usr/share/lazarus/4.2.0/lcl/interfaces/gtk2/gtk2proc.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="3793"/>
-        <CursorPos Y="3804"/>
-        <UsageCount Value="9"/>
+        <CursorPos Y="3803"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="/usr/share/lazarus/4.2.0/lcl/interfaces/gtk2/gtk2callback.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="946"/>
         <CursorPos Y="959"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="/usr/share/lazarus/4.2.0/lcl/controls.pp"/>
@@ -348,7 +352,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="2823"/>
         <CursorPos Y="2838"/>
-        <UsageCount Value="1"/>
+        <UsageCount Value="9"/>
       </Unit>
       <Unit>
         <Filename Value="/usr/share/lazarus/4.2.0/lcl/customtimer.pas"/>
@@ -356,21 +360,35 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="149"/>
         <CursorPos Y="157"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="4"/>
       </Unit>
       <Unit>
         <Filename Value="unit1.pas"/>
         <UnitName Value="Unit1"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="235"/>
-        <UsageCount Value="16"/>
+        <UsageCount Value="14"/>
       </Unit>
       <Unit>
         <Filename Value="/usr/share/lazarus/4.2.0/lcl/interfaces/gtk2/gtk2widgetset.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="52"/>
         <CursorPos Y="68"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
+      </Unit>
+      <Unit>
+        <Filename Value="/usr/share/lazarus/4.2.0/lcl/include/containedaction.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="87"/>
+        <CursorPos Y="100"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="/usr/share/lazarus/4.2.0/lcl/include/customaction.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="237"/>
+        <CursorPos Y="248"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="../lazarus/lcl/dbgrids.pas"/>
@@ -381,59 +399,7 @@
         <UsageCount Value="10"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="12">
-      <Position>
-        <Filename Value="USummary.pas"/>
-        <Caret Line="112" Column="59" TopLine="99"/>
-      </Position>
-      <Position>
-        <Filename Value="USummary.pas"/>
-        <Caret Line="113" Column="59" TopLine="100"/>
-      </Position>
-      <Position>
-        <Filename Value="USummary.pas"/>
-        <Caret Line="114" Column="59" TopLine="101"/>
-      </Position>
-      <Position>
-        <Filename Value="USummary.pas"/>
-        <Caret Line="113" Column="59" TopLine="100"/>
-      </Position>
-      <Position>
-        <Filename Value="USummary.pas"/>
-        <Caret Line="119" Column="59" TopLine="100"/>
-      </Position>
-      <Position>
-        <Filename Value="USummary.pas"/>
-        <Caret Line="93" Column="3" TopLine="90"/>
-      </Position>
-      <Position>
-        <Filename Value="USummary.pas"/>
-        <Caret Line="99" Column="16" TopLine="90"/>
-      </Position>
-      <Position>
-        <Filename Value="USummary.pas"/>
-        <Caret Line="27" Column="30" TopLine="18"/>
-      </Position>
-      <Position>
-        <Filename Value="USummary.pas"/>
-      </Position>
-      <Position>
-        <Filename Value="USummary.pas"/>
-        <Caret Line="28" TopLine="10"/>
-      </Position>
-      <Position>
-        <Filename Value="USummary.pas"/>
-        <Caret Line="110" Column="30" TopLine="90"/>
-      </Position>
-      <Position>
-        <Filename Value="USummary.pas"/>
-        <Caret Line="100" Column="14" TopLine="90"/>
-      </Position>
-      <Position>
-        <Filename Value="USummary.pas"/>
-        <Caret Line="99" Column="14" TopLine="89"/>
-      </Position>
-    </JumpHistory>
+    <JumpHistory HistoryIndex="-1"/>
     <RunParams>
       <FormatVersion Value="2"/>
       <Modes ActiveMode=""/>
@@ -445,15 +411,8 @@
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
-        <Source Value="UManageUser.pas"/>
-        <Line Value="169"/>
-      </Item>
-      <Item>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="UEditDetail.pas"/>
-        <Line Value="877"/>
+        <Source Value="UEditUser.pas"/>
+        <Line Value="292"/>
       </Item>
     </BreakPoints>
   </Debugging>

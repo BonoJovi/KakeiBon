@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Variants, SQLDB, SQLite3Conn, DB, Forms, Controls,
-  Graphics, Dialogs, ExtCtrls, StdCtrls, DBCtrls, LCLIntf, ActnList,
+  Graphics, Dialogs, ExtCtrls, StdCtrls, DBCtrls, LCLIntf, LCLType, ActnList,
   DBDateTimePicker;
 
 type
@@ -54,7 +54,7 @@ type
     ActEntryUnit      : TAction;
     ActCancel         : TAction;
     ActSave           : TAction;
-    ActQuit           : TAction;
+    ActGoBack           : TAction;
     DBDTPEntryDT      : TDBDateTimePicker;
     DBDTPUpdateDT     : TDBDateTimePicker;
     DBEdtExcludeTax   : TDBEdit;
@@ -117,6 +117,34 @@ type
     PnlEntryMaker     : TPanel;
     PnlEntryUnit      : TPanel;
     PnlEntryBrandName : TPanel;
+    Shape1: TShape;
+    Shape10: TShape;
+    Shape11: TShape;
+    Shape2: TShape;
+    Shape3: TShape;
+    Shape4: TShape;
+    Shape5: TShape;
+    Shape6: TShape;
+    Shape7: TShape;
+    Shape8: TShape;
+    Shape9: TShape;
+    procedure DBLCBBrandNameEnter(Sender: TObject);
+    procedure DBLCBBrandNameExit(Sender: TObject);
+    procedure DBLCBExp2Enter(Sender: TObject);
+    procedure DBLCBExp2Exit(Sender: TObject);
+    procedure DBLCBExp3Enter(Sender: TObject);
+    procedure DBLCBExp3Exit(Sender: TObject);
+    procedure DBLCBMakerEnter(Sender: TObject);
+    procedure DBLCBMakerExit(Sender: TObject);
+    procedure DBLCBTaxTypeEnter(Sender: TObject);
+    procedure DBLCBUnitEnter(Sender: TObject);
+    procedure DBLCBUnitExit(Sender: TObject);
+    procedure EdtAmountEnter(Sender: TObject);
+    procedure EdtAmountExit(Sender: TObject);
+    procedure EdtExcludeTaxEnter(Sender: TObject);
+    procedure EdtQuantityEnter(Sender: TObject);
+    procedure EdtSubTotalEnter(Sender: TObject);
+    procedure EdtTaxEnter(Sender: TObject);
     procedure ProcInsert(Sender: TObject);
     procedure ProcEntryMaker(Sender: TObject);
     procedure ProcEntryBrandName(Sender: TObject);
@@ -146,7 +174,7 @@ type
     procedure ActEntryUnitExecute(Sender: TObject);
     procedure ActCancelExecute(Sender: TObject);
     procedure ActSaveExecute(Sender: TObject);
-    procedure ActQuitExecute(Sender: TObject);
+    procedure ActGoBackExecute(Sender: TObject);
     procedure DBLCBBrandNameChange(Sender: TObject);
     procedure DBLCBExp2Change(Sender: TObject);
     procedure DBLCBExp3Change(Sender: TObject);
@@ -164,6 +192,7 @@ type
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     FInsert     : Boolean;
     FGoBack     : Boolean;
@@ -367,9 +396,9 @@ begin
         And (StrToInt(DBEdtExcludeTax.Text) <> 0)
         And (DBEdtQuantity.Text <> '')
         And (StrToInt(DBEdtQuantity.Text) > 0) then begin
-          EdtAmount.Text :=
-            FormatFloat('#,##0.000',
-            StrToInt(DBEdtExcludeTax.Text) / StrToInt(DBEdtQuantity.Text));
+      EdtAmount.Text :=
+        FormatFloat('#,##0.000',
+        StrToInt(DBEdtExcludeTax.Text) / StrToInt(DBEdtQuantity.Text));
     end else begin
       EdtAmount.Text := FormatFloat('#,##0.000', 0);
     end;
@@ -478,15 +507,15 @@ begin
             ParamByName('pDetailID'   ).AsInteger   := StrToInt(VarToStr(GetDID));
             ParamByName('pExpKey1'    ).AsInteger   := StrToInt(VarToStr(GetExpKey1));
             if (Not VarIsNull(GetExpKey2))
-              And (VarToStr(GetExpKey2) <> '')
-              And (StrToInt(VarToStr(GetExpKey2)) > 0) then begin
+                And (VarToStr(GetExpKey2) <> '')
+                And (StrToInt(VarToStr(GetExpKey2)) > 0) then begin
               ParamByName('pExpKey2'    ).AsInteger   := StrToInt(VarToStr(GetExpKey2));
             end else begin
               ParamByName('pExpKey2'    ).AsInteger   := 0;
             end;
             if (Not VarIsNull(GetExpKey3))
-              And (VarToStr(GetExpKey3) <> '')
-              And (StrToInt(VarToStr(GetExpKey3)) > 0) then begin
+                And (VarToStr(GetExpKey3) <> '')
+                And (StrToInt(VarToStr(GetExpKey3)) > 0) then begin
               ParamByName('pExpKey3'    ).AsInteger   := StrToInt(VarToStr(GetExpKey3));
             end else begin
               ParamByName('pExpKey3'    ).AsInteger   := 0;
@@ -593,6 +622,91 @@ begin
 
     DBLCBMaker.SetFocus;
   end;
+end;
+
+procedure TFrmEditDetail.DBLCBMakerEnter(Sender: TObject);
+begin
+  Shape1.Visible := True;
+end;
+
+procedure TFrmEditDetail.DBLCBBrandNameEnter(Sender: TObject);
+begin
+  Shape2.Visible := True;
+end;
+
+procedure TFrmEditDetail.DBLCBBrandNameExit(Sender: TObject);
+begin
+  Shape2.Visible := False;
+end;
+
+procedure TFrmEditDetail.DBLCBExp2Enter(Sender: TObject);
+begin
+  Shape3.Visible := True;
+end;
+
+procedure TFrmEditDetail.DBLCBExp2Exit(Sender: TObject);
+begin
+  Shape3.Visible := False;
+end;
+
+procedure TFrmEditDetail.DBLCBExp3Enter(Sender: TObject);
+begin
+  Shape4.Visible := True;
+end;
+
+procedure TFrmEditDetail.DBLCBExp3Exit(Sender: TObject);
+begin
+  Shape4.Visible := False;
+end;
+
+procedure TFrmEditDetail.DBLCBMakerExit(Sender: TObject);
+begin
+  Shape1.Visible := False;
+end;
+
+procedure TFrmEditDetail.DBLCBTaxTypeEnter(Sender: TObject);
+begin
+  Shape6.Visible := True;
+end;
+
+procedure TFrmEditDetail.DBLCBUnitEnter(Sender: TObject);
+begin
+  Shape5.Visible := True;
+end;
+
+procedure TFrmEditDetail.DBLCBUnitExit(Sender: TObject);
+begin
+  Shape5.Visible := False;
+end;
+
+procedure TFrmEditDetail.EdtAmountEnter(Sender: TObject);
+begin
+  Shape8.Visible := True;
+end;
+
+procedure TFrmEditDetail.EdtAmountExit(Sender: TObject);
+begin
+  Shape8.Visible := False;
+end;
+
+procedure TFrmEditDetail.EdtExcludeTaxEnter(Sender: TObject);
+begin
+  Shape9.Visible := True;
+end;
+
+procedure TFrmEditDetail.EdtQuantityEnter(Sender: TObject);
+begin
+  Shape7.Visible := True;
+end;
+
+procedure TFrmEditDetail.EdtSubTotalEnter(Sender: TObject);
+begin
+  Shape11.Visible := True;
+end;
+
+procedure TFrmEditDetail.EdtTaxEnter(Sender: TObject);
+begin
+  Shape10.Visible := True;
 end;
 
 procedure TFrmEditDetail.ProcEntryBrandName(Sender: TObject);
@@ -885,7 +999,7 @@ begin
   ProcEntryUnit(Sender);
 end;
 
-procedure TFrmEditDetail.ActQuitExecute(Sender: TObject);
+procedure TFrmEditDetail.ActGoBackExecute(Sender: TObject);
 begin
   Close;
 end;
@@ -984,9 +1098,9 @@ begin
       if (DBEdtExcludeTax.Text <> '')
         And (StrToInt(DBEdtExcludeTax.Text) <> 0) then begin
           EdtTax.Text := FormatFloat('#,##0', Round(StrToInt(VarToStr(GetExcludeTax)) * FTaxRate));
-        end else begin
-          EdtTax.Text := FormatFloat('#,##0', 0);
-        end;
+      end else begin
+        EdtTax.Text := FormatFloat('#,##0', 0);
+      end;
     end else if ((StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 3)
       Or (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 4))
       And (EdtSubTotal.Text <> '') then begin
@@ -1055,6 +1169,8 @@ begin
       end;
     end;
   end;
+
+  Shape6.Visible := False;
 end;
 
 procedure TFrmEditDetail.EdtQuantityExit(Sender: TObject);
@@ -1080,6 +1196,8 @@ begin
   end else begin
     EdtAmount.Text := FormatFloat('#,##0.000', 0);
   end;
+
+  Shape7.Visible := False;
 end;
 
 procedure TFrmEditDetail.EdtAmountChange(Sender: TObject);
@@ -1100,31 +1218,33 @@ begin
   end;
 
   if ((StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 1)
-    Or (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 2))
-    And (Not VarIsNull(GetExcludeTax))
-    And (VarToStr(GetExcludeTax) <> '')
-    And (StrToInt(VarToStr(GetExcludeTax)) <> 0)
-    And (Not VarIsNull(GetQuantity))
-    And (VarToStr(GetQuantity) <> '')
-    And (StrToInt(VarToStr(GetQuantity)) > 0) then begin
-      EdtAmount.Text
-        := FormatFloat(
-          '#,##0.000',
-          StrToInt(VarToStr(GetExcludeTax)) /
-          StrToInt(VarToStr(GetQuantity)));
-      DBEdtTax.Text
-        := IntToStr(Round(StrToInt(VarToStr(GetExcludeTax)) * FTaxRate));
-      EdtTax.Text        := FormatFloat('#,##0', StrToInt(DBEdtTax.Text));
-      DBEdtSubTotal.Text := IntToStr(StrToInt(DBEdtExcludeTax.Text) + StrToInt(DBEdtTax.Text));
-      EdtSubTotal.Text   := FormatFloat('#,##0', StrToInt(DBEdtSubTotal.Text));
-    end else begin
-      EdtAmount.Text     := FormatFloat('#,##0.000', 0);
-      DBEdtTax.Text      := IntToStr(0);
-      EdtTax.Text        := FormatFloat('#,##0', StrToInt(DBEdtTax.Text));
-      DBEdtSubTotal.Text := IntToStr(0);
-      EdtSubTotal.Text   := FormatFloat('#,##0', StrToInt(DBEdtSubTotal.Text));
-    end;
+      Or (StrToInt(VarToStr(DBLCBTaxType.KeyValue)) = 2))
+      And (Not VarIsNull(GetExcludeTax))
+      And (VarToStr(GetExcludeTax) <> '')
+      And (StrToInt(VarToStr(GetExcludeTax)) <> 0)
+      And (Not VarIsNull(GetQuantity))
+      And (VarToStr(GetQuantity) <> '')
+      And (StrToInt(VarToStr(GetQuantity)) > 0) then begin
+    EdtAmount.Text
+      := FormatFloat(
+        '#,##0.000',
+        StrToInt(VarToStr(GetExcludeTax)) /
+        StrToInt(VarToStr(GetQuantity)));
+    DBEdtTax.Text
+      := IntToStr(Round(StrToInt(VarToStr(GetExcludeTax)) * FTaxRate));
+    EdtTax.Text        := FormatFloat('#,##0', StrToInt(DBEdtTax.Text));
+    DBEdtSubTotal.Text := IntToStr(StrToInt(DBEdtExcludeTax.Text) + StrToInt(DBEdtTax.Text));
+    EdtSubTotal.Text   := FormatFloat('#,##0', StrToInt(DBEdtSubTotal.Text));
+  end else begin
+    EdtAmount.Text     := FormatFloat('#,##0.000', 0);
+    DBEdtTax.Text      := IntToStr(0);
+    EdtTax.Text        := FormatFloat('#,##0', StrToInt(DBEdtTax.Text));
+    DBEdtSubTotal.Text := IntToStr(0);
+    EdtSubTotal.Text   := FormatFloat('#,##0', StrToInt(DBEdtSubTotal.Text));
   end;
+
+  Shape9.Visible := False;
+end;
 
 procedure TFrmEditDetail.EdtTaxChange(Sender: TObject);
 begin
@@ -1140,11 +1260,13 @@ end;
 procedure TFrmEditDetail.EdtTaxExit(Sender: TObject);
 begin
   if (Not VarIsNull(GetExcludeTax))
-    And (VarToStr(GetExcludeTax) <> '')
-    And (Not VarIsNull(GetTax))
-    And (VarToStr(GetTax) <> '') then begin
-      EdtSubTotal.Text := FormatFloat('#,##0', StrToInt(VarToStr(GetExcludeTax)) + StrToInt(VarToStr(GetTax)));
+      And (VarToStr(GetExcludeTax) <> '')
+      And (Not VarIsNull(GetTax))
+      And (VarToStr(GetTax) <> '') then begin
+    EdtSubTotal.Text := FormatFloat('#,##0', StrToInt(VarToStr(GetExcludeTax)) + StrToInt(VarToStr(GetTax)));
   end;
+
+  Shape10.Visible := False;
 end;
 
 procedure TFrmEditDetail.EdtSubTotalChange(Sender: TObject);
@@ -1235,6 +1357,8 @@ begin
       EdtSubTotal.Text   := '';
     end;
   end;
+
+  Shape11.Visible := False;
 end;
 
 procedure TFrmEditDetail.FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -1279,6 +1403,8 @@ end;
 
 procedure TFrmEditDetail.FormShow(Sender: TObject);
 begin
+  FrmEditDetail.KeyPreview := True;
+
   FrmEditDetail.Width := 737;
 
   FrmEditDetail.Color     := RGB(112, 168, 175);
@@ -1422,6 +1548,26 @@ begin
 
   { Debug }
   //FrmEditDetail.Width := 1272;
+end;
+
+procedure TFrmEditDetail.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_SPACE) Or (Key = VK_RETURN) then begin
+    if ActiveControl.Name = 'BtnEntryMaker' then begin
+      ActEntryMaker.Execute;
+    end else if ActiveControl.Name = 'BtnEntryBrandName' then begin
+      ActEntryBrandName.Execute;
+    end else if ActiveControl.Name = 'BtnEntryUnit' then begin
+      ActEntryUnit.Execute;
+    end else if ActiveControl.Name = 'BtnCancel' then begin
+      ActCancel.Execute;
+    end else if ActiveControl.Name = 'BtnSave' then begin
+      ActSave.Execute;
+    end else if ActiveControl.Name = 'BtnGoBack' then begin
+      ActGoBack.Execute;
+    end;
+  end;
 end;
 
 end.

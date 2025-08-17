@@ -5,9 +5,9 @@ unit UEntryShop;
 interface
 
 uses
-  Classes, LCLType, SysUtils, Variants, SQLDB, SQLite3Conn, DB, Forms, Controls,
-  Graphics, Dialogs, ExtCtrls, DBGrids, DBCtrls, StdCtrls, LCLIntf, ActnList,
-  DBDateTimePicker;
+  Classes, SysUtils, Variants, SQLDB, SQLite3Conn, DB, Forms, Controls,
+  Graphics, Dialogs, ExtCtrls, DBGrids, DBCtrls, StdCtrls, LCLIntf, LCLType,
+  ActnList, DBDateTimePicker;
 
 type
 
@@ -26,7 +26,7 @@ type
     ActInsert            : TAction;
     ActCancel            : TAction;
     ActSave              : TAction;
-    ActQuit              : TAction;
+    ActGoBack              : TAction;
     ADBGrid              : TDBGrid;
     ADBNav               : TDBNavigator;
     DBCBDisabled         : TDBCheckBox;
@@ -65,7 +65,25 @@ type
     PnlSave            : TPanel;
     PnlGoBack            : TPanel;
     PnlInsert            : TPanel;
+    Shape1: TShape;
+    Shape2: TShape;
+    Shape3: TShape;
+    Shape4: TShape;
+    Shape5: TShape;
+    Shape6: TShape;
     Timer                : TTimer;
+    procedure DBCBDisabledEnter(Sender: TObject);
+    procedure DBCBDisabledExit(Sender: TObject);
+    procedure DBDTPEndBusinessDTEnter(Sender: TObject);
+    procedure DBDTPEndBusinessDTExit(Sender: TObject);
+    procedure DBDTPStartBusinessDTEnter(Sender: TObject);
+    procedure DBDTPStartBusinessDTExit(Sender: TObject);
+    procedure DBEdtPhoneNumEnter(Sender: TObject);
+    procedure DBEdtPhoneNumExit(Sender: TObject);
+    procedure DBEdtShopIDEnter(Sender: TObject);
+    procedure DBEdtShopIDExit(Sender: TObject);
+    procedure DBEdtShopNameEnter(Sender: TObject);
+    procedure DBEdtShopNameExit(Sender: TObject);
     procedure ProcInsert(Sender: TObject);
     procedure ProcCancel(Sender: TObject);
     procedure ProcSave(Sender: TObject);
@@ -84,7 +102,7 @@ type
     procedure ActInsertExecute(Sender: TObject);
     procedure ActCancelExecute(Sender: TObject);
     procedure ActSaveExecute(Sender: TObject);
-    procedure ActQuitExecute(Sender: TObject);
+    procedure ActGoBackExecute(Sender: TObject);
     procedure ADBGridKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState
       );
     procedure ADBGridSelectEditor(Sender: TObject; Column: TColumn;
@@ -99,6 +117,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure TimerTimer(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     FDoCommit        : Boolean;
     FReOpenDS        : Boolean;
@@ -208,6 +227,66 @@ begin
     DBCBDisabled.Field.AsBoolean := False;
     DBEdtShopName.SetFocus;
   end;
+end;
+
+procedure TFrmEntryShop.DBEdtShopIDEnter(Sender: TObject);
+begin
+  Shape1.Visible := True;
+end;
+
+procedure TFrmEntryShop.DBEdtPhoneNumEnter(Sender: TObject);
+begin
+  Shape3.Visible := True;
+end;
+
+procedure TFrmEntryShop.DBDTPStartBusinessDTEnter(Sender: TObject);
+begin
+  Shape4.Visible := True;
+end;
+
+procedure TFrmEntryShop.DBDTPEndBusinessDTEnter(Sender: TObject);
+begin
+  Shape5.Visible := True;
+end;
+
+procedure TFrmEntryShop.DBCBDisabledEnter(Sender: TObject);
+begin
+  Shape6.Visible := True;
+end;
+
+procedure TFrmEntryShop.DBCBDisabledExit(Sender: TObject);
+begin
+  Shape6.Visible := False;
+end;
+
+procedure TFrmEntryShop.DBDTPEndBusinessDTExit(Sender: TObject);
+begin
+  Shape5.Visible := False;
+end;
+
+procedure TFrmEntryShop.DBDTPStartBusinessDTExit(Sender: TObject);
+begin
+  Shape4.Visible := False;
+end;
+
+procedure TFrmEntryShop.DBEdtPhoneNumExit(Sender: TObject);
+begin
+  Shape3.Visible := False;
+end;
+
+procedure TFrmEntryShop.DBEdtShopIDExit(Sender: TObject);
+begin
+  Shape1.Visible := False;
+end;
+
+procedure TFrmEntryShop.DBEdtShopNameEnter(Sender: TObject);
+begin
+  Shape2.Visible := True;
+end;
+
+procedure TFrmEntryShop.DBEdtShopNameExit(Sender: TObject);
+begin
+  Shape2.Visible := False;
 end;
 
 procedure TFrmEntryShop.ProcCancel(Sender: TObject);
@@ -433,7 +512,7 @@ begin
   ProcSave(Sender);
 end;
 
-procedure TFrmEntryShop.ActQuitExecute(Sender: TObject);
+procedure TFrmEntryShop.ActGoBackExecute(Sender: TObject);
 begin
   Close;
 end;
@@ -553,6 +632,8 @@ end;
 
 procedure TFrmEntryShop.FormShow(Sender: TObject);
 begin
+  FrmEntryShop.KeyPreview := True;
+
   FrmEntryShop.Color := RGB(112, 168, 175);
   PnlInsert.Color    := RGB( 72, 122, 129);
   PnlCancel.Color    := RGB( 72, 122, 129);
@@ -594,6 +675,22 @@ begin
 
       FReOpenDS          := False;
       Timer.Enabled      := False;
+    end;
+  end;
+end;
+
+procedure TFrmEntryShop.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_SPACE) Or (Key = VK_RETURN) then begin
+    if ActiveControl.Name = 'BtnInsert' then begin
+      ActInsert.Execute;
+    end else if ActiveControl.Name = 'BtnCancel' then begin
+      ActCancel.Execute;
+    end else if ActiveControl.Name = 'BtnSave' then begin
+      ActSave.Execute;
+    end else if ActiveControl.Name = 'BtnGoBack' then begin
+      ActGoBack.Execute;
     end;
   end;
 end;
