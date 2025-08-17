@@ -10,11 +10,19 @@ object FrmAddUser: TFrmAddUser
   Color = clWindowFrame
   FormStyle = fsMDIForm
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp
   OnShow = FormShow
+  object Panel1: TPanel
+    Left = 488
+    Height = 296
+    Top = 4
+    Width = 187
+    Caption = 'Panel1'
+    ParentBackground = False
+    TabOrder = 0
+  end
   object LblUserID1: TLabel
     Left = 16
     Height = 32
@@ -59,6 +67,18 @@ object FrmAddUser: TFrmAddUser
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Shape1: TShape
+    Left = 192
+    Height = 16
+    Top = 31
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
   object EdtUserName: TEdit
     Cursor = crIBeam
     Left = 216
@@ -69,7 +89,7 @@ object FrmAddUser: TFrmAddUser
     Font.Name = '0xProto Nerd Font Mono'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 0
+    TabOrder = 1
     OnEnter = EdtUserNameEnter
     OnExit = EdtUserNameExit
   end
@@ -84,6 +104,18 @@ object FrmAddUser: TFrmAddUser
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Shape2: TShape
+    Left = 192
+    Height = 16
+    Top = 87
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
   object EdtPaw: TEdit
     Cursor = crIBeam
     Left = 216
@@ -96,7 +128,7 @@ object FrmAddUser: TFrmAddUser
     Font.Style = [fsBold]
     ParentFont = False
     PasswordChar = ' '
-    TabOrder = 1
+    TabOrder = 2
     OnChange = EdtPawChange
     OnEnter = EdtPawEnter
     OnExit = EdtPawExit
@@ -112,6 +144,18 @@ object FrmAddUser: TFrmAddUser
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Shape3: TShape
+    Left = 192
+    Height = 16
+    Top = 143
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
   object EdtPawConfirm: TEdit
     Cursor = crIBeam
     Left = 216
@@ -124,7 +168,7 @@ object FrmAddUser: TFrmAddUser
     Font.Style = [fsBold]
     ParentFont = False
     PasswordChar = ' '
-    TabOrder = 2
+    TabOrder = 3
     OnChange = EdtPawConfirmChange
     OnEnter = EdtPawConfirmEnter
     OnExit = EdtPawConfirmExit
@@ -135,56 +179,6 @@ object FrmAddUser: TFrmAddUser
     Top = 188
     Width = 680
     Caption = 'パスワードをクリア (CTRL+X)'
-    ClientHeight = 48
-    ClientWidth = 680
-    Color = clActiveCaption
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto Nerd Font Mono'
-    Font.Pitch = fpFixed
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentBackground = False
-    ParentColor = False
-    ParentFont = False
-    TabOrder = 3
-    object BtnClearPaw: TPanel
-      Cursor = crCross
-      Left = 8
-      Height = 32
-      Top = 8
-      Width = 664
-      BevelColor = clNone
-      BevelOuter = bvNone
-      Caption = 'パスワードをクリア (CTRL+X)'
-      Color = clBtnFace
-      Font.CharSet = ANSI_CHARSET
-      Font.Height = -21
-      Font.Name = '0xProto Nerd Font Mono'
-      Font.Pitch = fpFixed
-      Font.Quality = fqDraft
-      Font.Style = [fsBold]
-      ParentBackground = False
-      ParentColor = False
-      ParentFont = False
-      ShowAccelChar = True
-      TabOrder = 0
-      TabStop = True
-      OnClick = ActClearPawExecute
-      OnEnter = BtnClearPawEnter
-      OnExit = BtnClearPawExit
-      OnMouseEnter = BtnClearPawEnter
-      OnMouseLeave = BtnClearPawExit
-    end
-  end
-  object PnlCancel: TPanel
-    Left = 16
-    Height = 48
-    Top = 248
-    Width = 336
-    Caption = 'キャンセル (CTRL+C)'
-    ClientHeight = 48
-    ClientWidth = 336
     Color = clActiveCaption
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
@@ -196,43 +190,41 @@ object FrmAddUser: TFrmAddUser
     ParentColor = False
     ParentFont = False
     TabOrder = 4
-    object BtnCancel: TPanel
-      Cursor = crCross
-      Left = 8
-      Height = 32
-      Top = 8
-      Width = 320
-      BevelColor = clNone
-      BevelOuter = bvNone
-      Caption = 'キャンセル (CTRL+C)'
-      Color = clBtnFace
-      Font.CharSet = ANSI_CHARSET
-      Font.Height = -21
-      Font.Name = '0xProto Nerd Font Mono'
-      Font.Pitch = fpFixed
-      Font.Quality = fqDraft
-      Font.Style = [fsBold]
-      ParentBackground = False
-      ParentColor = False
-      ParentFont = False
-      ShowAccelChar = True
-      TabOrder = 0
-      TabStop = True
-      OnClick = ActCancelExecute
-      OnEnter = BtnCancelEnter
-      OnExit = BtnCancelExit
-      OnMouseEnter = BtnCancelEnter
-      OnMouseLeave = BtnCancelExit
-    end
   end
-  object PnlSave: TPanel
-    Left = 360
+  object BtnClearPaw: TPanel
+    Cursor = crCross
+    Left = 24
+    Height = 32
+    Top = 196
+    Width = 664
+    BevelColor = clNone
+    BevelOuter = bvNone
+    Caption = 'パスワードをクリア (CTRL+X)'
+    Color = clBtnFace
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto Nerd Font Mono'
+    Font.Pitch = fpFixed
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    ShowAccelChar = True
+    TabOrder = 5
+    TabStop = True
+    OnClick = ActClearPawExecute
+    OnEnter = BtnClearPawEnter
+    OnExit = BtnClearPawExit
+    OnMouseEnter = BtnClearPawEnter
+    OnMouseLeave = BtnClearPawExit
+  end
+  object PnlCancel: TPanel
+    Left = 16
     Height = 48
     Top = 248
     Width = 336
-    Caption = '保　　　存 (CTRL+S)'
-    ClientHeight = 48
-    ClientWidth = 336
+    Caption = 'キャンセル (CTRL+C)'
     Color = clActiveCaption
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
@@ -243,71 +235,81 @@ object FrmAddUser: TFrmAddUser
     ParentBackground = False
     ParentColor = False
     ParentFont = False
-    TabOrder = 5
-    object BtnSave: TPanel
-      Cursor = crCross
-      Left = 8
-      Height = 32
-      Top = 8
-      Width = 320
-      BevelColor = clNone
-      BevelOuter = bvNone
-      Caption = '保　　　存 (CTRL+S)'
-      Color = clBtnFace
-      Font.CharSet = ANSI_CHARSET
-      Font.Height = -21
-      Font.Name = '0xProto Nerd Font Mono'
-      Font.Pitch = fpFixed
-      Font.Quality = fqDraft
-      Font.Style = [fsBold]
-      ParentBackground = False
-      ParentColor = False
-      ParentFont = False
-      ShowAccelChar = True
-      TabOrder = 0
-      TabStop = True
-      OnClick = ActQuitExecute
-      OnEnter = BtnSaveEnter
-      OnExit = BtnSaveExit
-      OnMouseEnter = BtnSaveEnter
-      OnMouseLeave = BtnSaveExit
-    end
+    TabOrder = 6
   end
-  object Shape1: TShape
-    Left = 192
-    Height = 16
-    Top = 31
-    Width = 16
-    Brush.Color = clYellow
-    Enabled = False
-    Pen.JoinStyle = pjsBevel
-    Pen.Style = psinsideFrame
-    Shape = stEllipse
-    Visible = False
+  object BtnCancel: TPanel
+    Cursor = crCross
+    Left = 24
+    Height = 32
+    Top = 256
+    Width = 320
+    BevelColor = clNone
+    BevelOuter = bvNone
+    Caption = 'キャンセル (CTRL+C)'
+    Color = clBtnFace
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto Nerd Font Mono'
+    Font.Pitch = fpFixed
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    ShowAccelChar = True
+    TabOrder = 7
+    TabStop = True
+    OnClick = ActCancelExecute
+    OnEnter = BtnCancelEnter
+    OnExit = BtnCancelExit
+    OnMouseEnter = BtnCancelEnter
+    OnMouseLeave = BtnCancelExit
   end
-  object Shape2: TShape
-    Left = 192
-    Height = 16
-    Top = 87
-    Width = 16
-    Brush.Color = clYellow
-    Enabled = False
-    Pen.JoinStyle = pjsBevel
-    Pen.Style = psinsideFrame
-    Shape = stEllipse
-    Visible = False
+  object PnlSave: TPanel
+    Left = 360
+    Height = 48
+    Top = 248
+    Width = 336
+    Caption = '保　　　存 (CTRL+S)'
+    Color = clActiveCaption
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto Nerd Font Mono'
+    Font.Pitch = fpFixed
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 8
   end
-  object Shape3: TShape
-    Left = 192
-    Height = 16
-    Top = 143
-    Width = 16
-    Brush.Color = clYellow
-    Enabled = False
-    Pen.JoinStyle = pjsBevel
-    Pen.Style = psinsideFrame
-    Shape = stEllipse
-    Visible = False
+  object BtnSave: TPanel
+    Cursor = crCross
+    Left = 368
+    Height = 32
+    Top = 256
+    Width = 320
+    BevelColor = clNone
+    BevelOuter = bvNone
+    Caption = '保　　　存 (CTRL+S)'
+    Color = clBtnFace
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto Nerd Font Mono'
+    Font.Pitch = fpFixed
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    ShowAccelChar = True
+    TabOrder = 9
+    TabStop = True
+    OnClick = ActQuitExecute
+    OnEnter = BtnSaveEnter
+    OnExit = BtnSaveExit
+    OnMouseEnter = BtnSaveEnter
+    OnMouseLeave = BtnSaveExit
   end
   object ActionList: TActionList
     Left = 272

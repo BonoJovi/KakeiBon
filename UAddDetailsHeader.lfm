@@ -12,9 +12,9 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   Font.Name = '0xProto Nerd Font Mono'
   Font.Style = [fsBold]
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
+  OnKeyUp = FormKeyUp
   OnShow = FormShow
   object LblDateTime1: TLabel
     Left = 16
@@ -37,6 +37,18 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentFont = False
+  end
+  object Shape1: TShape
+    Left = 128
+    Height = 16
+    Top = 24
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
   end
   object DTPYear: TDateTimePicker
     Cursor = crHandPoint
@@ -253,6 +265,18 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Shape2: TShape
+    Left = 128
+    Height = 16
+    Top = 72
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
   object DBLCBShopName: TDBLookupComboBox
     Cursor = crHandPoint
     Left = 152
@@ -283,8 +307,6 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Top = 56
     Width = 246
     Caption = '店名を登録 (CTRL+1)'
-    ClientHeight = 44
-    ClientWidth = 246
     Color = clActiveCaption
     Font.Height = -19
     Font.Name = '0xProto Nerd Font Mono'
@@ -293,31 +315,31 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     ParentColor = False
     ParentFont = False
     TabOrder = 5
-    object BtnEntryShop: TPanel
-      Cursor = crCross
-      Left = 8
-      Height = 28
-      Top = 8
-      Width = 230
-      BevelColor = clNone
-      BevelOuter = bvNone
-      Caption = '店名を登録 (CTRL+1)'
-      Color = clBtnFace
-      Font.Height = -19
-      Font.Name = '0xProto Nerd Font Mono'
-      Font.Style = [fsBold]
-      ParentBackground = False
-      ParentColor = False
-      ParentFont = False
-      ShowAccelChar = True
-      TabOrder = 0
-      TabStop = True
-      OnClick = ActEntryShopExecute
-      OnEnter = BtnEntryShopEnter
-      OnExit = BtnEntryShopExit
-      OnMouseEnter = BtnEntryShopEnter
-      OnMouseLeave = BtnEntryShopExit
-    end
+  end
+  object BtnEntryShop: TPanel
+    Cursor = crCross
+    Left = 482
+    Height = 28
+    Top = 64
+    Width = 230
+    BevelColor = clNone
+    BevelOuter = bvNone
+    Caption = '店名を登録 (CTRL+1)'
+    Color = clBtnFace
+    Font.Height = -19
+    Font.Name = '0xProto Nerd Font Mono'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    ShowAccelChar = True
+    TabOrder = 6
+    TabStop = True
+    OnClick = ActEntryShopExecute
+    OnEnter = BtnEntryShopEnter
+    OnExit = BtnEntryShopExit
+    OnMouseEnter = BtnEntryShopEnter
+    OnMouseLeave = BtnEntryShopExit
   end
   object LblPhoneNum1: TLabel
     Left = 16
@@ -367,6 +389,18 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Shape3: TShape
+    Left = 128
+    Height = 16
+    Top = 127
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
   object DBEdtPhoneNum: TDBEdit
     Left = 152
     Height = 49
@@ -381,7 +415,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
-    TabOrder = 6
+    TabOrder = 7
     TabStop = False
     OnEnter = DBEdtPhoneNumEnter
     OnExit = DBEdtPhoneNumExit
@@ -397,6 +431,18 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentFont = False
+  end
+  object Shape4: TShape
+    Left = 128
+    Height = 16
+    Top = 179
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
   end
   object DBLCBExp1: TDBLookupComboBox
     Cursor = crHandPoint
@@ -417,7 +463,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     ReadOnly = True
     ScrollListDataset = True
     Style = csDropDownList
-    TabOrder = 7
+    TabOrder = 8
     OnChange = DBLCBExp1Change
     OnEnter = DBLCBExp1Enter
     OnExit = DBLCBExp1Exit
@@ -458,6 +504,18 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Shape5: TShape
+    Left = 128
+    Height = 16
+    Top = 231
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
   object DBLCBFromAC: TDBLookupComboBox
     Left = 152
     Height = 44
@@ -477,7 +535,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     ReadOnly = True
     ScrollListDataset = True
     Style = csDropDownList
-    TabOrder = 8
+    TabOrder = 9
     OnChange = DBLCBFromACChange
     OnEnter = DBLCBFromACEnter
     OnExit = DBLCBFromACExit
@@ -488,8 +546,6 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Top = 217
     Width = 246
     Caption = '口座を登録 (CTRL+2)'
-    ClientHeight = 44
-    ClientWidth = 246
     Color = clActiveCaption
     Font.Height = -19
     Font.Name = '0xProto Nerd Font Mono'
@@ -497,32 +553,32 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     ParentBackground = False
     ParentColor = False
     ParentFont = False
-    TabOrder = 9
-    object BtnEntryAccount: TPanel
-      Cursor = crCross
-      Left = 8
-      Height = 28
-      Top = 8
-      Width = 230
-      BevelColor = clNone
-      BevelOuter = bvNone
-      Caption = '口座を登録 (CTRL+2)'
-      Color = clBtnFace
-      Font.Height = -19
-      Font.Name = '0xProto Nerd Font Mono'
-      Font.Style = [fsBold]
-      ParentBackground = False
-      ParentColor = False
-      ParentFont = False
-      ShowAccelChar = True
-      TabOrder = 0
-      TabStop = True
-      OnClick = ActEntryAccountExecute
-      OnEnter = BtnEntryAccountEnter
-      OnExit = BtnEntryAccountExit
-      OnMouseEnter = BtnEntryAccountEnter
-      OnMouseLeave = BtnEntryAccountExit
-    end
+    TabOrder = 10
+  end
+  object BtnEntryAccount: TPanel
+    Cursor = crCross
+    Left = 482
+    Height = 28
+    Top = 224
+    Width = 230
+    BevelColor = clNone
+    BevelOuter = bvNone
+    Caption = '口座を登録 (CTRL+2)'
+    Color = clBtnFace
+    Font.Height = -19
+    Font.Name = '0xProto Nerd Font Mono'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    ShowAccelChar = True
+    TabOrder = 11
+    TabStop = True
+    OnClick = ActEntryAccountExecute
+    OnEnter = BtnEntryAccountEnter
+    OnExit = BtnEntryAccountExit
+    OnMouseEnter = BtnEntryAccountEnter
+    OnMouseLeave = BtnEntryAccountExit
   end
   object LblTo1: TLabel
     Left = 16
@@ -560,6 +616,18 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Shape6: TShape
+    Left = 128
+    Height = 16
+    Top = 283
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
   object DBLCBToAC: TDBLookupComboBox
     Left = 152
     Height = 44
@@ -579,7 +647,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     ReadOnly = True
     ScrollListDataset = True
     Style = csDropDownList
-    TabOrder = 10
+    TabOrder = 12
     OnChange = DBLCBToACChange
     OnEnter = DBLCBToACEnter
     OnExit = DBLCBToACExit
@@ -628,13 +696,25 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Shape7: TShape
+    Left = 128
+    Height = 16
+    Top = 335
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
   object EdtTotalAmount: TEdit
     Left = 152
     Height = 46
     Top = 320
     Width = 316
     Alignment = taRightJustify
-    TabOrder = 11
+    TabOrder = 13
     Text = '0'
     OnChange = EdtTotalAmountChange
     OnEnter = EdtTotalAmountEnter
@@ -646,92 +726,6 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Top = 386
     Width = 273
     Caption = '明細を追加 (CTRL+A)'
-    ClientHeight = 48
-    ClientWidth = 273
-    Color = clActiveCaption
-    Font.Height = -19
-    Font.Name = '0xProto Nerd Font Mono'
-    Font.Style = [fsBold]
-    ParentBackground = False
-    ParentColor = False
-    ParentFont = False
-    TabOrder = 12
-    object BtnAddDetail: TPanel
-      Cursor = crCross
-      Left = 8
-      Height = 32
-      Top = 8
-      Width = 256
-      BevelColor = clNone
-      BevelOuter = bvNone
-      Caption = '明細を追加 (CTRL+A)'
-      Color = clBtnFace
-      Font.Height = -19
-      Font.Name = '0xProto Nerd Font Mono'
-      Font.Style = [fsBold]
-      ParentBackground = False
-      ParentColor = False
-      ParentFont = False
-      ShowAccelChar = True
-      TabOrder = 0
-      TabStop = True
-      OnClick = ActAddDetailExecute
-      OnEnter = BtnAddDetailEnter
-      OnExit = BtnAddDetailExit
-      OnMouseEnter = BtnAddDetailEnter
-      OnMouseLeave = BtnAddDetailExit
-    end
-  end
-  object PnlEditDetail: TPanel
-    Left = 294
-    Height = 48
-    Top = 386
-    Width = 272
-    Caption = '明細を編集 (CTRL+E)'
-    ClientHeight = 48
-    ClientWidth = 272
-    Color = clActiveCaption
-    Font.Height = -19
-    Font.Name = '0xProto Nerd Font Mono'
-    Font.Style = [fsBold]
-    ParentBackground = False
-    ParentColor = False
-    ParentFont = False
-    TabOrder = 13
-    object BtnEditDetail: TPanel
-      Cursor = crCross
-      Left = 8
-      Height = 32
-      Top = 8
-      Width = 256
-      BevelColor = clNone
-      BevelOuter = bvNone
-      Caption = '明細を編集 (CTRL+E)'
-      Color = clBtnFace
-      Font.Height = -19
-      Font.Name = '0xProto Nerd Font Mono'
-      Font.Style = [fsBold]
-      ParentBackground = False
-      ParentColor = False
-      ParentFont = False
-      ShowAccelChar = True
-      TabOrder = 0
-      TabStop = True
-      OnClick = ActEditDetailExecute
-      OnEnter = BtnEditDetailEnter
-      OnExit = BtnEditDetailExit
-      OnMouseEnter = BtnEditDetailEnter
-      OnMouseLeave = BtnEditDetailExit
-    end
-  end
-  object PnlDeleteDetail: TPanel
-    Left = 571
-    Height = 48
-    Top = 386
-    Width = 272
-    Caption = '明細を削除 (CTRL+D)'
-    ClientHeight = 48
-    ClientWidth = 272
     Color = clActiveCaption
     Font.Height = -19
     Font.Name = '0xProto Nerd Font Mono'
@@ -740,69 +734,147 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     ParentColor = False
     ParentFont = False
     TabOrder = 14
-    object BtnDeleteDetail: TPanel
-      Cursor = crCross
-      Left = 8
-      Height = 32
-      Top = 8
-      Width = 256
-      BevelColor = clNone
-      BevelOuter = bvNone
-      Caption = '明細を削除 (CTRL+D)'
-      Color = clBtnFace
-      Font.Height = -19
-      Font.Name = '0xProto Nerd Font Mono'
-      Font.Style = [fsBold]
-      ParentBackground = False
-      ParentColor = False
-      ParentFont = False
-      ShowAccelChar = True
-      TabOrder = 0
-      TabStop = True
-      OnClick = ActDeleteDetailExecute
-      OnEnter = BtnDeleteDetailEnter
-      OnExit = BtnDeleteDetailExit
-      OnMouseEnter = BtnDeleteDetailEnter
-      OnMouseLeave = BtnDeleteDetailExit
-    end
+  end
+  object BtnAddDetail: TPanel
+    Cursor = crCross
+    Left = 24
+    Height = 32
+    Top = 394
+    Width = 256
+    BevelColor = clNone
+    BevelOuter = bvNone
+    Caption = '明細を追加 (CTRL+A)'
+    Color = clBtnFace
+    Font.Height = -19
+    Font.Name = '0xProto Nerd Font Mono'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    ShowAccelChar = True
+    TabOrder = 15
+    TabStop = True
+    OnClick = ActAddDetailExecute
+    OnEnter = BtnAddDetailEnter
+    OnExit = BtnAddDetailExit
+    OnMouseEnter = BtnAddDetailEnter
+    OnMouseLeave = BtnAddDetailExit
+  end
+  object PnlEditDetail: TPanel
+    Left = 294
+    Height = 48
+    Top = 386
+    Width = 272
+    Caption = '明細を編集 (CTRL+E)'
+    Color = clActiveCaption
+    Font.Height = -19
+    Font.Name = '0xProto Nerd Font Mono'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 16
+  end
+  object BtnEditDetail: TPanel
+    Cursor = crCross
+    Left = 302
+    Height = 32
+    Top = 394
+    Width = 256
+    BevelColor = clNone
+    BevelOuter = bvNone
+    Caption = '明細を編集 (CTRL+E)'
+    Color = clBtnFace
+    Font.Height = -19
+    Font.Name = '0xProto Nerd Font Mono'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    ShowAccelChar = True
+    TabOrder = 17
+    TabStop = True
+    OnClick = ActEditDetailExecute
+    OnEnter = BtnEditDetailEnter
+    OnExit = BtnEditDetailExit
+    OnMouseEnter = BtnEditDetailEnter
+    OnMouseLeave = BtnEditDetailExit
+  end
+  object PnlDeleteDetail: TPanel
+    Left = 571
+    Height = 48
+    Top = 386
+    Width = 272
+    Caption = '明細を削除 (CTRL+D)'
+    Color = clActiveCaption
+    Font.Height = -19
+    Font.Name = '0xProto Nerd Font Mono'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 18
+  end
+  object BtnDeleteDetail: TPanel
+    Cursor = crCross
+    Left = 579
+    Height = 32
+    Top = 394
+    Width = 256
+    BevelColor = clNone
+    BevelOuter = bvNone
+    Caption = '明細を削除 (CTRL+D)'
+    Color = clBtnFace
+    Font.Height = -19
+    Font.Name = '0xProto Nerd Font Mono'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    ShowAccelChar = True
+    TabOrder = 19
+    TabStop = True
+    OnClick = ActDeleteDetailExecute
+    OnEnter = BtnDeleteDetailEnter
+    OnExit = BtnDeleteDetailExit
+    OnMouseEnter = BtnDeleteDetailEnter
+    OnMouseLeave = BtnDeleteDetailExit
   end
   object PnlGoBack: TPanel
     Left = 16
     Height = 48
-    Top = 442
+    Top = 440
     Width = 550
     Caption = '前の画面に戻る (CTRL+Q)'
-    ClientHeight = 48
-    ClientWidth = 550
     Color = clActiveCaption
     ParentBackground = False
     ParentColor = False
-    TabOrder = 15
-    object BtnGoBack: TPanel
-      Cursor = crCross
-      Left = 8
-      Height = 32
-      Top = 8
-      Width = 534
-      BevelColor = clNone
-      BevelOuter = bvNone
-      Caption = '前の画面に戻る (CTRL+Q)'
-      Color = clBtnFace
-      Font.Height = -19
-      Font.Name = '0xProto Nerd Font Mono'
-      Font.Style = [fsBold]
-      ParentBackground = False
-      ParentColor = False
-      ParentFont = False
-      ShowAccelChar = True
-      TabOrder = 0
-      TabStop = True
-      OnClick = ActQuitExecute
-      OnEnter = BtnGoBackEnter
-      OnExit = BtnGoBackExit
-      OnMouseEnter = BtnGoBackEnter
-      OnMouseLeave = BtnGoBackExit
-    end
+    TabOrder = 20
+  end
+  object BtnGoBack: TPanel
+    Cursor = crCross
+    Left = 24
+    Height = 32
+    Top = 448
+    Width = 534
+    BevelColor = clNone
+    BevelOuter = bvNone
+    Caption = '前の画面に戻る (CTRL+Q)'
+    Color = clBtnFace
+    Font.Height = -19
+    Font.Name = '0xProto Nerd Font Mono'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    ShowAccelChar = True
+    TabOrder = 21
+    TabStop = True
+    OnClick = ActGoBackExecute
+    OnEnter = BtnGoBackEnter
+    OnExit = BtnGoBackExit
+    OnMouseEnter = BtnGoBackEnter
+    OnMouseLeave = BtnGoBackExit
   end
   object ADBNav: TDBNavigator
     Cursor = crHandPoint
@@ -821,7 +893,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     ClientWidth = 272
     DataSource = ADS
     Options = [navFocusableButtons]
-    TabOrder = 16
+    TabOrder = 22
     TabStop = True
     VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast, nbRefresh]
   end
@@ -915,7 +987,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
       end>
     DataSource = ADSDetail
     Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns, dgDblClickAutoSize]
-    TabOrder = 17
+    TabOrder = 23
   end
   object DBEdtUserID: TDBEdit
     Left = 888
@@ -929,7 +1001,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
-    TabOrder = 18
+    TabOrder = 24
     TabStop = False
   end
   object DBEdtHeaderID: TDBEdit
@@ -945,7 +1017,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
-    TabOrder = 19
+    TabOrder = 25
     TabStop = False
   end
   object DBDTPHeaderDT: TDBDateTimePicker
@@ -963,7 +1035,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 20
+    TabOrder = 26
     TabStop = False
     DateSeparator = '/'
     TrailingSeparator = False
@@ -992,7 +1064,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
-    TabOrder = 21
+    TabOrder = 27
     TabStop = False
   end
   object DBEdtExpKey1: TDBEdit
@@ -1008,7 +1080,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
-    TabOrder = 22
+    TabOrder = 28
     TabStop = False
   end
   object DBEdtFromID: TDBEdit
@@ -1024,7 +1096,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
-    TabOrder = 23
+    TabOrder = 29
     TabStop = False
   end
   object DBEdtToID: TDBEdit
@@ -1040,7 +1112,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
-    TabOrder = 25
+    TabOrder = 30
     TabStop = False
   end
   object DBEdtTotalAmount: TDBEdit
@@ -1056,7 +1128,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
-    TabOrder = 24
+    TabOrder = 31
     TabStop = False
   end
   object DBDTPEntryDT: TDBDateTimePicker
@@ -1074,7 +1146,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 26
+    TabOrder = 32
     TabStop = False
     DateSeparator = '/'
     TrailingSeparator = False
@@ -1105,7 +1177,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 27
+    TabOrder = 33
     TabStop = False
     DateSeparator = '/'
     TrailingSeparator = False
@@ -1120,90 +1192,6 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     UseDefaultSeparators = False
     HideDateTimeParts = []
     MonthNames = 'Long'
-  end
-  object Shape1: TShape
-    Left = 128
-    Height = 16
-    Top = 24
-    Width = 16
-    Brush.Color = clYellow
-    Enabled = False
-    Pen.JoinStyle = pjsBevel
-    Pen.Style = psinsideFrame
-    Shape = stEllipse
-    Visible = False
-  end
-  object Shape2: TShape
-    Left = 128
-    Height = 16
-    Top = 72
-    Width = 16
-    Brush.Color = clYellow
-    Enabled = False
-    Pen.JoinStyle = pjsBevel
-    Pen.Style = psinsideFrame
-    Shape = stEllipse
-    Visible = False
-  end
-  object Shape3: TShape
-    Left = 128
-    Height = 16
-    Top = 127
-    Width = 16
-    Brush.Color = clYellow
-    Enabled = False
-    Pen.JoinStyle = pjsBevel
-    Pen.Style = psinsideFrame
-    Shape = stEllipse
-    Visible = False
-  end
-  object Shape4: TShape
-    Left = 128
-    Height = 16
-    Top = 179
-    Width = 16
-    Brush.Color = clYellow
-    Enabled = False
-    Pen.JoinStyle = pjsBevel
-    Pen.Style = psinsideFrame
-    Shape = stEllipse
-    Visible = False
-  end
-  object Shape5: TShape
-    Left = 128
-    Height = 16
-    Top = 231
-    Width = 16
-    Brush.Color = clYellow
-    Enabled = False
-    Pen.JoinStyle = pjsBevel
-    Pen.Style = psinsideFrame
-    Shape = stEllipse
-    Visible = False
-  end
-  object Shape6: TShape
-    Left = 128
-    Height = 16
-    Top = 283
-    Width = 16
-    Brush.Color = clYellow
-    Enabled = False
-    Pen.JoinStyle = pjsBevel
-    Pen.Style = psinsideFrame
-    Shape = stEllipse
-    Visible = False
-  end
-  object Shape7: TShape
-    Left = 128
-    Height = 16
-    Top = 335
-    Width = 16
-    Brush.Color = clYellow
-    Enabled = False
-    Pen.JoinStyle = pjsBevel
-    Pen.Style = psinsideFrame
-    Shape = stEllipse
-    Visible = False
   end
   object ActionList: TActionList
     Left = 512
@@ -1242,13 +1230,13 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
       ShortCut = 16452
       OnExecute = ActDeleteDetailExecute
     end
-    object ActQuit: TAction
-      Caption = 'ActQuit'
+    object ActGoBack: TAction
+      Caption = 'ActGoBack'
       SecondaryShortCuts.Strings = (
         'Ctrl+6'
       )
       ShortCut = 16465
-      OnExecute = ActQuitExecute
+      OnExecute = ActGoBackExecute
     end
   end
   object ADS: TDataSource

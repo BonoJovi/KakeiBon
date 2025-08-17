@@ -14,6 +14,7 @@ object FrmManageExp: TFrmManageExp
   Position = poScreenCenter
   OnClose = FormClose
   OnCreate = FormCreate
+  OnKeyUp = FormKeyUp
   OnShow = FormShow
   object ASG1: TStringGrid
     Cursor = crHandPoint
@@ -479,10 +480,10 @@ object FrmManageExp: TFrmManageExp
       ShortCut = 16436
       OnExecute = ActDefaultOrderKey3Execute
     end
-    object ActQuit: TAction
-      Caption = 'ActQuit'
+    object ActGoBack: TAction
+      Caption = 'ActGoBack'
       ShortCut = 16465
-      OnExecute = ActQuitExecute
+      OnExecute = ActGoBackExecute
     end
   end
   object ADS1: TDataSource

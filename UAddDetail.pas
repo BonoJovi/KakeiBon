@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Variants, SQLDB, SQLite3Conn, DB, Forms, Controls,
-  Graphics, Dialogs, ExtCtrls, StdCtrls, DBCtrls, LCLIntf, ActnList,
+  Graphics, Dialogs, ExtCtrls, StdCtrls, DBCtrls, LCLIntf, LCLType, ActnList,
   DBDateTimePicker;
 
 type
@@ -53,7 +53,7 @@ type
     ActEntryUnit      : TAction;
     ActCancel         : TAction;
     ActSave         : TAction;
-    ActQuit           : TAction;
+    ActGoBack           : TAction;
     EdtExcludeTax     : TEdit;
     DBDTPEntryDT      : TDBDateTimePicker;
     DBDTPUpdateDT     : TDBDateTimePicker;
@@ -103,30 +103,30 @@ type
     LblTax2           : TLabel;
     LblSubTotal1      : TLabel;
     LblSubTotal2      : TLabel;
-    BtnEntryMaker: TPanel;
-    BtnEntryBrandName: TPanel;
-    BtnEntryUnit: TPanel;
-    BtnCancel: TPanel;
-    BtnSave: TPanel;
-    BtnGoBack: TPanel;
+    BtnEntryMaker     : TPanel;
+    BtnEntryBrandName : TPanel;
+    BtnEntryUnit      : TPanel;
+    BtnCancel         : TPanel;
+    BtnSave           : TPanel;
+    BtnGoBack         : TPanel;
     PnlSeparator      : TPanel;
     PnlCancel         : TPanel;
-    PnlSave         : TPanel;
+    PnlSave           : TPanel;
     PnlGoBack         : TPanel;
     PnlEntryUnit      : TPanel;
     PnlEntryBrandName : TPanel;
     PnlEntryMaker     : TPanel;
-    Shape1: TShape;
-    Shape10: TShape;
-    Shape11: TShape;
-    Shape2: TShape;
-    Shape3: TShape;
-    Shape4: TShape;
-    Shape5: TShape;
-    Shape6: TShape;
-    Shape7: TShape;
-    Shape8: TShape;
-    Shape9: TShape;
+    Shape1            : TShape;
+    Shape10           : TShape;
+    Shape11           : TShape;
+    Shape2            : TShape;
+    Shape3            : TShape;
+    Shape4            : TShape;
+    Shape5            : TShape;
+    Shape6            : TShape;
+    Shape7            : TShape;
+    Shape8            : TShape;
+    Shape9            : TShape;
     procedure DBLCBBrandNameEnter(Sender: TObject);
     procedure DBLCBBrandNameExit(Sender: TObject);
     procedure DBLCBExp2Enter(Sender: TObject);
@@ -173,7 +173,7 @@ type
     procedure ActEntryBrandNameExecute(Sender: TObject);
     procedure ActEntryMakerExecute(Sender: TObject);
     procedure ActEntryUnitExecute(Sender: TObject);
-    procedure ActQuitExecute(Sender: TObject);
+    procedure ActGoBackExecute(Sender: TObject);
     procedure DBLCBBrandNameChange(Sender: TObject);
     procedure DBLCBExp2Change(Sender: TObject);
     procedure DBLCBExp3Change(Sender: TObject);
@@ -191,6 +191,7 @@ type
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     FInsert     : Boolean;
     FGoBack     : Boolean;
@@ -998,7 +999,7 @@ begin
   ProcEntryUnit(Sender);
 end;
 
-procedure TFrmAddDetail.ActQuitExecute(Sender: TObject);
+procedure TFrmAddDetail.ActGoBackExecute(Sender: TObject);
 begin
   Close;
 end;
@@ -1403,6 +1404,8 @@ end;
 
 procedure TFrmAddDetail.FormShow(Sender: TObject);
 begin
+  FrmAddDetail.KeyPreview := True;
+
   FrmAddDetail.Width := 737;
 
   FrmAddDetail.Color      := RGB(112, 168, 175);
@@ -1524,6 +1527,26 @@ begin
 
   { Debug }
   //FrmAddDetail.Width := 1272;
+end;
+
+procedure TFrmAddDetail.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_SPACE) Or (Key = VK_RETURN) then begin
+    if ActiveControl.Name = 'BtnEntryMaker' then begin
+      ActEntryMaker.Execute;
+    end else if ActiveControl.Name = 'BtnEntryBrandName' then begin
+      ActEntryBrandName.Execute;
+    end else if ActiveControl.Name = 'BtnEntryUnit' then begin
+      ActEntryUnit.Execute;
+    end else if ActiveControl.Name = 'BtnCancel' then begin
+      ActCancel.Execute;
+    end else if ActiveControl.Name = 'BtnSave' then begin
+      ActSave.Execute;
+    end else if ActiveControl.Name = 'BtnGoBack' then begin
+      ActGoBack.Execute;
+    end;
+  end;
 end;
 
 end.

@@ -29,7 +29,7 @@ object FrmEditUser: TFrmEditUser
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = 'ユーザID'
-        Width = 104
+        Width = 67
         FieldName = 'USER_ID'
       end    
       item
@@ -37,7 +37,7 @@ object FrmEditUser: TFrmEditUser
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = 'ユーザ名'
-        Width = 99
+        Width = 67
         FieldName = 'NAME'
       end    
       item
@@ -45,7 +45,7 @@ object FrmEditUser: TFrmEditUser
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '権限'
-        Width = 57
+        Width = 41
         FieldName = 'ROLE'
       end    
       item
@@ -53,7 +53,7 @@ object FrmEditUser: TFrmEditUser
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '登録日'
-        Width = 78
+        Width = 54
         FieldName = 'ENTRY_DT'
       end    
       item
@@ -61,7 +61,7 @@ object FrmEditUser: TFrmEditUser
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '更新日'
-        Width = 78
+        Width = 54
         FieldName = 'UPDATE_DT'
       end>
     DataSource = ADS
@@ -167,6 +167,18 @@ object FrmEditUser: TFrmEditUser
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Shape1: TShape
+    Left = 200
+    Height = 16
+    Top = 320
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
   object EdtToUserName: TEdit
     Cursor = crIBeam
     Left = 224
@@ -192,6 +204,18 @@ object FrmEditUser: TFrmEditUser
     Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentFont = False
+  end
+  object Shape2: TShape
+    Left = 200
+    Height = 16
+    Top = 377
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
   end
   object EdtPaw: TEdit
     Cursor = crIBeam
@@ -220,6 +244,18 @@ object FrmEditUser: TFrmEditUser
     Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentFont = False
+  end
+  object Shape3: TShape
+    Left = 201
+    Height = 16
+    Top = 434
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
   end
   object EdtPawConfirm: TEdit
     Cursor = crIBeam
@@ -377,42 +413,6 @@ object FrmEditUser: TFrmEditUser
     OnExit = BtnSaveExit
     OnMouseEnter = BtnSaveEnter
     OnMouseLeave = BtnSaveExit
-  end
-  object Shape1: TShape
-    Left = 200
-    Height = 16
-    Top = 320
-    Width = 16
-    Brush.Color = clYellow
-    Enabled = False
-    Pen.JoinStyle = pjsBevel
-    Pen.Style = psinsideFrame
-    Shape = stEllipse
-    Visible = False
-  end
-  object Shape2: TShape
-    Left = 200
-    Height = 16
-    Top = 377
-    Width = 16
-    Brush.Color = clYellow
-    Enabled = False
-    Pen.JoinStyle = pjsBevel
-    Pen.Style = psinsideFrame
-    Shape = stEllipse
-    Visible = False
-  end
-  object Shape3: TShape
-    Left = 201
-    Height = 16
-    Top = 434
-    Width = 16
-    Brush.Color = clYellow
-    Enabled = False
-    Pen.JoinStyle = pjsBevel
-    Pen.Style = psinsideFrame
-    Shape = stEllipse
-    Visible = False
   end
   object ActionList: TActionList
     Left = 320

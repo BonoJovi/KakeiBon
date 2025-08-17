@@ -34,6 +34,7 @@ type
     BtnClearPaw   : TPanel;
     BtnCancel     : TPanel;
     BtnSave       : TPanel;
+    Panel1: TPanel;
     PnlCancel     : TPanel;
     PnlClearPass  : TPanel;
     PnlSave       : TPanel;

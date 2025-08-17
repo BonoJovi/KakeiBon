@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Variants, SQLDB, SQLite3Conn, DB, Forms, Controls,
-  Graphics, Dialogs, ExtCtrls, StdCtrls, DBCtrls, LCLIntf, ActnList,
+  Graphics, Dialogs, ExtCtrls, StdCtrls, DBCtrls, LCLIntf, LCLType, ActnList,
   DBDateTimePicker;
 
 type
@@ -54,7 +54,7 @@ type
     ActEntryUnit      : TAction;
     ActCancel         : TAction;
     ActSave           : TAction;
-    ActQuit           : TAction;
+    ActGoBack           : TAction;
     DBDTPEntryDT      : TDBDateTimePicker;
     DBDTPUpdateDT     : TDBDateTimePicker;
     DBEdtExcludeTax   : TDBEdit;
@@ -174,7 +174,7 @@ type
     procedure ActEntryUnitExecute(Sender: TObject);
     procedure ActCancelExecute(Sender: TObject);
     procedure ActSaveExecute(Sender: TObject);
-    procedure ActQuitExecute(Sender: TObject);
+    procedure ActGoBackExecute(Sender: TObject);
     procedure DBLCBBrandNameChange(Sender: TObject);
     procedure DBLCBExp2Change(Sender: TObject);
     procedure DBLCBExp3Change(Sender: TObject);
@@ -192,6 +192,7 @@ type
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     FInsert     : Boolean;
     FGoBack     : Boolean;
@@ -1002,7 +1003,7 @@ begin
   ProcEntryUnit(Sender);
 end;
 
-procedure TFrmEditDetail.ActQuitExecute(Sender: TObject);
+procedure TFrmEditDetail.ActGoBackExecute(Sender: TObject);
 begin
   Close;
 end;
@@ -1406,6 +1407,8 @@ end;
 
 procedure TFrmEditDetail.FormShow(Sender: TObject);
 begin
+  FrmEditDetail.KeyPreview := True;
+
   FrmEditDetail.Width := 737;
 
   FrmEditDetail.Color     := RGB(112, 168, 175);
@@ -1549,6 +1552,26 @@ begin
 
   { Debug }
   //FrmEditDetail.Width := 1272;
+end;
+
+procedure TFrmEditDetail.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_SPACE) Or (Key = VK_RETURN) then begin
+    if ActiveControl.Name = 'BtnEntryMaker' then begin
+      ActEntryMaker.Execute;
+    end else if ActiveControl.Name = 'BtnEntryBrandName' then begin
+      ActEntryBrandName.Execute;
+    end else if ActiveControl.Name = 'BtnEntryUnit' then begin
+      ActEntryUnit.Execute;
+    end else if ActiveControl.Name = 'BtnCancel' then begin
+      ActCancel.Execute;
+    end else if ActiveControl.Name = 'BtnSave' then begin
+      ActSave.Execute;
+    end else if ActiveControl.Name = 'BtnGoBack' then begin
+      ActGoBack.Execute;
+    end;
+  end;
 end;
 
 end.

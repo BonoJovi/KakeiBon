@@ -5,8 +5,8 @@
 interface
 
 uses
-  Classes, DateUtils, LCLType, Variants, LazUTF8, SysUtils, DB, SQLDB,
-  SQLite3Conn, Forms, Controls, Graphics, Dialogs, ExtCtrls, LCLIntf, ActnList,
+  Classes, DateUtils, Variants, LazUTF8, SysUtils, DB, SQLDB, SQLite3Conn,
+  Forms, Controls, Graphics, Dialogs, ExtCtrls, LCLIntf, LCLType, ActnList,
   StdCtrls, DBCtrls, DBGrids, DBDateTimePicker;
 
 type
@@ -14,21 +14,19 @@ type
   { TFrmEntryAccount }
 
   TFrmEntryAccount = class(TForm)
-    ActCancel1: TAction;
-    ActCommit1: TAction;
-    ActInsert1: TAction;
-    ActQuit1: TAction;
+    ACn                 : TSQLite3Connection;
     ADS                 : TDataSource;
-    ADSNextID           : TDataSource;
-    AQu                 : TSQLQuery;
-    AQuNextID           : TSQLQuery;
     ATr                 : TSQLTransaction;
+    AQu                 : TSQLQuery;
+    ACnNextID           : TSQLite3Connection;
+    ADSNextID           : TDataSource;
     ATrNextID           : TSQLTransaction;
+    AQuNextID           : TSQLQuery;
     ActCancel           : TAction;
-    ActSave           : TAction;
+    ActSave             : TAction;
     ActInsert           : TAction;
     ActionList          : TActionList;
-    ActQuit             : TAction;
+    ActGoBack             : TAction;
     ADBGrid             : TDBGrid;
     ADBNav              : TDBNavigator;
     DBCBDisabled        : TDBCheckBox;
@@ -57,22 +55,20 @@ type
     LblPhoneNumber1     : TLabel;
     LblPhoneNumber4     : TLabel;
     BtnInsert           : TPanel;
-    BtnCancel: TPanel;
-    BtnSave: TPanel;
-    BtnGoBack: TPanel;
+    BtnCancel           : TPanel;
+    BtnSave             : TPanel;
+    BtnGoBack           : TPanel;
     PnlCancel           : TPanel;
     PnlSave           : TPanel;
     PnlGoBack           : TPanel;
     PnlInsert           : TPanel;
-    ACn: TSQLite3Connection;
-    ACnNextID: TSQLite3Connection;
-    Shape1: TShape;
-    Shape2: TShape;
-    Shape3: TShape;
-    Shape4: TShape;
-    Shape5: TShape;
-    Shape6: TShape;
-    Shape7: TShape;
+    Shape1              : TShape;
+    Shape2              : TShape;
+    Shape3              : TShape;
+    Shape4              : TShape;
+    Shape5              : TShape;
+    Shape6              : TShape;
+    Shape7              : TShape;
     Timer               : TTimer;
     procedure DBCBDisabledEnter(Sender: TObject);
     procedure DBCBDisabledExit(Sender: TObject);
@@ -106,7 +102,7 @@ type
     procedure ActInsertExecute(Sender: TObject);
     procedure ActCancelExecute(Sender: TObject);
     procedure ActSaveExecute(Sender: TObject);
-    procedure ActQuitExecute(Sender: TObject);
+    procedure ActGoBackExecute(Sender: TObject);
     procedure ADBGridKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState
       );
     procedure ADBGridSelectEditor(Sender: TObject; Column: TColumn;
@@ -122,6 +118,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure TimerTimer(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     FReOpenDS       : Boolean;
     FInsert         : Boolean;
@@ -540,7 +537,7 @@ begin
   ProcSave(Sender);
 end;
 
-procedure TFrmEntryAccount.ActQuitExecute(Sender: TObject);
+procedure TFrmEntryAccount.ActGoBackExecute(Sender: TObject);
 begin
   Close;
 end;
@@ -659,12 +656,14 @@ end;
 
 procedure TFrmEntryAccount.FormShow(Sender: TObject);
 begin
+  FrmEntryAccount.KeyPreview := True;
+
   Color := RGB(112, 168, 175);
 
-  PnlInsert.Color       := RGB( 72, 122, 129);
-  PnlCancel.Color       := RGB( 72, 122, 129);
-  PnlSave.Color       := RGB( 72, 122, 129);
-  PnlGoBack.Color       := RGB( 72, 122, 129);
+  PnlInsert.Color := RGB( 72, 122, 129);
+  PnlCancel.Color := RGB( 72, 122, 129);
+  PnlSave.Color   := RGB( 72, 122, 129);
+  PnlGoBack.Color := RGB( 72, 122, 129);
 
   FAccountID := GetAccountID;
 
@@ -701,6 +700,22 @@ begin
 
       FReOpenDS       := False;
       Timer.Enabled   := False;
+    end;
+  end;
+end;
+
+procedure TFrmEntryAccount.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_SPACE) Or (Key = VK_RETURN) then begin
+    if ActiveControl.Name = 'BtnInsert' then begin
+      ActInsert.Execute;
+    end else if ActiveControl.Name = 'BtnCancel' then begin
+      ActCancel.Execute;
+    end else if ActiveControl.Name = 'BtnSave' then begin
+      ActSave.Execute;
+    end else if ActiveControl.Name = 'BtnGoBack' then begin
+      ActGoBack.Execute;
     end;
   end;
 end;

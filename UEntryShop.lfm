@@ -13,6 +13,7 @@ object FrmEntryShop: TFrmEntryShop
   Position = poScreenCenter
   OnClose = FormClose
   OnCreate = FormCreate
+  OnKeyUp = FormKeyUp
   OnShow = FormShow
   object ADBGrid: TDBGrid
     Left = 16
@@ -125,6 +126,18 @@ object FrmEntryShop: TFrmEntryShop
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Shape1: TShape
+    Left = 128
+    Height = 16
+    Top = 360
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
   object DBEdtShopID: TDBEdit
     Left = 152
     Height = 49
@@ -221,6 +234,18 @@ object FrmEntryShop: TFrmEntryShop
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Shape2: TShape
+    Left = 128
+    Height = 16
+    Top = 416
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
   object DBEdtShopName: TDBEdit
     Cursor = crIBeam
     Left = 152
@@ -284,6 +309,18 @@ object FrmEntryShop: TFrmEntryShop
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Shape3: TShape
+    Left = 128
+    Height = 16
+    Top = 474
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
   object DBEdtPhoneNum: TDBEdit
     Cursor = crIBeam
     Left = 152
@@ -346,6 +383,18 @@ object FrmEntryShop: TFrmEntryShop
     Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentFont = False
+  end
+  object Shape4: TShape
+    Left = 128
+    Height = 16
+    Top = 528
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
   end
   object DBDTPStartBusinessDT: TDBDateTimePicker
     Cursor = crIBeam
@@ -428,6 +477,18 @@ object FrmEntryShop: TFrmEntryShop
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Shape5: TShape
+    Left = 128
+    Height = 16
+    Top = 576
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
   object DBDTPEndBusinessDT: TDBDateTimePicker
     Cursor = crIBeam
     Left = 152
@@ -496,6 +557,18 @@ object FrmEntryShop: TFrmEntryShop
     Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentFont = False
+  end
+  object Shape6: TShape
+    Left = 128
+    Height = 16
+    Top = 624
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
   end
   object DBCBDisabled: TDBCheckBox
     Cursor = crHandPoint
@@ -638,7 +711,7 @@ object FrmEntryShop: TFrmEntryShop
     ShowAccelChar = True
     TabOrder = 15
     TabStop = True
-    OnClick = ActQuitExecute
+    OnClick = ActGoBackExecute
     OnEnter = BtnGoBackEnter
     OnExit = BtnGoBackExit
     OnMouseEnter = BtnGoBackEnter
@@ -714,78 +787,6 @@ object FrmEntryShop: TFrmEntryShop
     MonthNames = 'Long'
     Options = [dtpoDoChangeOnSetDateTime, dtpoAutoCheck]
   end
-  object Shape1: TShape
-    Left = 128
-    Height = 16
-    Top = 360
-    Width = 16
-    Brush.Color = clYellow
-    Enabled = False
-    Pen.JoinStyle = pjsBevel
-    Pen.Style = psinsideFrame
-    Shape = stEllipse
-    Visible = False
-  end
-  object Shape2: TShape
-    Left = 128
-    Height = 16
-    Top = 416
-    Width = 16
-    Brush.Color = clYellow
-    Enabled = False
-    Pen.JoinStyle = pjsBevel
-    Pen.Style = psinsideFrame
-    Shape = stEllipse
-    Visible = False
-  end
-  object Shape3: TShape
-    Left = 128
-    Height = 16
-    Top = 474
-    Width = 16
-    Brush.Color = clYellow
-    Enabled = False
-    Pen.JoinStyle = pjsBevel
-    Pen.Style = psinsideFrame
-    Shape = stEllipse
-    Visible = False
-  end
-  object Shape4: TShape
-    Left = 128
-    Height = 16
-    Top = 528
-    Width = 16
-    Brush.Color = clYellow
-    Enabled = False
-    Pen.JoinStyle = pjsBevel
-    Pen.Style = psinsideFrame
-    Shape = stEllipse
-    Visible = False
-  end
-  object Shape5: TShape
-    Left = 128
-    Height = 16
-    Top = 576
-    Width = 16
-    Brush.Color = clYellow
-    Enabled = False
-    Pen.JoinStyle = pjsBevel
-    Pen.Style = psinsideFrame
-    Shape = stEllipse
-    Visible = False
-  end
-  object Shape6: TShape
-    Left = 128
-    Height = 16
-    Top = 624
-    Width = 16
-    Brush.Color = clYellow
-    Enabled = False
-    Pen.JoinStyle = pjsBevel
-    Pen.Style = psinsideFrame
-    Shape = stEllipse
-    Visible = False
-  end
   object Timer: TTimer
     Interval = 1
     OnTimer = TimerTimer
@@ -816,13 +817,13 @@ object FrmEntryShop: TFrmEntryShop
       ShortCut = 16467
       OnExecute = ActSaveExecute
     end
-    object ActQuit: TAction
-      Caption = 'ActQuit'
+    object ActGoBack: TAction
+      Caption = 'ActGoBack'
       SecondaryShortCuts.Strings = (
         'Ctrl+4'
       )
       ShortCut = 16465
-      OnExecute = ActQuitExecute
+      OnExecute = ActGoBackExecute
     end
   end
   object ADS: TDataSource

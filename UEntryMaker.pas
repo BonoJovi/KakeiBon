@@ -5,9 +5,9 @@ unit UEntryMaker;
 interface
 
 uses
-  Classes, LCLType, SysUtils, Variants, SQLDB, SQLite3Conn, DB, Forms, Controls,
-  Graphics, Dialogs, DBGrids, DBCtrls, StdCtrls, ExtCtrls, LCLIntf, ActnList,
-  UDBAccess;
+  Classes, SysUtils, Variants, SQLDB, SQLite3Conn, DB, Forms, Controls,
+  Graphics, Dialogs, DBGrids, DBCtrls, StdCtrls, ExtCtrls, LCLIntf, LCLType,
+  ActnList, UDBAccess;
 
 type
 
@@ -30,7 +30,7 @@ type
     ActInsert      : TAction;
     ActCancel      : TAction;
     ActSave        : TAction;
-    ActQuit        : TAction;
+    ActGoBack        : TAction;
     ADBGrid        : TDBGrid;
     ADBNav         : TDBNavigator;
     DBCBDisabled   : TDBCheckBox;
@@ -78,7 +78,7 @@ type
     procedure ActInsertExecute(Sender: TObject);
     procedure ActCancelExecute(Sender: TObject);
     procedure ActSaveExecute(Sender: TObject);
-    procedure ActQuitExecute(Sender: TObject);
+    procedure ActGoBackExecute(Sender: TObject);
     procedure ADBGridKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure ADBGridSelectEditor(Sender: TObject; Column: TColumn;
@@ -90,6 +90,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure TimerTimer(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     FIsDisabled : Boolean;
     FDoCommit   : Boolean;
@@ -398,7 +399,7 @@ begin
   ProcSave(Sender);
 end;
 
-procedure TFrmEntryMaker.ActQuitExecute(Sender: TObject);
+procedure TFrmEntryMaker.ActGoBackExecute(Sender: TObject);
 begin
   Close;
 end;
@@ -486,6 +487,8 @@ end;
 
 procedure TFrmEntryMaker.FormShow(Sender: TObject);
 begin
+  FrmEntryMaker.KeyPreview := True;
+
   FrmEntryMaker.Color := RGB(112, 168, 175);
   PnlInsert.Color     := RGB( 72, 122, 129);
   PnlCancel.Color     := RGB( 72, 122, 129);
@@ -524,6 +527,22 @@ begin
 
       FReOpenDS       := False;
       Timer.Enabled   := False;
+    end;
+  end;
+end;
+
+procedure TFrmEntryMaker.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_SPACE) Or (Key = VK_RETURN) then begin
+    if ActiveControl.Name = 'BtnInsert' then begin
+      ActInsert.Execute;
+    end else if ActiveControl.Name = 'BtnCancel' then begin
+      ActCancel.Execute;
+    end else if ActiveControl.Name = 'BtnSave' then begin
+      ActSave.Execute;
+    end else if ActiveControl.Name = 'BtnGoBack' then begin
+      ActGoBack.Execute;
     end;
   end;
 end;

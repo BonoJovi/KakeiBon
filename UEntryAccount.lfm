@@ -13,6 +13,7 @@ object FrmEntryAccount: TFrmEntryAccount
   Position = poScreenCenter
   OnClose = FormClose
   OnCreate = FormCreate
+  OnKeyUp = FormKeyUp
   OnShow = FormShow
   object ADBGrid: TDBGrid
     Left = 16
@@ -133,6 +134,18 @@ object FrmEntryAccount: TFrmEntryAccount
     Width = 21
     Caption = 'Ｄ'
   end
+  object Shape1: TShape
+    Left = 136
+    Height = 16
+    Top = 376
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
   object DBEdtAccountID: TDBEdit
     Left = 160
     Height = 49
@@ -214,6 +227,18 @@ object FrmEntryAccount: TFrmEntryAccount
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Shape2: TShape
+    Left = 136
+    Height = 16
+    Top = 433
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
   object DBEdtBrandName: TDBEdit
     Cursor = crIBeam
     Left = 160
@@ -268,6 +293,18 @@ object FrmEntryAccount: TFrmEntryAccount
     Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentFont = False
+  end
+  object Shape3: TShape
+    Left = 136
+    Height = 16
+    Top = 488
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
   end
   object DBEdtSubName: TDBEdit
     Cursor = crIBeam
@@ -335,6 +372,18 @@ object FrmEntryAccount: TFrmEntryAccount
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Shape4: TShape
+    Left = 136
+    Height = 16
+    Top = 547
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
   object DBEdtPhoneNum: TDBEdit
     Cursor = crIBeam
     Left = 160
@@ -365,6 +414,18 @@ object FrmEntryAccount: TFrmEntryAccount
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Shape5: TShape
+    Left = 136
+    Height = 16
+    Top = 604
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
   object DBEdtOpeningBalance: TDBEdit
     Cursor = crIBeam
     Left = 160
@@ -393,6 +454,18 @@ object FrmEntryAccount: TFrmEntryAccount
     Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentFont = False
+  end
+  object Shape6: TShape
+    Left = 136
+    Height = 16
+    Top = 661
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
   end
   object DBEdtCurrentBalance: TDBEdit
     Left = 160
@@ -443,6 +516,18 @@ object FrmEntryAccount: TFrmEntryAccount
     Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentFont = False
+  end
+  object Shape7: TShape
+    Left = 136
+    Height = 16
+    Top = 718
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
   end
   object DBCBDisabled: TDBCheckBox
     Cursor = crHandPoint
@@ -582,7 +667,7 @@ object FrmEntryAccount: TFrmEntryAccount
     ShowAccelChar = True
     TabOrder = 16
     TabStop = True
-    OnClick = ActQuitExecute
+    OnClick = ActGoBackExecute
     OnEnter = BtnGoBackEnter
     OnExit = BtnGoBackExit
     OnMouseEnter = BtnGoBackEnter
@@ -658,90 +743,6 @@ object FrmEntryAccount: TFrmEntryAccount
     MonthNames = 'Long'
     Options = [dtpoDoChangeOnSetDateTime, dtpoAutoCheck]
   end
-  object Shape1: TShape
-    Left = 136
-    Height = 16
-    Top = 376
-    Width = 16
-    Brush.Color = clYellow
-    Enabled = False
-    Pen.JoinStyle = pjsBevel
-    Pen.Style = psinsideFrame
-    Shape = stEllipse
-    Visible = False
-  end
-  object Shape2: TShape
-    Left = 136
-    Height = 16
-    Top = 433
-    Width = 16
-    Brush.Color = clYellow
-    Enabled = False
-    Pen.JoinStyle = pjsBevel
-    Pen.Style = psinsideFrame
-    Shape = stEllipse
-    Visible = False
-  end
-  object Shape3: TShape
-    Left = 136
-    Height = 16
-    Top = 488
-    Width = 16
-    Brush.Color = clYellow
-    Enabled = False
-    Pen.JoinStyle = pjsBevel
-    Pen.Style = psinsideFrame
-    Shape = stEllipse
-    Visible = False
-  end
-  object Shape4: TShape
-    Left = 136
-    Height = 16
-    Top = 547
-    Width = 16
-    Brush.Color = clYellow
-    Enabled = False
-    Pen.JoinStyle = pjsBevel
-    Pen.Style = psinsideFrame
-    Shape = stEllipse
-    Visible = False
-  end
-  object Shape5: TShape
-    Left = 136
-    Height = 16
-    Top = 604
-    Width = 16
-    Brush.Color = clYellow
-    Enabled = False
-    Pen.JoinStyle = pjsBevel
-    Pen.Style = psinsideFrame
-    Shape = stEllipse
-    Visible = False
-  end
-  object Shape6: TShape
-    Left = 136
-    Height = 16
-    Top = 661
-    Width = 16
-    Brush.Color = clYellow
-    Enabled = False
-    Pen.JoinStyle = pjsBevel
-    Pen.Style = psinsideFrame
-    Shape = stEllipse
-    Visible = False
-  end
-  object Shape7: TShape
-    Left = 136
-    Height = 16
-    Top = 718
-    Width = 16
-    Brush.Color = clYellow
-    Enabled = False
-    Pen.JoinStyle = pjsBevel
-    Pen.Style = psinsideFrame
-    Shape = stEllipse
-    Visible = False
-  end
   object ActQuit1: TAction
     Caption = 'ActQuit'
     ShortCut = 16465
@@ -788,13 +789,13 @@ object FrmEntryAccount: TFrmEntryAccount
       ShortCut = 16467
       OnExecute = ActSaveExecute
     end
-    object ActQuit: TAction
-      Caption = 'ActQuit'
+    object ActGoBack: TAction
+      Caption = 'ActGoBack'
       SecondaryShortCuts.Strings = (
         'Ctrl+4'
       )
       ShortCut = 16465
-      OnExecute = ActQuitExecute
+      OnExecute = ActGoBackExecute
     end
   end
   object ADS: TDataSource

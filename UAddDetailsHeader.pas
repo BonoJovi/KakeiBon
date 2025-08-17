@@ -7,7 +7,7 @@ interface
 uses
   Classes, DateUtils, Variants, SysUtils, SQLDB, SQLite3Conn, DB, Forms,
   Controls, Graphics, Dialogs, StdCtrls, DBCtrls, DBGrids, ExtCtrls, LCLIntf,
-  ActnList, DateTimePicker, DBDateTimePicker, UDefs;
+  LCLType, ActnList, DateTimePicker, DBDateTimePicker, UDefs;
 
 type
 
@@ -49,7 +49,7 @@ type
     ActEntryShop     : TAction;
     ActEditDetail    : TAction;
     ActDeleteDetail  : TAction;
-    ActQuit          : TAction;
+    ActGoBack          : TAction;
     { Screen controls }
     ADBNav           : TDBNavigator;
     DBDTPHeaderDT    : TDBDateTimePicker;
@@ -156,7 +156,7 @@ type
     procedure ActAddDetailExecute(Sender: TObject);
     procedure ActEditDetailExecute(Sender: TObject);
     procedure ActDeleteDetailExecute(Sender: TObject);
-    procedure ActQuitExecute(Sender: TObject);
+    procedure ActGoBackExecute(Sender: TObject);
     procedure DBLCBExp1Change(Sender: TObject);
     procedure DBLCBFromACChange(Sender: TObject);
     procedure DBLCBShopNameChange(Sender: TObject);
@@ -169,6 +169,7 @@ type
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     FGoBack : Boolean;
     procedure SetDatabaseNames;
@@ -697,7 +698,7 @@ begin
   end;
 end;
 
-procedure TFrmAddDetailsHeader.ActQuitExecute(Sender: TObject);
+procedure TFrmAddDetailsHeader.ActGoBackExecute(Sender: TObject);
 begin
   SetGoBack(True);
   Close;
@@ -909,6 +910,8 @@ end;
 
 procedure TFrmAddDetailsHeader.FormShow(Sender: TObject);
 begin
+  FrmAddDetailsHeader.KeyPreview := True;
+
   FrmAddDetailsHeader.Color := RGB(112, 168, 175);
   PnlEntryShop.Color        := RGB( 72, 122, 129);
   PnlEntryAccount.Color     := RGB( 72, 122, 129);
@@ -1034,6 +1037,26 @@ begin
     { Debug }
     //FrmAddDetailsHeader.Width := 1167;
   finally
+  end;
+end;
+
+procedure TFrmAddDetailsHeader.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_SPACE) Or (Key = VK_RETURN) then begin
+    if ActiveControl.Name = 'BtnEntryShop' then begin
+      ActEntryShop.Execute;
+    end else if ActiveControl.Name = 'BtnEntryAccount' then begin
+      ActEntryAccount.Execute;
+    end else if ActiveControl.Name = 'BtnAddDetail' then begin
+      ActAddDetail.Execute;
+    end else if ActiveControl.Name = 'BtnEditDetail' then begin
+      ActEditDetail.Execute;
+    end else if ActiveControl.Name = 'BtnDeleteDetail' then begin
+      ActDeleteDetail.Execute;
+    end else if ActiveControl.Name = 'BtnGoBack' then begin
+      ActGoBack.Execute;
+    end;
   end;
 end;
 

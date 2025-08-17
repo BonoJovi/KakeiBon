@@ -12,9 +12,9 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   Font.Name = '0xProto Nerd Font Mono'
   Font.Style = [fsBold]
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
+  OnKeyUp = FormKeyUp
   OnShow = FormShow
   object LblDateTime1: TLabel
     Left = 16
@@ -37,6 +37,18 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentFont = False
+  end
+  object Shape1: TShape
+    Left = 128
+    Height = 16
+    Top = 23
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
   end
   object DTPYear: TDateTimePicker
     Cursor = crHandPoint
@@ -253,6 +265,18 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Shape2: TShape
+    Left = 128
+    Height = 16
+    Top = 70
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
   object DBLCBShopName: TDBLookupComboBox
     Cursor = crHandPoint
     Left = 152
@@ -280,7 +304,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   object PnlEntryShop: TPanel
     Left = 474
     Height = 44
-    Top = 59
+    Top = 56
     Width = 246
     Caption = '店名を登録 (CTRL+1)'
     Color = clActiveCaption
@@ -297,7 +321,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     Cursor = crCross
     Left = 482
     Height = 28
-    Top = 67
+    Top = 64
     Width = 230
     BevelColor = clNone
     BevelOuter = bvNone
@@ -366,6 +390,18 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Shape3: TShape
+    Left = 128
+    Height = 16
+    Top = 124
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
   object DBEdtPhoneNum: TDBEdit
     Left = 152
     Height = 49
@@ -396,6 +432,18 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentFont = False
+  end
+  object Shape4: TShape
+    Left = 128
+    Height = 16
+    Top = 179
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
   end
   object DBLCBExp1: TDBLookupComboBox
     Cursor = crHandPoint
@@ -457,11 +505,23 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Shape5: TShape
+    Left = 128
+    Height = 16
+    Top = 231
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
   object DBLCBFromAC: TDBLookupComboBox
     Cursor = crHandPoint
     Left = 152
     Height = 44
-    Top = 216
+    Top = 217
     Width = 316
     AutoComplete = True
     Enabled = False
@@ -559,6 +619,18 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Shape6: TShape
+    Left = 128
+    Height = 16
+    Top = 283
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
   object DBLCBToAC: TDBLookupComboBox
     Cursor = crHandPoint
     Left = 152
@@ -627,6 +699,18 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentFont = False
+  end
+  object Shape7: TShape
+    Left = 128
+    Height = 16
+    Top = 336
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
   end
   object EdtTotalAmount: TEdit
     Left = 152
@@ -797,7 +881,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     ShowAccelChar = True
     TabOrder = 21
     TabStop = True
-    OnClick = ActQuitExecute
+    OnClick = ActGoBackExecute
     OnEnter = BtnGoBackEnter
     OnExit = BtnGoBackExit
     OnMouseEnter = BtnGoBackEnter
@@ -1129,90 +1213,6 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     HideDateTimeParts = []
     MonthNames = 'Long'
   end
-  object Shape1: TShape
-    Left = 128
-    Height = 16
-    Top = 23
-    Width = 16
-    Brush.Color = clYellow
-    Enabled = False
-    Pen.JoinStyle = pjsBevel
-    Pen.Style = psinsideFrame
-    Shape = stEllipse
-    Visible = False
-  end
-  object Shape2: TShape
-    Left = 128
-    Height = 16
-    Top = 70
-    Width = 16
-    Brush.Color = clYellow
-    Enabled = False
-    Pen.JoinStyle = pjsBevel
-    Pen.Style = psinsideFrame
-    Shape = stEllipse
-    Visible = False
-  end
-  object Shape3: TShape
-    Left = 128
-    Height = 16
-    Top = 124
-    Width = 16
-    Brush.Color = clYellow
-    Enabled = False
-    Pen.JoinStyle = pjsBevel
-    Pen.Style = psinsideFrame
-    Shape = stEllipse
-    Visible = False
-  end
-  object Shape4: TShape
-    Left = 128
-    Height = 16
-    Top = 179
-    Width = 16
-    Brush.Color = clYellow
-    Enabled = False
-    Pen.JoinStyle = pjsBevel
-    Pen.Style = psinsideFrame
-    Shape = stEllipse
-    Visible = False
-  end
-  object Shape5: TShape
-    Left = 128
-    Height = 16
-    Top = 230
-    Width = 16
-    Brush.Color = clYellow
-    Enabled = False
-    Pen.JoinStyle = pjsBevel
-    Pen.Style = psinsideFrame
-    Shape = stEllipse
-    Visible = False
-  end
-  object Shape6: TShape
-    Left = 128
-    Height = 16
-    Top = 283
-    Width = 16
-    Brush.Color = clYellow
-    Enabled = False
-    Pen.JoinStyle = pjsBevel
-    Pen.Style = psinsideFrame
-    Shape = stEllipse
-    Visible = False
-  end
-  object Shape7: TShape
-    Left = 128
-    Height = 16
-    Top = 336
-    Width = 16
-    Brush.Color = clYellow
-    Enabled = False
-    Pen.JoinStyle = pjsBevel
-    Pen.Style = psinsideFrame
-    Shape = stEllipse
-    Visible = False
-  end
   object ActionList: TActionList
     Left = 504
     Top = 136
@@ -1260,15 +1260,15 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
       ShortCut = 16452
       OnExecute = ActDeleteDetailExecute
     end
-    object ActQuit: TAction
+    object ActGoBack: TAction
       AutoCheck = True
-      Caption = 'ActQuit'
+      Caption = 'ActGoBack'
       Checked = True
       SecondaryShortCuts.Strings = (
         'Ctrl+6'
       )
       ShortCut = 16465
-      OnExecute = ActQuitExecute
+      OnExecute = ActGoBackExecute
     end
   end
   object ADS: TDataSource
