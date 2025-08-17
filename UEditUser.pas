@@ -7,7 +7,7 @@ interface
 uses
   Classes, DateUtils, LazUTF8, SysUtils, SQLDB, SQLite3Conn, DB, Forms,
   Controls, Graphics, Dialogs, StdCtrls, ExtCtrls, DBCtrls, DBGrids, LCLIntf,
-  ActnList;
+  LCLType, ActnList;
 
 type
 
@@ -25,7 +25,7 @@ type
     ActionList         : TActionList;
     ActCancel          : TAction;
     ActClearPaw        : TAction;
-    ActSave          : TAction;
+    ActSave            : TAction;
     ActQuit            : TAction;
     ADBGrid            : TDBGrid;
     DBNavigator        : TDBNavigator;
@@ -41,12 +41,23 @@ type
     LblUserName        : TLabel;
     LblUserName1       : TLabel;
     LblUserID          : TLabel;
-    BtnClearPaw: TPanel;
-    BtnCancel: TPanel;
-    BtnSave: TPanel;
+    BtnClearPaw        : TPanel;
+    BtnCancel          : TPanel;
+    BtnSave            : TPanel;
     PnlCancel          : TPanel;
-    PnlClearPaw       : TPanel;
+    PnlClearPaw        : TPanel;
     PnlCommit          : TPanel;
+    Shape1             : TShape;
+    Shape2             : TShape;
+    Shape3             : TShape;
+    procedure EdtPawChange(Sender: TObject);
+    procedure EdtPawConfirmChange(Sender: TObject);
+    procedure EdtToUserNameEnter(Sender: TObject);
+    procedure EdtToUserNameExit(Sender: TObject);
+    procedure EdtPawEnter(Sender: TObject);
+    procedure EdtPawExit(Sender: TObject);
+    procedure EdtPawConfirmEnter(Sender: TObject);
+    procedure EdtPawConfirmExit(Sender: TObject);
     procedure ProcClearPaw(Sender: TObject);
     procedure ProcCancel(Sender: TObject);
     procedure ProcSave(Sender: TObject);
@@ -67,6 +78,7 @@ type
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     FUName             : String;
     FPAW               : String;
@@ -75,7 +87,6 @@ type
     function CheckMultiFields(NameField: Boolean): String;
     function CheckSQuoteInPAW: Boolean;
     function CheckSQuoteInUName: Boolean;
-    procedure EdtPawChange(Sender: TObject);
   public
   end;
 
@@ -212,8 +223,50 @@ end;
 procedure TFrmEditUser.ProcClearPaw(Sender: TObject);
 begin
   with FrmTopMenu.Defs do begin
-    ClearPaw(nil, EdtPaw);
+    ClearPaw(EdtPaw, EdtPawConfirm);
   end;
+end;
+
+procedure TFrmEditUser.EdtToUserNameEnter(Sender: TObject);
+begin
+  Shape1.Visible := True;
+end;
+
+procedure TFrmEditUser.EdtPawConfirmChange(Sender: TObject);
+begin
+  if (Length(EdtPaw.Text) = 0)
+      And (Length(EdtPawConfirm.Text) = 0) then begin
+    BtnClearPaw.Enabled := False;
+    ActClearPaw.Enabled := False;
+  end else begin
+    BtnClearPaw.Enabled := True;
+    ActClearPaw.Enabled := True;
+  end;
+end;
+
+procedure TFrmEditUser.EdtPawEnter(Sender: TObject);
+begin
+  Shape2.Visible := True;
+end;
+
+procedure TFrmEditUser.EdtPawConfirmEnter(Sender: TObject);
+begin
+  Shape3.Visible := True;
+end;
+
+procedure TFrmEditUser.EdtPawConfirmExit(Sender: TObject);
+begin
+  Shape3.Visible := False;
+end;
+
+procedure TFrmEditUser.EdtPawExit(Sender: TObject);
+begin
+  Shape2.Visible := False;
+end;
+
+procedure TFrmEditUser.EdtToUserNameExit(Sender: TObject);
+begin
+  Shape1.Visible := False;
 end;
 
 procedure TFrmEditUser.ProcCancel(Sender: TObject);
@@ -231,7 +284,48 @@ var
   LOriginalUName : String;
   LAdminName     : String;
   LOriginalPaw   : String;
+  LDoFormShow    : Boolean = False;
 begin
+  try
+    try
+      with FrmTopMenu.Defs do begin
+        CloseConn(ACnUsers, ATrUsers);
+        SetDatabaseName(ACnUsers);
+        with AQuUsers do begin
+          SQL.Text := SQL_20030002;
+          with Params do begin
+            ParamByName('pUName').AsAnsiString := EdtToUserName.Text;
+            Open;
+          end;
+          if RecordCount > 0 then begin
+            MessageDlg(MSG_JP_000009, mtInformation, [mbOk], 0);
+
+            LDoFormShow := True;
+
+            EdtToUserName.Text   := '';
+            EdtPaw.Text        := '';
+            EdtPawConfirm.Text := '';
+
+            CloseConn(ACnUsers, ATrUsers);
+            SetDatabaseName(ACnUsers);
+          end;
+        end;
+      end;
+
+      if LDoFormShow then begin
+        FormShow(Self);
+        LDoFormShow := False;
+        Exit;
+      end;
+    except
+      on E: ESQLDatabaseError do begin
+        ShowMessage(E.Message);
+        Exit;
+      end;
+    end;
+  finally
+  end;
+
   try
     try
       with FrmTopMenu.Defs do begin
@@ -398,6 +492,16 @@ end;
 procedure TFrmEditUser.EdtPawChange(Sender: TObject);
 begin
   FPAW := EdtPaw.Text;
+
+  if (Length(EdtPaw.Text) = 0)
+      And (Length(EdtPawConfirm.Text) = 0) then begin
+    BtnClearPaw.Enabled := False;
+    ActClearPaw.Enabled := False;
+  end else begin
+    BtnClearPaw.Enabled := True;
+    ActClearPaw.Enabled := True;
+  end;
+
 end;
 
 procedure TFrmEditUser.EdtToUserNameChange(Sender: TObject);
@@ -434,6 +538,8 @@ end;
 
 procedure TFrmEditUser.FormShow(Sender: TObject);
 begin
+  FrmEditUser.KeyPreview := True;
+
   FrmEditUser.Color  := RGB(112, 168, 175);
   PnlClearPaw.Color  := RGB( 72, 122, 129);
   PnlCancel.Color    := RGB( 72, 122, 129);
@@ -465,6 +571,28 @@ begin
       end;
     end;
   finally
+  end;
+
+  if (Length(EdtPaw.Text) = 0)
+      And (Length(EdtPawConfirm.Text) = 0) then begin
+    BtnClearPaw.Enabled := False;
+    ActClearPaw.Enabled := False;
+  end;
+
+  ADBGrid.AutoAdjustColumns;
+end;
+
+procedure TFrmEditUser.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_SPACE) Or (Key = VK_RETURN) then begin
+    if ActiveControl.Name = 'BtnClearPaw' then begin
+      ActClearPaw.Execute;
+    end else if ActiveControl.Name = 'BtnCancel' then begin
+      ActCancel.Execute;
+    end else if ActiveControl.Name = 'BtnSave' then begin
+      ActSave.Execute;
+    end;
   end;
 end;
 

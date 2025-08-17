@@ -28,10 +28,10 @@ object FrmAddDetail: TFrmAddDetail
   end
   object DBLCBMaker: TDBLookupComboBox
     Cursor = crHandPoint
-    Left = 136
+    Left = 160
     Height = 44
     Top = 18
-    Width = 288
+    Width = 264
     AutoComplete = True
     Font.Height = -21
     Font.Name = '0xProto'
@@ -47,6 +47,8 @@ object FrmAddDetail: TFrmAddDetail
     Style = csDropDownList
     TabOrder = 0
     OnChange = DBLCBMakerChange
+    OnEnter = DBLCBMakerEnter
+    OnExit = DBLCBMakerExit
   end
   object PnlEntryMaker: TPanel
     Left = 432
@@ -93,7 +95,7 @@ object FrmAddDetail: TFrmAddDetail
   object LblBrandName1: TLabel
     Left = 16
     Height = 32
-    Top = 80
+    Top = 79
     Width = 21
     Caption = '品'
     Font.Height = -21
@@ -104,7 +106,7 @@ object FrmAddDetail: TFrmAddDetail
   object LblBrandName2: TLabel
     Left = 100
     Height = 32
-    Top = 81
+    Top = 79
     Width = 21
     Caption = '名'
     Font.Height = -21
@@ -114,10 +116,10 @@ object FrmAddDetail: TFrmAddDetail
   end
   object DBLCBBrandName: TDBLookupComboBox
     Cursor = crHandPoint
-    Left = 136
+    Left = 160
     Height = 44
     Top = 73
-    Width = 288
+    Width = 264
     AutoComplete = True
     Font.Height = -21
     Font.Name = '0xProto'
@@ -133,6 +135,8 @@ object FrmAddDetail: TFrmAddDetail
     Style = csDropDownList
     TabOrder = 2
     OnChange = DBLCBBrandNameChange
+    OnEnter = DBLCBBrandNameEnter
+    OnExit = DBLCBBrandNameExit
   end
   object PnlEntryBrandName: TPanel
     Left = 432
@@ -151,6 +155,7 @@ object FrmAddDetail: TFrmAddDetail
     ParentFont = False
     TabOrder = 3
     object BtnEntryBrandName: TPanel
+      Cursor = crCross
       Left = 8
       Height = 33
       Top = 8
@@ -178,7 +183,7 @@ object FrmAddDetail: TFrmAddDetail
   object LblExp1: TLabel
     Left = 16
     Height = 32
-    Top = 135
+    Top = 134
     Width = 21
     Caption = '費'
     Font.Height = -21
@@ -189,7 +194,7 @@ object FrmAddDetail: TFrmAddDetail
   object LblExp2: TLabel
     Left = 100
     Height = 32
-    Top = 135
+    Top = 134
     Width = 21
     Caption = '目'
     Font.Height = -21
@@ -199,10 +204,10 @@ object FrmAddDetail: TFrmAddDetail
   end
   object DBLCBExp2: TDBLookupComboBox
     Cursor = crHandPoint
-    Left = 136
+    Left = 160
     Height = 44
     Top = 128
-    Width = 289
+    Width = 265
     AutoComplete = True
     Font.Height = -21
     Font.Name = '0xProto'
@@ -218,13 +223,15 @@ object FrmAddDetail: TFrmAddDetail
     Style = csDropDownList
     TabOrder = 4
     OnChange = DBLCBExp2Change
+    OnEnter = DBLCBExp2Enter
+    OnExit = DBLCBExp2Exit
   end
   object DBLCBExp3: TDBLookupComboBox
     Cursor = crHandPoint
-    Left = 432
+    Left = 464
     Height = 44
     Top = 128
-    Width = 289
+    Width = 257
     AutoComplete = True
     Font.Height = -21
     Font.Name = '0xProto'
@@ -238,11 +245,13 @@ object FrmAddDetail: TFrmAddDetail
     Style = csDropDownList
     TabOrder = 5
     OnChange = DBLCBExp3Change
+    OnEnter = DBLCBExp3Enter
+    OnExit = DBLCBExp3Exit
   end
   object LblUnit1: TLabel
     Left = 16
     Height = 32
-    Top = 189
+    Top = 190
     Width = 21
     Caption = '単'
     Font.Height = -21
@@ -253,7 +262,7 @@ object FrmAddDetail: TFrmAddDetail
   object LblUnit2: TLabel
     Left = 100
     Height = 32
-    Top = 189
+    Top = 190
     Width = 21
     Caption = '位'
     Font.Height = -21
@@ -263,10 +272,10 @@ object FrmAddDetail: TFrmAddDetail
   end
   object DBLCBUnit: TDBLookupComboBox
     Cursor = crHandPoint
-    Left = 136
+    Left = 160
     Height = 44
     Top = 184
-    Width = 209
+    Width = 185
     AutoComplete = True
     Font.Height = -21
     Font.Name = '0xProto'
@@ -282,6 +291,8 @@ object FrmAddDetail: TFrmAddDetail
     Style = csDropDownList
     TabOrder = 6
     OnChange = DBLCBUnitChange
+    OnEnter = DBLCBUnitEnter
+    OnExit = DBLCBUnitExit
   end
   object PnlEntryUnit: TPanel
     Left = 16
@@ -300,6 +311,7 @@ object FrmAddDetail: TFrmAddDetail
     ParentFont = False
     TabOrder = 7
     object BtnEntryUnit: TPanel
+      Cursor = crCross
       Left = 8
       Height = 33
       Top = 8
@@ -359,10 +371,10 @@ object FrmAddDetail: TFrmAddDetail
   end
   object DBLCBTaxType: TDBLookupComboBox
     Cursor = crHandPoint
-    Left = 136
+    Left = 160
     Height = 44
     Top = 298
-    Width = 209
+    Width = 185
     AutoComplete = True
     Font.Height = -21
     Font.Name = '0xProto'
@@ -378,12 +390,13 @@ object FrmAddDetail: TFrmAddDetail
     Style = csDropDownList
     TabOrder = 8
     OnChange = DBLCBTaxTypeChange
+    OnEnter = DBLCBTaxTypeEnter
     OnExit = DBLCBTaxTypeExit
   end
   object LblQuantity1: TLabel
     Left = 360
     Height = 32
-    Top = 190
+    Top = 189
     Width = 21
     Caption = '数'
     Font.Height = -21
@@ -394,7 +407,7 @@ object FrmAddDetail: TFrmAddDetail
   object LblQuantity2: TLabel
     Left = 440
     Height = 32
-    Top = 190
+    Top = 189
     Width = 21
     Caption = '量'
     Font.Height = -21
@@ -404,16 +417,17 @@ object FrmAddDetail: TFrmAddDetail
   end
   object EdtQuantity: TEdit
     Cursor = crIBeam
-    Left = 472
+    Left = 504
     Height = 49
     Top = 181
-    Width = 249
+    Width = 217
     Alignment = taRightJustify
     Font.Height = -21
     Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 9
+    OnEnter = EdtQuantityEnter
     OnExit = EdtQuantityExit
   end
   object LblAmount1: TLabel
@@ -440,11 +454,11 @@ object FrmAddDetail: TFrmAddDetail
   end
   object EdtAmount: TEdit
     Cursor = crIBeam
-    Left = 472
+    Left = 504
     Height = 49
     Hint = '単価を入力すると小計が自動計算されます'
     Top = 239
-    Width = 249
+    Width = 217
     Alignment = taRightJustify
     Font.Height = -21
     Font.Name = '0xProto'
@@ -454,6 +468,8 @@ object FrmAddDetail: TFrmAddDetail
     TabStop = False
     TabOrder = 10
     OnChange = EdtAmountChange
+    OnEnter = EdtAmountEnter
+    OnExit = EdtAmountExit
   end
   object LblExcludeTax1: TLabel
     Left = 360
@@ -501,16 +517,17 @@ object FrmAddDetail: TFrmAddDetail
   end
   object EdtExcludeTax: TEdit
     Cursor = crIBeam
-    Left = 472
+    Left = 504
     Height = 49
     Top = 296
-    Width = 249
+    Width = 217
     Alignment = taRightJustify
     Font.Height = -21
     Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 11
+    OnEnter = EdtExcludeTaxEnter
     OnExit = EdtExcludeTaxExit
   end
   object LblTax1: TLabel
@@ -537,10 +554,10 @@ object FrmAddDetail: TFrmAddDetail
   end
   object EdtTax: TEdit
     Cursor = crIBeam
-    Left = 472
+    Left = 504
     Height = 49
     Top = 353
-    Width = 249
+    Width = 217
     Alignment = taRightJustify
     Font.Height = -21
     Font.Name = '0xProto'
@@ -548,6 +565,7 @@ object FrmAddDetail: TFrmAddDetail
     ParentFont = False
     TabOrder = 12
     OnChange = EdtTaxChange
+    OnEnter = EdtTaxEnter
     OnExit = EdtTaxExit
   end
   object PnlSeparator: TPanel
@@ -583,10 +601,10 @@ object FrmAddDetail: TFrmAddDetail
   end
   object EdtSubTotal: TEdit
     Cursor = crIBeam
-    Left = 472
+    Left = 504
     Height = 49
     Top = 419
-    Width = 249
+    Width = 217
     Alignment = taRightJustify
     Font.Height = -21
     Font.Name = '0xProto'
@@ -594,6 +612,7 @@ object FrmAddDetail: TFrmAddDetail
     ParentFont = False
     TabOrder = 14
     OnChange = EdtSubTotalChange
+    OnEnter = EdtSubTotalEnter
     OnExit = EdtSubTotalExit
   end
   object PnlCancel: TPanel
@@ -613,6 +632,7 @@ object FrmAddDetail: TFrmAddDetail
     ParentFont = False
     TabOrder = 15
     object BtnCancel: TPanel
+      Cursor = crCross
       Left = 8
       Height = 33
       Top = 8
@@ -654,6 +674,7 @@ object FrmAddDetail: TFrmAddDetail
     ParentFont = False
     TabOrder = 16
     object BtnSave: TPanel
+      Cursor = crCross
       Left = 8
       Height = 33
       Top = 8
@@ -696,6 +717,7 @@ object FrmAddDetail: TFrmAddDetail
     TabOrder = 17
     TabStop = True
     object BtnGoBack: TPanel
+      Cursor = crCross
       Left = 8
       Height = 33
       Top = 8
@@ -927,6 +949,138 @@ object FrmAddDetail: TFrmAddDetail
     UseDefaultSeparators = False
     HideDateTimeParts = []
     MonthNames = 'Long'
+  end
+  object Shape1: TShape
+    Left = 136
+    Height = 16
+    Top = 32
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
+  object Shape2: TShape
+    Left = 136
+    Height = 16
+    Top = 87
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
+  object Shape3: TShape
+    Left = 136
+    Height = 16
+    Top = 142
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
+  object Shape4: TShape
+    Left = 440
+    Height = 16
+    Top = 142
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
+  object Shape5: TShape
+    Left = 136
+    Height = 16
+    Top = 198
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
+  object Shape6: TShape
+    Left = 136
+    Height = 16
+    Top = 312
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
+  object Shape7: TShape
+    Left = 480
+    Height = 16
+    Top = 197
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
+  object Shape8: TShape
+    Left = 480
+    Height = 16
+    Top = 255
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
+  object Shape9: TShape
+    Left = 480
+    Height = 16
+    Top = 312
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
+  object Shape10: TShape
+    Left = 480
+    Height = 16
+    Top = 368
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
+  object Shape11: TShape
+    Left = 480
+    Height = 16
+    Top = 435
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
   end
   object ActionList: TActionList
     Left = 312

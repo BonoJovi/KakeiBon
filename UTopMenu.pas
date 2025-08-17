@@ -6,8 +6,8 @@ interface
 
 uses
   Classes, SysUtils, SQLDB, SQLite3Conn, DB, Forms, Controls, Graphics,
-  Dialogs, ExtCtrls, StdCtrls, ActnList, LCLIntf, UConsts, UDefs, UEntryAdmin,
-  USummary;
+  Dialogs, ExtCtrls, StdCtrls, ActnList, LCLIntf, LCLType, UConsts, UDefs,
+  UEntryAdmin, USummary;
 
 type
 
@@ -69,8 +69,8 @@ type
     Panel41               : TPanel;
     Panel42               : TPanel;
     Panel43               : TPanel;
-    BtnEnterManageDetails : TPanel;
-    BtnEnterSummary       : TPanel;
+    BtnEnterDetails : TPanel;
+    BtnSummary       : TPanel;
     BtnEnterManageUser    : TPanel;
     BtnEnterManageExp     : TPanel;
     BtnLogin              : TPanel;
@@ -99,11 +99,11 @@ type
     procedure BtnQuitEnter(Sender: TObject);
     procedure BtnQuitExit(Sender: TObject);
     procedure ManageDetailsMouseOver(NewColor: TColor);
-    procedure BtnEnterManageDetailsEnter(Sender: TObject);
-    procedure BtnEnterManageDetailsExit(Sender: TObject);
+    procedure BtnEnterDetailsEnter(Sender: TObject);
+    procedure BtnEnterDetailsExit(Sender: TObject);
     procedure SummaryMouseOver(NewColor: TColor);
-    procedure BtnEnterSummaryEnter(Sender: TObject);
-    procedure BtnEnterSummaryExit(Sender: TObject);
+    procedure BtnSummaryEnter(Sender: TObject);
+    procedure BtnSummaryExit(Sender: TObject);
     procedure ManageUserMouseOver(NewColor: TColor);
     procedure BtnEnterManageUserEnter(Sender: TObject);
     procedure BtnEnterManageUserExit(Sender: TObject);
@@ -129,6 +129,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure TimerTimer(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     function Defs: TDefs;
   private
     FDefs            : TDefs;
@@ -197,7 +198,7 @@ end;
 
 procedure TFrmTopMenu.ManageDetailsMouseOver(NewColor: TColor);
 begin
-  BtnEnterManageDetails.Color := NewColor;
+  BtnEnterDetails.Color := NewColor;
   Panel37.Color               := NewColor;
   Panel1.Color                := NewColor;
   Panel2.Color                := NewColor;
@@ -206,7 +207,7 @@ begin
   Panel5.Color                := NewColor;
 end;
 
-procedure TFrmTopMenu.BtnEnterManageDetailsEnter(Sender: TObject);
+procedure TFrmTopMenu.BtnEnterDetailsEnter(Sender: TObject);
 begin
   ManageDetailsMouseOver(clSkyBlue);
   SummaryMouseOver(clBtnFace);
@@ -217,20 +218,20 @@ begin
   QuitMouseOver(clBtnFace);
 end;
 
-procedure TFrmTopMenu.BtnEnterManageDetailsExit(Sender: TObject);
+procedure TFrmTopMenu.BtnEnterDetailsExit(Sender: TObject);
 begin
   ManageDetailsMouseOver(clBtnFace);
 end;
 
 procedure TFrmTopMenu.SummaryMouseOver(NewColor: TColor);
 begin
-  BtnEnterSummary.Color := NewColor;
+  BtnSummary.Color := NewColor;
   Panel38.Color         := NewColor;
   Panel6.Color          := NewColor;
   Panel7.Color          := NewColor;
 end;
 
-procedure TFrmTopMenu.BtnEnterSummaryEnter(Sender: TObject);
+procedure TFrmTopMenu.BtnSummaryEnter(Sender: TObject);
 begin
   ManageDetailsMouseOver(clBtnFace);
   SummaryMouseOver(clSkyBlue);
@@ -241,7 +242,7 @@ begin
   QuitMouseOver(clBtnFace);
 end;
 
-procedure TFrmTopMenu.BtnEnterSummaryExit(Sender: TObject);
+procedure TFrmTopMenu.BtnSummaryExit(Sender: TObject);
 begin
   SummaryMouseOver(clBtnFace);
 end;
@@ -527,7 +528,7 @@ end;
 
 procedure TFrmTopMenu.SetBtnEnterManageDetailsEnabled(IsEnable: Boolean);
 begin
-  BtnEnterManageDetails.Enabled := IsEnable;
+  BtnEnterDetails.Enabled := IsEnable;
   Panel37.Enabled               := IsEnable;
   Panel1.Enabled                := IsEnable;
   Panel2.Enabled                := IsEnable;
@@ -538,7 +539,7 @@ end;
 
 procedure TFrmTopMenu.SetBtnEnterSummaryEnabled(IsEnable: Boolean);
 begin
-  BtnEnterSummary.Enabled := IsEnable;
+  BtnSummary.Enabled := IsEnable;
   Panel38.Enabled         := IsEnable;
   Panel6.Enabled          := IsEnable;
   Panel7.Enabled          := IsEnable;
@@ -621,7 +622,7 @@ end;
 
 procedure TFrmTopMenu.FormCreate(Sender: TObject);
 var
-  LFS        : TFormatSettings;
+  LFS : TFormatSettings;
 begin
   FDefs := TDefs.Create;
 
@@ -632,21 +633,26 @@ begin
       Application.Terminate;
     end;
 
-    ChngdAdmUserFlg   := False;
+    ChngdAdmUserFlg := False;
 
     { TFormatSettings }
     with LFS do begin
-      DateSeparator        := '/';
-      ShortDateFormat      := 'yyyy-mm-dd';
-      TimeSeparator        := ':';
-      ShortTimeFormat      := 'hh:nn:ss';
+      DateSeparator   := '/';
+      ShortDateFormat := 'yyyy-mm-dd';
+      TimeSeparator   := ':';
+      ShortTimeFormat := 'hh:nn:ss';
     end;
     SetFS(LFS);
   end;
 end;
 
 procedure TFrmTopMenu.FormShow(Sender: TObject);
+var
+  Key   : Word;
+  Shift : TShiftState;
 begin
+  FrmTopMenu.KeyPreview := True;
+
   FrmTopMenu.Color       := RGB(  0, 128, 128);
   PnlManageDetails.Color := RGB(192, 220, 192);
   PnlManagements.Color   := RGB(192, 220, 192);
@@ -754,6 +760,28 @@ begin
         Visible                 := False;
         Enabled                 := False;
       end;
+    end;
+  end;
+end;
+
+procedure TFrmTopMenu.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_SPACE) Or (Key = VK_RETURN) then begin
+    if ActiveControl.Name = 'BtnEnterDetails' then begin
+      ActEntryDetails.Execute;
+    end else if ActiveControl.Name = 'BtnSummary' then begin
+      ActSummary.Execute;
+    end else if ActiveControl.Name = 'BtnEnterManageUser' then begin
+      ActManageUser.Execute;
+    end else if ActiveControl.Name = 'BtnEnterManageExp' then begin
+      ActManageExp.Execute;
+    end else if ActiveControl.Name = 'BtnLogin' then begin
+      ActLogin.Execute;
+    end else if ActiveControl.Name = 'BtnLogout' then begin
+      ActLogout.Execute;
+    end else if ActiveControl.Name = 'BtnQuit' then begin
+      ActQuit.Execute;
     end;
   end;
 end;

@@ -50,7 +50,16 @@ type
     PnlSave      : TPanel;
     PnlGoBack      : TPanel;
     PnlInsert      : TPanel;
+    Shape1: TShape;
+    Shape2: TShape;
+    Shape3: TShape;
     Timer          : TTimer;
+    procedure DBCBDisabledEnter(Sender: TObject);
+    procedure DBCBDisabledExit(Sender: TObject);
+    procedure DBEdtMakerIDEnter(Sender: TObject);
+    procedure DBEdtMakerIDExit(Sender: TObject);
+    procedure DBEdtMakerNameEnter(Sender: TObject);
+    procedure DBEdtMakerNameExit(Sender: TObject);
     procedure ProcInsert(Sender: TObject);
     procedure ProcCancel(Sender: TObject);
     procedure ProcSave(Sender: TObject);
@@ -165,6 +174,36 @@ begin
     DBCBDisabled.Field.AsBoolean := False;
     DBEdtMakerName.SetFocus;
   end;
+end;
+
+procedure TFrmEntryMaker.DBEdtMakerIDEnter(Sender: TObject);
+begin
+  Shape1.Visible := True;
+end;
+
+procedure TFrmEntryMaker.DBCBDisabledEnter(Sender: TObject);
+begin
+  Shape3.Visible := True;
+end;
+
+procedure TFrmEntryMaker.DBCBDisabledExit(Sender: TObject);
+begin
+  Shape3.Visible := False;
+end;
+
+procedure TFrmEntryMaker.DBEdtMakerIDExit(Sender: TObject);
+begin
+  Shape1.Visible := False;
+end;
+
+procedure TFrmEntryMaker.DBEdtMakerNameEnter(Sender: TObject);
+begin
+  Shape2.Visible := True;
+end;
+
+procedure TFrmEntryMaker.DBEdtMakerNameExit(Sender: TObject);
+begin
+  Shape2.Visible := False;
 end;
 
 procedure TFrmEntryMaker.ProcCancel(Sender: TObject);

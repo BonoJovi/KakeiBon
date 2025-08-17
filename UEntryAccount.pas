@@ -66,7 +66,28 @@ type
     PnlInsert           : TPanel;
     ACn: TSQLite3Connection;
     ACnNextID: TSQLite3Connection;
+    Shape1: TShape;
+    Shape2: TShape;
+    Shape3: TShape;
+    Shape4: TShape;
+    Shape5: TShape;
+    Shape6: TShape;
+    Shape7: TShape;
     Timer               : TTimer;
+    procedure DBCBDisabledEnter(Sender: TObject);
+    procedure DBCBDisabledExit(Sender: TObject);
+    procedure DBEdtAccountIDEnter(Sender: TObject);
+    procedure DBEdtAccountIDExit(Sender: TObject);
+    procedure DBEdtBrandNameEnter(Sender: TObject);
+    procedure DBEdtBrandNameExit(Sender: TObject);
+    procedure DBEdtCurrentBalanceEnter(Sender: TObject);
+    procedure DBEdtCurrentBalanceExit(Sender: TObject);
+    procedure DBEdtOpeningBalanceEnter(Sender: TObject);
+    procedure DBEdtOpeningBalanceExit(Sender: TObject);
+    procedure DBEdtPhoneNumEnter(Sender: TObject);
+    procedure DBEdtPhoneNumExit(Sender: TObject);
+    procedure DBEdtSubNameEnter(Sender: TObject);
+    procedure DBEdtSubNameExit(Sender: TObject);
     procedure ProcInsert(Sender: TObject);
     procedure ProcCancel(Sender: TObject);
     procedure ProcSave(Sender: TObject);
@@ -207,6 +228,76 @@ begin
     DBCBDisabled.Field.AsBoolean := False;
     DBEdtBrandName.SetFocus;
   end;
+end;
+
+procedure TFrmEntryAccount.DBEdtAccountIDEnter(Sender: TObject);
+begin
+  Shape1.Visible := True;
+end;
+
+procedure TFrmEntryAccount.DBCBDisabledEnter(Sender: TObject);
+begin
+  Shape7.Visible := True;
+end;
+
+procedure TFrmEntryAccount.DBCBDisabledExit(Sender: TObject);
+begin
+  Shape7.Visible := False;
+end;
+
+procedure TFrmEntryAccount.DBEdtAccountIDExit(Sender: TObject);
+begin
+  Shape1.Visible := False;
+end;
+
+procedure TFrmEntryAccount.DBEdtBrandNameEnter(Sender: TObject);
+begin
+  Shape2.Visible := True;
+end;
+
+procedure TFrmEntryAccount.DBEdtBrandNameExit(Sender: TObject);
+begin
+  Shape2.Visible := False;
+end;
+
+procedure TFrmEntryAccount.DBEdtCurrentBalanceEnter(Sender: TObject);
+begin
+  Shape6.Visible := True;
+end;
+
+procedure TFrmEntryAccount.DBEdtCurrentBalanceExit(Sender: TObject);
+begin
+  Shape6.Visible := False;
+end;
+
+procedure TFrmEntryAccount.DBEdtOpeningBalanceEnter(Sender: TObject);
+begin
+  Shape5.Visible := True;
+end;
+
+procedure TFrmEntryAccount.DBEdtOpeningBalanceExit(Sender: TObject);
+begin
+  Shape5.Visible := False;
+end;
+
+procedure TFrmEntryAccount.DBEdtPhoneNumEnter(Sender: TObject);
+begin
+  Shape4.Visible := True;
+end;
+
+procedure TFrmEntryAccount.DBEdtPhoneNumExit(Sender: TObject);
+begin
+  Shape4.Visible := False;
+end;
+
+procedure TFrmEntryAccount.DBEdtSubNameEnter(Sender: TObject);
+begin
+  Shape3.Visible := True;
+end;
+
+procedure TFrmEntryAccount.DBEdtSubNameExit(Sender: TObject);
+begin
+  Shape3.Visible := False;
 end;
 
 procedure TFrmEntryAccount.ProcCancel(Sender: TObject);

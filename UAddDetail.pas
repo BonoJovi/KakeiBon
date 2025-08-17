@@ -116,6 +116,34 @@ type
     PnlEntryUnit      : TPanel;
     PnlEntryBrandName : TPanel;
     PnlEntryMaker     : TPanel;
+    Shape1: TShape;
+    Shape10: TShape;
+    Shape11: TShape;
+    Shape2: TShape;
+    Shape3: TShape;
+    Shape4: TShape;
+    Shape5: TShape;
+    Shape6: TShape;
+    Shape7: TShape;
+    Shape8: TShape;
+    Shape9: TShape;
+    procedure DBLCBBrandNameEnter(Sender: TObject);
+    procedure DBLCBBrandNameExit(Sender: TObject);
+    procedure DBLCBExp2Enter(Sender: TObject);
+    procedure DBLCBExp2Exit(Sender: TObject);
+    procedure DBLCBExp3Enter(Sender: TObject);
+    procedure DBLCBExp3Exit(Sender: TObject);
+    procedure DBLCBMakerEnter(Sender: TObject);
+    procedure DBLCBMakerExit(Sender: TObject);
+    procedure DBLCBTaxTypeEnter(Sender: TObject);
+    procedure DBLCBUnitEnter(Sender: TObject);
+    procedure DBLCBUnitExit(Sender: TObject);
+    procedure EdtAmountEnter(Sender: TObject);
+    procedure EdtAmountExit(Sender: TObject);
+    procedure EdtExcludeTaxEnter(Sender: TObject);
+    procedure EdtQuantityEnter(Sender: TObject);
+    procedure EdtSubTotalEnter(Sender: TObject);
+    procedure EdtTaxEnter(Sender: TObject);
     procedure ProcInsert(Sender: TObject);
     procedure ProcEntryBrandName(Sender: TObject);
     procedure ProcEntryMaker(Sender: TObject);
@@ -443,6 +471,91 @@ begin
 
     DBLCBMaker.SetFocus;
   end;
+end;
+
+procedure TFrmAddDetail.DBLCBMakerEnter(Sender: TObject);
+begin
+  Shape1.Visible := True;
+end;
+
+procedure TFrmAddDetail.DBLCBBrandNameEnter(Sender: TObject);
+begin
+  Shape2.Visible := True;
+end;
+
+procedure TFrmAddDetail.DBLCBBrandNameExit(Sender: TObject);
+begin
+  Shape2.Visible := False;
+end;
+
+procedure TFrmAddDetail.DBLCBExp2Enter(Sender: TObject);
+begin
+  Shape3.Visible := True;
+end;
+
+procedure TFrmAddDetail.DBLCBExp2Exit(Sender: TObject);
+begin
+  Shape3.Visible := False;
+end;
+
+procedure TFrmAddDetail.DBLCBExp3Enter(Sender: TObject);
+begin
+  Shape4.Visible := True;
+end;
+
+procedure TFrmAddDetail.DBLCBExp3Exit(Sender: TObject);
+begin
+  Shape4.Visible := False;
+end;
+
+procedure TFrmAddDetail.DBLCBMakerExit(Sender: TObject);
+begin
+  Shape1.Visible := False;
+end;
+
+procedure TFrmAddDetail.DBLCBTaxTypeEnter(Sender: TObject);
+begin
+  Shape6.Visible := True;
+end;
+
+procedure TFrmAddDetail.DBLCBUnitEnter(Sender: TObject);
+begin
+  Shape5.Visible := True;
+end;
+
+procedure TFrmAddDetail.DBLCBUnitExit(Sender: TObject);
+begin
+  Shape5.Visible := False;
+end;
+
+procedure TFrmAddDetail.EdtAmountEnter(Sender: TObject);
+begin
+  Shape8.Visible := True;
+end;
+
+procedure TFrmAddDetail.EdtAmountExit(Sender: TObject);
+begin
+  Shape8.Visible := False;
+end;
+
+procedure TFrmAddDetail.EdtExcludeTaxEnter(Sender: TObject);
+begin
+  Shape9.Visible := True;
+end;
+
+procedure TFrmAddDetail.EdtQuantityEnter(Sender: TObject);
+begin
+  Shape7.Visible := True;
+end;
+
+procedure TFrmAddDetail.EdtSubTotalEnter(Sender: TObject);
+begin
+  Shape11.Visible := True;
+end;
+
+procedure TFrmAddDetail.EdtTaxEnter(Sender: TObject);
+begin
+  Shape10.Visible := True;
 end;
 
 procedure TFrmAddDetail.ProcEntryBrandName(Sender: TObject);
@@ -1057,6 +1170,8 @@ begin
       end;
     end;
   end;
+
+  Shape6.Visible := False;
 end;
 
 procedure TFrmAddDetail.EdtQuantityExit(Sender: TObject);
@@ -1082,6 +1197,8 @@ begin
   end else begin
     EdtAmount.Text := FormatFloat('#,##0.000', 0);
   end;
+
+  Shape7.Visible := False;
 end;
 
 procedure TFrmAddDetail.EdtAmountChange(Sender: TObject);
@@ -1127,6 +1244,8 @@ begin
     DBEdtSubTotal.Text := IntToStr(0);
     EdtSubTotal.Text   := FormatFloat('#,##0', StrToInt(DBEdtSubTotal.Text));
   end;
+
+  Shape9.Visible := False;
 end;
 
 procedure TFrmAddDetail.EdtTaxChange(Sender: TObject);
@@ -1148,6 +1267,8 @@ begin
     And (VarToStr(GetTax) <> '') then begin
       EdtSubTotal.Text := FormatFloat('#,##0', StrToInt(VarToStr(GetExcludeTax)) + StrToInt(VarToStr(GetTax)));
   end;
+
+  Shape10.Visible := False;
 end;
 
 procedure TFrmAddDetail.EdtSubTotalChange(Sender: TObject);
@@ -1238,6 +1359,8 @@ begin
       EdtSubTotal.Text   := '';
     end;
   end;
+
+  Shape11.Visible := False;
 end;
 
 procedure TFrmAddDetail.FormClose(Sender: TObject; var CloseAction: TCloseAction);

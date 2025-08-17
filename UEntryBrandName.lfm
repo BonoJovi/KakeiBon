@@ -107,10 +107,10 @@ object FrmEntryBrandName: TFrmEntryBrandName
   end
   object DBLCBMaker: TDBLookupComboBox
     Cursor = crHandPoint
-    Left = 136
+    Left = 160
     Height = 44
     Top = 361
-    Width = 442
+    Width = 418
     AutoComplete = True
     Font.Height = -21
     Font.Name = '0xProto'
@@ -125,13 +125,15 @@ object FrmEntryBrandName: TFrmEntryBrandName
     ScrollListDataset = True
     Style = csDropDownList
     TabOrder = 2
+    OnEnter = DBLCBMakerEnter
+    OnExit = DBLCBMakerExit
     OnSelect = DBLCBMakerSelect
   end
   object PnlEntryMaker: TPanel
-    Left = 136
+    Left = 160
     Height = 49
     Top = 413
-    Width = 442
+    Width = 418
     Caption = 'メーカー名を登録 (CTRL+1)'
     Color = clActiveCaption
     Enabled = False
@@ -145,10 +147,10 @@ object FrmEntryBrandName: TFrmEntryBrandName
   end
   object BtnEntryMaker: TPanel
     Cursor = crCross
-    Left = 144
+    Left = 168
     Height = 33
     Top = 421
-    Width = 426
+    Width = 402
     BevelColor = clNone
     BevelOuter = bvNone
     Caption = 'メーカー名を登録 (CTRL+1)'
@@ -191,7 +193,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
     ParentFont = False
   end
   object DBEdtBrandNameID: TDBEdit
-    Left = 136
+    Left = 160
     Height = 49
     Hint = '自動採番'
     Top = 470
@@ -210,12 +212,14 @@ object FrmEntryBrandName: TFrmEntryBrandName
     TabOrder = 5
     TabStop = False
     OnChange = DBEdtBrandNameIDChange
+    OnEnter = DBEdtBrandNameIDEnter
+    OnExit = DBEdtBrandNameIDExit
   end
   object PnlInsert: TPanel
-    Left = 310
+    Left = 334
     Height = 49
     Top = 470
-    Width = 268
+    Width = 244
     Caption = '新規登録 (CTRL+2)'
     Color = clActiveCaption
     Enabled = False
@@ -229,10 +233,10 @@ object FrmEntryBrandName: TFrmEntryBrandName
   end
   object BtnInsert: TPanel
     Cursor = crCross
-    Left = 318
+    Left = 342
     Height = 33
     Top = 478
-    Width = 252
+    Width = 228
     BevelColor = clNone
     BevelOuter = bvNone
     Caption = '新規登録 (CTRL+2)'
@@ -276,10 +280,10 @@ object FrmEntryBrandName: TFrmEntryBrandName
   end
   object DBEdtBrandName: TDBEdit
     Cursor = crIBeam
-    Left = 136
+    Left = 160
     Height = 49
     Top = 527
-    Width = 442
+    Width = 418
     DataField = 'BRAND_NAME'
     DataSource = ADS
     AutoSelect = False
@@ -289,6 +293,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
     MaxLength = 0
     ParentFont = False
     TabOrder = 8
+    OnEnter = DBEdtBrandNameEnter
     OnExit = DBEdtBrandNameExit
   end
   object LblEndOfSales1: TLabel
@@ -315,7 +320,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
   end
   object DBCBEndOfSales: TDBCheckBox
     Cursor = crHandPoint
-    Left = 136
+    Left = 160
     Height = 23
     Top = 597
     Width = 23
@@ -330,6 +335,8 @@ object FrmEntryBrandName: TFrmEntryBrandName
     TabStop = True
     ValueChecked = '1'
     ValueUnchecked = '0'
+    OnEnter = DBCBEndOfSalesEnter
+    OnExit = DBCBEndOfSalesExit
   end
   object LblDisabled1: TLabel
     Left = 16
@@ -345,7 +352,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
   object LblDisabled2: TLabel
     Left = 58
     Height = 32
-    Top = 649
+    Top = 648
     Width = 21
     Caption = '表'
     Font.Height = -21
@@ -356,7 +363,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
   object LblDisabled3: TLabel
     Left = 100
     Height = 32
-    Top = 649
+    Top = 648
     Width = 21
     Caption = '示'
     Font.Height = -21
@@ -366,9 +373,9 @@ object FrmEntryBrandName: TFrmEntryBrandName
   end
   object DBCBDisabled: TDBCheckBox
     Cursor = crHandPoint
-    Left = 136
+    Left = 160
     Height = 23
-    Top = 654
+    Top = 653
     Width = 23
     AutoSize = True
     DataField = 'DISABLED'
@@ -381,6 +388,8 @@ object FrmEntryBrandName: TFrmEntryBrandName
     TabStop = True
     ValueChecked = '1'
     ValueUnchecked = '0'
+    OnEnter = DBCBDisabledEnter
+    OnExit = DBCBDisabledExit
   end
   object PnlCancel: TPanel
     Left = 16
@@ -534,6 +543,66 @@ object FrmEntryBrandName: TFrmEntryBrandName
     ParentFont = False
     TabOrder = 18
     TabStop = False
+  end
+  object Shape1: TShape
+    Left = 136
+    Height = 16
+    Top = 375
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
+  object Shape2: TShape
+    Left = 136
+    Height = 16
+    Top = 486
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
+  object Shape3: TShape
+    Left = 136
+    Height = 16
+    Top = 543
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
+  object Shape4: TShape
+    Left = 136
+    Height = 16
+    Top = 600
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
+  object Shape5: TShape
+    Left = 136
+    Height = 16
+    Top = 656
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
   end
   object Timer: TTimer
     Interval = 1

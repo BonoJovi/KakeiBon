@@ -64,7 +64,21 @@ type
     PnlGoBack        : TPanel;
     PnlInsert        : TPanel;
     PnlEntryMaker    : TPanel;
+    Shape1: TShape;
+    Shape2: TShape;
+    Shape3: TShape;
+    Shape4: TShape;
+    Shape5: TShape;
     Timer            : TTimer;
+    procedure DBCBDisabledEnter(Sender: TObject);
+    procedure DBCBDisabledExit(Sender: TObject);
+    procedure DBCBEndOfSalesEnter(Sender: TObject);
+    procedure DBCBEndOfSalesExit(Sender: TObject);
+    procedure DBEdtBrandNameEnter(Sender: TObject);
+    procedure DBEdtBrandNameIDEnter(Sender: TObject);
+    procedure DBEdtBrandNameIDExit(Sender: TObject);
+    procedure DBLCBMakerEnter(Sender: TObject);
+    procedure DBLCBMakerExit(Sender: TObject);
     procedure ProcEntryMaker(Sender: TObject);
     procedure ProcInsert(Sender: TObject);
     procedure ProcCancel(Sender: TObject);
@@ -176,6 +190,51 @@ begin
     SetEntryMaker(0);
     Close;
   end;
+end;
+
+procedure TFrmEntryBrandName.DBLCBMakerEnter(Sender: TObject);
+begin
+  Shape1.Visible := True;
+end;
+
+procedure TFrmEntryBrandName.DBEdtBrandNameIDEnter(Sender: TObject);
+begin
+  Shape2.Visible := True;
+end;
+
+procedure TFrmEntryBrandName.DBEdtBrandNameEnter(Sender: TObject);
+begin
+  Shape3.Visible := True;
+end;
+
+procedure TFrmEntryBrandName.DBCBEndOfSalesEnter(Sender: TObject);
+begin
+  Shape4.Visible := True;
+end;
+
+procedure TFrmEntryBrandName.DBCBDisabledEnter(Sender: TObject);
+begin
+  Shape5.Visible := True;
+end;
+
+procedure TFrmEntryBrandName.DBCBDisabledExit(Sender: TObject);
+begin
+  Shape5.Visible := False;
+end;
+
+procedure TFrmEntryBrandName.DBCBEndOfSalesExit(Sender: TObject);
+begin
+  Shape4.Visible := False;
+end;
+
+procedure TFrmEntryBrandName.DBEdtBrandNameIDExit(Sender: TObject);
+begin
+  Shape2.Visible := False;
+end;
+
+procedure TFrmEntryBrandName.DBLCBMakerExit(Sender: TObject);
+begin
+  Shape1.Visible := False;
 end;
 
 procedure TFrmEntryBrandName.ProcInsert(Sender: TObject);
@@ -485,6 +544,8 @@ begin
       SetBrandName(DBEdtBrandName.Text);
     end;
   end;
+
+  Shape3.Visible := False;
 end;
 
 procedure TFrmEntryBrandName.FormClose(

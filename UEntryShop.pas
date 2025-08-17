@@ -65,7 +65,25 @@ type
     PnlSave            : TPanel;
     PnlGoBack            : TPanel;
     PnlInsert            : TPanel;
+    Shape1: TShape;
+    Shape2: TShape;
+    Shape3: TShape;
+    Shape4: TShape;
+    Shape5: TShape;
+    Shape6: TShape;
     Timer                : TTimer;
+    procedure DBCBDisabledEnter(Sender: TObject);
+    procedure DBCBDisabledExit(Sender: TObject);
+    procedure DBDTPEndBusinessDTEnter(Sender: TObject);
+    procedure DBDTPEndBusinessDTExit(Sender: TObject);
+    procedure DBDTPStartBusinessDTEnter(Sender: TObject);
+    procedure DBDTPStartBusinessDTExit(Sender: TObject);
+    procedure DBEdtPhoneNumEnter(Sender: TObject);
+    procedure DBEdtPhoneNumExit(Sender: TObject);
+    procedure DBEdtShopIDEnter(Sender: TObject);
+    procedure DBEdtShopIDExit(Sender: TObject);
+    procedure DBEdtShopNameEnter(Sender: TObject);
+    procedure DBEdtShopNameExit(Sender: TObject);
     procedure ProcInsert(Sender: TObject);
     procedure ProcCancel(Sender: TObject);
     procedure ProcSave(Sender: TObject);
@@ -208,6 +226,66 @@ begin
     DBCBDisabled.Field.AsBoolean := False;
     DBEdtShopName.SetFocus;
   end;
+end;
+
+procedure TFrmEntryShop.DBEdtShopIDEnter(Sender: TObject);
+begin
+  Shape1.Visible := True;
+end;
+
+procedure TFrmEntryShop.DBEdtPhoneNumEnter(Sender: TObject);
+begin
+  Shape3.Visible := True;
+end;
+
+procedure TFrmEntryShop.DBDTPStartBusinessDTEnter(Sender: TObject);
+begin
+  Shape4.Visible := True;
+end;
+
+procedure TFrmEntryShop.DBDTPEndBusinessDTEnter(Sender: TObject);
+begin
+  Shape5.Visible := True;
+end;
+
+procedure TFrmEntryShop.DBCBDisabledEnter(Sender: TObject);
+begin
+  Shape6.Visible := True;
+end;
+
+procedure TFrmEntryShop.DBCBDisabledExit(Sender: TObject);
+begin
+  Shape6.Visible := False;
+end;
+
+procedure TFrmEntryShop.DBDTPEndBusinessDTExit(Sender: TObject);
+begin
+  Shape5.Visible := False;
+end;
+
+procedure TFrmEntryShop.DBDTPStartBusinessDTExit(Sender: TObject);
+begin
+  Shape4.Visible := False;
+end;
+
+procedure TFrmEntryShop.DBEdtPhoneNumExit(Sender: TObject);
+begin
+  Shape3.Visible := False;
+end;
+
+procedure TFrmEntryShop.DBEdtShopIDExit(Sender: TObject);
+begin
+  Shape1.Visible := False;
+end;
+
+procedure TFrmEntryShop.DBEdtShopNameEnter(Sender: TObject);
+begin
+  Shape2.Visible := True;
+end;
+
+procedure TFrmEntryShop.DBEdtShopNameExit(Sender: TObject);
+begin
+  Shape2.Visible := False;
 end;
 
 procedure TFrmEntryShop.ProcCancel(Sender: TObject);

@@ -6,21 +6,22 @@ interface
 
 uses
   Classes, DateUtils, LazUTF8, SQLDB, SQLite3Conn, DB, SysUtils, Forms,
-  Controls, Graphics, Dialogs, StdCtrls, ExtCtrls, LCLIntf, ActnList;
+  Controls, Graphics, Dialogs, StdCtrls, ExtCtrls, LCLIntf, LCLType, ActnList;
 
 type
 
   { TFrmAddUser }
 
   TFrmAddUser = class(TForm)
-    ActCancel     : TAction;
-    ActClearPaw   : TAction;
-    ActSave       : TAction;
-    ActionList    : TActionList;
-    ActQuit       : TAction;
+    ACn           : TSQLite3Connection;
     ADS           : TDataSource;
     ATr           : TSQLTransaction;
     AQu           : TSQLQuery;
+    ActionList    : TActionList;
+    ActCancel     : TAction;
+    ActClearPaw   : TAction;
+    ActSave       : TAction;
+    ActQuit       : TAction;
     EdtPaw        : TEdit;
     EdtPawConfirm : TEdit;
     EdtUserName   : TEdit;
@@ -31,12 +32,23 @@ type
     LblUserID3    : TLabel;
     LblUserID4    : TLabel;
     BtnClearPaw   : TPanel;
-    BtnCancel: TPanel;
-    BtnSave: TPanel;
+    BtnCancel     : TPanel;
+    BtnSave       : TPanel;
     PnlCancel     : TPanel;
     PnlClearPass  : TPanel;
-    PnlSave     : TPanel;
-    ACn           : TSQLite3Connection;
+    PnlSave       : TPanel;
+    Shape1: TShape;
+    Shape2: TShape;
+    Shape3: TShape;
+    procedure EdtPawChange(Sender: TObject);
+    procedure EdtPawConfirmChange(Sender: TObject);
+    procedure EdtPawConfirmEnter(Sender: TObject);
+    procedure EdtPawConfirmExit(Sender: TObject);
+    procedure EdtPawEnter(Sender: TObject);
+    procedure EdtPawExit(Sender: TObject);
+    procedure EdtUserNameEnter(Sender: TObject);
+    procedure EdtUserNameExit(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure ProcClearPaw(Sender: TObject);
     procedure ProcCancel(Sender: TObject);
     procedure ProcSave(Sender: TObject);
@@ -126,6 +138,60 @@ begin
   end;
 end;
 
+procedure TFrmAddUser.EdtUserNameEnter(Sender: TObject);
+begin
+  Shape1.Visible := True;
+end;
+
+procedure TFrmAddUser.EdtPawEnter(Sender: TObject);
+begin
+  Shape2.Visible := True;
+end;
+
+procedure TFrmAddUser.EdtPawConfirmEnter(Sender: TObject);
+begin
+  Shape3.Visible := True;
+end;
+
+procedure TFrmAddUser.EdtPawChange(Sender: TObject);
+begin
+  if (Length(EdtPaw.Text) = 0)
+      And (Length(EdtPawConfirm.Text) = 0) then begin
+    BtnClearPaw.Enabled := False;
+    ActClearPaw.Enabled := False;
+  end else begin
+    BtnClearPaw.Enabled := True;
+    ActClearPaw.Enabled := True;
+  end;
+end;
+
+procedure TFrmAddUser.EdtPawConfirmChange(Sender: TObject);
+begin
+  if (Length(EdtPaw.Text) = 0)
+      And (Length(EdtPawConfirm.Text) = 0) then begin
+    BtnClearPaw.Enabled := False;
+    ActClearPaw.Enabled := False;
+  end else begin
+    BtnClearPaw.Enabled := True;
+    ActClearPaw.Enabled := True;
+  end;
+end;
+
+procedure TFrmAddUser.EdtPawConfirmExit(Sender: TObject);
+begin
+  Shape3.Visible := False;
+end;
+
+procedure TFrmAddUser.EdtPawExit(Sender: TObject);
+begin
+  Shape2.Visible := False;
+end;
+
+procedure TFrmAddUser.EdtUserNameExit(Sender: TObject);
+begin
+  Shape1.Visible := False;
+end;
+
 procedure TFrmAddUser.ProcSave(Sender: TObject);
 var
   LUserID   : Integer;
@@ -142,6 +208,40 @@ begin
     begin
       MessageDlg(MSG_JP_000018, mtInformation, [mbOk], 0);
       Exit;
+    end;
+
+    try
+      try
+        with FrmTopMenu.Defs do begin
+          CloseTransactions;
+          SetDatabaseNames;
+          with AQu do begin
+            SQL.Text := SQL_20030002;
+            with Params do begin
+              ParamByName('pUName').AsAnsiString := EdtUserName.Text;
+              Open;
+            end;
+            if RecordCount > 0 then begin
+              MessageDlg(MSG_JP_000009, mtError, [mbOk], 0);
+
+              EdtUserName.Text   := '';
+              EdtPaw.Text        := '';
+              EdtPawConfirm.Text := '';
+
+              CloseTransactions;
+              SetDatabaseNames;
+
+              Exit;
+            end;
+          end;
+        end;
+      except
+        on E: ESQLDatabaseError do begin
+          ShowMessage(E.Message);
+          Exit;
+        end;
+      end;
+    finally
     end;
 
     // Input check
@@ -399,14 +499,15 @@ begin
       CallInsertSQL(LUserID, SQL_93000001);
 
       ATr.Commit;
+
+      FrmManageUser.Visible := True;
+      FrmAddUser.Close;
     except
       on E: ESQLDatabaseError do begin
         ShowMessage(E.Message);
       end;
     end;
   finally
-    FrmManageUser.Visible := True;
-    FrmAddUser.Close;
   end;
 end;
 
@@ -503,10 +604,32 @@ end;
 
 procedure TFrmAddUser.FormShow(Sender: TObject);
 begin
+  FrmAddUser.KeyPreview := True;
+
   FrmAddUser.Color   := RGB(112, 168, 175);
   PnlClearPass.Color := RGB( 72, 122, 129);
   PnlCancel.Color    := RGB( 72, 122, 129);
-  PnlSave.Color    := RGB( 72, 122, 129);
+  PnlSave.Color      := RGB( 72, 122, 129);
+
+  if (Length(EdtPaw.Text) = 0)
+      And (Length(EdtPawConfirm.Text) = 0) then begin
+    BtnClearPaw.Enabled := False;
+    ActClearPaw.Enabled := False;
+  end;
+end;
+
+procedure TFrmAddUser.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_SPACE) Or (Key = VK_RETURN) then begin
+    if ActiveControl.Name = 'BtnClearPaw' then begin
+      ActClearPaw.Execute;
+    end else if ActiveControl.Name = 'BtnCancel' then begin
+      ActCancel.Execute;
+    end else if ActiveControl.Name = 'BtnSave' then begin
+      ActSave.Execute;
+    end;
+  end;
 end;
 
 end.

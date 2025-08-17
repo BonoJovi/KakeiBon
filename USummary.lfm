@@ -8,6 +8,9 @@ object FrmSummary: TFrmSummary
   ClientHeight = 546
   ClientWidth = 1000
   Color = clWindowFrame
+  Font.Height = -21
+  Font.Name = '0xProto'
+  Font.Style = [fsBold]
   Position = poScreenCenter
   OnClose = FormClose
   OnCreate = FormCreate
@@ -66,6 +69,9 @@ object FrmSummary: TFrmSummary
     Caption = '前の画面に戻る (CTRL+Q)'
     Color = clActiveCaption
     Enabled = False
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
     ParentFont = False
@@ -82,6 +88,9 @@ object FrmSummary: TFrmSummary
     BevelOuter = bvNone
     Caption = '前の画面に戻る (CTRL+Q)'
     Color = clBtnFace
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
     ParentFont = False

@@ -47,7 +47,16 @@ type
     PnlInsert    : TPanel;
     ACn: TSQLite3Connection;
     ACnNextID: TSQLite3Connection;
+    Shape1: TShape;
+    Shape2: TShape;
+    Shape3: TShape;
     Timer        : TTimer;
+    procedure DBCBDisabledEnter(Sender: TObject);
+    procedure DBCBDisabledExit(Sender: TObject);
+    procedure DBEdtUnitEnter(Sender: TObject);
+    procedure DBEdtUnitExit(Sender: TObject);
+    procedure DBEdtUnitIDEnter(Sender: TObject);
+    procedure DBEdtUnitIDExit(Sender: TObject);
     procedure ProcInsert(Sender: TObject);
     procedure ProcCancel(Sender: TObject);
     procedure ProcSave(Sender: TObject);
@@ -157,6 +166,36 @@ begin
     DBCBDisabled.Field.AsBoolean := False;
     DBEdtUnit.SetFocus;
   end;
+end;
+
+procedure TFrmEntryUnit.DBEdtUnitIDEnter(Sender: TObject);
+begin
+  Shape1.Visible := True;
+end;
+
+procedure TFrmEntryUnit.DBEdtUnitEnter(Sender: TObject);
+begin
+  Shape2.Visible := True;
+end;
+
+procedure TFrmEntryUnit.DBCBDisabledEnter(Sender: TObject);
+begin
+  Shape3.Visible := True;
+end;
+
+procedure TFrmEntryUnit.DBCBDisabledExit(Sender: TObject);
+begin
+  Shape3.Visible := False;
+end;
+
+procedure TFrmEntryUnit.DBEdtUnitExit(Sender: TObject);
+begin
+  Shape2.Visible := False;
+end;
+
+procedure TFrmEntryUnit.DBEdtUnitIDExit(Sender: TObject);
+begin
+  Shape1.Visible := False;
 end;
 
 procedure TFrmEntryUnit.ProcCancel(Sender: TObject);

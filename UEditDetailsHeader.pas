@@ -115,6 +115,26 @@ type
     PnlEditDetail    : TPanel;
     PnlDeleteDetail  : TPanel;
     PnlGoBack        : TPanel;
+    Shape1: TShape;
+    Shape2: TShape;
+    Shape3: TShape;
+    Shape4: TShape;
+    Shape5: TShape;
+    Shape6: TShape;
+    Shape7: TShape;
+    procedure DBEdtPhoneNumEnter(Sender: TObject);
+    procedure DBEdtPhoneNumExit(Sender: TObject);
+    procedure DBLCBExp1Enter(Sender: TObject);
+    procedure DBLCBExp1Exit(Sender: TObject);
+    procedure DBLCBFromACEnter(Sender: TObject);
+    procedure DBLCBFromACExit(Sender: TObject);
+    procedure DBLCBShopNameEnter(Sender: TObject);
+    procedure DBLCBShopNameExit(Sender: TObject);
+    procedure DBLCBToACEnter(Sender: TObject);
+    procedure DBLCBToACExit(Sender: TObject);
+    procedure EdtTotalAmountEnter(Sender: TObject);
+    procedure HeaderDTEnter(Sender: TObject);
+    procedure HeaderDTExit(Sender: TObject);
     procedure ProcEntryShop(Sender: TObject);
     procedure ProcEntryAccount(Sender: TObject);
     procedure ProcAddDetail(Sender: TObject);
@@ -283,6 +303,71 @@ begin
     FrmEntryShop := TFrmEntryShop.Create(Application);
     OpenForm(Self, FrmEntryShop);
   end;
+end;
+
+procedure TFrmEditDetailsHeader.HeaderDTEnter(Sender: TObject);
+begin
+  Shape1.Visible := True;
+end;
+
+procedure TFrmEditDetailsHeader.DBLCBShopNameEnter(Sender: TObject);
+begin
+  Shape2.Visible := True;
+end;
+
+procedure TFrmEditDetailsHeader.DBEdtPhoneNumEnter(Sender: TObject);
+begin
+  Shape3.Visible := True;
+end;
+
+procedure TFrmEditDetailsHeader.DBEdtPhoneNumExit(Sender: TObject);
+begin
+  Shape3.Visible := False;
+end;
+
+procedure TFrmEditDetailsHeader.DBLCBExp1Enter(Sender: TObject);
+begin
+  Shape4.Visible := True;
+end;
+
+procedure TFrmEditDetailsHeader.DBLCBExp1Exit(Sender: TObject);
+begin
+  Shape4.Visible := False;
+end;
+
+procedure TFrmEditDetailsHeader.DBLCBFromACEnter(Sender: TObject);
+begin
+  Shape5.Visible := True;
+end;
+
+procedure TFrmEditDetailsHeader.DBLCBFromACExit(Sender: TObject);
+begin
+  Shape5.Visible := False;
+end;
+
+procedure TFrmEditDetailsHeader.DBLCBShopNameExit(Sender: TObject);
+begin
+  Shape2.Visible := False;
+end;
+
+procedure TFrmEditDetailsHeader.DBLCBToACEnter(Sender: TObject);
+begin
+  Shape6.Visible := True;
+end;
+
+procedure TFrmEditDetailsHeader.DBLCBToACExit(Sender: TObject);
+begin
+  Shape6.Visible := False;
+end;
+
+procedure TFrmEditDetailsHeader.EdtTotalAmountEnter(Sender: TObject);
+begin
+  Shape7.Visible := True;
+end;
+
+procedure TFrmEditDetailsHeader.HeaderDTExit(Sender: TObject);
+begin
+  Shape1.Visible := False;
 end;
 
 procedure TFrmEditDetailsHeader.ProcEntryAccount(Sender: TObject);
@@ -524,9 +609,11 @@ begin
     if RecordCount <= 0 then begin
       BtnDeleteDetail.Enabled := False;
       PnlDeleteDetail.Enabled := False;
+      ActDeleteDetail.Enabled := False;
     end else begin
       BtnDeleteDetail.Enabled := True;
       PnlDeleteDetail.Enabled := True;
+      ActDeleteDetail.Enabled := True;
     end;
   end;
 end;
@@ -949,6 +1036,7 @@ end;
 procedure TFrmEditDetailsHeader.EdtTotalAmountExit(Sender: TObject);
 begin
   DBEdtTotalAmount.Text := StringReplace(EdtTotalAmount.Text, ',', '', [rfReplaceAll]);
+  Shape7.Visible := False;
 end;
 
 procedure TFrmEditDetailsHeader.DTPMonthChange(Sender: TObject);

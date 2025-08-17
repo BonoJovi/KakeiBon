@@ -193,6 +193,8 @@ object FrmManageDetails: TFrmManageDetails
     OnClick = ActAddDetailsHeaderExecute
     OnEnter = BtnAddDetailHeaderEnter
     OnExit = BtnAddDetailHeaderExit
+    OnMouseEnter = BtnAddDetailHeaderEnter
+    OnMouseLeave = BtnAddDetailHeaderExit
   end
   object PnlEditDetail: TPanel
     Left = 294

@@ -32,6 +32,15 @@ type
     PnlClearPaw    : TPanel;
     PnlCommit      : TPanel;
     ACn            : TSQLite3Connection;
+    Shape1: TShape;
+    Shape2: TShape;
+    Shape3: TShape;
+    procedure EdtAdminUserIdEnter(Sender: TObject);
+    procedure EdtAdminUserIdExit(Sender: TObject);
+    procedure EdtPawConfirmEnter(Sender: TObject);
+    procedure EdtPawConfirmExit(Sender: TObject);
+    procedure EdtPawEnter(Sender: TObject);
+    procedure EdtPawExit(Sender: TObject);
     procedure ProcClearPaw(Sender: TObject);
     procedure ProcCommit(Sender: TObject);
     procedure ClearPawMouseOver(NewColor: TColor);
@@ -82,6 +91,36 @@ end;
 procedure TFrmEntryAdmin.ProcClearPaw(Sender: TObject);
 begin
   Defs.ClearPaw(EdtPaw, EdtPawConfirm);
+end;
+
+procedure TFrmEntryAdmin.EdtAdminUserIdEnter(Sender: TObject);
+begin
+  Shape1.Visible := True;
+end;
+
+procedure TFrmEntryAdmin.EdtAdminUserIdExit(Sender: TObject);
+begin
+  Shape1.Visible := False;
+end;
+
+procedure TFrmEntryAdmin.EdtPawConfirmEnter(Sender: TObject);
+begin
+  Shape3.Visible := True;
+end;
+
+procedure TFrmEntryAdmin.EdtPawConfirmExit(Sender: TObject);
+begin
+  Shape3.Visible := False;
+end;
+
+procedure TFrmEntryAdmin.EdtPawEnter(Sender: TObject);
+begin
+  Shape2.Visible := True;
+end;
+
+procedure TFrmEntryAdmin.EdtPawExit(Sender: TObject);
+begin
+  Shape2.Visible := False;
 end;
 
 procedure TFrmEntryAdmin.ProcCommit(Sender: TObject);

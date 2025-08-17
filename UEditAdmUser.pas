@@ -49,6 +49,15 @@ type
     PnlCancel          : TPanel;
     PnlClearPaw       : TPanel;
     PnlSave          : TPanel;
+    Shape1: TShape;
+    Shape2: TShape;
+    Shape3: TShape;
+    procedure EdtPawConfirmEnter(Sender: TObject);
+    procedure EdtPawConfirmExit(Sender: TObject);
+    procedure EdtPawEnter(Sender: TObject);
+    procedure EdtPawExit(Sender: TObject);
+    procedure EdtToUserNameEnter(Sender: TObject);
+    procedure EdtToUserNameExit(Sender: TObject);
     procedure ProcClearPaw(Sender: TObject);
     procedure ProcCancel(Sender: TObject);
     procedure ProcSave(Sender: TObject);
@@ -113,6 +122,36 @@ begin
   with FrmTopMenu.Defs do begin
     ClearPaw(EdtPaw, EdtPawConfirm);
   end;
+end;
+
+procedure TFrmEditAdmUser.EdtToUserNameEnter(Sender: TObject);
+begin
+  Shape1.Visible := True;
+end;
+
+procedure TFrmEditAdmUser.EdtPawEnter(Sender: TObject);
+begin
+  Shape2.Visible := True;
+end;
+
+procedure TFrmEditAdmUser.EdtPawConfirmEnter(Sender: TObject);
+begin
+  Shape3.Visible := True;
+end;
+
+procedure TFrmEditAdmUser.EdtPawConfirmExit(Sender: TObject);
+begin
+  Shape3.Visible := False;
+end;
+
+procedure TFrmEditAdmUser.EdtPawExit(Sender: TObject);
+begin
+  Shape2.Visible := False;
+end;
+
+procedure TFrmEditAdmUser.EdtToUserNameExit(Sender: TObject);
+begin
+  Shape1.Visible := False;
 end;
 
 procedure TFrmEditAdmUser.ProcCancel(Sender: TObject);
