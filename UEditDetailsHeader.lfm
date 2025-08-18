@@ -1,0 +1,1919 @@
+object FrmEditDetailsHeader: TFrmEditDetailsHeader
+  Left = 589
+  Height = 767
+  Top = 132
+  Width = 859
+  Anchors = [akLeft, akBottom]
+  BorderStyle = bsSingle
+  Caption = '入出金編集'
+  ClientHeight = 767
+  ClientWidth = 859
+  Color = clWindowFrame
+  Font.CharSet = ANSI_CHARSET
+  Font.Height = -21
+  Font.Name = '0xProto'
+  Font.Pitch = fpVariable
+  Font.Quality = fqDraft
+  Font.Style = [fsBold]
+  Position = poScreenCenter
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnKeyUp = FormKeyUp
+  OnShow = FormShow
+  object LblDateTime1: TLabel
+    Left = 16
+    Height = 32
+    Top = 16
+    Width = 21
+    Caption = '日'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LblDateTime2: TLabel
+    Left = 100
+    Height = 32
+    Top = 16
+    Width = 21
+    Caption = '時'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Shape1: TShape
+    Left = 128
+    Height = 16
+    Top = 24
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
+  object DTPYear: TDateTimePicker
+    Cursor = crHandPoint
+    Left = 152
+    Height = 32
+    Top = 16
+    Width = 73
+    CenturyFrom = 1941
+    DateDisplayOrder = ddoYMD
+    MaxDate = 2958465
+    MinDate = -53780
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 0
+    DateSeparator = '/'
+    TrailingSeparator = False
+    TextForNullDate = ''
+    LeadingZeros = True
+    NullInputAllowed = False
+    Kind = dtkDateTime
+    TimeSeparator = ':'
+    DecimalSeparator = '.'
+    TimeFormat = tf24
+    TimeDisplay = tdHMS
+    DateMode = dmUpDown
+    Date = 1.7E308
+    Time = 1.7E308
+    UseDefaultSeparators = False
+    Cascade = True
+    HideDateTimeParts = [dtpDay, dtpMonth, dtpHour, dtpMinute, dtpSecond, dtpMiliSec]
+    MonthNames = 'Long'
+    ShowMonthNames = True
+    Options = [dtpoDoChangeOnSetDateTime, dtpoAutoCheck]
+    OnChange = DTPYearChange
+    OnEnter = HeaderDTEnter
+    OnExit = HeaderDTExit
+  end
+  object LblYear: TLabel
+    Left = 224
+    Height = 32
+    Top = 16
+    Width = 21
+    Caption = '年'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object DTPMonth: TDateTimePicker
+    Cursor = crHandPoint
+    Left = 248
+    Height = 32
+    Top = 16
+    Width = 47
+    CenturyFrom = 1941
+    DateDisplayOrder = ddoYMD
+    MaxDate = 2958465
+    MinDate = -53780
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 1
+    DateSeparator = '/'
+    TrailingSeparator = False
+    TextForNullDate = ''
+    LeadingZeros = True
+    NullInputAllowed = False
+    Kind = dtkDateTime
+    TimeSeparator = ':'
+    DecimalSeparator = '.'
+    TimeFormat = tf24
+    TimeDisplay = tdHMS
+    DateMode = dmUpDown
+    Date = 1.7E308
+    Time = 1.7E308
+    UseDefaultSeparators = False
+    Cascade = True
+    HideDateTimeParts = [dtpDay, dtpYear, dtpHour, dtpMinute, dtpSecond, dtpMiliSec]
+    MonthNames = 'Long'
+    Options = [dtpoDoChangeOnSetDateTime, dtpoAutoCheck]
+    OnChange = DTPMonthChange
+    OnEnter = HeaderDTEnter
+    OnExit = HeaderDTExit
+  end
+  object LblMonth: TLabel
+    Left = 296
+    Height = 32
+    Top = 16
+    Width = 21
+    Caption = '月'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object DTPDay: TDateTimePicker
+    Cursor = crHandPoint
+    Left = 318
+    Height = 32
+    Top = 16
+    Width = 47
+    CenturyFrom = 1941
+    DateDisplayOrder = ddoYMD
+    MaxDate = 2958465
+    MinDate = -53780
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 2
+    DateSeparator = 'å'
+    TrailingSeparator = False
+    TextForNullDate = ''
+    LeadingZeros = True
+    NullInputAllowed = False
+    Kind = dtkDateTime
+    TimeSeparator = ':'
+    DecimalSeparator = '.'
+    TimeFormat = tf24
+    TimeDisplay = tdHMS
+    DateMode = dmUpDown
+    Date = 1.7E308
+    Time = 1.7E308
+    UseDefaultSeparators = False
+    Cascade = True
+    HideDateTimeParts = [dtpMonth, dtpYear, dtpHour, dtpMinute, dtpSecond, dtpMiliSec]
+    MonthNames = 'Long'
+    Options = [dtpoDoChangeOnSetDateTime, dtpoAutoCheck]
+    OnChange = DTPDayChange
+    OnEnter = HeaderDTEnter
+    OnExit = HeaderDTExit
+  end
+  object LblDay: TLabel
+    Left = 368
+    Height = 32
+    Top = 16
+    Width = 21
+    Caption = '日'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object DTPHour: TDateTimePicker
+    Cursor = crHandPoint
+    Left = 400
+    Height = 32
+    Top = 16
+    Width = 47
+    CenturyFrom = 1941
+    DateDisplayOrder = ddoYMD
+    MaxDate = 2958465
+    MinDate = -53780
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 3
+    DateSeparator = '/'
+    TrailingSeparator = False
+    TextForNullDate = ''
+    LeadingZeros = True
+    NullInputAllowed = False
+    Kind = dtkDateTime
+    TimeSeparator = ':'
+    DecimalSeparator = '.'
+    TimeFormat = tf24
+    TimeDisplay = tdHMS
+    DateMode = dmUpDown
+    Date = 1.7E308
+    Time = 1.7E308
+    UseDefaultSeparators = False
+    Cascade = True
+    HideDateTimeParts = [dtpDay, dtpMonth, dtpYear, dtpMinute, dtpSecond, dtpMiliSec]
+    MonthNames = 'Long'
+    Options = [dtpoDoChangeOnSetDateTime, dtpoAutoCheck]
+    OnChange = DTPHourChange
+    OnEnter = HeaderDTEnter
+    OnExit = HeaderDTExit
+  end
+  object LblHour: TLabel
+    Left = 449
+    Height = 32
+    Top = 16
+    Width = 21
+    Caption = '時'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LblShopName1: TLabel
+    Left = 16
+    Height = 32
+    Top = 65
+    Width = 21
+    Caption = '店'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LblShopName2: TLabel
+    Left = 100
+    Height = 32
+    Top = 65
+    Width = 21
+    Caption = '名'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Shape2: TShape
+    Left = 128
+    Height = 16
+    Top = 73
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
+  object DBLCBShopName: TDBLookupComboBox
+    Cursor = crHandPoint
+    Left = 152
+    Height = 44
+    Top = 59
+    Width = 316
+    AutoComplete = True
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    KeyField = 'SHOP_ID'
+    ListField = 'SHOP_NAME'
+    ListFieldIndex = 0
+    ListSource = ADSShop
+    LookupCache = True
+    ParentFont = False
+    ReadOnly = True
+    ScrollListDataset = True
+    Style = csDropDownList
+    TabOrder = 4
+    OnChange = DBLCBShopNameChange
+    OnEnter = DBLCBShopNameEnter
+    OnExit = DBLCBShopNameExit
+  end
+  object PnlEntryShop: TPanel
+    Left = 474
+    Height = 44
+    Top = 64
+    Width = 246
+    Caption = '店名を登録 (CTRL+1)'
+    Color = clActiveCaption
+    Enabled = False
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 5
+  end
+  object BtnEntryShop: TPanel
+    Cursor = crCross
+    Left = 482
+    Height = 28
+    Top = 72
+    Width = 230
+    BevelColor = clNone
+    BevelOuter = bvNone
+    Caption = '店名を登録 (CTRL+1)'
+    Color = clBtnFace
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    ShowAccelChar = True
+    TabOrder = 6
+    TabStop = True
+    VerticalAlignment = taAlignBottom
+    OnClick = ActEntryShopExecute
+    OnEnter = BtnEntryShopEnter
+    OnExit = BtnEntryShopExit
+    OnMouseEnter = BtnEntryShopEnter
+    OnMouseLeave = BtnEntryShopExit
+  end
+  object LblPhoneNum1: TLabel
+    Left = 16
+    Height = 32
+    Top = 122
+    Width = 21
+    Alignment = taCenter
+    Caption = '電'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LblPhoneNum2: TLabel
+    Left = 44
+    Height = 32
+    Top = 122
+    Width = 21
+    Alignment = taCenter
+    Caption = '話'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LblPhoneNum3: TLabel
+    Left = 72
+    Height = 32
+    Top = 122
+    Width = 21
+    Alignment = taCenter
+    Caption = '番'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LblPhoneNum4: TLabel
+    Left = 100
+    Height = 32
+    Top = 122
+    Width = 21
+    Alignment = taCenter
+    Caption = '号'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Shape3: TShape
+    Left = 128
+    Height = 16
+    Top = 130
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
+  object DBEdtPhoneNum: TDBEdit
+    Left = 152
+    Height = 49
+    Top = 114
+    Width = 316
+    DataField = 'PHONE_NUM'
+    DataSource = ADSShop
+    ReadOnly = True
+    Enabled = False
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    MaxLength = 0
+    ParentFont = False
+    TabOrder = 7
+    TabStop = False
+    OnEnter = DBEdtPhoneNumEnter
+    OnExit = DBEdtPhoneNumExit
+  end
+  object LblCategory: TLabel
+    Left = 16
+    Height = 32
+    Top = 180
+    Width = 105
+    Alignment = taCenter
+    Caption = '入出金区分'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Shape4: TShape
+    Left = 128
+    Height = 16
+    Top = 188
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
+  object DBLCBExp1: TDBLookupComboBox
+    Cursor = crHandPoint
+    Left = 152
+    Height = 44
+    Top = 174
+    Width = 316
+    AutoComplete = True
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    KeyField = 'EXP_KEY1'
+    ListField = 'NAME1'
+    ListFieldIndex = 0
+    ListSource = ADSExp1
+    LookupCache = True
+    ParentFont = False
+    ReadOnly = True
+    ScrollListDataset = True
+    Style = csDropDownList
+    TabOrder = 8
+    OnChange = DBLCBExp1Change
+    OnEnter = DBLCBExp1Enter
+    OnExit = DBLCBExp1Exit
+  end
+  object LblFrom1: TLabel
+    Left = 16
+    Height = 32
+    Top = 235
+    Width = 21
+    Alignment = taCenter
+    Caption = '出'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LblFrom2: TLabel
+    Left = 58
+    Height = 32
+    Top = 235
+    Width = 21
+    Alignment = taCenter
+    Caption = '金'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LblFrom3: TLabel
+    Left = 100
+    Height = 32
+    Top = 235
+    Width = 21
+    Alignment = taCenter
+    Caption = '元'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Shape5: TShape
+    Left = 128
+    Height = 16
+    Top = 243
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
+  object DBLCBFromAC: TDBLookupComboBox
+    Cursor = crHandPoint
+    Left = 152
+    Height = 44
+    Top = 229
+    Width = 316
+    AutoComplete = True
+    Enabled = False
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    KeyField = 'FROM_ID'
+    ListField = 'FROM_NAME'
+    ListFieldIndex = 0
+    ListSource = ADSFromAC
+    LookupCache = True
+    ParentFont = False
+    ReadOnly = True
+    ScrollListDataset = True
+    Style = csDropDownList
+    TabOrder = 9
+    OnChange = DBLCBFromACChange
+    OnEnter = DBLCBFromACEnter
+    OnExit = DBLCBFromACExit
+  end
+  object PnlEntryAccount: TPanel
+    Left = 474
+    Height = 44
+    Top = 233
+    Width = 246
+    Caption = '口座を登録 (CTRL+2)'
+    Color = clActiveCaption
+    Enabled = False
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 10
+  end
+  object BtnEntryAccount: TPanel
+    Cursor = crCross
+    Left = 482
+    Height = 28
+    Top = 241
+    Width = 230
+    BevelColor = clNone
+    BevelOuter = bvNone
+    Caption = '口座を登録 (CTRL+2)'
+    Color = clBtnFace
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    ShowAccelChar = True
+    TabOrder = 11
+    TabStop = True
+    VerticalAlignment = taAlignBottom
+    OnClick = ActEntryAccountExecute
+    OnEnter = BtnEntryAccountEnter
+    OnExit = BtnEntryAccountExit
+    OnMouseEnter = BtnEntryAccountEnter
+    OnMouseLeave = BtnEntryAccountExit
+  end
+  object LblTo1: TLabel
+    Left = 16
+    Height = 32
+    Top = 290
+    Width = 21
+    Alignment = taCenter
+    Caption = '入'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LblTo2: TLabel
+    Left = 58
+    Height = 32
+    Top = 290
+    Width = 21
+    Alignment = taCenter
+    Caption = '金'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LblTo3: TLabel
+    Left = 100
+    Height = 32
+    Top = 290
+    Width = 21
+    Alignment = taCenter
+    Caption = '先'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Shape6: TShape
+    Left = 128
+    Height = 16
+    Top = 298
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
+  object DBLCBToAC: TDBLookupComboBox
+    Cursor = crHandPoint
+    Left = 152
+    Height = 44
+    Top = 284
+    Width = 316
+    AutoComplete = True
+    Enabled = False
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    KeyField = 'TO_ID'
+    ListField = 'TO_NAME'
+    ListFieldIndex = 0
+    ListSource = ADSToAC
+    LookupCache = True
+    ParentFont = False
+    ReadOnly = True
+    ScrollListDataset = True
+    Style = csDropDownList
+    TabOrder = 12
+    OnChange = DBLCBToACChange
+    OnEnter = DBLCBToACEnter
+    OnExit = DBLCBToACExit
+  end
+  object LblTotalAmount1: TLabel
+    Left = 16
+    Height = 32
+    Top = 347
+    Width = 21
+    Caption = '合'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LblTotalAmount2: TLabel
+    Left = 44
+    Height = 32
+    Top = 347
+    Width = 21
+    Caption = '計'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LblTotalAmount3: TLabel
+    Left = 72
+    Height = 32
+    Top = 347
+    Width = 21
+    Caption = '金'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LblTotalAmount4: TLabel
+    Left = 100
+    Height = 32
+    Top = 347
+    Width = 21
+    Caption = '額'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Shape7: TShape
+    Left = 128
+    Height = 16
+    Top = 355
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
+  object EdtTotalAmount: TEdit
+    Left = 152
+    Height = 49
+    Top = 339
+    Width = 316
+    Alignment = taRightJustify
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 13
+    Text = '0'
+    OnEnter = EdtTotalAmountEnter
+    OnExit = EdtTotalAmountExit
+  end
+  object PnlAddDetail: TPanel
+    Left = 16
+    Height = 48
+    Top = 413
+    Width = 273
+    Anchors = [akLeft, akBottom]
+    Caption = '明細を追加 (CTRL+A)'
+    Color = clActiveCaption
+    Enabled = False
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 14
+  end
+  object BtnAddDetail: TPanel
+    Cursor = crCross
+    Left = 24
+    Height = 32
+    Top = 421
+    Width = 256
+    Anchors = [akLeft, akBottom]
+    BevelColor = clNone
+    BevelOuter = bvNone
+    Caption = '明細を追加 (CTRL+A)'
+    Color = clBtnFace
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    ShowAccelChar = True
+    TabOrder = 15
+    TabStop = True
+    OnClick = ActAddDetailExecute
+    OnEnter = BtnAddDetailEnter
+    OnExit = BtnAddDetailExit
+    OnMouseEnter = BtnAddDetailEnter
+    OnMouseLeave = BtnAddDetailExit
+  end
+  object PnlEditDetail: TPanel
+    Left = 294
+    Height = 48
+    Top = 413
+    Width = 272
+    Anchors = [akLeft, akBottom]
+    Caption = '明細を編集 (CTRL+E)'
+    Color = clActiveCaption
+    Enabled = False
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 16
+  end
+  object BtnEditDetail: TPanel
+    Cursor = crCross
+    Left = 302
+    Height = 32
+    Top = 421
+    Width = 256
+    Anchors = [akLeft, akBottom]
+    BevelColor = clNone
+    BevelOuter = bvNone
+    Caption = '明細を編集 (CTRL+E)'
+    Color = clBtnFace
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    ShowAccelChar = True
+    TabOrder = 17
+    TabStop = True
+    OnClick = ActEditDetailExecute
+    OnEnter = BtnEditDetailEnter
+    OnExit = BtnEditDetailExit
+    OnMouseEnter = BtnEditDetailEnter
+    OnMouseLeave = BtnEditDetailExit
+  end
+  object PnlDeleteDetail: TPanel
+    Left = 571
+    Height = 48
+    Top = 413
+    Width = 272
+    Anchors = [akLeft, akBottom]
+    Caption = '明細を削除 (CTRL+D)'
+    Color = clActiveCaption
+    Enabled = False
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 18
+  end
+  object BtnDeleteDetail: TPanel
+    Cursor = crCross
+    Left = 579
+    Height = 32
+    Top = 421
+    Width = 256
+    Anchors = [akLeft, akBottom]
+    BevelColor = clNone
+    BevelOuter = bvNone
+    Caption = '明細を削除 (CTRL+D)'
+    Color = clBtnFace
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    ShowAccelChar = True
+    TabOrder = 19
+    TabStop = True
+    OnClick = ActDeleteDetailExecute
+    OnEnter = BtnDeleteDetailEnter
+    OnExit = BtnDeleteDetailExit
+    OnMouseEnter = BtnDeleteDetailEnter
+    OnMouseLeave = BtnDeleteDetailExit
+  end
+  object PnlGoBack: TPanel
+    Left = 16
+    Height = 48
+    Top = 467
+    Width = 550
+    Anchors = [akLeft, akBottom]
+    Caption = '前の画面に戻る (CTRL+Q)'
+    Color = clActiveCaption
+    Enabled = False
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 20
+  end
+  object BtnGoBack: TPanel
+    Cursor = crCross
+    Left = 24
+    Height = 32
+    Top = 475
+    Width = 534
+    Anchors = [akLeft, akBottom]
+    BevelColor = clNone
+    BevelOuter = bvNone
+    Caption = '前の画面に戻る (CTRL+Q)'
+    Color = clBtnFace
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    ShowAccelChar = True
+    TabOrder = 21
+    TabStop = True
+    OnClick = ActGoBackExecute
+    OnEnter = BtnGoBackEnter
+    OnExit = BtnGoBackExit
+    OnMouseEnter = BtnGoBackEnter
+    OnMouseLeave = BtnGoBackExit
+  end
+  object ADBNav: TDBNavigator
+    Cursor = crHandPoint
+    Left = 571
+    Height = 32
+    Top = 475
+    Width = 272
+    Anchors = [akLeft, akBottom]
+    BevelOuter = bvNone
+    ChildSizing.EnlargeHorizontal = crsScaleChilds
+    ChildSizing.EnlargeVertical = crsScaleChilds
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 100
+    ClientHeight = 32
+    ClientWidth = 272
+    Color = clWindowFrame
+    DataSource = ADS
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    Options = [navFocusableButtons]
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 22
+    TabStop = True
+    VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast, nbRefresh]
+  end
+  object ADBGrid: TDBGrid
+    Left = 16
+    Height = 232
+    Top = 523
+    Width = 827
+    Anchors = [akLeft, akBottom]
+    Color = clWindow
+    Columns = <    
+      item
+        Font.CharSet = ANSI_CHARSET
+        Font.Height = -21
+        Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        Font.Style = [fsBold]
+        Title.MultiLine = True
+        Title.Caption = '品名'
+        Width = 168
+        FieldName = 'BRAND_NAME'
+      end    
+      item
+        Font.CharSet = ANSI_CHARSET
+        Font.Height = -21
+        Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        Font.Style = [fsBold]
+        Title.Caption = '費目 (大)'
+        Width = 90
+        FieldName = 'EXP1'
+      end    
+      item
+        Font.CharSet = ANSI_CHARSET
+        Font.Height = -21
+        Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        Font.Style = [fsBold]
+        Title.Caption = '費目 (中)'
+        Width = 100
+        FieldName = 'EXP2'
+      end    
+      item
+        Font.CharSet = ANSI_CHARSET
+        Font.Height = -21
+        Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        Font.Style = [fsBold]
+        Title.Caption = '費目 (小)'
+        Width = 100
+        FieldName = 'EXP3'
+      end    
+      item
+        Font.CharSet = ANSI_CHARSET
+        Font.Height = -21
+        Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        Font.Style = [fsBold]
+        Title.Caption = '数量'
+        Width = 100
+        FieldName = 'QUANTITY'
+        DisplayFormat = '#,##0'
+      end    
+      item
+        Title.Caption = '単位'
+        FieldName = 'UNIT'
+      end    
+      item
+        Font.CharSet = ANSI_CHARSET
+        Font.Height = -21
+        Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        Font.Style = [fsBold]
+        Title.Caption = '税別価格'
+        Width = 100
+        FieldName = 'EXCLUDE_TAX'
+        DisplayFormat = '#,##0'
+      end    
+      item
+        Font.CharSet = ANSI_CHARSET
+        Font.Height = -21
+        Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        Font.Style = [fsBold]
+        Title.Caption = '税区分'
+        Width = 70
+        FieldName = 'TAX_TYPE'
+      end    
+      item
+        Font.CharSet = ANSI_CHARSET
+        Font.Height = -21
+        Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        Font.Style = [fsBold]
+        Title.Caption = '税額'
+        FieldName = 'TAX'
+        DisplayFormat = '#,##0'
+      end    
+      item
+        Font.CharSet = ANSI_CHARSET
+        Font.Height = -21
+        Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        Font.Style = [fsBold]
+        Title.Caption = '小計'
+        Width = 120
+        FieldName = 'SUB_TOTAL'
+        DisplayFormat = '#,##0'
+      end>
+    DataSource = ADSDetail
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgDisableInsert]
+    ParentFont = False
+    TabOrder = 23
+    TabStop = False
+  end
+  object DBEdtUserID: TDBEdit
+    Left = 888
+    Height = 49
+    Top = 8
+    Width = 100
+    DataField = 'USER_ID'
+    DataSource = ADS
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    MaxLength = 0
+    ParentFont = False
+    TabOrder = 24
+    TabStop = False
+  end
+  object DBEdtHeaderID: TDBEdit
+    Left = 992
+    Height = 49
+    Top = 8
+    Width = 100
+    DataField = 'HEADER_ID'
+    DataSource = ADS
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    MaxLength = 0
+    ParentFont = False
+    TabOrder = 25
+    TabStop = False
+  end
+  object DBDTPHeaderDT: TDBDateTimePicker
+    Left = 888
+    Height = 32
+    Top = 62
+    Width = 283
+    DataField = 'HEADER_DT'
+    DataSource = ADS
+    ReadOnly = False
+    CenturyFrom = 1941
+    MaxDate = 2958465
+    MinDate = -53780
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 26
+    TabStop = False
+    DateSeparator = '/'
+    TrailingSeparator = False
+    TextForNullDate = 'NULL'
+    LeadingZeros = True
+    Kind = dtkDateTime
+    TimeSeparator = ':'
+    DecimalSeparator = '.'
+    TimeFormat = tf24
+    TimeDisplay = tdHMS
+    DateMode = dmComboBox
+    UseDefaultSeparators = False
+    HideDateTimeParts = []
+    MonthNames = 'Long'
+  end
+  object DBEdtShopID: TDBEdit
+    Left = 888
+    Height = 49
+    Top = 100
+    Width = 100
+    DataField = 'SHOP_ID'
+    DataSource = ADS
+    ReadOnly = True
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    MaxLength = 0
+    ParentFont = False
+    TabOrder = 27
+    TabStop = False
+  end
+  object DBEdtExpKey1: TDBEdit
+    Left = 992
+    Height = 49
+    Top = 100
+    Width = 100
+    DataField = 'EXP_KEY1'
+    DataSource = ADS
+    ReadOnly = True
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    MaxLength = 0
+    ParentFont = False
+    TabOrder = 28
+    TabStop = False
+  end
+  object DBEdtFromID: TDBEdit
+    Left = 888
+    Height = 49
+    Top = 154
+    Width = 100
+    DataField = 'FROM_ID'
+    DataSource = ADS
+    ReadOnly = True
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    MaxLength = 0
+    ParentFont = False
+    TabOrder = 29
+    TabStop = False
+  end
+  object DBEdtToID: TDBEdit
+    Left = 992
+    Height = 49
+    Top = 154
+    Width = 100
+    DataField = 'TO_ID'
+    DataSource = ADS
+    ReadOnly = True
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    MaxLength = 0
+    ParentFont = False
+    TabOrder = 30
+    TabStop = False
+  end
+  object DBEdtTotalAmount: TDBEdit
+    Left = 888
+    Height = 49
+    Top = 208
+    Width = 100
+    DataField = 'TOTAL_AMOUNT'
+    DataSource = ADS
+    ReadOnly = True
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    MaxLength = 0
+    ParentFont = False
+    TabOrder = 31
+    TabStop = False
+  end
+  object DBDTPEntryDT: TDBDateTimePicker
+    Left = 888
+    Height = 32
+    Top = 262
+    Width = 283
+    DataField = 'ENTRY_DT'
+    DataSource = ADS
+    ReadOnly = False
+    CenturyFrom = 1941
+    MaxDate = 2958465
+    MinDate = -53780
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 32
+    TabStop = False
+    DateSeparator = '/'
+    TrailingSeparator = False
+    TextForNullDate = 'NULL'
+    LeadingZeros = True
+    Kind = dtkDateTime
+    TimeSeparator = ':'
+    DecimalSeparator = '.'
+    TimeFormat = tf24
+    TimeDisplay = tdHMS
+    DateMode = dmComboBox
+    UseDefaultSeparators = False
+    HideDateTimeParts = []
+    MonthNames = 'Long'
+  end
+  object DBDTPUpdateDT: TDBDateTimePicker
+    Left = 888
+    Height = 32
+    Top = 300
+    Width = 283
+    DataField = 'UPDATE_DT'
+    DataSource = ADS
+    ReadOnly = False
+    CenturyFrom = 1941
+    MaxDate = 2958465
+    MinDate = -53780
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 33
+    TabStop = False
+    DateSeparator = '/'
+    TrailingSeparator = False
+    TextForNullDate = 'NULL'
+    LeadingZeros = True
+    Kind = dtkDateTime
+    TimeSeparator = ':'
+    DecimalSeparator = '.'
+    TimeFormat = tf24
+    TimeDisplay = tdHMS
+    DateMode = dmComboBox
+    UseDefaultSeparators = False
+    HideDateTimeParts = []
+    MonthNames = 'Long'
+  end
+  object ActionList: TActionList
+    Left = 512
+    Top = 144
+    object ActEntryShop: TAction
+      AutoCheck = True
+      Caption = 'ActEntryShop'
+      Checked = True
+      ShortCut = 16433
+      OnExecute = ActEntryShopExecute
+    end
+    object ActEntryAccount: TAction
+      AutoCheck = True
+      Caption = 'ActEntryAccount'
+      Checked = True
+      ShortCut = 16434
+      OnExecute = ActEntryAccountExecute
+    end
+    object ActAddDetail: TAction
+      AutoCheck = True
+      Caption = 'ActAddDetail'
+      Checked = True
+      SecondaryShortCuts.Strings = (
+        'Ctrl+3'
+      )
+      ShortCut = 16449
+      OnExecute = ActAddDetailExecute
+    end
+    object ActEditDetail: TAction
+      AutoCheck = True
+      Caption = 'ActEditDetail'
+      Checked = True
+      SecondaryShortCuts.Strings = (
+        'Ctrl+4'
+      )
+      ShortCut = 16453
+      OnExecute = ActEditDetailExecute
+    end
+    object ActDeleteDetail: TAction
+      AutoCheck = True
+      Caption = 'ActDeleteDetail'
+      Checked = True
+      SecondaryShortCuts.Strings = (
+        'Ctrl+5'
+      )
+      ShortCut = 16452
+      OnExecute = ActDeleteDetailExecute
+    end
+    object ActGoBack: TAction
+      AutoCheck = True
+      Caption = 'ActGoBack'
+      Checked = True
+      SecondaryShortCuts.Strings = (
+        'Ctrl+6'
+      )
+      ShortCut = 16465
+      OnExecute = ActGoBackExecute
+    end
+  end
+  object ADS: TDataSource
+    DataSet = AQu
+    Left = 656
+    Top = 8
+  end
+  object ATr: TSQLTransaction
+    Active = False
+    Database = ACn
+    Left = 728
+    Top = 8
+  end
+  object AQu: TSQLQuery
+    FieldDefs = <    
+      item
+        Name = 'USER_ID'
+        Attributes = [faRequired]
+        DataType = ftInteger
+      end    
+      item
+        Name = 'HEADER_ID'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'HEADER_DT'
+        DataType = ftDateTime
+      end    
+      item
+        Name = 'SHOP_ID'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'EXP_KEY1'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'FROM_ID'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'TO_ID'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'TOTAL_AMOUNT'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'ENTRY_DT'
+        DataType = ftDateTime
+      end    
+      item
+        Name = 'UPDATE_DT'
+        DataType = ftDateTime
+      end>
+    Database = ACn
+    Transaction = ATr
+    Params = <>
+    Macros = <>
+    Left = 796
+    Top = 8
+  end
+  object ADSDetail: TDataSource
+    DataSet = AQuDetail
+    Left = 656
+    Top = 104
+  end
+  object ATrDetail: TSQLTransaction
+    Active = False
+    Database = ACnDetail
+    Left = 728
+    Top = 104
+  end
+  object AQuDetail: TSQLQuery
+    FieldDefs = <    
+      item
+        Name = 'USER_ID'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'HEADER_ID'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'DETAIL_ID'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'MAKER_ID'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'MAKER'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'BRAND_NAME_ID'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'BRAND_NAME'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'EXP1'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'EXP2'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'EXP3'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'QUANTITY'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'UNIT_ID'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'UNIT'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'EXCLUDE_TAX'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'TAX_TYPE_ID'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'TAX_TYPE'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'TAX'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'SUB_TOTAL'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'ENTRY_DT'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'UPDATE_DT'
+        DataType = ftUnknown
+      end>
+    Database = ACnDetail
+    Transaction = ATrDetail
+    SQL.Strings = (
+      ''
+    )
+    Params = <>
+    Macros = <>
+    Left = 796
+    Top = 104
+  end
+  object ADSNextID: TDataSource
+    DataSet = AQuNextID
+    Left = 656
+    Top = 168
+  end
+  object ATrNextID: TSQLTransaction
+    Active = False
+    Database = ACnNextID
+    Left = 728
+    Top = 168
+  end
+  object AQuNextID: TSQLQuery
+    FieldDefs = <    
+      item
+        Name = 'USER_ID'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'HEADER_ID'
+        DataType = ftUnknown
+      end>
+    Database = ACnNextID
+    Transaction = ATrNextID
+    Params = <>
+    Macros = <>
+    Left = 796
+    Top = 168
+  end
+  object ADSShop: TDataSource
+    DataSet = AQuShop
+    Left = 656
+    Top = 280
+  end
+  object ATrShop: TSQLTransaction
+    Active = False
+    Database = ACnShop
+    Left = 728
+    Top = 280
+  end
+  object AQuShop: TSQLQuery
+    FieldDefs = <>
+    AutoCalcFields = False
+    Database = ACnShop
+    Transaction = ATrShop
+    Params = <>
+    Macros = <>
+    Left = 796
+    Top = 280
+  end
+  object ADSExp1: TDataSource
+    DataSet = AQuExp1
+    Left = 656
+    Top = 336
+  end
+  object ATrExp1: TSQLTransaction
+    Active = False
+    Database = ACnExp1
+    Left = 728
+    Top = 336
+  end
+  object AQuExp1: TSQLQuery
+    FieldDefs = <    
+      item
+        Name = 'USER_ID'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'EXP_KEY1'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'NAME1'
+        DataType = ftUnknown
+      end>
+    Database = ACnExp1
+    Transaction = ATrExp1
+    Params = <>
+    Macros = <>
+    Left = 796
+    Top = 336
+  end
+  object ADSFromAC: TDataSource
+    DataSet = AQuFromAC
+    Left = 656
+    Top = 536
+  end
+  object ATrFromAC: TSQLTransaction
+    Active = False
+    Database = ACnFromAC
+    Left = 728
+    Top = 536
+  end
+  object AQuFromAC: TSQLQuery
+    FieldDefs = <    
+      item
+        Name = 'USER_ID'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'FROM_ID'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'FROM_NAME'
+        DataType = ftMemo
+      end    
+      item
+        Name = 'PHONE_NUMBER'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'OPENING_BALANCE'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'CURRENT_BALANCE'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'DISABLED'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'ENTRY_DT'
+        DataType = ftBoolean
+      end    
+      item
+        Name = 'UPDATE_DT'
+        DataType = ftUnknown
+      end>
+    Database = ACnFromAC
+    Transaction = ATrFromAC
+    Params = <>
+    Macros = <>
+    Left = 796
+    Top = 536
+  end
+  object ADSToAC: TDataSource
+    DataSet = AQuToAC
+    Left = 656
+    Top = 592
+  end
+  object ATrToAC: TSQLTransaction
+    Active = False
+    Database = ACnToAC
+    Left = 728
+    Top = 592
+  end
+  object AQuToAC: TSQLQuery
+    FieldDefs = <    
+      item
+        Name = 'USER_ID'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'TO_ID'
+        DataType = ftInteger
+      end    
+      item
+        Name = 'TO_NAME'
+        DataType = ftMemo
+      end    
+      item
+        Name = 'PHONE_NUMBER'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'OPENING_BALANCE'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'CURRENT_BALANCE'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'DISABLED'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'ENTRY_DT'
+        DataType = ftBoolean
+      end    
+      item
+        Name = 'UPDATE_DT'
+        DataType = ftUnknown
+      end>
+    Database = ACnToAC
+    Transaction = ATrToAC
+    Params = <>
+    Macros = <>
+    Left = 796
+    Top = 592
+  end
+  object ACn: TSQLite3Connection
+    Connected = False
+    LoginPrompt = False
+    KeepConnection = False
+    Transaction = ATr
+    CharSet = 'UTF-8'
+    AlwaysUseBigint = False
+    Left = 584
+    Top = 8
+  end
+  object ACnDetail: TSQLite3Connection
+    Connected = False
+    LoginPrompt = False
+    KeepConnection = False
+    Transaction = ATrDetail
+    CharSet = 'UTF-8'
+    AlwaysUseBigint = False
+    Left = 584
+    Top = 104
+  end
+  object ACnNextID: TSQLite3Connection
+    Connected = False
+    LoginPrompt = False
+    KeepConnection = False
+    Transaction = ATrNextID
+    CharSet = 'UTF-8'
+    AlwaysUseBigint = False
+    Left = 584
+    Top = 168
+  end
+  object ACnShop: TSQLite3Connection
+    Connected = False
+    LoginPrompt = False
+    KeepConnection = False
+    Transaction = ATrShop
+    CharSet = 'UTF-8'
+    AlwaysUseBigint = False
+    Left = 584
+    Top = 280
+  end
+  object ACnExp1: TSQLite3Connection
+    Connected = False
+    LoginPrompt = False
+    KeepConnection = False
+    Transaction = ATrExp1
+    CharSet = 'UTF-8'
+    AlwaysUseBigint = False
+    Left = 584
+    Top = 336
+  end
+  object ACnFromAC: TSQLite3Connection
+    Connected = False
+    LoginPrompt = False
+    KeepConnection = False
+    Transaction = ATrFromAC
+    CharSet = 'UTF-8'
+    AlwaysUseBigint = False
+    Left = 584
+    Top = 536
+  end
+  object ACnToAC: TSQLite3Connection
+    Connected = False
+    LoginPrompt = False
+    KeepConnection = False
+    Transaction = ATrToAC
+    CharSet = 'UTF-8'
+    AlwaysUseBigint = False
+    Left = 584
+    Top = 592
+  end
+end

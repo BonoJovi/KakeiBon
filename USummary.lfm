@@ -1,0 +1,146 @@
+object FrmSummary: TFrmSummary
+  Left = 342
+  Height = 546
+  Top = 32
+  Width = 1000
+  BorderStyle = bsSingle
+  Caption = 'サマリー'
+  ClientHeight = 546
+  ClientWidth = 1000
+  Color = clWindowFrame
+  Font.Height = -21
+  Font.Name = '0xProto'
+  Font.Style = [fsBold]
+  Position = poScreenCenter
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnKeyUp = FormKeyUp
+  OnShow = FormShow
+  object DBGrid1: TDBGrid
+    Left = 16
+    Height = 456
+    Top = 16
+    Width = 968
+    Anchors = [akTop, akLeft, akRight]
+    AutoEdit = False
+    Color = clWindow
+    Columns = <    
+      item
+        Title.Caption = '費目(大)'
+        Width = 125
+        FieldName = 'NAME1'
+      end    
+      item
+        Title.Caption = '費目(中)'
+        Width = 125
+        FieldName = 'NAME2'
+      end    
+      item
+        Title.Caption = '費目(小)'
+        Width = 125
+        FieldName = 'NAME3'
+      end    
+      item
+        Alignment = taRightJustify
+        Title.Caption = '合計金額'
+        Width = 125
+        FieldName = 'SUM1'
+        DisplayFormat = '#,##0'
+      end    
+      item
+        Alignment = taRightJustify
+        Title.Caption = '割合(%)'
+        FieldName = 'PER'
+        DisplayFormat = '#,##0.00'
+      end>
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
+    Options = [dgTitles, dgIndicator, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete]
+    ParentFont = False
+    TabOrder = 0
+    TabStop = False
+  end
+  object PnlGoBack: TPanel
+    Left = 16
+    Height = 49
+    Top = 483
+    Width = 968
+    Anchors = [akTop, akLeft, akRight]
+    Caption = '前の画面に戻る (CTRL+Q)'
+    Color = clActiveCaption
+    Enabled = False
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 1
+  end
+  object BtnGoBack: TPanel
+    Cursor = crCross
+    Left = 24
+    Height = 33
+    Top = 491
+    Width = 952
+    Anchors = [akTop, akLeft, akRight]
+    BevelColor = clNone
+    BevelOuter = bvNone
+    Caption = '前の画面に戻る (CTRL+Q)'
+    Color = clBtnFace
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    ShowAccelChar = True
+    TabOrder = 2
+    TabStop = True
+    OnClick = ActGoBackExecute
+    OnEnter = BtnGoBackEnter
+    OnExit = BtnGoBackExit
+    OnMouseEnter = BtnGoBackEnter
+    OnMouseLeave = BtnGoBackExit
+  end
+  object ACn: TSQLite3Connection
+    Connected = False
+    LoginPrompt = False
+    KeepConnection = False
+    Transaction = ATr
+    CharSet = 'UTF-8'
+    AlwaysUseBigint = False
+    Left = 776
+    Top = 16
+  end
+  object ADS: TDataSource
+    DataSet = AQu
+    Left = 832
+    Top = 16
+  end
+  object ATr: TSQLTransaction
+    Active = False
+    Database = ACn
+    Left = 888
+    Top = 16
+  end
+  object AQu: TSQLQuery
+    FieldDefs = <>
+    Database = ACn
+    Transaction = ATr
+    Params = <>
+    Macros = <>
+    Left = 944
+    Top = 16
+  end
+  object ActionList1: TActionList
+    Left = 712
+    Top = 16
+    object ActGoBack: TAction
+      Caption = 'ActGoBack'
+      ShortCut = 16465
+      OnExecute = ActGoBackExecute
+    end
+  end
+end
