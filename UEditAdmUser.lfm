@@ -1,16 +1,16 @@
 object FrmEditAdmUser: TFrmEditAdmUser
   Left = 624
-  Height = 632
+  Height = 642
   Top = 193
   Width = 665
   BorderStyle = bsSingle
   Caption = '管理者アカウントの編集'
-  ClientHeight = 632
+  ClientHeight = 642
   ClientWidth = 665
   Color = clWindowFrame
   Font.CharSet = ANSI_CHARSET
   Font.Height = -21
-  Font.Name = 'Noto Sans JP'
+  Font.Name = '0xProto'
   Font.Pitch = fpVariable
   Font.Quality = fqDraft
   Font.Style = [fsBold]
@@ -21,13 +21,13 @@ object FrmEditAdmUser: TFrmEditAdmUser
   OnShow = FormShow
   object LblUserID: TLabel
     Left = 16
-    Height = 30
-    Top = 14
-    Width = 148
+    Height = 32
+    Top = 16
+    Width = 152
     Caption = '管理者ユーザID'
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
+    Font.Name = '0xProto'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -36,14 +36,14 @@ object FrmEditAdmUser: TFrmEditAdmUser
   object DBTextUserID: TDBText
     Left = 241
     Height = 26
-    Top = 13
+    Top = 22
     Width = 408
     AutoSize = False
     DataField = 'USER_ID'
     DataSource = ADS
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
+    Font.Name = '0xProto'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -51,13 +51,13 @@ object FrmEditAdmUser: TFrmEditAdmUser
   end
   object LblUserName: TLabel
     Left = 16
-    Height = 30
+    Height = 32
     Top = 55
-    Width = 189
+    Width = 207
     Caption = '管理者ユーザ名 (旧)'
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
+    Font.Name = '0xProto'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -66,14 +66,14 @@ object FrmEditAdmUser: TFrmEditAdmUser
   object DBTextFromUserName: TDBText
     Left = 241
     Height = 26
-    Top = 54
+    Top = 56
     Width = 408
     AutoSize = False
     DataField = 'NAME'
     DataSource = ADS
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
+    Font.Name = '0xProto'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -81,13 +81,13 @@ object FrmEditAdmUser: TFrmEditAdmUser
   end
   object LblToUserName: TLabel
     Left = 345
-    Height = 30
+    Height = 32
     Top = 80
     Width = 21
     Caption = '↓'
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
+    Font.Name = '0xProto'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -95,13 +95,13 @@ object FrmEditAdmUser: TFrmEditAdmUser
   end
   object LblUserName1: TLabel
     Left = 16
-    Height = 30
-    Top = 112
-    Width = 189
+    Height = 32
+    Top = 126
+    Width = 207
     Caption = '管理者ユーザ名 (新)'
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
+    Font.Name = '0xProto'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -110,7 +110,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
   object Shape1: TShape
     Left = 240
     Height = 16
-    Top = 116
+    Top = 134
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -122,12 +122,12 @@ object FrmEditAdmUser: TFrmEditAdmUser
   object EdtToUserName: TEdit
     Cursor = crIBeam
     Left = 265
-    Height = 38
-    Top = 108
+    Height = 49
+    Top = 118
     Width = 384
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
+    Font.Name = '0xProto'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -139,13 +139,13 @@ object FrmEditAdmUser: TFrmEditAdmUser
   end
   object LblPaw: TLabel
     Left = 16
-    Height = 30
-    Top = 168
+    Height = 32
+    Top = 182
     Width = 105
     Caption = 'パスワード'
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
+    Font.Name = '0xProto'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -154,7 +154,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
   object Shape2: TShape
     Left = 240
     Height = 16
-    Top = 172
+    Top = 190
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -166,13 +166,13 @@ object FrmEditAdmUser: TFrmEditAdmUser
   object EdtPaw: TEdit
     Cursor = crIBeam
     Left = 265
-    Height = 38
-    Top = 164
+    Height = 49
+    Top = 174
     Width = 384
     EchoMode = emNone
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
+    Font.Name = '0xProto'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -185,13 +185,13 @@ object FrmEditAdmUser: TFrmEditAdmUser
   end
   object LblPawConfirm: TLabel
     Left = 16
-    Height = 30
-    Top = 224
-    Width = 163
+    Height = 32
+    Top = 238
+    Width = 173
     Caption = 'パスワード(確認)'
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
+    Font.Name = '0xProto'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -200,7 +200,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
   object Shape3: TShape
     Left = 240
     Height = 16
-    Top = 228
+    Top = 246
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -212,13 +212,13 @@ object FrmEditAdmUser: TFrmEditAdmUser
   object EdtPawConfirm: TEdit
     Cursor = crIBeam
     Left = 264
-    Height = 38
-    Top = 220
+    Height = 49
+    Top = 230
     Width = 385
     EchoMode = emNone
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
+    Font.Name = '0xProto'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -231,13 +231,13 @@ object FrmEditAdmUser: TFrmEditAdmUser
   end
   object LblInfo: TLabel
     Left = 315
-    Height = 30
-    Top = 280
+    Height = 32
+    Top = 290
     Width = 334
     Caption = '変更する項目だけ入力してください'
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
+    Font.Name = '0xProto'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -247,13 +247,13 @@ object FrmEditAdmUser: TFrmEditAdmUser
   object PnlClearPaw: TPanel
     Left = 16
     Height = 48
-    Top = 320
+    Top = 330
     Width = 633
     Caption = 'パスワードをクリア (CTRL+X)'
     Color = clActiveCaption
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
+    Font.Name = '0xProto'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -266,7 +266,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
     Cursor = crCross
     Left = 24
     Height = 32
-    Top = 328
+    Top = 338
     Width = 617
     BevelColor = clNone
     BevelOuter = bvNone
@@ -274,7 +274,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
     Color = clBtnFace
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
+    Font.Name = '0xProto'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -293,13 +293,13 @@ object FrmEditAdmUser: TFrmEditAdmUser
   object PnlCancel: TPanel
     Left = 16
     Height = 48
-    Top = 380
+    Top = 390
     Width = 312
     Caption = 'キャンセル (CTRL+C)'
     Color = clActiveCaption
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
+    Font.Name = '0xProto'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -312,7 +312,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
     Cursor = crCross
     Left = 24
     Height = 32
-    Top = 388
+    Top = 398
     Width = 296
     BevelColor = clNone
     BevelOuter = bvNone
@@ -320,7 +320,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
     Color = clBtnFace
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
+    Font.Name = '0xProto'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -339,13 +339,13 @@ object FrmEditAdmUser: TFrmEditAdmUser
   object PnlSave: TPanel
     Left = 337
     Height = 48
-    Top = 380
+    Top = 390
     Width = 312
     Caption = '保　　　存 (CTRL+S)'
     Color = clActiveCaption
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
+    Font.Name = '0xProto'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -358,7 +358,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
     Cursor = crCross
     Left = 345
     Height = 32
-    Top = 388
+    Top = 398
     Width = 296
     BevelColor = clNone
     BevelOuter = bvNone
@@ -366,7 +366,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
     Color = clBtnFace
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
+    Font.Name = '0xProto'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -386,7 +386,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
     Cursor = crHandPoint
     Left = 16
     Height = 32
-    Top = 448
+    Top = 458
     Width = 633
     BevelOuter = bvNone
     ChildSizing.EnlargeHorizontal = crsScaleChilds
@@ -407,49 +407,64 @@ object FrmEditAdmUser: TFrmEditAdmUser
   object ADBGrid: TDBGrid
     Left = 15
     Height = 124
-    Top = 492
+    Top = 502
     Width = 634
     AutoFillColumns = True
     Color = clWindow
     Columns = <    
       item
-        Font.Height = -19
+        Font.CharSet = ANSI_CHARSET
+        Font.Height = -21
         Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
         Font.Style = [fsBold]
         Title.Caption = 'ユーザID'
-        Width = 121
+        Width = 122
         FieldName = 'USER_ID'
       end    
       item
-        Font.Height = -19
+        Font.CharSet = ANSI_CHARSET
+        Font.Height = -21
         Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
         Font.Style = [fsBold]
         Title.Caption = 'ユーザ名'
-        Width = 120
+        Width = 122
         FieldName = 'NAME'
       end    
       item
-        Font.Height = -19
+        Font.CharSet = ANSI_CHARSET
+        Font.Height = -21
         Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
         Font.Style = [fsBold]
         Title.Caption = '権限'
-        Width = 120
+        Width = 122
         FieldName = 'ROLE'
       end    
       item
-        Font.Height = -19
+        Font.CharSet = ANSI_CHARSET
+        Font.Height = -21
         Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
         Font.Style = [fsBold]
         Title.Caption = '登録日'
-        Width = 120
+        Width = 122
         FieldName = 'ENTRY_DT'
       end    
       item
-        Font.Height = -19
+        Font.CharSet = ANSI_CHARSET
+        Font.Height = -21
         Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
         Font.Style = [fsBold]
         Title.Caption = '更新日'
-        Width = 120
+        Width = 122
         FieldName = 'UPDATE_DT'
       end>
     DataSource = ADS

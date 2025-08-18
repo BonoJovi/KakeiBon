@@ -24,7 +24,7 @@ object FrmManageUser: TFrmManageUser
     Color = clWindow
     Columns = <    
       item
-        Font.Height = -19
+        Font.Height = -21
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = 'ID'
@@ -32,7 +32,7 @@ object FrmManageUser: TFrmManageUser
         FieldName = 'USER_ID'
       end    
       item
-        Font.Height = -19
+        Font.Height = -21
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = 'ユーザ名'
@@ -40,7 +40,7 @@ object FrmManageUser: TFrmManageUser
         FieldName = 'NAME'
       end    
       item
-        Font.Height = -19
+        Font.Height = -21
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '権限'
@@ -49,7 +49,7 @@ object FrmManageUser: TFrmManageUser
         FieldName = 'ROLE'
       end    
       item
-        Font.Height = -19
+        Font.Height = -21
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '登録日'
@@ -57,7 +57,7 @@ object FrmManageUser: TFrmManageUser
         FieldName = 'ENTRY_DT'
       end    
       item
-        Font.Height = -19
+        Font.Height = -21
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '更新日'
@@ -65,11 +65,8 @@ object FrmManageUser: TFrmManageUser
         FieldName = 'UPDATE_DT'
       end>
     Constraints.MaxWidth = 2000
-    Font.CharSet = SHIFTJIS_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
     ParentFont = False
@@ -85,11 +82,8 @@ object FrmManageUser: TFrmManageUser
     Caption = 'ユーザの追加 (CTRL+A)'
     Color = clActiveCaption
     Enabled = False
-    Font.CharSet = SHIFTJIS_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
@@ -106,11 +100,8 @@ object FrmManageUser: TFrmManageUser
     BevelOuter = bvNone
     Caption = 'ユーザの追加 (CTRL+A)'
     Color = clBtnFace
-    Font.CharSet = SHIFTJIS_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
@@ -134,11 +125,8 @@ object FrmManageUser: TFrmManageUser
     Caption = 'ユーザ の編集 (CTRL+E)'
     Color = clActiveCaption
     Enabled = False
-    Font.CharSet = SHIFTJIS_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
@@ -155,11 +143,8 @@ object FrmManageUser: TFrmManageUser
     BevelOuter = bvNone
     Caption = ' 　ユーザ の編集　  (CTRL+E)'
     Color = clBtnFace
-    Font.CharSet = SHIFTJIS_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
@@ -183,11 +168,8 @@ object FrmManageUser: TFrmManageUser
     Caption = 'ユーザの削除 (CTRL+D)'
     Color = clActiveCaption
     Enabled = False
-    Font.CharSet = SHIFTJIS_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
@@ -204,11 +186,8 @@ object FrmManageUser: TFrmManageUser
     BevelOuter = bvNone
     Caption = 'ユーザの削除 (CTRL+D)'
     Color = clBtnFace
-    Font.CharSet = SHIFTJIS_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
@@ -232,11 +211,8 @@ object FrmManageUser: TFrmManageUser
     Caption = '管理者ユーザの編集 (CTRL+S)'
     Color = clActiveCaption
     Enabled = False
-    Font.CharSet = SHIFTJIS_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
@@ -253,11 +229,8 @@ object FrmManageUser: TFrmManageUser
     BevelOuter = bvNone
     Caption = '管理者ユーザの編集 (CTRL+S)'
     Color = clBtnFace
-    Font.CharSet = SHIFTJIS_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
@@ -281,11 +254,8 @@ object FrmManageUser: TFrmManageUser
     Caption = '前の画面に戻る (CTRL+Q)'
     Color = clActiveCaption
     Enabled = False
-    Font.CharSet = SHIFTJIS_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
@@ -302,11 +272,8 @@ object FrmManageUser: TFrmManageUser
     BevelOuter = bvNone
     Caption = '前の画面に戻る (CTRL+Q)'
     Color = clBtnFace
-    Font.CharSet = SHIFTJIS_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False

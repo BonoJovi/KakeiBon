@@ -7,7 +7,7 @@ object FrmEntryMaker: TFrmEntryMaker
   ClientHeight = 648
   ClientWidth = 594
   Color = clWindowFrame
-  Font.Height = -18
+  Font.Height = -21
   Font.Name = '0xProto'
   Font.Style = [fsBold]
   Position = poScreenCenter
@@ -38,21 +38,18 @@ object FrmEntryMaker: TFrmEntryMaker
       item
         MaxSize = 400
         Title.Caption = 'メーカー名'
-        Width = 265
+        Width = 269
         FieldName = 'MAKER_NAME'
       end    
       item
         Title.Caption = '非表示'
-        Width = 264
+        Width = 269
         FieldName = 'DISABLED'
       end>
     Constraints.MaxWidth = 2000
     DataSource = ADS
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgAnyButtonCanSelect, dgDisableDelete, dgDblClickAutoSize]
     ParentFont = False
@@ -79,11 +76,8 @@ object FrmEntryMaker: TFrmEntryMaker
     ClientWidth = 562
     Color = clWindowFrame
     DataSource = ADS
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     Options = [navFocusableButtons]
     ParentColor = False
@@ -94,29 +88,23 @@ object FrmEntryMaker: TFrmEntryMaker
   end
   object LblMakerID1: TLabel
     Left = 16
-    Height = 30
+    Height = 26
     Top = 367
-    Width = 7
+    Width = 13
     Caption = 'I'
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentFont = False
   end
   object LblMakerID2: TLabel
     Left = 108
-    Height = 30
+    Height = 26
     Top = 367
-    Width = 15
+    Width = 13
     Caption = 'D'
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentFont = False
   end
@@ -134,17 +122,14 @@ object FrmEntryMaker: TFrmEntryMaker
   end
   object DBEdtMakerID: TDBEdit
     Left = 160
-    Height = 38
+    Height = 49
     Top = 356
     Width = 160
     DataField = 'MAKER_ID'
     DataSource = ADS
     AutoSelect = False
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
@@ -164,11 +149,8 @@ object FrmEntryMaker: TFrmEntryMaker
     Caption = '新規登録 (CTRL+1)'
     Color = clActiveCaption
     Enabled = False
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
@@ -185,11 +167,8 @@ object FrmEntryMaker: TFrmEntryMaker
     BevelOuter = bvNone
     Caption = '新規登録 (CTRL+1)'
     Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
@@ -205,15 +184,12 @@ object FrmEntryMaker: TFrmEntryMaker
   end
   object LblMakerName: TLabel
     Left = 16
-    Height = 30
+    Height = 32
     Top = 421
     Width = 105
     Caption = 'メーカー名'
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentFont = False
   end
@@ -232,17 +208,14 @@ object FrmEntryMaker: TFrmEntryMaker
   object DBEdtMakerName: TDBEdit
     Cursor = crIBeam
     Left = 160
-    Height = 38
+    Height = 49
     Top = 413
     Width = 418
     DataField = 'MAKER_NAME'
     DataSource = ADS
     AutoSelect = False
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
@@ -253,43 +226,34 @@ object FrmEntryMaker: TFrmEntryMaker
   end
   object LblDisabled1: TLabel
     Left = 16
-    Height = 30
+    Height = 32
     Top = 478
     Width = 21
     Caption = '非'
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentFont = False
   end
   object LblDisabled2: TLabel
     Left = 58
-    Height = 30
+    Height = 32
     Top = 478
     Width = 21
     Caption = '表'
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentFont = False
   end
   object LblDisabled3: TLabel
     Left = 100
-    Height = 30
+    Height = 32
     Top = 478
     Width = 21
     Caption = '示'
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentFont = False
   end
@@ -308,17 +272,14 @@ object FrmEntryMaker: TFrmEntryMaker
   object DBCBDisabled: TDBCheckBox
     Cursor = crHandPoint
     Left = 160
-    Height = 17
+    Height = 23
     Top = 483
-    Width = 18
+    Width = 23
     AutoSize = True
     DataField = 'DISABLED'
     DataSource = ADS
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 6
@@ -337,11 +298,8 @@ object FrmEntryMaker: TFrmEntryMaker
     Caption = 'キャンセル (CTRL+C)'
     Color = clActiveCaption
     Enabled = False
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
@@ -358,11 +316,8 @@ object FrmEntryMaker: TFrmEntryMaker
     BevelOuter = bvNone
     Caption = 'キャンセル (CTRL+C)'
     Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
@@ -384,11 +339,8 @@ object FrmEntryMaker: TFrmEntryMaker
     Caption = '保　　　存 (CTRL+S)'
     Color = clActiveCaption
     Enabled = False
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
@@ -405,11 +357,8 @@ object FrmEntryMaker: TFrmEntryMaker
     BevelOuter = bvNone
     Caption = '保　　　存 (CTRL+S)'
     Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
@@ -431,11 +380,8 @@ object FrmEntryMaker: TFrmEntryMaker
     Caption = '前の画面に戻る (CTRL+Q)'
     Color = clActiveCaption
     Enabled = False
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
@@ -452,11 +398,8 @@ object FrmEntryMaker: TFrmEntryMaker
     BevelOuter = bvNone
     Caption = '前の画面に戻る (CTRL+Q)'
     Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False

@@ -163,8 +163,8 @@ begin
   try
     try
       with Defs do begin
-        SetOSHomeDir(GetEnvironmentVariable('APPDATA'));
-        SetDBPath(GetOSHomeDir + '\' + DB_DIR);
+        SetOSHomeDir(GetEnvironmentVariable('HOME'));
+        SetDBPath(GetOSHomeDir + '/' + DB_DIR);
         SetDBFullPath(GetDBPath + DB_NAME);
 
         if GetDoExitKakeiBon then begin

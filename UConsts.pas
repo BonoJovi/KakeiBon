@@ -13,7 +13,7 @@ const
   ROLE_VISIT     = 999;
 
   APP_NAME       = 'KakeiBon';
-  DB_DIR         = '.kakeibon\';
+  DB_DIR         = '.kakeibon/';
   DB_NAME        = 'KakeiBonDB.sqlite3';
 
   NEW_EXP_NAME   = '費目';

@@ -53,11 +53,8 @@ object FrmSummary: TFrmSummary
         FieldName = 'PER'
         DisplayFormat = '#,##0.00'
       end>
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     Options = [dgTitles, dgIndicator, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete]
     ParentFont = False
@@ -73,11 +70,8 @@ object FrmSummary: TFrmSummary
     Caption = '前の画面に戻る (CTRL+Q)'
     Color = clActiveCaption
     Enabled = False
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
@@ -95,11 +89,8 @@ object FrmSummary: TFrmSummary
     BevelOuter = bvNone
     Caption = '前の画面に戻る (CTRL+Q)'
     Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False

@@ -10,7 +10,7 @@ object FrmEntryUnit: TFrmEntryUnit
   Color = clWindowFrame
   Font.CharSet = ANSI_CHARSET
   Font.Height = -21
-  Font.Name = 'Noto Sans JP'
+  Font.Name = '0xProto'
   Font.Pitch = fpVariable
   Font.Quality = fqDraft
   Font.Style = [fsBold]
@@ -43,19 +43,19 @@ object FrmEntryUnit: TFrmEntryUnit
       item
         MaxSize = 400
         Title.Caption = '単位'
-        Width = 265
+        Width = 269
         FieldName = 'UNIT'
       end    
       item
         Title.Caption = '非表示'
-        Width = 264
+        Width = 269
         FieldName = 'DISABLED'
       end>
     Constraints.MaxWidth = 2000
     DataSource = ADS
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
+    Font.Name = '0xProto'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -84,7 +84,7 @@ object FrmEntryUnit: TFrmEntryUnit
     DataSource = ADS
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
+    Font.Name = '0xProto'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -96,13 +96,13 @@ object FrmEntryUnit: TFrmEntryUnit
   end
   object LblUnitID1: TLabel
     Left = 16
-    Height = 30
+    Height = 32
     Top = 361
     Width = 21
     Caption = 'Ｉ'
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
+    Font.Name = '0xProto'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -110,13 +110,13 @@ object FrmEntryUnit: TFrmEntryUnit
   end
   object LblUnitID2: TLabel
     Left = 100
-    Height = 30
+    Height = 32
     Top = 361
     Width = 21
     Caption = 'Ｄ'
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
+    Font.Name = '0xProto'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -136,7 +136,7 @@ object FrmEntryUnit: TFrmEntryUnit
   end
   object DBEdtUnitID: TDBEdit
     Left = 158
-    Height = 38
+    Height = 49
     Top = 357
     Width = 164
     DataField = 'UNIT_ID'
@@ -144,7 +144,7 @@ object FrmEntryUnit: TFrmEntryUnit
     AutoSelect = False
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
+    Font.Name = '0xProto'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -167,7 +167,7 @@ object FrmEntryUnit: TFrmEntryUnit
     Enabled = False
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
+    Font.Name = '0xProto'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -188,7 +188,7 @@ object FrmEntryUnit: TFrmEntryUnit
     Color = clBtnFace
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
+    Font.Name = '0xProto'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -206,13 +206,13 @@ object FrmEntryUnit: TFrmEntryUnit
   end
   object LblUnit1: TLabel
     Left = 16
-    Height = 30
-    Top = 417
+    Height = 32
+    Top = 421
     Width = 21
     Caption = '単'
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
+    Font.Name = '0xProto'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -220,13 +220,13 @@ object FrmEntryUnit: TFrmEntryUnit
   end
   object LblUnit2: TLabel
     Left = 100
-    Height = 30
-    Top = 417
+    Height = 32
+    Top = 421
     Width = 21
     Caption = '位'
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
+    Font.Name = '0xProto'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -235,7 +235,7 @@ object FrmEntryUnit: TFrmEntryUnit
   object Shape2: TShape
     Left = 136
     Height = 16
-    Top = 424
+    Top = 429
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -247,7 +247,7 @@ object FrmEntryUnit: TFrmEntryUnit
   object DBEdtUnit: TDBEdit
     Cursor = crIBeam
     Left = 158
-    Height = 38
+    Height = 49
     Top = 413
     Width = 420
     DataField = 'UNIT'
@@ -255,7 +255,7 @@ object FrmEntryUnit: TFrmEntryUnit
     AutoSelect = False
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
+    Font.Name = '0xProto'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -267,13 +267,13 @@ object FrmEntryUnit: TFrmEntryUnit
   end
   object LblDisabled1: TLabel
     Left = 16
-    Height = 30
-    Top = 472
+    Height = 32
+    Top = 480
     Width = 21
     Caption = '非'
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
+    Font.Name = '0xProto'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -281,13 +281,13 @@ object FrmEntryUnit: TFrmEntryUnit
   end
   object LblDisabled2: TLabel
     Left = 58
-    Height = 30
-    Top = 472
+    Height = 32
+    Top = 480
     Width = 21
     Caption = '表'
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
+    Font.Name = '0xProto'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -295,13 +295,13 @@ object FrmEntryUnit: TFrmEntryUnit
   end
   object LblDisabled3: TLabel
     Left = 100
-    Height = 30
-    Top = 472
+    Height = 32
+    Top = 480
     Width = 21
     Caption = '示'
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
+    Font.Name = '0xProto'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -310,7 +310,7 @@ object FrmEntryUnit: TFrmEntryUnit
   object Shape3: TShape
     Left = 136
     Height = 16
-    Top = 479
+    Top = 488
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -322,15 +322,15 @@ object FrmEntryUnit: TFrmEntryUnit
   object DBCBDisabled: TDBCheckBox
     Cursor = crHandPoint
     Left = 158
-    Height = 17
-    Top = 479
-    Width = 18
+    Height = 23
+    Top = 485
+    Width = 23
     AutoSize = True
     DataField = 'DISABLED'
     DataSource = ADS
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
+    Font.Name = '0xProto'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -352,7 +352,7 @@ object FrmEntryUnit: TFrmEntryUnit
     Enabled = False
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
+    Font.Name = '0xProto'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -373,7 +373,7 @@ object FrmEntryUnit: TFrmEntryUnit
     Color = clBtnFace
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
+    Font.Name = '0xProto'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -399,7 +399,7 @@ object FrmEntryUnit: TFrmEntryUnit
     Enabled = False
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
+    Font.Name = '0xProto'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -420,7 +420,7 @@ object FrmEntryUnit: TFrmEntryUnit
     Color = clBtnFace
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
+    Font.Name = '0xProto'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -446,7 +446,7 @@ object FrmEntryUnit: TFrmEntryUnit
     Enabled = False
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
+    Font.Name = '0xProto'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -467,7 +467,7 @@ object FrmEntryUnit: TFrmEntryUnit
     Color = clBtnFace
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
+    Font.Name = '0xProto'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]

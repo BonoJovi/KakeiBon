@@ -8,8 +8,8 @@ object FrmManageDetails: TFrmManageDetails
   ClientHeight = 460
   ClientWidth = 859
   Color = clWindowFrame
-  Font.Height = -19
-  Font.Name = '0xProto Nerd Font Mono'
+  Font.Height = -21
+  Font.Name = '0xProto'
   Font.Style = [fsBold]
   Position = poScreenCenter
   OnClose = FormClose
@@ -24,7 +24,7 @@ object FrmManageDetails: TFrmManageDetails
     Color = clWindow
     Columns = <    
       item
-        Font.Height = -19
+        Font.Height = -21
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.MultiLine = True
@@ -34,7 +34,7 @@ object FrmManageDetails: TFrmManageDetails
         FieldName = 'USER_ID'
       end    
       item
-        Font.Height = -19
+        Font.Height = -21
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = 'HEADER_ID'
@@ -43,7 +43,7 @@ object FrmManageDetails: TFrmManageDetails
         FieldName = 'HEADER_ID'
       end    
       item
-        Font.Height = -19
+        Font.Height = -21
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '日時'
@@ -52,7 +52,7 @@ object FrmManageDetails: TFrmManageDetails
         DisplayFormat = 'YYYY年MM月DD日 HH時'
       end    
       item
-        Font.Height = -19
+        Font.Height = -21
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '店ID'
@@ -61,7 +61,7 @@ object FrmManageDetails: TFrmManageDetails
         FieldName = 'SHOP_ID'
       end    
       item
-        Font.Height = -19
+        Font.Height = -21
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '店名'
@@ -69,7 +69,7 @@ object FrmManageDetails: TFrmManageDetails
         FieldName = 'SHOP_NAME'
       end    
       item
-        Font.Height = -19
+        Font.Height = -21
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '入出金区分ID'
@@ -78,14 +78,14 @@ object FrmManageDetails: TFrmManageDetails
         FieldName = 'EXP_KEY1'
       end    
       item
-        Font.Height = -19
+        Font.Height = -21
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '入出金区分'
         FieldName = 'EXP1'
       end    
       item
-        Font.Height = -19
+        Font.Height = -21
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '出金元ID'
@@ -94,14 +94,14 @@ object FrmManageDetails: TFrmManageDetails
         FieldName = 'FROM_ID'
       end    
       item
-        Font.Height = -19
+        Font.Height = -21
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '出金元'
         FieldName = 'FROM_NAME'
       end    
       item
-        Font.Height = -19
+        Font.Height = -21
         Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '入金先ID'
@@ -131,11 +131,8 @@ object FrmManageDetails: TFrmManageDetails
         FieldName = 'UPDATE_DT'
       end>
     DataSource = ADS
-    Font.CharSet = SHIFTJIS_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgDisableInsert]
     ParentFont = False
@@ -158,11 +155,8 @@ object FrmManageDetails: TFrmManageDetails
     ClientHeight = 48
     ClientWidth = 272
     DataSource = ADS
-    Font.CharSet = SHIFTJIS_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     Options = [navFocusableButtons]
     ParentFont = False
@@ -178,11 +172,8 @@ object FrmManageDetails: TFrmManageDetails
     Caption = '入出金を追加 (CTRL+A)'
     Color = clActiveCaption
     Enabled = False
-    Font.CharSet = SHIFTJIS_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
@@ -199,11 +190,8 @@ object FrmManageDetails: TFrmManageDetails
     BevelOuter = bvNone
     Caption = '入出金を追加 (CTRL+A)'
     Color = clBtnFace
-    Font.CharSet = SHIFTJIS_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
@@ -225,11 +213,8 @@ object FrmManageDetails: TFrmManageDetails
     Caption = '入出金を編集 (CTRL+E)'
     Color = clActiveCaption
     Enabled = False
-    Font.CharSet = SHIFTJIS_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
@@ -246,11 +231,8 @@ object FrmManageDetails: TFrmManageDetails
     BevelOuter = bvNone
     Caption = '入出金を編集 (CTRL+E)'
     Color = clBtnFace
-    Font.CharSet = SHIFTJIS_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
@@ -272,11 +254,8 @@ object FrmManageDetails: TFrmManageDetails
     Caption = '入出金を削除 (CTRL+D)'
     Color = clActiveCaption
     Enabled = False
-    Font.CharSet = SHIFTJIS_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
@@ -293,11 +272,8 @@ object FrmManageDetails: TFrmManageDetails
     BevelOuter = bvNone
     Caption = '入出金を削除 (CTRL+D)'
     Color = clBtnFace
-    Font.CharSet = SHIFTJIS_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
@@ -319,11 +295,8 @@ object FrmManageDetails: TFrmManageDetails
     Caption = '前の画面に戻る (CTRL+Q)'
     Color = clActiveCaption
     Enabled = False
-    Font.CharSet = SHIFTJIS_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
@@ -340,11 +313,8 @@ object FrmManageDetails: TFrmManageDetails
     BevelOuter = bvNone
     Caption = '前の画面に戻る (CTRL+Q)'
     Color = clBtnFace
-    Font.CharSet = SHIFTJIS_CHARSET
     Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
+    Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
