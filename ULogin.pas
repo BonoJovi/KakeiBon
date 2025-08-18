@@ -306,10 +306,10 @@ procedure TFrmLogin.FormShow(Sender: TObject);
 begin
   FrmLogin.KeyPreview := True;
 
-  //FrmLogin.Color    := RGB(112, 168, 175);
-  //pnlClearPaw.Color := RGB( 72, 122, 129);
-  //pnlCancel.Color   := RGB( 72, 122, 129);
-  //pnlLogin.Color    := RGB( 72, 122, 129);
+  FrmLogin.Color    := RGB(112, 168, 175);
+  pnlClearPaw.Color := RGB( 72, 122, 129);
+  pnlCancel.Color   := RGB( 72, 122, 129);
+  pnlLogin.Color    := RGB( 72, 122, 129);
 
   BtnClearPaw.Enabled := False;
   BtnCancel.Enabled   := True;

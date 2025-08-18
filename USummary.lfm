@@ -14,6 +14,7 @@ object FrmSummary: TFrmSummary
   Position = poScreenCenter
   OnClose = FormClose
   OnCreate = FormCreate
+  OnKeyUp = FormKeyUp
   OnShow = FormShow
   object DBGrid1: TDBGrid
     Left = 16
@@ -52,8 +53,11 @@ object FrmSummary: TFrmSummary
         FieldName = 'PER'
         DisplayFormat = '#,##0.00'
       end>
-    Font.Height = -19
-    Font.Name = '0xProto'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     Options = [dgTitles, dgIndicator, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete]
     ParentFont = False
@@ -69,8 +73,11 @@ object FrmSummary: TFrmSummary
     Caption = '前の画面に戻る (CTRL+Q)'
     Color = clActiveCaption
     Enabled = False
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
@@ -88,8 +95,11 @@ object FrmSummary: TFrmSummary
     BevelOuter = bvNone
     Caption = '前の画面に戻る (CTRL+Q)'
     Color = clBtnFace
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
@@ -97,7 +107,7 @@ object FrmSummary: TFrmSummary
     ShowAccelChar = True
     TabOrder = 2
     TabStop = True
-    OnClick = ActQuitExecute
+    OnClick = ActGoBackExecute
     OnEnter = BtnGoBackEnter
     OnExit = BtnGoBackExit
     OnMouseEnter = BtnGoBackEnter
@@ -136,10 +146,10 @@ object FrmSummary: TFrmSummary
   object ActionList1: TActionList
     Left = 712
     Top = 16
-    object ActQuit: TAction
-      Caption = 'ActQuit'
+    object ActGoBack: TAction
+      Caption = 'ActGoBack'
       ShortCut = 16465
-      OnExecute = ActQuitExecute
+      OnExecute = ActGoBackExecute
     end
   end
 end

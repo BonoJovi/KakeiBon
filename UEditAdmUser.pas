@@ -7,7 +7,7 @@ interface
 uses
   Classes, DateUtils, SysUtils, LazUTF8, SQLDB, SQLite3Conn, DB, Forms,
   Controls, Graphics, Dialogs, StdCtrls, ExtCtrls, DBCtrls, DBGrids, LCLIntf,
-  ActnList;
+  LCLType, ActnList;
 
 type
 
@@ -52,6 +52,7 @@ type
     Shape1: TShape;
     Shape2: TShape;
     Shape3: TShape;
+    procedure EdtPawConfirmChange(Sender: TObject);
     procedure EdtPawConfirmEnter(Sender: TObject);
     procedure EdtPawConfirmExit(Sender: TObject);
     procedure EdtPawEnter(Sender: TObject);
@@ -79,9 +80,10 @@ type
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     FUName             : String;
-    FPAW               : String;
+    FPaw               : String;
     procedure SetDatabaseNames;
     procedure CloseTransactions;
     function CheckMultiFields(NameField: Boolean): String;
@@ -121,6 +123,7 @@ procedure TFrmEditAdmUser.ProcClearPaw(Sender: TObject);
 begin
   with FrmTopMenu.Defs do begin
     ClearPaw(EdtPaw, EdtPawConfirm);
+    EdtToUserName.SetFocus;
   end;
 end;
 
@@ -137,6 +140,18 @@ end;
 procedure TFrmEditAdmUser.EdtPawConfirmEnter(Sender: TObject);
 begin
   Shape3.Visible := True;
+end;
+
+procedure TFrmEditAdmUser.EdtPawConfirmChange(Sender: TObject);
+begin
+  if (Length(EdtPaw.Text) = 0)
+      And (Length(EdtPawConfirm.Text) = 0) then begin
+    BtnClearPaw.Enabled := False;
+    ActClearPaw.Enabled := False;
+  end else begin
+    BtnClearPaw.Enabled := True;
+    ActClearPaw.Enabled := True;
+  end;
 end;
 
 procedure TFrmEditAdmUser.EdtPawConfirmExit(Sender: TObject);
@@ -221,7 +236,7 @@ begin
           if (FUName <> '')
               And (GetUName = LAdminName)
               And ((FUName <> LAdminName)
-                  Or (FPAW <> LOriginalPaw)) then begin
+                  Or (FPaw <> LOriginalPaw)) then begin
             ATr.Commit;
             SetChangedUserDef(True);
           end else begin
@@ -408,7 +423,15 @@ end;
 
 procedure TFrmEditAdmUser.EdtPawChange(Sender: TObject);
 begin
-  FPAW                                      := EdtPaw.Text;
+  FPaw                                      := EdtPaw.Text;
+  if (Length(EdtPaw.Text) = 0)
+      And (Length(EdtPawConfirm.Text) = 0) then begin
+    BtnClearPaw.Enabled := False;
+    ActClearPaw.Enabled := False;
+  end else begin
+    BtnClearPaw.Enabled := True;
+    ActClearPaw.Enabled := True;
+  end;
 end;
 
 procedure TFrmEditAdmUser.ActClearPawExecute(Sender: TObject);
@@ -465,6 +488,8 @@ end;
 
 procedure TFrmEditAdmUser.FormShow(Sender: TObject);
 begin
+  FrmEditAdmUser.KeyPreview := True;
+
   FrmEditAdmUser.Color := RGB(112, 168, 175);
   PnlClearPaw.Color   := RGB( 72, 122, 129);
   PnlCancel.Color      := RGB( 72, 122, 129);
@@ -497,6 +522,26 @@ begin
       end;
     end;
   finally
+  end;
+
+  if (Length(EdtPaw.Text) = 0)
+      And (Length(EdtPawConfirm.Text) = 0) then begin
+    BtnClearPaw.Enabled := False;
+    ActClearPaw.Enabled := False;
+  end;
+end;
+
+procedure TFrmEditAdmUser.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_SPACE) Or (Key = VK_RETURN) then begin
+    if ActiveControl.Name = 'BtnClearPaw' then begin
+      ActClearPaw.Execute;
+    end else if ActiveControl.Name = 'BtnCancel' then begin
+      ActCancel.Execute;
+    end else if ActiveControl.Name = 'BtnSave' then begin
+      ActSave.Execute;
+    end;
   end;
 end;
 

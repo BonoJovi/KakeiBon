@@ -224,6 +224,7 @@ procedure TFrmEditUser.ProcClearPaw(Sender: TObject);
 begin
   with FrmTopMenu.Defs do begin
     ClearPaw(EdtPaw, EdtPawConfirm);
+    EdtToUserName.SetFocus;
   end;
 end;
 

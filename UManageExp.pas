@@ -1123,6 +1123,9 @@ begin
   end else begin
     DeleteAllRecords(ASG3);
   end;
+
+  ASG2.AutoAdjustColumns;
+  ASG3.AutoAdjustColumns;
 end;
 
 procedure TFrmManageExp.FormKeyUp(Sender: TObject; var Key: Word;

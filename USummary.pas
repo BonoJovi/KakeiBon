@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, SQLite3Conn, SQLDB, DB, BufDataset, Forms, Controls,
-  Graphics, Dialogs, Grids, DBGrids, ExtCtrls, StdCtrls, ActnList;
+  Graphics, Dialogs, Grids, DBGrids, ExtCtrls, StdCtrls, LCLType, ActnList;
 
 type
 
@@ -18,14 +18,15 @@ type
     ATr        : TSQLTransaction;
     AQu        : TSQLQuery;
     ActionList : TActionList;
-    ActQuit    : TAction;
+    ActGoBack    : TAction;
     DBGrid1    : TDBGrid;
     BtnGoBack: TPanel;
     PnlGoBack: TPanel;
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure GoBackMouseOver(NewColor: TColor);
     procedure BtnGoBackEnter(Sender: TObject);
     procedure BtnGoBackExit(Sender: TObject);
-    procedure ActQuitExecute(Sender: TObject);
+    procedure ActGoBackExecute(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -83,7 +84,7 @@ begin
   end;
 end;
 
-procedure TFrmSummary.ActQuitExecute(Sender: TObject);
+procedure TFrmSummary.ActGoBackExecute(Sender: TObject);
 begin
   Close;
 end;
@@ -109,6 +110,8 @@ var
   LWidth       : Integer = 0;
   LLeftPos     : Integer = 0;
 begin
+  FrmSummary.KeyPreview := True;
+
   CloseTransactions;
   SetDatabaseNames;
 
@@ -131,6 +134,16 @@ begin
 
   LLeftPos := Trunc((Screen.Width - FrmSummary.Width) / 2);
   FrmSummary.Left := LLeftPos;
+end;
+
+procedure TFrmSummary.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_SPACE) Or (Key = VK_RETURN) then begin
+    if ActiveControl.Name = 'BtnGoBack' then begin
+      ActGoBack.Execute;
+    end;
+  end;
 end;
 
 end.

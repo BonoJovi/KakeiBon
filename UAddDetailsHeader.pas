@@ -848,10 +848,19 @@ begin
 end;
 
 procedure TFrmAddDetailsHeader.EdtTotalAmountChange(Sender: TObject);
+var
+  LTotalAmount: Integer;
 begin
   with FrmTopMenu.Defs do begin
     if EdtTotalAmount.Text <> '' then begin
-      SetTotalAmount(StrToInt(EdtTotalAmount.Text));
+      try
+        LTotalAmount := StrToInt(StringReplace(EdtTotalAmount.Text, ',', '', [rfReplaceAll]));
+      except
+        MessageDlg(MSG_JP_000039, mtWarning, [mbOk], 0);
+        EdtTotalAmount.Text := IntToStr(0);
+        Exit;
+      end;
+      SetTotalAmount(LTotalAmount);
     end;
   end;
 end;

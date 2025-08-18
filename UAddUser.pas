@@ -34,7 +34,6 @@ type
     BtnClearPaw   : TPanel;
     BtnCancel     : TPanel;
     BtnSave       : TPanel;
-    Panel1: TPanel;
     PnlCancel     : TPanel;
     PnlClearPass  : TPanel;
     PnlSave       : TPanel;
@@ -136,6 +135,7 @@ procedure TFrmAddUser.ProcClearPaw(Sender: TObject);
 begin
   with FrmTopMenu.Defs do begin
     ClearPaw(EdtPaw, EdtPawConfirm);
+    EdtUserName.SetFocus;
   end;
 end;
 
