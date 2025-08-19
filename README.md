@@ -9,9 +9,14 @@ KakeiBonをダウンロードいただき、誠にありがとうございます
 開発環境　　: [Pop!_os](https://system76.com/pop/)<br/>
 　　　　　　  [Lazarus-ide](https://www.lazarus-ide.org/)<br/>
 　　　　　　  [SQLite3](https://sqlite.org/)<br/>
+　　　　　　  [0xProto](https://github.com/0xType/0xProto)<br/>
+
 　　　　　　: 本アプリは文字を認識しやすいようにフォント:0xProtoでチューニング<br/>
-　　　　　　  しています。以下のLinux環境に書かれているURLより、フォントを<br
+　　　　　　  しています。以下のLinux環境に書かれているURLより、フォントを<br/>
 　　　　　　  インストールしてください。<br/>
+　　　　　　  Windows環境では'0xProto'フォントが綺麗に表示されないため、<br/>
+　　　　　　  OSに標準インストールされている'Noto Sans JP'フォントを使用して<bt/>
+　　　　　　  います。<br/>
 対象　　　　: 簡素な家計簿アプリでは物足りなく感じている玄人志向な方。<br/>
 特徴　　　　: 視力に障がい(弱視等)をお持ちの方向けに、フォントサイズを<br/>
 　　　　　　  大きめにしています。それから、現在どこの入力項目にいるか<br/>
@@ -30,29 +35,44 @@ KakeiBonをダウンロードいただき、誠にありがとうございます
 　　　　　　  開発者は一切責任を負わないものとします。ただし、<br/>
 　　　　　　  不具合や機能改善案等については報告いただければ、<br/>
 　　　　　　  可能な限り対処いたします。<br/>
-　　　　　　　
+
 不具合報告　: [KakeiBon公式](https://github.com/BonoJovi/KakeiBon.git)<br/>
 　　　　　　  issueより報告をお願いします。<br/>
-　　　　　　
+
+
+実行ファイルのダウンロードはこちら<br/>
+[Relaseページ](https://github.com/BonoJovi/KakeiBon/releases/)<br/>
 
 ### Linux環境
 
-フォントのインストール
-[0xProto](https://github.com/0xType/0xProto)
+フォントのインストール<br/>
+[0xProto](https://github.com/0xType/0xProto)<br/>
 
-SQLite3のライブラリインストール
+SQLite3のライブラリインストール (Debian / Ubuntu)<br/>
 ```Shell
 $ sudo apt install libsqlite3-dev -y
 ```
 
 アーカイブファイルの解凍とKakeiBonの実行
 ```Shell
-$ tar xvf ./KakeiBon-linux-x64-[version].tar.xz
+$ mkdir -p /path/to
+$ cd /path/to
+$ tar xvf ./KakeiBon-linux-x64-[バージョン].tar.xz
 $ ./KakeiBon
 ```
 
+### Windows環境
+
+１．Releaseページの'sqlite-dll-win-x64-[バージョン].zip'ファイルをダウンロードの後、<br/>
+　　展開してDLLファイルをC:\Windows\system32\などのフォルダに格納するか、<br/>
+　　任意のフォルダに格納してパスを通してください。<br/>
+２．同じくReleaseページより'KakeiBon-win-x64-[バージョン].zip'ファイルをダウンロード<br/>
+　　して、展開したEXEファイルを実行してください。<br/>
+
+### Linux / Windows 共通
+
 KakeiBon実行時にユーザデータを格納するSQLite3(データベース)の<br/>
-ファイルを作成するため、メインウィンドウ(メニュー画面)が<br/>
+ファイルを作成する(初回のみ)ため、メインウィンドウ(メニュー画面)が<br/>
 開いたあと、管理者ユーザを作成するウィンドウが表示されるまで<br/>
 少しお待ちください。<br/>
 おおよそ数秒〜10秒程度で管理者登録用のウィンドウが開きます。<br/>
@@ -81,5 +101,8 @@ KakeiBon実行時にユーザデータを格納するSQLite3(データベース)
 なるでしょう。<br/>
 
 更新履歴<br/>
-Ver.1.0.1 2025/08/18<br/>
-Ver.1.0.0 2025/08/18 初版<br/>
+|バージョン||リリース日|
+|:---|:---|:---:|
+|Ver.1.0.1|Windows版|2025/08/20|
+|Ver.1.0.1|Linux版|2025/08/18|
+|Ver.1.0.0|初版|2025/08/18|
