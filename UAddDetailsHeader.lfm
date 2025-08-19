@@ -824,7 +824,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   object EdtTotalAmount: TEdit
     Left = 152
     Height = 49
-    Hint = '自動計算項目。計算が合わない時だけ入力してください。'
+    Hint = '自動集計項目です。計算が合わない時だけ入力してください。'
     Top = 339
     Width = 316
     Alignment = taRightJustify
@@ -836,6 +836,7 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
     Font.Style = [fsBold]
     ParentFont = False
     ParentShowHint = False
+    ShowHint = True
     TabOrder = 13
     Text = '0'
     OnChange = EdtTotalAmountChange

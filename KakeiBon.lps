@@ -30,10 +30,13 @@
         <ComponentName Value="FrmAddDetailsHeader"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
         <TopLine Value="847"/>
-        <CursorPos X="93" Y="857"/>
+        <CursorPos X="36" Y="854"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UAddUser.pas"/>
@@ -90,10 +93,12 @@
         <ComponentName Value="FrmEditDetailsHeader"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="1266"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="1267"/>
         <CursorPos X="55" Y="1273"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UEditUser.pas"/>
@@ -241,7 +246,6 @@
       <Unit>
         <Filename Value="UConsts.pas"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <CursorPos X="31" Y="16"/>
         <UsageCount Value="203"/>
