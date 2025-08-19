@@ -163,8 +163,20 @@ begin
   try
     try
       with Defs do begin
-        SetOSHomeDir(GetEnvironmentVariable('HOME'));
-        SetDBPath(GetOSHomeDir + '/' + DB_DIR);
+        {$IFDEF LINUX}
+          SetOSHomeDir(GetEnvironmentVariable('HOME'));
+          SetDBPath(GetOSHomeDir + '/' + DB_DIR);
+        {$ELSE}
+          {$IFDEF DARWIN}
+            // ToDo: Implements for macOS
+          {$ELSE}
+            {$IFDEF WINDOWS}
+              SetOSHomeDir(GetEnvironmentVariable('APPDATA'));
+              SetDBPath(GetOSHomeDir + '\' + DB_DIR);
+            {$ENDIF}
+          {$ENDIF}
+        {$ENDIF}
+
         SetDBFullPath(GetDBPath + DB_NAME);
 
         if GetDoExitKakeiBon then begin

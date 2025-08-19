@@ -13,7 +13,18 @@ const
   ROLE_VISIT     = 999;
 
   APP_NAME       = 'KakeiBon';
-  DB_DIR         = '.kakeibon/';
+  {$IFDEF LINUX}
+    DB_DIR         = '.kakeibon/';
+  {$ELSE}
+    {$IFDEF DARWIN}
+      // ToDo: Implements for macOS
+    {$ELSE}
+      {$IFDEF WINDOWS}
+        DB_DIR         = '.kakeibon\';
+      {$ENDIF}
+    {$ENDIF}
+  {$ENDIF}
+
   DB_NAME        = 'KakeiBonDB.sqlite3';
 
   NEW_EXP_NAME   = '費目';
