@@ -8,8 +8,11 @@ object FrmAddDetail: TFrmAddDetail
   ClientHeight = 606
   ClientWidth = 737
   Color = clWindowFrame
+  Font.CharSet = ANSI_CHARSET
   Font.Height = -21
-  Font.Name = '0xProto'
+  Font.Name = 'Noto Sans JP'
+  Font.Pitch = fpVariable
+  Font.Quality = fqDraft
   Font.Style = [fsBold]
   Position = poScreenCenter
   OnClose = FormClose
@@ -18,12 +21,15 @@ object FrmAddDetail: TFrmAddDetail
   OnShow = FormShow
   object LblMaker: TLabel
     Left = 16
-    Height = 32
-    Top = 24
+    Height = 30
+    Top = 25
     Width = 105
     Caption = 'メーカー名'
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
@@ -42,12 +48,15 @@ object FrmAddDetail: TFrmAddDetail
   object DBLCBMaker: TDBLookupComboBox
     Cursor = crHandPoint
     Left = 160
-    Height = 44
-    Top = 18
+    Height = 38
+    Top = 21
     Width = 264
     AutoComplete = True
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     KeyField = 'MAKER_ID'
     ListField = 'MAKER_NAME'
@@ -66,13 +75,16 @@ object FrmAddDetail: TFrmAddDetail
   object PnlEntryMaker: TPanel
     Left = 432
     Height = 49
-    Top = 18
+    Top = 16
     Width = 289
     Caption = 'メーカーを登録 (CTRL+1)'
     Color = clActiveCaption
     Enabled = False
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
@@ -83,14 +95,17 @@ object FrmAddDetail: TFrmAddDetail
     Cursor = crCross
     Left = 440
     Height = 33
-    Top = 26
+    Top = 24
     Width = 273
     BevelColor = clNone
     BevelOuter = bvNone
     Caption = 'メーカーを登録 (CTRL+1)'
     Color = clBtnFace
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
@@ -106,30 +121,36 @@ object FrmAddDetail: TFrmAddDetail
   end
   object LblBrandName1: TLabel
     Left = 16
-    Height = 32
+    Height = 30
     Top = 79
     Width = 21
     Caption = '品'
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
   object LblBrandName2: TLabel
     Left = 100
-    Height = 32
+    Height = 30
     Top = 79
     Width = 21
     Caption = '名'
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
   object Shape2: TShape
     Left = 136
     Height = 16
-    Top = 87
+    Top = 86
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -141,12 +162,15 @@ object FrmAddDetail: TFrmAddDetail
   object DBLCBBrandName: TDBLookupComboBox
     Cursor = crHandPoint
     Left = 160
-    Height = 44
-    Top = 73
+    Height = 38
+    Top = 75
     Width = 264
     AutoComplete = True
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     KeyField = 'BRAND_NAME_ID'
     ListField = 'BRAND_NAME'
@@ -165,13 +189,16 @@ object FrmAddDetail: TFrmAddDetail
   object PnlEntryBrandName: TPanel
     Left = 432
     Height = 49
-    Top = 73
+    Top = 70
     Width = 289
     Caption = '  品    名  を登録 (CTRL+2)'
     Color = clActiveCaption
     Enabled = False
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
@@ -182,14 +209,17 @@ object FrmAddDetail: TFrmAddDetail
     Cursor = crCross
     Left = 440
     Height = 33
-    Top = 81
+    Top = 78
     Width = 273
     BevelColor = clNone
     BevelOuter = bvNone
     Caption = '  品    名  を登録 (CTRL+2)'
     Color = clBtnFace
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
@@ -205,30 +235,36 @@ object FrmAddDetail: TFrmAddDetail
   end
   object LblExp1: TLabel
     Left = 16
-    Height = 32
-    Top = 134
+    Height = 30
+    Top = 132
     Width = 21
     Caption = '費'
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
   object LblExp2: TLabel
     Left = 100
-    Height = 32
-    Top = 134
+    Height = 30
+    Top = 132
     Width = 21
     Caption = '目'
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
   object Shape3: TShape
     Left = 136
     Height = 16
-    Top = 142
+    Top = 139
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -240,12 +276,15 @@ object FrmAddDetail: TFrmAddDetail
   object DBLCBExp2: TDBLookupComboBox
     Cursor = crHandPoint
     Left = 160
-    Height = 44
+    Height = 38
     Top = 128
     Width = 265
     AutoComplete = True
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     KeyField = 'EXP_KEY2'
     ListField = 'NAME2'
@@ -264,7 +303,7 @@ object FrmAddDetail: TFrmAddDetail
   object Shape4: TShape
     Left = 440
     Height = 16
-    Top = 142
+    Top = 139
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -276,12 +315,15 @@ object FrmAddDetail: TFrmAddDetail
   object DBLCBExp3: TDBLookupComboBox
     Cursor = crHandPoint
     Left = 464
-    Height = 44
+    Height = 38
     Top = 128
     Width = 257
     AutoComplete = True
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     KeyField = 'EXP_KEY3'
     ListField = 'NAME3'
@@ -297,30 +339,36 @@ object FrmAddDetail: TFrmAddDetail
   end
   object LblUnit1: TLabel
     Left = 16
-    Height = 32
-    Top = 189
+    Height = 30
+    Top = 187
     Width = 21
     Caption = '単'
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
   object LblUnit2: TLabel
     Left = 100
-    Height = 32
-    Top = 189
+    Height = 30
+    Top = 187
     Width = 21
     Caption = '位'
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
   object Shape5: TShape
     Left = 136
     Height = 16
-    Top = 197
+    Top = 194
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -332,12 +380,15 @@ object FrmAddDetail: TFrmAddDetail
   object DBLCBUnit: TDBLookupComboBox
     Cursor = crHandPoint
     Left = 160
-    Height = 44
+    Height = 38
     Top = 183
     Width = 185
     AutoComplete = True
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     KeyField = 'UNIT_ID'
     ListField = 'UNIT'
@@ -356,13 +407,16 @@ object FrmAddDetail: TFrmAddDetail
   object PnlEntryUnit: TPanel
     Left = 16
     Height = 49
-    Top = 240
+    Top = 235
     Width = 329
     Caption = '  単    位  を登録 (CTRL+3)'
     Color = clActiveCaption
     Enabled = False
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
@@ -373,14 +427,17 @@ object FrmAddDetail: TFrmAddDetail
     Cursor = crCross
     Left = 24
     Height = 33
-    Top = 248
+    Top = 243
     Width = 313
     BevelColor = clNone
     BevelOuter = bvNone
     Caption = '  単    位  を登録 (CTRL+3)'
     Color = clBtnFace
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
@@ -396,41 +453,50 @@ object FrmAddDetail: TFrmAddDetail
   end
   object LblTaxType1: TLabel
     Left = 16
-    Height = 32
-    Top = 303
+    Height = 30
+    Top = 301
     Width = 21
     Caption = '税'
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
   object LblTaxType2: TLabel
     Left = 58
-    Height = 32
-    Top = 303
+    Height = 30
+    Top = 301
     Width = 21
     Caption = '区'
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
   object LblTaxType3: TLabel
     Left = 100
-    Height = 32
-    Top = 303
+    Height = 30
+    Top = 301
     Width = 21
     Caption = '分'
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
   object Shape6: TShape
     Left = 136
     Height = 16
-    Top = 311
+    Top = 308
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -442,12 +508,15 @@ object FrmAddDetail: TFrmAddDetail
   object DBLCBTaxType: TDBLookupComboBox
     Cursor = crHandPoint
     Left = 160
-    Height = 44
+    Height = 38
     Top = 297
     Width = 185
     AutoComplete = True
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     KeyField = 'TAX_TYPE_ID'
     ListField = 'TAX_TYPE'
@@ -465,30 +534,36 @@ object FrmAddDetail: TFrmAddDetail
   end
   object LblQuantity1: TLabel
     Left = 360
-    Height = 32
-    Top = 189
+    Height = 30
+    Top = 185
     Width = 21
     Caption = '数'
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
   object LblQuantity2: TLabel
     Left = 440
-    Height = 32
-    Top = 189
+    Height = 30
+    Top = 185
     Width = 21
     Caption = '量'
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
   object Shape7: TShape
     Left = 480
     Height = 16
-    Top = 197
+    Top = 192
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -500,12 +575,15 @@ object FrmAddDetail: TFrmAddDetail
   object EdtQuantity: TEdit
     Cursor = crIBeam
     Left = 504
-    Height = 49
+    Height = 38
     Top = 181
     Width = 217
     Alignment = taRightJustify
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 12
@@ -514,30 +592,36 @@ object FrmAddDetail: TFrmAddDetail
   end
   object LblAmount1: TLabel
     Left = 360
-    Height = 32
-    Top = 247
+    Height = 30
+    Top = 243
     Width = 21
     Caption = '単'
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
   object LblAmount2: TLabel
     Left = 440
-    Height = 32
-    Top = 247
+    Height = 30
+    Top = 243
     Width = 21
     Caption = '価'
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
   object Shape8: TShape
     Left = 480
     Height = 16
-    Top = 255
+    Top = 250
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -549,13 +633,16 @@ object FrmAddDetail: TFrmAddDetail
   object EdtAmount: TEdit
     Cursor = crIBeam
     Left = 504
-    Height = 49
+    Height = 38
     Hint = '単価を入力すると小計が自動計算されます'
     Top = 239
     Width = 217
     Alignment = taRightJustify
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
     ReadOnly = True
@@ -567,52 +654,64 @@ object FrmAddDetail: TFrmAddDetail
   end
   object LblExcludeTax1: TLabel
     Left = 360
-    Height = 32
-    Top = 304
+    Height = 30
+    Top = 300
     Width = 21
     Caption = '税'
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
   object LblExcludeTax2: TLabel
     Left = 386
-    Height = 32
-    Top = 304
+    Height = 30
+    Top = 300
     Width = 21
     Caption = '抜'
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
   object LblExcludeTax3: TLabel
     Left = 413
-    Height = 32
-    Top = 304
+    Height = 30
+    Top = 300
     Width = 21
     Caption = '価'
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
   object LblExcludeTax4: TLabel
     Left = 440
-    Height = 32
-    Top = 304
+    Height = 30
+    Top = 300
     Width = 21
     Caption = '格'
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
   object Shape9: TShape
     Left = 480
     Height = 16
-    Top = 312
+    Top = 307
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -624,12 +723,15 @@ object FrmAddDetail: TFrmAddDetail
   object EdtExcludeTax: TEdit
     Cursor = crIBeam
     Left = 504
-    Height = 49
+    Height = 38
     Top = 296
     Width = 217
     Alignment = taRightJustify
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 14
@@ -638,30 +740,36 @@ object FrmAddDetail: TFrmAddDetail
   end
   object LblTax1: TLabel
     Left = 360
-    Height = 32
-    Top = 361
+    Height = 30
+    Top = 357
     Width = 21
     Caption = '税'
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
   object LblTax2: TLabel
     Left = 440
-    Height = 32
-    Top = 361
+    Height = 30
+    Top = 357
     Width = 21
     Caption = '額'
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
   object Shape10: TShape
     Left = 480
     Height = 16
-    Top = 369
+    Top = 364
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -673,12 +781,15 @@ object FrmAddDetail: TFrmAddDetail
   object EdtTax: TEdit
     Cursor = crIBeam
     Left = 504
-    Height = 49
+    Height = 38
     Top = 353
     Width = 217
     Alignment = taRightJustify
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 15
@@ -692,8 +803,11 @@ object FrmAddDetail: TFrmAddDetail
     Top = 410
     Width = 361
     BevelColor = clWhite
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentBackground = False
     ParentFont = False
@@ -701,30 +815,36 @@ object FrmAddDetail: TFrmAddDetail
   end
   object LblSubTotal1: TLabel
     Left = 360
-    Height = 32
-    Top = 427
+    Height = 30
+    Top = 423
     Width = 21
     Caption = '小'
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
   object LblSubTotal2: TLabel
     Left = 440
-    Height = 32
-    Top = 427
+    Height = 30
+    Top = 423
     Width = 21
     Caption = '計'
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
   object Shape11: TShape
     Left = 480
     Height = 16
-    Top = 435
+    Top = 430
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -736,12 +856,15 @@ object FrmAddDetail: TFrmAddDetail
   object EdtSubTotal: TEdit
     Cursor = crIBeam
     Left = 504
-    Height = 49
+    Height = 38
     Top = 419
     Width = 217
     Alignment = taRightJustify
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 17
@@ -757,8 +880,11 @@ object FrmAddDetail: TFrmAddDetail
     Caption = 'キャンセル (CTRL+C)'
     Color = clActiveCaption
     Enabled = False
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
@@ -775,8 +901,11 @@ object FrmAddDetail: TFrmAddDetail
     BevelOuter = bvNone
     Caption = 'キャンセル (CTRL+C)'
     Color = clBtnFace
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
@@ -798,8 +927,11 @@ object FrmAddDetail: TFrmAddDetail
     Caption = '保存して入力継続 (CTRL+S)'
     Color = clActiveCaption
     Enabled = False
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
@@ -816,8 +948,11 @@ object FrmAddDetail: TFrmAddDetail
     BevelOuter = bvNone
     Caption = '保存して入力継続 (CTRL+S)'
     Color = clBtnFace
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
@@ -839,8 +974,11 @@ object FrmAddDetail: TFrmAddDetail
     Caption = '前の画面に戻る (CTRL+Q)'
     Color = clActiveCaption
     Enabled = False
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
@@ -857,8 +995,11 @@ object FrmAddDetail: TFrmAddDetail
     BevelOuter = bvNone
     Caption = '前の画面に戻る (CTRL+Q)'
     Color = clBtnFace
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
@@ -874,13 +1015,16 @@ object FrmAddDetail: TFrmAddDetail
   end
   object DBEdtUserID: TDBEdit
     Left = 752
-    Height = 49
+    Height = 38
     Top = 11
     Width = 100
     DataField = 'USER_ID'
     DataSource = ADS
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
@@ -889,13 +1033,16 @@ object FrmAddDetail: TFrmAddDetail
   end
   object DBEdtHeaderID: TDBEdit
     Left = 856
-    Height = 49
+    Height = 38
     Top = 11
     Width = 100
     DataField = 'HEADER_ID'
     DataSource = ADS
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
@@ -904,13 +1051,16 @@ object FrmAddDetail: TFrmAddDetail
   end
   object DBEdtDetailID: TDBEdit
     Left = 752
-    Height = 49
+    Height = 38
     Top = 63
     Width = 100
     DataField = 'DETAIL_ID'
     DataSource = ADS
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
@@ -919,13 +1069,16 @@ object FrmAddDetail: TFrmAddDetail
   end
   object DBEdtMakerID: TDBEdit
     Left = 856
-    Height = 49
+    Height = 38
     Top = 63
     Width = 100
     DataField = 'MAKER_ID'
     DataSource = ADS
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
@@ -934,13 +1087,16 @@ object FrmAddDetail: TFrmAddDetail
   end
   object DBEdtBrandNameID: TDBEdit
     Left = 752
-    Height = 49
+    Height = 38
     Top = 115
     Width = 100
     DataField = 'BRAND_NAME_ID'
     DataSource = ADS
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
@@ -949,13 +1105,16 @@ object FrmAddDetail: TFrmAddDetail
   end
   object DBEdtExpKey1: TDBEdit
     Left = 856
-    Height = 49
+    Height = 38
     Top = 115
     Width = 100
     DataField = 'EXP_KEY1'
     DataSource = ADS
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
@@ -964,13 +1123,16 @@ object FrmAddDetail: TFrmAddDetail
   end
   object DBEdtExpKey2: TDBEdit
     Left = 752
-    Height = 49
+    Height = 38
     Top = 167
     Width = 100
     DataField = 'EXP_KEY2'
     DataSource = ADS
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
@@ -979,13 +1141,16 @@ object FrmAddDetail: TFrmAddDetail
   end
   object DBEdtExpKey3: TDBEdit
     Left = 856
-    Height = 49
+    Height = 38
     Top = 167
     Width = 100
     DataField = 'EXP_KEY3'
     DataSource = ADS
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
@@ -994,13 +1159,16 @@ object FrmAddDetail: TFrmAddDetail
   end
   object DBEdtUnitID: TDBEdit
     Left = 752
-    Height = 49
+    Height = 38
     Top = 219
     Width = 100
     DataField = 'UNIT_ID'
     DataSource = ADS
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
@@ -1009,13 +1177,16 @@ object FrmAddDetail: TFrmAddDetail
   end
   object DBEdtTaxTypeID: TDBEdit
     Left = 856
-    Height = 49
+    Height = 38
     Top = 219
     Width = 100
     DataField = 'TAX_TYPE_ID'
     DataSource = ADS
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
@@ -1024,13 +1195,16 @@ object FrmAddDetail: TFrmAddDetail
   end
   object DBEdtQuantity: TDBEdit
     Left = 752
-    Height = 49
+    Height = 38
     Top = 271
     Width = 100
     DataField = 'QUANTITY'
     DataSource = ADS
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
@@ -1039,13 +1213,16 @@ object FrmAddDetail: TFrmAddDetail
   end
   object DBEdtExcludeTax: TDBEdit
     Left = 856
-    Height = 49
+    Height = 38
     Top = 271
     Width = 100
     DataField = 'EXCLUDE_TAX'
     DataSource = ADS
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
@@ -1054,13 +1231,16 @@ object FrmAddDetail: TFrmAddDetail
   end
   object DBEdtTax: TDBEdit
     Left = 752
-    Height = 49
+    Height = 38
     Top = 323
     Width = 100
     DataField = 'TAX'
     DataSource = ADS
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
@@ -1069,13 +1249,16 @@ object FrmAddDetail: TFrmAddDetail
   end
   object DBEdtSubTotal: TDBEdit
     Left = 856
-    Height = 49
+    Height = 38
     Top = 323
     Width = 100
     DataField = 'SUB_TOTAL'
     DataSource = ADS
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
@@ -1084,17 +1267,20 @@ object FrmAddDetail: TFrmAddDetail
   end
   object DBDTPEntryDT: TDBDateTimePicker
     Left = 752
-    Height = 32
+    Height = 38
     Top = 375
-    Width = 283
+    Width = 247
     DataField = 'ENTRY_DT'
     DataSource = ADS
     ReadOnly = False
     CenturyFrom = 1941
     MaxDate = 2958465
     MinDate = -53780
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 38
@@ -1115,17 +1301,20 @@ object FrmAddDetail: TFrmAddDetail
   end
   object DBDTPUpdateDT: TDBDateTimePicker
     Left = 752
-    Height = 32
+    Height = 38
     Top = 408
-    Width = 283
+    Width = 247
     DataField = 'UPDATE_DT'
     DataSource = ADS
     ReadOnly = False
     CenturyFrom = 1941
     MaxDate = 2958465
     MinDate = -53780
+    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 39

@@ -30,13 +30,10 @@
         <ComponentName Value="FrmAddDetailsHeader"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="847"/>
-        <CursorPos X="36" Y="854"/>
+        <CursorPos X="64" Y="854"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UAddUser.pas"/>
@@ -46,7 +43,7 @@
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="151"/>
-        <CursorPos X="61" Y="156"/>
+        <CursorPos X="57" Y="158"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
@@ -82,9 +79,10 @@
         <ComponentName Value="FrmEditDetail"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="1552"/>
-        <CursorPos Y="1574"/>
+        <TopLine Value="990"/>
+        <CursorPos X="3" Y="992"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
@@ -93,12 +91,10 @@
         <ComponentName Value="FrmEditDetailsHeader"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="3"/>
-        <TopLine Value="1267"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1269"/>
         <CursorPos X="55" Y="1273"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UEditUser.pas"/>
@@ -107,7 +103,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="580"/>
+        <TopLine Value="579"/>
         <CursorPos Y="598"/>
         <UsageCount Value="200"/>
       </Unit>
@@ -152,7 +148,7 @@
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="528"/>
-        <CursorPos X="49" Y="538"/>
+        <CursorPos X="51" Y="540"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
@@ -237,19 +233,17 @@
         <ComponentName Value="FrmTopMenu"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="154"/>
         <CursorPos X="38" Y="167"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UConsts.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="-1"/>
         <CursorPos X="31" Y="16"/>
         <UsageCount Value="203"/>
-        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="USummary.pas"/>
@@ -410,12 +404,7 @@
         <UsageCount Value="10"/>
       </Unit>
     </Units>
-    <JumpHistory>
-      <Position>
-        <Filename Value="UTopMenu.pas"/>
-        <Caret Line="166" Column="63" TopLine="154"/>
-      </Position>
-    </JumpHistory>
+    <JumpHistory HistoryIndex="-1"/>
     <RunParams>
       <FormatVersion Value="2"/>
       <Modes ActiveMode=""/>

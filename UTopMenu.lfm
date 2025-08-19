@@ -10,12 +10,11 @@ object FrmTopMenu: TFrmTopMenu
   Color = clTeal
   Font.CharSet = ANSI_CHARSET
   Font.Height = -21
-  Font.Name = '0xProto'
+  Font.Name = 'Noto Sans JP'
   Font.Pitch = fpVariable
   Font.Quality = fqDraft
   Font.Style = [fsBold]
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   Visible = True
   OnActivate = FormActivate
   OnClose = FormClose
@@ -31,12 +30,12 @@ object FrmTopMenu: TFrmTopMenu
     BevelInner = bvLowered
     BevelOuter = bvNone
     BorderStyle = bsSingle
-    ClientHeight = 72
-    ClientWidth = 595
+    ClientHeight = 68
+    ClientWidth = 591
     Color = clMoneyGreen
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -57,7 +56,7 @@ object FrmTopMenu: TFrmTopMenu
       Color = clMoneyGreen
       Font.CharSet = ANSI_CHARSET
       Font.Height = -21
-      Font.Name = '0xProto'
+      Font.Name = 'Noto Sans JP'
       Font.Pitch = fpVariable
       Font.Quality = fqDraft
       Font.Style = [fsBold]
@@ -80,7 +79,7 @@ object FrmTopMenu: TFrmTopMenu
         Color = clBtnFace
         Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = '0xProto'
+        Font.Name = 'Noto Sans JP'
         Font.Pitch = fpVariable
         Font.Quality = fqDraft
         Font.Style = [fsBold]
@@ -97,17 +96,17 @@ object FrmTopMenu: TFrmTopMenu
         object Panel37: TPanel
           Cursor = crCross
           Left = 98
-          Height = 47
-          Top = 1
+          Height = 40
+          Top = 3
           Width = 215
           BevelColor = clNone
           BevelOuter = bvNone
-          ClientHeight = 47
+          ClientHeight = 40
           ClientWidth = 215
           Color = clBtnFace
           Font.CharSet = ANSI_CHARSET
           Font.Height = -21
-          Font.Name = '0xProto'
+          Font.Name = 'Noto Sans JP'
           Font.Pitch = fpVariable
           Font.Quality = fqDraft
           Font.Style = [fsBold]
@@ -124,7 +123,7 @@ object FrmTopMenu: TFrmTopMenu
             Cursor = crCross
             Left = 0
             Height = 40
-            Top = 1
+            Top = 0
             Width = 24
             BevelColor = clNone
             BevelOuter = bvNone
@@ -132,7 +131,7 @@ object FrmTopMenu: TFrmTopMenu
             Color = clBtnFace
             Font.CharSet = ANSI_CHARSET
             Font.Height = -21
-            Font.Name = '0xProto'
+            Font.Name = 'Noto Sans JP'
             Font.Pitch = fpVariable
             Font.Quality = fqDraft
             Font.Style = [fsBold]
@@ -150,7 +149,7 @@ object FrmTopMenu: TFrmTopMenu
             Cursor = crCross
             Left = 52
             Height = 40
-            Top = 1
+            Top = 0
             Width = 24
             BevelColor = clNone
             BevelOuter = bvNone
@@ -158,7 +157,7 @@ object FrmTopMenu: TFrmTopMenu
             Color = clBtnFace
             Font.CharSet = ANSI_CHARSET
             Font.Height = -21
-            Font.Name = '0xProto'
+            Font.Name = 'Noto Sans JP'
             Font.Pitch = fpVariable
             Font.Quality = fqDraft
             Font.Style = [fsBold]
@@ -176,7 +175,7 @@ object FrmTopMenu: TFrmTopMenu
             Cursor = crCross
             Left = 104
             Height = 40
-            Top = 1
+            Top = 0
             Width = 24
             BevelColor = clNone
             BevelOuter = bvNone
@@ -184,7 +183,7 @@ object FrmTopMenu: TFrmTopMenu
             Color = clBtnFace
             Font.CharSet = ANSI_CHARSET
             Font.Height = -21
-            Font.Name = '0xProto'
+            Font.Name = 'Noto Sans JP'
             Font.Pitch = fpVariable
             Font.Quality = fqDraft
             Font.Style = [fsBold]
@@ -202,7 +201,7 @@ object FrmTopMenu: TFrmTopMenu
             Cursor = crCross
             Left = 144
             Height = 40
-            Top = 1
+            Top = 0
             Width = 24
             BevelColor = clNone
             BevelOuter = bvNone
@@ -210,7 +209,7 @@ object FrmTopMenu: TFrmTopMenu
             Color = clBtnFace
             Font.CharSet = ANSI_CHARSET
             Font.Height = -21
-            Font.Name = '0xProto'
+            Font.Name = 'Noto Sans JP'
             Font.Pitch = fpVariable
             Font.Quality = fqDraft
             Font.Style = [fsBold]
@@ -228,7 +227,7 @@ object FrmTopMenu: TFrmTopMenu
             Cursor = crCross
             Left = 184
             Height = 40
-            Top = 1
+            Top = 0
             Width = 24
             BevelColor = clNone
             BevelOuter = bvNone
@@ -236,7 +235,7 @@ object FrmTopMenu: TFrmTopMenu
             Color = clBtnFace
             Font.CharSet = ANSI_CHARSET
             Font.Height = -21
-            Font.Name = '0xProto'
+            Font.Name = 'Noto Sans JP'
             Font.Pitch = fpVariable
             Font.Quality = fqDraft
             Font.Style = [fsBold]
@@ -265,7 +264,7 @@ object FrmTopMenu: TFrmTopMenu
     Color = clMoneyGreen
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -286,7 +285,7 @@ object FrmTopMenu: TFrmTopMenu
       Color = clMoneyGreen
       Font.CharSet = ANSI_CHARSET
       Font.Height = -21
-      Font.Name = '0xProto'
+      Font.Name = 'Noto Sans JP'
       Font.Pitch = fpVariable
       Font.Quality = fqDraft
       Font.Style = [fsBold]
@@ -309,7 +308,7 @@ object FrmTopMenu: TFrmTopMenu
         Color = clBtnFace
         Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = '0xProto'
+        Font.Name = 'Noto Sans JP'
         Font.Pitch = fpVariable
         Font.Quality = fqDraft
         Font.Style = [fsBold]
@@ -326,17 +325,17 @@ object FrmTopMenu: TFrmTopMenu
         object Panel38: TPanel
           Cursor = crCross
           Left = 98
-          Height = 46
-          Top = 0
+          Height = 40
+          Top = 4
           Width = 215
           BevelColor = clNone
           BevelOuter = bvNone
-          ClientHeight = 46
+          ClientHeight = 40
           ClientWidth = 215
           Color = clBtnFace
           Font.CharSet = ANSI_CHARSET
           Font.Height = -21
-          Font.Name = '0xProto'
+          Font.Name = 'Noto Sans JP'
           Font.Pitch = fpVariable
           Font.Quality = fqDraft
           Font.Style = [fsBold]
@@ -361,7 +360,7 @@ object FrmTopMenu: TFrmTopMenu
             Color = clBtnFace
             Font.CharSet = ANSI_CHARSET
             Font.Height = -21
-            Font.Name = '0xProto'
+            Font.Name = 'Noto Sans JP'
             Font.Pitch = fpVariable
             Font.Quality = fqDraft
             Font.Style = [fsBold]
@@ -387,7 +386,7 @@ object FrmTopMenu: TFrmTopMenu
             Color = clBtnFace
             Font.CharSet = ANSI_CHARSET
             Font.Height = -21
-            Font.Name = '0xProto'
+            Font.Name = 'Noto Sans JP'
             Font.Pitch = fpVariable
             Font.Quality = fqDraft
             Font.Style = [fsBold]
@@ -414,12 +413,12 @@ object FrmTopMenu: TFrmTopMenu
     BevelInner = bvLowered
     BevelOuter = bvNone
     BorderStyle = bsSingle
-    ClientHeight = 128
-    ClientWidth = 595
+    ClientHeight = 124
+    ClientWidth = 591
     Color = clMoneyGreen
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -440,7 +439,7 @@ object FrmTopMenu: TFrmTopMenu
       Color = clMoneyGreen
       Font.CharSet = ANSI_CHARSET
       Font.Height = -21
-      Font.Name = '0xProto'
+      Font.Name = 'Noto Sans JP'
       Font.Pitch = fpVariable
       Font.Quality = fqDraft
       Font.Style = [fsBold]
@@ -463,7 +462,7 @@ object FrmTopMenu: TFrmTopMenu
         Color = clBtnFace
         Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = '0xProto'
+        Font.Name = 'Noto Sans JP'
         Font.Pitch = fpVariable
         Font.Quality = fqDraft
         Font.Style = [fsBold]
@@ -480,17 +479,17 @@ object FrmTopMenu: TFrmTopMenu
         object Panel39: TPanel
           Cursor = crCross
           Left = 98
-          Height = 46
-          Top = 0
+          Height = 40
+          Top = 4
           Width = 215
           BevelColor = clNone
           BevelOuter = bvNone
-          ClientHeight = 46
+          ClientHeight = 40
           ClientWidth = 215
           Color = clBtnFace
           Font.CharSet = ANSI_CHARSET
           Font.Height = -21
-          Font.Name = '0xProto'
+          Font.Name = 'Noto Sans JP'
           Font.Pitch = fpVariable
           Font.Quality = fqDraft
           Font.Style = [fsBold]
@@ -515,7 +514,7 @@ object FrmTopMenu: TFrmTopMenu
             Color = clBtnFace
             Font.CharSet = ANSI_CHARSET
             Font.Height = -21
-            Font.Name = '0xProto'
+            Font.Name = 'Noto Sans JP'
             Font.Pitch = fpVariable
             Font.Quality = fqDraft
             Font.Style = [fsBold]
@@ -541,7 +540,7 @@ object FrmTopMenu: TFrmTopMenu
             Color = clBtnFace
             Font.CharSet = ANSI_CHARSET
             Font.Height = -21
-            Font.Name = '0xProto'
+            Font.Name = 'Noto Sans JP'
             Font.Pitch = fpVariable
             Font.Quality = fqDraft
             Font.Style = [fsBold]
@@ -567,7 +566,7 @@ object FrmTopMenu: TFrmTopMenu
             Color = clBtnFace
             Font.CharSet = ANSI_CHARSET
             Font.Height = -21
-            Font.Name = '0xProto'
+            Font.Name = 'Noto Sans JP'
             Font.Pitch = fpVariable
             Font.Quality = fqDraft
             Font.Style = [fsBold]
@@ -593,7 +592,7 @@ object FrmTopMenu: TFrmTopMenu
             Color = clBtnFace
             Font.CharSet = ANSI_CHARSET
             Font.Height = -21
-            Font.Name = '0xProto'
+            Font.Name = 'Noto Sans JP'
             Font.Pitch = fpVariable
             Font.Quality = fqDraft
             Font.Style = [fsBold]
@@ -619,7 +618,7 @@ object FrmTopMenu: TFrmTopMenu
             Color = clBtnFace
             Font.CharSet = ANSI_CHARSET
             Font.Height = -21
-            Font.Name = '0xProto'
+            Font.Name = 'Noto Sans JP'
             Font.Pitch = fpVariable
             Font.Quality = fqDraft
             Font.Style = [fsBold]
@@ -649,7 +648,7 @@ object FrmTopMenu: TFrmTopMenu
       Color = clMoneyGreen
       Font.CharSet = ANSI_CHARSET
       Font.Height = -21
-      Font.Name = '0xProto'
+      Font.Name = 'Noto Sans JP'
       Font.Pitch = fpVariable
       Font.Quality = fqDraft
       Font.Style = [fsBold]
@@ -672,7 +671,7 @@ object FrmTopMenu: TFrmTopMenu
         Color = clBtnFace
         Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = '0xProto'
+        Font.Name = 'Noto Sans JP'
         Font.Pitch = fpVariable
         Font.Quality = fqDraft
         Font.Style = [fsBold]
@@ -689,17 +688,17 @@ object FrmTopMenu: TFrmTopMenu
         object Panel40: TPanel
           Cursor = crCross
           Left = 98
-          Height = 46
-          Top = 0
+          Height = 40
+          Top = 4
           Width = 215
           BevelColor = clNone
           BevelOuter = bvNone
-          ClientHeight = 46
+          ClientHeight = 40
           ClientWidth = 215
           Color = clBtnFace
           Font.CharSet = ANSI_CHARSET
           Font.Height = -21
-          Font.Name = '0xProto'
+          Font.Name = 'Noto Sans JP'
           Font.Pitch = fpVariable
           Font.Quality = fqDraft
           Font.Style = [fsBold]
@@ -724,7 +723,7 @@ object FrmTopMenu: TFrmTopMenu
             Color = clBtnFace
             Font.CharSet = ANSI_CHARSET
             Font.Height = -21
-            Font.Name = '0xProto'
+            Font.Name = 'Noto Sans JP'
             Font.Pitch = fpVariable
             Font.Quality = fqDraft
             Font.Style = [fsBold]
@@ -750,7 +749,7 @@ object FrmTopMenu: TFrmTopMenu
             Color = clBtnFace
             Font.CharSet = ANSI_CHARSET
             Font.Height = -21
-            Font.Name = '0xProto'
+            Font.Name = 'Noto Sans JP'
             Font.Pitch = fpVariable
             Font.Quality = fqDraft
             Font.Style = [fsBold]
@@ -776,7 +775,7 @@ object FrmTopMenu: TFrmTopMenu
             Color = clBtnFace
             Font.CharSet = ANSI_CHARSET
             Font.Height = -21
-            Font.Name = '0xProto'
+            Font.Name = 'Noto Sans JP'
             Font.Pitch = fpVariable
             Font.Quality = fqDraft
             Font.Style = [fsBold]
@@ -802,7 +801,7 @@ object FrmTopMenu: TFrmTopMenu
             Color = clBtnFace
             Font.CharSet = ANSI_CHARSET
             Font.Height = -21
-            Font.Name = '0xProto'
+            Font.Name = 'Noto Sans JP'
             Font.Pitch = fpVariable
             Font.Quality = fqDraft
             Font.Style = [fsBold]
@@ -828,12 +827,12 @@ object FrmTopMenu: TFrmTopMenu
     BevelColor = clMoneyGreen
     BevelOuter = bvNone
     BorderStyle = bsSingle
-    ClientHeight = 128
-    ClientWidth = 595
+    ClientHeight = 124
+    ClientWidth = 591
     Color = clMoneyGreen
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans JP'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -854,7 +853,7 @@ object FrmTopMenu: TFrmTopMenu
       Color = clMoneyGreen
       Font.CharSet = ANSI_CHARSET
       Font.Height = -21
-      Font.Name = '0xProto'
+      Font.Name = 'Noto Sans JP'
       Font.Pitch = fpVariable
       Font.Quality = fqDraft
       Font.Style = [fsBold]
@@ -877,7 +876,7 @@ object FrmTopMenu: TFrmTopMenu
         Color = clBtnFace
         Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = '0xProto'
+        Font.Name = 'Noto Sans JP'
         Font.Pitch = fpVariable
         Font.Quality = fqDraft
         Font.Style = [fsBold]
@@ -904,7 +903,7 @@ object FrmTopMenu: TFrmTopMenu
           Color = clBtnFace
           Font.CharSet = ANSI_CHARSET
           Font.Height = -21
-          Font.Name = '0xProto'
+          Font.Name = 'Noto Sans JP'
           Font.Pitch = fpVariable
           Font.Quality = fqDraft
           Font.Style = [fsBold]
@@ -929,7 +928,7 @@ object FrmTopMenu: TFrmTopMenu
             Color = clBtnFace
             Font.CharSet = ANSI_CHARSET
             Font.Height = -21
-            Font.Name = '0xProto'
+            Font.Name = 'Noto Sans JP'
             Font.Pitch = fpVariable
             Font.Quality = fqDraft
             Font.Style = [fsBold]
@@ -955,7 +954,7 @@ object FrmTopMenu: TFrmTopMenu
             Color = clBtnFace
             Font.CharSet = ANSI_CHARSET
             Font.Height = -21
-            Font.Name = '0xProto'
+            Font.Name = 'Noto Sans JP'
             Font.Pitch = fpVariable
             Font.Quality = fqDraft
             Font.Style = [fsBold]
@@ -981,7 +980,7 @@ object FrmTopMenu: TFrmTopMenu
             Color = clBtnFace
             Font.CharSet = ANSI_CHARSET
             Font.Height = -21
-            Font.Name = '0xProto'
+            Font.Name = 'Noto Sans JP'
             Font.Pitch = fpVariable
             Font.Quality = fqDraft
             Font.Style = [fsBold]
@@ -1007,7 +1006,7 @@ object FrmTopMenu: TFrmTopMenu
             Color = clBtnFace
             Font.CharSet = ANSI_CHARSET
             Font.Height = -21
-            Font.Name = '0xProto'
+            Font.Name = 'Noto Sans JP'
             Font.Pitch = fpVariable
             Font.Quality = fqDraft
             Font.Style = [fsBold]
@@ -1038,7 +1037,7 @@ object FrmTopMenu: TFrmTopMenu
       Enabled = False
       Font.CharSet = ANSI_CHARSET
       Font.Height = -21
-      Font.Name = '0xProto'
+      Font.Name = 'Noto Sans JP'
       Font.Pitch = fpVariable
       Font.Quality = fqDraft
       Font.Style = [fsBold]
@@ -1061,7 +1060,7 @@ object FrmTopMenu: TFrmTopMenu
         Color = clBtnFace
         Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = '0xProto'
+        Font.Name = 'Noto Sans JP'
         Font.Pitch = fpVariable
         Font.Quality = fqDraft
         Font.Style = [fsBold]
@@ -1078,17 +1077,17 @@ object FrmTopMenu: TFrmTopMenu
         object Panel42: TPanel
           Cursor = crCross
           Left = 98
-          Height = 46
-          Top = 0
+          Height = 40
+          Top = 4
           Width = 215
           BevelColor = clNone
           BevelOuter = bvNone
-          ClientHeight = 46
+          ClientHeight = 40
           ClientWidth = 215
           Color = clBtnFace
           Font.CharSet = ANSI_CHARSET
           Font.Height = -21
-          Font.Name = '0xProto'
+          Font.Name = 'Noto Sans JP'
           Font.Pitch = fpVariable
           Font.Quality = fqDraft
           Font.Style = [fsBold]
@@ -1113,7 +1112,7 @@ object FrmTopMenu: TFrmTopMenu
             Color = clBtnFace
             Font.CharSet = ANSI_CHARSET
             Font.Height = -21
-            Font.Name = '0xProto'
+            Font.Name = 'Noto Sans JP'
             Font.Pitch = fpVariable
             Font.Quality = fqDraft
             Font.Style = [fsBold]
@@ -1139,7 +1138,7 @@ object FrmTopMenu: TFrmTopMenu
             Color = clBtnFace
             Font.CharSet = ANSI_CHARSET
             Font.Height = -21
-            Font.Name = '0xProto'
+            Font.Name = 'Noto Sans JP'
             Font.Pitch = fpVariable
             Font.Quality = fqDraft
             Font.Style = [fsBold]
@@ -1165,7 +1164,7 @@ object FrmTopMenu: TFrmTopMenu
             Color = clBtnFace
             Font.CharSet = ANSI_CHARSET
             Font.Height = -21
-            Font.Name = '0xProto'
+            Font.Name = 'Noto Sans JP'
             Font.Pitch = fpVariable
             Font.Quality = fqDraft
             Font.Style = [fsBold]
@@ -1191,7 +1190,7 @@ object FrmTopMenu: TFrmTopMenu
             Color = clBtnFace
             Font.CharSet = ANSI_CHARSET
             Font.Height = -21
-            Font.Name = '0xProto'
+            Font.Name = 'Noto Sans JP'
             Font.Pitch = fpVariable
             Font.Quality = fqDraft
             Font.Style = [fsBold]
@@ -1217,7 +1216,7 @@ object FrmTopMenu: TFrmTopMenu
             Color = clBtnFace
             Font.CharSet = ANSI_CHARSET
             Font.Height = -21
-            Font.Name = '0xProto'
+            Font.Name = 'Noto Sans JP'
             Font.Pitch = fpVariable
             Font.Quality = fqDraft
             Font.Style = [fsBold]
@@ -1247,7 +1246,7 @@ object FrmTopMenu: TFrmTopMenu
       Color = clMoneyGreen
       Font.CharSet = ANSI_CHARSET
       Font.Height = -21
-      Font.Name = '0xProto'
+      Font.Name = 'Noto Sans JP'
       Font.Pitch = fpVariable
       Font.Quality = fqDraft
       Font.Style = [fsBold]
@@ -1270,7 +1269,7 @@ object FrmTopMenu: TFrmTopMenu
         Color = clBtnFace
         Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = '0xProto'
+        Font.Name = 'Noto Sans JP'
         Font.Pitch = fpVariable
         Font.Quality = fqDraft
         Font.Style = [fsBold]
@@ -1288,7 +1287,7 @@ object FrmTopMenu: TFrmTopMenu
           Cursor = crCross
           Left = 98
           Height = 40
-          Top = 0
+          Top = 4
           Width = 215
           BevelColor = clNone
           BevelOuter = bvNone
@@ -1297,7 +1296,7 @@ object FrmTopMenu: TFrmTopMenu
           Color = clBtnFace
           Font.CharSet = ANSI_CHARSET
           Font.Height = -21
-          Font.Name = '0xProto'
+          Font.Name = 'Noto Sans JP'
           Font.Pitch = fpVariable
           Font.Quality = fqDraft
           Font.Style = [fsBold]
@@ -1314,7 +1313,7 @@ object FrmTopMenu: TFrmTopMenu
             Cursor = crCross
             Left = 0
             Height = 34
-            Top = 7
+            Top = 3
             Width = 16
             BevelColor = clNone
             BevelOuter = bvNone
@@ -1322,7 +1321,7 @@ object FrmTopMenu: TFrmTopMenu
             Color = clBtnFace
             Font.CharSet = ANSI_CHARSET
             Font.Height = -21
-            Font.Name = '0xProto'
+            Font.Name = 'Noto Sans JP'
             Font.Pitch = fpVariable
             Font.Quality = fqDraft
             Font.Style = [fsBold]
@@ -1340,7 +1339,7 @@ object FrmTopMenu: TFrmTopMenu
             Cursor = crCross
             Left = 15
             Height = 34
-            Top = 7
+            Top = 3
             Width = 16
             BevelColor = clNone
             BevelOuter = bvNone
@@ -1348,7 +1347,7 @@ object FrmTopMenu: TFrmTopMenu
             Color = clBtnFace
             Font.CharSet = ANSI_CHARSET
             Font.Height = -21
-            Font.Name = '0xProto'
+            Font.Name = 'Noto Sans JP'
             Font.Pitch = fpVariable
             Font.Quality = fqDraft
             Font.Style = [fsBold]
@@ -1366,7 +1365,7 @@ object FrmTopMenu: TFrmTopMenu
             Cursor = crCross
             Left = 30
             Height = 34
-            Top = 7
+            Top = 3
             Width = 16
             BevelColor = clNone
             BevelOuter = bvNone
@@ -1374,7 +1373,7 @@ object FrmTopMenu: TFrmTopMenu
             Color = clBtnFace
             Font.CharSet = ANSI_CHARSET
             Font.Height = -21
-            Font.Name = '0xProto'
+            Font.Name = 'Noto Sans JP'
             Font.Pitch = fpVariable
             Font.Quality = fqDraft
             Font.Style = [fsBold]
@@ -1392,7 +1391,7 @@ object FrmTopMenu: TFrmTopMenu
             Cursor = crCross
             Left = 45
             Height = 34
-            Top = 7
+            Top = 3
             Width = 16
             BevelColor = clNone
             BevelOuter = bvNone
@@ -1400,7 +1399,7 @@ object FrmTopMenu: TFrmTopMenu
             Color = clBtnFace
             Font.CharSet = ANSI_CHARSET
             Font.Height = -21
-            Font.Name = '0xProto'
+            Font.Name = 'Noto Sans JP'
             Font.Pitch = fpVariable
             Font.Quality = fqDraft
             Font.Style = [fsBold]
@@ -1418,7 +1417,7 @@ object FrmTopMenu: TFrmTopMenu
             Cursor = crCross
             Left = 60
             Height = 34
-            Top = 7
+            Top = 3
             Width = 16
             BevelColor = clNone
             BevelOuter = bvNone
@@ -1426,7 +1425,7 @@ object FrmTopMenu: TFrmTopMenu
             Color = clBtnFace
             Font.CharSet = ANSI_CHARSET
             Font.Height = -21
-            Font.Name = '0xProto'
+            Font.Name = 'Noto Sans JP'
             Font.Pitch = fpVariable
             Font.Quality = fqDraft
             Font.Style = [fsBold]
@@ -1444,7 +1443,7 @@ object FrmTopMenu: TFrmTopMenu
             Cursor = crCross
             Left = 75
             Height = 34
-            Top = 7
+            Top = 3
             Width = 16
             BevelColor = clNone
             BevelOuter = bvNone
@@ -1452,7 +1451,7 @@ object FrmTopMenu: TFrmTopMenu
             Color = clBtnFace
             Font.CharSet = ANSI_CHARSET
             Font.Height = -21
-            Font.Name = '0xProto'
+            Font.Name = 'Noto Sans JP'
             Font.Pitch = fpVariable
             Font.Quality = fqDraft
             Font.Style = [fsBold]
@@ -1470,7 +1469,7 @@ object FrmTopMenu: TFrmTopMenu
             Cursor = crCross
             Left = 90
             Height = 34
-            Top = 7
+            Top = 3
             Width = 16
             BevelColor = clNone
             BevelOuter = bvNone
@@ -1478,7 +1477,7 @@ object FrmTopMenu: TFrmTopMenu
             Color = clBtnFace
             Font.CharSet = ANSI_CHARSET
             Font.Height = -21
-            Font.Name = '0xProto'
+            Font.Name = 'Noto Sans JP'
             Font.Pitch = fpVariable
             Font.Quality = fqDraft
             Font.Style = [fsBold]
@@ -1496,7 +1495,7 @@ object FrmTopMenu: TFrmTopMenu
             Cursor = crCross
             Left = 105
             Height = 34
-            Top = 7
+            Top = 3
             Width = 16
             BevelColor = clNone
             BevelOuter = bvNone
@@ -1504,7 +1503,7 @@ object FrmTopMenu: TFrmTopMenu
             Color = clBtnFace
             Font.CharSet = ANSI_CHARSET
             Font.Height = -21
-            Font.Name = '0xProto'
+            Font.Name = 'Noto Sans JP'
             Font.Pitch = fpVariable
             Font.Quality = fqDraft
             Font.Style = [fsBold]
@@ -1530,7 +1529,7 @@ object FrmTopMenu: TFrmTopMenu
             Color = clBtnFace
             Font.CharSet = ANSI_CHARSET
             Font.Height = -21
-            Font.Name = '0xProto'
+            Font.Name = 'Noto Sans JP'
             Font.Pitch = fpVariable
             Font.Quality = fqDraft
             Font.Style = [fsBold]
@@ -1556,7 +1555,7 @@ object FrmTopMenu: TFrmTopMenu
             Color = clBtnFace
             Font.CharSet = ANSI_CHARSET
             Font.Height = -21
-            Font.Name = '0xProto'
+            Font.Name = 'Noto Sans JP'
             Font.Pitch = fpVariable
             Font.Quality = fqDraft
             Font.Style = [fsBold]
@@ -1582,7 +1581,7 @@ object FrmTopMenu: TFrmTopMenu
             Color = clBtnFace
             Font.CharSet = ANSI_CHARSET
             Font.Height = -21
-            Font.Name = '0xProto'
+            Font.Name = 'Noto Sans JP'
             Font.Pitch = fpVariable
             Font.Quality = fqDraft
             Font.Style = [fsBold]
