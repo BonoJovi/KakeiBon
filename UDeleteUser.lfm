@@ -1,0 +1,585 @@
+object FrmDeleteUser: TFrmDeleteUser
+  Left = 818
+  Height = 513
+  Top = 199
+  Width = 567
+  BorderStyle = bsSingle
+  Caption = 'ユーザの削除'
+  ClientHeight = 513
+  ClientWidth = 567
+  Color = clWindowFrame
+  Font.CharSet = SHIFTJIS_CHARSET
+  Font.Height = -21
+  Font.Name = 'Noto Sans JP'
+  Font.Pitch = fpVariable
+  Font.Quality = fqDraft
+  Font.Style = [fsBold]
+  Position = poScreenCenter
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnKeyUp = FormKeyUp
+  OnShow = FormShow
+  object LblUserId1: TLabel
+    Left = 16
+    Height = 30
+    Top = 16
+    Width = 21
+    Caption = 'ユ'
+    Font.CharSet = SHIFTJIS_CHARSET
+    Font.Height = -21
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LblUserId2: TLabel
+    Left = 40
+    Height = 30
+    Top = 16
+    Width = 21
+    Caption = 'ー'
+    Font.CharSet = SHIFTJIS_CHARSET
+    Font.Height = -21
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LblUserId3: TLabel
+    Left = 64
+    Height = 30
+    Top = 16
+    Width = 21
+    Caption = 'ザ'
+    Font.CharSet = SHIFTJIS_CHARSET
+    Font.Height = -21
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LblUserId4: TLabel
+    Left = 88
+    Height = 30
+    Top = 16
+    Width = 7
+    Caption = 'I'
+    Font.CharSet = SHIFTJIS_CHARSET
+    Font.Height = -21
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LblUserId5: TLabel
+    Left = 104
+    Height = 30
+    Top = 16
+    Width = 15
+    Caption = 'D'
+    Font.CharSet = SHIFTJIS_CHARSET
+    Font.Height = -21
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object DBTextUserId: TDBText
+    Left = 138
+    Height = 26
+    Top = 16
+    Width = 414
+    AutoSize = False
+    DataField = 'USER_ID'
+    DataSource = ADS
+    Font.CharSet = SHIFTJIS_CHARSET
+    Font.Height = -21
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LblName1: TLabel
+    Left = 16
+    Height = 30
+    Top = 56
+    Width = 21
+    Caption = 'ユ'
+    Font.CharSet = SHIFTJIS_CHARSET
+    Font.Height = -21
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LblName2: TLabel
+    Left = 42
+    Height = 30
+    Top = 56
+    Width = 21
+    Caption = 'ー'
+    Font.CharSet = SHIFTJIS_CHARSET
+    Font.Height = -21
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LblName3: TLabel
+    Left = 68
+    Height = 30
+    Top = 56
+    Width = 21
+    Caption = 'ザ'
+    Font.CharSet = SHIFTJIS_CHARSET
+    Font.Height = -21
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LblName4: TLabel
+    Left = 94
+    Height = 30
+    Top = 56
+    Width = 21
+    Caption = '名'
+    Font.CharSet = SHIFTJIS_CHARSET
+    Font.Height = -21
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object DBTextName: TDBText
+    Left = 138
+    Height = 26
+    Top = 56
+    Width = 414
+    AutoSize = False
+    DataField = 'NAME'
+    DataSource = ADS
+    Font.CharSet = SHIFTJIS_CHARSET
+    Font.Height = -21
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LblRole1: TLabel
+    Left = 16
+    Height = 30
+    Top = 96
+    Width = 21
+    Caption = '権'
+    Font.CharSet = SHIFTJIS_CHARSET
+    Font.Height = -21
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LblRole2: TLabel
+    Left = 94
+    Height = 30
+    Top = 96
+    Width = 21
+    Caption = '限'
+    Font.CharSet = SHIFTJIS_CHARSET
+    Font.Height = -21
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object DBTextRole: TDBText
+    Left = 138
+    Height = 26
+    Top = 96
+    Width = 414
+    AutoSize = False
+    DataField = 'ROLE'
+    DataSource = ADS
+    Font.CharSet = SHIFTJIS_CHARSET
+    Font.Height = -21
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LblEntryDT1: TLabel
+    Left = 16
+    Height = 30
+    Top = 136
+    Width = 21
+    Caption = '登'
+    Font.CharSet = SHIFTJIS_CHARSET
+    Font.Height = -21
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LblEntryDT2: TLabel
+    Left = 55
+    Height = 30
+    Top = 136
+    Width = 21
+    Caption = '録'
+    Font.CharSet = SHIFTJIS_CHARSET
+    Font.Height = -21
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LblEntryDT3: TLabel
+    Left = 94
+    Height = 30
+    Top = 136
+    Width = 21
+    Caption = '日'
+    Font.CharSet = SHIFTJIS_CHARSET
+    Font.Height = -21
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object DBTextEntryDT: TDBText
+    Left = 136
+    Height = 26
+    Top = 136
+    Width = 414
+    AutoSize = False
+    DataField = 'ENTRY_DT'
+    DataSource = ADS
+    Font.CharSet = SHIFTJIS_CHARSET
+    Font.Height = -21
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LblUpdateDT1: TLabel
+    Left = 16
+    Height = 30
+    Top = 176
+    Width = 21
+    Caption = '更'
+    Font.CharSet = SHIFTJIS_CHARSET
+    Font.Height = -21
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LblUpdateDT2: TLabel
+    Left = 55
+    Height = 30
+    Top = 176
+    Width = 21
+    Caption = '新'
+    Font.CharSet = SHIFTJIS_CHARSET
+    Font.Height = -21
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LblUpdateDT3: TLabel
+    Left = 94
+    Height = 30
+    Top = 176
+    Width = 21
+    Caption = '日'
+    Font.CharSet = SHIFTJIS_CHARSET
+    Font.Height = -21
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object DBTextUpdateDT: TDBText
+    Left = 138
+    Height = 26
+    Top = 176
+    Width = 414
+    AutoSize = False
+    DataField = 'UPDATE_DT'
+    DataSource = ADS
+    Font.CharSet = SHIFTJIS_CHARSET
+    Font.Height = -21
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object DBNav: TDBNavigator
+    Cursor = crHandPoint
+    Left = 16
+    Height = 37
+    Top = 220
+    Width = 536
+    BevelOuter = bvNone
+    ChildSizing.EnlargeHorizontal = crsScaleChilds
+    ChildSizing.EnlargeVertical = crsScaleChilds
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 100
+    ClientHeight = 37
+    ClientWidth = 536
+    Color = clWindowFrame
+    DataSource = ADS
+    Font.CharSet = SHIFTJIS_CHARSET
+    Font.Height = -21
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    Options = [navFocusableButtons]
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 0
+    VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
+  end
+  object PnlCancel: TPanel
+    Left = 16
+    Height = 48
+    Top = 268
+    Width = 264
+    Caption = 'キャンセル (CTRL+C)'
+    Color = clActiveCaption
+    Enabled = False
+    Font.CharSet = SHIFTJIS_CHARSET
+    Font.Height = -21
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 1
+  end
+  object BtnCancel: TPanel
+    Cursor = crCross
+    Left = 24
+    Height = 32
+    Top = 276
+    Width = 248
+    BevelColor = clNone
+    BevelOuter = bvNone
+    Caption = 'キャンセル (CTRL+C)'
+    Color = clBtnFace
+    Font.CharSet = SHIFTJIS_CHARSET
+    Font.Height = -21
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    ShowAccelChar = True
+    TabOrder = 2
+    TabStop = True
+    OnClick = ActCancelExecute
+    OnEnter = BtnCancelEnter
+    OnExit = BtnCancelExit
+    OnMouseEnter = BtnCancelEnter
+    OnMouseLeave = BtnCancelExit
+  end
+  object PnlDeleteUser: TPanel
+    Left = 288
+    Height = 48
+    Top = 268
+    Width = 264
+    Caption = '削　　　除 (CTRL+D)'
+    Color = clActiveCaption
+    Enabled = False
+    Font.CharSet = SHIFTJIS_CHARSET
+    Font.Height = -21
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 3
+  end
+  object BtnDeleteUser: TPanel
+    Cursor = crCross
+    Left = 296
+    Height = 32
+    Top = 276
+    Width = 248
+    BevelColor = clNone
+    BevelOuter = bvNone
+    Caption = '削　　　除 (CTRL+D)'
+    Color = clBtnFace
+    Font.CharSet = SHIFTJIS_CHARSET
+    Font.Height = -21
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    ShowAccelChar = True
+    TabOrder = 4
+    TabStop = True
+    OnClick = ActDeleteUserExecute
+    OnEnter = BtnDeleteUserEnter
+    OnExit = BtnDeleteUserExit
+    OnMouseEnter = BtnDeleteUserEnter
+    OnMouseLeave = BtnDeleteUserExit
+  end
+  object ADBGrid: TDBGrid
+    Left = 16
+    Height = 160
+    Top = 336
+    Width = 536
+    Color = clWindow
+    Columns = <    
+      item
+        Font.CharSet = SHIFTJIS_CHARSET
+        Font.Height = -21
+        Font.Name = 'Noto Sans JP'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        Font.Style = [fsBold]
+        Title.Caption = 'ユーザID'
+        FieldName = 'USER_ID'
+      end    
+      item
+        Font.CharSet = SHIFTJIS_CHARSET
+        Font.Height = -21
+        Font.Name = 'Noto Sans JP'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        Font.Style = [fsBold]
+        Title.Caption = 'ユーザ名'
+        FieldName = 'NAME'
+      end    
+      item
+        Font.CharSet = SHIFTJIS_CHARSET
+        Font.Height = -21
+        Font.Name = 'Noto Sans JP'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        Font.Style = [fsBold]
+        Title.Caption = '権限'
+        FieldName = 'ROLE'
+      end    
+      item
+        Font.CharSet = SHIFTJIS_CHARSET
+        Font.Height = -21
+        Font.Name = 'Noto Sans JP'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        Font.Style = [fsBold]
+        Title.Caption = '登録日'
+        FieldName = 'ENTRY_DT'
+      end    
+      item
+        Font.CharSet = SHIFTJIS_CHARSET
+        Font.Height = -21
+        Font.Name = 'Noto Sans JP'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        Font.Style = [fsBold]
+        Title.Caption = '更新日'
+        FieldName = 'UPDATE_DT'
+      end>
+    DataSource = ADS
+    Font.CharSet = SHIFTJIS_CHARSET
+    Font.Height = -21
+    Font.Name = 'Noto Sans JP'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 5
+    TabStop = False
+  end
+  object ActionList: TActionList
+    Left = 336
+    Top = 72
+    object ActCancel: TAction
+      Caption = 'ActCancel'
+      SecondaryShortCuts.Strings = (
+        'Ctrl+1'
+      )
+      ShortCut = 16451
+      OnExecute = ActCancelExecute
+    end
+    object ActDeleteUser: TAction
+      Caption = 'ActDeleteUser'
+      SecondaryShortCuts.Strings = (
+        'Ctrl+2'
+      )
+      ShortCut = 16452
+      OnExecute = ActDeleteUserExecute
+    end
+    object ActQuit: TAction
+      Caption = 'ActQuit'
+      ShortCut = 16465
+      OnExecute = ActQuitExecute
+    end
+  end
+  object ADS: TDataSource
+    DataSet = AQu
+    Left = 384
+    Top = 124
+  end
+  object ATr: TSQLTransaction
+    Active = False
+    Database = ACn
+    Left = 432
+    Top = 124
+  end
+  object AQu: TSQLQuery
+    FieldDefs = <>
+    Database = ACn
+    Transaction = ATr
+    Params = <>
+    Macros = <>
+    Left = 480
+    Top = 124
+  end
+  object ACn: TSQLite3Connection
+    Connected = False
+    LoginPrompt = False
+    KeepConnection = False
+    Transaction = ATr
+    AlwaysUseBigint = False
+    Left = 336
+    Top = 124
+  end
+end
