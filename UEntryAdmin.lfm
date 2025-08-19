@@ -24,7 +24,7 @@ object FrmEntryAdmin: TFrmEntryAdmin
   object LblAdminUserID: TLabel
     Left = 16
     Height = 32
-    Top = 20
+    Top = 24
     Width = 152
     Caption = '管理者ユーザID'
     Font.CharSet = ANSI_CHARSET
@@ -38,7 +38,7 @@ object FrmEntryAdmin: TFrmEntryAdmin
   object Shape1: TShape
     Left = 208
     Height = 16
-    Top = 27
+    Top = 32
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -67,7 +67,7 @@ object FrmEntryAdmin: TFrmEntryAdmin
   object LblPaw: TLabel
     Left = 16
     Height = 32
-    Top = 76
+    Top = 80
     Width = 105
     Caption = 'パスワード'
     Font.CharSet = ANSI_CHARSET
@@ -81,7 +81,7 @@ object FrmEntryAdmin: TFrmEntryAdmin
   object Shape2: TShape
     Left = 208
     Height = 16
-    Top = 83
+    Top = 88
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -116,7 +116,7 @@ object FrmEntryAdmin: TFrmEntryAdmin
   object LblPawConfirm: TLabel
     Left = 16
     Height = 32
-    Top = 132
+    Top = 136
     Width = 173
     Caption = 'パスワード(確認)'
     Font.CharSet = ANSI_CHARSET
@@ -130,7 +130,7 @@ object FrmEntryAdmin: TFrmEntryAdmin
   object Shape3: TShape
     Left = 208
     Height = 16
-    Top = 139
+    Top = 144
     Width = 16
     Brush.Color = clYellow
     Enabled = False

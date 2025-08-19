@@ -98,7 +98,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
   object LblMaker: TLabel
     Left = 16
     Height = 32
-    Top = 365
+    Top = 367
     Width = 105
     Caption = 'メーカー名'
     Font.Height = -21
@@ -109,7 +109,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
   object Shape1: TShape
     Left = 136
     Height = 16
-    Top = 372
+    Top = 375
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -145,7 +145,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
   object PnlEntryMaker: TPanel
     Left = 160
     Height = 49
-    Top = 416
+    Top = 414
     Width = 418
     Caption = 'メーカー名を登録 (CTRL+1)'
     Color = clActiveCaption
@@ -162,7 +162,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
     Cursor = crCross
     Left = 168
     Height = 33
-    Top = 424
+    Top = 422
     Width = 402
     BevelColor = clNone
     BevelOuter = bvNone
@@ -186,7 +186,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
   object LblID1: TLabel
     Left = 16
     Height = 32
-    Top = 474
+    Top = 478
     Width = 21
     Caption = 'Ｉ'
     Font.Height = -21
@@ -197,7 +197,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
   object LblID2: TLabel
     Left = 100
     Height = 32
-    Top = 474
+    Top = 478
     Width = 21
     Caption = 'Ｄ'
     Font.Height = -21
@@ -208,7 +208,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
   object Shape2: TShape
     Left = 136
     Height = 16
-    Top = 481
+    Top = 486
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -284,7 +284,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
   object LblBrandName1: TLabel
     Left = 16
     Height = 32
-    Top = 531
+    Top = 535
     Width = 21
     Caption = '品'
     Font.Height = -21
@@ -295,7 +295,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
   object LblBrandName2: TLabel
     Left = 100
     Height = 32
-    Top = 531
+    Top = 535
     Width = 21
     Caption = '名'
     Font.Height = -21
@@ -306,7 +306,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
   object Shape3: TShape
     Left = 136
     Height = 16
-    Top = 538
+    Top = 543
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -358,7 +358,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
   object Shape4: TShape
     Left = 136
     Height = 16
-    Top = 599
+    Top = 600
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -371,7 +371,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
     Cursor = crHandPoint
     Left = 160
     Height = 23
-    Top = 599
+    Top = 597
     Width = 23
     AutoSize = True
     DataField = 'END_OF_SALES'
@@ -423,7 +423,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
   object Shape5: TShape
     Left = 136
     Height = 16
-    Top = 655
+    Top = 656
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -436,7 +436,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
     Cursor = crHandPoint
     Left = 160
     Height = 23
-    Top = 655
+    Top = 653
     Width = 23
     AutoSize = True
     DataField = 'DISABLED'
