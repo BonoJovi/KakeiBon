@@ -6,6 +6,7 @@ KakeiBonをダウンロードいただき、誠にありがとうございます
 連絡先　　　: kakeibon-dev@zundou.org<br/>
 ライセンス　: MIT License<br/>
 対象OS  　　: Linux (x64)<br/>
+　　　　　　: Windows (x64)<br/>
 開発環境　　: [Pop!_os](https://system76.com/pop/)<br/>
 　　　　　　  [Lazarus-ide](https://www.lazarus-ide.org/)<br/>
 　　　　　　  [SQLite3](https://sqlite.org/)<br/>
