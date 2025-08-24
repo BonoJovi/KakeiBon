@@ -1,0 +1,699 @@
+unit UEntryShop;
+
+{$mode ObjFPC}{$H+}
+
+interface
+
+uses
+  Classes, SysUtils, Variants, SQLDB, SQLite3Conn, DB, Forms, Controls,
+  Graphics, Dialogs, ExtCtrls, DBGrids, DBCtrls, StdCtrls, LCLIntf, LCLType,
+  ActnList, DBDateTimePicker;
+
+type
+
+  { TFrmEntryShop }
+
+  TFrmEntryShop = class(TForm)
+    ACn                  : TSQLite3Connection;
+    ADS                  : TDataSource;
+    ATr                  : TSQLTransaction;
+    AQu                  : TSQLQuery;
+    ACnNextID            : TSQLite3Connection;
+    ADSNextID            : TDataSource;
+    ATrNextID            : TSQLTransaction;
+    AQuNextID            : TSQLQuery;
+    ActionList           : TActionList;
+    ActInsert            : TAction;
+    ActCancel            : TAction;
+    ActSave              : TAction;
+    ActGoBack              : TAction;
+    ADBGrid              : TDBGrid;
+    ADBNav               : TDBNavigator;
+    DBCBDisabled         : TDBCheckBox;
+    DBDTPEndBusinessDT   : TDBDateTimePicker;
+    DBDTPUpdateDT        : TDBDateTimePicker;
+    DBDTPStartBusinessDT : TDBDateTimePicker;
+    DBDTPEntryDT         : TDBDateTimePicker;
+    DBEdtShopName        : TDBEdit;
+    DBEdtShopID          : TDBEdit;
+    DBEdtPhoneNum        : TDBEdit;
+    LblID1               : TLabel;
+    LblStartBusinessDT1  : TLabel;
+    LblStartBusinessDT2  : TLabel;
+    LblStartBusinessDT3  : TLabel;
+    LblStartBusinessDT4  : TLabel;
+    LblEndBusinessDT1    : TLabel;
+    LblEndBusinessDT2    : TLabel;
+    LblEndBusinessDT3    : TLabel;
+    LblEndBusinessDT4    : TLabel;
+    LblDisabled1         : TLabel;
+    LblDisabled2         : TLabel;
+    LblID2               : TLabel;
+    LblDisabled3         : TLabel;
+    LblShopName1         : TLabel;
+    LblShopName2         : TLabel;
+    LblShopName3         : TLabel;
+    LblPhoneNumber3      : TLabel;
+    LblPhoneNumber2      : TLabel;
+    LblPhoneNumber1      : TLabel;
+    LblPhoneNumber4      : TLabel;
+    BtnInsert: TPanel;
+    BtnCancel: TPanel;
+    BtnSave: TPanel;
+    BtnGoBack: TPanel;
+    PnlCancel            : TPanel;
+    PnlSave            : TPanel;
+    PnlGoBack            : TPanel;
+    PnlInsert            : TPanel;
+    Shape1: TShape;
+    Shape2: TShape;
+    Shape3: TShape;
+    Shape4: TShape;
+    Shape5: TShape;
+    Shape6: TShape;
+    Timer                : TTimer;
+    procedure DBCBDisabledEnter(Sender: TObject);
+    procedure DBCBDisabledExit(Sender: TObject);
+    procedure DBDTPEndBusinessDTEnter(Sender: TObject);
+    procedure DBDTPEndBusinessDTExit(Sender: TObject);
+    procedure DBDTPStartBusinessDTEnter(Sender: TObject);
+    procedure DBDTPStartBusinessDTExit(Sender: TObject);
+    procedure DBEdtPhoneNumEnter(Sender: TObject);
+    procedure DBEdtPhoneNumExit(Sender: TObject);
+    procedure DBEdtShopIDEnter(Sender: TObject);
+    procedure DBEdtShopIDExit(Sender: TObject);
+    procedure DBEdtShopNameEnter(Sender: TObject);
+    procedure DBEdtShopNameExit(Sender: TObject);
+    procedure ProcInsert(Sender: TObject);
+    procedure ProcCancel(Sender: TObject);
+    procedure ProcSave(Sender: TObject);
+    procedure InsertMouseOver(NewColor: TColor);
+    procedure BtnInsertEnter(Sender: TObject);
+    procedure BtnInsertExit(Sender: TObject);
+    procedure CancelMouseOver(NewColor: TColor);
+    procedure BtnCancelEnter(Sender: TObject);
+    procedure BtnCancelExit(Sender: TObject);
+    procedure SaveMouseOver(NewColor: TColor);
+    procedure BtnSaveEnter(Sender: TObject);
+    procedure BtnSaveExit(Sender: TObject);
+    procedure GoBackMouseOver(NewColor: TColor);
+    procedure BtnGoBackEnter(Sender: TObject);
+    procedure BtnGoBackExit(Sender: TObject);
+    procedure ActInsertExecute(Sender: TObject);
+    procedure ActCancelExecute(Sender: TObject);
+    procedure ActSaveExecute(Sender: TObject);
+    procedure ActGoBackExecute(Sender: TObject);
+    procedure ADBGridKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState
+      );
+    procedure ADBGridSelectEditor(Sender: TObject; Column: TColumn;
+      var Editor: TWinControl);
+    procedure DBCBDisabledChange(Sender: TObject);
+    procedure DBDTPEndBusinessDTChange(Sender: TObject);
+    procedure DBDTPStartBusinessDTChange(Sender: TObject);
+    procedure DBEdtPhoneNumChange(Sender: TObject);
+    procedure DBEdtShopIDChange(Sender: TObject);
+    procedure DBEdtShopNameChange(Sender: TObject);
+    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
+    procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure TimerTimer(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+  private
+    FDoCommit        : Boolean;
+    FReOpenDS        : Boolean;
+    FInsert          : Boolean;
+    FShopID          : Variant;
+    FShopName        : String;
+    FPhoneNum        : String;
+    FStartBusinessDT : String;
+    FEndBusinessDT   : String;
+    FDisabled        : Boolean;
+    procedure SetDatabaseNames;
+    procedure CloseTransactions;
+    procedure BackupValues;
+    function GetShopName: String;
+    procedure SetShopName(ShopName: String);
+    function GetPhoneNum: String;
+    procedure SetPhoneNum(PhoneNum: String);
+    function GetStartBusinessDT: String;
+    procedure SetStartBusinessDT(StartBusinessDT: String);
+    function GetEndBusinessDT: String;
+    procedure SetEndBusinessDT(EndBusinessDT: String);
+    function GetDisabled: Boolean;
+    procedure SetDisabled(Disabled: Boolean);
+    property ShopName: String read GetShopName write SetShopName;
+    property PhoneNum: String read GetPhoneNum write SetPhoneNum;
+    property StartBusinessDT: String read GetStartBusinessDT write SetStartBusinessDT;
+    property EndBusinessDT: String read GetEndBusinessDT write SetEndBusinessDT;
+    property Disabled: Boolean read GetDisabled write SetDisabled;
+  public
+
+  end;
+
+var
+  FrmEntryShop: TFrmEntryShop;
+
+implementation
+uses
+  UConsts, UDBAccess, UTopMenu, UManageDetails, UAddDetailsHeader,
+  UEditDetailsHeader;
+
+{$R *.lfm}
+
+{ TFrmEntryShop }
+
+procedure TFrmEntryShop.SetDatabaseNames;
+begin
+  with FrmTopMenu.Defs do begin
+    SetDatabaseName(ACn      );
+    SetDatabaseName(ACnNextID);
+  end;
+end;
+
+procedure TFrmEntryShop.CloseTransactions;
+begin
+  with FrmTopMenu.Defs do begin
+    CloseConn(ACn      , ATr      );
+    CloseConn(ACnNextID, ATrNextID);
+  end;
+end;
+
+procedure TFrmEntryShop.BackupValues;
+begin
+  with FrmTopMenu.Defs do begin
+    with DBEdtShopID do begin
+      if Text <> '' then begin;
+        SetShopID(Text);
+      end else begin
+        SetShopID(Null);
+      end;
+    end;
+
+    SetShopName(DBEdtShopName.Text);
+
+    SetPhoneNum(DBEdtPhoneNum.Text);
+
+    SetStartBusinessDT(FormatDateTime(
+      'yyyy/mm/dd hh:mm:ss',
+      DBDTPStartBusinessDT.Field.AsDateTime, GetFS));
+
+    if Not DBDTPEndBusinessDT.Field.IsNull then begin;
+      SetEndBusinessDT(FormatDateTime(
+        'yyyy/mm/dd hh:mm:ss',
+        DBDTPEndBusinessDT.Field.AsDateTime, GetFS));
+    end else begin
+      SetEndBusinessDT('9999/12/31 23:59:59');
+    end;
+
+    if DBCBDisabled.State = cbChecked then begin
+      SetDisabled(True);
+    end else begin
+      SetDisabled(False);
+    end;
+  end;
+end;
+
+procedure TFrmEntryShop.ProcInsert(Sender: TObject);
+begin
+  if Not FInsert then begin
+    with AQu do begin
+      Edit;
+      if AQu.RecordCount > 0 then begin;
+        Insert;
+      end;
+      FInsert := True;
+    end;
+
+    DBCBDisabled.Field.AsBoolean := False;
+    DBEdtShopName.SetFocus;
+  end;
+end;
+
+procedure TFrmEntryShop.DBEdtShopIDEnter(Sender: TObject);
+begin
+  Shape1.Visible := True;
+end;
+
+procedure TFrmEntryShop.DBEdtPhoneNumEnter(Sender: TObject);
+begin
+  Shape3.Visible := True;
+end;
+
+procedure TFrmEntryShop.DBDTPStartBusinessDTEnter(Sender: TObject);
+begin
+  Shape4.Visible := True;
+end;
+
+procedure TFrmEntryShop.DBDTPEndBusinessDTEnter(Sender: TObject);
+begin
+  Shape5.Visible := True;
+end;
+
+procedure TFrmEntryShop.DBCBDisabledEnter(Sender: TObject);
+begin
+  Shape6.Visible := True;
+end;
+
+procedure TFrmEntryShop.DBCBDisabledExit(Sender: TObject);
+begin
+  Shape6.Visible := False;
+end;
+
+procedure TFrmEntryShop.DBDTPEndBusinessDTExit(Sender: TObject);
+begin
+  Shape5.Visible := False;
+end;
+
+procedure TFrmEntryShop.DBDTPStartBusinessDTExit(Sender: TObject);
+begin
+  Shape4.Visible := False;
+end;
+
+procedure TFrmEntryShop.DBEdtPhoneNumExit(Sender: TObject);
+begin
+  Shape3.Visible := False;
+end;
+
+procedure TFrmEntryShop.DBEdtShopIDExit(Sender: TObject);
+begin
+  Shape1.Visible := False;
+end;
+
+procedure TFrmEntryShop.DBEdtShopNameEnter(Sender: TObject);
+begin
+  Shape2.Visible := True;
+end;
+
+procedure TFrmEntryShop.DBEdtShopNameExit(Sender: TObject);
+begin
+  Shape2.Visible := False;
+end;
+
+procedure TFrmEntryShop.ProcCancel(Sender: TObject);
+begin
+  with FrmTopMenu.Defs do begin
+    if FInsert then begin
+      FInsert := False;
+    end;
+    ATr.Rollback;
+
+    CloseTransactions;
+    SetDatabaseNames;
+
+    OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20080001);
+    DBEdtShopName.SetFocus;
+  end;
+end;
+
+procedure TFrmEntryShop.ProcSave(Sender: TObject);
+var
+  LNextShopID : Integer;
+  LNow        : TDateTime;
+begin
+  FDoCommit := True;
+  try
+    try
+      with FrmTopMenu.Defs do begin
+        with AQu do begin
+          SQL.Text := SQL_20080003;
+          with Params do begin
+            ParamByName('pUserID').AsInteger   := GetUID;
+          end;
+
+          if (VarIsNull(GetShopID)) Or (VarToStr(GetShopID) = '') then begin
+            CloseTransactions;
+            SetDatabaseNames;
+
+            OpenSelectQuery(ACnNextID, ADSNextID, ATrNextID, AQuNextID, SQL_20080002);
+            LNextShopID := AQuNextID.FieldByName('NEXT_ID').AsInteger;
+
+            CloseConn(ACnNextID, ATrNextID);
+
+            with Params do begin
+              ParamByName('pShopID').AsInteger := LNextShopID;
+            end;
+          end else begin
+            with Params do begin
+              ParamByName('pShopID').AsInteger := StrToInt(VarToStr(GetShopID));
+            end;
+          end;
+          with Params do begin
+            ParamByName('pShopName').AsAnsiString := GetShopName;
+            ParamByName('pPhoneNum').AsAnsiString := GetPhoneNum;
+            ParamByName('pStartBusinessDT').AsDateTime := StrToDateTime(GetStartBusinessDT, GetFS);
+            if GetEndBusinessDT <> '' then begin
+              ParamByName('pEndBusinessDT').AsDateTime := StrToDateTime(GetEndBusinessDT, GetFS);
+            end else begin
+              ParamByName('pEndBusinessDT').AsDateTime := StrToDateTime('9999/12/31 23:59:59', GetFS);
+            end;
+            ParamByName('pDisabled').AsBoolean  := GetDisabled;
+            LNow                                       := Now;
+            ParamByName('pEntryDT').AsDateTime  := LNow;
+            ParamByName('pUpdateDT').AsDateTime := LNow;
+          end;
+
+          CloseTransactions;
+          SetDatabaseNames;
+
+          ExecSQL;
+          ATr.Commit;
+        end;
+      end;
+    except
+      on E: ESQLDatabaseError do
+      begin
+        ShowMessage(E.Message);
+      end;
+    end;
+  finally
+    FInsert := False;
+  end;
+
+  FReOpenDS     := True;
+  Timer.Enabled := True;
+  FDoCommit     := False;
+end;
+
+procedure TFrmEntryShop.InsertMouseOver(NewColor: TColor);
+begin
+  BtnInsert.Color := NewColor;
+end;
+
+procedure TFrmEntryShop.BtnInsertEnter(Sender: TObject);
+begin
+  InsertMouseOver(clSkyBlue);
+  CancelMouseOver(clBtnFace);
+  SaveMouseOver(clBtnFace);
+  GoBackMouseOver(clBtnFace);
+end;
+
+procedure TFrmEntryShop.BtnInsertExit(Sender: TObject);
+begin
+  InsertMouseOver(clBtnFace);
+end;
+
+procedure TFrmEntryShop.CancelMouseOver(NewColor: TColor);
+begin
+  BtnCancel.Color := NewColor;
+end;
+
+procedure TFrmEntryShop.BtnCancelEnter(Sender: TObject);
+begin
+  InsertMouseOver(clBtnFace);
+  CancelMouseOver(clSkyBlue);
+  SaveMouseOver(clBtnFace);
+  GoBackMouseOver(clBtnFace);
+end;
+
+procedure TFrmEntryShop.BtnCancelExit(Sender: TObject);
+begin
+  CancelMouseOver(clBtnFace);
+end;
+
+procedure TFrmEntryShop.SaveMouseOver(NewColor: TColor);
+begin
+  BtnSave.Color := NewColor;
+end;
+
+procedure TFrmEntryShop.BtnSaveEnter(Sender: TObject);
+begin
+  InsertMouseOver(clBtnFace);
+  CancelMouseOver(clBtnFace);
+  SaveMouseOver(clSkyBlue);
+  GoBackMouseOver(clBtnFace);
+end;
+
+procedure TFrmEntryShop.BtnSaveExit(Sender: TObject);
+begin
+  SaveMouseOver(clBtnFace);
+end;
+
+procedure TFrmEntryShop.GoBackMouseOver(NewColor: TColor);
+begin
+  BtnGoBack.Color := NewColor;
+end;
+
+procedure TFrmEntryShop.BtnGoBackEnter(Sender: TObject);
+begin
+  InsertMouseOver(clBtnFace);
+  CancelMouseOver(clBtnFace);
+  SaveMouseOver(clBtnFace);
+  GoBackMouseOver(clSkyBlue);
+end;
+
+procedure TFrmEntryShop.BtnGoBackExit(Sender: TObject);
+begin
+  GoBackMouseOver(clBtnFace);
+end;
+
+function TFrmEntryShop.GetShopName: String;
+begin
+  Result := FShopName;
+end;
+
+procedure TFrmEntryShop.SetShopName(ShopName: String);
+begin
+  FShopName := ShopName;
+end;
+
+function TFrmEntryShop.GetPhoneNum: String;
+begin
+  Result := FPhoneNum;
+end;
+
+procedure TFrmEntryShop.SetPhoneNum(PhoneNum: String);
+begin
+  FPhoneNum := PhoneNum;
+end;
+
+function TFrmEntryShop.GetStartBusinessDT: String;
+begin
+  Result := FStartBusinessDT;
+end;
+
+procedure TFrmEntryShop.SetStartBusinessDT(StartBusinessDT: String);
+begin
+  FStartBusinessDT := StartBusinessDT;
+end;
+
+function TFrmEntryShop.GetEndBusinessDT: String;
+begin
+  Result := FEndBusinessDT;
+end;
+
+procedure TFrmEntryShop.SetEndBusinessDT(EndBusinessDT: String);
+begin
+  FEndBusinessDT := EndBusinessDT;
+end;
+
+function TFrmEntryShop.GetDisabled: Boolean;
+begin
+  Result := FDisabled;
+end;
+
+procedure TFrmEntryShop.SetDisabled(Disabled: Boolean);
+begin
+  FDisabled := Disabled;
+end;
+
+procedure TFrmEntryShop.ActInsertExecute(Sender: TObject);
+begin
+  ProcInsert(Sender);
+end;
+
+procedure TFrmEntryShop.ActCancelExecute(Sender: TObject);
+begin
+  ProcCancel(Sender);
+end;
+
+procedure TFrmEntryShop.ActSaveExecute(Sender: TObject);
+begin
+  BackupValues;
+  ProcSave(Sender);
+end;
+
+procedure TFrmEntryShop.ActGoBackExecute(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TFrmEntryShop.ADBGridKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (ssCtrl in Shift) And (Key = VK_E) then begin
+    DBEdtShopName.SetFocus;
+  end;
+end;
+
+procedure TFrmEntryShop.ADBGridSelectEditor(Sender: TObject; Column: TColumn;
+  var Editor: TWinControl);
+begin
+  ADBGrid.AutoAdjustColumns;
+  AQu.Edit;
+end;
+
+procedure TFrmEntryShop.DBEdtShopIDChange(Sender: TObject);
+begin
+  if Not FDoCommit then begin
+    with FrmTopMenu.Defs do begin
+      SetShopID(DBEdtShopID.Text);
+    end;
+  end;
+end;
+
+procedure TFrmEntryShop.DBEdtShopNameChange(Sender: TObject);
+begin
+  if Not FDoCommit then begin
+    SetShopName(DBEdtShopName.Text);
+  end;
+end;
+
+procedure TFrmEntryShop.DBEdtPhoneNumChange(Sender: TObject);
+begin
+  if Not FDoCommit then begin
+    SetPhoneNum(DBEdtPhoneNum.Text);
+  end;
+end;
+
+procedure TFrmEntryShop.DBDTPStartBusinessDTChange(Sender: TObject);
+begin
+  with FrmTopMenu.Defs do begin
+    if Not FDoCommit then begin
+      SetStartBusinessDT(FormatDateTime(
+        'yyyy/mm/dd hh:mm:ss',
+        DBDTPStartBusinessDT.Field.AsDateTime, GetFS));
+    end;
+  end;
+end;
+
+procedure TFrmEntryShop.DBDTPEndBusinessDTChange(Sender: TObject);
+begin
+  with FrmTopMenu.Defs do begin
+    if Not FDoCommit then begin
+      if Not DBDTPEndBusinessDT.Field.IsNull then begin;
+        SetEndBusinessDT(FormatDateTime(
+          'yyyy/mm/dd hh:mm:ss',
+          DBDTPEndBusinessDT.Field.AsDateTime, GetFS));
+      end else begin
+        SetEndBusinessDT('9999/12/31 23:59:59');
+      end;
+    end;
+  end;
+end;
+
+procedure TFrmEntryShop.DBCBDisabledChange(Sender: TObject);
+begin
+  if Not FDoCommit then begin;
+    if DBCBDisabled.State = cbChecked then begin
+      SetDisabled(True);
+    end else begin
+      SetDisabled(False);
+    end;
+  end;
+end;
+
+procedure TFrmEntryShop.FormClose(
+  Sender: TObject; var CloseAction: TCloseAction);
+begin
+  CloseTransactions;
+
+  with FrmTopMenu.Defs do begin
+    // Restore value of previous screen
+    SetShopID(FShopID);
+
+    if GetEntryShop = 0 then begin
+      FrmManageDetails    := TFrmManageDetails.Create(Application);
+      FrmManageDetails.Visible  := True;
+    end else if GetEntryShop = 1 then begin
+      FrmAddDetailsHeader := TFrmAddDetailsHeader.Create(Application);
+      FrmAddDetailsHeader.Visible  := True;
+    end else if GetEntryShop = 2 then begin
+      FrmEditDetailsHeader := TFrmEditDetailsHeader.Create(Application);
+      FrmEditDetailsHeader.Visible  := True;
+    end;
+  end;
+
+  CloseAction  := caFree;
+  FrmEntryShop := nil;
+end;
+
+procedure TFrmEntryShop.FormCreate(Sender: TObject);
+begin
+  SetDatabaseNames;
+  with FrmTopMenu.Defs do begin
+    if GetDoExitKakeiBon then begin
+      Application.Terminate;
+    end;
+  end;
+
+  FReOpenDS := False;
+  FDoCommit := False;
+end;
+
+procedure TFrmEntryShop.FormShow(Sender: TObject);
+begin
+  FrmEntryShop.KeyPreview := True;
+
+  FrmEntryShop.Color := RGB(112, 168, 175);
+  PnlInsert.Color    := RGB( 72, 122, 129);
+  PnlCancel.Color    := RGB( 72, 122, 129);
+  PnlSave.Color      := RGB( 72, 122, 129);
+  PnlGoBack.Color    := RGB( 72, 122, 129);
+
+  with FrmTopMenu.Defs do begin
+    FShopID := GetShopID;
+  end;
+
+  with AQu do begin
+    with FrmTopMenu.Defs do begin
+      CloseTransactions;
+      SetDatabaseNames;
+
+      OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20080001);
+      ADBGrid.DataSource := ADS;
+      if RecordCount = 0 then begin
+        ProcInsert(Sender);
+      end else begin
+        FInsert := False;
+      end;
+      ADBGrid.AutoAdjustColumns;
+      DBEdtShopName.SetFocus;
+    end;
+  end;
+end;
+
+procedure TFrmEntryShop.TimerTimer(Sender: TObject);
+begin
+  with FrmTopMenu.Defs do begin
+    if FReOpenDS then
+    begin
+      CloseTransactions;
+      SetDatabaseNames;
+
+      OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20080001);
+      ADBGrid.DataSource := ADS;
+
+      FReOpenDS          := False;
+      Timer.Enabled      := False;
+    end;
+  end;
+end;
+
+procedure TFrmEntryShop.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_SPACE) Or (Key = VK_RETURN) then begin
+    if ActiveControl.Name = 'BtnInsert' then begin
+      ActInsert.Execute;
+    end else if ActiveControl.Name = 'BtnCancel' then begin
+      ActCancel.Execute;
+    end else if ActiveControl.Name = 'BtnSave' then begin
+      ActSave.Execute;
+    end else if ActiveControl.Name = 'BtnGoBack' then begin
+      ActGoBack.Execute;
+    end;
+  end;
+end;
+
+end.
+

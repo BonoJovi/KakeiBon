@@ -91,7 +91,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="1266"/>
+        <TopLine Value="1267"/>
         <CursorPos X="55" Y="1273"/>
         <UsageCount Value="200"/>
       </Unit>
@@ -112,10 +112,12 @@
         <ComponentName Value="FrmEntryAccount"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
+        <EditorIndex Value="1"/>
         <TopLine Value="653"/>
         <CursorPos X="53" Y="660"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryAdmin.pas"/>
@@ -123,10 +125,12 @@
         <ComponentName Value="FrmEntryAdmin"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
+        <EditorIndex Value="2"/>
         <TopLine Value="73"/>
         <CursorPos X="41" Y="82"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryBrandName.pas"/>
@@ -134,10 +138,12 @@
         <ComponentName Value="FrmEntryBrandName"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
+        <EditorIndex Value="3"/>
         <TopLine Value="639"/>
         <CursorPos X="52" Y="649"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryMaker.pas"/>
@@ -145,10 +151,12 @@
         <ComponentName Value="FrmEntryMaker"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
+        <EditorIndex Value="4"/>
         <TopLine Value="528"/>
         <CursorPos X="49" Y="538"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryShop.pas"/>
@@ -156,10 +164,12 @@
         <ComponentName Value="FrmEntryShop"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
+        <EditorIndex Value="5"/>
         <TopLine Value="632"/>
-        <CursorPos X="3" Y="636"/>
+        <CursorPos X="22" Y="640"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryUnit.pas"/>
@@ -167,10 +177,12 @@
         <ComponentName Value="FrmEntryUnit"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="78"/>
-        <CursorPos X="46" Y="89"/>
+        <EditorIndex Value="6"/>
+        <TopLine Value="79"/>
+        <CursorPos X="41" Y="90"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="ULogin.pas"/>
@@ -178,9 +190,11 @@
         <ComponentName Value="FrmLogin"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
+        <EditorIndex Value="7"/>
         <CursorPos X="50" Y="9"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UManageDetails.pas"/>
@@ -188,10 +202,12 @@
         <ComponentName Value="FrmManageDetails"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
+        <EditorIndex Value="8"/>
         <TopLine Value="387"/>
         <CursorPos X="35" Y="397"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UManageExp.pas"/>
@@ -199,10 +215,12 @@
         <ComponentName Value="FrmManageExp"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
+        <EditorIndex Value="9"/>
         <TopLine Value="1110"/>
         <CursorPos X="10" Y="1127"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UManageUser.pas"/>
@@ -210,10 +228,12 @@
         <ComponentName Value="FrmManageUser"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
+        <EditorIndex Value="10"/>
         <TopLine Value="417"/>
         <CursorPos Y="436"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UDeleteUser.pas"/>
@@ -232,6 +252,8 @@
         <ComponentName Value="FrmTopMenu"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="12"/>
         <TopLine Value="154"/>
         <CursorPos X="38" Y="167"/>
         <UsageCount Value="200"/>
@@ -241,9 +263,7 @@
       <Unit>
         <Filename Value="UConsts.pas"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
-        <CursorPos X="31" Y="16"/>
+        <CursorPos X="25" Y="7"/>
         <UsageCount Value="203"/>
         <Loaded Value="True"/>
       </Unit>
@@ -253,10 +273,12 @@
         <ComponentName Value="FrmSummary"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
+        <EditorIndex Value="11"/>
         <TopLine Value="31"/>
         <CursorPos X="40" Y="42"/>
         <UsageCount Value="201"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="../Software/Development/Lazarus-IDE/lazarus/lcl/include/customform.inc"/>

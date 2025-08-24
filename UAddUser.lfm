@@ -20,7 +20,7 @@ object FrmAddUser: TFrmAddUser
   object LblUserID1: TLabel
     Left = 16
     Height = 32
-    Top = 20
+    Top = 24
     Width = 21
     Caption = 'ユ'
     Font.Height = -21
@@ -31,7 +31,7 @@ object FrmAddUser: TFrmAddUser
   object LblUserID2: TLabel
     Left = 44
     Height = 32
-    Top = 20
+    Top = 24
     Width = 21
     Caption = 'ー'
     Font.Height = -21
@@ -42,7 +42,7 @@ object FrmAddUser: TFrmAddUser
   object LblUserID3: TLabel
     Left = 72
     Height = 32
-    Top = 20
+    Top = 24
     Width = 21
     Caption = 'ザ'
     Font.Height = -21
@@ -53,7 +53,7 @@ object FrmAddUser: TFrmAddUser
   object LblUserID4: TLabel
     Left = 100
     Height = 32
-    Top = 20
+    Top = 24
     Width = 21
     Caption = '名'
     Font.Height = -21
@@ -64,7 +64,7 @@ object FrmAddUser: TFrmAddUser
   object Shape1: TShape
     Left = 192
     Height = 16
-    Top = 27
+    Top = 32
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -90,7 +90,7 @@ object FrmAddUser: TFrmAddUser
   object LblPaw: TLabel
     Left = 16
     Height = 32
-    Top = 76
+    Top = 80
     Width = 105
     Caption = 'パスワード'
     Font.Height = -21
@@ -101,7 +101,7 @@ object FrmAddUser: TFrmAddUser
   object Shape2: TShape
     Left = 192
     Height = 16
-    Top = 83
+    Top = 88
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -130,7 +130,7 @@ object FrmAddUser: TFrmAddUser
   object LblPawConfirm: TLabel
     Left = 16
     Height = 32
-    Top = 132
+    Top = 136
     Width = 173
     Caption = 'パスワード(確認)'
     Font.Height = -21
@@ -141,7 +141,7 @@ object FrmAddUser: TFrmAddUser
   object Shape3: TShape
     Left = 192
     Height = 16
-    Top = 139
+    Top = 144
     Width = 16
     Brush.Color = clYellow
     Enabled = False

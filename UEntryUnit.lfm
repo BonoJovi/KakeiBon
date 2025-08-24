@@ -97,7 +97,7 @@ object FrmEntryUnit: TFrmEntryUnit
   object LblUnitID1: TLabel
     Left = 16
     Height = 32
-    Top = 361
+    Top = 365
     Width = 21
     Caption = 'Ｉ'
     Font.CharSet = ANSI_CHARSET
@@ -111,7 +111,7 @@ object FrmEntryUnit: TFrmEntryUnit
   object LblUnitID2: TLabel
     Left = 100
     Height = 32
-    Top = 361
+    Top = 365
     Width = 21
     Caption = 'Ｄ'
     Font.CharSet = ANSI_CHARSET
@@ -125,7 +125,7 @@ object FrmEntryUnit: TFrmEntryUnit
   object Shape1: TShape
     Left = 136
     Height = 16
-    Top = 368
+    Top = 373
     Width = 16
     Brush.Color = clYellow
     Enabled = False
