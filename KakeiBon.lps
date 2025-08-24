@@ -30,10 +30,9 @@
         <ComponentName Value="FrmAddDetailsHeader"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <TopLine Value="847"/>
-        <CursorPos X="36" Y="854"/>
+        <CursorPos X="12" Y="854"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -246,8 +245,9 @@
       <Unit>
         <Filename Value="UConsts.pas"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <CursorPos X="31" Y="16"/>
+        <CursorPos X="30" Y="5"/>
         <UsageCount Value="203"/>
         <Loaded Value="True"/>
       </Unit>
