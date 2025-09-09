@@ -12,6 +12,7 @@ object FrmManageExp: TFrmManageExp
   Font.Name = '0xProto'
   Font.Style = [fsBold]
   Position = poScreenCenter
+  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp
@@ -472,14 +473,15 @@ object FrmManageExp: TFrmManageExp
     OnMouseEnter = BtnGoBackEnter
     OnMouseLeave = BtnGoBackExit
   end
-  object Timer1: TTimer
+  object Timer: TTimer
     Enabled = False
-    Interval = 10
-    Left = 28
+    Interval = 1
+    OnTimer = TimerTimer
+    Left = 152
     Top = 272
   end
   object ActionList: TActionList
-    Left = 120
+    Left = 88
     Top = 272
     object ActAddExp2: TAction
       Caption = 'ActAddExp2'
@@ -507,200 +509,40 @@ object FrmManageExp: TFrmManageExp
       OnExecute = ActGoBackExecute
     end
   end
-  object ADS1: TDataSource
-    DataSet = AQu1
-    Left = 72
-    Top = 140
+  object ADSExp1: TDataSource
+    DataSet = AQuExp1
+    Left = 88
+    Top = 352
   end
-  object ATr1: TSQLTransaction
-    Active = False
-    Database = ACn1
-    Left = 120
-    Top = 140
-  end
-  object AQu1: TSQLQuery
-    FieldDefs = <    
-      item
-        Name = 'USER_ID'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'EXP_KEY1'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'NAME1'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'DISABLED1'
-        DataType = ftBoolean
-      end    
-      item
-        Name = 'ORDER_KEY1'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'ENTRY_DT'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'UPDATE_DT'
-        DataType = ftUnknown
-      end>
-    Database = ACn1
-    Transaction = ATr1
-    ReadOnly = True
-    SQL.Strings = (
-      'SELECT * FROM "EXP1"'
-    )
+  object AQuExp1: TSQLQuery
+    FieldDefs = <>
     Params = <>
     Macros = <>
-    Left = 168
-    Top = 140
+    Left = 152
+    Top = 352
   end
-  object ADS2: TDataSource
-    DataSet = AQu2
-    Left = 384
-    Top = 140
+  object ADSExp2: TDataSource
+    DataSet = AQuExp2
+    Left = 424
+    Top = 344
   end
-  object ATr2: TSQLTransaction
-    Active = False
-    Database = ACn2
-    Left = 432
-    Top = 140
-  end
-  object AQu2: TSQLQuery
-    PacketRecords = 100
-    FieldDefs = <    
-      item
-        Name = 'USER_ID'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'EXP_KEY1'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'EXP_KEY2'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'NAME1'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'DISABLED2'
-        DataType = ftBoolean
-      end    
-      item
-        Name = 'ORDER_KEY2'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'ENTRY_DT'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'UPDATE_DT'
-        DataType = ftUnknown
-      end>
-    Database = ACn2
-    Transaction = ATr2
-    SQL.Strings = (
-      'SELECT * FROM "EXP1"'
-    )
+  object AQuExp2: TSQLQuery
+    FieldDefs = <>
     Params = <>
     Macros = <>
-    UsePrimaryKeyAsKey = False
-    Left = 480
-    Top = 140
+    Left = 488
+    Top = 344
   end
-  object ADS3: TDataSource
-    DataSet = AQu3
-    Left = 832
-    Top = 140
+  object ADSExp3: TDataSource
+    DataSet = AQuExp3
+    Left = 848
+    Top = 352
   end
-  object ATr3: TSQLTransaction
-    Active = False
-    Database = ACn3
-    Left = 880
-    Top = 140
-  end
-  object AQu3: TSQLQuery
-    PacketRecords = 100
-    FieldDefs = <    
-      item
-        Name = 'USER_ID'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'EXP_KEY1'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'EXP_KEY2'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'EXP_KEY3'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'NAME3'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'DISABLED3'
-        DataType = ftBoolean
-      end    
-      item
-        Name = 'ORDER_KEY3'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'ENTRY_DT'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'UPDATE_DT'
-        DataType = ftUnknown
-      end>
-    Database = ACn3
-    Transaction = ATr3
+  object AQuExp3: TSQLQuery
+    FieldDefs = <>
     Params = <>
     Macros = <>
-    Left = 928
-    Top = 140
-  end
-  object ACn1: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATr1
-    CharSet = 'UTF-8'
-    AlwaysUseBigint = False
-    Left = 24
-    Top = 140
-  end
-  object ACn2: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATr2
-    CharSet = 'UTF-8'
-    AlwaysUseBigint = False
-    Left = 336
-    Top = 140
-  end
-  object ACn3: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATr3
-    CharSet = 'UTF-8'
-    AlwaysUseBigint = False
-    Left = 776
-    Top = 140
+    Left = 912
+    Top = 352
   end
 end

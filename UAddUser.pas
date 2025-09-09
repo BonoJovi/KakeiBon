@@ -13,15 +13,12 @@ type
   { TFrmAddUser }
 
   TFrmAddUser = class(TForm)
-    ACn           : TSQLite3Connection;
-    ADS           : TDataSource;
-    ATr           : TSQLTransaction;
-    AQu           : TSQLQuery;
     ActionList    : TActionList;
     ActCancel     : TAction;
     ActClearPaw   : TAction;
     ActSave       : TAction;
     ActQuit       : TAction;
+    ADS: TDataSource;
     EdtPaw        : TEdit;
     EdtPawConfirm : TEdit;
     EdtUserName   : TEdit;
@@ -40,6 +37,7 @@ type
     Shape1: TShape;
     Shape2: TShape;
     Shape3: TShape;
+    AQu: TSQLQuery;
     procedure EdtPawChange(Sender: TObject);
     procedure EdtPawConfirmChange(Sender: TObject);
     procedure EdtPawConfirmEnter(Sender: TObject);
@@ -69,8 +67,6 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
-    procedure SetDatabaseNames;
-    procedure CloseTransactions;
     procedure CallInsertSQL(UserID: Integer; SQLStr: String);
     procedure CallInsertSQLWithoutUserID(SQLStr: String);
   public
@@ -82,46 +78,41 @@ var
 
 implementation
 uses
-  UConsts, UDefs, UDBAccess, UTopMenu, UManageUser;
+  UConsts, UDefs, UCommonDB, UDBAccess, UTopMenu, UManageUser;
 
 {$R *.lfm}
 
 { TFrmAddUser }
 
-procedure TFrmAddUser.SetDatabaseNames;
-begin
-  with FrmTopMenu.Defs do begin
-    SetDatabaseName(ACn);
-  end;
-end;
-
-procedure TFrmAddUser.CloseTransactions;
-begin
-  with FrmTopMenu.Defs do begin
-    CloseConn(ACn, ATr);
-  end;
-end;
 
 procedure TFrmAddUser.CallInsertSQL(UserID: Integer; SQLStr: String);
 begin
-  with AQu do begin
-    SQL.Text                                  := SQLStr;
-    with Params do begin
-      ParamByName('pUserID').AsInteger   := UserID;
-      ParamByName('pEntryDT').AsDateTime := Now;
+  with CommonDB do begin
+    with Defs do begin
+      with AQu do begin
+        SQL.Text                               := SQLStr;
+        with Params do begin
+          ParamByName('pUserID').AsInteger     := UserID;
+          ParamByName('pEntryDT').AsAnsiString := FormatDateTime('yyyy-mm-dd hh:nn:ss', Now, GetFS);
+        end;
+        ExecSQL;
+      end;
     end;
-    ExecSQL;
   end;
 end;
 
 procedure TFrmAddUser.CallInsertSQLWithoutUserID(SQLStr: String);
 begin
-  with AQu do begin
-    SQL.Text                                  := SQLStr;
-    with Params do begin
-      ParamByName('pEntryDT').AsDateTime := Now;
+  with CommonDB do begin
+    with Defs do begin
+      with AQu do begin
+        SQL.Text                               := SQLStr;
+        with Params do begin
+          ParamByName('pEntryDT').AsAnsiString := FormatDateTime('yyyy-mm-dd hh:nn:ss', Now, GetFS);
+        end;
+        ExecSQL;
+      end;
     end;
-    ExecSQL;
   end;
 end;
 
@@ -133,9 +124,11 @@ end;
 
 procedure TFrmAddUser.ProcClearPaw(Sender: TObject);
 begin
-  with FrmTopMenu.Defs do begin
-    ClearPaw(EdtPaw, EdtPawConfirm);
-    EdtUserName.SetFocus;
+  with CommonDB do begin
+    with Defs do begin
+      ClearPaw(EdtPaw, EdtPawConfirm);
+      EdtUserName.SetFocus;
+    end;
   end;
 end;
 
@@ -199,40 +192,39 @@ var
 begin
   try
     // Input check
-    if EdtUserName.Text = '' then
-    begin
+    if EdtUserName.Text = '' then begin
        MessageDlg(MSG_JP_000003, mtError, [mbOk], 0);
        Exit;
     end;
 
-    if Pos('''', EdtUserName.Text) > 0 then
-    begin
+    if Pos('''', EdtUserName.Text) > 0 then begin
       MessageDlg(MSG_JP_000018, mtInformation, [mbOk], 0);
       Exit;
     end;
 
     try
       try
-        with FrmTopMenu.Defs do begin
-          CloseTransactions;
-          SetDatabaseNames;
-          with AQu do begin
-            SQL.Text := SQL_20030002;
-            with Params do begin
-              ParamByName('pUName').AsAnsiString := EdtUserName.Text;
-              Open;
-            end;
-            if RecordCount > 0 then begin
-              MessageDlg(MSG_JP_000009, mtError, [mbOk], 0);
+        with CommonDB do begin
+          with Defs do begin
+            with AQu do begin
+              SQLConnection  := ACn;
+              SQLTransaction := ATr;
 
-              EdtUserName.Text   := '';
-              EdtPaw.Text        := '';
-              EdtPawConfirm.Text := '';
+              SQL.Text := SQL_20030002;
+              with Params do begin
+                ParamByName('pUName').AsAnsiString := EdtUserName.Text;
+                Open;
+              end;
 
-              CloseTransactions;
-              SetDatabaseNames;
+              if RecordCount > 0 then begin
+                MessageDlg(MSG_JP_000009, mtError, [mbOk], 0);
 
-              Exit;
+                EdtUserName.Text   := '';
+                EdtPaw.Text        := '';
+                EdtPawConfirm.Text := '';
+
+                Exit;
+              end;
             end;
           end;
         end;
@@ -243,64 +235,71 @@ begin
         end;
       end;
     finally
+      with AQu do begin
+        Close;
+      end;
     end;
 
     // Input check
-    if (EdtPaw.Text = '') And (EdtPawConfirm.Text = '') then
-    begin
+    if (EdtPaw.Text = '') And (EdtPawConfirm.Text = '') then begin
       MessageDlg(MSG_JP_000004, mtError, [mbOk], 0);
       Exit;
     end;
 
-    if (Pos('''', EdtPaw.Text) > 0) Or (Pos('''', EdtPawConfirm.Text) > 0) then
-    begin
+    if (Pos('''', EdtPaw.Text) > 0)
+        Or (Pos('''', EdtPawConfirm.Text) > 0) then begin
       MessageDlg(MSG_JP_000019, mtInformation, [mbOk], 0);
       Exit;
     end;
 
-    with FrmTopMenu.Defs do begin
-      // Input check
-      if EdtPaw.Text <> EdtPawConfirm.Text then
-      begin
-        ClearPaw(EdtPaw, EdtPawConfirm);
-        MessageDlg(MSG_JP_000005, mtError, [mbOk], 0);
-        Exit;
+    with CommonDB do begin
+      with Defs do begin
+        // Input check
+        if EdtPaw.Text <> EdtPawConfirm.Text then begin
+          ClearPaw(EdtPaw, EdtPawConfirm);
+          MessageDlg(MSG_JP_000005, mtError, [mbOk], 0);
+          Exit;
+        end;
       end;
     end;
 
     try
-      with AQu do begin
-        // Add user
-        SQL.Text                                  := SQL_20030001;
-        with Params do begin
-          ParamByName('pUName').AsUTF8String := EdtUserName.Text;
-          ParamByName('pPaw').AsUTF8String   := EdtPaw.Text;
-          ParamByName('pRole').AsInteger     := ROLE_USER;
-          ParamByName('pEntryDT').AsDateTime := Now;
+      with CommonDB do begin
+        with Defs do begin
+          with AQu do begin
+            // Add user
+            SQL.Text                               := SQL_20030001;
+            with Params do begin
+              ParamByName('pUName').AsUTF8String   := EdtUserName.Text;
+              ParamByName('pPaw').AsUTF8String     := EdtPaw.Text;
+              ParamByName('pRole').AsInteger       := ROLE_USER;
+              ParamByName('pEntryDT').AsAnsiString := FormatDateTime('yyyy-mm-dd hh:nn:ss', Now, GetFS);
+            end;
+
+            ExecSQL;
+            ATr.Commit;
+          end;
         end;
-
-        CloseTransactions;
-        SetDatabaseNames;
-
-        ExecSQL;
-        ATr.Commit;
       end;
     except
       on E: ESQLDatabaseError do begin
         ShowMessage(E.Message);
+        with CommonDB do begin
+          ATr.Rollback;
+        end;
       end;
     end;
 
-
     try
-      CloseTransactions;
-      SetDatabaseNames;
-
-      with AQu do begin
-        SQL.Text := SQL_20030002;
-        Open;
-        LUserID  := FieldByName('USER_ID').AsInteger;
-        Close;
+      with CommonDB do begin
+        with Defs do begin
+          with AQu do begin
+            SQL.Text := SQL_20030002;
+            Open;
+            LUserID  := FieldByName('USER_ID').AsInteger;
+            Close;
+          end;
+        end;
       end;
     except
       on E: ESQLDatabaseError do begin
@@ -499,13 +498,17 @@ begin
       // 振替
       CallInsertSQL(LUserID, SQL_93000001);
 
-      ATr.Commit;
-
-      FrmManageUser.Visible := True;
+      with CommonDB do begin
+        ATr.Commit;
+      end;
+      //FrmManageUser.Visible := True;
       FrmAddUser.Close;
     except
       on E: ESQLDatabaseError do begin
         ShowMessage(E.Message);
+        with CommonDB do begin
+          ATr.Rollback;
+        end;
       end;
     end;
   finally
@@ -585,8 +588,13 @@ end;
 
 procedure TFrmAddUser.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
-  CloseTransactions;
+  with CommonDB do begin
+    CloseQuery(AQu);
+  end;
 
+  if (Not Assigned(FrmManageUser)) Or (FrmManageUser = nil) then begin
+    FrmManageUser := TFrmManageUser.Create(Application);
+  end;
   FrmManageUser.Visible := True;
 
   CloseAction           := caFree;
@@ -595,8 +603,9 @@ end;
 
 procedure TFrmAddUser.FormCreate(Sender: TObject);
 begin
-  SetDatabaseNames;
-  with FrmTopMenu.Defs do begin
+  with Defs do begin
+    //SetDatabaseNames;
+
     if GetDoExitKakeiBon then begin
       Application.Terminate;
     end;
@@ -605,6 +614,8 @@ end;
 
 procedure TFrmAddUser.FormShow(Sender: TObject);
 begin
+  FrmAddUser.Width      := 712;
+
   FrmAddUser.KeyPreview := True;
 
   FrmAddUser.Color   := RGB(112, 168, 175);
@@ -617,6 +628,9 @@ begin
     BtnClearPaw.Enabled := False;
     ActClearPaw.Enabled := False;
   end;
+
+  { Debug }
+  //FrmAddUser.Width      := 845;
 end;
 
 procedure TFrmAddUser.FormKeyUp(Sender: TObject; var Key: Word;

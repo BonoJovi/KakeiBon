@@ -6,18 +6,18 @@ interface
 
 uses
   Classes, SysUtils, SQLDB, SQLite3Conn, DB, Forms, Controls, Graphics,
-  Dialogs, ExtCtrls, StdCtrls, ActnList, LCLIntf, LCLType, UConsts, UDefs,
-  UEntryAdmin, USummary;
+  Dialogs, ExtCtrls, StdCtrls, ActnList, LCLIntf, LCLType;
 
 type
 
   { TFrmTopMenu }
 
   TFrmTopMenu = class(TForm)
-    ACn                   : TSQLite3Connection;
     ADS                   : TDataSource;
-    AQu                   : TSQLQuery;
-    ATr                   : TSQLTransaction;
+    AQu: TSQLQuery;
+    ADSTblChk             : TDataSource;
+    AQuTblChk             : TSQLQuery;
+    { ActionLists }
     ActionList            : TActionList;
     ActEntryDetails       : TAction;
     ActSummary            : TAction;
@@ -26,6 +26,7 @@ type
     ActLogin              : TAction;
     ActLogout             : TAction;
     ActQuit               : TAction;
+    { Etc }
     Panel1                : TPanel;
     Panel2                : TPanel;
     Panel3                : TPanel;
@@ -69,8 +70,8 @@ type
     Panel41               : TPanel;
     Panel42               : TPanel;
     Panel43               : TPanel;
-    BtnEnterDetails : TPanel;
-    BtnSummary       : TPanel;
+    BtnEnterDetails       : TPanel;
+    BtnSummary            : TPanel;
     BtnEnterManageUser    : TPanel;
     BtnEnterManageExp     : TPanel;
     BtnLogin              : TPanel;
@@ -118,7 +119,6 @@ type
     procedure ProcLogin(Sender: TObject);
     procedure ProcLogout(Sender: TObject);
     procedure ProcQuit(Sender: TObject);
-    procedure SetDatabaseNames;
     procedure ActLoginExecute(Sender: TObject);
     procedure ActLogoutExecute(Sender: TObject);
     procedure ActManageExpExecute(Sender: TObject);
@@ -130,10 +130,8 @@ type
     procedure FormShow(Sender: TObject);
     procedure TimerTimer(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
-    function Defs: TDefs;
   private
-    FDefs            : TDefs;
-    procedure CloseTransactions;
+    procedure SetJournalMode(Mode: String);
     procedure OpenFormEntryAdmin(Sender: TObject);
     procedure OpenFormOrMsgDlg(Sender: TForm; NoMessageDlg: Boolean);
     procedure SetBtnEnterManageDetailsEnabled(IsEnable: Boolean);
@@ -151,60 +149,55 @@ var
 implementation
 
 uses
-  UDBAccess, ULogin, UManageUser, UManageExp,
-  UManageDetails;
+  UConsts, UCommonDB, UDefs, UDBAccess, ULogin, UEntryAdmin, UManageUser,
+  UManageExp, UManageDetails, USummary;
 
 {$R *.lfm}
 
 { TFrmTopMenu }
 
-procedure TFrmTopMenu.SetDatabaseNames;
+procedure TFrmTopMenu.SetJournalMode(Mode: String);
+var
+  LJournalMode : String;
 begin
-  try
-    try
-      with Defs do begin
-        SetOSHomeDir(GetEnvironmentVariable('HOME'));
-        SetDBPath(GetOSHomeDir + '/' + DB_DIR);
-        SetDBFullPath(GetDBPath + DB_NAME);
+  with CommonDB do begin
+    with AQu do begin
+      Database := ACn;
 
-        if GetDoExitKakeiBon then begin
-          Application.Terminate;
-          Exit;
+      SQL.Text := 'PRAGMA journal_mode';
+      Open;
+      LJournalMode := FieldByName('journal_mode').AsAnsiString;
+      Close;
+    end;
+
+    if LJournalMode <> Mode then begin
+      with AQu do begin
+        try
+          DataBase := ACn;
+
+          ATr.Options := ATr.Options + [stoUseImplicit];
+          SQL.Text := 'PRAGMA journal_mode=' + Mode;
+          ExecSQL;
+        finally
+          ATr.Options := ATr.Options - [stoUseImplicit];
+          if Active then begin
+            Close;
+          end;
         end;
-
-        ForceDirectories(GetDBPath);
-        SetDatabaseName(ACn);
-      end;
-    except
-      on E: Exception do begin
-        ShowMessage(E.Message);
       end;
     end;
-  finally
   end;
-end;
-
-procedure TFrmTopMenu.CloseTransactions;
-begin
-  with FrmTopMenu.Defs do begin
-    CloseConn(ACn, ATr);
-  end;
-end;
-
-function TFrmTopMenu.Defs: TDefs;
-begin
-  Result := FDefs;
 end;
 
 procedure TFrmTopMenu.ManageDetailsMouseOver(NewColor: TColor);
 begin
   BtnEnterDetails.Color := NewColor;
-  Panel37.Color               := NewColor;
-  Panel1.Color                := NewColor;
-  Panel2.Color                := NewColor;
-  Panel3.Color                := NewColor;
-  Panel4.Color                := NewColor;
-  Panel5.Color                := NewColor;
+  Panel37.Color         := NewColor;
+  Panel1.Color          := NewColor;
+  Panel2.Color          := NewColor;
+  Panel3.Color          := NewColor;
+  Panel4.Color          := NewColor;
+  Panel5.Color          := NewColor;
 end;
 
 procedure TFrmTopMenu.BtnEnterDetailsEnter(Sender: TObject);
@@ -226,9 +219,9 @@ end;
 procedure TFrmTopMenu.SummaryMouseOver(NewColor: TColor);
 begin
   BtnSummary.Color := NewColor;
-  Panel38.Color         := NewColor;
-  Panel6.Color          := NewColor;
-  Panel7.Color          := NewColor;
+  Panel38.Color    := NewColor;
+  Panel6.Color     := NewColor;
+  Panel7.Color     := NewColor;
 end;
 
 procedure TFrmTopMenu.BtnSummaryEnter(Sender: TObject);
@@ -388,28 +381,31 @@ end;
 
 procedure TFrmTopMenu.ProcManageDetails(Sender: TObject);
 begin
-  with Defs do begin
-    OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20070001);
+  //with Defs do begin
+  with CommonDB do begin
+    with Defs do begin
+      OpenSelectQuery(ADS, AQu, SQL_20070001);
 
-    if AQu.FieldByName('COUNT').AsInteger > 0 then begin
-      ATr.Active         := False;
+      if AQu.FieldByName('COUNT').AsInteger > 0 then begin
+        ATr.Active         := False;
 
-      CloseConn(ACn, ATr);
-      SetDatabaseNames;
+        //CloseAllDB;
+        //SetDatabaseNames;
 
-      if GetRole = 1 then begin;
-        FrmManageDetails := TFrmManageDetails.Create(Application);
-        OpenFormOrMsgDlg(FrmManageDetails, False);
+        if GetRole = 1 then begin;
+          FrmManageDetails := TFrmManageDetails.Create(Application);
+          OpenFormOrMsgDlg(FrmManageDetails, False);
+        end else begin
+          MessageDlg(MSG_JP_000024, mtInformation, [mbOk], 0);
+        end;
       end else begin
-        MessageDlg(MSG_JP_000024, mtInformation, [mbOk], 0);
+        ATr.Active         := False;
+
+        //CloseAllDB;
+        //SetDatabaseNames;
+
+        MessageDlg(MSG_JP_000023, mtInformation, [mbOk], 0);
       end;
-    end else begin
-      ATr.Active         := False;
-
-      CloseConn(ACn, ATr);
-      SetDatabaseNames;
-
-      MessageDlg(MSG_JP_000023, mtInformation, [mbOk], 0);
     end;
   end;
 end;
@@ -422,38 +418,39 @@ end;
 
 procedure TFrmTopMenu.ProcManageUser(Sender: TObject);
 begin
-  with Defs do begin
-    OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20070001);
+  //with Defs do begin
+  with CommonDB do begin
+    with Defs do begin
+      OpenSelectQuery(ADS, AQu, SQL_20070001);
 
-    ATr.Active      := False;
-
-    CloseConn(ACn, ATr);
-    SetDatabaseNames;
-
-    FrmManageUser     := TFrmManageUser.Create(Application);
-    OpenFormOrMsgDlg(FrmManageUser, False);
+      FrmManageUser     := TFrmManageUser.Create(Application);
+      OpenFormOrMsgDlg(FrmManageUser, False);
+    end;
   end;
 end;
 
 procedure TFrmTopMenu.ProcManageExp(Sender: TObject);
 begin
-  with Defs do begin
-    OpenSelectQueryWithUserID(ACn, ADS, ATr, AQu, SQL_20070002, GetUID);
-    if AQu.FieldByName('COUNT').AsInteger > 0 then begin
-      ATr.Active      := False;
+  //with Defs do begin
+  with CommonDB do begin
+    with Defs do begin
+      OpenSelectQueryWithUserID(ACn, ADS, ATr, AQu, SQL_20070002, GetUID);
+      if AQu.FieldByName('COUNT').AsInteger > 0 then begin
+        ATr.Active      := False;
 
-      CloseConn(ACn, ATr);
-      SetDatabaseNames;
+        //CloseAllDB;
+        //SetDatabaseNames;
 
-      FrmManageExp      := TFrmManageExp.Create(Application);
-      OpenFormOrMsgDlg(FrmManageExp, False);
-    end else begin
-      ATr.Active      := False;
+        FrmManageExp      := TFrmManageExp.Create(Application);
+        OpenFormOrMsgDlg(FrmManageExp, False);
+      end else begin
+        ATr.Active      := False;
 
-      CloseConn(ACn, ATr);
-      SetDatabaseNames;
+        //CloseAllDB;
+        //SetDatabaseNames;
 
-      MessageDlg(MSG_JP_000023, mtInformation, [mbOk], 0);
+        MessageDlg(MSG_JP_000023, mtInformation, [mbOk], 0);
+      end;
     end;
   end;
 end;
@@ -496,7 +493,7 @@ end;
 
 procedure TFrmTopMenu.ProcQuit(Sender: TObject);
 begin
-  Close;
+  Application.Terminate;
 end;
 
 procedure TFrmTopMenu.ActEntryDetailsExecute(Sender: TObject);
@@ -513,11 +510,13 @@ procedure TFrmTopMenu.OpenFormOrMsgDlg(Sender: TForm; NoMessageDlg: Boolean);
 begin
   with FrmTopMenu do begin
     if LoginFlg then begin
-      Visible         := False;
+      Hide;
+      //Visible         := False;
       Sender.Show;
     end else begin // LoginFlg = False
       if NoMessageDlg then begin
-        Visible       := False;
+        Hide;
+        //Visible       := False;
         Sender.Show;
       end else begin // NoMessageDlg = False
         MessageDlg(MSG_JP_000001, mtInformation, [mbOk], 0);
@@ -568,12 +567,26 @@ end;
 
 procedure TFrmTopMenu.OpenFormEntryAdmin(Sender: TObject);
 begin
-  with Defs do begin
+  //with Defs do begin
+  with CommonDB do begin
+    SetSQLite3DatabaseName;
     if Not FileExists(GetDBFullPath) then begin
-      ProcLogout(Sender);
+      with Defs do begin
+        with AQuTblChk do begin
+          SQLConnection  := ACn;
+          SQLTransaction := ATr;
 
-      FrmEntryAdmin := TFrmEntryAdmin.Create(Application);
-      FrmEntryAdmin.ShowModal;
+          SQL.Text := SQL_10000029;
+          Open;
+          if FieldByName('COUNT').AsInteger = 1 then begin
+            Exit;
+          end;
+        end;
+        ProcLogout(Sender);
+
+        FrmEntryAdmin := TFrmEntryAdmin.Create(Application);
+        FrmEntryAdmin.ShowModal;
+      end;
     end;
   end;
 end;
@@ -603,31 +616,38 @@ begin
   ProcQuit(Sender);
 end;
 
-procedure TFrmTopMenu.FormActivate(Sender: TObject);
+procedure TFrmTopMenu.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
-  with FrmTopMenu do begin
-    WindowState       := wsMaximized;
-    WindowState       := wsNormal;
+  with CommonDB do begin
+    CloseQuery(AQu);
+    CloseQuery(AQuTblChk);
+    SQLite3Disconnect;
   end;
-end;
-
-procedure TFrmTopMenu.FormClose(
-  Sender: TObject; var CloseAction: TCloseAction);
-begin
-  CloseTransactions;
-
+  ProcQuit(Sender);
   CloseAction := caFree;
   FrmTopMenu  := nil;
 end;
 
 procedure TFrmTopMenu.FormCreate(Sender: TObject);
 var
-  LFS : TFormatSettings;
+  LFS          : TFormatSettings;
 begin
-  FDefs := TDefs.Create;
+  if Not Assigned(CommonDB) then begin
+    CommonDB := TCommonDB.Create(Self);
+    CommonDB.InitializeCommonDB;
+  end;
 
-  SetDatabaseNames;
+  SetJournalMode('WAL');
 
+  with Defs do begin
+    with CommonDB do begin
+      SetDoExitKakeiBon(False);
+      Show;
+      Hide;
+    end;
+  end;
+
+  //with Defs do begin
   with Defs do begin
     if GetDoExitKakeiBon then begin
       Application.Terminate;
@@ -638,19 +658,22 @@ begin
     { TFormatSettings }
     with LFS do begin
       DateSeparator   := '/';
-      ShortDateFormat := 'yyyy-mm-dd';
+      ShortDateFormat := 'YYYY-MM-DD';
       TimeSeparator   := ':';
       ShortTimeFormat := 'hh:nn:ss';
     end;
     SetFS(LFS);
   end;
+
+  with CommonDB do begin
+    SQLite3Connect;
+  end;
 end;
 
 procedure TFrmTopMenu.FormShow(Sender: TObject);
-var
-  Key   : Word;
-  Shift : TShiftState;
 begin
+  FrmTopMenu.Width      := 627;
+
   FrmTopMenu.KeyPreview := True;
 
   FrmTopMenu.Color       := RGB(  0, 128, 128);
@@ -680,12 +703,10 @@ begin
       if GetRole = ROLE_USER then begin;
         SetBtnEnterManageDetailsEnabled(True);
         SetBtnEnterSummaryEnabled(True);
-        //SetBtnEnterManageUserEnabled(True);
         SetBtnEnterManageExpEnabled(True);
       end else begin
         SetBtnEnterManageDetailsEnabled(False);
         SetBtnEnterSummaryEnabled(False);
-        //SetBtnEnterManageUserEnabled(True);
         SetBtnEnterManageExpEnabled(False);
       end;
 
@@ -715,50 +736,65 @@ begin
       end;
     end;
   end;
+
+  { Debug }
+  //FrmTopMenu.Width      := 777;
+end;
+
+procedure TFrmTopMenu.FormActivate(Sender: TObject);
+begin
+  with FrmTopMenu do begin
+    WindowState       := wsMaximized;
+    WindowState       := wsNormal;
+  end;
 end;
 
 procedure TFrmTopMenu.TimerTimer(Sender: TObject);
 begin
-  with Defs do begin
-    if (Not Assigned(FrmEntryAdmin))
-        And (Not FileExists(GetDBFullPath)) then begin
-      OpenFormEntryAdmin(Sender);
-    end;
+  Timer.Enabled := False;
 
-    if ChngdAdmUserFlg then begin
-      ProcLogout(Sender);
-      ChngdAdmUserFlg           := False;
-    end;
-
-    if LoginFlg then begin
-      SetBtnEnterManageUserEnabled(True);
-      if GetRole = ROLE_USER then begin
-        SetBtnEnterManageDetailsEnabled(True);
-        SetBtnEnterManageExpEnabled(True);
+  with CommonDB do begin
+    with Defs do begin
+      if Not ((Assigned(FrmEntryAdmin))
+          And (FileExists(GetDBFullPath))) then begin
+        OpenFormEntryAdmin(Sender);
       end;
 
-      with PnlLogin do begin
-        Visible                 := False;
-        Enabled                 := False;
+      if ChngdAdmUserFlg then begin
+        ProcLogout(Sender);
+        ChngdAdmUserFlg           := False;
       end;
 
-      with PnlLogout do begin
-        Visible                 := True;
-        Enabled                 := True;
-      end;
-    end else begin
-      with PnlLogin do begin
-        Visible                 := True;
-        Enabled                 := True;
-      end;
-      with BtnLogin do begin
-        Visible                 := True;
-        Enabled                 := True;
-      end;
+      if LoginFlg then begin
+        SetBtnEnterManageUserEnabled(True);
+        if GetRole = ROLE_USER then begin
+          SetBtnEnterManageDetailsEnabled(True);
+          SetBtnEnterManageExpEnabled(True);
+        end;
 
-      with PnlLogout do begin
-        Visible                 := False;
-        Enabled                 := False;
+        with PnlLogin do begin
+          Visible                 := False;
+          Enabled                 := False;
+        end;
+
+        with PnlLogout do begin
+          Visible                 := True;
+          Enabled                 := True;
+        end;
+      end else begin
+        with PnlLogin do begin
+          Visible                 := True;
+          Enabled                 := True;
+        end;
+        with BtnLogin do begin
+          Visible                 := True;
+          Enabled                 := True;
+        end;
+
+        with PnlLogout do begin
+          Visible                 := False;
+          Enabled                 := False;
+        end;
       end;
     end;
   end;

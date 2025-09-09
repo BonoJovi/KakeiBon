@@ -2,12 +2,12 @@ object FrmLogin: TFrmLogin
   Left = 733
   Height = 258
   Top = 235
-  Width = 585
+  Width = 716
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'ログイン'
   ClientHeight = 258
-  ClientWidth = 585
+  ClientWidth = 716
   Color = clWindowFrame
   Font.CharSet = ANSI_CHARSET
   Font.Height = -21
@@ -17,8 +17,10 @@ object FrmLogin: TFrmLogin
   Font.Style = [fsBold]
   PopupMode = pmAuto
   Position = poScreenCenter
+  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
+  OnDestroy = FormDestroy
   OnKeyUp = FormKeyUp
   OnShow = FormShow
   object LblUserName: TLabel
@@ -264,8 +266,8 @@ object FrmLogin: TFrmLogin
     OnMouseLeave = BtnLoginExit
   end
   object ActionList: TActionList
-    Left = 240
-    Top = 56
+    Left = 608
+    Top = 72
     object ActClearPaw: TAction
       Caption = 'ActClearPaw'
       SecondaryShortCuts.Strings = (
@@ -296,45 +298,16 @@ object FrmLogin: TFrmLogin
       OnExecute = ActGoBackExecute
     end
   end
-  object ADS: TDataSource
-    DataSet = AQu
-    Left = 352
-    Top = 56
-  end
-  object ATr: TSQLTransaction
-    Active = False
-    Database = ACn
-    Left = 408
-    Top = 56
-  end
   object AQu: TSQLQuery
-    FieldDefs = <    
-      item
-        Name = 'USER_ID'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'NAME'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'ROLE'
-        DataType = ftUnknown
-      end>
-    Database = ACn
-    Transaction = ATr
+    FieldDefs = <>
     Params = <>
     Macros = <>
-    Left = 464
-    Top = 56
+    Left = 664
+    Top = 136
   end
-  object ACn: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATr
-    AlwaysUseBigint = False
-    Left = 296
-    Top = 56
+  object ADS: TDataSource
+    DataSet = AQu
+    Left = 608
+    Top = 136
   end
 end

@@ -1,19 +1,18 @@
 object FrmEntryShop: TFrmEntryShop
   Left = 484
-  Height = 758
+  Height = 790
   Top = 32
-  Width = 598
+  Width = 893
   Caption = '店舗登録'
-  ClientHeight = 758
-  ClientWidth = 598
+  ClientHeight = 790
+  ClientWidth = 893
   Color = clWindowFrame
-  Font.CharSet = ANSI_CHARSET
-  Font.Height = -21
+  Font.Height = -18
   Font.Name = '0xProto'
-  Font.Pitch = fpVariable
-  Font.Quality = fqDraft
   Font.Style = [fsBold]
   Position = poScreenCenter
+  LCLVersion = '4.2.0.0'
+  OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp
@@ -26,13 +25,14 @@ object FrmEntryShop: TFrmEntryShop
     Color = clWindow
     Columns = <    
       item
-        Title.Caption = 'ID'
+        Title.Caption = 'ユーザID'
+        Width = 0
         Visible = False
         FieldName = 'USER_ID'
       end    
       item
         MaxSize = 300
-        Title.Caption = ''
+        Title.Caption = '店舗ID'
         Width = 0
         Visible = False
         FieldName = 'SHOP_ID'
@@ -40,68 +40,73 @@ object FrmEntryShop: TFrmEntryShop
       item
         MaxSize = 400
         Title.Caption = '店舗名'
-        Width = 200
+        Width = 72
         FieldName = 'SHOP_NAME'
       end    
       item
-        Font.CharSet = ANSI_CHARSET
-        Font.Height = -21
+        Font.Height = -19
         Font.Name = '0xProto'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
         Font.Style = [fsBold]
         MaxSize = 200
         Title.Caption = '電話番号'
-        Width = 118
+        Width = 91
         FieldName = 'PHONE_NUM'
       end    
       item
-        Font.CharSet = ANSI_CHARSET
-        Font.Height = -21
+        Font.Height = -19
         Font.Name = '0xProto'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
         Font.Style = [fsBold]
         MaxSize = 140
         Title.Caption = '開店日時'
-        Width = 117
+        Width = 91
         FieldName = 'START_BUSINESS_DT'
-        DisplayFormat = 'YYYY年MM月DD日 hh時mm分'
+        DisplayFormat = 'yyyy"/"mm"/"dd hh":"nn'
       end    
       item
         MaxSize = 64
         Title.Caption = '閉店日時'
-        Width = 117
+        Width = 91
         FieldName = 'END_BUSINESS_DT'
-        DisplayFormat = 'YYYY年MM月DD日 hh時mm分'
+        DisplayFormat = 'yyyy"/"mm"/"dd hh":"nn'
       end    
       item
+        ButtonStyle = cbsCheckboxColumn
         Title.Caption = '非表示'
+        Width = 72
         FieldName = 'DISABLED'
+      end    
+      item
+        Title.Caption = '登録日'
+        Width = 72
+        FieldName = 'ENTRY_DT'
+        DisplayFormat = 'yyyy"/"mm"/"dd hh":"nn":"ss'
+      end    
+      item
+        Title.Caption = '更新日'
+        Width = 72
+        FieldName = 'UPDATE_DT'
+        DisplayFormat = 'yyyy"/"mm"/"dd hh":"nn":"ss'
       end>
     Constraints.MaxWidth = 2000
     DataSource = ADS
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
+    Font.Height = -19
     Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
-    Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgAnyButtonCanSelect, dgDisableDelete, dgDblClickAutoSize]
+    Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns, dgDblClickAutoSize]
     ParentFont = False
     TabOrder = 0
     TabStop = False
-    TitleStyle = tsStandard
-    OnKeyDown = ADBGridKeyDown
+    OnEnter = ADBGridEnter
     OnSelectEditor = ADBGridSelectEditor
   end
-  object ADBNav: TDBNavigator
+  object ADBNavi: TDBNavi
     Cursor = crHandPoint
     Left = 16
     Height = 28
     Top = 296
     Width = 566
     BevelOuter = bvNone
+    ChildSizing.HorizontalSpacing = 5
     ChildSizing.EnlargeHorizontal = crsScaleChilds
     ChildSizing.EnlargeVertical = crsScaleChilds
     ChildSizing.ShrinkHorizontal = crsScaleChilds
@@ -111,17 +116,58 @@ object FrmEntryShop: TFrmEntryShop
     ClientHeight = 28
     ClientWidth = 566
     DataSource = ADS
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     Options = [navFocusableButtons]
-    ParentFont = False
     TabOrder = 1
     TabStop = True
-    VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast, nbRefresh]
+    VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
+    OnClick = ADBNaviClick
+    OnEnter = ADBNaviEnter
+    OnExit = ADBNaviExit
+    OnWMSetFocus = ADBNaviWMSetFocus
+  end
+  object Panel1: TPanel
+    Left = 16
+    Height = 6
+    Top = 328
+    Width = 138
+    Color = clYellow
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 2
+    Visible = False
+  end
+  object Panel2: TPanel
+    Left = 159
+    Height = 6
+    Top = 328
+    Width = 138
+    Color = clYellow
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 3
+    Visible = False
+  end
+  object Panel3: TPanel
+    Left = 302
+    Height = 6
+    Top = 328
+    Width = 138
+    Color = clYellow
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 4
+    Visible = False
+  end
+  object Panel4: TPanel
+    Left = 444
+    Height = 6
+    Top = 328
+    Width = 138
+    Color = clYellow
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 5
+    Visible = False
   end
   object LblID1: TLabel
     Left = 16
@@ -129,11 +175,8 @@ object FrmEntryShop: TFrmEntryShop
     Top = 352
     Width = 21
     Caption = 'Ｉ'
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
@@ -143,28 +186,13 @@ object FrmEntryShop: TFrmEntryShop
     Top = 352
     Width = 21
     Caption = 'Ｄ'
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
-  object Shape1: TShape
-    Left = 128
-    Height = 16
-    Top = 360
-    Width = 16
-    Brush.Color = clYellow
-    Enabled = False
-    Pen.JoinStyle = pjsBevel
-    Pen.Style = psinsideFrame
-    Shape = stEllipse
-    Visible = False
-  end
   object DBEdtShopID: TDBEdit
-    Left = 152
+    Left = 128
     Height = 49
     Hint = '自動採番'
     Top = 344
@@ -172,62 +200,49 @@ object FrmEntryShop: TFrmEntryShop
     DataField = 'SHOP_ID'
     DataSource = ADS
     AutoSelect = False
-    Font.CharSet = ANSI_CHARSET
+    Enabled = False
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
-    TabOrder = 2
+    TabOrder = 6
     TabStop = False
     OnChange = DBEdtShopIDChange
-    OnEnter = DBEdtShopIDEnter
-    OnExit = DBEdtShopIDExit
   end
   object PnlInsert: TPanel
-    Left = 280
+    Left = 252
     Height = 49
     Top = 344
-    Width = 302
+    Width = 330
     Caption = '新規登録 (CTRL+1)'
     Color = clActiveCaption
     Enabled = False
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
     ParentFont = False
-    TabOrder = 3
+    TabOrder = 7
   end
   object BtnInsert: TPanel
-    Cursor = crCross
-    Left = 288
-    Height = 33
+    Left = 260
+    Height = 32
     Top = 352
-    Width = 286
+    Width = 313
     BevelColor = clNone
-    BevelOuter = bvNone
     Caption = '新規登録 (CTRL+1)'
     Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
     ParentFont = False
-    ShowAccelChar = True
-    TabOrder = 4
+    TabOrder = 8
     TabStop = True
     OnClick = ActInsertExecute
     OnEnter = BtnInsertEnter
@@ -238,243 +253,166 @@ object FrmEntryShop: TFrmEntryShop
   object LblShopName1: TLabel
     Left = 16
     Height = 32
-    Top = 408
+    Top = 409
     Width = 21
     Caption = '店'
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
   object LblShopName2: TLabel
     Left = 52
     Height = 32
-    Top = 408
+    Top = 409
     Width = 21
     Caption = '舗'
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
   object LblShopName3: TLabel
     Left = 88
     Height = 32
-    Top = 408
+    Top = 409
     Width = 21
     Caption = '名'
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
-  end
-  object Shape2: TShape
-    Left = 128
-    Height = 16
-    Top = 416
-    Width = 16
-    Brush.Color = clYellow
-    Enabled = False
-    Pen.JoinStyle = pjsBevel
-    Pen.Style = psinsideFrame
-    Shape = stEllipse
-    Visible = False
   end
   object DBEdtShopName: TDBEdit
     Cursor = crIBeam
-    Left = 152
+    Left = 128
     Height = 49
-    Top = 400
-    Width = 430
+    Top = 401
+    Width = 454
     DataField = 'SHOP_NAME'
     DataSource = ADS
     AutoSelect = False
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
     MaxLength = 128
     ParentFont = False
-    TabOrder = 5
+    TabOrder = 9
     OnChange = DBEdtShopNameChange
     OnEnter = DBEdtShopNameEnter
-    OnExit = DBEdtShopNameExit
   end
   object LblPhoneNumber1: TLabel
     Left = 16
     Height = 32
-    Top = 464
+    Top = 466
     Width = 21
     Caption = '電'
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
   object LblPhoneNumber2: TLabel
     Left = 40
     Height = 32
-    Top = 464
+    Top = 466
     Width = 21
     Caption = '話'
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
   object LblPhoneNumber3: TLabel
     Left = 64
     Height = 32
-    Top = 464
+    Top = 466
     Width = 21
     Caption = '番'
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
   object LblPhoneNumber4: TLabel
     Left = 88
     Height = 32
-    Top = 464
+    Top = 466
     Width = 21
     Caption = '号'
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
-  end
-  object Shape3: TShape
-    Left = 128
-    Height = 16
-    Top = 472
-    Width = 16
-    Brush.Color = clYellow
-    Enabled = False
-    Pen.JoinStyle = pjsBevel
-    Pen.Style = psinsideFrame
-    Shape = stEllipse
-    Visible = False
   end
   object DBEdtPhoneNum: TDBEdit
     Cursor = crIBeam
-    Left = 152
+    Left = 128
     Height = 49
-    Top = 456
-    Width = 430
+    Top = 458
+    Width = 454
     DataField = 'PHONE_NUM'
     DataSource = ADS
     AutoSelect = False
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
-    TabOrder = 6
+    TabOrder = 10
     OnChange = DBEdtPhoneNumChange
     OnEnter = DBEdtPhoneNumEnter
-    OnExit = DBEdtPhoneNumExit
   end
   object LblStartBusinessDT1: TLabel
     Left = 16
     Height = 32
-    Top = 513
+    Top = 520
     Width = 21
     Caption = '開'
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
   object LblStartBusinessDT2: TLabel
     Left = 40
     Height = 32
-    Top = 513
+    Top = 520
     Width = 21
     Caption = '店'
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
   object LblStartBusinessDT3: TLabel
     Left = 64
     Height = 32
-    Top = 513
+    Top = 520
     Width = 21
     Caption = '日'
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
   object LblStartBusinessDT4: TLabel
     Left = 88
     Height = 32
-    Top = 513
+    Top = 520
     Width = 21
     Caption = '時'
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
-  object Shape4: TShape
-    Left = 128
-    Height = 16
-    Top = 521
-    Width = 16
-    Brush.Color = clYellow
-    Enabled = False
-    Pen.JoinStyle = pjsBevel
-    Pen.Style = psinsideFrame
-    Shape = stEllipse
-    Visible = False
-  end
   object DBDTPStartBusinessDT: TDBDateTimePicker
     Cursor = crIBeam
-    Left = 152
+    Left = 128
     Height = 32
     Hint = '2025/05/18 09:00'
-    Top = 513
+    Top = 521
     Width = 242
     DataField = 'START_BUSINESS_DT'
     DataSource = ADS
@@ -483,14 +421,11 @@ object FrmEntryShop: TFrmEntryShop
     DateDisplayOrder = ddoYMD
     MaxDate = 2958465
     MinDate = -53780
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 7
+    TabOrder = 11
     DateSeparator = '/'
     TrailingSeparator = False
     TextForNullDate = ''
@@ -507,81 +442,56 @@ object FrmEntryShop: TFrmEntryShop
     Options = [dtpoDoChangeOnSetDateTime, dtpoAutoCheck]
     OnChange = DBDTPStartBusinessDTChange
     OnEnter = DBDTPStartBusinessDTEnter
-    OnExit = DBDTPStartBusinessDTExit
   end
   object LblEndBusinessDT1: TLabel
     Left = 16
     Height = 32
-    Top = 552
+    Top = 568
     Width = 21
     Caption = '閉'
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
   object LblEndBusinessDT2: TLabel
     Left = 40
     Height = 32
-    Top = 552
+    Top = 568
     Width = 21
     Caption = '店'
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
   object LblEndBusinessDT3: TLabel
     Left = 64
     Height = 32
-    Top = 552
+    Top = 568
     Width = 21
     Caption = '日'
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
   object LblEndBusinessDT4: TLabel
     Left = 88
     Height = 32
-    Top = 552
+    Top = 568
     Width = 21
     Caption = '時'
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
-  object Shape5: TShape
-    Left = 128
-    Height = 16
-    Top = 560
-    Width = 16
-    Brush.Color = clYellow
-    Enabled = False
-    Pen.JoinStyle = pjsBevel
-    Pen.Style = psinsideFrame
-    Shape = stEllipse
-    Visible = False
-  end
   object DBDTPEndBusinessDT: TDBDateTimePicker
     Cursor = crIBeam
-    Left = 152
+    Left = 128
     Height = 32
-    Top = 552
+    Top = 568
     Width = 242
     DataField = 'END_BUSINESS_DT'
     DataSource = ADS
@@ -590,14 +500,11 @@ object FrmEntryShop: TFrmEntryShop
     DateDisplayOrder = ddoYMD
     MaxDate = 2958465
     MinDate = -53780
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 8
+    TabOrder = 12
     DateSeparator = '/'
     TrailingSeparator = False
     TextForNullDate = '9999/12/31  23:59'
@@ -614,126 +521,87 @@ object FrmEntryShop: TFrmEntryShop
     Options = [dtpoDoChangeOnSetDateTime, dtpoAutoCheck]
     OnChange = DBDTPEndBusinessDTChange
     OnEnter = DBDTPEndBusinessDTEnter
-    OnExit = DBDTPEndBusinessDTExit
   end
   object LblDisabled1: TLabel
     Left = 16
     Height = 32
-    Top = 592
+    Top = 616
     Width = 21
     Caption = '非'
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
   object LblDisabled2: TLabel
     Left = 52
     Height = 32
-    Top = 592
+    Top = 616
     Width = 21
     Caption = '表'
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
   object LblDisabled3: TLabel
     Left = 88
     Height = 32
-    Top = 592
+    Top = 616
     Width = 21
     Caption = '示'
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
   end
-  object Shape6: TShape
-    Left = 128
-    Height = 16
-    Top = 600
-    Width = 16
-    Brush.Color = clYellow
-    Enabled = False
-    Pen.JoinStyle = pjsBevel
-    Pen.Style = psinsideFrame
-    Shape = stEllipse
-    Visible = False
-  end
   object DBCBDisabled: TDBCheckBox
     Cursor = crHandPoint
-    Left = 152
+    Left = 128
     Height = 23
-    Top = 597
+    Top = 621
     Width = 23
     AutoSize = True
     DataField = 'DISABLED'
     DataSource = ADS
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
-    TabOrder = 9
+    TabOrder = 13
     TabStop = True
     ValueChecked = '1'
     ValueUnchecked = '0'
     OnChange = DBCBDisabledChange
     OnEnter = DBCBDisabledEnter
-    OnExit = DBCBDisabledExit
   end
   object PnlCancel: TPanel
     Left = 16
     Height = 48
-    Top = 640
+    Top = 672
     Width = 277
     Caption = 'キャンセル (CTRL+C)'
     Color = clActiveCaption
     Enabled = False
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
     ParentFont = False
-    TabOrder = 10
+    TabOrder = 14
   end
   object BtnCancel: TPanel
-    Cursor = crCross
     Left = 24
     Height = 32
-    Top = 648
+    Top = 680
     Width = 261
     BevelColor = clNone
-    BevelOuter = bvNone
     Caption = 'キャンセル (CTRL+C)'
     Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
     ParentFont = False
-    ShowAccelChar = True
-    TabOrder = 11
+    TabOrder = 15
     TabStop = True
     OnClick = ActCancelExecute
     OnEnter = BtnCancelEnter
@@ -744,43 +612,34 @@ object FrmEntryShop: TFrmEntryShop
   object PnlSave: TPanel
     Left = 304
     Height = 48
-    Top = 640
+    Top = 672
     Width = 277
     Caption = '保　　　存 (CTRL+S)'
     Color = clActiveCaption
     Enabled = False
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
     ParentFont = False
-    TabOrder = 12
+    TabOrder = 16
   end
   object BtnSave: TPanel
-    Cursor = crCross
     Left = 312
-    Height = 32
-    Top = 648
+    Height = 30
+    Top = 680
     Width = 259
     BevelColor = clNone
-    BevelOuter = bvNone
     Caption = '保　　　存 (CTRL+S)'
     Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
     ParentFont = False
-    ShowAccelChar = True
-    TabOrder = 13
+    TabOrder = 17
     TabStop = True
     OnClick = ActSaveExecute
     OnEnter = BtnSaveEnter
@@ -791,43 +650,34 @@ object FrmEntryShop: TFrmEntryShop
   object PnlGoBack: TPanel
     Left = 16
     Height = 48
-    Top = 696
-    Width = 565
+    Top = 728
+    Width = 563
     Caption = '前の画面に戻る (CTRL+Q)'
     Color = clActiveCaption
     Enabled = False
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
     ParentFont = False
-    TabOrder = 14
+    TabOrder = 18
   end
   object BtnGoBack: TPanel
-    Cursor = crCross
     Left = 24
     Height = 32
-    Top = 704
+    Top = 736
     Width = 547
     BevelColor = clNone
-    BevelOuter = bvNone
     Caption = '前の画面に戻る (CTRL+Q)'
     Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
     ParentFont = False
-    ShowAccelChar = True
-    TabOrder = 15
+    TabOrder = 19
     TabStop = True
     OnClick = ActGoBackExecute
     OnEnter = BtnGoBackEnter
@@ -836,10 +686,10 @@ object FrmEntryShop: TFrmEntryShop
     OnMouseLeave = BtnGoBackExit
   end
   object DBDTPEntryDT: TDBDateTimePicker
-    Left = 400
+    Left = 624
     Height = 32
     Hint = '2025/05/18 09:00'
-    Top = 513
+    Top = 520
     Width = 242
     DataField = 'ENTRY_DT'
     DataSource = ADS
@@ -848,14 +698,11 @@ object FrmEntryShop: TFrmEntryShop
     DateDisplayOrder = ddoYMD
     MaxDate = 2958465
     MinDate = -53780
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 16
+    TabOrder = 20
     TabStop = False
     DateSeparator = '/'
     TrailingSeparator = False
@@ -874,10 +721,10 @@ object FrmEntryShop: TFrmEntryShop
     Options = [dtpoDoChangeOnSetDateTime, dtpoAutoCheck]
   end
   object DBDTPUpdateDT: TDBDateTimePicker
-    Left = 400
+    Left = 624
     Height = 32
     Hint = '2025/05/18 09:00'
-    Top = 552
+    Top = 567
     Width = 242
     DataField = 'UPDATE_DT'
     DataSource = ADS
@@ -886,14 +733,11 @@ object FrmEntryShop: TFrmEntryShop
     DateDisplayOrder = ddoYMD
     MaxDate = 2958465
     MinDate = -53780
-    Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 17
+    TabOrder = 21
     TabStop = False
     DateSeparator = '/'
     TrailingSeparator = False
@@ -914,12 +758,12 @@ object FrmEntryShop: TFrmEntryShop
   object Timer: TTimer
     Interval = 1
     OnTimer = TimerTimer
-    Left = 408
-    Top = 124
+    Left = 696
+    Top = 304
   end
   object ActionList: TActionList
-    Left = 24
-    Top = 124
+    Left = 624
+    Top = 304
     object ActInsert: TAction
       Caption = 'ActInsert'
       ShortCut = 16433
@@ -952,136 +796,62 @@ object FrmEntryShop: TFrmEntryShop
   end
   object ADS: TDataSource
     DataSet = AQu
-    Left = 160
-    Top = 124
-  end
-  object ATr: TSQLTransaction
-    Active = False
-    Database = ACn
-    Left = 232
-    Top = 124
+    Left = 624
+    Top = 368
   end
   object AQu: TSQLQuery
     FieldDefs = <    
       item
         Name = 'USER_ID'
-        Attributes = [faHiddenCol]
-        DataType = ftInteger
+        DataType = ftUnknown
       end    
       item
         Name = 'SHOP_ID'
-        DataType = ftInteger
+        DataType = ftUnknown
       end    
       item
         Name = 'SHOP_NAME'
-        DataType = ftWideString
+        DataType = ftUnknown
       end    
       item
         Name = 'PHONE_NUM'
-        Attributes = [faRequired, faFixed]
-        DataType = ftString
+        DataType = ftUnknown
       end    
       item
         Name = 'START_BUSINESS_DT'
-        DataType = ftDateTime
+        DataType = ftUnknown
       end    
       item
         Name = 'END_BUSINESS_DT'
-        DataType = ftDateTime
+        DataType = ftUnknown
       end    
       item
         Name = 'DISABLED'
-        DataType = ftBoolean
+        DataType = ftUnknown
       end    
       item
         Name = 'ENTRY_DT'
-        DataType = ftDateTime
+        DataType = ftUnknown
       end    
       item
         Name = 'UPDATE_DT'
-        DataType = ftDateTime
+        DataType = ftUnknown
       end>
-    Database = ACn
-    Transaction = ATr
-    Options = [sqoAutoApplyUpdates, sqoAutoCommit]
     Params = <>
     Macros = <>
-    Left = 304
-    Top = 124
+    Left = 696
+    Top = 368
   end
   object ADSNextID: TDataSource
     DataSet = AQuNextID
-    Left = 160
-    Top = 184
-  end
-  object ATrNextID: TSQLTransaction
-    Active = False
-    Database = ACnNextID
-    Left = 232
-    Top = 184
+    Left = 624
+    Top = 424
   end
   object AQuNextID: TSQLQuery
-    FieldDefs = <    
-      item
-        Name = 'SHOP_ID'
-        Attributes = [faHiddenCol]
-        DataType = ftAutoInc
-      end    
-      item
-        Name = 'SHOP_NAME'
-        DataType = ftString
-      end    
-      item
-        Name = 'PHONE_NUMBER'
-        DataType = ftString
-      end    
-      item
-        Name = 'START_BUSINESS_DT'
-        Attributes = [faRequired, faFixed]
-        DataType = ftVariant
-      end    
-      item
-        Name = 'END_BUSINESS_DT'
-        DataType = ftDateTime
-      end    
-      item
-        Name = 'DISABLED'
-        DataType = ftBoolean
-      end    
-      item
-        Name = 'ENTRY_DT'
-        DataType = ftDateTime
-      end    
-      item
-        Name = 'UPDATE_DT'
-        DataType = ftDateTime
-      end>
-    Database = ACnNextID
-    Transaction = ATrNextID
-    Options = [sqoAutoApplyUpdates, sqoAutoCommit]
+    FieldDefs = <>
     Params = <>
     Macros = <>
-    Left = 304
-    Top = 184
-  end
-  object ACn: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATr
-    CharSet = 'UTF-8'
-    AlwaysUseBigint = False
-    Left = 92
-    Top = 124
-  end
-  object ACnNextID: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATrNextID
-    CharSet = 'UTF8'
-    AlwaysUseBigint = False
-    Left = 92
-    Top = 184
+    Left = 696
+    Top = 424
   end
 end

@@ -1,0 +1,26 @@
+object CommonDB: TCommonDB
+  OldCreateOrder = False
+  Left = 502
+  Top = 32
+  Height = 143
+  HorizontalOffset = 0
+  VerticalOffset = 0
+  Width = 215
+  object ACn: TSQLite3Connection
+    Connected = False
+    LoginPrompt = False
+    AfterDisconnect = ACnAfterDisconnect
+    KeepConnection = False
+    Transaction = ATr
+    CharSet = 'UTF8'
+    AlwaysUseBigint = False
+    Left = 64
+    Top = 48
+  end
+  object ATr: TSQLTransaction
+    Active = False
+    Database = ACn
+    Left = 120
+    Top = 48
+  end
+end

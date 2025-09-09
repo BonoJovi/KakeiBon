@@ -7,28 +7,25 @@ interface
 uses
   Classes, DateUtils, Variants, LazUTF8, SysUtils, DB, SQLDB, SQLite3Conn,
   Forms, Controls, Graphics, Dialogs, ExtCtrls, LCLIntf, LCLType, ActnList,
-  StdCtrls, DBCtrls, DBGrids, DBDateTimePicker;
+  StdCtrls, DBCtrls, DBGrids, UDBNavi, DBDateTimePicker;
 
 type
 
   { TFrmEntryAccount }
 
   TFrmEntryAccount = class(TForm)
-    ACn                 : TSQLite3Connection;
     ADS                 : TDataSource;
-    ATr                 : TSQLTransaction;
     AQu                 : TSQLQuery;
-    ACnNextID           : TSQLite3Connection;
     ADSNextID           : TDataSource;
-    ATrNextID           : TSQLTransaction;
     AQuNextID           : TSQLQuery;
+    { ActionLists }
+    ActionList          : TActionList;
+    ActInsert           : TAction;
     ActCancel           : TAction;
     ActSave             : TAction;
-    ActInsert           : TAction;
-    ActionList          : TActionList;
-    ActGoBack             : TAction;
+    ActGoBack           : TAction;
     ADBGrid             : TDBGrid;
-    ADBNav              : TDBNavigator;
+    ADBNavi             : TDBNavi;
     DBCBDisabled        : TDBCheckBox;
     DBDTPEntryDT        : TDBDateTimePicker;
     DBDTPUpdateDT       : TDBDateTimePicker;
@@ -58,8 +55,12 @@ type
     BtnCancel           : TPanel;
     BtnSave             : TPanel;
     BtnGoBack           : TPanel;
+    Panel1              : TPanel;
+    Panel2              : TPanel;
+    Panel3              : TPanel;
+    Panel4              : TPanel;
     PnlCancel           : TPanel;
-    PnlSave           : TPanel;
+    PnlSave             : TPanel;
     PnlGoBack           : TPanel;
     PnlInsert           : TPanel;
     Shape1              : TShape;
@@ -70,6 +71,11 @@ type
     Shape6              : TShape;
     Shape7              : TShape;
     Timer               : TTimer;
+    procedure ADBGridEnter(Sender: TObject);
+    procedure ADBNaviClick(Sender: TObject; Button: TDBNavButtonType);
+    procedure ADBNaviEnter(Sender: TObject);
+    procedure ADBNaviExit(Sender: TObject);
+    procedure ADBNaviWMSetFocus(Sender: TObject; HWndLostFocus: HWND);
     procedure DBCBDisabledEnter(Sender: TObject);
     procedure DBCBDisabledExit(Sender: TObject);
     procedure DBEdtAccountIDEnter(Sender: TObject);
@@ -84,6 +90,7 @@ type
     procedure DBEdtPhoneNumExit(Sender: TObject);
     procedure DBEdtSubNameEnter(Sender: TObject);
     procedure DBEdtSubNameExit(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
     procedure ProcInsert(Sender: TObject);
     procedure ProcCancel(Sender: TObject);
     procedure ProcSave(Sender: TObject);
@@ -103,10 +110,8 @@ type
     procedure ActCancelExecute(Sender: TObject);
     procedure ActSaveExecute(Sender: TObject);
     procedure ActGoBackExecute(Sender: TObject);
-    procedure ADBGridKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState
-      );
-    procedure ADBGridSelectEditor(Sender: TObject; Column: TColumn;
-      var Editor: TWinControl);
+    procedure ADBGridSelectEditor(
+      Sender: TObject; Column: TColumn; var Editor: TWinControl);
     procedure DBCBDisabledChange(Sender: TObject);
     procedure DBEdtAccountIDChange(Sender: TObject);
     procedure DBEdtBrandNameChange(Sender: TObject);
@@ -120,9 +125,12 @@ type
     procedure TimerTimer(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
+    FTab              : Boolean;
+    FGuidePanels      : Array[0..3] of TPanel;
+    FCurrentComponent : TObject;
+    FDoCommit       : Boolean;
     FReOpenDS       : Boolean;
     FInsert         : Boolean;
-    FDoCommit       : Boolean;
     FAccountID      : Variant;
     FBrandName      : String;
     FSubName        : String;
@@ -130,8 +138,6 @@ type
     FOpeningBalance : Integer;
     FCurrentBalance : Integer;
     FDisabled       : Boolean;
-    procedure SetDatabaseNames;
-    procedure CloseTransactions;
     procedure BackupValues;
     function GetAccountID: Variant;
     procedure SetAccountID(AccountID: Variant);
@@ -163,32 +169,16 @@ var
 
 implementation
 uses
-  UConsts, UDefs, UDBAccess, UTopMenu, UManageDetails, UAddDetailsHeader,
-  UEditDetailsHeader;
+  UCommonDB, UDefs, UConsts, UDBAccess, UTopMenu, UManageDetails,
+  UAddDetailsHeader, UEditDetailsHeader;
 
 {$R *.lfm}
 
 { TFrmEntryAccount }
 
-procedure TFrmEntryAccount.SetDatabaseNames;
-begin
-  with FrmTopMenu.Defs do begin
-    SetDatabaseName(ACn      );
-    SetDatabaseName(ACnNextID);
-  end;
-end;
-
-procedure TFrmEntryAccount.CloseTransactions;
-begin
-  with FrmTopMenu.Defs do begin
-    CloseConn(ACn      , ATr      );
-    CloseConn(ACnNextID, ATrNextID);
-  end;
-end;
-
 procedure TFrmEntryAccount.BackupValues;
 begin
-  with FrmTopMenu.Defs do begin
+  with Defs do begin
     with DBEdtAccountID do begin
       if Text <> '' then begin;
         SetAccountID(Text);
@@ -214,159 +204,304 @@ end;
 procedure TFrmEntryAccount.ProcInsert(Sender: TObject);
 begin
   if Not FInsert then begin
-    with AQu do begin
-      Edit;
-      if AQu.RecordCount > 0 then begin;
-        Insert;
-      end;
-      FInsert := True;
-    end;
+    with CommonDB do begin
+      with Defs do begin
+        try
+          with ACn do begin
+            if Not Connected then begin
+              Open;
+            end;
+          end;
+        except
+          on E: Exception do begin
+            ShowMessage(MSG_JP_000013 + ' : ' + E.Message);
+          end;
+        end;
 
-    DBCBDisabled.Field.AsBoolean := False;
-    DBEdtBrandName.SetFocus;
+        ATr.Active := False;
+        with ATr do begin
+          if Not Active then begin
+            StartTransaction;
+          end;
+        end;
+
+        with AQu do begin
+          if Not Active then begin
+            OpenSelectQuery(ADS, AQu, SQL_20110001);
+          end;
+
+          if RecordCount > 0 then begin
+            Insert;
+          end;
+          FInsert := True;
+          DBCBDisabled.Checked := False;
+          DBEdtBrandName.SetFocus;
+        end;
+      end;
+    end;
   end;
 end;
 
 procedure TFrmEntryAccount.DBEdtAccountIDEnter(Sender: TObject);
 begin
   Shape1.Visible := True;
+
+  Timer.Enabled     := True;
+  FCurrentComponent := Sender;
 end;
 
 procedure TFrmEntryAccount.DBCBDisabledEnter(Sender: TObject);
 begin
   Shape7.Visible := True;
+
+  Timer.Enabled     := True;
+  FCurrentComponent := Sender;
+end;
+
+procedure TFrmEntryAccount.ADBGridEnter(Sender: TObject);
+var
+  LDBEdit : TDBEdit;
+  LDBCB   : TDBCheckBox;
+  LPanel  : TPanel;
+begin
+  if FInsert then begin;
+    ProcCancel(Sender);
+  end;
+
+  if FCurrentComponent is TDBNavi then begin
+    ADBNavi.SetFocus;
+  end else if FCurrentComponent is TDBEdit then begin
+    LDBEdit := FCurrentComponent as TDBEdit;
+    LDBEdit.SetFocus;
+  end else if FCurrentComponent is TDBCheckBox then begin
+    LDBCB := FCurrentComponent as TDBCheckBox;
+    LDBCB.SetFocus;
+  end else if FCurrentComponent is TPanel then begin
+    LPanel := FCurrentComponent as TPanel;
+    LPanel.SetFocus;
+  end;
+end;
+
+procedure TFrmEntryAccount.ADBNaviClick(Sender: TObject; Button: TDBNavButtonType
+  );
+begin
+  if FInsert then begin
+    ProcCancel(Sender);
+  end;
+
+  with CommonDB do begin
+    with Defs do begin
+      if (Button = nbFirst) or (Button = nbPrior) then begin
+        if AQu.RecNo = 1  then begin
+          AQu.First;
+          BtnGoBack.SetFocus;
+        end;
+      end else if (Button = nbNext) Or (Button = nbLast) then begin
+        if AQu.RecNo = AQu.RecordCount  then begin
+          AQu.Last;
+          DBEdtBrandName.SetFocus;
+        end;
+      end;
+    end;
+  end;
+end;
+
+procedure TFrmEntryAccount.ADBNaviEnter(Sender: TObject);
+begin
+  FCurrentComponent := Sender;
+  Timer.Enabled     := True;
+end;
+
+procedure TFrmEntryAccount.ADBNaviExit(Sender: TObject);
+begin
+  FCurrentComponent := Sender;
+  Timer.Enabled     := True;
+end;
+
+procedure TFrmEntryAccount.ADBNaviWMSetFocus(Sender: TObject; HWndLostFocus: HWND
+  );
+begin
+  if FTab then begin
+    try
+      if Screen.ActiveControl is TDBNavi then begin
+        TWinControl(ADBNavi.FindNextControl(ADBNavi, True, True, True)).SetFocus;
+      end;
+    except
+      on E: Exception do begin
+        ShowMessage(E.Message);
+      end;
+    end;
+  end;
+
+  Timer.Enabled := True;
 end;
 
 procedure TFrmEntryAccount.DBCBDisabledExit(Sender: TObject);
 begin
   Shape7.Visible := False;
+
+  FCurrentComponent := Sender;
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.DBEdtAccountIDExit(Sender: TObject);
 begin
   Shape1.Visible := False;
+
+  FCurrentComponent := Sender;
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.DBEdtBrandNameEnter(Sender: TObject);
 begin
   Shape2.Visible := True;
+
+  FCurrentComponent := Sender;
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.DBEdtBrandNameExit(Sender: TObject);
 begin
   Shape2.Visible := False;
+
+  FCurrentComponent := Sender;
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.DBEdtCurrentBalanceEnter(Sender: TObject);
 begin
   Shape6.Visible := True;
+
+  FCurrentComponent := Sender;
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.DBEdtCurrentBalanceExit(Sender: TObject);
 begin
   Shape6.Visible := False;
+
+  FCurrentComponent := Sender;
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.DBEdtOpeningBalanceEnter(Sender: TObject);
 begin
   Shape5.Visible := True;
+
+  FCurrentComponent := Sender;
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.DBEdtOpeningBalanceExit(Sender: TObject);
 begin
   Shape5.Visible := False;
+
+  FCurrentComponent := Sender;
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.DBEdtPhoneNumEnter(Sender: TObject);
 begin
   Shape4.Visible := True;
+
+  FCurrentComponent := Sender;
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.DBEdtPhoneNumExit(Sender: TObject);
 begin
   Shape4.Visible := False;
+
+  FCurrentComponent := Sender;
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.DBEdtSubNameEnter(Sender: TObject);
 begin
   Shape3.Visible := True;
+
+  FCurrentComponent := Sender;
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.DBEdtSubNameExit(Sender: TObject);
 begin
   Shape3.Visible := False;
+
+  FCurrentComponent := Sender;
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.ProcCancel(Sender: TObject);
 begin
-  with FrmTopMenu.Defs do begin
-    if FInsert then begin
-      FInsert := False;
+  with CommonDB do begin
+    with Defs do begin
+      if FInsert then begin
+        if AQu.RecordCount > 0 then begin
+          ATr.Rollback;
+          OpenSelectQuery(ADS, AQu, SQL_20110001);
+          FInsert := False;
+        end;
+      end;
+
+      if AQu.RecordCount = 0 then begin
+        DBEdtBrandName.SetFocus;
+      end else begin
+        ADBNavi.SetFocus;
+      end;
     end;
-    ATr.Rollback;
-
-    CloseTransactions;
-    SetDatabaseNames;
-
-    OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20110001);
-    DBEdtBrandName.SetFocus;
   end;
 end;
 
 procedure TFrmEntryAccount.ProcSave(Sender: TObject);
 var
   LNextAccountID : Integer;
-  LNow       : TDateTime;
+  LNow           : String;
 begin
   FDoCommit := True;
   try
     try
-      with FrmTopMenu.Defs do begin
-        with AQu do begin
-          SQL.Text := SQL_20110003;
-          with Params do begin
-            ParamByName('pUserID').AsInteger         := GetUID;
-          end;
+      with CommonDB do begin
+        with Defs do begin
+          CloseQuery(AQu);
 
-          if (VarIsNull(GetAccountID)) Or (VarToStr(GetAccountID) = '') then begin
-            CloseTransactions;
-            SetDatabaseNames;
-
-            OpenSelectQuery(ACnNextID, ADSNextID, ATrNextID, AQuNextID, SQL_20110002);
-            LNextAccountID := AQuNextID.FieldByName('NEXT_ID').AsInteger;
-
-            CloseConn(ACnNextID, ATrNextID);
-
+          with AQu do begin
+            SQL.Text := SQL_20110004;
             with Params do begin
-              ParamByName('pAccountID').AsInteger    := LNextAccountID;
+              ParamByName('pUserID').AsInteger         := GetUID;
             end;
-          end else begin
+
+            if (VarIsNull(GetAccountID)) Or (VarToStr(GetAccountID) = '') then begin
+              OpenSelectQuery(ADSNextID, AQuNextID, SQL_20110003);
+              LNextAccountID := AQuNextID.FieldByName('NEXT_ID').AsInteger;
+
+              with Params do begin
+                ParamByName('pAccountID').AsInteger    := LNextAccountID;
+              end;
+            end else begin
+              with Params do begin
+                ParamByName('pAccountID').AsInteger    := StrToInt(VarToStr(GetAccountID));
+              end;
+            end;
             with Params do begin
-              ParamByName('pAccountID').AsInteger    := StrToInt(VarToStr(GetAccountID));
+              ParamByName('pBrandName').AsAnsiString   := GetBrandName;
+              ParamByName('pSubName').AsAnsiString     := GetSubName;
+              ParamByName('pPhoneNum').AsAnsiString    := GetPhoneNum;
+              ParamByName('pOpeningBalance').AsInteger := GetOpeningBalance;
+              ParamByName('pCurrentBalance').AsInteger := GetCurrentBalance;
+              ParamByName('pDisabled').AsBoolean       := GetDisabled;
+              LNow                                     := FormatDateTime('yyyy-mm-dd hh:nn:ss', Now, GetFS);;
+              ParamByName('pEntryDT').AsAnsiString     := LNow;
+              ParamByName('pUpdateDT').AsAnsiString    := LNow;
             end;
-          end;
-          with Params do begin
-            ParamByName('pBrandName').AsAnsiString   := GetBrandName;
-            ParamByName('pSubName').AsAnsiString     := GetSubName;
-            ParamByName('pPhoneNum').AsAnsiString    := GetPhoneNum;
-            ParamByName('pOpeningBalance').AsInteger := GetOpeningBalance;
-            ParamByName('pCurrentBalance').AsInteger := GetCurrentBalance;
-            ParamByName('pDisabled').AsBoolean       := GetDisabled;
-            LNow                                            := Now;
-            ParamByName('pEntryDT').AsDateTime       := LNow;
-            ParamByName('pUpdateDT').AsDateTime      := LNow;
-          end;
 
-          CloseTransactions;
-          SetDatabaseNames;
-
-          ExecSQL;
-          ATr.Commit;
+            ExecSQL;
+            ATr.Commit;
+          end;
         end;
       end;
     except
-      on E: ESQLDatabaseError do
-      begin
+      on E: ESQLDatabaseError do begin
         ShowMessage(E.Message);
       end;
     end;
@@ -390,11 +525,17 @@ begin
   CancelMouseOver(clBtnFace);
   SaveMouseOver(clBtnFace);
   GoBackMouseOver(clBtnFace);
+
+  FCurrentComponent := Sender;
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.BtnInsertExit(Sender: TObject);
 begin
   InsertMouseOver(clBtnFace);
+
+  FCurrentComponent := Sender;
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.CancelMouseOver(NewColor: TColor);
@@ -408,11 +549,17 @@ begin
   CancelMouseOver(clSkyBlue);
   SaveMouseOver(clBtnFace);
   GoBackMouseOver(clBtnFace);
+
+  FCurrentComponent := Sender;
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.BtnCancelExit(Sender: TObject);
 begin
   CancelMouseOver(clBtnFace);
+
+  FCurrentComponent := Sender;
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.SaveMouseOver(NewColor: TColor);
@@ -426,11 +573,17 @@ begin
   CancelMouseOver(clBtnFace);
   SaveMouseOver(clSkyBlue);
   GoBackMouseOver(clBtnFace);
+
+  FCurrentComponent := Sender;
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.BtnSaveExit(Sender: TObject);
 begin
   SaveMouseOver(clBtnFace);
+
+  FCurrentComponent := Sender;
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.GoBackMouseOver(NewColor: TColor);
@@ -444,11 +597,17 @@ begin
   CancelMouseOver(clBtnFace);
   SaveMouseOver(clBtnFace);
   GoBackMouseOver(clSkyBlue);
+
+  FCurrentComponent := Sender;
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.BtnGoBackExit(Sender: TObject);
 begin
   GoBackMouseOver(clBtnFace);
+
+  FCurrentComponent := Sender;
+  Timer.Enabled     := True;
 end;
 
 function TFrmEntryAccount.GetAccountID: Variant;
@@ -542,19 +701,10 @@ begin
   Close;
 end;
 
-procedure TFrmEntryAccount.ADBGridKeyDown(Sender: TObject; var Key: Word;
-  Shift: TShiftState);
-begin
-  if (ssCtrl in Shift) And (Key = VK_E) then begin
-    DBEdtBrandName.SetFocus;
-  end;
-end;
-
-procedure TFrmEntryAccount.ADBGridSelectEditor(Sender: TObject;
-  Column: TColumn; var Editor: TWinControl);
+procedure TFrmEntryAccount.ADBGridSelectEditor(
+  Sender: TObject; Column: TColumn; var Editor: TWinControl);
 begin
   ADBGrid.AutoAdjustColumns;
-  AQu.Edit;
 end;
 
 procedure TFrmEntryAccount.DBEdtAccountIDChange(Sender: TObject);
@@ -609,24 +759,31 @@ end;
 
 procedure TFrmEntryAccount.DBCBDisabledChange(Sender: TObject);
 begin
-  if Not FDoCommit then begin
+  if Not FDoCommit then begin;
     if DBCBDisabled.State = cbChecked then begin
       SetDisabled(True);
+      DBCBDisabled.Checked := True;
     end else begin
       SetDisabled(False);
+      DBCBDisabled.Checked := False;
     end;
+    Timer.Enabled := True;
   end;
 end;
 
-procedure TFrmEntryAccount.FormClose(Sender: TObject;
-  var CloseAction: TCloseAction);
+procedure TFrmEntryAccount.FormClose(
+  Sender: TObject; var CloseAction: TCloseAction);
 begin
-  with FrmTopMenu.Defs do begin
-    CloseTransactions;
+  with CommonDB do begin
+    CloseQuery(AQu);
+    CloseQuery(AQuNextID);
+  end;
 
+  with Defs do begin
     SetAccountID(FAccountID);
 
     if GetEntryAccount = 0 then begin
+      FrmManageDetails    := TFrmManageDetails.Create(Application);
       FrmManageDetails.Visible  := True;
     end else if GetEntryAccount = 1 then begin
       FrmAddDetailsHeader := TFrmAddDetailsHeader.Create(Application);
@@ -643,8 +800,7 @@ end;
 
 procedure TFrmEntryAccount.FormCreate(Sender: TObject);
 begin
-  SetDatabaseNames;
-  with FrmTopMenu.Defs do begin
+  with Defs do begin
     if GetDoExitKakeiBon then begin
       Application.Terminate;
     end;
@@ -652,10 +808,17 @@ begin
 
   FReOpenDS := False;
   FDoCommit := False;
+
+  FGuidePanels[0] := Panel1;
+  FGuidePanels[1] := Panel2;
+  FGuidePanels[2] := Panel3;
+  FGuidePanels[3] := Panel4;
 end;
 
 procedure TFrmEntryAccount.FormShow(Sender: TObject);
 begin
+  FrmEntryAccount.Width      := 708;
+
   FrmEntryAccount.KeyPreview := True;
 
   Color := RGB(112, 168, 175);
@@ -667,46 +830,63 @@ begin
 
   FAccountID := GetAccountID;
 
-  try
-    with FrmTopMenu.Defs do begin
-      CloseTransactions;
-      SetDatabaseNames;
+  { Debug }
+  //FrmEntryAccount.Width      := 865;
+end;
 
-      OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20110001);
-      ADBGrid.DataSource := ADS;
-      if AQu.RecordCount = 0 then begin
-        ProcInsert(Sender);
-      end else begin
-        FInsert := False;
+procedure TFrmEntryAccount.FormActivate(Sender: TObject);
+begin
+  try
+    try
+      with CommonDB do begin
+        with Defs do begin
+          with ACn do begin
+            if not Connected then
+              Open;
+          end;
+
+          with ATr do begin
+            if Not Active then begin
+              StartTransaction;
+            end;
+          end;
+
+          OpenSelectQuery(ADS, AQu, SQL_20110001);
+          ProcInsert(Sender);
+        end;
       end;
 
       ADBGrid.AutoAdjustColumns;
-      DBEdtBrandName.SetFocus;
+      Timer.Enabled := True;
+    except
+      on E: Exception do
+        ShowMessage(E.Message);
     end;
   finally
-  end;
-end;
-
-procedure TFrmEntryAccount.TimerTimer(Sender: TObject);
-begin
-  if FReOpenDS then
-  begin
-    with FrmTopMenu.Defs do begin
-      CloseTransactions;
-      SetDatabaseNames;
-
-      OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20110001);
-      ADBGrid.DataSource := ADS;
-
-      FReOpenDS       := False;
-      Timer.Enabled   := False;
-    end;
   end;
 end;
 
 procedure TFrmEntryAccount.FormKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
+  if (Key = VK_TAB) And (ssShift in Shift) then begin
+    FTab := False;
+  end else begin
+    FTab := True;
+    if Screen.ActiveControl is TDBNavi then begin
+      ADBNaviWMSetFocus(ADBNavi, ADBNavi.Handle);
+    end;
+  end;
+
+  if (Key = VK_TAB) AND (ssShift in Shift) then begin
+    if Screen.ActiveControl is TDBNavi then begin
+      BtnGoBack.SetFocus;
+    end;
+    Timer.Enabled := True;
+  end else begin
+    Timer.Enabled := True;
+  end;
+
   if (Key = VK_SPACE) Or (Key = VK_RETURN) then begin
     if ActiveControl.Name = 'BtnInsert' then begin
       ActInsert.Execute;
@@ -716,6 +896,49 @@ begin
       ActSave.Execute;
     end else if ActiveControl.Name = 'BtnGoBack' then begin
       ActGoBack.Execute;
+    end;
+  end;
+end;
+
+procedure TFrmEntryAccount.TimerTimer(Sender: TObject);
+var
+  i            : Integer;
+  LTargetIndex : Integer;
+begin
+  Timer.Enabled      := False;
+
+  if FInsert then begin
+    if DBCBDisabled.State = cbChecked then begin
+      AQu.FieldByName('DISABLED').AsBoolean := True;
+    end else begin
+      AQu.FieldByName('DISABLED').AsBoolean := False;
+    end;
+  end;
+
+  if FReOpenDS then begin
+    with CommonDB do begin
+      with Defs do begin
+        OpenSelectQuery(ADS, AQu, SQL_20110001);
+      end;
+    end;
+    FReOpenDS          := False;
+  end;
+
+  try
+    if (ActiveControl is TDBNavFocusableButton) then begin
+      LTargetIndex := ActiveControl.ComponentIndex - 10;
+
+      for i := Low(FGuidePanels) To High(FGuidePanels) do begin
+        FGuidePanels[i].Visible := (i = LTargetIndex);
+      end;
+    end else begin
+      for i := Low(FGuidePanels) To High(FGuidePanels) do begin
+        FGuidePanels[i].Visible := False;
+      end;
+    end;
+  except
+    on E: Exception do begin
+      ShowMessage(E.Message);
     end;
   end;
 end;

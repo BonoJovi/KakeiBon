@@ -1,18 +1,19 @@
 object FrmAddUser: TFrmAddUser
-  Left = 302
-  Height = 311
-  Top = 478
-  Width = 712
+  Left = 16
+  Height = 315
+  Top = 267
+  Width = 845
   BorderStyle = bsSingle
   Caption = 'ユーザを追加'
-  ClientHeight = 311
-  ClientWidth = 712
+  ClientHeight = 315
+  ClientWidth = 845
   Color = clWindowFrame
   Font.Height = -21
   Font.Name = '0xProto'
   Font.Style = [fsBold]
   FormStyle = fsMDIForm
   Position = poScreenCenter
+  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp
@@ -114,7 +115,7 @@ object FrmAddUser: TFrmAddUser
     Cursor = crIBeam
     Left = 216
     Height = 49
-    Top = 72
+    Top = 73
     Width = 476
     EchoMode = emNone
     Font.Height = -21
@@ -154,7 +155,7 @@ object FrmAddUser: TFrmAddUser
     Cursor = crIBeam
     Left = 216
     Height = 49
-    Top = 128
+    Top = 130
     Width = 476
     EchoMode = emNone
     Font.Height = -21
@@ -170,7 +171,7 @@ object FrmAddUser: TFrmAddUser
   object PnlClearPass: TPanel
     Left = 16
     Height = 48
-    Top = 188
+    Top = 195
     Width = 680
     Caption = 'パスワードをクリア (CTRL+X)'
     Color = clActiveCaption
@@ -186,7 +187,7 @@ object FrmAddUser: TFrmAddUser
     Cursor = crCross
     Left = 24
     Height = 32
-    Top = 196
+    Top = 203
     Width = 664
     BevelColor = clNone
     BevelOuter = bvNone
@@ -210,7 +211,7 @@ object FrmAddUser: TFrmAddUser
   object PnlCancel: TPanel
     Left = 16
     Height = 48
-    Top = 248
+    Top = 251
     Width = 336
     Caption = 'キャンセル (CTRL+C)'
     Color = clActiveCaption
@@ -226,7 +227,7 @@ object FrmAddUser: TFrmAddUser
     Cursor = crCross
     Left = 24
     Height = 32
-    Top = 256
+    Top = 259
     Width = 320
     BevelColor = clNone
     BevelOuter = bvNone
@@ -250,7 +251,7 @@ object FrmAddUser: TFrmAddUser
   object PnlSave: TPanel
     Left = 360
     Height = 48
-    Top = 248
+    Top = 251
     Width = 336
     Caption = '保　　　存 (CTRL+S)'
     Color = clActiveCaption
@@ -266,7 +267,7 @@ object FrmAddUser: TFrmAddUser
     Cursor = crCross
     Left = 368
     Height = 32
-    Top = 256
+    Top = 259
     Width = 320
     BevelColor = clNone
     BevelOuter = bvNone
@@ -288,8 +289,8 @@ object FrmAddUser: TFrmAddUser
     OnMouseLeave = BtnSaveExit
   end
   object ActionList: TActionList
-    Left = 272
-    Top = 48
+    Left = 728
+    Top = 24
     object ActClearPaw: TAction
       Caption = 'ActClearPaw'
       SecondaryShortCuts.Strings = (
@@ -322,31 +323,14 @@ object FrmAddUser: TFrmAddUser
   end
   object ADS: TDataSource
     DataSet = AQu
-    Left = 400
-    Top = 48
-  end
-  object ATr: TSQLTransaction
-    Active = False
-    Database = ACn
-    Left = 464
-    Top = 48
+    Left = 728
+    Top = 88
   end
   object AQu: TSQLQuery
     FieldDefs = <>
-    Database = ACn
-    Transaction = ATr
     Params = <>
     Macros = <>
-    Left = 528
-    Top = 48
-  end
-  object ACn: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATr
-    AlwaysUseBigint = False
-    Left = 336
-    Top = 48
+    Left = 792
+    Top = 88
   end
 end

@@ -2,11 +2,11 @@ object FrmEntryUnit: TFrmEntryUnit
   Left = 841
   Height = 643
   Top = 133
-  Width = 594
+  Width = 776
   BorderStyle = bsSingle
   Caption = '単位登録'
   ClientHeight = 643
-  ClientWidth = 594
+  ClientWidth = 776
   Color = clWindowFrame
   Font.CharSet = ANSI_CHARSET
   Font.Height = -21
@@ -15,11 +15,12 @@ object FrmEntryUnit: TFrmEntryUnit
   Font.Quality = fqDraft
   Font.Style = [fsBold]
   Position = poScreenCenter
+  LCLVersion = '4.2.0.0'
   Visible = True
+  OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp
-  OnShow = FormShow
   object ADBGrid: TDBGrid
     Left = 16
     Height = 280
@@ -43,12 +44,12 @@ object FrmEntryUnit: TFrmEntryUnit
       item
         MaxSize = 400
         Title.Caption = '単位'
-        Width = 269
+        Width = 275
         FieldName = 'UNIT'
       end    
       item
         Title.Caption = '非表示'
-        Width = 269
+        Width = 275
         FieldName = 'DISABLED'
       end>
     Constraints.MaxWidth = 2000
@@ -64,15 +65,17 @@ object FrmEntryUnit: TFrmEntryUnit
     TabOrder = 0
     TabStop = False
     TitleStyle = tsStandard
+    OnEnter = ADBGridEnter
     OnSelectEditor = ADBGridSelectEditor
   end
-  object ADBNav: TDBNavigator
+  object ADBNavi: TDBNavi
     Cursor = crHandPoint
     Left = 16
     Height = 28
     Top = 312
     Width = 562
     BevelOuter = bvNone
+    ChildSizing.HorizontalSpacing = 5
     ChildSizing.EnlargeHorizontal = crsScaleChilds
     ChildSizing.EnlargeVertical = crsScaleChilds
     ChildSizing.ShrinkHorizontal = crsScaleChilds
@@ -92,12 +95,60 @@ object FrmEntryUnit: TFrmEntryUnit
     ParentFont = False
     TabOrder = 1
     TabStop = True
-    VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast, nbRefresh]
+    VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
+    OnClick = ADBNaviClick
+    OnEnter = ADBNaviEnter
+    OnExit = ADBNaviExit
+    OnWMSetFocus = ADBNaviWMSetFocus
+  end
+  object Panel1: TPanel
+    Left = 16
+    Height = 6
+    Top = 344
+    Width = 136
+    Color = clYellow
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 2
+    Visible = False
+  end
+  object Panel2: TPanel
+    Left = 158
+    Height = 6
+    Top = 344
+    Width = 136
+    Color = clYellow
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 3
+    Visible = False
+  end
+  object Panel3: TPanel
+    Left = 300
+    Height = 6
+    Top = 344
+    Width = 136
+    Color = clYellow
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 4
+    Visible = False
+  end
+  object Panel4: TPanel
+    Left = 442
+    Height = 6
+    Top = 344
+    Width = 136
+    Color = clYellow
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 5
+    Visible = False
   end
   object LblUnitID1: TLabel
     Left = 16
     Height = 32
-    Top = 365
+    Top = 368
     Width = 21
     Caption = 'Ｉ'
     Font.CharSet = ANSI_CHARSET
@@ -111,7 +162,7 @@ object FrmEntryUnit: TFrmEntryUnit
   object LblUnitID2: TLabel
     Left = 100
     Height = 32
-    Top = 365
+    Top = 368
     Width = 21
     Caption = 'Ｄ'
     Font.CharSet = ANSI_CHARSET
@@ -125,7 +176,7 @@ object FrmEntryUnit: TFrmEntryUnit
   object Shape1: TShape
     Left = 136
     Height = 16
-    Top = 373
+    Top = 376
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -137,7 +188,7 @@ object FrmEntryUnit: TFrmEntryUnit
   object DBEdtUnitID: TDBEdit
     Left = 158
     Height = 49
-    Top = 357
+    Top = 360
     Width = 164
     DataField = 'UNIT_ID'
     DataSource = ADS
@@ -150,9 +201,7 @@ object FrmEntryUnit: TFrmEntryUnit
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
-    ParentShowHint = False
-    ShowHint = True
-    TabOrder = 2
+    TabOrder = 6
     TabStop = False
     OnEnter = DBEdtUnitIDEnter
     OnExit = DBEdtUnitIDExit
@@ -160,7 +209,7 @@ object FrmEntryUnit: TFrmEntryUnit
   object PnlInsert: TPanel
     Left = 334
     Height = 49
-    Top = 352
+    Top = 360
     Width = 244
     Caption = '新規登録 (CTRL+1)'
     Color = clActiveCaption
@@ -174,13 +223,13 @@ object FrmEntryUnit: TFrmEntryUnit
     ParentBackground = False
     ParentColor = False
     ParentFont = False
-    TabOrder = 3
+    TabOrder = 7
   end
   object BtnInsert: TPanel
     Cursor = crCross
     Left = 342
     Height = 33
-    Top = 360
+    Top = 368
     Width = 228
     BevelColor = clNone
     BevelOuter = bvNone
@@ -196,7 +245,7 @@ object FrmEntryUnit: TFrmEntryUnit
     ParentColor = False
     ParentFont = False
     ShowAccelChar = True
-    TabOrder = 4
+    TabOrder = 8
     TabStop = True
     OnClick = ActInsertExecute
     OnEnter = BtnInsertEnter
@@ -207,7 +256,7 @@ object FrmEntryUnit: TFrmEntryUnit
   object LblUnit1: TLabel
     Left = 16
     Height = 32
-    Top = 421
+    Top = 425
     Width = 21
     Caption = '単'
     Font.CharSet = ANSI_CHARSET
@@ -221,7 +270,7 @@ object FrmEntryUnit: TFrmEntryUnit
   object LblUnit2: TLabel
     Left = 100
     Height = 32
-    Top = 421
+    Top = 425
     Width = 21
     Caption = '位'
     Font.CharSet = ANSI_CHARSET
@@ -235,7 +284,7 @@ object FrmEntryUnit: TFrmEntryUnit
   object Shape2: TShape
     Left = 136
     Height = 16
-    Top = 429
+    Top = 433
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -248,7 +297,7 @@ object FrmEntryUnit: TFrmEntryUnit
     Cursor = crIBeam
     Left = 158
     Height = 49
-    Top = 413
+    Top = 417
     Width = 420
     DataField = 'UNIT'
     DataSource = ADS
@@ -261,7 +310,7 @@ object FrmEntryUnit: TFrmEntryUnit
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
-    TabOrder = 5
+    TabOrder = 9
     OnEnter = DBEdtUnitEnter
     OnExit = DBEdtUnitExit
   end
@@ -326,6 +375,7 @@ object FrmEntryUnit: TFrmEntryUnit
     Top = 485
     Width = 23
     AutoSize = True
+    Color = clWindowFrame
     DataField = 'DISABLED'
     DataSource = ADS
     Font.CharSet = ANSI_CHARSET
@@ -334,8 +384,9 @@ object FrmEntryUnit: TFrmEntryUnit
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
+    ParentColor = False
     ParentFont = False
-    TabOrder = 6
+    TabOrder = 10
     TabStop = True
     ValueChecked = '1'
     ValueUnchecked = '0'
@@ -359,7 +410,7 @@ object FrmEntryUnit: TFrmEntryUnit
     ParentBackground = False
     ParentColor = False
     ParentFont = False
-    TabOrder = 7
+    TabOrder = 11
   end
   object BtnCancel: TPanel
     Cursor = crCross
@@ -381,7 +432,7 @@ object FrmEntryUnit: TFrmEntryUnit
     ParentColor = False
     ParentFont = False
     ShowAccelChar = True
-    TabOrder = 8
+    TabOrder = 12
     TabStop = True
     OnClick = ActCancelExecute
     OnEnter = BtnCancelEnter
@@ -406,7 +457,7 @@ object FrmEntryUnit: TFrmEntryUnit
     ParentBackground = False
     ParentColor = False
     ParentFont = False
-    TabOrder = 9
+    TabOrder = 13
   end
   object BtnSave: TPanel
     Cursor = crCross
@@ -428,7 +479,7 @@ object FrmEntryUnit: TFrmEntryUnit
     ParentColor = False
     ParentFont = False
     ShowAccelChar = True
-    TabOrder = 10
+    TabOrder = 14
     TabStop = True
     OnClick = ActSaveExecute
     OnEnter = BtnSaveEnter
@@ -453,7 +504,7 @@ object FrmEntryUnit: TFrmEntryUnit
     ParentBackground = False
     ParentColor = False
     ParentFont = False
-    TabOrder = 11
+    TabOrder = 15
   end
   object BtnGoBack: TPanel
     Cursor = crCross
@@ -475,7 +526,7 @@ object FrmEntryUnit: TFrmEntryUnit
     ParentColor = False
     ParentFont = False
     ShowAccelChar = True
-    TabOrder = 12
+    TabOrder = 16
     TabStop = True
     OnClick = ActGoBackExecute
     OnEnter = BtnGoBackEnter
@@ -485,14 +536,8 @@ object FrmEntryUnit: TFrmEntryUnit
   end
   object ADS: TDataSource
     DataSet = AQu
-    Left = 184
-    Top = 104
-  end
-  object ATr: TSQLTransaction
-    Active = False
-    Database = ACn
-    Left = 256
-    Top = 104
+    Left = 616
+    Top = 208
   end
   object AQu: TSQLQuery
     FieldDefs = <    
@@ -521,44 +566,34 @@ object FrmEntryUnit: TFrmEntryUnit
         Name = 'UPDATE_DT'
         DataType = ftDateTime
       end>
-    Database = ACn
-    Transaction = ATr
     Options = [sqoAutoApplyUpdates, sqoAutoCommit]
     Params = <>
     Macros = <>
-    Left = 328
-    Top = 104
-  end
-  object ATrNextID: TSQLTransaction
-    Active = False
-    Database = ACnNextID
-    Left = 256
-    Top = 160
+    Left = 696
+    Top = 208
   end
   object ADSNextID: TDataSource
     DataSet = AQuNextID
-    Left = 184
-    Top = 160
+    Left = 616
+    Top = 264
   end
   object AQuNextID: TSQLQuery
     FieldDefs = <>
-    Database = ACnNextID
-    Transaction = ATrNextID
     Options = [sqoAutoApplyUpdates, sqoAutoCommit]
     Params = <>
     Macros = <>
-    Left = 328
-    Top = 160
+    Left = 696
+    Top = 264
   end
   object Timer: TTimer
     Interval = 1
     OnTimer = TimerTimer
-    Left = 424
-    Top = 136
+    Left = 696
+    Top = 144
   end
   object ActionList: TActionList
-    Left = 32
-    Top = 104
+    Left = 616
+    Top = 144
     object ActInsert: TAction
       Caption = 'ActInsert'
       ShortCut = 16433
@@ -588,28 +623,5 @@ object FrmEntryUnit: TFrmEntryUnit
       ShortCut = 16465
       OnExecute = ActGoBackExecute
     end
-  end
-  object ACn: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATr
-    AlwaysUseBigint = False
-    Left = 112
-    Top = 104
-  end
-  object ACnNextID: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATrNextID
-    AlwaysUseBigint = False
-    Left = 112
-    Top = 160
-  end
-  object TimerKeyPreview: TTimer
-    OnTimer = TimerKeyPreviewTimer
-    Left = 424
-    Top = 192
   end
 end

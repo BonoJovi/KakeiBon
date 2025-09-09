@@ -2,16 +2,18 @@ object FrmAddDetail: TFrmAddDetail
   Left = 80
   Height = 606
   Top = 163
-  Width = 737
+  Width = 1212
   BorderStyle = bsSingle
   Caption = '明細登録'
   ClientHeight = 606
-  ClientWidth = 737
+  ClientWidth = 1212
   Color = clWindowFrame
   Font.Height = -21
   Font.Name = '0xProto'
   Font.Style = [fsBold]
   Position = poScreenCenter
+  LCLVersion = '4.2.0.0'
+  OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp
@@ -1145,8 +1147,8 @@ object FrmAddDetail: TFrmAddDetail
     MonthNames = 'Long'
   end
   object ActionList: TActionList
-    Left = 312
-    Top = 360
+    Left = 976
+    Top = 16
     object ActEntryMaker: TAction
       AutoCheck = True
       Caption = 'ActEntryMaker'
@@ -1201,13 +1203,7 @@ object FrmAddDetail: TFrmAddDetail
   end
   object ADS: TDataSource
     DataSet = AQu
-    Left = 1056
-    Top = 16
-  end
-  object ATr: TSQLTransaction
-    Active = False
-    Database = ACn
-    Left = 1128
+    Left = 1064
     Top = 16
   end
   object AQu: TSQLQuery
@@ -1276,22 +1272,14 @@ object FrmAddDetail: TFrmAddDetail
         Name = 'UPDATE_DT'
         DataType = ftUnknown
       end>
-    Database = ACn
-    Transaction = ATr
     Params = <>
     Macros = <>
-    Left = 1200
+    Left = 1144
     Top = 16
   end
   object ADSNextID: TDataSource
     DataSet = AQuNextID
-    Left = 1056
-    Top = 72
-  end
-  object ATrNextID: TSQLTransaction
-    Active = False
-    Database = ACnNextID
-    Left = 1128
+    Left = 1064
     Top = 72
   end
   object AQuNextID: TSQLQuery
@@ -1356,22 +1344,14 @@ object FrmAddDetail: TFrmAddDetail
         Name = 'UPDATE_DT'
         DataType = ftUnknown
       end>
-    Database = ACnMaker
-    Transaction = ATrMaker
     Params = <>
     Macros = <>
-    Left = 1200
+    Left = 1144
     Top = 72
   end
   object ADSMaker: TDataSource
     DataSet = AQuMaker
-    Left = 1056
-    Top = 128
-  end
-  object ATrMaker: TSQLTransaction
-    Active = False
-    Database = ACnMaker
-    Left = 1128
+    Left = 1064
     Top = 128
   end
   object AQuMaker: TSQLQuery
@@ -1400,26 +1380,18 @@ object FrmAddDetail: TFrmAddDetail
         Name = 'UPDATE_DT'
         DataType = ftUnknown
       end>
-    Database = ACnMaker
-    Transaction = ATrMaker
     SQL.Strings = (
       'SELECT * FROM "EXP1"'
     )
     Params = <>
     Macros = <>
     UsePrimaryKeyAsKey = False
-    Left = 1200
+    Left = 1144
     Top = 128
   end
   object ADSBrand: TDataSource
     DataSet = AQuBrand
-    Left = 1056
-    Top = 184
-  end
-  object ATrBrand: TSQLTransaction
-    Active = False
-    Database = ACnBrand
-    Left = 1128
+    Left = 1064
     Top = 184
   end
   object AQuBrand: TSQLQuery
@@ -1456,26 +1428,18 @@ object FrmAddDetail: TFrmAddDetail
         Name = 'UPDATE_DT'
         DataType = ftUnknown
       end>
-    Database = ACnBrand
-    Transaction = ATrBrand
     SQL.Strings = (
       'SELECT * FROM "EXP1"'
     )
     Params = <>
     Macros = <>
     UsePrimaryKeyAsKey = False
-    Left = 1200
+    Left = 1144
     Top = 184
   end
   object ADSExp2: TDataSource
     DataSet = AQuExp2
-    Left = 1056
-    Top = 240
-  end
-  object ATrExp2: TSQLTransaction
-    Active = False
-    Database = ACnExp2
-    Left = 1128
+    Left = 1064
     Top = 240
   end
   object AQuExp2: TSQLQuery
@@ -1512,22 +1476,14 @@ object FrmAddDetail: TFrmAddDetail
         Name = 'UPDATE_DT'
         DataType = ftUnknown
       end>
-    Database = ACnExp2
-    Transaction = ATrExp2
     Params = <>
     Macros = <>
-    Left = 1200
+    Left = 1144
     Top = 240
   end
   object ADSExp3: TDataSource
     DataSet = AQuExp3
-    Left = 1056
-    Top = 296
-  end
-  object ATrExp3: TSQLTransaction
-    Active = False
-    Database = ACnExp3
-    Left = 1128
+    Left = 1064
     Top = 296
   end
   object AQuExp3: TSQLQuery
@@ -1568,22 +1524,14 @@ object FrmAddDetail: TFrmAddDetail
         Name = 'UPDATE_DT'
         DataType = ftUnknown
       end>
-    Database = ACnExp3
-    Transaction = ATrExp3
     Params = <>
     Macros = <>
-    Left = 1200
+    Left = 1144
     Top = 296
   end
   object ADSUnit: TDataSource
     DataSet = AQuUnit
-    Left = 1056
-    Top = 352
-  end
-  object ATrUnit: TSQLTransaction
-    Active = False
-    Database = ACnUnit
-    Left = 1128
+    Left = 1064
     Top = 352
   end
   object AQuUnit: TSQLQuery
@@ -1612,22 +1560,14 @@ object FrmAddDetail: TFrmAddDetail
         Name = 'UPDATE_DT'
         DataType = ftUnknown
       end>
-    Database = ACnUnit
-    Transaction = ATrUnit
     Params = <>
     Macros = <>
-    Left = 1200
+    Left = 1144
     Top = 352
   end
   object ADSTaxType: TDataSource
     DataSet = AQuTaxType
-    Left = 1056
-    Top = 408
-  end
-  object ATrTaxType: TSQLTransaction
-    Active = False
-    Database = ACnTaxType
-    Left = 1128
+    Left = 1064
     Top = 408
   end
   object AQuTaxType: TSQLQuery
@@ -1644,83 +1584,15 @@ object FrmAddDetail: TFrmAddDetail
         Name = 'ORDER_ID'
         DataType = ftUnknown
       end>
-    Database = ACnTaxType
-    Transaction = ATrTaxType
     Params = <>
     Macros = <>
-    Left = 1200
+    Left = 1144
     Top = 408
   end
-  object ACn: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATr
-    AlwaysUseBigint = False
-    Left = 984
-    Top = 16
-  end
-  object ACnNextID: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATrNextID
-    AlwaysUseBigint = False
-    Left = 984
+  object Timer1: TTimer
+    Interval = 100
+    OnTimer = Timer1Timer
+    Left = 976
     Top = 72
-  end
-  object ACnMaker: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATrMaker
-    AlwaysUseBigint = False
-    Left = 984
-    Top = 128
-  end
-  object ACnBrand: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATrBrand
-    AlwaysUseBigint = False
-    Left = 984
-    Top = 184
-  end
-  object ACnExp2: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATrExp2
-    AlwaysUseBigint = False
-    Left = 984
-    Top = 240
-  end
-  object ACnExp3: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATrExp3
-    AlwaysUseBigint = False
-    Left = 984
-    Top = 296
-  end
-  object ACnUnit: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATrUnit
-    AlwaysUseBigint = False
-    Left = 984
-    Top = 352
-  end
-  object ACnTaxType: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATrTaxType
-    AlwaysUseBigint = False
-    Left = 984
-    Top = 408
   end
 end

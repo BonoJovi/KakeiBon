@@ -10,11 +10,11 @@ uses
   athreads,
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, datetimectrls, UAddDetail, UAddDetailsHeader, UAddUser, UDBAccess,
-  UDefs, UEditAdmUser, UEditDetail, UEditDetailsHeader, UEditUser,
+  Forms, datetimectrls, UDefs, UAddDetail, UAddDetailsHeader, UAddUser, UDBAccess,
+  UEditAdmUser, UEditDetail, UEditDetailsHeader, UEditUser,
   UEntryAccount, UEntryAdmin, UEntryBrandName, UEntryMaker, UEntryShop,
   UEntryUnit, ULogin, UManageDetails, UManageExp, UManageUser, UDeleteUser,
-  UTopMenu, UConsts, USummary;
+  UTopMenu, UConsts, USummary, UCommonDB;
 
 {$R *.res}
 
@@ -26,7 +26,6 @@ begin
   {$POP}
   Application.Initialize;
   Application.CreateForm(TFrmTopMenu, FrmTopMenu);
-  Application.CreateForm(TFrmSummary, FrmSummary);
   Application.Run;
 end.
 
