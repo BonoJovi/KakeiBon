@@ -2,11 +2,11 @@ object FrmTopMenu: TFrmTopMenu
   Left = 775
   Height = 464
   Top = 187
-  Width = 627
+  Width = 777
   BorderStyle = bsSingle
   Caption = 'KakeiBon'
   ClientHeight = 464
-  ClientWidth = 627
+  ClientWidth = 777
   Color = clTeal
   Font.CharSet = ANSI_CHARSET
   Font.Height = -21
@@ -15,6 +15,7 @@ object FrmTopMenu: TFrmTopMenu
   Font.Quality = fqDraft
   Font.Style = [fsBold]
   Position = poScreenCenter
+  LCLVersion = '4.2.0.0'
   Visible = True
   OnActivate = FormActivate
   OnClose = FormClose
@@ -30,8 +31,8 @@ object FrmTopMenu: TFrmTopMenu
     BevelInner = bvLowered
     BevelOuter = bvNone
     BorderStyle = bsSingle
-    ClientHeight = 70
-    ClientWidth = 593
+    ClientHeight = 72
+    ClientWidth = 595
     Color = clMoneyGreen
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
@@ -326,7 +327,7 @@ object FrmTopMenu: TFrmTopMenu
           Cursor = crCross
           Left = 98
           Height = 40
-          Top = 0
+          Top = 1
           Width = 215
           BevelColor = clNone
           BevelOuter = bvNone
@@ -413,8 +414,8 @@ object FrmTopMenu: TFrmTopMenu
     BevelInner = bvLowered
     BevelOuter = bvNone
     BorderStyle = bsSingle
-    ClientHeight = 126
-    ClientWidth = 593
+    ClientHeight = 128
+    ClientWidth = 595
     Color = clMoneyGreen
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
@@ -480,7 +481,7 @@ object FrmTopMenu: TFrmTopMenu
           Cursor = crCross
           Left = 98
           Height = 40
-          Top = 0
+          Top = 1
           Width = 215
           BevelColor = clNone
           BevelOuter = bvNone
@@ -689,7 +690,7 @@ object FrmTopMenu: TFrmTopMenu
           Cursor = crCross
           Left = 98
           Height = 40
-          Top = 0
+          Top = 1
           Width = 215
           BevelColor = clNone
           BevelOuter = bvNone
@@ -827,8 +828,8 @@ object FrmTopMenu: TFrmTopMenu
     BevelColor = clMoneyGreen
     BevelOuter = bvNone
     BorderStyle = bsSingle
-    ClientHeight = 126
-    ClientWidth = 593
+    ClientHeight = 128
+    ClientWidth = 595
     Color = clMoneyGreen
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
@@ -894,7 +895,7 @@ object FrmTopMenu: TFrmTopMenu
           Cursor = crCross
           Left = 98
           Height = 40
-          Top = 0
+          Top = 1
           Width = 215
           BevelColor = clNone
           BevelOuter = bvNone
@@ -1078,7 +1079,7 @@ object FrmTopMenu: TFrmTopMenu
           Cursor = crCross
           Left = 98
           Height = 40
-          Top = 0
+          Top = 1
           Width = 215
           BevelColor = clNone
           BevelOuter = bvNone
@@ -1287,7 +1288,7 @@ object FrmTopMenu: TFrmTopMenu
           Cursor = crCross
           Left = 98
           Height = 40
-          Top = 0
+          Top = 1
           Width = 215
           BevelColor = clNone
           BevelOuter = bvNone
@@ -1602,11 +1603,11 @@ object FrmTopMenu: TFrmTopMenu
   object Timer: TTimer
     Interval = 2500
     OnTimer = TimerTimer
-    Left = 88
+    Left = 712
     Top = 152
   end
   object ActionList: TActionList
-    Left = 164
+    Left = 640
     Top = 152
     object ActEntryDetails: TAction
       Category = 'Managements'
@@ -1671,33 +1672,28 @@ object FrmTopMenu: TFrmTopMenu
       OnExecute = ActQuitExecute
     end
   end
-  object ADS: TDataSource
-    DataSet = AQu
-    Left = 88
-    Top = 256
-  end
-  object ATr: TSQLTransaction
-    Active = False
-    Database = ACn
-    Left = 48
-    Top = 320
-  end
   object AQu: TSQLQuery
     FieldDefs = <>
-    Database = ACn
-    Transaction = ATr
     Params = <>
     Macros = <>
-    Left = 88
-    Top = 320
+    Left = 712
+    Top = 224
   end
-  object ACn: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATr
-    AlwaysUseBigint = False
-    Left = 48
-    Top = 256
+  object ADS: TDataSource
+    DataSet = AQu
+    Left = 640
+    Top = 224
+  end
+  object AQuTblChk: TSQLQuery
+    FieldDefs = <>
+    Params = <>
+    Macros = <>
+    Left = 712
+    Top = 280
+  end
+  object ADSTblChk: TDataSource
+    DataSet = AQuTblChk
+    Left = 640
+    Top = 280
   end
 end

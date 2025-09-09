@@ -2,16 +2,18 @@ object FrmManageUser: TFrmManageUser
   Left = 742
   Height = 424
   Top = 224
-  Width = 710
+  Width = 890
   BorderStyle = bsSingle
   Caption = 'ユーザ管理'
   ClientHeight = 424
-  ClientWidth = 710
+  ClientWidth = 890
   Color = clWindowFrame
   Font.Height = -21
   Font.Name = '0xProto'
   Font.Style = [fsBold]
   Position = poScreenCenter
+  LCLVersion = '4.2.0.0'
+  OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp
@@ -27,7 +29,8 @@ object FrmManageUser: TFrmManageUser
         Font.Height = -21
         Font.Name = '0xProto'
         Font.Style = [fsBold]
-        Title.Caption = 'ID'
+        Title.Layout = tlBottom
+        Title.Caption = 'ユーザID'
         Width = 104
         FieldName = 'USER_ID'
       end    
@@ -35,6 +38,7 @@ object FrmManageUser: TFrmManageUser
         Font.Height = -21
         Font.Name = '0xProto'
         Font.Style = [fsBold]
+        Title.Layout = tlBottom
         Title.Caption = 'ユーザ名'
         Width = 99
         FieldName = 'NAME'
@@ -43,6 +47,7 @@ object FrmManageUser: TFrmManageUser
         Font.Height = -21
         Font.Name = '0xProto'
         Font.Style = [fsBold]
+        Title.Layout = tlBottom
         Title.Caption = '権限'
         Width = 0
         Visible = False
@@ -52,27 +57,37 @@ object FrmManageUser: TFrmManageUser
         Font.Height = -21
         Font.Name = '0xProto'
         Font.Style = [fsBold]
+        Title.Layout = tlBottom
         Title.Caption = '登録日'
         Width = 78
         FieldName = 'ENTRY_DT'
+        DisplayFormat = 'yyyy"/"mm"/"dd hh":"nn":"ss'
       end    
       item
         Font.Height = -21
         Font.Name = '0xProto'
         Font.Style = [fsBold]
+        Title.Layout = tlBottom
         Title.Caption = '更新日'
         Width = 78
         FieldName = 'UPDATE_DT'
+        DisplayFormat = 'yyyy"/"mm"/"dd hh":"nn":"ss'
       end>
     Constraints.MaxWidth = 2000
     Font.Height = -21
-    Font.Name = '0xProto'
+    Font.Name = 'Noto Sans CJK JP'
     Font.Style = [fsBold]
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
     ParentFont = False
     TabOrder = 0
     TabStop = False
+    TitleFont.CharSet = 4
+    TitleFont.Height = -21
+    TitleFont.Name = '0xProto'
+    TitleFont.Quality = fqAntialiased
+    TitleFont.Style = [fsBold]
     TitleStyle = tsStandard
+    OnEnter = ADBGridEnter
   end
   object PnlAddUser: TPanel
     Left = 16
@@ -141,7 +156,7 @@ object FrmManageUser: TFrmManageUser
     Width = 318
     BevelColor = clNone
     BevelOuter = bvNone
-    Caption = ' 　ユーザ の編集　  (CTRL+E)'
+    Caption = ' 　　ユーザの編集 (CTRL+E)'
     Color = clBtnFace
     Font.Height = -21
     Font.Name = '0xProto'
@@ -291,12 +306,12 @@ object FrmManageUser: TFrmManageUser
   end
   object Timer: TTimer
     OnTimer = TimerTimer
-    Left = 424
-    Top = 96
+    Left = 816
+    Top = 120
   end
   object ActionList: TActionList
-    Left = 32
-    Top = 96
+    Left = 736
+    Top = 120
     object ActAddUser: TAction
       AutoCheck = True
       Caption = 'ActAddUser'
@@ -350,62 +365,26 @@ object FrmManageUser: TFrmManageUser
   end
   object ADS: TDataSource
     DataSet = AQu
-    Left = 184
-    Top = 96
-  end
-  object ATr: TSQLTransaction
-    Active = False
-    Database = ACn
-    Left = 264
-    Top = 96
+    Left = 736
+    Top = 192
   end
   object AQu: TSQLQuery
     FieldDefs = <>
-    Database = ACn
-    Transaction = ATr
     Params = <>
     Macros = <>
-    Left = 344
-    Top = 96
-  end
-  object ADSByCount: TDataSource
-    DataSet = AQuByCount
-    Left = 184
-    Top = 152
-  end
-  object ATrByCount: TSQLTransaction
-    Active = False
-    Database = ACnByCount
-    Left = 264
-    Top = 152
+    Left = 816
+    Top = 192
   end
   object AQuByCount: TSQLQuery
     FieldDefs = <>
-    Database = ACnByCount
-    Transaction = ATrByCount
     Params = <>
     Macros = <>
-    Left = 344
-    Top = 152
+    Left = 816
+    Top = 248
   end
-  object ACn: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATr
-    CharSet = 'UTF-8'
-    AlwaysUseBigint = False
-    Left = 104
-    Top = 96
-  end
-  object ACnByCount: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATrByCount
-    CharSet = 'UTF-8'
-    AlwaysUseBigint = False
-    Left = 104
-    Top = 152
+  object ADSByCount: TDataSource
+    DataSet = AQuByCount
+    Left = 736
+    Top = 248
   end
 end

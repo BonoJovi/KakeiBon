@@ -12,6 +12,7 @@ object FrmSummary: TFrmSummary
   Font.Name = '0xProto'
   Font.Style = [fsBold]
   Position = poScreenCenter
+  OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp
@@ -104,39 +105,21 @@ object FrmSummary: TFrmSummary
     OnMouseEnter = BtnGoBackEnter
     OnMouseLeave = BtnGoBackExit
   end
-  object ACn: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATr
-    CharSet = 'UTF-8'
-    AlwaysUseBigint = False
-    Left = 776
-    Top = 16
-  end
   object ADS: TDataSource
     DataSet = AQu
-    Left = 832
-    Top = 16
-  end
-  object ATr: TSQLTransaction
-    Active = False
-    Database = ACn
-    Left = 888
-    Top = 16
+    Left = 728
+    Top = 168
   end
   object AQu: TSQLQuery
     FieldDefs = <>
-    Database = ACn
-    Transaction = ATr
     Params = <>
     Macros = <>
-    Left = 944
-    Top = 16
+    Left = 792
+    Top = 168
   end
   object ActionList1: TActionList
-    Left = 712
-    Top = 16
+    Left = 728
+    Top = 104
     object ActGoBack: TAction
       Caption = 'ActGoBack'
       ShortCut = 16465

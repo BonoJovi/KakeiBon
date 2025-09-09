@@ -13,19 +13,6 @@ const
   ROLE_VISIT     = 999;
 
   APP_NAME       = 'KakeiBon';
-  {$IFDEF LINUX}
-    DB_DIR         = '.kakeibon/';
-  {$ELSE}
-    {$IFDEF DARWIN}
-      // ToDo: Implements for macOS
-    {$ELSE}
-      {$IFDEF WINDOWS}
-        DB_DIR         = '.kakeibon\';
-      {$ENDIF}
-    {$ENDIF}
-  {$ENDIF}
-
-  DB_NAME        = 'KakeiBonDB.sqlite3';
 
   NEW_EXP_NAME   = '費目';
 
@@ -82,6 +69,8 @@ const
   MSG_JP_000037  = '税区分が選択されていません。';
   MSG_JP_000038  = '数量は0以上を入力してください。';
   MSG_JP_000039  = '数字以外が入力されています。';
+  MSG_JP_000040  = 'クエリを閉じることが出来ません。。';
+
 
   ERR_MSG_000001 = 'UNIQUE constraint failed';
   ERR_MSG_000002 = 'リレーション"users"は存在しません';

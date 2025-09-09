@@ -2,16 +2,17 @@ object FrmManageDetails: TFrmManageDetails
   Left = 305
   Height = 460
   Top = 167
-  Width = 859
+  Width = 986
   BorderStyle = bsSingle
   Caption = '入出金登録'
   ClientHeight = 460
-  ClientWidth = 859
+  ClientWidth = 986
   Color = clWindowFrame
   Font.Height = -21
   Font.Name = '0xProto'
   Font.Style = [fsBold]
   Position = poScreenCenter
+  OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp
@@ -138,31 +139,7 @@ object FrmManageDetails: TFrmManageDetails
     ParentFont = False
     TabOrder = 0
     TabStop = False
-  end
-  object ADBNav: TDBNavigator
-    Cursor = crHandPoint
-    Left = 571
-    Height = 48
-    Top = 344
-    Width = 272
-    BevelOuter = bvNone
-    ChildSizing.EnlargeHorizontal = crsScaleChilds
-    ChildSizing.EnlargeVertical = crsScaleChilds
-    ChildSizing.ShrinkHorizontal = crsScaleChilds
-    ChildSizing.ShrinkVertical = crsScaleChilds
-    ChildSizing.Layout = cclLeftToRightThenTopToBottom
-    ChildSizing.ControlsPerLine = 100
-    ClientHeight = 48
-    ClientWidth = 272
-    DataSource = ADS
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
-    Options = [navFocusableButtons]
-    ParentFont = False
-    TabOrder = 1
-    TabStop = True
-    VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast, nbRefresh]
+    OnEnter = ADBGEnter
   end
   object PnlAddDetail: TPanel
     Left = 16
@@ -178,7 +155,7 @@ object FrmManageDetails: TFrmManageDetails
     ParentBackground = False
     ParentColor = False
     ParentFont = False
-    TabOrder = 2
+    TabOrder = 1
   end
   object BtnAddDetailHeader: TPanel
     Cursor = crCross
@@ -197,7 +174,7 @@ object FrmManageDetails: TFrmManageDetails
     ParentColor = False
     ParentFont = False
     ShowAccelChar = True
-    TabOrder = 3
+    TabOrder = 2
     TabStop = True
     OnClick = ActAddDetailsHeaderExecute
     OnEnter = BtnAddDetailHeaderEnter
@@ -219,7 +196,7 @@ object FrmManageDetails: TFrmManageDetails
     ParentBackground = False
     ParentColor = False
     ParentFont = False
-    TabOrder = 4
+    TabOrder = 3
   end
   object BtnEditDetailHeader: TPanel
     Cursor = crCross
@@ -238,13 +215,81 @@ object FrmManageDetails: TFrmManageDetails
     ParentColor = False
     ParentFont = False
     ShowAccelChar = True
-    TabOrder = 5
+    TabOrder = 4
     TabStop = True
     OnClick = ActEditDetailsHeaderExecute
     OnEnter = BtnEditDetailHeaderEnter
     OnExit = BtnEditDetailHeaderExit
     OnMouseEnter = BtnEditDetailHeaderEnter
     OnMouseLeave = BtnEditDetailHeaderExit
+  end
+  object ADBNavi: TDBNavi
+    Left = 571
+    Height = 26
+    Top = 352
+    Width = 272
+    BevelOuter = bvNone
+    ChildSizing.EnlargeHorizontal = crsScaleChilds
+    ChildSizing.EnlargeVertical = crsScaleChilds
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 100
+    ClientHeight = 26
+    ClientWidth = 272
+    DataSource = ADS
+    Options = [navFocusableButtons]
+    TabOrder = 5
+    TabStop = True
+    VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
+    OnClick = ADBNaviClick
+    OnEnter = ADBNaviEnter
+    OnExit = ADBNaviExit
+    OnWMSetFocus = ADBNaviWMSetFocus
+  end
+  object Panel1: TPanel
+    Left = 571
+    Height = 6
+    Top = 384
+    Width = 64
+    Color = clYellow
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 6
+    Visible = False
+  end
+  object Panel2: TPanel
+    Left = 640
+    Height = 6
+    Top = 384
+    Width = 64
+    Color = clYellow
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 7
+    Visible = False
+  end
+  object Panel3: TPanel
+    Left = 709
+    Height = 6
+    Top = 384
+    Width = 64
+    Color = clYellow
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 8
+    Visible = False
+  end
+  object Panel4: TPanel
+    Left = 779
+    Height = 6
+    Top = 384
+    Width = 64
+    Color = clYellow
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 9
+    Visible = False
   end
   object PnlRemoveDetail: TPanel
     Left = 16
@@ -260,7 +305,7 @@ object FrmManageDetails: TFrmManageDetails
     ParentBackground = False
     ParentColor = False
     ParentFont = False
-    TabOrder = 6
+    TabOrder = 10
   end
   object BtnDeleteDetailHeader: TPanel
     Cursor = crCross
@@ -279,7 +324,7 @@ object FrmManageDetails: TFrmManageDetails
     ParentColor = False
     ParentFont = False
     ShowAccelChar = True
-    TabOrder = 7
+    TabOrder = 11
     TabStop = True
     OnClick = ActDeleteDetailsHeaderExecute
     OnEnter = BtnDeleteDetailHeaderEnter
@@ -301,7 +346,7 @@ object FrmManageDetails: TFrmManageDetails
     ParentBackground = False
     ParentColor = False
     ParentFont = False
-    TabOrder = 8
+    TabOrder = 12
   end
   object BtnGoBack: TPanel
     Cursor = crCross
@@ -320,7 +365,7 @@ object FrmManageDetails: TFrmManageDetails
     ParentColor = False
     ParentFont = False
     ShowAccelChar = True
-    TabOrder = 9
+    TabOrder = 13
     TabStop = True
     OnClick = ActGoBackExecute
     OnEnter = BtnGoBackEnter
@@ -329,8 +374,8 @@ object FrmManageDetails: TFrmManageDetails
     OnMouseLeave = BtnGoBackExit
   end
   object ActionList: TActionList
-    Left = 504
-    Top = 176
+    Left = 872
+    Top = 160
     object ActAddDetailsHeader: TAction
       Caption = 'ActAddDetailsHeader'
       SecondaryShortCuts.Strings = (
@@ -366,88 +411,20 @@ object FrmManageDetails: TFrmManageDetails
   end
   object ADS: TDataSource
     DataSet = AQu
-    Left = 648
-    Top = 176
-  end
-  object ATr: TSQLTransaction
-    Active = False
-    Database = ACn
-    Left = 696
-    Top = 176
+    Left = 872
+    Top = 224
   end
   object AQu: TSQLQuery
-    FieldDefs = <    
-      item
-        Name = 'USER_ID'
-        Attributes = [faRequired]
-        DataType = ftInteger
-      end    
-      item
-        Name = 'HEADER_ID'
-        DataType = ftInteger
-      end    
-      item
-        Name = 'HEADER_DT'
-        DataType = ftDateTime
-      end    
-      item
-        Name = 'SHOP_ID'
-        DataType = ftInteger
-      end    
-      item
-        Name = 'SHOP_NAME'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'EXP_KEY1'
-        DataType = ftInteger
-      end    
-      item
-        Name = 'EXP1'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'FROM_ID'
-        DataType = ftInteger
-      end    
-      item
-        Name = 'FROM_NAME'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'TO_ID'
-        DataType = ftInteger
-      end    
-      item
-        Name = 'TO_NAME'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'TOTAL_AMOUNT'
-        DataType = ftInteger
-      end    
-      item
-        Name = 'ENTRY_DT'
-        DataType = ftDateTime
-      end    
-      item
-        Name = 'UPDATE_DT'
-        DataType = ftDateTime
-      end>
-    Database = ACn
-    Transaction = ATr
+    FieldDefs = <>
     Params = <>
     Macros = <>
-    Left = 744
-    Top = 176
+    Left = 928
+    Top = 224
   end
-  object ACn: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATr
-    AlwaysUseBigint = False
-    Left = 600
-    Top = 176
+  object Timer: TTimer
+    Interval = 1
+    OnTimer = TimerTimer
+    Left = 928
+    Top = 160
   end
 end

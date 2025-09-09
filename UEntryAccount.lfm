@@ -1,11 +1,11 @@
 object FrmEntryAccount: TFrmEntryAccount
   Left = 403
-  Height = 886
+  Height = 898
   Top = 32
-  Width = 708
+  Width = 865
   Caption = '口座登録'
-  ClientHeight = 886
-  ClientWidth = 708
+  ClientHeight = 898
+  ClientWidth = 865
   Color = clWindowFrame
   Font.CharSet = ANSI_CHARSET
   Font.Height = -21
@@ -14,6 +14,8 @@ object FrmEntryAccount: TFrmEntryAccount
   Font.Quality = fqDraft
   Font.Style = [fsBold]
   Position = poScreenCenter
+  LCLVersion = '4.2.0.0'
+  OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp
@@ -120,34 +122,83 @@ object FrmEntryAccount: TFrmEntryAccount
     TabOrder = 0
     TabStop = False
     TitleStyle = tsStandard
-    OnKeyDown = ADBGridKeyDown
+    OnEnter = ADBGridEnter
     OnSelectEditor = ADBGridSelectEditor
   end
-  object ADBNav: TDBNavigator
+  object ADBNavi: TDBNavi
     Cursor = crHandPoint
     Left = 16
-    Height = 29
-    Top = 315
+    Height = 28
+    Top = 320
     Width = 676
     BevelOuter = bvNone
+    ChildSizing.HorizontalSpacing = 5
     ChildSizing.EnlargeHorizontal = crsScaleChilds
     ChildSizing.EnlargeVertical = crsScaleChilds
     ChildSizing.ShrinkHorizontal = crsScaleChilds
     ChildSizing.ShrinkVertical = crsScaleChilds
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 100
-    ClientHeight = 29
+    ClientHeight = 28
     ClientWidth = 676
     DataSource = ADS
     Options = [navFocusableButtons]
     TabOrder = 1
     TabStop = True
-    VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast, nbRefresh]
+    VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
+    OnClick = ADBNaviClick
+    OnEnter = ADBNaviEnter
+    OnExit = ADBNaviExit
+    OnWMSetFocus = ADBNaviWMSetFocus
+  end
+  object Panel1: TPanel
+    Left = 16
+    Height = 6
+    Top = 352
+    Width = 165
+    Color = clYellow
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 2
+    Visible = False
+  end
+  object Panel2: TPanel
+    Left = 186
+    Height = 6
+    Top = 352
+    Width = 165
+    Color = clYellow
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 3
+    Visible = False
+  end
+  object Panel3: TPanel
+    Left = 356
+    Height = 6
+    Top = 352
+    Width = 165
+    Color = clYellow
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 4
+    Visible = False
+  end
+  object Panel4: TPanel
+    Left = 527
+    Height = 6
+    Top = 352
+    Width = 165
+    Color = clYellow
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 5
+    Visible = False
   end
   object LblAccountID1: TLabel
     Left = 16
     Height = 32
-    Top = 368
+    Top = 380
     Width = 21
     Caption = 'Ｉ'
     Font.CharSet = ANSI_CHARSET
@@ -161,7 +212,7 @@ object FrmEntryAccount: TFrmEntryAccount
   object LblAccountID2: TLabel
     Left = 100
     Height = 32
-    Top = 368
+    Top = 380
     Width = 21
     Caption = 'Ｄ'
     Font.CharSet = ANSI_CHARSET
@@ -175,7 +226,7 @@ object FrmEntryAccount: TFrmEntryAccount
   object Shape1: TShape
     Left = 136
     Height = 16
-    Top = 376
+    Top = 388
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -188,11 +239,12 @@ object FrmEntryAccount: TFrmEntryAccount
     Left = 160
     Height = 49
     Hint = '自動採番'
-    Top = 360
+    Top = 372
     Width = 116
     DataField = 'ACCOUNT_ID'
     DataSource = ADS
     AutoSelect = False
+    Enabled = False
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
@@ -203,7 +255,7 @@ object FrmEntryAccount: TFrmEntryAccount
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
-    TabOrder = 2
+    TabOrder = 6
     TabStop = False
     OnChange = DBEdtAccountIDChange
     OnEnter = DBEdtAccountIDEnter
@@ -212,7 +264,7 @@ object FrmEntryAccount: TFrmEntryAccount
   object PnlInsert: TPanel
     Left = 288
     Height = 48
-    Top = 360
+    Top = 372
     Width = 262
     Caption = '新規登録 (CTRL+1)'
     Color = clActiveCaption
@@ -226,13 +278,13 @@ object FrmEntryAccount: TFrmEntryAccount
     ParentBackground = False
     ParentColor = False
     ParentFont = False
-    TabOrder = 3
+    TabOrder = 7
   end
   object BtnInsert: TPanel
     Cursor = crCross
     Left = 296
     Height = 31
-    Top = 368
+    Top = 380
     Width = 246
     BevelColor = clNone
     BevelOuter = bvNone
@@ -248,7 +300,7 @@ object FrmEntryAccount: TFrmEntryAccount
     ParentColor = False
     ParentFont = False
     ShowAccelChar = True
-    TabOrder = 4
+    TabOrder = 8
     TabStop = True
     OnClick = ActInsertExecute
     OnEnter = BtnInsertEnter
@@ -259,7 +311,7 @@ object FrmEntryAccount: TFrmEntryAccount
   object LblBrandName1: TLabel
     Left = 16
     Height = 32
-    Top = 425
+    Top = 437
     Width = 21
     Caption = '口'
     Font.CharSet = ANSI_CHARSET
@@ -273,7 +325,7 @@ object FrmEntryAccount: TFrmEntryAccount
   object LblBrandName2: TLabel
     Left = 100
     Height = 32
-    Top = 425
+    Top = 437
     Width = 21
     Caption = '座'
     Font.CharSet = ANSI_CHARSET
@@ -287,7 +339,7 @@ object FrmEntryAccount: TFrmEntryAccount
   object Shape2: TShape
     Left = 136
     Height = 16
-    Top = 433
+    Top = 445
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -301,7 +353,7 @@ object FrmEntryAccount: TFrmEntryAccount
     Left = 160
     Height = 49
     Hint = '○○銀行'
-    Top = 417
+    Top = 429
     Width = 390
     DataField = 'BRAND_NAME'
     DataSource = ADS
@@ -316,7 +368,7 @@ object FrmEntryAccount: TFrmEntryAccount
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
-    TabOrder = 5
+    TabOrder = 9
     OnChange = DBEdtBrandNameChange
     OnEnter = DBEdtBrandNameEnter
     OnExit = DBEdtBrandNameExit
@@ -324,7 +376,7 @@ object FrmEntryAccount: TFrmEntryAccount
   object LblSubName1: TLabel
     Left = 16
     Height = 32
-    Top = 482
+    Top = 494
     Width = 21
     Caption = '口'
     Font.CharSet = ANSI_CHARSET
@@ -338,7 +390,7 @@ object FrmEntryAccount: TFrmEntryAccount
   object LblSubName2: TLabel
     Left = 58
     Height = 32
-    Top = 482
+    Top = 494
     Width = 21
     Caption = '座'
     Font.CharSet = ANSI_CHARSET
@@ -352,7 +404,7 @@ object FrmEntryAccount: TFrmEntryAccount
   object LblSubName3: TLabel
     Left = 100
     Height = 32
-    Top = 482
+    Top = 494
     Width = 21
     Caption = '名'
     Font.CharSet = ANSI_CHARSET
@@ -366,7 +418,7 @@ object FrmEntryAccount: TFrmEntryAccount
   object Shape3: TShape
     Left = 136
     Height = 16
-    Top = 490
+    Top = 502
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -380,7 +432,7 @@ object FrmEntryAccount: TFrmEntryAccount
     Left = 160
     Height = 49
     Hint = '普通、○○支店 等'
-    Top = 474
+    Top = 486
     Width = 390
     DataField = 'SUB_NAME'
     DataSource = ADS
@@ -395,7 +447,7 @@ object FrmEntryAccount: TFrmEntryAccount
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
-    TabOrder = 6
+    TabOrder = 10
     OnChange = DBEdtSubNameChange
     OnEnter = DBEdtSubNameEnter
     OnExit = DBEdtSubNameExit
@@ -403,7 +455,7 @@ object FrmEntryAccount: TFrmEntryAccount
   object LblPhoneNumber1: TLabel
     Left = 16
     Height = 32
-    Top = 539
+    Top = 551
     Width = 21
     Caption = '電'
     Font.CharSet = ANSI_CHARSET
@@ -417,7 +469,7 @@ object FrmEntryAccount: TFrmEntryAccount
   object LblPhoneNumber2: TLabel
     Left = 44
     Height = 32
-    Top = 539
+    Top = 551
     Width = 21
     Caption = '話'
     Font.CharSet = ANSI_CHARSET
@@ -431,7 +483,7 @@ object FrmEntryAccount: TFrmEntryAccount
   object LblPhoneNumber3: TLabel
     Left = 72
     Height = 32
-    Top = 539
+    Top = 551
     Width = 21
     Caption = '番'
     Font.CharSet = ANSI_CHARSET
@@ -445,7 +497,7 @@ object FrmEntryAccount: TFrmEntryAccount
   object LblPhoneNumber4: TLabel
     Left = 100
     Height = 32
-    Top = 539
+    Top = 551
     Width = 21
     Caption = '号'
     Font.CharSet = ANSI_CHARSET
@@ -459,7 +511,7 @@ object FrmEntryAccount: TFrmEntryAccount
   object Shape4: TShape
     Left = 136
     Height = 16
-    Top = 547
+    Top = 559
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -472,7 +524,7 @@ object FrmEntryAccount: TFrmEntryAccount
     Cursor = crIBeam
     Left = 160
     Height = 49
-    Top = 531
+    Top = 543
     Width = 390
     DataField = 'PHONE_NUM'
     DataSource = ADS
@@ -485,7 +537,7 @@ object FrmEntryAccount: TFrmEntryAccount
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
-    TabOrder = 7
+    TabOrder = 11
     OnChange = DBEdtPhoneNumChange
     OnEnter = DBEdtPhoneNumEnter
     OnExit = DBEdtPhoneNumExit
@@ -493,7 +545,7 @@ object FrmEntryAccount: TFrmEntryAccount
   object LblOpeningBalance: TLabel
     Left = 16
     Height = 32
-    Top = 596
+    Top = 608
     Width = 105
     Caption = '開始時残高'
     Font.CharSet = ANSI_CHARSET
@@ -507,7 +559,7 @@ object FrmEntryAccount: TFrmEntryAccount
   object Shape5: TShape
     Left = 136
     Height = 16
-    Top = 604
+    Top = 616
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -520,7 +572,7 @@ object FrmEntryAccount: TFrmEntryAccount
     Cursor = crIBeam
     Left = 160
     Height = 49
-    Top = 588
+    Top = 600
     Width = 390
     DataField = 'OPENING_BALANCE'
     DataSource = ADS
@@ -532,7 +584,7 @@ object FrmEntryAccount: TFrmEntryAccount
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
-    TabOrder = 8
+    TabOrder = 12
     OnChange = DBEdtOpeningBalanceChange
     OnEnter = DBEdtOpeningBalanceEnter
     OnExit = DBEdtOpeningBalanceExit
@@ -540,7 +592,7 @@ object FrmEntryAccount: TFrmEntryAccount
   object LblCurrentBalance: TLabel
     Left = 16
     Height = 32
-    Top = 653
+    Top = 665
     Width = 105
     Caption = '現時点残高'
     Font.CharSet = ANSI_CHARSET
@@ -554,7 +606,7 @@ object FrmEntryAccount: TFrmEntryAccount
   object Shape6: TShape
     Left = 136
     Height = 16
-    Top = 661
+    Top = 673
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -566,7 +618,7 @@ object FrmEntryAccount: TFrmEntryAccount
   object DBEdtCurrentBalance: TDBEdit
     Left = 160
     Height = 49
-    Top = 645
+    Top = 657
     Width = 390
     DataField = 'CURRENT_BALANCE'
     DataSource = ADS
@@ -578,7 +630,7 @@ object FrmEntryAccount: TFrmEntryAccount
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
-    TabOrder = 9
+    TabOrder = 13
     OnChange = DBEdtCurrentBalanceChange
     OnEnter = DBEdtCurrentBalanceEnter
     OnExit = DBEdtCurrentBalanceExit
@@ -586,7 +638,7 @@ object FrmEntryAccount: TFrmEntryAccount
   object LblDisabled1: TLabel
     Left = 16
     Height = 32
-    Top = 710
+    Top = 722
     Width = 21
     Caption = '非'
     Font.CharSet = ANSI_CHARSET
@@ -600,7 +652,7 @@ object FrmEntryAccount: TFrmEntryAccount
   object LblDisabled2: TLabel
     Left = 58
     Height = 32
-    Top = 710
+    Top = 722
     Width = 21
     Caption = '表'
     Font.CharSet = ANSI_CHARSET
@@ -614,7 +666,7 @@ object FrmEntryAccount: TFrmEntryAccount
   object LblDisabled3: TLabel
     Left = 100
     Height = 32
-    Top = 710
+    Top = 722
     Width = 21
     Caption = '示'
     Font.CharSet = ANSI_CHARSET
@@ -628,7 +680,7 @@ object FrmEntryAccount: TFrmEntryAccount
   object Shape7: TShape
     Left = 136
     Height = 16
-    Top = 718
+    Top = 730
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -641,19 +693,12 @@ object FrmEntryAccount: TFrmEntryAccount
     Cursor = crHandPoint
     Left = 160
     Height = 23
-    Top = 715
+    Top = 727
     Width = 23
     AutoSize = True
     DataField = 'DISABLED'
     DataSource = ADS
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
-    TabOrder = 10
+    TabOrder = 14
     TabStop = True
     ValueChecked = '1'
     ValueUnchecked = '0'
@@ -664,103 +709,9 @@ object FrmEntryAccount: TFrmEntryAccount
   object PnlCancel: TPanel
     Left = 16
     Height = 48
-    Top = 767
+    Top = 779
     Width = 336
     Caption = 'キャンセル (CTRL+C)'
-    Color = clActiveCaption
-    Enabled = False
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentBackground = False
-    ParentColor = False
-    ParentFont = False
-    TabOrder = 11
-  end
-  object BtnCancel: TPanel
-    Cursor = crCross
-    Left = 24
-    Height = 32
-    Top = 775
-    Width = 320
-    BevelColor = clNone
-    BevelOuter = bvNone
-    Caption = 'キャンセル (CTRL+C)'
-    Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentBackground = False
-    ParentColor = False
-    ParentFont = False
-    ShowAccelChar = True
-    TabOrder = 12
-    TabStop = True
-    OnClick = ActCancelExecute
-    OnEnter = BtnCancelEnter
-    OnExit = BtnCancelExit
-    OnMouseEnter = BtnCancelEnter
-    OnMouseLeave = BtnCancelExit
-  end
-  object PnlSave: TPanel
-    Left = 356
-    Height = 48
-    Top = 767
-    Width = 336
-    Caption = '保　　　存 (CTRL+S)'
-    Color = clActiveCaption
-    Enabled = False
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentBackground = False
-    ParentColor = False
-    ParentFont = False
-    TabOrder = 13
-  end
-  object BtnSave: TPanel
-    Cursor = crCross
-    Left = 364
-    Height = 32
-    Top = 775
-    Width = 320
-    BevelColor = clNone
-    BevelOuter = bvNone
-    Caption = '保　　　存 (CTRL+S)'
-    Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentBackground = False
-    ParentColor = False
-    ParentFont = False
-    ShowAccelChar = True
-    TabOrder = 14
-    TabStop = True
-    OnClick = ActSaveExecute
-    OnEnter = BtnSaveEnter
-    OnExit = BtnSaveExit
-    OnMouseEnter = BtnSaveEnter
-    OnMouseLeave = BtnSaveExit
-  end
-  object PnlGoBack: TPanel
-    Left = 16
-    Height = 48
-    Top = 823
-    Width = 676
-    Caption = '前の画面に戻る (CTRL+Q)'
     Color = clActiveCaption
     Enabled = False
     Font.CharSet = ANSI_CHARSET
@@ -774,11 +725,105 @@ object FrmEntryAccount: TFrmEntryAccount
     ParentFont = False
     TabOrder = 15
   end
+  object BtnCancel: TPanel
+    Cursor = crCross
+    Left = 24
+    Height = 32
+    Top = 787
+    Width = 320
+    BevelColor = clNone
+    BevelOuter = bvNone
+    Caption = 'キャンセル (CTRL+C)'
+    Color = clBtnFace
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    ShowAccelChar = True
+    TabOrder = 16
+    TabStop = True
+    OnClick = ActCancelExecute
+    OnEnter = BtnCancelEnter
+    OnExit = BtnCancelExit
+    OnMouseEnter = BtnCancelEnter
+    OnMouseLeave = BtnCancelExit
+  end
+  object PnlSave: TPanel
+    Left = 356
+    Height = 48
+    Top = 779
+    Width = 336
+    Caption = '保　　　存 (CTRL+S)'
+    Color = clActiveCaption
+    Enabled = False
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 17
+  end
+  object BtnSave: TPanel
+    Cursor = crCross
+    Left = 364
+    Height = 32
+    Top = 787
+    Width = 320
+    BevelColor = clNone
+    BevelOuter = bvNone
+    Caption = '保　　　存 (CTRL+S)'
+    Color = clBtnFace
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    ShowAccelChar = True
+    TabOrder = 18
+    TabStop = True
+    OnClick = ActSaveExecute
+    OnEnter = BtnSaveEnter
+    OnExit = BtnSaveExit
+    OnMouseEnter = BtnSaveEnter
+    OnMouseLeave = BtnSaveExit
+  end
+  object PnlGoBack: TPanel
+    Left = 16
+    Height = 48
+    Top = 835
+    Width = 676
+    Caption = '前の画面に戻る (CTRL+Q)'
+    Color = clActiveCaption
+    Enabled = False
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 19
+  end
   object BtnGoBack: TPanel
     Cursor = crCross
     Left = 24
     Height = 32
-    Top = 831
+    Top = 843
     Width = 660
     BevelColor = clNone
     BevelOuter = bvNone
@@ -794,7 +839,7 @@ object FrmEntryAccount: TFrmEntryAccount
     ParentColor = False
     ParentFont = False
     ShowAccelChar = True
-    TabOrder = 16
+    TabOrder = 20
     TabStop = True
     OnClick = ActGoBackExecute
     OnEnter = BtnGoBackEnter
@@ -806,7 +851,7 @@ object FrmEntryAccount: TFrmEntryAccount
     Left = 208
     Height = 32
     Hint = '2025/05/18 09:00'
-    Top = 710
+    Top = 722
     Width = 242
     DataField = 'ENTRY_DT'
     DataSource = ADS
@@ -822,7 +867,7 @@ object FrmEntryAccount: TFrmEntryAccount
     Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 17
+    TabOrder = 21
     TabStop = False
     DateSeparator = '/'
     TrailingSeparator = False
@@ -844,7 +889,7 @@ object FrmEntryAccount: TFrmEntryAccount
     Left = 456
     Height = 32
     Hint = '2025/05/18 09:00'
-    Top = 710
+    Top = 722
     Width = 242
     DataField = 'UPDATE_DT'
     DataSource = ADS
@@ -860,7 +905,7 @@ object FrmEntryAccount: TFrmEntryAccount
     Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 18
+    TabOrder = 22
     TabStop = False
     DateSeparator = '/'
     TrailingSeparator = False
@@ -897,12 +942,12 @@ object FrmEntryAccount: TFrmEntryAccount
   object Timer: TTimer
     Interval = 1
     OnTimer = TimerTimer
-    Left = 256
-    Top = 224
+    Left = 800
+    Top = 208
   end
   object ActionList: TActionList
-    Left = 64
-    Top = 91
+    Left = 728
+    Top = 208
     object ActInsert: TAction
       Caption = 'ActInsert'
       ShortCut = 16433
@@ -935,101 +980,38 @@ object FrmEntryAccount: TFrmEntryAccount
   end
   object ADS: TDataSource
     DataSet = AQu
-    Left = 192
-    Top = 91
-  end
-  object ATr: TSQLTransaction
-    Active = False
-    Database = ACn
-    Left = 256
-    Top = 91
+    Left = 728
+    Top = 272
   end
   object AQu: TSQLQuery
     FieldDefs = <    
       item
-        Name = 'ACCOUNT_ID'
-        Attributes = [faHiddenCol]
-        DataType = ftInteger
-      end    
-      item
-        Name = 'BRAND_NAME'
-        DataType = ftString
-      end    
-      item
-        Name = 'SUB_NAME'
-        DataType = ftString
-      end    
-      item
-        Name = 'PHONE_NUM'
-        Attributes = [faRequired, faFixed]
-        DataType = ftVariant
-      end    
-      item
-        Name = 'OPENING_BALANCE'
-        DataType = ftInteger
-      end    
-      item
-        Name = 'CURRENT_BALANCE'
-        DataType = ftInteger
-      end    
-      item
-        Name = 'DISABLED'
-        DataType = ftDateTime
-      end    
-      item
-        Name = 'ENTRY_DT'
-        DataType = ftDateTime
-      end    
-      item
-        Name = 'UPDATE_DT'
+        Name = 'USER_ID'
         DataType = ftUnknown
-      end>
-    Database = ACn
-    Transaction = ATr
-    Options = [sqoAutoApplyUpdates, sqoAutoCommit]
-    Params = <>
-    Macros = <>
-    Left = 320
-    Top = 91
-  end
-  object ADSNextID: TDataSource
-    DataSet = AQuNextID
-    Left = 192
-    Top = 149
-  end
-  object ATrNextID: TSQLTransaction
-    Active = False
-    Database = ACnNextID
-    Left = 256
-    Top = 149
-  end
-  object AQuNextID: TSQLQuery
-    FieldDefs = <    
+      end    
       item
         Name = 'ACCOUNT_ID'
-        Attributes = [faHiddenCol]
-        DataType = ftInteger
+        DataType = ftUnknown
       end    
       item
         Name = 'BRAND_NAME'
-        DataType = ftString
+        DataType = ftUnknown
       end    
       item
         Name = 'SUB_NAME'
-        DataType = ftString
+        DataType = ftUnknown
       end    
       item
         Name = 'PHONE_NUM'
-        Attributes = [faRequired, faFixed]
-        DataType = ftString
+        DataType = ftUnknown
       end    
       item
         Name = 'OPENING_BALANCE'
-        DataType = ftCurrency
+        DataType = ftUnknown
       end    
       item
         Name = 'CURRENT_BALANCE'
-        DataType = ftCurrency
+        DataType = ftUnknown
       end    
       item
         Name = 'DISABLED'
@@ -1037,36 +1019,27 @@ object FrmEntryAccount: TFrmEntryAccount
       end    
       item
         Name = 'ENTRY_DT'
-        DataType = ftDateTime
+        DataType = ftUnknown
       end    
       item
         Name = 'UPDATE_DT'
-        DataType = ftDateTime
+        DataType = ftUnknown
       end>
-    Database = ACnNextID
-    Transaction = ATrNextID
-    Options = [sqoAutoApplyUpdates, sqoAutoCommit]
     Params = <>
     Macros = <>
-    Left = 320
-    Top = 149
+    Left = 800
+    Top = 272
   end
-  object ACn: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATr
-    AlwaysUseBigint = False
-    Left = 128
-    Top = 91
+  object ADSNextID: TDataSource
+    DataSet = AQuNextID
+    Left = 728
+    Top = 328
   end
-  object ACnNextID: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATrNextID
-    AlwaysUseBigint = False
-    Left = 128
-    Top = 149
+  object AQuNextID: TSQLQuery
+    FieldDefs = <>
+    Params = <>
+    Macros = <>
+    Left = 800
+    Top = 328
   end
 end

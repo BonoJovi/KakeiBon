@@ -2,16 +2,18 @@ object FrmEditUser: TFrmEditUser
   Left = 709
   Height = 635
   Top = 174
-  Width = 658
+  Width = 819
   BorderStyle = bsSingle
   Caption = 'ユーザの編集'
   ClientHeight = 635
-  ClientWidth = 658
+  ClientWidth = 819
   Color = clWindowFrame
   Font.Height = -21
   Font.Name = '0xProto'
   Font.Style = [fsBold]
   Position = poScreenCenter
+  LCLVersion = '4.2.0.0'
+  OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp
@@ -28,14 +30,16 @@ object FrmEditUser: TFrmEditUser
         Font.Height = -21
         Font.Name = '0xProto'
         Font.Style = [fsBold]
+        Title.Layout = tlBottom
         Title.Caption = 'ユーザID'
-        Width = 103
+        Width = 104
         FieldName = 'USER_ID'
       end    
       item
         Font.Height = -21
         Font.Name = '0xProto'
         Font.Style = [fsBold]
+        Title.Layout = tlBottom
         Title.Caption = 'ユーザ名'
         Width = 99
         FieldName = 'NAME'
@@ -44,25 +48,31 @@ object FrmEditUser: TFrmEditUser
         Font.Height = -21
         Font.Name = '0xProto'
         Font.Style = [fsBold]
+        Title.Layout = tlBottom
         Title.Caption = '権限'
-        Width = 57
+        Width = 0
+        Visible = False
         FieldName = 'ROLE'
       end    
       item
         Font.Height = -21
         Font.Name = '0xProto'
         Font.Style = [fsBold]
+        Title.Layout = tlBottom
         Title.Caption = '登録日'
         Width = 78
         FieldName = 'ENTRY_DT'
+        DisplayFormat = 'yyyy"/"mm"/"dd hh":"nn":"ss'
       end    
       item
         Font.Height = -21
         Font.Name = '0xProto'
         Font.Style = [fsBold]
+        Title.Layout = tlBottom
         Title.Caption = '更新日'
         Width = 78
         FieldName = 'UPDATE_DT'
+        DisplayFormat = 'yyyy"/"mm"/"dd hh":"nn":"ss'
       end>
     DataSource = ADS
     Font.Height = -21
@@ -73,33 +83,76 @@ object FrmEditUser: TFrmEditUser
     ReadOnly = True
     TabOrder = 0
     TabStop = False
+    OnEnter = ADBGridEnter
   end
-  object DBNavigator: TDBNavigator
-    Cursor = crHandPoint
+  object ADBNavi: TDBNavi
     Left = 16
-    Height = 36
+    Height = 28
     Top = 148
     Width = 626
     BevelOuter = bvNone
+    ChildSizing.HorizontalSpacing = 5
     ChildSizing.EnlargeHorizontal = crsScaleChilds
     ChildSizing.EnlargeVertical = crsScaleChilds
     ChildSizing.ShrinkHorizontal = crsScaleChilds
     ChildSizing.ShrinkVertical = crsScaleChilds
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 100
-    ClientHeight = 36
+    ClientHeight = 28
     ClientWidth = 626
-    Color = clWindowFrame
     DataSource = ADS
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     Options = [navFocusableButtons]
-    ParentColor = False
-    ParentFont = False
     TabOrder = 1
     TabStop = True
-    VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast, nbRefresh]
+    VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
+    OnClick = ADBNaviClick
+    OnEnter = ADBNaviEnter
+    OnExit = ADBNaviExit
+    OnWMSetFocus = ADBNaviWMSetFocus
+  end
+  object Panel1: TPanel
+    Left = 16
+    Height = 6
+    Top = 180
+    Width = 152
+    Color = clYellow
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 2
+    Visible = False
+  end
+  object Panel2: TPanel
+    Left = 174
+    Height = 6
+    Top = 180
+    Width = 152
+    Color = clYellow
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 3
+    Visible = False
+  end
+  object Panel3: TPanel
+    Left = 332
+    Height = 6
+    Top = 180
+    Width = 152
+    Color = clYellow
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 4
+    Visible = False
+  end
+  object Panel4: TPanel
+    Left = 490
+    Height = 6
+    Top = 180
+    Width = 152
+    Color = clYellow
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 5
+    Visible = False
   end
   object LblUserID: TLabel
     Left = 16
@@ -113,10 +166,10 @@ object FrmEditUser: TFrmEditUser
     ParentFont = False
   end
   object DBTextUserID: TDBText
-    Left = 200
+    Left = 224
     Height = 26
     Top = 196
-    Width = 443
+    Width = 419
     AutoSize = False
     DataField = 'USER_ID'
     DataSource = ADS
@@ -125,7 +178,7 @@ object FrmEditUser: TFrmEditUser
     Font.Style = [fsBold]
     ParentFont = False
   end
-  object LblUserName: TLabel
+  object LblFromUserName: TLabel
     Left = 16
     Height = 32
     Top = 234
@@ -137,10 +190,10 @@ object FrmEditUser: TFrmEditUser
     ParentFont = False
   end
   object DBTextFromUserName: TDBText
-    Left = 201
+    Left = 225
     Height = 26
     Top = 236
-    Width = 442
+    Width = 418
     AutoSize = False
     DataField = 'NAME'
     DataSource = ADS
@@ -149,7 +202,7 @@ object FrmEditUser: TFrmEditUser
     Font.Style = [fsBold]
     ParentFont = False
   end
-  object LblToUName: TLabel
+  object LblUserName: TLabel
     Left = 272
     Height = 32
     Top = 264
@@ -160,7 +213,7 @@ object FrmEditUser: TFrmEditUser
     Font.Style = [fsBold]
     ParentFont = False
   end
-  object LblUserName1: TLabel
+  object LblToUserName: TLabel
     Left = 16
     Height = 32
     Top = 312
@@ -193,7 +246,7 @@ object FrmEditUser: TFrmEditUser
     Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 2
+    TabOrder = 6
     OnChange = EdtToUserNameChange
     OnEnter = EdtToUserNameEnter
     OnExit = EdtToUserNameExit
@@ -233,7 +286,7 @@ object FrmEditUser: TFrmEditUser
     Font.Style = [fsBold]
     ParentFont = False
     PasswordChar = ' '
-    TabOrder = 3
+    TabOrder = 7
     OnChange = EdtPawChange
     OnEnter = EdtPawEnter
     OnExit = EdtPawExit
@@ -263,7 +316,7 @@ object FrmEditUser: TFrmEditUser
   end
   object EdtPawConfirm: TEdit
     Cursor = crIBeam
-    Left = 224
+    Left = 223
     Height = 49
     Top = 418
     Width = 419
@@ -273,7 +326,7 @@ object FrmEditUser: TFrmEditUser
     Font.Style = [fsBold]
     ParentFont = False
     PasswordChar = ' '
-    TabOrder = 4
+    TabOrder = 8
     OnChange = EdtPawConfirmChange
     OnEnter = EdtPawConfirmEnter
     OnExit = EdtPawConfirmExit
@@ -294,7 +347,7 @@ object FrmEditUser: TFrmEditUser
     Left = 16
     Height = 48
     Top = 515
-    Width = 626
+    Width = 627
     Caption = 'パスワードをクリア (CTRL+X)'
     Color = clActiveCaption
     Enabled = False
@@ -304,7 +357,7 @@ object FrmEditUser: TFrmEditUser
     ParentBackground = False
     ParentColor = False
     ParentFont = False
-    TabOrder = 5
+    TabOrder = 9
   end
   object BtnClearPaw: TPanel
     Cursor = crCross
@@ -323,7 +376,7 @@ object FrmEditUser: TFrmEditUser
     ParentColor = False
     ParentFont = False
     ShowAccelChar = True
-    TabOrder = 6
+    TabOrder = 10
     TabStop = True
     OnClick = ActClearPawExecute
     OnEnter = BtnClearPawEnter
@@ -345,7 +398,7 @@ object FrmEditUser: TFrmEditUser
     ParentBackground = False
     ParentColor = False
     ParentFont = False
-    TabOrder = 7
+    TabOrder = 11
   end
   object BtnCancel: TPanel
     Cursor = crCross
@@ -364,7 +417,7 @@ object FrmEditUser: TFrmEditUser
     ParentColor = False
     ParentFont = False
     ShowAccelChar = True
-    TabOrder = 8
+    TabOrder = 12
     TabStop = True
     OnClick = ActCancelExecute
     OnEnter = BtnCancelEnter
@@ -372,7 +425,7 @@ object FrmEditUser: TFrmEditUser
     OnMouseEnter = BtnCancelEnter
     OnMouseLeave = BtnCancelExit
   end
-  object PnlCommit: TPanel
+  object PnlSave: TPanel
     Left = 332
     Height = 48
     Top = 571
@@ -386,7 +439,7 @@ object FrmEditUser: TFrmEditUser
     ParentBackground = False
     ParentColor = False
     ParentFont = False
-    TabOrder = 9
+    TabOrder = 13
   end
   object BtnSave: TPanel
     Cursor = crCross
@@ -405,7 +458,7 @@ object FrmEditUser: TFrmEditUser
     ParentColor = False
     ParentFont = False
     ShowAccelChar = True
-    TabOrder = 10
+    TabOrder = 14
     TabStop = True
     OnClick = ActSaveExecute
     OnEnter = BtnSaveEnter
@@ -414,29 +467,20 @@ object FrmEditUser: TFrmEditUser
     OnMouseLeave = BtnSaveExit
   end
   object ActionList: TActionList
-    Left = 320
-    Top = 144
+    Left = 680
+    Top = 104
     object ActClearPaw: TAction
       Caption = 'ActClearPaw'
-      SecondaryShortCuts.Strings = (
-        'Ctrl+1'
-      )
       ShortCut = 16472
       OnExecute = ActClearPawExecute
     end
     object ActCancel: TAction
       Caption = 'ActCancel'
-      SecondaryShortCuts.Strings = (
-        'Ctrl+2'
-      )
       ShortCut = 16451
       OnExecute = ActCancelExecute
     end
     object ActSave: TAction
       Caption = 'ActSave'
-      SecondaryShortCuts.Strings = (
-        'Ctrl+3'
-      )
       ShortCut = 16467
       OnExecute = ActSaveExecute
     end
@@ -448,65 +492,38 @@ object FrmEditUser: TFrmEditUser
   end
   object ADS: TDataSource
     DataSet = AQu
-    Left = 432
-    Top = 144
-  end
-  object ATr: TSQLTransaction
-    Active = False
-    Database = ACnUsers
-    Left = 488
-    Top = 144
+    Left = 680
+    Top = 280
   end
   object AQu: TSQLQuery
     FieldDefs = <>
-    Database = ACn
-    Transaction = ATr
-    SQL.Strings = (
-      'SELECT "NAME", "PAW" FROM "USERS" WHERE "ROLE" = 1;'
-    )
     Params = <>
     Macros = <>
-    Left = 544
-    Top = 144
-  end
-  object ACn: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    AlwaysUseBigint = False
-    Left = 376
-    Top = 144
-  end
-  object ACnUsers: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATrUsers
-    AlwaysUseBigint = False
-    Left = 376
-    Top = 200
+    Left = 752
+    Top = 280
   end
   object ADSUsers: TDataSource
     DataSet = AQuUsers
-    Left = 432
-    Top = 200
-  end
-  object ATrUsers: TSQLTransaction
-    Active = False
-    Database = ACnUsers
-    Left = 488
-    Top = 200
+    Left = 680
+    Top = 336
   end
   object AQuUsers: TSQLQuery
     FieldDefs = <>
-    Database = ACnUsers
-    Transaction = ATrUsers
-    SQL.Strings = (
-      'SELECT "NAME", "PAW" FROM "USERS" WHERE "ROLE" = 1;'
-    )
     Params = <>
     Macros = <>
-    Left = 544
-    Top = 200
+    Left = 752
+    Top = 336
+  end
+  object Timer: TTimer
+    Enabled = False
+    Interval = 1
+    OnTimer = TimerTimer
+    Left = 680
+    Top = 160
+  end
+  object TimerDBNavi: TTimer
+    OnTimer = TimerDBNaviTimer
+    Left = 752
+    Top = 160
   end
 end

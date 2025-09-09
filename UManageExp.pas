@@ -19,25 +19,19 @@ type
   { TFrmManageExp }
 
   TFrmManageExp = class(TForm)
-    ACn1                : TSQLite3Connection;
-    ADS1                : TDataSource;
-    ATr1                : TSQLTransaction;
-    AQu1                : TSQLQuery;
-    ACn2                : TSQLite3Connection;
-    ADS2                : TDataSource;
-    ATr2                : TSQLTransaction;
-    AQu2                : TSQLQuery;
-    ACn3                : TSQLite3Connection;
-    ADS3                : TDataSource;
-    ATr3                : TSQLTransaction;
-    AQu3                : TSQLQuery;
+    ADSExp1             : TDataSource;
+    AQuExp1             : TSQLQuery;
+    ADSExp2             : TDataSource;
+    AQuExp2             : TSQLQuery;
+    ADSExp3             : TDataSource;
+    AQuExp3             : TSQLQuery;
     { ActionLists}
     ActionList          : TActionList;
     ActAddExp2          : TAction;
     ActDefaultOrderKey2 : TAction;
     ActAddExp3          : TAction;
     ActDefaultOrderKey3 : TAction;
-    ActGoBack             : TAction;
+    ActGoBack           : TAction;
     ASG1                : TStringGrid;
     ASG2                : TStringGrid;
     ASG3                : TStringGrid;
@@ -49,7 +43,7 @@ type
     BtnDefaultOrderKey3 : TPanel;
     BtnGoBack           : TPanel;
     PnlGoBack           : TPanel;
-    Timer1              : TTimer;
+    Timer              : TTimer;
     procedure ProcAddExp2(Sender: TObject);
     procedure ProcDefaultOrderKey2(Sender: TObject);
     procedure ProcAddExp3(Sender: TObject);
@@ -90,15 +84,15 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure TimerTimer(Sender: TObject);
   private
-    FPrevOrderKey2  : Integer;
-    FPrevOrderKey3  : Integer;
-    FNewOrderKey2   : Integer;
-    FNewOrderKey3   : Integer;
-    FPrevExp2       : String;
-    FPrevExp3       : String;
-    procedure SetDatabaseNames;
-    procedure CloseTransactions;
+    FChangeOrderKey2 : Boolean;
+    FPrevOrderKey2   : Integer;
+    FPrevOrderKey3   : Integer;
+    FNewOrderKey2    : Integer;
+    FNewOrderKey3    : Integer;
+    FPrevExp2        : String;
+    FPrevExp3        : String;
     function GetMaxOrderKey(Qu: TSQLQuery; FieldName: String): Integer;
     function GeneratePickList(MaxIndex: Integer): TStringList;
     procedure SetPickList(StrGrid: TStringGrid;
@@ -116,29 +110,11 @@ var
 implementation
 
 uses
-  UConsts, UDBAccess, UTopMenu;
+  UCommonDB, UDefs, UConsts, UDBAccess, UTopMenu;
 
 {$R *.lfm}
 
 { TFrmManageExp }
-
-procedure TFrmManageExp.SetDatabaseNames;
-begin
-  with FrmTopMenu.Defs do begin
-    SetDatabaseName(ACn1);
-    SetDatabaseName(ACn2);
-    SetDatabaseName(ACn3);
-  end;
-end;
-
-procedure TFrmManageExp.CloseTransactions;
-begin
-  with FrmTopMenu.Defs do begin
-    CloseConn(ACn1, ATr1);
-    CloseConn(ACn2, ATr2);
-    CloseConn(ACn3, ATr3);
-  end;
-end;
 
 procedure TFrmManageExp.ProcAddExp2(Sender: TObject);
 var
@@ -147,67 +123,76 @@ var
 
   procedure UpdateExpName2;
   begin
-    with AQu2 do begin
-      SQL.Text := SQL_20060005;
-      with Params do begin
-        with ASG1 do begin
-          ParamByName('pUserID').AsInteger   := Cells[1, ASG1.Row].ToInteger;
-          ParamByName('pExpKey1').AsInteger  := Cells[3, ASG1.Row].ToInteger;
-          ParamByName('pName2').AsAnsiString := AnsiString(NEW_EXP_NAME);
-          ParamByName('pEntryDT').AsDateTime := Now;
-        end;
+    with CommonDB do begin
+      with Defs do begin
+        with AQuExp2 do begin
+          //CloseAllDB;
 
-        CloseTransactions;
-        ExecSQL;
-        ATr2.Commit;
+          SQL.Text := SQL_20060005;
+          with Params do begin
+            with ASG1 do begin
+              ParamByName('pUserID').AsInteger     := Cells[1, ASG1.Row].ToInteger;
+              ParamByName('pExpKey1').AsInteger    := Cells[3, ASG1.Row].ToInteger;
+              ParamByName('pName2').AsAnsiString   := AnsiString(NEW_EXP_NAME);
+              ParamByName('pEntryDT').AsAnsiString := FormatDateTime('yyyy-mm-dd hh:nn:ss', Now, GetFS);
+            end;
+
+            ExecSQL;
+            ATr.Commit;
+          end;
+        end;
       end;
     end;
   end;
 
 begin
-  try
-    try
-      with FrmTopMenu.Defs do begin
-        with AQu2 do begin
-          CloseConn(ACn2, ATr2);
-          SetDatabaseNames;
+  with CommonDB do begin
+    with Defs do begin
+      try
+        try
+          with AQuExp2 do begin
+            //CloseConn(ACn2, ATr2, AQuExp2);
+            //SetDatabaseNames;
 
-          UpdateExpName2;
+            UpdateExpName2;
 
-          // ReQuery
-          SelectExp2;
-          if AQu2.RecordCount > 0 then begin
-            SelectExp3;
-          end else begin
-            DeleteAllRecords(ASG3);
+            // ReQuery
+            SelectExp2;
+            if AQuExp2.RecordCount > 0 then begin
+              SelectExp3;
+            end else begin
+              DeleteAllRecords(ASG3);
+            end;
+
+            // Generate and set order key lists to order key cells
+            LMaxOrderKey2 := GetMaxOrderKey(AQuExp2, 'ORDER_KEY2');
+            LPickList     := GeneratePickList(LMaxOrderKey2);
+            SetPickList(ASG2, ORDER_KEY2_IDX, LPickList);
+
+            ASG2.Row      := LMaxOrderKey2;
           end;
-
-          // Generate and set order key lists to order key cells
-          LMaxOrderKey2 := GetMaxOrderKey(AQu2, 'ORDER_KEY2');
-          LPickList     := GeneratePickList(LMaxOrderKey2);
-          SetPickList(ASG2, ORDER_KEY2_IDX, LPickList);
-
-          ASG2.Row      := LMaxOrderKey2;
+        except
+          on E: ESQLDatabaseError do begin
+            ShowMessage(E.Message);
+            ATr.Rollback;
+          end;
         end;
-      end;
-    except
-      on E: ESQLDatabaseError do begin
-        ShowMessage(E.Message);
-        ATr2.Rollback;
+      finally
       end;
     end;
-  finally
   end;
 end;
 
 procedure TFrmManageExp.ProcDefaultOrderKey2(Sender: TObject);
 begin
-  with FrmTopMenu.Defs do begin
-    CloseTransactions;
-    SetDatabaseNames;
-    SetDefaultOrderKey2(
-      ACn2, ADS2, ATr2, AQu2, SQL_20060014,
-      ASG1.Cells[3, ASG1.Row].ToInteger);
+  with CommonDB do begin
+    with Defs do begin
+      //CloseAllDB;
+      //SetDatabaseNames;
+      SetDefaultOrderKey2(
+        ACn, ADSExp2, ATr, AQuExp2, SQL_20060014,
+        ASG1.Cells[3, ASG1.Row].ToInteger);
+    end;
   end;
 end;
 
@@ -218,64 +203,73 @@ var
 
   procedure UpdateExpName3;
   begin
-    with AQu3 do begin
-      SQL.Text := SQL_20060006;
-      with Params do begin
-        with ASG2 do begin
-          ParamByName('pUserID').AsInteger   := Cells[1, ASG1.Row].ToInteger;
-          ParamByName('pExpKey1').AsInteger  := Cells[2, ASG2.Row].ToInteger;
-          ParamByName('pExpKey2').AsInteger  := Cells[3, ASG2.Row].ToInteger;
-          ParamByName('pName3').AsAnsiString := AnsiString('費目');
-          ParamByName('pEntryDT').AsDateTime := Now;
-        end;
+    with CommonDB do begin
+      with Defs do begin
+        with AQuExp3 do begin
+          //CloseAllDB;
 
-        CloseTransactions;
-        ExecSQL;
-        ATr3.Commit;
+          SQL.Text := SQL_20060006;
+          with Params do begin
+            with ASG2 do begin
+              ParamByName('pUserID').AsInteger     := Cells[1, ASG1.Row].ToInteger;
+              ParamByName('pExpKey1').AsInteger    := Cells[2, ASG2.Row].ToInteger;
+              ParamByName('pExpKey2').AsInteger    := Cells[3, ASG2.Row].ToInteger;
+              ParamByName('pName3').AsAnsiString   := AnsiString('費目');
+              ParamByName('pEntryDT').AsAnsiString := FormatDateTime('yyyy-mm-dd hh:nn:ss', Now, GetFS);
+            end;
+
+            ExecSQL;
+            ATr.Commit;
+          end;
+        end;
       end;
     end;
   end;
 
 begin
-  try
-    try
-      with FrmTopMenu.Defs do begin
-        with AQu3 do begin
-          CloseConn(ACn3, ATr3);
-          SetDatabaseNames;
+  with CommonDB do begin
+    with Defs do begin
+      try
+        try
+          with AQuExp3 do begin
+            //CloseConn(ACn3, ATr3, AQuExp3);
+            //SetDatabaseNames;
 
-          UpdateExpName3;
+            UpdateExpName3;
 
-          // ReQuery
-          SelectExp3;
+            // ReQuery
+            SelectExp3;
 
-          // Generate and set order key lists to order key cells
-          LMaxOrderKey3 := GetMaxOrderKey(AQu3, 'ORDER_KEY3');
-          LPickList     := GeneratePickList(LMaxOrderKey3);
-          SetPickList(ASG3, ORDER_KEY3_IDX, LPickList);
+            // Generate and set order key lists to order key cells
+            LMaxOrderKey3 := GetMaxOrderKey(AQuExp3, 'ORDER_KEY3');
+            LPickList     := GeneratePickList(LMaxOrderKey3);
+            SetPickList(ASG3, ORDER_KEY3_IDX, LPickList);
 
-          ASG3.Row      := LMaxOrderKey3;
+            ASG3.Row      := LMaxOrderKey3;
+          end;
+        except
+          on E: ESQLDatabaseError do begin
+            ShowMessage(E.Message);
+            ATr.Rollback;
+          end;
         end;
-      end;
-    except
-      on E: ESQLDatabaseError do begin
-        ShowMessage(E.Message);
-        ATr3.Rollback;
+      finally
       end;
     end;
-  finally
   end;
 end;
 
 procedure TFrmManageExp.ProcDefaultOrderKey3(Sender: TObject);
 begin
-  with FrmTopMenu.Defs do begin
-    CloseTransactions;
-    SetDatabaseNames;
-    SetDefaultOrderKey3(
-      ACn2, ADS2, ATr2, AQu2, SQL_20060015,
-      ASG1.Cells[3, ASG1.Row].ToInteger,
-      ASG2.Cells[3, ASG2.Row].ToInteger);
+  with CommonDB do begin
+    with Defs do begin
+      //CloseAllDB;
+      //SetDatabaseNames;
+      SetDefaultOrderKey3(
+        ACn, ADSExp2, ATr, AQuExp2, SQL_20060015,
+        ASG1.Cells[3, ASG1.Row].ToInteger,
+        ASG2.Cells[3, ASG2.Row].ToInteger);
+    end;
   end;
 end;
 
@@ -406,8 +400,7 @@ var
 begin
   LPickList := TStringList.Create;
 
-  for i := 1 to MaxIndex do
-  begin
+  for i := 1 to MaxIndex do begin
     LPickList.Add(i.ToString);
   end;
 
@@ -419,8 +412,7 @@ procedure TFrmManageExp.SetPickList(StrGrid: TStringGrid;
 var
   i: Integer;
 begin
-  for i := 1 to StrGrid.RowCount - 1 do
-  begin
+  for i := 1 to StrGrid.RowCount - 1 do begin
     with StrGrid.Columns do begin
       Items[FieldIdx].PickList := PickList;
     end;
@@ -442,23 +434,28 @@ var
 
   procedure SetValuesToASG1;
   begin
-    with AQu1 do begin
-      if RecordCount > 0 then begin
-        First;
-        while Not EOF do begin
-          with ASG1 do begin
-            RowCount := RowCount + 1;
-            Cells[1, i] := FieldByName('USER_ID').AsAnsiString;
-            Cells[2, i] := FieldByName('UNAME').AsAnsiString;
-            Cells[3, i] := FieldByName('EXP_KEY1').AsAnsiString;
-            Cells[4, i] := FieldByName('NAME1').AsAnsiString;
-            Cells[5, i] := FieldByName('DISABLED1').AsAnsiString;
-            Cells[6, i] := FieldByName('ORDER_KEY1').AsAnsiString;
-            Cells[7, i] := FieldByName('ENTRY_DT').AsAnsiString;
-            Cells[8, i] := FieldByName('UPDATE_DT').AsAnsiString;
+    with CommonDB do begin
+      with AQuExp1 do begin
+        SQLConnection  := ACn;
+        SQLTransaction := ATr;
+
+        if RecordCount > 0 then begin
+          First;
+          while Not EOF do begin
+            with ASG1 do begin
+              RowCount := RowCount + 1;
+              Cells[1, i] := FieldByName('USER_ID').AsAnsiString;
+              Cells[2, i] := FieldByName('UNAME').AsAnsiString;
+              Cells[3, i] := FieldByName('EXP_KEY1').AsAnsiString;
+              Cells[4, i] := FieldByName('NAME1').AsAnsiString;
+              Cells[5, i] := FieldByName('DISABLED1').AsAnsiString;
+              Cells[6, i] := FieldByName('ORDER_KEY1').AsAnsiString;
+              Cells[7, i] := FieldByName('ENTRY_DT').AsAnsiString;
+              Cells[8, i] := FieldByName('UPDATE_DT').AsAnsiString;
+            end;
+            Inc(i);
+            Next;
           end;
-          Inc(i);
-          Next;
         end;
       end;
     end;
@@ -466,11 +463,13 @@ var
 
 begin
   // Query exp1
-  with FrmTopMenu.Defs do begin
-    OpenSelectQuery(ACn1, ADS1, ATr1, AQu1, SQL_20060002);
-    DeleteAllRecords(ASG1);
+  with CommonDB do begin
+    with Defs do begin
+      OpenSelectQuery(ADSExp1, AQuExp1, SQL_20060002);
+      DeleteAllRecords(ASG1);
 
-    SetValuesToASG1;
+      SetValuesToASG1;
+    end;
   end;
 end;
 
@@ -483,23 +482,25 @@ var
   procedure SetValuesToASG2;
   begin
     i := 1;
-    with AQu2 do begin
-      ASG2.RowCount := AQu2.RecordCount + i;
-      if RecordCount > 0 then begin
-        First;
-        while Not EOF do begin
-          with ASG2 do begin
-            Cells[1, i] := FieldByName('USER_ID').AsAnsiString;
-            Cells[2, i] := FieldByName('EXP_KEY1').AsAnsiString;
-            Cells[3, i] := FieldByName('EXP_KEY2').AsAnsiString;
-            Cells[4, i] := FieldByName('NAME2').AsAnsiString;
-            Cells[5, i] := IntToStr(FieldByName('DISABLED2').AsBoolean.ToInteger);
-            Cells[6, i] := FieldByName('ORDER_KEY2').AsAnsiString;
-            Cells[7, i] := FieldByName('ENTRY_DT').AsAnsiString;
-            Cells[8, i] := FieldByName('UPDATE_DT').AsAnsiString;
+    with CommonDB do begin
+      with AQuExp2 do begin
+        ASG2.RowCount := AQuExp2.RecordCount + i;
+        if RecordCount > 0 then begin
+          First;
+          while Not EOF do begin
+            with ASG2 do begin
+              Cells[1, i] := FieldByName('USER_ID').AsAnsiString;
+              Cells[2, i] := FieldByName('EXP_KEY1').AsAnsiString;
+              Cells[3, i] := FieldByName('EXP_KEY2').AsAnsiString;
+              Cells[4, i] := FieldByName('NAME2').AsAnsiString;
+              Cells[5, i] := IntToStr(FieldByName('DISABLED2').AsBoolean.ToInteger);
+              Cells[6, i] := FieldByName('ORDER_KEY2').AsAnsiString;
+              Cells[7, i] := FieldByName('ENTRY_DT').AsAnsiString;
+              Cells[8, i] := FieldByName('UPDATE_DT').AsAnsiString;
+            end;
+            Inc(i);
+            Next;
           end;
-          Inc(i);
-          Next;
         end;
       end;
     end;
@@ -507,19 +508,25 @@ var
 
 begin
   // Query exp2
-  with FrmTopMenu.Defs do begin
-    DeleteAllRecords(ASG2);
+  with CommonDB do begin
+    with Defs do begin
+      CloseQuery(AQuExp2);
+      DeleteAllRecords(ASG2);
 
-    CloseConn(ACn2, ATr2);
-    SetDatabaseNames;
-    OpenSelectQueryWithExp1(
-      ACn2, ADS2, ATr2, AQu2, SQL_20060003, StrToInt(ASG1.Cells[3, ASG1.Row]));
-    SetValuesToASG2;
+      with AQuExp2 do begin
+        SQLConnection  := ACn;
+        SQLTransaction := ATr;
+      end;
 
-    // Generate and set order key lists to order key cells
-    LMaxOrderKey2 := GetMaxOrderKey(AQu2, 'ORDER_KEY2');
-    LPickList     := GeneratePickList(LMaxOrderKey2);
-    SetPickList(ASG2, ORDER_KEY2_IDX, LPickList);
+      OpenSelectQueryWithExp1(
+        ACn, ADSExp2, ATr, AQuExp2, SQL_20060003, StrToInt(ASG1.Cells[3, ASG1.Row]));
+      SetValuesToASG2;
+
+      // Generate and set order key lists to order key cells
+      LMaxOrderKey2 := GetMaxOrderKey(AQuExp2, 'ORDER_KEY2');
+      LPickList     := GeneratePickList(LMaxOrderKey2);
+      SetPickList(ASG2, ORDER_KEY2_IDX, LPickList);
+    end;
   end;
 end;
 
@@ -532,24 +539,26 @@ var
   procedure SetValuesToASG3;
   begin
     i := 1;
-    with AQu3 do begin
-      ASG3.RowCount := AQu3.RecordCount + i;
-      if RecordCount > 0 then begin
-        First;
-        while Not EOF do begin
-          with ASG3 do begin
-            Cells[1, i] := FieldByName('USER_ID').AsAnsiString;
-            Cells[2, i] := FieldByName('EXP_KEY1').AsAnsiString;
-            Cells[3, i] := FieldByName('EXP_KEY2').AsAnsiString;
-            Cells[4, i] := FieldByName('EXP_KEY3').AsAnsiString;
-            Cells[5, i] := FieldByName('NAME3').AsAnsiString;
-            Cells[6, i] := IntToStr(FieldByName('DISABLED3').AsBoolean.ToInteger);
-            Cells[7, i] := FieldByName('ORDER_KEY3').AsAnsiString;
-            Cells[8, i] := FieldByName('ENTRY_DT').AsAnsiString;
-            Cells[9, i] := FieldByName('UPDATE_DT').AsAnsiString;
+    with CommonDB do begin
+      with AQuExp3 do begin
+        ASG3.RowCount := AQuExp3.RecordCount + i;
+        if RecordCount > 0 then begin
+          First;
+          while Not EOF do begin
+            with ASG3 do begin
+              Cells[1, i] := FieldByName('USER_ID').AsAnsiString;
+              Cells[2, i] := FieldByName('EXP_KEY1').AsAnsiString;
+              Cells[3, i] := FieldByName('EXP_KEY2').AsAnsiString;
+              Cells[4, i] := FieldByName('EXP_KEY3').AsAnsiString;
+              Cells[5, i] := FieldByName('NAME3').AsAnsiString;
+              Cells[6, i] := IntToStr(FieldByName('DISABLED3').AsBoolean.ToInteger);
+              Cells[7, i] := FieldByName('ORDER_KEY3').AsAnsiString;
+              Cells[8, i] := FieldByName('ENTRY_DT').AsAnsiString;
+              Cells[9, i] := FieldByName('UPDATE_DT').AsAnsiString;
+            end;
+            Inc(i);
+            Next;
           end;
-          Inc(i);
-          Next;
         end;
       end;
     end;
@@ -557,23 +566,29 @@ var
 
 begin
   // Query exp3
-  with FrmTopMenu.Defs do begin
-    DeleteAllRecords(ASG3);
+  with CommonDB do begin
+    with Defs do begin
+      CloseQuery(AQuExp3);
+      DeleteAllRecords(ASG3);
 
-    CloseConn(ACn3, ATr3);
-    SetDatabaseNames;
-    with ASG2 do begin
-      OpenSelectQueryWithExp1AndExp2(
-        ACn3, ADS3, ATr3, AQu3, SQL_20060004,
-        StrToInt(Cells[2, ASG2.Row]),
-        StrToInt(Cells[3, ASG2.Row]));
+      with ASG2 do begin
+        with AQuExp3 do begin
+          SQLConnection  := ACn;
+          SQLTransaction := ATr;
+        end;
+
+        OpenSelectQueryWithExp1AndExp2(
+          ACn, ADSExp3, ATr, AQuExp3, SQL_20060004,
+          StrToInt(Cells[2, ASG2.Row]),
+          StrToInt(Cells[3, ASG2.Row]));
+      end;
+      SetValuesToASG3;
+
+      // Generate and set order key lists to order key cells
+      LMaxOrderKey3 := GetMaxOrderKey(AQuExp3, 'ORDER_KEY3');
+      LPickList     := GeneratePickList(LMaxOrderKey3);
+      SetPickList(ASG3, ORDER_KEY3_IDX, LPickList);
     end;
-    SetValuesToASG3;
-
-    // Generate and set order key lists to order key cells
-    LMaxOrderKey3 := GetMaxOrderKey(AQu3, 'ORDER_KEY3');
-    LPickList     := GeneratePickList(LMaxOrderKey3);
-    SetPickList(ASG3, ORDER_KEY3_IDX, LPickList);
   end;
 end;
 
@@ -608,10 +623,12 @@ end;
 procedure TFrmManageExp.ASG1Click(Sender: TObject);
 begin
   SelectExp2;
-  if AQu2.RecordCount > 0 then begin
-    SelectExp3;
-  end else begin
-    DeleteAllRecords(ASG3);
+  with CommonDB do begin
+    if AQuExp2.RecordCount > 0 then begin
+      SelectExp3;
+    end else begin
+      DeleteAllRecords(ASG3);
+    end;
   end;
 end;
 
@@ -620,32 +637,41 @@ procedure TFrmManageExp.ASG2CheckboxToggled(Sender: TObject; aCol,
 begin
   try
     try
-      with FrmTopMenu.Defs do begin
-        with AQu2 do begin
-          with Params do begin
-            SQL.Text := SQL_20060010;
-            if aState = cbChecked then begin
-              ParamByName('pDisabled2').AsBoolean := True;
-            end else if aState = cbUnchecked then begin
-              ParamByName('pDisabled2').AsBoolean := False;
-            end;
-            with ASG2 do begin
-              ParamByName('pUpdateDT').AsDateTime := Now;
-              ParamByName('pUserID').AsInteger    := GetUID;
-              ParamByName('pExpKey1').AsInteger   := Cells[2, Row].ToInteger;
-              ParamByName('pExpKey2').AsInteger   := Cells[3, Row].ToInteger;
+      with CommonDB do begin
+        with Defs do begin
+          with AQuExp2 do begin
+            CloseQuery(AQuExp2);
+
+            if Not ATr.Active then begin
+              ATr.StartTransaction;
             end;
 
-            CloseTransactions;
-            ExecSQL;
-            ATr2.Commit;
+            with Params do begin
+              SQL.Text := SQL_20060010;
+              if aState = cbChecked then begin
+                ParamByName('pDisabled2').AsInteger := True.ToInteger;
+              end else if aState = cbUnchecked then begin
+                ParamByName('pDisabled2').AsBoolean := False;
+              end;
+              with ASG2 do begin
+                ParamByName('pUpdateDT').AsAnsiString := FormatDateTime('yyyy-mm-dd hh:nn:ss', Now, GetFS);
+                ParamByName('pUserID').AsInteger      := GetUID;
+                ParamByName('pExpKey1').AsInteger     := Cells[2, Row].ToInteger;
+                ParamByName('pExpKey2').AsInteger     := Cells[3, Row].ToInteger;
+              end;
+
+              ExecSQL;
+              ATr.Commit;
+            end;
           end;
         end;
       end;
     except
       on E: ESQLDatabaseError do begin
         ShowMessage(E.Message);
-        ATr2.Rollback;
+        with CommonDB do begin
+          ATr.Rollback;
+        end;
       end;
     end;
   finally
@@ -654,11 +680,14 @@ end;
 
 procedure TFrmManageExp.ASG2Click(Sender: TObject);
 begin
-  SelectExp3;
-  with ASG2 do begin
-    FPrevOrderKey2 := Cells[6, ASG2.Row].ToInteger;
-    FPrevExp2      := Cells[4, ASG2.Row];
+  if Not FChangeOrderKey2 then begin
+    with ASG2 do begin
+      FPrevOrderKey2 := Cells[6, ASG2.Row].ToInteger;
+      FPrevExp2      := Cells[4, ASG2.Row];
+    end;
+    FChangeOrderKey2 := True;
   end;
+  SelectExp3;
 end;
 
 procedure TFrmManageExp.ASG2KeyUp(Sender: TObject; var Key: Word;
@@ -666,24 +695,30 @@ procedure TFrmManageExp.ASG2KeyUp(Sender: TObject; var Key: Word;
 var
   i : Integer;
 
-  procedure UpdateExp2(SS: String; SG: TStringGrid; aRow: Integer);
+  procedure UpdateExp2(
+    SS: String; SG: TStringGrid; aRow: Integer);
   begin
-    with AQu2 do begin
-      SQL.Text := SS;
-      with Params do begin
-        with SG do begin
-          ParamByName('pUserID').AsInteger    := Cells[1, aRow].ToInteger;
-          ParamByName('pExpKey1').AsInteger   := Cells[2, aRow].ToInteger;
-          ParamByName('pExpKey2').AsInteger   := Cells[3, aRow].ToInteger;
-          ParamByName('pName2').AsString      := Cells[4, aRow];
-          ParamByName('pDisabled2').AsBoolean := Cells[5, aRow].ToBoolean;
-          ParamByName('pOrderKey2').AsInteger := Cells[6, aRow].ToInteger;
-          ParamByName('pUpdateDT').AsDateTime := Now;
-        end;
+    with CommonDB do begin
+      with Defs do begin
+        with AQuExp2 do begin
+          //CloseAllDB;
 
-        CloseTransactions;
-        ExecSQL;
-        ATr2.Commit;
+          SQL.Text := SS;
+          with Params do begin
+            with SG do begin
+              ParamByName('pUserID').AsInteger      := Cells[1, aRow].ToInteger;
+              ParamByName('pExpKey1').AsInteger     := Cells[2, aRow].ToInteger;
+              ParamByName('pExpKey2').AsInteger     := Cells[3, aRow].ToInteger;
+              ParamByName('pName2').AsString        := Cells[4, aRow];
+              ParamByName('pDisabled2').AsBoolean   := Cells[5, aRow].ToBoolean;
+              ParamByName('pOrderKey2').AsInteger   := Cells[6, aRow].ToInteger;
+              ParamByName('pUpdateDT').AsAnsiString := FormatDateTime('yyyy-mm-dd hh:nn:ss', Now, GetFS);
+            end;
+
+            ExecSQL;
+            ATr.Commit;
+          end;
+        end;
       end;
     end;
   end;
@@ -691,75 +726,86 @@ var
   procedure CancelChangedOrderKey2(
     SS: String; SG: TStringGrid; aRow, OrderKey2: Integer);
   begin
-    with AQu2 do begin
-      SQL.Text := SS;
-      with SG do begin
-        with Params do begin
-          ParamByName('pUserID').AsInteger    := Cells[1, aRow].ToInteger;
-          ParamByName('pExpKey1').AsInteger   := Cells[2, aRow].ToInteger;
-          ParamByName('pExpKey2').AsInteger   := Cells[3, aRow].ToInteger;
-          ParamByName('pOrderKey2').AsInteger := OrderKey2;
-          ParamByName('pUpdateDT').AsDateTime := Now;
+    with CommonDB do begin
+      with Defs do begin
+        with AQuExp2 do begin
+          SQL.Text := SS;
+          with SG do begin
+            with Params do begin
+              ParamByName('pUserID').AsInteger      := Cells[1, aRow].ToInteger;
+              ParamByName('pExpKey1').AsInteger     := Cells[2, aRow].ToInteger;
+              ParamByName('pExpKey2').AsInteger     := Cells[3, aRow].ToInteger;
+              ParamByName('pOrderKey2').AsInteger   := OrderKey2;
+              ParamByName('pUpdateDT').AsAnsiString := FormatDateTime('yyyy-mm-dd hh:nn:ss', Now, GetFS);
 
-          ExecSQL;
+              ExecSQL;
+            end;
+          end;
         end;
       end;
     end;
   end;
 
 begin
-  if Key = VK_RETURN then begin
-    try
-      try
-        UpdateExp2(SQL_20060007, ASG2, ASG2.Row);
-
-        SelectExp2;
-        SelectExp3;
-      except
-        on E: ESQLDatabaseError do begin
-          ShowMessage(E.Message);
-          ATr2.Rollback;
-        end;
-      end;
-    finally
-    end;
-  end else if Key = VK_ESCAPE then begin
-    if ASG2.Col = 6 then begin
-      try
+  with CommonDB do begin
+    with Defs do begin
+      if Key = VK_RETURN then begin
         try
-          with ASG2 do begin
-            if FPrevOrderKey2 < FNewOrderKey2 then begin
-              CloseTransactions;
-              CancelChangedOrderKey2(
-                SQL_20060012, ASG2, FPrevOrderKey2, FNewOrderKey2);
+          try
+            with ASG2 do begin
+              FPrevOrderKey2 := Cells[6, ASG2.Row].ToInteger;
+            end;
+            UpdateExp2(SQL_20060007, ASG2, ASG2.Row);
 
-              for i := FPrevOrderKey2 + 1 to FNewOrderKey2 do begin
-                Cells[6, i] := IntToStr(Cells[6, i].ToInteger + 1);
-
-                CancelChangedOrderKey2(
-                  SQL_20060012, ASG2, i, Cells[6, i].ToInteger);
-              end;
-              ATr2.Commit;
-            end else if FPrevOrderKey2 > FNewOrderKey2 then begin
-              CloseTransactions;
-              CancelChangedOrderKey2(
-                SQL_20060012, ASG2, FPrevOrderKey2, FPrevOrderKey2);
-              for i := FNewOrderKey2 to FPrevOrderKey2 - 1 do begin
-                Cells[6, i] := IntToStr(Cells[6, i].ToInteger - 1);
-
-                CancelChangedOrderKey2(
-                  SQL_20060012, ASG2, i, Cells[6, i].ToInteger);
-              end;
-              ATr2.Commit;
+            SelectExp2;
+            SelectExp3;
+          except
+            on E: ESQLDatabaseError do begin
+              ShowMessage(E.Message);
+              ATr.Rollback;
             end;
           end;
-        except
-          on E: ESQLDatabaseError do begin
-            ShowMessage(E.Message);
-            ATr2.Rollback;
+        finally
+        end;
+      end else if Key = VK_ESCAPE then begin
+        if ASG2.Col = 6 then begin
+          try
+            try
+              with ASG2 do begin
+                if FPrevOrderKey2 < FNewOrderKey2 then begin
+                  //CloseAllDB;
+                  CancelChangedOrderKey2(
+                    SQL_20060012, ASG2, FPrevOrderKey2, FNewOrderKey2);
+
+                  for i := FPrevOrderKey2 + 1 to FNewOrderKey2 do begin
+                    Cells[6, i] := IntToStr(Cells[6, i].ToInteger + 1);
+
+                    CancelChangedOrderKey2(
+                      SQL_20060012, ASG2, i, Cells[6, i].ToInteger);
+                  end;
+                  ATr.Commit;
+                end else if FPrevOrderKey2 > FNewOrderKey2 then begin
+                  //CloseAllDB;
+                  CancelChangedOrderKey2(
+                    SQL_20060012, ASG2, FPrevOrderKey2, FPrevOrderKey2);
+                  for i := FNewOrderKey2 to FPrevOrderKey2 - 1 do begin
+                    Cells[6, i] := IntToStr(Cells[6, i].ToInteger - 1);
+
+                    CancelChangedOrderKey2(
+                      SQL_20060012, ASG2, i, Cells[6, i].ToInteger);
+                  end;
+                  ATr.Commit;
+                end;
+              end;
+            except
+              on E: ESQLDatabaseError do begin
+                ShowMessage(E.Message);
+                ATr.Rollback;
+              end;
+            end;
+          finally
           end;
         end;
-      finally
       end;
     end;
   end;
@@ -772,96 +818,107 @@ var
   procedure SaveChangedOrderKey2(
     SS: String; SG: TStringGrid; aRow, OrderKey2: Integer );
   begin
-    with AQu2 do begin
-      SQL.Text := SS;
-      with Params do begin
-        with SG do begin
-          ParamByName('pUserID').AsInteger    := Cells[1, aRow].ToInteger;
-          ParamByName('pExpKey1').AsInteger   := Cells[2, aRow].ToInteger;
-          ParamByName('pExpKey2').AsInteger   := Cells[3, aRow].ToInteger;
-          ParamByName('pOrderKey2').AsInteger := OrderKey2;
-          ParamByName('pUpdateDT').AsDateTime := Now;
-        end;
+    with CommonDB do begin
+      with Defs do begin
+        with AQuExp2 do begin
+          SQL.Text := SS;
+          with Params do begin
+            with SG do begin
+              ParamByName('pUserID').AsInteger      := Cells[1, aRow].ToInteger;
+              ParamByName('pExpKey1').AsInteger     := Cells[2, aRow].ToInteger;
+              ParamByName('pExpKey2').AsInteger     := Cells[3, aRow].ToInteger;
+              ParamByName('pOrderKey2').AsInteger   := OrderKey2;
+              ParamByName('pUpdateDT').AsAnsiString := FormatDateTime('yyyy-mm-dd hh:nn:ss', Now, GetFS);
+            end;
 
-        ExecSQL;
+            ExecSQL;
+          end;
+        end;
       end;
     end;
   end;
 
 begin
-  try
-    try
-      with ASG2 do begin
-        if Cells[6, ASG2.Row] <> '' then begin
-          FNewOrderKey2 := Cells[6, ASG2.Row].ToInteger;
-          if FPrevOrderKey2 < FNewOrderKey2 then begin
-            CloseTransactions;
-            SaveChangedOrderKey2(
-              SQL_20060012, ASG2, FPrevOrderKey2, FNewOrderKey2);
-            for i := FPrevOrderKey2 + 1 to FNewOrderKey2 do begin
-              Cells[6, i] := IntToStr(Cells[6, i].ToInteger - 1);
+  with CommonDB do begin
+    with Defs do begin
+      try
+        try
+          with ASG2 do begin
+            if Cells[6, ASG2.Row] <> '' then begin
+              FNewOrderKey2 := Cells[6, ASG2.Row].ToInteger;
+              if FPrevOrderKey2 < FNewOrderKey2 then begin
+                CloseQuery(AQuExp2);
+                SaveChangedOrderKey2(
+                  SQL_20060012, ASG2, FPrevOrderKey2, FNewOrderKey2);
+                for i := FPrevOrderKey2 + 1 to FNewOrderKey2 do begin
+                  Cells[6, i] := IntToStr(Cells[6, i].ToInteger - 1);
 
-              SaveChangedOrderKey2(SQL_20060012, ASG2, i, Cells[6, i].ToInteger);
-            end;
-            ATr2.Commit;
-          end else if FPrevOrderKey2 > FNewOrderKey2 then begin
-            CloseTransactions;
-            SaveChangedOrderKey2(
-              SQL_20060012, ASG2, FPrevOrderKey2, FNewOrderKey2);
-            for i := FNewOrderKey2 to FPrevOrderKey2 - 1 do begin
-              Cells[6, i] := IntToStr(Cells[6, i].ToInteger + 1);
+                  SaveChangedOrderKey2(SQL_20060012, ASG2, i, Cells[6, i].ToInteger);
+                end;
+                ATr.Commit;
+              end else if FPrevOrderKey2 > FNewOrderKey2 then begin
+                CloseQuery(AQuExp2);
+                SaveChangedOrderKey2(
+                  SQL_20060012, ASG2, FPrevOrderKey2, FNewOrderKey2);
+                for i := FNewOrderKey2 to FPrevOrderKey2 - 1 do begin
+                  Cells[6, i] := IntToStr(Cells[6, i].ToInteger + 1);
 
-              SaveChangedOrderKey2(SQL_20060012, ASG2, i, Cells[6, i].ToInteger);
+                  SaveChangedOrderKey2(SQL_20060012, ASG2, i, Cells[6, i].ToInteger);
+                end;
+                ATr.Commit;
+              end;
             end;
-            ATr2.Commit;
+          end;
+        except
+          on E: ESQLDatabaseError do begin
+            ShowMessage(E.Message);
+            ATr.Rollback;
           end;
         end;
-      end;
-    except
-      on E: ESQLDatabaseError do begin
-        ShowMessage(E.Message);
-        ATr2.Rollback;
+      finally
       end;
     end;
-  finally
   end;
 end;
 
 procedure TFrmManageExp.ASG3CheckboxToggled(Sender: TObject; aCol,
   aRow: Integer; aState: TCheckboxState);
 begin
-  try
-    try
-      with FrmTopMenu.Defs do begin
-        with AQu3 do begin
-          with Params do begin
-            SQL.Text := SQL_20060011;
-            if aState = cbChecked then begin
-              ParamByName('pDisabled3').AsBoolean := True;
-            end else if aState = cbUnchecked then begin
-              ParamByName('pDisabled3').AsBoolean := False;
-            end;
-            with ASG3 do begin
-              ParamByName('pUpdateDT').AsDateTime := Now;
-              ParamByName('pUserID').AsInteger    := GetUID;
-              ParamByName('pExpKey1').AsInteger   := Cells[2, Row].ToInteger;
-              ParamByName('pExpKey2').AsInteger   := Cells[3, Row].ToInteger;
-              ParamByName('pExpKey3').AsInteger   := Cells[4, Row].ToInteger;
-            end;
+  with CommonDB do begin
+    with Defs do begin
+      try
+        try
+          with AQuExp3 do begin
+            CloseQuery(AQuExp3);
 
-            CloseTransactions;
-            ExecSQL;
-            ATr3.Commit;
+            with Params do begin
+              SQL.Text := SQL_20060011;
+              if aState = cbChecked then begin
+                ParamByName('pDisabled3').AsBoolean := True;
+              end else if aState = cbUnchecked then begin
+                ParamByName('pDisabled3').AsBoolean := False;
+              end;
+              with ASG3 do begin
+                ParamByName('pUpdateDT').AsAnsiString := FormatDateTime('yyyy-mm-dd hh:nn:ss', Now, GetFS);
+                ParamByName('pUserID').AsInteger      := GetUID;
+                ParamByName('pExpKey1').AsInteger     := Cells[2, Row].ToInteger;
+                ParamByName('pExpKey2').AsInteger     := Cells[3, Row].ToInteger;
+                ParamByName('pExpKey3').AsInteger     := Cells[4, Row].ToInteger;
+              end;
+
+              ExecSQL;
+              ATr.Commit;
+            end;
+          end;
+        except
+          on E: ESQLDatabaseError do begin
+            ShowMessage(E.Message);
+            ATr.Rollback;
           end;
         end;
-      end;
-    except
-      on E: ESQLDatabaseError do begin
-        ShowMessage(E.Message);
-        ATr3.Rollback;
+      finally
       end;
     end;
-  finally
   end;
 end;
 
@@ -880,23 +937,28 @@ var
 
   procedure UpdateExp3(SS: String; SG: TStringGrid; aRow: Integer);
   begin
-    with AQu3 do begin
-      SQL.Text := SS;
-      with Params do begin
-        with SG do begin
-          ParamByName('pUserID').AsInteger    := Cells[1, Row].ToInteger;
-          ParamByName('pExpKey1').AsInteger   := Cells[2, Row].ToInteger;
-          ParamByName('pExpKey2').AsInteger   := Cells[3, Row].ToInteger;
-          ParamByName('pExpKey3').AsInteger   := Cells[4, Row].ToInteger;
-          ParamByName('pName3').AsString      := Cells[5, Row];
-          ParamByName('pDisabled3').AsBoolean := Cells[6, Row].ToBoolean;
-          ParamByName('pOrderKey3').AsInteger := Cells[7, Row].ToInteger;
-          ParamByName('pUpdateDT').AsDateTime := Now;
-        end;
+    with CommonDB do begin
+      with Defs do begin
+        with AQuExp3 do begin
+          //CloseAllDB;
 
-        CloseTransactions;
-        ExecSQL;
-        ATr3.Commit;
+          SQL.Text := SS;
+          with Params do begin
+            with SG do begin
+              ParamByName('pUserID').AsInteger      := Cells[1, Row].ToInteger;
+              ParamByName('pExpKey1').AsInteger     := Cells[2, Row].ToInteger;
+              ParamByName('pExpKey2').AsInteger     := Cells[3, Row].ToInteger;
+              ParamByName('pExpKey3').AsInteger     := Cells[4, Row].ToInteger;
+              ParamByName('pName3').AsString        := Cells[5, Row];
+              ParamByName('pDisabled3').AsBoolean   := Cells[6, Row].ToBoolean;
+              ParamByName('pOrderKey3').AsInteger   := Cells[7, Row].ToInteger;
+              ParamByName('pUpdateDT').AsAnsiString := FormatDateTime('yyyy-mm-dd hh:nn:ss', Now, GetFS);
+            end;
+
+            ExecSQL;
+            ATr.Commit;
+          end;
+        end;
       end;
     end;
   end;
@@ -904,74 +966,80 @@ var
   procedure CancelChangedOrderKey3(
     SS: String; SG: TStringGrid; aRow, OrderKey3: Integer);
   begin
-    with AQu3 do begin
-      SQL.Text := SS;
-      with SG do begin
-        with Params do begin
-          ParamByName('pUserID').AsInteger    := Cells[1, aRow].ToInteger;
-          ParamByName('pExpKey1').AsInteger   := Cells[2, aRow].ToInteger;
-          ParamByName('pExpKey2').AsInteger   := Cells[3, aRow].ToInteger;
-          ParamByName('pExpKey3').AsInteger   := Cells[4, aRow].ToInteger;
-          ParamByName('pOrderKey3').AsInteger := OrderKey3;
-          ParamByName('pUpdateDT').AsDateTime := Now;
+    with CommonDB do begin
+      with Defs do begin
+        with AQuExp3 do begin
+          SQL.Text := SS;
+          with SG do begin
+            with Params do begin
+              ParamByName('pUserID').AsInteger      := Cells[1, aRow].ToInteger;
+              ParamByName('pExpKey1').AsInteger     := Cells[2, aRow].ToInteger;
+              ParamByName('pExpKey2').AsInteger     := Cells[3, aRow].ToInteger;
+              ParamByName('pExpKey3').AsInteger     := Cells[4, aRow].ToInteger;
+              ParamByName('pOrderKey3').AsInteger   := OrderKey3;
+              ParamByName('pUpdateDT').AsAnsiString := FormatDateTime('yyyy-mm-dd hh:nn:ss', Now, GetFS);
 
-          ExecSQL;
+              ExecSQL;
+            end;
+          end;
         end;
       end;
     end;
   end;
 
 begin
-  if Key = VK_RETURN then begin
-    try
-      try
-        UpdateExp3(SQL_20060008, ASG3, ASG3.Row);
-
-        SelectExp3;
-      except
-        on E: ESQLDatabaseError do begin
-          ShowMessage(E.Message);
-          ATr2.Rollback;
-        end;
-      end;
-    finally
-    end;
-  end else if Key = VK_ESCAPE then begin
-    if ASG3.Col = 7 then begin
+  with CommonDB do begin
+    if Key = VK_RETURN then begin
       try
         try
-          with ASG3 do begin
-            if FPrevOrderKey3 < FNewOrderKey3 then begin
-              CancelChangedOrderKey3(
-                SQL_20060013, ASG3, FPrevOrderKey3, FPrevOrderKey3);
+          UpdateExp3(SQL_20060008, ASG3, ASG3.Row);
 
-              for i := FPrevOrderKey3 + 1 to FNewOrderKey3 do begin
-                Cells[7, i] := IntToStr(Cells[7, i].ToInteger + 1);
-
-                CancelChangedOrderKey3(
-                  SQL_20060013, ASG3, i, Cells[7, i].ToInteger);
-              end;
-              ATr3.Commit;
-            end else if FPrevOrderKey3 > FNewOrderKey3 then begin
-              CancelChangedOrderKey3(
-                SQL_20060013, ASG3, FPrevOrderKey3, FPrevOrderKey3);
-
-              for i := FNewOrderKey3 to FPrevOrderKey3 - 1 do begin
-                Cells[7, i] := IntToStr(Cells[7, i].ToInteger - 1);
-
-                CancelChangedOrderKey3(
-                  SQL_20060013, ASG3, i, Cells[7, i].ToInteger);
-              end;
-              ATr3.Commit;
-            end;
-          end;
+          SelectExp3;
         except
           on E: ESQLDatabaseError do begin
             ShowMessage(E.Message);
-            ATr3.Rollback;
+            ATr.Rollback;
           end;
         end;
       finally
+      end;
+    end else if Key = VK_ESCAPE then begin
+      if ASG3.Col = 7 then begin
+        try
+          try
+            with ASG3 do begin
+              if FPrevOrderKey3 < FNewOrderKey3 then begin
+                CancelChangedOrderKey3(
+                  SQL_20060013, ASG3, FPrevOrderKey3, FPrevOrderKey3);
+
+                for i := FPrevOrderKey3 + 1 to FNewOrderKey3 do begin
+                  Cells[7, i] := IntToStr(Cells[7, i].ToInteger + 1);
+
+                  CancelChangedOrderKey3(
+                    SQL_20060013, ASG3, i, Cells[7, i].ToInteger);
+                end;
+                ATr.Commit;
+              end else if FPrevOrderKey3 > FNewOrderKey3 then begin
+                CancelChangedOrderKey3(
+                  SQL_20060013, ASG3, FPrevOrderKey3, FPrevOrderKey3);
+
+                for i := FNewOrderKey3 to FPrevOrderKey3 - 1 do begin
+                  Cells[7, i] := IntToStr(Cells[7, i].ToInteger - 1);
+
+                  CancelChangedOrderKey3(
+                    SQL_20060013, ASG3, i, Cells[7, i].ToInteger);
+                end;
+                ATr.Commit;
+              end;
+            end;
+          except
+            on E: ESQLDatabaseError do begin
+              ShowMessage(E.Message);
+              ATr.Rollback;
+            end;
+          end;
+        finally
+        end;
       end;
     end;
   end;
@@ -984,69 +1052,81 @@ var
   procedure SaveChangedOrderKey3(
     SS: String; SG: TStringGrid; aRow, OrderKey3: Integer );
   begin
-    with AQu3 do begin
-      SQL.Text := SS;
-      with Params do begin
-        with SG do begin
-          ParamByName('pUserID').AsInteger    := Cells[1, aRow].ToInteger;
-          ParamByName('pExpKey1').AsInteger   := Cells[2, aRow].ToInteger;
-          ParamByName('pExpKey2').AsInteger   := Cells[3, aRow].ToInteger;
-          ParamByName('pExpKey3').AsInteger   := Cells[4, aRow].ToInteger;
-          ParamByName('pOrderKey3').AsInteger := OrderKey3;
-          ParamByName('pUpdateDT').AsDateTime := Now;
-        end;
+    with CommonDB do begin
+      with Defs do begin
+        with AQuExp3 do begin
+          SQL.Text := SS;
+          with Params do begin
+            with SG do begin
+              ParamByName('pUserID').AsInteger      := Cells[1, aRow].ToInteger;
+              ParamByName('pExpKey1').AsInteger     := Cells[2, aRow].ToInteger;
+              ParamByName('pExpKey2').AsInteger     := Cells[3, aRow].ToInteger;
+              ParamByName('pExpKey3').AsInteger     := Cells[4, aRow].ToInteger;
+              ParamByName('pOrderKey3').AsInteger   := OrderKey3;
+              ParamByName('pUpdateDT').AsAnsiString := FormatDateTime('yyyy-mm-dd hh:nn:ss', Now, GetFS);
+            end;
 
-        ExecSQL;
+            ExecSQL;
+          end;
+        end;
       end;
     end;
   end;
 
 begin
-  try
-    try
-      with ASG3 do begin
-        if Cells[7, ASG3.Row] <> '' then begin
-          FNewOrderKey3 := Cells[7, ASG3.Row].ToInteger;
-          if FPrevOrderKey3 < FNewOrderKey3 then begin
-            CloseTransactions;
-            SaveChangedOrderKey3(
-                SQL_20060013, ASG3, FPrevOrderKey3, FNewOrderKey3);
+  with CommonDB do begin
+    with Defs do begin
+      try
+        try
+          with ASG3 do begin
+            if Cells[7, ASG3.Row] <> '' then begin
+              FNewOrderKey3 := Cells[7, ASG3.Row].ToInteger;
+              if FPrevOrderKey3 < FNewOrderKey3 then begin
+                CloseQuery(AQuExp3);
+                SaveChangedOrderKey3(
+                    SQL_20060013, ASG3, FPrevOrderKey3, FNewOrderKey3);
 
-            for i := FPrevOrderKey3 + 1 to FNewOrderKey3 do begin
-              Cells[7, i] := IntToStr(Cells[7, i].ToInteger - 1);
+                for i := FPrevOrderKey3 + 1 to FNewOrderKey3 do begin
+                  Cells[7, i] := IntToStr(Cells[7, i].ToInteger - 1);
 
-              SaveChangedOrderKey3(
-                  SQL_20060013, ASG3, i, Cells[7, i].ToInteger);
+                  SaveChangedOrderKey3(
+                      SQL_20060013, ASG3, i, Cells[7, i].ToInteger);
+                end;
+                ATr.Commit;
+              end else if FPrevOrderKey3 > FNewOrderKey3 then begin
+                CloseQuery(AQuExp3);
+                SaveChangedOrderKey3(
+                    SQL_20060013, ASG3, FPrevOrderKey3, FNewOrderKey3);
+                for i := FNewOrderKey3 to FPrevOrderKey3 - 1 do begin
+                  Cells[7, i] := IntToStr(Cells[7, i].ToInteger + 1);
+
+                  SaveChangedOrderKey3(
+                      SQL_20060013, ASG3, i, Cells[7, i].ToInteger);
+                end;
+                ATr.Commit;
+              end;
             end;
-            ATr3.Commit;
-          end else if FPrevOrderKey3 > FNewOrderKey3 then begin
-            CloseTransactions;
-            SaveChangedOrderKey3(
-                SQL_20060013, ASG3, FPrevOrderKey3, FNewOrderKey3);
-            for i := FNewOrderKey3 to FPrevOrderKey3 - 1 do begin
-              Cells[7, i] := IntToStr(Cells[7, i].ToInteger + 1);
-
-              SaveChangedOrderKey3(
-                  SQL_20060013, ASG3, i, Cells[7, i].ToInteger);
-            end;
-            ATr3.Commit;
+          end;
+        except
+          on E: ESQLDatabaseError do begin
+            ShowMessage(E.Message);
+            ATr.Rollback;
           end;
         end;
-      end;
-    except
-      on E: ESQLDatabaseError do begin
-        ShowMessage(E.Message);
-        ATr3.Rollback;
+      finally
       end;
     end;
-  finally
   end;
 end;
 
 procedure TFrmManageExp.FormClose(
   Sender: TObject; var CloseAction: TCloseAction);
 begin
-  CloseTransactions;
+  with CommonDB do begin
+    CloseQuery(AQuExp1);
+    CloseQuery(AQuExp2);
+    CloseQuery(AQuExp3);
+  end;
 
   FrmTopMenu.Visible := True;
   CloseAction        := caFree;
@@ -1055,10 +1135,17 @@ end;
 
 procedure TFrmManageExp.FormCreate(Sender: TObject);
 begin
-  SetDatabaseNames;
-  with FrmTopMenu.Defs do begin
-    if GetDoExitKakeiBon then begin
-      Application.Terminate;
+  FChangeOrderKey2 := False;
+
+  with CommonDB do begin
+    AQuExp1.PacketRecords := 20;
+    AQuExp2.PacketRecords := 50;
+    AQuExp3.PacketRecords := 50;
+
+    with Defs do begin
+      if GetDoExitKakeiBon then begin
+        Application.Terminate;
+      end;
     end;
   end;
 
@@ -1111,28 +1198,52 @@ end;
 
 procedure TFrmManageExp.FormShow(Sender: TObject);
 begin
+  FrmManageExp.Width      := 1176;
+
   FrmManageExp.KeyPreview := True;
 
   FrmManageExp.Color := RGB(112, 168, 175);
   PnlGoBack.Color    := RGB( 72, 122, 129);
 
-  SelectExp1;
-  SelectExp2;
-  if AQu2.RecordCount > 0 then begin
-    SelectExp3;
-  end else begin
-    DeleteAllRecords(ASG3);
+  with CommonDB do begin
+    SelectExp1;
+    SelectExp2;
+    if AQuExp2.RecordCount > 0 then begin
+      SelectExp3;
+    end else begin
+      DeleteAllRecords(ASG3);
+    end;
+
+    ASG2.AutoAdjustColumns;
+    ASG3.AutoAdjustColumns;
   end;
 
-  ASG2.AutoAdjustColumns;
-  ASG3.AutoAdjustColumns;
+  { Debug }
+  //FrmManageExp.Width      := 1176;
+end;
+
+procedure TFrmManageExp.TimerTimer(Sender: TObject);
+begin
+  with CommonDB do begin
+    if FChangeOrderKey2 then begin
+      with ASG2 do begin
+        if FPrevOrderKey2 <> Cells[6, ASG2.Row].ToInteger then begin
+          FNewOrderKey2 := Cells[6, ASG2.Row].ToInteger;
+        end;
+      end;
+    end;
+  end;
 end;
 
 procedure TFrmManageExp.FormKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-    if (Key = VK_SPACE) Or (Key = VK_RETURN) then begin
-    if ActiveControl.Name = 'BtnAddExp2' then begin
+  if (Key = VK_SPACE) Or (Key = VK_RETURN) then begin
+    if ActiveControl.Name = 'ASG2' then begin
+      with ASG2 do begin
+        FPrevOrderKey2 := Cells[6, ASG2.Row].ToInteger;
+      end;
+    end else if ActiveControl.Name = 'BtnAddExp2' then begin
       ActAddExp2.Execute;
     end else if ActiveControl.Name = 'BtnDefaultOrderKey2' then begin
       ActDefaultOrderKey2.Execute;

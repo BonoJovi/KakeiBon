@@ -2,12 +2,12 @@ object FrmEntryAdmin: TFrmEntryAdmin
   Left = 329
   Height = 251
   Top = 200
-  Width = 712
+  Width = 823
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = '管理者登録'
   ClientHeight = 251
-  ClientWidth = 712
+  ClientWidth = 823
   Color = clWindowFrame
   Font.CharSet = ANSI_CHARSET
   Font.Height = -21
@@ -17,6 +17,7 @@ object FrmEntryAdmin: TFrmEntryAdmin
   Font.Style = [fsBold]
   PopupMode = pmAuto
   Position = poScreenCenter
+  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp
@@ -257,8 +258,8 @@ object FrmEntryAdmin: TFrmEntryAdmin
     OnMouseLeave = BtnSaveExit
   end
   object ActionList: TActionList
-    Left = 400
-    Top = 48
+    Left = 720
+    Top = 88
     object ActClearPaw: TAction
       AutoCheck = True
       Caption = 'ActClearPaw'
@@ -289,32 +290,14 @@ object FrmEntryAdmin: TFrmEntryAdmin
   end
   object ADS: TDataSource
     DataSet = AQu
-    Left = 504
-    Top = 48
-  end
-  object ATr: TSQLTransaction
-    Active = False
-    Database = ACn
-    Left = 552
-    Top = 48
+    Left = 720
+    Top = 144
   end
   object AQu: TSQLQuery
     FieldDefs = <>
-    Database = ACn
-    Transaction = ATr
     Params = <>
     Macros = <>
-    Left = 600
-    Top = 48
-  end
-  object ACn: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATr
-    CharSet = 'UTF-8'
-    AlwaysUseBigint = False
-    Left = 456
-    Top = 48
+    Left = 768
+    Top = 144
   end
 end

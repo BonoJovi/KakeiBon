@@ -2,15 +2,17 @@ object FrmEntryBrandName: TFrmEntryBrandName
   Left = 498
   Height = 829
   Top = 60
-  Width = 594
+  Width = 813
   Caption = '品名登録'
   ClientHeight = 829
-  ClientWidth = 594
+  ClientWidth = 813
   Color = clWindowFrame
   Font.Height = -21
   Font.Name = '0xProto'
   Font.Style = [fsBold]
   Position = poScreenCenter
+  LCLVersion = '4.2.0.0'
+  OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp
@@ -69,14 +71,17 @@ object FrmEntryBrandName: TFrmEntryBrandName
     TabOrder = 0
     TabStop = False
     TitleStyle = tsStandard
+    OnEnter = ADBGridEnter
+    OnSelectEditor = ADBGridSelectEditor
   end
-  object ADBNav: TDBNavigator
+  object ADBNavi: TDBNavi
     Cursor = crHandPoint
     Left = 16
     Height = 28
     Top = 312
     Width = 562
     BevelOuter = bvNone
+    ChildSizing.HorizontalSpacing = 5
     ChildSizing.EnlargeHorizontal = crsScaleChilds
     ChildSizing.EnlargeVertical = crsScaleChilds
     ChildSizing.ShrinkHorizontal = crsScaleChilds
@@ -86,14 +91,61 @@ object FrmEntryBrandName: TFrmEntryBrandName
     ClientHeight = 28
     ClientWidth = 562
     DataSource = ADS
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     Options = [navFocusableButtons]
-    ParentFont = False
     TabOrder = 1
     TabStop = True
-    VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast, nbRefresh]
+    VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
+    OnClick = ADBNaviClick
+    OnEnter = ADBNaviEnter
+    OnExit = ADBNaviExit
+    OnMouseDown = ADBNaviMouseDown
+    OnBtnClick = ADBNaviBtnClick
+    OnKeyUp = ADBNaviKeyUp
+    OnWMSetFocus = ADBNaviWMSetFocus
+  end
+  object Panel1: TPanel
+    Left = 16
+    Height = 6
+    Top = 344
+    Width = 136
+    Color = clYellow
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 2
+    Visible = False
+  end
+  object Panel2: TPanel
+    Left = 157
+    Height = 6
+    Top = 344
+    Width = 136
+    Color = clYellow
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 3
+    Visible = False
+  end
+  object Panel3: TPanel
+    Left = 299
+    Height = 6
+    Top = 344
+    Width = 136
+    Color = clYellow
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 4
+    Visible = False
+  end
+  object Panel4: TPanel
+    Left = 442
+    Height = 6
+    Top = 344
+    Width = 136
+    Color = clYellow
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 5
+    Visible = False
   end
   object LblMaker: TLabel
     Left = 16
@@ -122,9 +174,11 @@ object FrmEntryBrandName: TFrmEntryBrandName
     Cursor = crHandPoint
     Left = 160
     Height = 44
-    Top = 361
+    Top = 360
     Width = 418
     AutoComplete = True
+    DataField = 'MAKER_ID'
+    DataSource = ADS
     Font.Height = -21
     Font.Name = '0xProto'
     Font.Style = [fsBold]
@@ -134,10 +188,10 @@ object FrmEntryBrandName: TFrmEntryBrandName
     ListSource = ADSMaker
     LookupCache = True
     ParentFont = False
-    ReadOnly = True
     ScrollListDataset = True
     Style = csDropDownList
-    TabOrder = 2
+    TabOrder = 6
+    OnChange = DBLCBMakerChange
     OnEnter = DBLCBMakerEnter
     OnExit = DBLCBMakerExit
     OnSelect = DBLCBMakerSelect
@@ -156,7 +210,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
     ParentBackground = False
     ParentColor = False
     ParentFont = False
-    TabOrder = 3
+    TabOrder = 7
   end
   object BtnEntryMaker: TPanel
     Cursor = crCross
@@ -175,7 +229,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
     ParentColor = False
     ParentFont = False
     ShowAccelChar = True
-    TabOrder = 4
+    TabOrder = 8
     TabStop = True
     OnClick = ActEntryMakerExecute
     OnEnter = BtnEntryMakerEnter
@@ -234,7 +288,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
-    TabOrder = 5
+    TabOrder = 9
     TabStop = False
     OnChange = DBEdtBrandNameIDChange
     OnEnter = DBEdtBrandNameIDEnter
@@ -254,7 +308,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
     ParentBackground = False
     ParentColor = False
     ParentFont = False
-    TabOrder = 6
+    TabOrder = 10
   end
   object BtnInsert: TPanel
     Cursor = crCross
@@ -273,7 +327,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
     ParentColor = False
     ParentFont = False
     ShowAccelChar = True
-    TabOrder = 7
+    TabOrder = 11
     TabStop = True
     OnClick = ActInsertExecute
     OnEnter = BtnInsertEnter
@@ -329,7 +383,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
-    TabOrder = 8
+    TabOrder = 12
     OnEnter = DBEdtBrandNameEnter
     OnExit = DBEdtBrandNameExit
   end
@@ -380,7 +434,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
     Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 9
+    TabOrder = 13
     TabStop = True
     ValueChecked = '1'
     ValueUnchecked = '0'
@@ -445,7 +499,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
     Font.Name = '0xProto'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 10
+    TabOrder = 14
     TabStop = True
     ValueChecked = '1'
     ValueUnchecked = '0'
@@ -466,13 +520,13 @@ object FrmEntryBrandName: TFrmEntryBrandName
     ParentBackground = False
     ParentColor = False
     ParentFont = False
-    TabOrder = 11
+    TabOrder = 15
   end
   object BtnCancel: TPanel
     Cursor = crCross
     Left = 24
     Height = 33
-    Top = 714
+    Top = 712
     Width = 262
     BevelColor = clNone
     BevelOuter = bvNone
@@ -485,7 +539,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
     ParentColor = False
     ParentFont = False
     ShowAccelChar = True
-    TabOrder = 12
+    TabOrder = 16
     TabStop = True
     OnClick = ActCancelExecute
     OnEnter = BtnCancelEnter
@@ -507,7 +561,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
     ParentBackground = False
     ParentColor = False
     ParentFont = False
-    TabOrder = 13
+    TabOrder = 17
   end
   object BtnSave: TPanel
     Cursor = crCross
@@ -526,7 +580,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
     ParentColor = False
     ParentFont = False
     ShowAccelChar = True
-    TabOrder = 14
+    TabOrder = 18
     TabStop = True
     OnClick = ActSaveExecute
     OnEnter = BtnSaveEnter
@@ -548,7 +602,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
     ParentBackground = False
     ParentColor = False
     ParentFont = False
-    TabOrder = 15
+    TabOrder = 19
   end
   object BtnGoBack: TPanel
     Cursor = crCross
@@ -567,7 +621,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
     ParentColor = False
     ParentFont = False
     ShowAccelChar = True
-    TabOrder = 16
+    TabOrder = 20
     TabStop = True
     OnClick = ActGoBackExecute
     OnEnter = BtnGoBackEnter
@@ -576,9 +630,9 @@ object FrmEntryBrandName: TFrmEntryBrandName
     OnMouseLeave = BtnGoBackExit
   end
   object DBEdtUserID: TDBEdit
-    Left = 720
+    Left = 616
     Height = 49
-    Top = 352
+    Top = 360
     Width = 168
     DataField = 'USER_ID'
     DataSource = ADS
@@ -587,13 +641,13 @@ object FrmEntryBrandName: TFrmEntryBrandName
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
-    TabOrder = 17
+    TabOrder = 21
     TabStop = False
   end
   object DBEdtMakerID: TDBEdit
-    Left = 720
+    Left = 616
     Height = 49
-    Top = 408
+    Top = 416
     Width = 168
     DataField = 'MAKER_ID'
     DataSource = ADS
@@ -602,18 +656,18 @@ object FrmEntryBrandName: TFrmEntryBrandName
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
-    TabOrder = 18
+    TabOrder = 22
     TabStop = False
   end
   object Timer: TTimer
     Interval = 1
     OnTimer = TimerTimer
-    Left = 436
-    Top = 152
+    Left = 688
+    Top = 40
   end
   object ActionList: TActionList
-    Left = 48
-    Top = 112
+    Left = 616
+    Top = 40
     object ActEntryMaker: TAction
       Caption = 'ActEntryMaker'
       ShortCut = 16433
@@ -670,13 +724,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
   end
   object ADS: TDataSource
     DataSet = AQu
-    Left = 188
-    Top = 112
-  end
-  object ATr: TSQLTransaction
-    Active = False
-    Database = ACn
-    Left = 260
+    Left = 616
     Top = 112
   end
   object AQu: TSQLQuery
@@ -719,23 +767,15 @@ object FrmEntryBrandName: TFrmEntryBrandName
         Name = 'UPDATE_DT'
         DataType = ftDateTime
       end>
-    Database = ACn
-    Transaction = ATr
     Options = [sqoAutoApplyUpdates, sqoAutoCommit]
     Params = <>
     Macros = <>
-    Left = 332
+    Left = 688
     Top = 112
   end
   object ADSNextID: TDataSource
     DataSet = AQuNextID
-    Left = 188
-    Top = 172
-  end
-  object ATrNextID: TSQLTransaction
-    Active = False
-    Database = ACnNextID
-    Left = 260
+    Left = 616
     Top = 172
   end
   object AQuNextID: TSQLQuery
@@ -745,23 +785,15 @@ object FrmEntryBrandName: TFrmEntryBrandName
         Attributes = [faHiddenCol]
         DataType = ftAutoInc
       end>
-    Database = ACnNextID
-    Transaction = ATrNextID
     Options = [sqoAutoApplyUpdates, sqoAutoCommit]
     Params = <>
     Macros = <>
-    Left = 332
+    Left = 688
     Top = 172
   end
   object ADSMaker: TDataSource
     DataSet = AQuMaker
-    Left = 188
-    Top = 232
-  end
-  object ATrMaker: TSQLTransaction
-    Active = False
-    Database = ACnMaker
-    Left = 260
+    Left = 616
     Top = 232
   end
   object AQuMaker: TSQLQuery
@@ -791,40 +823,10 @@ object FrmEntryBrandName: TFrmEntryBrandName
         Name = 'UPDATE_DT'
         DataType = ftDateTime
       end>
-    Database = ACnMaker
-    Transaction = ATrMaker
     Options = [sqoAutoApplyUpdates, sqoAutoCommit]
     Params = <>
     Macros = <>
-    Left = 332
-    Top = 232
-  end
-  object ACn: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATr
-    AlwaysUseBigint = False
-    Left = 120
-    Top = 112
-  end
-  object ACnNextID: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATrNextID
-    AlwaysUseBigint = False
-    Left = 120
-    Top = 172
-  end
-  object ACnMaker: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATrMaker
-    CharSet = 'UTF-8'
-    AlwaysUseBigint = False
-    Left = 120
+    Left = 688
     Top = 232
   end
 end

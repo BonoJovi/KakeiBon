@@ -2,12 +2,12 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   Left = 589
   Height = 767
   Top = 132
-  Width = 859
+  Width = 1193
   Anchors = [akLeft, akBottom]
   BorderStyle = bsSingle
   Caption = '入出金編集'
   ClientHeight = 767
-  ClientWidth = 859
+  ClientWidth = 1193
   Color = clWindowFrame
   Font.CharSet = ANSI_CHARSET
   Font.Height = -21
@@ -16,6 +16,8 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   Font.Quality = fqDraft
   Font.Style = [fsBold]
   Position = poScreenCenter
+  LCLVersion = '4.2.0.0'
+  OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp
@@ -324,6 +326,8 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     Top = 59
     Width = 316
     AutoComplete = True
+    DataField = 'SHOP_ID'
+    DataSource = ADS
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
@@ -336,7 +340,6 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     ListSource = ADSShop
     LookupCache = True
     ParentFont = False
-    ReadOnly = True
     ScrollListDataset = True
     Style = csDropDownList
     TabOrder = 4
@@ -520,6 +523,8 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     Top = 174
     Width = 316
     AutoComplete = True
+    DataField = 'EXP_KEY1'
+    DataSource = ADS
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
@@ -532,7 +537,6 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     ListSource = ADSExp1
     LookupCache = True
     ParentFont = False
-    ReadOnly = True
     ScrollListDataset = True
     Style = csDropDownList
     TabOrder = 8
@@ -604,6 +608,8 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     Top = 229
     Width = 316
     AutoComplete = True
+    DataField = 'FROM_ID'
+    DataSource = ADS
     Enabled = False
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
@@ -617,7 +623,6 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     ListSource = ADSFromAC
     LookupCache = True
     ParentFont = False
-    ReadOnly = True
     ScrollListDataset = True
     Style = csDropDownList
     TabOrder = 9
@@ -737,6 +742,8 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     Top = 284
     Width = 316
     AutoComplete = True
+    DataField = 'TO_ID'
+    DataSource = ADS
     Enabled = False
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
@@ -750,7 +757,6 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     ListSource = ADSToAC
     LookupCache = True
     ParentFont = False
-    ReadOnly = True
     ScrollListDataset = True
     Style = csDropDownList
     TabOrder = 12
@@ -1043,24 +1049,25 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     OnMouseEnter = BtnGoBackEnter
     OnMouseLeave = BtnGoBackExit
   end
-  object ADBNav: TDBNavigator
+  object ADBNavi: TDBNavi
     Cursor = crHandPoint
     Left = 571
-    Height = 32
+    Height = 28
     Top = 475
     Width = 272
     Anchors = [akLeft, akBottom]
     BevelOuter = bvNone
+    ChildSizing.HorizontalSpacing = 5
     ChildSizing.EnlargeHorizontal = crsScaleChilds
     ChildSizing.EnlargeVertical = crsScaleChilds
     ChildSizing.ShrinkHorizontal = crsScaleChilds
     ChildSizing.ShrinkVertical = crsScaleChilds
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 100
-    ClientHeight = 32
+    ClientHeight = 28
     ClientWidth = 272
     Color = clWindowFrame
-    DataSource = ADS
+    DataSource = ADSDetail
     Font.CharSet = ANSI_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
@@ -1072,7 +1079,55 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     ParentFont = False
     TabOrder = 22
     TabStop = True
-    VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast, nbRefresh]
+    VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
+    OnClick = ADBNaviClick
+    OnEnter = ADBNaviEnter
+    OnExit = ADBNaviExit
+    OnWMSetFocus = ADBNaviWMSetFocus
+  end
+  object Panel1: TPanel
+    Left = 571
+    Height = 6
+    Top = 509
+    Width = 64
+    Color = clYellow
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 23
+    Visible = False
+  end
+  object Panel2: TPanel
+    Left = 640
+    Height = 6
+    Top = 509
+    Width = 64
+    Color = clYellow
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 24
+    Visible = False
+  end
+  object Panel3: TPanel
+    Left = 709
+    Height = 6
+    Top = 509
+    Width = 64
+    Color = clYellow
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 25
+    Visible = False
+  end
+  object Panel4: TPanel
+    Left = 779
+    Height = 6
+    Top = 509
+    Width = 64
+    Color = clYellow
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 26
+    Visible = False
   end
   object ADBGrid: TDBGrid
     Left = 16
@@ -1198,8 +1253,9 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     Font.Style = [fsBold]
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgDisableInsert]
     ParentFont = False
-    TabOrder = 23
+    TabOrder = 27
     TabStop = False
+    OnEnter = ADBGridEnter
   end
   object DBEdtUserID: TDBEdit
     Left = 888
@@ -1216,7 +1272,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
-    TabOrder = 24
+    TabOrder = 28
     TabStop = False
   end
   object DBEdtHeaderID: TDBEdit
@@ -1234,7 +1290,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
-    TabOrder = 25
+    TabOrder = 29
     TabStop = False
   end
   object DBDTPHeaderDT: TDBDateTimePicker
@@ -1255,7 +1311,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 26
+    TabOrder = 30
     TabStop = False
     DateSeparator = '/'
     TrailingSeparator = False
@@ -1287,7 +1343,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
-    TabOrder = 27
+    TabOrder = 31
     TabStop = False
   end
   object DBEdtExpKey1: TDBEdit
@@ -1306,7 +1362,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
-    TabOrder = 28
+    TabOrder = 32
     TabStop = False
   end
   object DBEdtFromID: TDBEdit
@@ -1325,7 +1381,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
-    TabOrder = 29
+    TabOrder = 33
     TabStop = False
   end
   object DBEdtToID: TDBEdit
@@ -1344,7 +1400,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
-    TabOrder = 30
+    TabOrder = 34
     TabStop = False
   end
   object DBEdtTotalAmount: TDBEdit
@@ -1363,7 +1419,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     Font.Style = [fsBold]
     MaxLength = 0
     ParentFont = False
-    TabOrder = 31
+    TabOrder = 35
     TabStop = False
   end
   object DBDTPEntryDT: TDBDateTimePicker
@@ -1384,7 +1440,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 32
+    TabOrder = 36
     TabStop = False
     DateSeparator = '/'
     TrailingSeparator = False
@@ -1418,7 +1474,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     Font.Quality = fqDraft
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 33
+    TabOrder = 37
     TabStop = False
     DateSeparator = '/'
     TrailingSeparator = False
@@ -1435,7 +1491,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     MonthNames = 'Long'
   end
   object ActionList: TActionList
-    Left = 512
+    Left = 568
     Top = 144
     object ActEntryShop: TAction
       AutoCheck = True
@@ -1494,14 +1550,8 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   end
   object ADS: TDataSource
     DataSet = AQu
-    Left = 656
-    Top = 8
-  end
-  object ATr: TSQLTransaction
-    Active = False
-    Database = ACn
-    Left = 728
-    Top = 8
+    Left = 744
+    Top = 16
   end
   object AQu: TSQLQuery
     FieldDefs = <    
@@ -1546,23 +1596,15 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
         Name = 'UPDATE_DT'
         DataType = ftDateTime
       end>
-    Database = ACn
-    Transaction = ATr
     Params = <>
     Macros = <>
-    Left = 796
-    Top = 8
+    Left = 816
+    Top = 16
   end
   object ADSDetail: TDataSource
     DataSet = AQuDetail
-    Left = 656
-    Top = 104
-  end
-  object ATrDetail: TSQLTransaction
-    Active = False
-    Database = ACnDetail
-    Left = 728
-    Top = 104
+    Left = 744
+    Top = 72
   end
   object AQuDetail: TSQLQuery
     FieldDefs = <    
@@ -1579,11 +1621,15 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
         DataType = ftUnknown
       end    
       item
+        Name = 'TOTAL_AMOUNT'
+        DataType = ftUnknown
+      end    
+      item
         Name = 'MAKER_ID'
         DataType = ftUnknown
       end    
       item
-        Name = 'MAKER'
+        Name = 'MAKER_NAME'
         DataType = ftUnknown
       end    
       item
@@ -1595,11 +1641,23 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
         DataType = ftUnknown
       end    
       item
+        Name = 'EXP_KEY1'
+        DataType = ftUnknown
+      end    
+      item
         Name = 'EXP1'
         DataType = ftUnknown
       end    
       item
+        Name = 'EXP_KEY2'
+        DataType = ftUnknown
+      end    
+      item
         Name = 'EXP2'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'EXP_KEY3'
         DataType = ftUnknown
       end    
       item
@@ -1627,45 +1685,25 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
         DataType = ftUnknown
       end    
       item
-        Name = 'TAX_TYPE'
-        DataType = ftUnknown
-      end    
-      item
         Name = 'TAX'
         DataType = ftUnknown
       end    
       item
         Name = 'SUB_TOTAL'
         DataType = ftUnknown
-      end    
-      item
-        Name = 'ENTRY_DT'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'UPDATE_DT'
-        DataType = ftUnknown
       end>
-    Database = ACnDetail
-    Transaction = ATrDetail
     SQL.Strings = (
       ''
     )
     Params = <>
     Macros = <>
-    Left = 796
-    Top = 104
+    Left = 816
+    Top = 72
   end
   object ADSNextID: TDataSource
     DataSet = AQuNextID
-    Left = 656
-    Top = 168
-  end
-  object ATrNextID: TSQLTransaction
-    Active = False
-    Database = ACnNextID
-    Left = 728
-    Top = 168
+    Left = 744
+    Top = 128
   end
   object AQuNextID: TSQLQuery
     FieldDefs = <    
@@ -1677,44 +1715,64 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
         Name = 'HEADER_ID'
         DataType = ftUnknown
       end>
-    Database = ACnNextID
-    Transaction = ATrNextID
     Params = <>
     Macros = <>
-    Left = 796
-    Top = 168
+    Left = 816
+    Top = 128
   end
   object ADSShop: TDataSource
     DataSet = AQuShop
-    Left = 656
-    Top = 280
-  end
-  object ATrShop: TSQLTransaction
-    Active = False
-    Database = ACnShop
-    Left = 728
-    Top = 280
+    Left = 744
+    Top = 184
   end
   object AQuShop: TSQLQuery
-    FieldDefs = <>
+    FieldDefs = <    
+      item
+        Name = 'USER_ID'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'SHOP_ID'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'SHOP_NAME'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'PHONE_NUM'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'START_BUSINESS_DT'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'END_BUSINESS_DT'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'DISABLED'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'ENTRY_DT'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'UPDATE_DT'
+        DataType = ftUnknown
+      end>
     AutoCalcFields = False
-    Database = ACnShop
-    Transaction = ATrShop
     Params = <>
     Macros = <>
-    Left = 796
-    Top = 280
+    Left = 816
+    Top = 184
   end
   object ADSExp1: TDataSource
     DataSet = AQuExp1
-    Left = 656
-    Top = 336
-  end
-  object ATrExp1: TSQLTransaction
-    Active = False
-    Database = ACnExp1
-    Left = 728
-    Top = 336
+    Left = 744
+    Top = 240
   end
   object AQuExp1: TSQLQuery
     FieldDefs = <    
@@ -1727,26 +1785,35 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
         DataType = ftUnknown
       end    
       item
+        Name = 'ORDER_KEY1'
+        DataType = ftUnknown
+      end    
+      item
         Name = 'NAME1'
         DataType = ftUnknown
+      end    
+      item
+        Name = 'DISABLED1'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'ENTRY_DT'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'UPDATE_DT'
+        DataType = ftUnknown
       end>
-    Database = ACnExp1
-    Transaction = ATrExp1
+    AutoCalcFields = False
     Params = <>
     Macros = <>
-    Left = 796
-    Top = 336
+    Left = 816
+    Top = 240
   end
   object ADSFromAC: TDataSource
     DataSet = AQuFromAC
-    Left = 656
-    Top = 536
-  end
-  object ATrFromAC: TSQLTransaction
-    Active = False
-    Database = ACnFromAC
-    Left = 728
-    Top = 536
+    Left = 744
+    Top = 296
   end
   object AQuFromAC: TSQLQuery
     FieldDefs = <    
@@ -1786,23 +1853,15 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
         Name = 'UPDATE_DT'
         DataType = ftUnknown
       end>
-    Database = ACnFromAC
-    Transaction = ATrFromAC
     Params = <>
     Macros = <>
-    Left = 796
-    Top = 536
+    Left = 816
+    Top = 296
   end
   object ADSToAC: TDataSource
     DataSet = AQuToAC
-    Left = 656
-    Top = 592
-  end
-  object ATrToAC: TSQLTransaction
-    Active = False
-    Database = ACnToAC
-    Left = 728
-    Top = 592
+    Left = 744
+    Top = 352
   end
   object AQuToAC: TSQLQuery
     FieldDefs = <    
@@ -1842,81 +1901,15 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
         Name = 'UPDATE_DT'
         DataType = ftUnknown
       end>
-    Database = ACnToAC
-    Transaction = ATrToAC
     Params = <>
     Macros = <>
-    Left = 796
-    Top = 592
+    Left = 816
+    Top = 352
   end
-  object ACn: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATr
-    CharSet = 'UTF-8'
-    AlwaysUseBigint = False
-    Left = 584
-    Top = 8
-  end
-  object ACnDetail: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATrDetail
-    CharSet = 'UTF-8'
-    AlwaysUseBigint = False
-    Left = 584
-    Top = 104
-  end
-  object ACnNextID: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATrNextID
-    CharSet = 'UTF-8'
-    AlwaysUseBigint = False
-    Left = 584
-    Top = 168
-  end
-  object ACnShop: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATrShop
-    CharSet = 'UTF-8'
-    AlwaysUseBigint = False
-    Left = 584
-    Top = 280
-  end
-  object ACnExp1: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATrExp1
-    CharSet = 'UTF-8'
-    AlwaysUseBigint = False
-    Left = 584
-    Top = 336
-  end
-  object ACnFromAC: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATrFromAC
-    CharSet = 'UTF-8'
-    AlwaysUseBigint = False
-    Left = 584
-    Top = 536
-  end
-  object ACnToAC: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATrToAC
-    CharSet = 'UTF-8'
-    AlwaysUseBigint = False
-    Left = 584
-    Top = 592
+  object Timer: TTimer
+    Interval = 1
+    OnTimer = TimerTimer
+    Left = 632
+    Top = 144
   end
 end

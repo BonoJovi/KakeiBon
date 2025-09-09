@@ -10,29 +10,17 @@ uses
 
 type
 
-  TShowType = (stWithCreate, stShowOnly);
-  TFormRec = Record
-    Form     : TForm;
-    ShowType : TShowType;
-  end;
-
   { TDefs }
 
   TDefs = class(TObject)
-    FormArray : Array[0..50] of TFormRec;
-    FormTop   : Integer;
-    constructor Create;
     procedure ClearPaw(EdtPaw, EdtPawConfirm: TEdit);
     procedure ClearPawAndUserId(EdtUserId, EdtPaw, EdtPawConfirm: TEdit);
-    procedure CloseConn(var Cn: TSQLite3Connection; var Tr: TSQLTransaction);
     function MatchRole(Sender: Integer): Boolean;
     procedure OpenForm(Sender, NextForm: TForm);
     procedure OpenSelectQuery(
-      var Cn: TSQLite3Connection; var DS: TDataSource;
-      var Tr: TSQLTransaction; var Qu: TSQLQuery; SS: AnsiString);
+      var DS: TDataSource; var Qu: TSQLQuery; SS: AnsiString);
     procedure OpenSelectQueryByUnit(
-      var Cn: TSQLite3Connection; var DS: TDataSource;
-      var Tr: TSQLTransaction; var Qu: TSQLQuery; SS: AnsiString);
+      var DS: TDataSource; var Qu: TSQLQuery; SS: AnsiString);
     procedure OpenSelectQueryWithUserID(
       var Cn: TSQLite3Connection; var DS: TDataSource;
       var Tr: TSQLTransaction; var Qu: TSQLQuery; SS: AnsiString; aUserID: Integer);
@@ -43,14 +31,11 @@ type
       var Cn: TSQLite3Connection; var DS: TDataSource; var Tr: TSQLTransaction;
       var Qu: TSQLQuery; SS: AnsiString; aExpKey1, aExpKey2: Integer);
     procedure OpenSelectQueryWithHeaderID(
-      var Cn: TSQLite3Connection; var DS: TDataSource; var Tr: TSQLTransaction;
-      var Qu: TSQLQuery; SS: AnsiString; aHeaderID: Integer);
+      var DS: TDataSource; var Qu: TSQLQuery; SS: AnsiString; aHeaderID: Integer);
     procedure OpenSelectQueryWithMakerID(
-      var Cn: TSQLite3Connection; var DS: TDataSource; var Tr: TSQLTransaction;
-      var Qu: TSQLQuery; SS: AnsiString; aMakerID: Integer);
+      var DS: TDataSource; var Qu: TSQLQuery; SS: AnsiString; aMakerID: Integer);
     procedure OpenSelectQueryWithMakerIDAndBrandNameID(
-      var Cn: TSQLite3Connection; var DS: TDataSource; var Tr: TSQLTransaction;
-      var Qu: TSQLQuery; SS: AnsiString; aMakerID, aBrandNameID: Integer);
+      var DS: TDataSource; var Qu: TSQLQuery; SS: AnsiString; aMakerID, aBrandNameID: Integer);
     procedure UpdateFractionProcQueryWithShopID(
       var Cn: TSQLite3Connection; var DS: TDataSource; var Tr: TSQLTransaction;
       var Qu: TSQLQuery; SS: AnsiString; aShopID: Integer);
@@ -61,25 +46,24 @@ type
       var Cn: TSQLite3Connection; var DS: TDataSource; var Tr: TSQLTransaction;
       var Qu: TSQLQuery; SS: AnsiString; aExpKey1, aExpKey2: Integer);
     procedure OpenSelQuAndSetNextID(
-      var Cn: TSQLite3Connection; var DS: TDataSource; var Tr: TSQLTransaction;
-      var Qu: TSQLQuery; var DBEditObj: TDBEdit; SS: AnsiString);
+      var DS: TDataSource; var Qu: TSQLQuery;
+      var DBEditObj: TDBEdit; SS: AnsiString);
     procedure OpenSelQuAndSetVal(
-      var Cn: TSQLite3Connection; var DS: TDataSource; var Tr: TSQLTransaction;
-      var Qu: TSQLQuery; var DBLCBObj: TDBLookupComboBox;
-      var DBEditObj: TDBEdit; SS: AnsiString; KeyValue: Integer);
+      var DS: TDataSource; var Qu: TSQLQuery;
+      var DBLCBObj: TDBLookupComboBox; var DBEditObj: TDBEdit; SS: AnsiString);
     procedure OpenSelQuBrandAndSetVal(
       var Cn: TSQLite3Connection; var DS: TDataSource; var Tr: TSQLTransaction;
       var Qu: TSQLQuery; var DBLCBObj: TDBLookupComboBox;
-      var DBEditObj: TDBEdit; SS: AnsiString; KeyValue: Integer);
+      var DBEditObj: TDBEdit; SS: AnsiString);
     procedure OpenSelQuUnitAndSetVal(
       var Cn: TSQLite3Connection; var DS: TDataSource; var Tr: TSQLTransaction;
       var Qu: TSQLQuery; var DBLCBObj: TDBLookupComboBox;
-      var DBEditObj: TDBEdit; SS: AnsiString; KeyValue: Integer);
-    procedure OpenSelQuTaxTypeAndSetVal(
-      var Cn: TSQLite3Connection; var DS: TDataSource; var Tr: TSQLTransaction;
-      var Qu: TSQLQuery; var DBLCBObj: TDBLookupComboBox;
-      var DBEditObj: TDBEdit; SS: AnsiString; KeyValue: Integer);
-    procedure SetDatabaseName(var Cn: TSQLite3Connection);
+      var DBEditObj: TDBEdit; SS: AnsiString);
+    procedure OpenSelectQueryWithTaxType(
+      var DS: TDataSource; var Qu: TSQLQuery; SS: AnsiString);
+    procedure SetKeyValToDBLCB(
+      var DBLCBObj: TDBLookupComboBox;
+      var DBEditObj: TDBEdit; KeyValue: Integer);
 
     { Properties accessor }
     function GetDoExitKakeiBon: Boolean;
@@ -92,12 +76,6 @@ type
     procedure SetRole(RoleNum: Integer);
     function GetShowChildForm: Boolean;
     procedure SetShowChildForm(Sender: Boolean);
-    function GetOSHomeDir: AnsiString;
-    procedure SetOSHomeDir(aOSHomeDir: AnsiString);
-    function GetDBPath: AnsiString;
-    procedure SetDBPath(aDBDir: AnsiString);
-    function GetDBFullPath: AnsiString;
-    procedure SetDBFullPath(aDBFullPath: AnsiString);
     function GetUID: Integer;
     procedure SetUID(UID: Integer);
     function GetUName: String;
@@ -171,9 +149,6 @@ type
     property InitializedDB : Boolean read GetInitializedDB write SetInitializedDB;
     property Role : Integer read GetRole write SetRole;
     property ShowChildForm : Boolean read GetShowChildForm write SetShowChildForm;
-    property OSHomeDir : AnsiString read GetOSHomeDir write SetOSHomeDir;
-    property DBDir : AnsiString read GetDBPath write SetDBPath;
-    property DBFullPath : AnsiString read GetDBFullPath write SetDBFullPath;
     property UID : Integer read GetUID write SetUID;
     property UName : String read GetUName write SetUName;
     property ShopID : Variant read GetShopID write SetShopID;
@@ -210,9 +185,6 @@ type
   private
     FInitializedDB  : Boolean;
     FDoExitKakeiBon : Boolean;
-    FOSHomeDir      : AnsiString;
-    FDBPath         : AnsiString;
-    FDBFullPath     : AnsiString;
     FUID            : Integer;
     FUName          : String;
     FRole           : Integer;
@@ -251,16 +223,18 @@ type
     FFS             : TFormatSettings;
   end;
 
+var
+  Defs: TDefs;
+
 implementation
 uses
-  UConsts, UTopMenu;
+  UCommonDB, UConsts, UDBNavi;
 
 { TDefs }
 
 procedure TDefs.ClearPaw(EdtPaw, EdtPawConfirm: TEdit);
 begin
-  if EdtPaw <> nil then
-  begin
+  if EdtPaw <> nil then begin
     EdtPaw.Clear;
   end;
   EdtPawConfirm.Clear;
@@ -272,29 +246,9 @@ begin
   ClearPaw(EdtPaw, EdtPawConfirm);
 end;
 
-procedure TDefs.CloseConn(
-  var Cn: TSQLite3Connection; var Tr: TSQLTransaction);
-begin
-  if Assigned(Cn) then begin
-    with Cn do begin
-      if Connected then
-      begin
-        Close;
-        Tr.CloseDataSets;
-      end;
-    end;
-  end;
-end;
-
-constructor TDefs.Create;
-begin
-  FShowChildForm := False;
-end;
-
 function TDefs.MatchRole(Sender: Integer): Boolean;
 begin
-  if Sender = Self.GetRole then
-  begin
+  if Sender = Self.GetRole then begin
     Result       := True;
   end else begin
     Result       := False;
@@ -309,23 +263,22 @@ begin
 end;
 
 procedure TDefs.OpenSelectQuery(
-  var Cn: TSQLite3Connection; var DS: TDataSource;
-  var Tr: TSQLTransaction; var Qu: TSQLQuery; SS: AnsiString);
+  var DS: TDataSource; var Qu: TSQLQuery; SS: AnsiString);
 begin
   try
     try
-      with FrmTopMenu.Defs do begin
+      with CommonDB do begin
         with Qu do begin
-          if Active = False then
-          begin
-            SQL.Text                             := SS;
-            if Pos(':pUserID', SS) > 0 then begin
-              with Params do begin
-                ParamByName('pUserID').AsInteger := GetUID;
-              end;
+          SQLConnection  := ACn;
+          SQLTransaction := ATr;
+
+          SQL.Text := SS;
+          if Pos(':pUserID', SS) > 0 then begin
+            with Params do begin
+              ParamByName('pUserID').AsInteger := GetUID;
             end;
-            Open;
           end;
+          Open;
         end;
       end;
     except
@@ -338,14 +291,12 @@ begin
 end;
 
 procedure TDefs.OpenSelectQueryByUnit(
-  var Cn: TSQLite3Connection; var DS: TDataSource;
-  var Tr: TSQLTransaction; var Qu: TSQLQuery; SS: AnsiString);
+  var DS: TDataSource; var Qu: TSQLQuery; SS: AnsiString);
 begin
   try
     try
       with Qu do begin
-        if Active = False then
-        begin
+        if Active = False then begin
           SQL.Text                             := SS;
           Open;
         end;
@@ -365,19 +316,16 @@ procedure TDefs.OpenSelectQueryWithUserID(
 begin
   try
     try
-      with FrmTopMenu.Defs do begin
-        with Qu do begin
-          if Active = False then
-          begin
-            SQL.Text                             := SS;
-            if Pos(':pUserID', SS) > 0 then begin
-              with Params do begin
-                ParamByName('pUserID').AsInteger  := GetUID;
-                ParamByName('pUserID').AsInteger := aUserID;
-              end;
+      with Qu do begin
+        if Active = False then begin
+          SQL.Text                             := SS;
+          if Pos(':pUserID', SS) > 0 then begin
+            with Params do begin
+              ParamByName('pUserID').AsInteger  := GetUID;
+              ParamByName('pUserID').AsInteger := aUserID;
             end;
-            Open;
           end;
+          Open;
         end;
       end;
     except
@@ -395,17 +343,15 @@ procedure TDefs.OpenSelectQueryWithExp1(
 begin
   try
     try
-      with FrmTopMenu.Defs do begin
-        with Qu do begin
-          SQL.Text                             := SS;
-          if Pos(':pUserID', SS) > 0 then begin
-            with Params do begin
-              ParamByName('pUserID').AsInteger  := GetUID;
-              ParamByName('pExpKey1').AsInteger := aExpKey1;
-            end;
+      with Qu do begin
+        SQL.Text                             := SS;
+        if Pos(':pUserID', SS) > 0 then begin
+          with Params do begin
+            ParamByName('pUserID').AsInteger  := GetUID;
+            ParamByName('pExpKey1').AsInteger := aExpKey1;
           end;
-          Open;
         end;
+        Open;
       end;
     except
       on E: ESQLDatabaseError do begin
@@ -422,18 +368,16 @@ procedure TDefs.OpenSelectQueryWithExp1AndExp2(
 begin
   try
     try
-      with FrmTopMenu.Defs do begin
-        with Qu do begin
-          SQL.Text                             := SS;
-          if Pos(':pUserID', SS) > 0 then begin
-            with Params do begin
-              ParamByName('pUserID').AsInteger  := GetUID;
-              ParamByName('pExpKey1').AsInteger := aExpKey1;
-              ParamByName('pExpKey2').AsInteger := aExpKey2;
-            end;
+      with Qu do begin
+        SQL.Text                             := SS;
+        if Pos(':pUserID', SS) > 0 then begin
+          with Params do begin
+            ParamByName('pUserID').AsInteger  := GetUID;
+            ParamByName('pExpKey1').AsInteger := aExpKey1;
+            ParamByName('pExpKey2').AsInteger := aExpKey2;
           end;
-          Open;
         end;
+        Open;
       end;
     except
       on E: ESQLDatabaseError do begin
@@ -445,22 +389,20 @@ begin
 end;
 
 procedure TDefs.OpenSelectQueryWithHeaderID(
-  var Cn: TSQLite3Connection; var DS: TDataSource; var Tr: TSQLTransaction;
-  var Qu: TSQLQuery; SS: AnsiString; aHeaderID: Integer);
+  var DS: TDataSource; var Qu: TSQLQuery;
+  SS: AnsiString; aHeaderID: Integer);
 begin
   try
     try
-      with FrmTopMenu.Defs do begin
-        with Qu do begin
-          SQL.Text                             := SS;
-          if Pos(':pUserID', SS) > 0 then begin
-            with Params do begin
-              ParamByName('pUserID').AsInteger  := GetUID;
-              ParamByName('pHeaderID').AsInteger := aHeaderID;
-            end;
+      with Qu do begin
+        SQL.Text                             := SS;
+        if Pos(':pUserID', SS) > 0 then begin
+          with Params do begin
+            ParamByName('pUserID').AsInteger  := GetUID;
+            ParamByName('pHeaderID').AsInteger := aHeaderID;
           end;
-          Open;
         end;
+        Open;
       end;
     except
       on E: ESQLDatabaseError do begin
@@ -472,21 +414,25 @@ begin
 end;
 
 procedure TDefs.OpenSelectQueryWithMakerID(
-  var Cn: TSQLite3Connection; var DS: TDataSource; var Tr: TSQLTransaction;
-  var Qu: TSQLQuery; SS: AnsiString; aMakerID: Integer);
+  var DS: TDataSource; var Qu: TSQLQuery; SS: AnsiString; aMakerID: Integer);
 begin
   try
     try
-      with FrmTopMenu.Defs do begin
-        with Qu do begin
-          SQL.Text                             := SS;
-          if Pos(':pUserID', SS) > 0 then begin
-            with Params do begin
-              ParamByName('pUserID').AsInteger  := GetUID;
-              ParamByName('pMakerID').AsInteger := aMakerID;
+      with CommonDB do begin
+        with Defs do begin
+          with Qu do begin
+            SQLConnection  := ACn;
+            SQLTransaction := ATr;
+
+            SQL.Text                             := SS;
+            if Pos(':pUserID', SS) > 0 then begin
+              with Params do begin
+                ParamByName('pUserID').AsInteger  := GetUID;
+                ParamByName('pMakerID').AsInteger := aMakerID;
+              end;
             end;
+            Open;
           end;
-          Open;
         end;
       end;
     except
@@ -496,19 +442,20 @@ begin
     end;
   finally
   end;
-
 end;
 
 procedure TDefs.OpenSelectQueryWithMakerIDAndBrandNameID(
-  var Cn: TSQLite3Connection; var DS: TDataSource; var Tr: TSQLTransaction;
-  var Qu: TSQLQuery; SS: AnsiString; aMakerID, aBrandNameID: Integer);
+  var DS: TDataSource; var Qu: TSQLQuery;
+  SS: AnsiString; aMakerID, aBrandNameID: Integer);
 begin
   try
     try
-      with FrmTopMenu.Defs do begin
+      with CommonDB do begin
         with Qu do begin
-          if Active = False then
-          begin
+          SQLConnection  := ACn;
+          SQLTransaction := ATr;
+
+          if Active = False then begin
             SQL.Text                             := SS;
             if Pos(':pUserID', SS) > 0 then begin
               with Params do begin
@@ -543,16 +490,14 @@ procedure TDefs.UpdateFractionProcQueryWithShopID(
 begin
   try
     try
-      with FrmTopMenu.Defs do begin
-        with Qu do begin
-          if Active = False then begin
-            SQL.Text                             := SS;
-            with Params do begin
-              ParamByName('pUserID').AsInteger := GetUID;
-              ParamByName('pShopID').AsInteger := aShopID;
-            end;
-            ExecSQL;
+      with Qu do begin
+        if Active = False then begin
+          SQL.Text                             := SS;
+          with Params do begin
+            ParamByName('pUserID').AsInteger := GetUID;
+            ParamByName('pShopID').AsInteger := aShopID;
           end;
+          ExecSQL;
         end;
       end;
     except
@@ -570,16 +515,14 @@ procedure TDefs.SetDefaultOrderKey2(
 begin
   try
     try
-      with FrmTopMenu.Defs do begin
-        with Qu do begin
-          SQL.Text                             := SS;
-          with Params do begin
-            ParamByName('pUserID').AsInteger := GetUID;
-            ParamByName('pExpKey1').AsInteger := aExpKey1;
-          end;
-          ExecSQL;
-          Tr.Commit;
+      with Qu do begin
+        SQL.Text                             := SS;
+        with Params do begin
+          ParamByName('pUserID').AsInteger := GetUID;
+          ParamByName('pExpKey1').AsInteger := aExpKey1;
         end;
+        ExecSQL;
+        Tr.Commit;
       end;
     except
       on E: ESQLDatabaseError do begin
@@ -597,17 +540,15 @@ procedure TDefs.SetDefaultOrderKey3(
 begin
   try
     try
-      with FrmTopMenu.Defs do begin
-        with Qu do begin
-          SQL.Text                             := SS;
-          with Params do begin
-            ParamByName('pUserID').AsInteger := GetUID;
-            ParamByName('pExpKey1').AsInteger := aExpKey1;
-            ParamByName('pExpKey2').AsInteger := aExpKey2;
-          end;
-          ExecSQL;
-          Tr.Commit;
+      with Qu do begin
+        SQL.Text                             := SS;
+        with Params do begin
+          ParamByName('pUserID').AsInteger := GetUID;
+          ParamByName('pExpKey1').AsInteger := aExpKey1;
+          ParamByName('pExpKey2').AsInteger := aExpKey2;
         end;
+        ExecSQL;
+        Tr.Commit;
       end;
     except
       on E: ESQLDatabaseError do begin
@@ -620,29 +561,26 @@ begin
 end;
 
 procedure TDefs.OpenSelQuAndSetNextID(
-  var Cn: TSQLite3Connection; var DS: TDataSource; var Tr: TSQLTransaction;
-  var Qu: TSQLQuery; var DBEditObj: TDBEdit; SS: AnsiString);
+  var DS: TDataSource; var Qu: TSQLQuery;
+  var DBEditObj: TDBEdit; SS: AnsiString);
 begin
   try
     try
-      with FrmTopMenu.Defs do begin
-        with Qu do begin
-          if Active = False then begin
-            SQL.Text                                := SS;
-            with Params do begin
-              ParamByName('pUserID').AsInteger := GetUID;
-            end;
-            Open;
+      with Qu do begin
+        if Active = False then begin
+          SQL.Text                                := SS;
+          with Params do begin
+            ParamByName('pUserID').AsInteger := GetUID;
           end;
-          if (RecordCount = 1) And (Assigned(DBEditObj)) then begin
-            DBEditObj.Text := FieldByName('NEXT_ID').AsString;
-          end;
+          Open;
+        end;
+        if (RecordCount = 1) And (Assigned(DBEditObj)) then begin
+          DBEditObj.Text := FieldByName('NEXT_ID').AsString;
         end;
       end;
     except
       on E: ESQLDatabaseError do begin
         ShowMessage(E.Message);
-        Tr.Rollback;
       end;
     end;
   finally
@@ -650,33 +588,21 @@ begin
 end;
 
 procedure TDefs.OpenSelQuAndSetVal(
-  var Cn: TSQLite3Connection; var DS: TDataSource; var Tr: TSQLTransaction;
-  var Qu: TSQLQuery; var DBLCBObj: TDBLookupComboBox;
-  var DBEditObj: TDBEdit; SS: AnsiString; KeyValue: Integer);
+  var DS: TDataSource; var Qu: TSQLQuery;
+  var DBLCBObj: TDBLookupComboBox; var DBEditObj: TDBEdit; SS: AnsiString);
 begin
   try
     try
-      with FrmTopMenu.Defs do begin
-        with Qu do begin
-          SQL.Text                                := SS;
-          with Params do begin
-            ParamByName('pUserID').AsInteger := GetUID;
-          end;
-          Open;
-          if KeyValue > 0 then begin
-            if Assigned(DBLCBObj) then begin
-              DBLCBObj.KeyValue := KeyValue;
-            end;
-            if Assigned(DBEditObj) then begin
-              DBEditObj.Text := IntToStr(KeyValue);
-            end;
-          end;
+      with Qu do begin
+        SQL.Text := SS;
+        with Params do begin
+          ParamByName('pUserID').AsInteger := GetUID;
         end;
+        Open;
       end;
     except
       on E: ESQLDatabaseError do begin
         ShowMessage(E.Message);
-        Tr.Rollback;
       end;
     end;
   finally
@@ -686,11 +612,10 @@ end;
 procedure TDefs.OpenSelQuBrandAndSetVal(
   var Cn: TSQLite3Connection; var DS: TDataSource; var Tr: TSQLTransaction;
   var Qu: TSQLQuery; var DBLCBObj: TDBLookupComboBox;
-  var DBEditObj: TDBEdit; SS: AnsiString; KeyValue: Integer);
+  var DBEditObj: TDBEdit; SS: AnsiString);
 begin
-  try
     try
-      with FrmTopMenu.Defs do begin
+      try
         with Qu do begin
           SQL.Text                                := SS;
           with Params do begin
@@ -704,99 +629,84 @@ begin
             end;
           end;
           Open;
-          if KeyValue > 0 then begin
-            if Assigned(DBLCBObj) then begin
-              DBLCBObj.KeyValue := KeyValue;
-            end;
-            if Assigned(DBEditObj) then begin
-              DBEditObj.Text := IntToStr(KeyValue);
-            end;
-          end;
+        end;
+      except
+        on E: ESQLDatabaseError do begin
+          ShowMessage(E.Message);
+          Tr.Rollback;
         end;
       end;
-    except
-      on E: ESQLDatabaseError do begin
-        ShowMessage(E.Message);
-        Tr.Rollback;
-      end;
+    finally
     end;
-  finally
-  end;
+  //end;
 end;
 
 procedure TDefs.OpenSelQuUnitAndSetVal(
   var Cn: TSQLite3Connection; var DS: TDataSource; var Tr: TSQLTransaction;
   var Qu: TSQLQuery; var DBLCBObj: TDBLookupComboBox;
-  var DBEditObj: TDBEdit; SS: AnsiString; KeyValue: Integer);
+  var DBEditObj: TDBEdit; SS: AnsiString);
+begin
+  with CommonDB do begin
+    try
+      try
+        with Qu do begin
+          SQL.Text                                := SS;
+          Open;
+        end;
+      except
+        on E: ESQLDatabaseError do begin
+          ShowMessage(E.Message);
+          Tr.Rollback;
+        end;
+      end;
+    finally
+    end;
+  end;
+end;
+
+procedure TDefs.OpenSelectQueryWithTaxType(
+  var DS: TDataSource; var Qu: TSQLQuery; SS: AnsiString);
 begin
   try
     try
       with Qu do begin
-        SQL.Text                                := SS;
-        Open;
-        if KeyValue > 0 then begin
-          if Assigned(DBLCBObj) then begin
-            DBLCBObj.KeyValue := KeyValue;
+        if Active = False then begin
+          SQL.Text                                := SS;
+          with Params do begin
+            ParamByName('pUserID').AsInteger := GetUID;
           end;
-          if Assigned(DBEditObj) then begin
-            DBEditObj.Text := IntToStr(KeyValue);
-          end;
+          Qu.Open;
         end;
       end;
     except
       on E: ESQLDatabaseError do begin
         ShowMessage(E.Message);
-        Tr.Rollback;
       end;
     end;
   finally
   end;
 end;
 
-procedure TDefs.OpenSelQuTaxTypeAndSetVal(
-  var Cn: TSQLite3Connection; var DS: TDataSource; var Tr: TSQLTransaction;
-  var Qu: TSQLQuery; var DBLCBObj: TDBLookupComboBox;
-  var DBEditObj: TDBEdit; SS: AnsiString; KeyValue: Integer);
+procedure TDefs.SetKeyValToDBLCB(
+  var DBLCBObj: TDBLookupComboBox;
+  var DBEditObj: TDBEdit; KeyValue: Integer);
 begin
   try
     try
-      with FrmTopMenu.Defs do begin
-        with Qu do begin
-          if Active = False then
-          begin
-            SQL.Text                                := SS;
-            with Params do begin
-              ParamByName('pUserID').AsInteger := GetUID;
-            end;
-            Qu.Open;
-          end;
-          if KeyValue > 0 then begin
-            if Assigned(DBLCBObj) then begin
-              DBLCBObj.KeyValue := KeyValue;
-            end;
-            if Assigned(DBEditObj) then begin
-              DBEditObj.Text := IntToStr(KeyValue);
-            end;
-          end;
+      if KeyValue > 0 then begin
+        if Assigned(DBLCBObj) then begin
+          DBLCBObj.KeyValue := KeyValue;
+        end;
+        if Assigned(DBEditObj) then begin
+          DBEditObj.Text := IntToStr(KeyValue);
         end;
       end;
     except
-      on E: ESQLDatabaseError do begin
+      on E: Exception do begin
         ShowMessage(E.Message);
-        Tr.Rollback;
       end;
     end;
   finally
-  end;
-end;
-
-procedure TDefs.SetDatabaseName(var Cn: TSQLite3Connection);
-begin
-  if GetDBFullPath <> '' then begin
-    Cn.DatabaseName := GetDBFullPath;
-  end else begin
-    MessageDlg('データベース名が取得できません。処理が続行できないためKakeiBonを終了します。', mtError, [mbOk], 0);
-    SetDoExitKakeiBon(True);
   end;
 end;
 
@@ -848,41 +758,6 @@ end;
 procedure TDefs.SetShowChildForm(Sender: Boolean);
 begin
   FShowChildForm := Sender;
-end;
-
-function TDefs.GetOSHomeDir: AnsiString;
-begin
-  Result     := FOSHomeDir;
-end;
-
-procedure TDefs.SetOSHomeDir(aOSHomeDir: AnsiString);
-begin
-  FOSHomeDir := aOSHomeDir;
-end;
-
-function TDefs.GetDBPath: AnsiString;
-begin
-  Result := FDBPath;
-end;
-
-procedure TDefs.SetDBPath(aDBDir: AnsiString);
-begin
-  FDBPath := aDBDir;
-end;
-
-function TDefs.GetDBFullPath: AnsiString;
-begin
-  Result       := FDBFullPath;
-end;
-
-procedure TDefs.SetDBFullPath(aDBFullPath: AnsiString);
-begin
-  if aDBFullPath <> '' then begin
-    FDBFullPath := aDBFullPath;
-  end else begin
-    MessageDlg(MSG_JP_000008, mtError, [mbOk], 0);
-    SetDoExitKakeiBon(True);
-  end;
 end;
 
 function TDefs.GetUID: Integer;

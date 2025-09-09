@@ -5,17 +5,18 @@ unit UDBAccess;
 interface
 
 uses
-  Classes, SysUtils;
+  Classes, SysUtils, SQLDB, SQLite3Conn, DB;
 
 const
   // UEntryAdmin
   SQL_10000001 = 'CREATE TABLE USERS(' +
-                 'USER_ID INTEGER NOT NULL PRIMARY KEY, ' +
+                 'USER_ID INTEGER NOT NULL, ' +
                  'NAME VARCHAR(128) NOT NULL UNIQUE, ' +
                  'PAW VARCHAR(128) NOT NULL, ' +
                  'ROLE INTEGER NOT NULL, ' +
                  'ENTRY_DT DATETIME NOT NULL, ' +
-                 'UPDATE_DT DATETIME)';
+                 'UPDATE_DT DATETIME, ' +
+                 'PRIMARY KEY(USER_ID))';
   SQL_10000002 = 'CREATE UNIQUE INDEX USERS_ID_idx ON USERS( USER_ID )';
   SQL_10000003 = 'INSERT INTO USERS(NAME, PAW, ROLE, ENTRY_DT) ' +
                  'VALUES (:pUserId, :pPaw, :pRole, :pEntryDT)';
@@ -69,7 +70,8 @@ const
                  'DO_ROUND_UP BOOLEAN, ' +
                  'DISABLED BOOLEAN NOT NULL, ' +
                  'ENTRY_DT DATETIME NOT NULL, ' +
-                 'UPDATE_DT DATETIME)';
+                 'UPDATE_DT DATETIME, ' +
+                 'PRIMARY KEY(USER_ID, SHOP_ID))';
   SQL_10000011 = 'CREATE UNIQUE INDEX SHOP_ID_idx ON ' +
                  'SHOP(USER_ID, SHOP_ID)';
   SQL_10000012 = 'CREATE TABLE DETAILS_HEADER(' +
@@ -117,7 +119,8 @@ const
                  'CURRENT_BALANCE INTEGER, ' +
                  'DISABLED BOOLEAN NOT NULL, ' +
                  'ENTRY_DT DATETIME NOT NULL, ' +
-                 'UPDATE_DT DATETIME)';
+                 'UPDATE_DT DATETIME, ' +
+                 'PRIMARY KEY(USER_ID, ACCOUNT_ID))';
   SQL_10000017 = 'CREATE UNIQUE INDEX ACCOUNT_ID_idx ON ' +
                  'ACCOUNT(USER_ID, ACCOUNT_ID)';
   SQL_10000018 = 'CREATE TABLE MAKER(' +
@@ -126,7 +129,8 @@ const
                  'MAKER_NAME VARCHAR(40) NOT NULL, ' +
                  'DISABLED BOOLEAN NOT NULL, ' +
                  'ENTRY_DT DATETIME NOT NULL, ' +
-                 'UPDATE_DT DATETIME)';
+                 'UPDATE_DT DATETIME, ' +
+                 'PRIMARY KEY(USER_ID, MAKER_ID))';
   SQL_10000019 = 'CREATE UNIQUE INDEX MAKER_ID_idx ON ' +
                  'MAKER(USER_ID, MAKER_ID)';
   SQL_10000020 = 'CREATE TABLE BRAND(' +
@@ -137,51 +141,60 @@ const
                  'END_OF_SALES BOOLEAN NOT NULL, ' +
                  'DISABLED BOOLEAN NOT NULL, ' +
                  'ENTRY_DT DATETIME NOT NULL, ' +
-                 'UPDATE_DT DATETIME)';
+                 'UPDATE_DT DATETIME, ' +
+                 'PRIMARY KEY(USER_ID, MAKER_ID, BRAND_NAME_ID))';
   SQL_10000021 = 'CREATE UNIQUE INDEX BRAND_ID_idx ON ' +
                  'BRAND(USER_ID, MAKER_ID, BRAND_NAME_ID)';
   SQL_10000022 = 'CREATE TABLE UNIT(' +
-                 'UNIT_ID SERIAL NOT NULL PRIMARY KEY, ' +
+                 'UNIT_ID SERIAL NOT NULL, ' +
                  'UNIT VARCHAR(16) NOT NULL, ' +
                  'ORDER_ID INTEGER NOT NULL, ' +
                  'DISABLED BOOLEAN NOT NULL, ' +
                  'ENTRY_DT DATETIME NOT NULL, ' +
-                 'UPDATE_DT DATETIME)';
-  SQL_10000023 = 'CREATE TABLE TAX_TYPE(' +
+                 'UPDATE_DT DATETIME, ' +
+                 'PRIMARY KEY(UNIT_ID))';
+  SQL_10000023 = 'CREATE UNIQUE INDEX UNIT_ID_idx ON ' +
+                 'UNIT(UNIT_ID)';
+  SQL_10000024 = 'CREATE TABLE TAX_TYPE(' +
                  'USER_ID INTEGER NOT NULL, ' +
                  'TAX_TYPE_ID INTEGER NOT NULL, ' +
                  'TAX_RATE_ID INTEGER NOT NULL, ' +
                  'TAX_TYPE VARCHAR(16) NOT NULL, ' +
                  'ORDER_ID INTEGER NOT NULL, ' +
                  'ENTRY_DT DATETIME NOT NULL, ' +
-                 'UPDATE_DT DATETIME)';
-  SQL_10000024 = 'CREATE UNIQUE INDEX TAX_TYPE_ID_idx ON ' +
+                 'UPDATE_DT DATETIME, ' +
+                 'PRIMARY KEY(USER_ID, TAX_TYPE_ID, TAX_RATE_ID, ORDER_ID))';
+  SQL_10000025 = 'CREATE UNIQUE INDEX TAX_TYPE_ID_idx ON ' +
                  'TAX_TYPE(USER_ID, TAX_TYPE_ID, TAX_RATE_ID)';
-  SQL_10000025 = 'CREATE TABLE TAX_RATE(' +
+  SQL_10000026 = 'CREATE TABLE TAX_RATE(' +
                  'USER_ID INTEGER NOT NULL, ' +
                  'TAX_RATE_ID INTEGER NOT NULL, ' +
                  'TAX_RATE INTEGER NOT NULL, ' +
                  'DISABLED BOOLEAN NOT NULL, ' +
                  'ENTRY_DT DATETIME NOT NULL, ' +
-                 'UPDATE_DT DATETIME)';
-  SQL_10000026 = 'CREATE UNIQUE INDEX TAX_RATE_ID_idx ON ' +
+                 'UPDATE_DT DATETIME, ' +
+                 'PRIMARY KEY(USER_ID, TAX_RATE_ID))';
+  SQL_10000027 = 'CREATE UNIQUE INDEX TAX_RATE_ID_idx ON ' +
                  'TAX_RATE(USER_ID, TAX_RATE_ID)';
-  SQL_10000027 = 'CREATE VIEW BRAND_VIEW (USER_ID, MAKER_ID, MAKER_NAME, ' +
+  SQL_10000028 = 'CREATE VIEW BRAND_VIEW (USER_ID, MAKER_ID, MAKER_NAME, ' +
                  'BRAND_NAME_ID, BRAND_NAME, END_OF_SALES, DISABLED, ' +
                  'ENTRY_DT, UPDATE_DT) AS SELECT B.USER_ID, B.MAKER_ID, ' +
                  'M.MAKER_NAME, B.BRAND_NAME_ID, B.BRAND_NAME, ' +
-                 'B.END_OF_SALES, B.DISABLED, B.ENTRY_DT, B.UPDATE_DT ' +
-                 'FROM BRAND B LEFT OUTER JOIN MAKER M ' +
-                 'ON M.USER_ID = B.USER_ID AND M.MAKER_ID = B.MAKER_ID';
-
+                 'B.END_OF_SALES, B.DISABLED, B.ENTRY_DT, B.UPDATE_DT FROM ' +
+                 'BRAND B LEFT OUTER JOIN MAKER M ON M.USER_ID = B.USER_ID ' +
+                 'AND M.MAKER_ID = B.MAKER_ID';
+  SQL_10000029 = 'SELECT COUNT(*) AS COUNT FROM sqlite_master WHERE TYPE = ' +
+                 '''table'' AND NAME = ''USERS''';
   // ULogin
   SQL_20010001 = 'SELECT USER_ID, NAME, ROLE FROM USERS ' +
                  'WHERE NAME = :pUName AND PAW = :pPaw';
   // UManageUser
   SQL_20020001 = 'SELECT USER_ID, NAME, PAW, ROLE, ENTRY_DT, UPDATE_DT ' +
                  'FROM USERS';
-  SQL_20020002 = 'SELECT USER_ID, NAME, PAW, ROLE, ENTRY_DT, UPDATE_DT ' +
+  SQL_20020002 = 'SELECT USER_ID, NAME, ROLE, ENTRY_DT, UPDATE_DT ' +
                  'FROM USERS WHERE NAME = :pUName';
+  //SQL_20020002 = 'SELECT USER_ID, NAME, ROLE, strftime(''%Y/%m/%d %H:%M:%S'', ENTRY_DT) AS FORMATTED_ENTRY_DT, UPDATE_DT ' +
+  //               'FROM USERS WHERE NAME = :pUName';
   SQL_20020003 = 'SELECT COUNT(USER_ID) AS COUNT ' +
                  'FROM USERS WHERE ROLE = :pRole';
 
@@ -197,10 +210,15 @@ const
                  'FROM USERS WHERE ROLE = :pRole AND NAME = :pName';
   SQL_20040003 = 'UPDATE USERS SET :pFieldAndValue WHERE USER_ID = :pUserID';
 
-  // URemoveUser 
+  // UDeleteUser
   SQL_20050001 = 'SELECT USER_ID, NAME, ROLE, ENTRY_DT, UPDATE_DT ' +
                  'FROM USERS WHERE ROLE = :pRole';
   SQL_20050002 = 'DELETE FROM USERS WHERE USER_ID = :pUserId';
+  SQL_20050003 = 'DELETE FROM TAX_TYPE WHERE USER_ID = :pUserId';
+  SQL_20050004 = 'DELETE FROM TAX_RATE WHERE USER_ID = :pUserId';
+  SQL_20050005 = 'DELETE FROM EXP1 WHERE USER_ID = :pUserId';
+  SQL_20050006 = 'DELETE FROM EXP2 WHERE USER_ID = :pUserId';
+  SQL_20050007 = 'DELETE FROM EXP3 WHERE USER_ID = :pUserId';
 
   // UManageExp
   SQL_20060001 = 'SELECT E1.USER_ID AS USER_ID, U.NAME AS UNAME, ' +
@@ -280,11 +298,13 @@ const
                  ':pUserID';
 
   // UEntryShop
-  SQL_20080001 = 'SELECT * FROM SHOP WHERE USER_ID = :pUserID ORDER BY ' +
-                 'SHOP_NAME ASC';
-  SQL_20080002 = 'SELECT COALESCE(MAX(SHOP_ID), 0) + 1 AS NEXT_ID FROM ' +
+  SQL_20080001 = 'SELECT * FROM SHOP WHERE USER_ID = :pUserID';
+  SQL_20080002 = 'SELECT SHOP_ID, SHOP_NAME, PHONE_NUM, START_BUSINESS_DT, ' +
+                 'END_BUSINESS_DT, DISABLED, ENTRY_DT, UPDATE_DT FROM SHOP ' +
+                 'WHERE USER_ID = :pUserID ORDER BY SHOP_NAME ASC';
+  SQL_20080003 = 'SELECT COALESCE(MAX(SHOP_ID), 0) + 1 AS NEXT_ID FROM ' +
                  'SHOP WHERE USER_ID = :pUserID';
-  SQL_20080003 = 'INSERT INTO SHOP(USER_ID, SHOP_ID, SHOP_NAME, PHONE_NUM, ' +
+  SQL_20080004 = 'INSERT INTO SHOP(USER_ID, SHOP_ID, SHOP_NAME, PHONE_NUM, ' +
                  'START_BUSINESS_DT, END_BUSINESS_DT, DO_ROUND, DO_TRUNCATE, ' +
                  'DO_ROUND_UP, DISABLED, ENTRY_DT, UPDATE_DT) VALUES(' +
                  ':pUserID, :pShopID, :pShopName, :pPhoneNum, ' +
@@ -321,10 +341,8 @@ const
                  'HEADER_ID = :pHeaderID';
 
   // UAddDetailsHeader and UEditDetailsHeader
-  SQL_20100001 = 'SELECT USER_ID, SHOP_ID, SHOP_NAME, PHONE_NUM, DO_ROUND, ' +
-                 'DO_TRUNCATE, DO_ROUND_UP, DISABLED FROM SHOP WHERE ' +
-                 'USER_ID = :pUserID AND DISABLED = FALSE ORDER BY ' +
-                 'SHOP_NAME ASC';
+  SQL_20100001 = 'SELECT * FROM SHOP WHERE USER_ID = :pUserID AND DISABLED = ' +
+                 'FALSE ORDER BY SHOP_NAME ASC';
   SQL_20100002 = 'SELECT USER_ID, EXP_KEY1, NAME1, DISABLED1 ' +
                  'FROM EXP1 WHERE USER_ID = :pUserID AND DISABLED1 = FALSE ' +
                  'ORDER BY EXP_KEY1 ASC';
@@ -428,11 +446,12 @@ const
                  '= :pShopID';
 
   // UEntryAccount
-  SQL_20110001 = 'SELECT * FROM ACCOUNT WHERE USER_ID = :pUserID ORDER BY ' +
+  SQL_20110001 = 'SELECT * FROM ACCOUNT WHERE USER_ID = :pUserID';
+  SQL_20110002 = 'SELECT * FROM ACCOUNT WHERE USER_ID = :pUserID ORDER BY ' +
                  'ACCOUNT_ID ASC';
-  SQL_20110002 = 'SELECT COALESCE(MAX(ACCOUNT_ID), 0) + 1 AS NEXT_ID ' +
+  SQL_20110003 = 'SELECT COALESCE(MAX(ACCOUNT_ID), 0) + 1 AS NEXT_ID ' +
                  'FROM ACCOUNT WHERE USER_ID = :pUserID';
-  SQL_20110003 = 'INSERT INTO ACCOUNT(USER_ID, ACCOUNT_ID, BRAND_NAME, ' +
+  SQL_20110004 = 'INSERT INTO ACCOUNT(USER_ID, ACCOUNT_ID, BRAND_NAME, ' +
                  'SUB_NAME, PHONE_NUM,OPENING_BALANCE, CURRENT_BALANCE, ' +
                  'DISABLED, ENTRY_DT, UPDATE_DT) VALUES(:pUserID, ' +
                  ':pAccountID, :pBrandName, :pSubName, :pPhoneNum, ' +
@@ -485,8 +504,9 @@ const
   // UEntryMaker and UAddDetail and UEditDetail and UEntryBrandName
   SQL_20130001 = 'SELECT * FROM MAKER WHERE USER_ID = :pUserID ORDER BY ' +
                  'MAKER_NAME';
-  SQL_20130002 = 'SELECT * FROM MAKER WHERE USER_ID = :pUserID AND ' +
-                 'DISABLED = False ORDER BY MAKER_NAME ASC';
+  SQL_20130002 = 'SELECT USER_ID, MAKER_ID, MAKER_NAME, DISABLED, ENTRY_DT, ' +
+                 'UPDATE_DT FROM MAKER WHERE USER_ID = :pUserID AND ' +
+                 'DISABLED = FALSE';
   SQL_20130003 = 'SELECT COALESCE(MAX(MAKER_ID), 0) + 1 AS NEXT_ID ' +
                  'FROM MAKER WHERE USER_ID = :pUserID';
   SQL_20130004 = 'INSERT INTO MAKER(USER_ID, MAKER_ID, MAKER_NAME, ' +
@@ -497,19 +517,19 @@ const
                  '= :pDisabled, UPDATE_DT = :pUpdateDT';
 
   // UEntryBrandName and UAddDetail and UEditDetail
-  SQL_20140001 = 'SELECT USER_ID, MAKER_ID, BRAND_NAME_ID, BRAND_NAME, ' +
-                 'END_OF_SALES, DISABLED, ENTRY_DT, UPDATE_DT FROM BRAND ' +
-                 'WHERE USER_ID = :pUserID AND MAKER_ID = :pMakerID';
-  SQL_20140002 = 'SELECT COALESCE(MAX(BRAND_NAME_ID), 0) + 1 AS ' +
+  SQL_20140001 = 'SELECT * FROM BRAND WHERE USER_ID = :pUserID';
+  SQL_20140002 = 'SELECT * FROM BRAND WHERE USER_ID = :pUserID AND ' +
+                 'MAKER_ID = :pMakerID ORDER BY BRAND_NAME ASC';
+  SQL_20140003 = 'SELECT COALESCE(MAX(BRAND_NAME_ID), 0) + 1 AS ' +
                  'NEXT_ID FROM BRAND WHERE USER_ID = :pUserID ' +
                  'AND MAKER_ID = :pMakerID';
-  SQL_20140003 = 'SELECT B.USER_ID, B.BRAND_NAME_ID, B.MAKER_ID, ' +
+  SQL_20140004 = 'SELECT B.USER_ID, B.BRAND_NAME_ID, B.MAKER_ID, ' +
                  'M.MAKER_NAME, B.BRAND_NAME, B.END_OF_SALES, B.DISABLED, ' +
                  'B.ENTRY_DT, B.UPDATE_DT FROM BRAND B LEFT OUTER JOIN ' +
                  'MAKER M ON M.USER_ID = B.USER_ID AND M.MAKER_ID = ' +
                  'B.MAKER_ID AND B.USER_ID = :pUserID ORDER BY ' +
                  'M.MAKER_NAME ASC';
-  SQL_20140004 = 'INSERT INTO BRAND(USER_ID, MAKER_ID, BRAND_NAME_ID, ' +
+  SQL_20140005 = 'INSERT INTO BRAND(USER_ID, MAKER_ID, BRAND_NAME_ID, ' +
                  'BRAND_NAME, END_OF_SALES, DISABLED, ENTRY_DT, UPDATE_DT) ' +
                  'VALUES(:pUserID, :pMakerID, :pBrandNameID, :pBrandName, ' +
                  ':pEndOfSales, :pDisabled, :pEntryDT, NULL) ON CONFLICT ' +
@@ -525,7 +545,8 @@ const
                  '= :pCurrBrandNameID';
 
   // UEntryUnit and UAddDetail and UEditDetail
-  SQL_20150001 = 'SELECT * FROM UNIT ORDER BY ORDER_ID ASC';
+  SQL_20150001 = 'SELECT UNIT_ID, UNIT, ORDER_ID, DISABLED, ENTRY_DT, ' +
+                 'UPDATE_DT FROM UNIT ORDER BY ORDER_ID ASC';
   SQL_20150002 = 'SELECT COALESCE(MAX(UNIT_ID), 0) + 1 AS NEXT_ID ' +
                  'FROM UNIT';
   SQL_20150003 = 'INSERT INTO UNIT(UNIT_ID, UNIT, ORDER_ID, DISABLED, ' +
@@ -1227,18 +1248,6 @@ const
   SQL_93000001 = 'INSERT INTO EXP1(USER_ID, EXP_KEY1, ORDER_KEY1, ' +
                  'NAME1, DISABLED1, ENTRY_DT, UPDATE_DT) ' +
                  'VALUES (:pUserID, 3, 3, ''振替'', FALSE, :pEntryDT, NULL)';
-
-type
-
-  { TDBAccess }
-
-  TDBAccess = class(TObject)
-  private
-  protected
-  published
-  public
-
-  end;
 
 implementation
 
