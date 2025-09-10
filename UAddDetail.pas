@@ -1363,16 +1363,18 @@ begin
   end;
 
   // Go back to the screen
-  if GetGoBack then begin
-    if GetAddDetail = 0 then begin
-      FrmManageDetails             := TFrmManageDetails.Create(Application);
-      FrmManageDetails.Visible     := True;
-    end else if GetAddDetail = 1 then begin
-      FrmEditDetailsHeader         := TFrmEditDetailsHeader.Create(Application);
-      FrmEditDetailsHeader.Visible := True;
-    end else if GetAddDetail = 2 then begin
-      FrmEditDetailsHeader         := TFrmEditDetailsHeader.Create(Application);
-      FrmEditDetailsHeader.Visible := True;
+  with Defs do begin
+    if GetGoBack then begin
+      if GetAddDetail = 0 then begin
+        FrmManageDetails             := TFrmManageDetails.Create(Application);
+        FrmManageDetails.Visible     := True;
+      end else if GetAddDetail = 1 then begin
+        FrmEditDetailsHeader         := TFrmEditDetailsHeader.Create(Application);
+        FrmEditDetailsHeader.Visible := True;
+      end else if GetAddDetail = 2 then begin
+        FrmEditDetailsHeader         := TFrmEditDetailsHeader.Create(Application);
+        FrmEditDetailsHeader.Visible := True;
+      end;
     end;
   end;
 

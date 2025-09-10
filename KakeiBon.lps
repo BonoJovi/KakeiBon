@@ -19,10 +19,12 @@
         <ComponentName Value="FrmAddDetail"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="1406"/>
-        <CursorPos X="3" Y="1413"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="1359"/>
+        <CursorPos X="9" Y="1363"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UAddDetailsHeader.pas"/>
@@ -90,7 +92,6 @@
         <ComponentName Value="FrmEditDetailsHeader"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="1709"/>
         <CursorPos X="3" Y="1716"/>
@@ -117,6 +118,8 @@
         <TopLine Value="827"/>
         <CursorPos X="3" Y="833"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryAdmin.pas"/>
@@ -128,6 +131,8 @@
         <TopLine Value="366"/>
         <CursorPos X="3" Y="372"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryBrandName.pas"/>
@@ -139,6 +144,8 @@
         <TopLine Value="928"/>
         <CursorPos X="3" Y="935"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryMaker.pas"/>
@@ -150,6 +157,8 @@
         <TopLine Value="608"/>
         <CursorPos X="3" Y="614"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryShop.pas"/>
@@ -161,6 +170,8 @@
         <TopLine Value="724"/>
         <CursorPos X="3" Y="729"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryUnit.pas"/>
@@ -172,6 +183,8 @@
         <TopLine Value="597"/>
         <CursorPos X="3" Y="603"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="ULogin.pas"/>
@@ -183,6 +196,8 @@
         <TopLine Value="311"/>
         <CursorPos X="3" Y="317"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UManageDetails.pas"/>
@@ -194,6 +209,8 @@
         <TopLine Value="457"/>
         <CursorPos X="3" Y="462"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UManageExp.pas"/>
@@ -205,6 +222,8 @@
         <TopLine Value="1216"/>
         <CursorPos X="3" Y="1221"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UManageUser.pas"/>
@@ -216,6 +235,8 @@
         <TopLine Value="380"/>
         <CursorPos X="3" Y="386"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UDeleteUser.pas"/>
@@ -257,6 +278,8 @@
         <TopLine Value="64"/>
         <CursorPos X="21" Y="75"/>
         <UsageCount Value="201"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UCommonDB.pas"/>
