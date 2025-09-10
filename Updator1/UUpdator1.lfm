@@ -1,0 +1,61 @@
+object Form1: TForm1
+  Left = 342
+  Height = 92
+  Top = 32
+  Width = 456
+  BorderStyle = bsSingle
+  Caption = 'Form1'
+  ClientHeight = 92
+  ClientWidth = 456
+  Color = clWindowFrame
+  Position = poScreenCenter
+  object pnlUpdate: TPanel
+    Left = 16
+    Height = 60
+    Top = 16
+    Width = 424
+    Caption = 'パスワードをクリア (CTRL+X)'
+    Color = clActiveCaption
+    Enabled = False
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 0
+  end
+  object BtnUpdate: TPanel
+    Left = 24
+    Height = 44
+    Top = 24
+    Width = 408
+    Caption = 'Linux版アップデータ (Ver.1.0.3用)'
+    Color = clBtnFace
+    Font.Height = -21
+    Font.Name = '0xProto'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 1
+    OnClick = BtnUpdateClick
+    OnMouseEnter = BtnUpdateMouseEnter
+    OnMouseLeave = BtnUpdateMouseLeave
+  end
+  object ADS: TDataSource
+    DataSet = AQu
+    Left = 312
+    Top = 40
+  end
+  object AQu: TSQLQuery
+    FieldDefs = <>
+    Params = <>
+    Macros = <>
+    Left = 360
+    Top = 40
+  end
+end
