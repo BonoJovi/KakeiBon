@@ -121,7 +121,6 @@ type
     procedure FormShow(Sender: TObject);
     procedure TimerTimer(Sender: TObject);
   private
-    //FTab               : Boolean;
     FGuidePanels       : Array[0..3] of TPanel;
     FNavigateBtn       : TNavigateBtn;
     FDBGridClicked     : Boolean;
