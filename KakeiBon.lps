@@ -20,11 +20,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="1359"/>
-        <CursorPos X="9" Y="1363"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1369"/>
+        <CursorPos X="28" Y="1379"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UAddDetailsHeader.pas"/>
@@ -115,11 +114,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="827"/>
-        <CursorPos X="3" Y="833"/>
+        <TopLine Value="881"/>
+        <CursorPos Y="890"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryAdmin.pas"/>
@@ -167,11 +164,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="724"/>
-        <CursorPos X="3" Y="729"/>
+        <TopLine Value="850"/>
+        <CursorPos X="39" Y="858"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryUnit.pas"/>
@@ -180,11 +175,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="597"/>
-        <CursorPos X="3" Y="603"/>
+        <TopLine Value="210"/>
+        <CursorPos X="3" Y="212"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="ULogin.pas"/>
@@ -599,22 +592,4 @@
       <Modes ActiveMode=""/>
     </RunParams>
   </ProjectSession>
-  <Debugging>
-    <BreakPoints>
-      <Item>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="UEntryUnit.pas"/>
-        <Line Value="585"/>
-      </Item>
-      <Item>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="UManageExp.pas"/>
-        <Line Value="1125"/>
-      </Item>
-    </BreakPoints>
-  </Debugging>
 </CONFIG>

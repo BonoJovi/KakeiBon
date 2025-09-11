@@ -66,6 +66,12 @@ type
     PnlSave              : TPanel;
     PnlGoBack            : TPanel;
     PnlInsert            : TPanel;
+    Shape1: TShape;
+    Shape2: TShape;
+    Shape3: TShape;
+    Shape4: TShape;
+    Shape5: TShape;
+    Shape6: TShape;
     Timer                : TTimer;
     procedure ActCancelExecute(Sender: TObject);
     procedure ActSaveExecute(Sender: TObject);
@@ -80,15 +86,22 @@ type
     procedure ADBNaviWMSetFocus(Sender: TObject; HWndLostFocus: HWND);
     procedure DBCBDisabledChange(Sender: TObject);
     procedure DBCBDisabledEnter(Sender: TObject);
+    procedure DBCBDisabledExit(Sender: TObject);
     procedure DBDTPEndBusinessDTChange(Sender: TObject);
     procedure DBDTPEndBusinessDTEnter(Sender: TObject);
+    procedure DBDTPEndBusinessDTExit(Sender: TObject);
     procedure DBDTPStartBusinessDTChange(Sender: TObject);
     procedure DBDTPStartBusinessDTEnter(Sender: TObject);
+    procedure DBDTPStartBusinessDTExit(Sender: TObject);
     procedure DBEdtPhoneNumChange(Sender: TObject);
     procedure DBEdtPhoneNumEnter(Sender: TObject);
+    procedure DBEdtPhoneNumExit(Sender: TObject);
     procedure DBEdtShopIDChange(Sender: TObject);
+    procedure DBEdtShopIDEnter(Sender: TObject);
+    procedure DBEdtShopIDExit(Sender: TObject);
     procedure DBEdtShopNameChange(Sender: TObject);
     procedure DBEdtShopNameEnter(Sender: TObject);
+    procedure DBEdtShopNameExit(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -579,6 +592,16 @@ begin
   end;
 end;
 
+procedure TFrmEntryShop.DBEdtShopIDEnter(Sender: TObject);
+begin
+  Shape1.Visible := True;
+end;
+
+procedure TFrmEntryShop.DBEdtShopIDExit(Sender: TObject);
+begin
+  Shape1.Visible := False;
+end;
+
 procedure TFrmEntryShop.DBEdtShopNameChange(Sender: TObject);
 begin
   if Not FDoCommit then begin
@@ -588,6 +611,16 @@ end;
 
 procedure TFrmEntryShop.DBEdtShopNameEnter(Sender: TObject);
 begin
+  Shape2.Visible := True;
+
+  Timer.Enabled     := True;
+  FCurrentComponent := Sender;
+end;
+
+procedure TFrmEntryShop.DBEdtShopNameExit(Sender: TObject);
+begin
+  Shape2.Visible := False;
+
   Timer.Enabled     := True;
   FCurrentComponent := Sender;
 end;
@@ -601,6 +634,16 @@ end;
 
 procedure TFrmEntryShop.DBEdtPhoneNumEnter(Sender: TObject);
 begin
+  Shape3.Visible := True;
+
+  Timer.Enabled     := True;
+  FCurrentComponent := Sender;
+end;
+
+procedure TFrmEntryShop.DBEdtPhoneNumExit(Sender: TObject);
+begin
+  Shape3.Visible := False;
+
   Timer.Enabled     := True;
   FCurrentComponent := Sender;
 end;
@@ -620,8 +663,18 @@ end;
 
 procedure TFrmEntryShop.DBDTPStartBusinessDTEnter(Sender: TObject);
 begin
-  FCurrentComponent := Sender;
+  Shape4.Visible := True;
+
   Timer.Enabled     := True;
+  FCurrentComponent := Sender;
+end;
+
+procedure TFrmEntryShop.DBDTPStartBusinessDTExit(Sender: TObject);
+begin
+  Shape4.Visible := False;
+
+  Timer.Enabled     := True;
+  FCurrentComponent := Sender;
 end;
 
 procedure TFrmEntryShop.DBDTPEndBusinessDTChange(Sender: TObject);
@@ -641,8 +694,18 @@ end;
 
 procedure TFrmEntryShop.DBDTPEndBusinessDTEnter(Sender: TObject);
 begin
-  FCurrentComponent := Sender;
+  Shape5.Visible := True;
+
   Timer.Enabled     := True;
+  FCurrentComponent := Sender;
+end;
+
+procedure TFrmEntryShop.DBDTPEndBusinessDTExit(Sender: TObject);
+begin
+  Shape5.Visible := False;
+
+  Timer.Enabled     := True;
+  FCurrentComponent := Sender;
 end;
 
 procedure TFrmEntryShop.DBCBDisabledChange(Sender: TObject);
@@ -661,8 +724,18 @@ end;
 
 procedure TFrmEntryShop.DBCBDisabledEnter(Sender: TObject);
 begin
-  FCurrentComponent := Sender;
+  Shape6.Visible := True;
+
   Timer.Enabled     := True;
+  FCurrentComponent := Sender;
+end;
+
+procedure TFrmEntryShop.DBCBDisabledExit(Sender: TObject);
+begin
+  Shape6.Visible := False;
+
+  Timer.Enabled     := True;
+  FCurrentComponent := Sender;
 end;
 
 procedure TFrmEntryShop.FormClose(

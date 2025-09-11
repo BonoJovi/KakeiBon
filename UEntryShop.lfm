@@ -2,16 +2,15 @@ object FrmEntryShop: TFrmEntryShop
   Left = 484
   Height = 790
   Top = 32
-  Width = 893
+  Width = 995
   Caption = '店舗登録'
   ClientHeight = 790
-  ClientWidth = 893
+  ClientWidth = 995
   Color = clWindowFrame
   Font.Height = -18
   Font.Name = '0xProto'
   Font.Style = [fsBold]
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
@@ -192,7 +191,7 @@ object FrmEntryShop: TFrmEntryShop
     ParentFont = False
   end
   object DBEdtShopID: TDBEdit
-    Left = 128
+    Left = 152
     Height = 49
     Hint = '自動採番'
     Top = 344
@@ -211,9 +210,11 @@ object FrmEntryShop: TFrmEntryShop
     TabOrder = 6
     TabStop = False
     OnChange = DBEdtShopIDChange
+    OnEnter = DBEdtShopIDEnter
+    OnExit = DBEdtShopIDExit
   end
   object PnlInsert: TPanel
-    Left = 252
+    Left = 276
     Height = 49
     Top = 344
     Width = 330
@@ -229,7 +230,7 @@ object FrmEntryShop: TFrmEntryShop
     TabOrder = 7
   end
   object BtnInsert: TPanel
-    Left = 260
+    Left = 284
     Height = 32
     Top = 352
     Width = 313
@@ -285,7 +286,7 @@ object FrmEntryShop: TFrmEntryShop
   end
   object DBEdtShopName: TDBEdit
     Cursor = crIBeam
-    Left = 128
+    Left = 152
     Height = 49
     Top = 401
     Width = 454
@@ -300,6 +301,7 @@ object FrmEntryShop: TFrmEntryShop
     TabOrder = 9
     OnChange = DBEdtShopNameChange
     OnEnter = DBEdtShopNameEnter
+    OnExit = DBEdtShopNameExit
   end
   object LblPhoneNumber1: TLabel
     Left = 16
@@ -347,7 +349,7 @@ object FrmEntryShop: TFrmEntryShop
   end
   object DBEdtPhoneNum: TDBEdit
     Cursor = crIBeam
-    Left = 128
+    Left = 152
     Height = 49
     Top = 458
     Width = 454
@@ -362,6 +364,7 @@ object FrmEntryShop: TFrmEntryShop
     TabOrder = 10
     OnChange = DBEdtPhoneNumChange
     OnEnter = DBEdtPhoneNumEnter
+    OnExit = DBEdtPhoneNumExit
   end
   object LblStartBusinessDT1: TLabel
     Left = 16
@@ -409,7 +412,7 @@ object FrmEntryShop: TFrmEntryShop
   end
   object DBDTPStartBusinessDT: TDBDateTimePicker
     Cursor = crIBeam
-    Left = 128
+    Left = 152
     Height = 32
     Hint = '2025/05/18 09:00'
     Top = 521
@@ -442,6 +445,7 @@ object FrmEntryShop: TFrmEntryShop
     Options = [dtpoDoChangeOnSetDateTime, dtpoAutoCheck]
     OnChange = DBDTPStartBusinessDTChange
     OnEnter = DBDTPStartBusinessDTEnter
+    OnExit = DBDTPStartBusinessDTExit
   end
   object LblEndBusinessDT1: TLabel
     Left = 16
@@ -489,7 +493,7 @@ object FrmEntryShop: TFrmEntryShop
   end
   object DBDTPEndBusinessDT: TDBDateTimePicker
     Cursor = crIBeam
-    Left = 128
+    Left = 152
     Height = 32
     Top = 568
     Width = 242
@@ -521,6 +525,7 @@ object FrmEntryShop: TFrmEntryShop
     Options = [dtpoDoChangeOnSetDateTime, dtpoAutoCheck]
     OnChange = DBDTPEndBusinessDTChange
     OnEnter = DBDTPEndBusinessDTEnter
+    OnExit = DBDTPEndBusinessDTExit
   end
   object LblDisabled1: TLabel
     Left = 16
@@ -557,7 +562,7 @@ object FrmEntryShop: TFrmEntryShop
   end
   object DBCBDisabled: TDBCheckBox
     Cursor = crHandPoint
-    Left = 128
+    Left = 152
     Height = 23
     Top = 621
     Width = 23
@@ -570,6 +575,7 @@ object FrmEntryShop: TFrmEntryShop
     ValueUnchecked = '0'
     OnChange = DBCBDisabledChange
     OnEnter = DBCBDisabledEnter
+    OnExit = DBCBDisabledExit
   end
   object PnlCancel: TPanel
     Left = 16
@@ -686,10 +692,10 @@ object FrmEntryShop: TFrmEntryShop
     OnMouseLeave = BtnGoBackExit
   end
   object DBDTPEntryDT: TDBDateTimePicker
-    Left = 624
+    Left = 680
     Height = 32
     Hint = '2025/05/18 09:00'
-    Top = 520
+    Top = 521
     Width = 242
     DataField = 'ENTRY_DT'
     DataSource = ADS
@@ -721,10 +727,10 @@ object FrmEntryShop: TFrmEntryShop
     Options = [dtpoDoChangeOnSetDateTime, dtpoAutoCheck]
   end
   object DBDTPUpdateDT: TDBDateTimePicker
-    Left = 624
+    Left = 680
     Height = 32
     Hint = '2025/05/18 09:00'
-    Top = 567
+    Top = 568
     Width = 242
     DataField = 'UPDATE_DT'
     DataSource = ADS
@@ -754,6 +760,78 @@ object FrmEntryShop: TFrmEntryShop
     HideDateTimeParts = [dtpSecond, dtpMiliSec]
     MonthNames = 'Long'
     Options = [dtpoDoChangeOnSetDateTime, dtpoAutoCheck]
+  end
+  object Shape2: TShape
+    Left = 128
+    Height = 16
+    Top = 416
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
+  object Shape3: TShape
+    Left = 128
+    Height = 16
+    Top = 472
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
+  object Shape4: TShape
+    Left = 128
+    Height = 16
+    Top = 528
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
+  object Shape5: TShape
+    Left = 128
+    Height = 16
+    Top = 576
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
+  object Shape6: TShape
+    Left = 128
+    Height = 16
+    Top = 624
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
+  end
+  object Shape1: TShape
+    Left = 128
+    Height = 16
+    Top = 360
+    Width = 16
+    Brush.Color = clYellow
+    Enabled = False
+    Pen.JoinStyle = pjsBevel
+    Pen.Style = psinsideFrame
+    Shape = stEllipse
+    Visible = False
   end
   object Timer: TTimer
     Interval = 1
