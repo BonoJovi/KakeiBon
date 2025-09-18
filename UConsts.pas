@@ -13,29 +13,20 @@ const
   ROLE_VISIT     = 999;
 
   APP_NAME       = 'KakeiBon';
-  {$IFDEF LINUX}
-    DB_DIR         = '.kakeibon/';
-  {$ELSE}
-    {$IFDEF DARWIN}
-      // ToDo: Implements for macOS
-    {$ELSE}
-      {$IFDEF WINDOWS}
-        DB_DIR         = '.kakeibon\';
-      {$ENDIF}
-    {$ENDIF}
-  {$ENDIF}
-
-  DB_NAME        = 'KakeiBonDB.sqlite3';
 
   NEW_EXP_NAME   = '費目';
-
-  IdxFrmTopMenu    = 0;
-  IdxFrmEntryAdmin = 1;
 
   FRACTION_PROC_UNDEF    = 0;
   FRACTION_PROC_ROUND    = 1;
   FRACTION_PROC_TRUNCATE = 2;
   FRACTION_PROC_ROUND_UP = 3;
+
+  FTAB_UNDEFINED = 0;
+  FTAB_TAB_ONLY  = 1;
+  FTAB_SHIFT_TAB = 2;
+
+  IdxFrmTopMenu    = 0;
+  IdxFrmEntryAdmin = 1;
 
   // UManageDetails
   REMOVE_DETAILS_HEADER_CAPTION = '削除の確認';
@@ -82,6 +73,11 @@ const
   MSG_JP_000037  = '税区分が選択されていません。';
   MSG_JP_000038  = '数量は0以上を入力してください。';
   MSG_JP_000039  = '数字以外が入力されています。';
+  MSG_JP_000040  = 'クエリを閉じることが出来ません。';
+  MSG_JP_000041  = 'バリアント型から数値型に変換できません。';
+  MSG_JP_000042  = '新規登録モードをキャンセルしてスクロールしますか？';
+  MSG_JP_000043  = '編集中の内容が破棄されます。よろしいですか？';
+  MSG_JP_000044  = '数量の最低数は１です。';
 
   ERR_MSG_000001 = 'UNIQUE constraint failed';
   ERR_MSG_000002 = 'リレーション"users"は存在しません';

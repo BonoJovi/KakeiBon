@@ -13,15 +13,14 @@ type
   { TFrmSummary }
 
   TFrmSummary = class(TForm)
-    ACn        : TSQLite3Connection;
     ADS        : TDataSource;
-    ATr        : TSQLTransaction;
     AQu        : TSQLQuery;
     ActionList : TActionList;
-    ActGoBack    : TAction;
-    DBGrid1    : TDBGrid;
-    BtnGoBack: TPanel;
-    PnlGoBack: TPanel;
+    ActGoBack  : TAction;
+    ADBGrid    : TDBGrid;
+    BtnGoBack  : TPanel;
+    PnlGoBack  : TPanel;
+    procedure FormActivate(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure GoBackMouseOver(NewColor: TColor);
     procedure BtnGoBackEnter(Sender: TObject);
@@ -31,8 +30,6 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
-    procedure SetDatabaseNames;
-    procedure CloseTransactions;
   public
 
   end;
@@ -42,47 +39,11 @@ var
 
 implementation
 uses
-  UConsts, UDBAccess, UDefs, UTopMenu;
+  UConsts, UDBAccess, UCommonDB, UDefs, UTopMenu;
 
 {$R *.lfm}
 
 { TFrmSummary }
-
-procedure TFrmSummary.SetDatabaseNames;
-begin
-  with FrmTopMenu.Defs do begin
-    SetDatabaseName(ACn       );
-  end;
-end;
-
-procedure TFrmSummary.CloseTransactions;
-begin
-  with FrmTopMenu.Defs do begin
-    CloseConn(ACn, ATr);
-  end;
-end;
-
-procedure TFrmSummary.FormCreate(Sender: TObject);
-begin
-  SetDatabaseNames;
-  with FrmTopMenu.Defs do begin
-    if GetDoExitKakeiBon then begin
-      Application.Terminate;
-    end;
-  end;
-end;
-
-procedure TFrmSummary.FormClose(Sender: TObject; var CloseAction: TCloseAction);
-begin
-  with FrmTopMenu do begin
-    CloseTransactions;
-
-    Visible     := True;
-
-    CloseAction := caFree;
-    FrmSummary  := nil;
-  end;
-end;
 
 procedure TFrmSummary.ActGoBackExecute(Sender: TObject);
 begin
@@ -104,36 +65,66 @@ begin
   GoBackMouseOver(clBtnFace);
 end;
 
+procedure TFrmSummary.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+begin
+  with CommonDB do begin
+    with Defs do begin
+      CloseQuery(AQu);
+    end;
+  end;
+
+  with FrmTopMenu do begin
+    Visible     := True;
+
+    CloseAction := caFree;
+    FrmSummary  := nil;
+  end;
+end;
+
+procedure TFrmSummary.FormCreate(Sender: TObject);
+begin
+  with Defs do begin
+    if GetDoExitKakeiBon then begin
+      Application.Terminate;
+    end;
+  end;
+end;
+
 procedure TFrmSummary.FormShow(Sender: TObject);
+begin
+  Self.KeyPreview := True;
+end;
+
+procedure TFrmSummary.FormActivate(Sender: TObject);
 var
   i            : Integer;
   LWidth       : Integer = 0;
   LLeftPos     : Integer = 0;
 begin
-  FrmSummary.KeyPreview := True;
+  with CommonDB do begin
+    with Defs do begin
+      with AQu do begin
+        SQLConnection  := ACn;
+        SQLTransaction := ATr;
 
-  CloseTransactions;
-  SetDatabaseNames;
+        SQL.Text := SQL_20160002;
+        with Params do begin
+          ParamByName('pUserID').AsInteger := GetUID;
+        end;
+        Open;
 
-  with FrmTopMenu.Defs do begin
-    with AQu do begin
-      SQL.Text := SQL_20160002;
-      with Params do begin
-        ParamByName('pUserID').AsInteger := GetUID;
+        ADBGrid.DataSource := ADS;
+        ADBGrid.AutoAdjustColumns;
+        for i := 0 to ADBGrid.Columns.VisibleCount - 1 do begin
+          LWidth           := LWidth + ADBGrid.Columns.Items[i].Width + 6;
+        end;
+        Self.Width   := LWidth + 16 + 16;
       end;
-      Open;
-
-      DBGrid1.DataSource := ADS;
-      DBGrid1.AutoAdjustColumns;
-      for i := 0 to DBGrid1.Columns.VisibleCount - 1 do begin
-        LWidth           := LWidth + DBGrid1.Columns.Items[i].Width + 6;
-      end;
-      FrmSummary.Width   := LWidth + 16 + 16;
     end;
   end;
 
-  LLeftPos := Trunc((Screen.Width - FrmSummary.Width) / 2);
-  FrmSummary.Left := LLeftPos;
+  LLeftPos := Trunc((Screen.Width - Self.Width) / 2);
+  Self.Left := LLeftPos;
 end;
 
 procedure TFrmSummary.FormKeyUp(Sender: TObject; var Key: Word;

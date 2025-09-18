@@ -8,18 +8,19 @@ object FrmSummary: TFrmSummary
   ClientHeight = 546
   ClientWidth = 1000
   Color = clWindowFrame
-  Font.CharSet = ANSI_CHARSET
+  Font.CharSet = SHIFTJIS_CHARSET
   Font.Height = -21
   Font.Name = 'Noto Sans JP'
   Font.Pitch = fpVariable
   Font.Quality = fqDraft
   Font.Style = [fsBold]
   Position = poScreenCenter
+  OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp
   OnShow = FormShow
-  object DBGrid1: TDBGrid
+  object ADBGrid: TDBGrid
     Left = 16
     Height = 456
     Top = 16
@@ -56,14 +57,7 @@ object FrmSummary: TFrmSummary
         FieldName = 'PER'
         DisplayFormat = '#,##0.00'
       end>
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     Options = [dgTitles, dgIndicator, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete]
-    ParentFont = False
     TabOrder = 0
     TabStop = False
   end
@@ -76,15 +70,8 @@ object FrmSummary: TFrmSummary
     Caption = '前の画面に戻る (CTRL+Q)'
     Color = clActiveCaption
     Enabled = False
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     TabOrder = 1
   end
   object BtnGoBack: TPanel
@@ -98,15 +85,8 @@ object FrmSummary: TFrmSummary
     BevelOuter = bvNone
     Caption = '前の画面に戻る (CTRL+Q)'
     Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     ShowAccelChar = True
     TabOrder = 2
     TabStop = True
@@ -116,39 +96,21 @@ object FrmSummary: TFrmSummary
     OnMouseEnter = BtnGoBackEnter
     OnMouseLeave = BtnGoBackExit
   end
-  object ACn: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATr
-    CharSet = 'UTF-8'
-    AlwaysUseBigint = False
-    Left = 776
-    Top = 16
-  end
   object ADS: TDataSource
     DataSet = AQu
-    Left = 832
-    Top = 16
-  end
-  object ATr: TSQLTransaction
-    Active = False
-    Database = ACn
-    Left = 888
-    Top = 16
+    Left = 728
+    Top = 168
   end
   object AQu: TSQLQuery
     FieldDefs = <>
-    Database = ACn
-    Transaction = ATr
     Params = <>
     Macros = <>
-    Left = 944
-    Top = 16
+    Left = 792
+    Top = 168
   end
   object ActionList1: TActionList
-    Left = 712
-    Top = 16
+    Left = 728
+    Top = 104
     object ActGoBack: TAction
       Caption = 'ActGoBack'
       ShortCut = 16465

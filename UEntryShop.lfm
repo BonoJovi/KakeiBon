@@ -1,38 +1,40 @@
 object FrmEntryShop: TFrmEntryShop
   Left = 484
-  Height = 790
+  Height = 816
   Top = 32
-  Width = 598
+  Width = 920
   Caption = '店舗登録'
-  ClientHeight = 790
-  ClientWidth = 598
+  ClientHeight = 816
+  ClientWidth = 920
   Color = clWindowFrame
-  Font.CharSet = ANSI_CHARSET
+  Font.CharSet = SHIFTJIS_CHARSET
   Font.Height = -21
   Font.Name = 'Noto Sans JP'
   Font.Pitch = fpVariable
   Font.Quality = fqDraft
   Font.Style = [fsBold]
   Position = poScreenCenter
+  OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp
   OnShow = FormShow
-  object ADBGrid: TDBGrid
-    Left = 16
+  object ADBGrid: TDBG
+    Left = 15
     Height = 264
     Top = 16
-    Width = 566
+    Width = 591
     Color = clWindow
     Columns = <    
       item
-        Title.Caption = 'ID'
+        Title.Caption = 'ユーザID'
+        Width = 0
         Visible = False
         FieldName = 'USER_ID'
       end    
       item
         MaxSize = 300
-        Title.Caption = ''
+        Title.Caption = '店舗ID'
         Width = 0
         Visible = False
         FieldName = 'SHOP_ID'
@@ -40,68 +42,77 @@ object FrmEntryShop: TFrmEntryShop
       item
         MaxSize = 400
         Title.Caption = '店舗名'
-        Width = 200
+        Width = 63
         FieldName = 'SHOP_NAME'
       end    
       item
-        Font.CharSet = ANSI_CHARSET
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
+        Font.Name = '0xProto'
         Font.Pitch = fpVariable
         Font.Quality = fqDraft
         Font.Style = [fsBold]
         MaxSize = 200
         Title.Caption = '電話番号'
-        Width = 118
+        Width = 79
         FieldName = 'PHONE_NUM'
       end    
       item
-        Font.CharSet = ANSI_CHARSET
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
+        Font.Name = '0xProto'
         Font.Pitch = fpVariable
         Font.Quality = fqDraft
         Font.Style = [fsBold]
         MaxSize = 140
         Title.Caption = '開店日時'
-        Width = 117
+        Width = 79
         FieldName = 'START_BUSINESS_DT'
-        DisplayFormat = 'YYYY年MM月DD日 hh時mm分'
+        DisplayFormat = 'yyyy"/"mm"/"dd hh":"nn'
       end    
       item
         MaxSize = 64
         Title.Caption = '閉店日時'
-        Width = 117
+        Width = 79
         FieldName = 'END_BUSINESS_DT'
-        DisplayFormat = 'YYYY年MM月DD日 hh時mm分'
+        DisplayFormat = 'yyyy"/"mm"/"dd hh":"nn'
       end    
       item
+        ButtonStyle = cbsCheckboxColumn
         Title.Caption = '非表示'
+        Width = 63
         FieldName = 'DISABLED'
+      end    
+      item
+        Title.Caption = '登録日'
+        Width = 63
+        FieldName = 'ENTRY_DT'
+        DisplayFormat = 'yyyy"/"mm"/"dd hh":"nn":"ss'
+      end    
+      item
+        Title.Caption = '更新日'
+        Width = 63
+        FieldName = 'UPDATE_DT'
+        DisplayFormat = 'yyyy"/"mm"/"dd hh":"nn":"ss'
       end>
     Constraints.MaxWidth = 2000
     DataSource = ADS
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgAnyButtonCanSelect, dgDisableDelete, dgDblClickAutoSize]
-    ParentFont = False
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns, dgDblClickAutoSize]
     TabOrder = 0
     TabStop = False
-    TitleStyle = tsStandard
-    OnKeyDown = ADBGridKeyDown
+    OnMouseDown = ADBGridMouseDown
+    OnMouseWheel = ADBGridMouseWheel
     OnSelectEditor = ADBGridSelectEditor
+    OnWMVScroll = ADBGridWMVScroll
   end
-  object ADBNav: TDBNavigator
+  object ADBNavi: TDBNavi
     Cursor = crHandPoint
-    Left = 16
+    Left = 15
     Height = 28
     Top = 296
-    Width = 566
+    Width = 590
     BevelOuter = bvNone
+    ChildSizing.HorizontalSpacing = 5
     ChildSizing.EnlargeHorizontal = crsScaleChilds
     ChildSizing.EnlargeVertical = crsScaleChilds
     ChildSizing.ShrinkHorizontal = crsScaleChilds
@@ -109,52 +120,77 @@ object FrmEntryShop: TFrmEntryShop
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 100
     ClientHeight = 28
-    ClientWidth = 566
+    ClientWidth = 590
     DataSource = ADS
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     Options = [navFocusableButtons]
-    ParentFont = False
     TabOrder = 1
     TabStop = True
-    VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast, nbRefresh]
+    VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
+    OnBtnClick = ADBNaviBtnClick
+    OnKeyUp = ADBNaviKeyUp
+  end
+  object Panel1: TPanel
+    Left = 16
+    Height = 6
+    Top = 328
+    Width = 144
+    Color = clYellow
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 2
+    Visible = False
+  end
+  object Panel2: TPanel
+    Left = 164
+    Height = 6
+    Top = 328
+    Width = 144
+    Color = clYellow
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 3
+    Visible = False
+  end
+  object Panel3: TPanel
+    Left = 313
+    Height = 6
+    Top = 328
+    Width = 144
+    Color = clYellow
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 4
+    Visible = False
+  end
+  object Panel4: TPanel
+    Left = 462
+    Height = 6
+    Top = 328
+    Width = 144
+    Color = clYellow
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 5
+    Visible = False
   end
   object LblID1: TLabel
     Left = 16
     Height = 30
-    Top = 348
+    Top = 361
     Width = 21
     Caption = 'Ｉ'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblID2: TLabel
     Left = 88
     Height = 30
-    Top = 348
+    Top = 361
     Width = 21
     Caption = 'Ｄ'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object Shape1: TShape
     Left = 128
     Height = 16
-    Top = 355
+    Top = 368
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -167,67 +203,44 @@ object FrmEntryShop: TFrmEntryShop
     Left = 152
     Height = 38
     Hint = '自動採番'
-    Top = 344
+    Top = 357
     Width = 116
     DataField = 'SHOP_ID'
     DataSource = ADS
     AutoSelect = False
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
+    Enabled = False
     MaxLength = 0
-    ParentFont = False
     ParentShowHint = False
     ShowHint = True
-    TabOrder = 2
+    TabOrder = 6
     TabStop = False
     OnChange = DBEdtShopIDChange
     OnEnter = DBEdtShopIDEnter
     OnExit = DBEdtShopIDExit
   end
   object PnlInsert: TPanel
-    Left = 280
+    Left = 275
     Height = 49
-    Top = 344
-    Width = 302
+    Top = 357
+    Width = 330
     Caption = '新規登録 (CTRL+1)'
     Color = clActiveCaption
     Enabled = False
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
-    TabOrder = 3
+    TabOrder = 7
   end
   object BtnInsert: TPanel
-    Cursor = crCross
-    Left = 288
-    Height = 33
-    Top = 352
-    Width = 286
+    Left = 283
+    Height = 32
+    Top = 365
+    Width = 314
     BevelColor = clNone
-    BevelOuter = bvNone
     Caption = '新規登録 (CTRL+1)'
     Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
-    ShowAccelChar = True
-    TabOrder = 4
+    TabOrder = 8
     TabStop = True
     OnClick = ActInsertExecute
     OnEnter = BtnInsertEnter
@@ -238,49 +251,28 @@ object FrmEntryShop: TFrmEntryShop
   object LblShopName1: TLabel
     Left = 16
     Height = 30
-    Top = 404
+    Top = 420
     Width = 21
     Caption = '店'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblShopName2: TLabel
     Left = 52
     Height = 30
-    Top = 404
+    Top = 420
     Width = 21
     Caption = '舗'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblShopName3: TLabel
     Left = 88
     Height = 30
-    Top = 404
+    Top = 420
     Width = 21
     Caption = '名'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object Shape2: TShape
     Left = 128
     Height = 16
-    Top = 411
+    Top = 427
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -293,20 +285,13 @@ object FrmEntryShop: TFrmEntryShop
     Cursor = crIBeam
     Left = 152
     Height = 38
-    Top = 400
-    Width = 430
+    Top = 416
+    Width = 454
     DataField = 'SHOP_NAME'
     DataSource = ADS
     AutoSelect = False
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     MaxLength = 128
-    ParentFont = False
-    TabOrder = 5
+    TabOrder = 9
     OnChange = DBEdtShopNameChange
     OnEnter = DBEdtShopNameEnter
     OnExit = DBEdtShopNameExit
@@ -314,63 +299,35 @@ object FrmEntryShop: TFrmEntryShop
   object LblPhoneNumber1: TLabel
     Left = 16
     Height = 30
-    Top = 460
+    Top = 479
     Width = 21
     Caption = '電'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblPhoneNumber2: TLabel
     Left = 40
     Height = 30
-    Top = 460
+    Top = 479
     Width = 21
     Caption = '話'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblPhoneNumber3: TLabel
     Left = 64
     Height = 30
-    Top = 460
+    Top = 479
     Width = 21
     Caption = '番'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblPhoneNumber4: TLabel
     Left = 88
     Height = 30
-    Top = 460
+    Top = 479
     Width = 21
     Caption = '号'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object Shape3: TShape
     Left = 128
     Height = 16
-    Top = 467
+    Top = 486
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -383,20 +340,13 @@ object FrmEntryShop: TFrmEntryShop
     Cursor = crIBeam
     Left = 152
     Height = 38
-    Top = 456
-    Width = 430
+    Top = 475
+    Width = 454
     DataField = 'PHONE_NUM'
     DataSource = ADS
     AutoSelect = False
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     MaxLength = 0
-    ParentFont = False
-    TabOrder = 6
+    TabOrder = 10
     OnChange = DBEdtPhoneNumChange
     OnEnter = DBEdtPhoneNumEnter
     OnExit = DBEdtPhoneNumExit
@@ -404,63 +354,35 @@ object FrmEntryShop: TFrmEntryShop
   object LblStartBusinessDT1: TLabel
     Left = 16
     Height = 30
-    Top = 517
+    Top = 543
     Width = 21
     Caption = '開'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblStartBusinessDT2: TLabel
     Left = 40
     Height = 30
-    Top = 517
+    Top = 543
     Width = 21
     Caption = '店'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblStartBusinessDT3: TLabel
     Left = 64
     Height = 30
-    Top = 517
+    Top = 543
     Width = 21
     Caption = '日'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblStartBusinessDT4: TLabel
     Left = 88
     Height = 30
-    Top = 517
+    Top = 543
     Width = 21
     Caption = '時'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object Shape4: TShape
     Left = 128
     Height = 16
-    Top = 524
+    Top = 550
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -474,7 +396,7 @@ object FrmEntryShop: TFrmEntryShop
     Left = 152
     Height = 38
     Hint = '2025/05/18 09:00'
-    Top = 513
+    Top = 539
     Width = 214
     DataField = 'START_BUSINESS_DT'
     DataSource = ADS
@@ -483,14 +405,7 @@ object FrmEntryShop: TFrmEntryShop
     DateDisplayOrder = ddoYMD
     MaxDate = 2958465
     MinDate = -53780
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
-    TabOrder = 7
+    TabOrder = 11
     DateSeparator = '/'
     TrailingSeparator = False
     TextForNullDate = ''
@@ -512,63 +427,35 @@ object FrmEntryShop: TFrmEntryShop
   object LblEndBusinessDT1: TLabel
     Left = 16
     Height = 30
-    Top = 572
+    Top = 596
     Width = 21
     Caption = '閉'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblEndBusinessDT2: TLabel
     Left = 40
     Height = 30
-    Top = 572
+    Top = 596
     Width = 21
     Caption = '店'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblEndBusinessDT3: TLabel
     Left = 64
     Height = 30
-    Top = 572
+    Top = 596
     Width = 21
     Caption = '日'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblEndBusinessDT4: TLabel
     Left = 88
     Height = 30
-    Top = 572
+    Top = 596
     Width = 21
     Caption = '時'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object Shape5: TShape
     Left = 128
     Height = 16
-    Top = 579
+    Top = 603
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -581,7 +468,7 @@ object FrmEntryShop: TFrmEntryShop
     Cursor = crIBeam
     Left = 152
     Height = 38
-    Top = 568
+    Top = 592
     Width = 214
     DataField = 'END_BUSINESS_DT'
     DataSource = ADS
@@ -590,14 +477,7 @@ object FrmEntryShop: TFrmEntryShop
     DateDisplayOrder = ddoYMD
     MaxDate = 2958465
     MinDate = -53780
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
-    TabOrder = 8
+    TabOrder = 12
     DateSeparator = '/'
     TrailingSeparator = False
     TextForNullDate = '9999/12/31  23:59'
@@ -617,51 +497,30 @@ object FrmEntryShop: TFrmEntryShop
     OnExit = DBDTPEndBusinessDTExit
   end
   object LblDisabled1: TLabel
-    Left = 16
+    Left = 15
     Height = 30
-    Top = 624
+    Top = 646
     Width = 21
     Caption = '非'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblDisabled2: TLabel
-    Left = 52
+    Left = 51
     Height = 30
-    Top = 624
+    Top = 646
     Width = 21
     Caption = '表'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblDisabled3: TLabel
-    Left = 88
+    Left = 87
     Height = 30
-    Top = 624
+    Top = 646
     Width = 21
     Caption = '示'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object Shape6: TShape
     Left = 128
     Height = 16
-    Top = 631
+    Top = 653
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -674,19 +533,12 @@ object FrmEntryShop: TFrmEntryShop
     Cursor = crHandPoint
     Left = 152
     Height = 17
-    Top = 631
+    Top = 653
     Width = 18
     AutoSize = True
     DataField = 'DISABLED'
     DataSource = ADS
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
-    TabOrder = 9
+    TabOrder = 13
     TabStop = True
     ValueChecked = '1'
     ValueUnchecked = '0'
@@ -695,45 +547,28 @@ object FrmEntryShop: TFrmEntryShop
     OnExit = DBCBDisabledExit
   end
   object PnlCancel: TPanel
-    Left = 16
+    Left = 15
     Height = 48
-    Top = 672
-    Width = 277
+    Top = 696
+    Width = 290
     Caption = 'キャンセル (CTRL+C)'
     Color = clActiveCaption
     Enabled = False
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
-    TabOrder = 10
+    TabOrder = 14
   end
   object BtnCancel: TPanel
-    Cursor = crCross
-    Left = 24
+    Left = 23
     Height = 32
-    Top = 680
-    Width = 261
+    Top = 704
+    Width = 274
     BevelColor = clNone
-    BevelOuter = bvNone
     Caption = 'キャンセル (CTRL+C)'
     Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
-    ShowAccelChar = True
-    TabOrder = 11
+    TabOrder = 15
     TabStop = True
     OnClick = ActCancelExecute
     OnEnter = BtnCancelEnter
@@ -742,45 +577,28 @@ object FrmEntryShop: TFrmEntryShop
     OnMouseLeave = BtnCancelExit
   end
   object PnlSave: TPanel
-    Left = 304
+    Left = 315
     Height = 48
-    Top = 672
-    Width = 277
+    Top = 696
+    Width = 290
     Caption = '保　　　存 (CTRL+S)'
     Color = clActiveCaption
     Enabled = False
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
-    TabOrder = 12
+    TabOrder = 16
   end
   object BtnSave: TPanel
-    Cursor = crCross
-    Left = 312
+    Left = 323
     Height = 32
-    Top = 680
-    Width = 259
+    Top = 704
+    Width = 274
     BevelColor = clNone
-    BevelOuter = bvNone
     Caption = '保　　　存 (CTRL+S)'
     Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
-    ShowAccelChar = True
-    TabOrder = 13
+    TabOrder = 17
     TabStop = True
     OnClick = ActSaveExecute
     OnEnter = BtnSaveEnter
@@ -791,43 +609,26 @@ object FrmEntryShop: TFrmEntryShop
   object PnlGoBack: TPanel
     Left = 16
     Height = 48
-    Top = 728
-    Width = 565
+    Top = 752
+    Width = 590
     Caption = '前の画面に戻る (CTRL+Q)'
     Color = clActiveCaption
     Enabled = False
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
-    TabOrder = 14
+    TabOrder = 18
   end
   object BtnGoBack: TPanel
-    Cursor = crCross
     Left = 24
     Height = 32
-    Top = 736
-    Width = 547
+    Top = 760
+    Width = 574
     BevelColor = clNone
-    BevelOuter = bvNone
     Caption = '前の画面に戻る (CTRL+Q)'
     Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
-    ShowAccelChar = True
-    TabOrder = 15
+    TabOrder = 19
     TabStop = True
     OnClick = ActGoBackExecute
     OnEnter = BtnGoBackEnter
@@ -836,10 +637,10 @@ object FrmEntryShop: TFrmEntryShop
     OnMouseLeave = BtnGoBackExit
   end
   object DBDTPEntryDT: TDBDateTimePicker
-    Left = 400
+    Left = 680
     Height = 38
     Hint = '2025/05/18 09:00'
-    Top = 513
+    Top = 521
     Width = 214
     DataField = 'ENTRY_DT'
     DataSource = ADS
@@ -848,14 +649,7 @@ object FrmEntryShop: TFrmEntryShop
     DateDisplayOrder = ddoYMD
     MaxDate = 2958465
     MinDate = -53780
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
-    TabOrder = 16
+    TabOrder = 20
     TabStop = False
     DateSeparator = '/'
     TrailingSeparator = False
@@ -874,7 +668,7 @@ object FrmEntryShop: TFrmEntryShop
     Options = [dtpoDoChangeOnSetDateTime, dtpoAutoCheck]
   end
   object DBDTPUpdateDT: TDBDateTimePicker
-    Left = 400
+    Left = 680
     Height = 38
     Hint = '2025/05/18 09:00'
     Top = 568
@@ -886,14 +680,7 @@ object FrmEntryShop: TFrmEntryShop
     DateDisplayOrder = ddoYMD
     MaxDate = 2958465
     MinDate = -53780
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
-    TabOrder = 17
+    TabOrder = 21
     TabStop = False
     DateSeparator = '/'
     TrailingSeparator = False
@@ -911,15 +698,26 @@ object FrmEntryShop: TFrmEntryShop
     MonthNames = 'Long'
     Options = [dtpoDoChangeOnSetDateTime, dtpoAutoCheck]
   end
+  object DBEdtUserID: TDBEdit
+    Left = 640
+    Height = 38
+    Top = 357
+    Width = 224
+    DataField = 'USER_ID'
+    DataSource = ADS
+    MaxLength = 0
+    TabOrder = 22
+    TabStop = False
+  end
   object Timer: TTimer
     Interval = 1
     OnTimer = TimerTimer
-    Left = 408
-    Top = 124
+    Left = 720
+    Top = 160
   end
   object ActionList: TActionList
-    Left = 24
-    Top = 124
+    Left = 648
+    Top = 160
     object ActInsert: TAction
       Caption = 'ActInsert'
       ShortCut = 16433
@@ -952,136 +750,63 @@ object FrmEntryShop: TFrmEntryShop
   end
   object ADS: TDataSource
     DataSet = AQu
-    Left = 160
-    Top = 124
-  end
-  object ATr: TSQLTransaction
-    Active = False
-    Database = ACn
-    Left = 232
-    Top = 124
+    Left = 648
+    Top = 224
   end
   object AQu: TSQLQuery
     FieldDefs = <    
       item
         Name = 'USER_ID'
-        Attributes = [faHiddenCol]
-        DataType = ftInteger
+        DataType = ftUnknown
       end    
       item
         Name = 'SHOP_ID'
-        DataType = ftInteger
+        DataType = ftUnknown
       end    
       item
         Name = 'SHOP_NAME'
-        DataType = ftWideString
+        DataType = ftUnknown
       end    
       item
         Name = 'PHONE_NUM'
-        Attributes = [faRequired, faFixed]
-        DataType = ftString
+        DataType = ftUnknown
       end    
       item
         Name = 'START_BUSINESS_DT'
-        DataType = ftDateTime
+        DataType = ftUnknown
       end    
       item
         Name = 'END_BUSINESS_DT'
-        DataType = ftDateTime
+        DataType = ftUnknown
       end    
       item
         Name = 'DISABLED'
-        DataType = ftBoolean
+        DataType = ftUnknown
       end    
       item
         Name = 'ENTRY_DT'
-        DataType = ftDateTime
+        DataType = ftUnknown
       end    
       item
         Name = 'UPDATE_DT'
-        DataType = ftDateTime
+        DataType = ftUnknown
       end>
-    Database = ACn
-    Transaction = ATr
-    Options = [sqoAutoApplyUpdates, sqoAutoCommit]
+    AfterScroll = AQuAfterScroll
     Params = <>
     Macros = <>
-    Left = 304
-    Top = 124
+    Left = 720
+    Top = 224
   end
   object ADSNextID: TDataSource
     DataSet = AQuNextID
-    Left = 160
-    Top = 184
-  end
-  object ATrNextID: TSQLTransaction
-    Active = False
-    Database = ACnNextID
-    Left = 232
-    Top = 184
+    Left = 648
+    Top = 280
   end
   object AQuNextID: TSQLQuery
-    FieldDefs = <    
-      item
-        Name = 'SHOP_ID'
-        Attributes = [faHiddenCol]
-        DataType = ftAutoInc
-      end    
-      item
-        Name = 'SHOP_NAME'
-        DataType = ftString
-      end    
-      item
-        Name = 'PHONE_NUMBER'
-        DataType = ftString
-      end    
-      item
-        Name = 'START_BUSINESS_DT'
-        Attributes = [faRequired, faFixed]
-        DataType = ftVariant
-      end    
-      item
-        Name = 'END_BUSINESS_DT'
-        DataType = ftDateTime
-      end    
-      item
-        Name = 'DISABLED'
-        DataType = ftBoolean
-      end    
-      item
-        Name = 'ENTRY_DT'
-        DataType = ftDateTime
-      end    
-      item
-        Name = 'UPDATE_DT'
-        DataType = ftDateTime
-      end>
-    Database = ACnNextID
-    Transaction = ATrNextID
-    Options = [sqoAutoApplyUpdates, sqoAutoCommit]
+    FieldDefs = <>
     Params = <>
     Macros = <>
-    Left = 304
-    Top = 184
-  end
-  object ACn: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATr
-    CharSet = 'UTF-8'
-    AlwaysUseBigint = False
-    Left = 92
-    Top = 124
-  end
-  object ACnNextID: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATrNextID
-    CharSet = 'UTF8'
-    AlwaysUseBigint = False
-    Left = 92
-    Top = 184
+    Left = 720
+    Top = 280
   end
 end

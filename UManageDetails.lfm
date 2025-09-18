@@ -2,24 +2,250 @@ object FrmManageDetails: TFrmManageDetails
   Left = 305
   Height = 460
   Top = 167
-  Width = 859
+  Width = 986
   BorderStyle = bsSingle
   Caption = '入出金登録'
   ClientHeight = 460
-  ClientWidth = 859
+  ClientWidth = 986
   Color = clWindowFrame
-  Font.CharSet = ANSI_CHARSET
+  Font.CharSet = SHIFTJIS_CHARSET
   Font.Height = -21
   Font.Name = 'Noto Sans JP'
   Font.Pitch = fpVariable
   Font.Quality = fqDraft
   Font.Style = [fsBold]
   Position = poScreenCenter
+  OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp
   OnShow = FormShow
-  object ADBG: TDBGrid
+  object PnlAddDetail: TPanel
+    Left = 16
+    Height = 48
+    Top = 344
+    Width = 273
+    Caption = '入出金を追加 (CTRL+A)'
+    Color = clActiveCaption
+    Enabled = False
+    ParentBackground = False
+    ParentColor = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 1
+  end
+  object BtnAddDetailHeader: TPanel
+    Cursor = crCross
+    Left = 24
+    Height = 32
+    Top = 352
+    Width = 256
+    BevelColor = clNone
+    BevelOuter = bvNone
+    Caption = '入出金を追加 (CTRL+A)'
+    Color = clBtnFace
+    ParentBackground = False
+    ParentColor = False
+    ParentShowHint = False
+    ShowAccelChar = True
+    ShowHint = True
+    TabOrder = 2
+    TabStop = True
+    OnClick = ActAddDetailsHeaderExecute
+    OnEnter = BtnAddDetailHeaderEnter
+    OnExit = BtnAddDetailHeaderExit
+    OnMouseEnter = BtnAddDetailHeaderEnter
+    OnMouseLeave = BtnAddDetailHeaderExit
+  end
+  object PnlEditDetail: TPanel
+    Left = 294
+    Height = 48
+    Top = 344
+    Width = 272
+    Caption = '入出金を編集 (CTRL+E)'
+    Color = clActiveCaption
+    Enabled = False
+    ParentBackground = False
+    ParentColor = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 3
+  end
+  object BtnEditDetailHeader: TPanel
+    Cursor = crCross
+    Left = 302
+    Height = 32
+    Top = 352
+    Width = 256
+    BevelColor = clNone
+    BevelOuter = bvNone
+    Caption = '入出金を編集 (CTRL+E)'
+    Color = clBtnFace
+    ParentBackground = False
+    ParentColor = False
+    ParentShowHint = False
+    ShowAccelChar = True
+    ShowHint = True
+    TabOrder = 4
+    TabStop = True
+    OnClick = ActEditDetailsHeaderExecute
+    OnEnter = BtnEditDetailHeaderEnter
+    OnExit = BtnEditDetailHeaderExit
+    OnMouseEnter = BtnEditDetailHeaderEnter
+    OnMouseLeave = BtnEditDetailHeaderExit
+  end
+  object ADBNavi: TDBNavi
+    Left = 571
+    Height = 26
+    Top = 352
+    Width = 272
+    BevelOuter = bvNone
+    ChildSizing.HorizontalSpacing = 5
+    ChildSizing.EnlargeHorizontal = crsScaleChilds
+    ChildSizing.EnlargeVertical = crsScaleChilds
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 100
+    ClientHeight = 26
+    ClientWidth = 272
+    DataSource = ADS
+    Options = [navFocusableButtons]
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 5
+    TabStop = True
+    VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
+    OnBtnClick = ADBNaviBtnClick
+    OnKeyUp = ADBNaviKeyUp
+  end
+  object Panel1: TPanel
+    Left = 571
+    Height = 6
+    Top = 384
+    Width = 64
+    Color = clYellow
+    ParentBackground = False
+    ParentColor = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 6
+    Visible = False
+  end
+  object Panel2: TPanel
+    Left = 640
+    Height = 6
+    Top = 384
+    Width = 64
+    Color = clYellow
+    ParentBackground = False
+    ParentColor = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 7
+    Visible = False
+  end
+  object Panel3: TPanel
+    Left = 709
+    Height = 6
+    Top = 384
+    Width = 64
+    Color = clYellow
+    ParentBackground = False
+    ParentColor = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 8
+    Visible = False
+  end
+  object Panel4: TPanel
+    Left = 779
+    Height = 6
+    Top = 384
+    Width = 64
+    Color = clYellow
+    ParentBackground = False
+    ParentColor = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 9
+    Visible = False
+  end
+  object PnlDeleteDetail: TPanel
+    Left = 16
+    Height = 48
+    Top = 400
+    Width = 272
+    Caption = '入出金を削除 (CTRL+D)'
+    Color = clActiveCaption
+    Enabled = False
+    ParentBackground = False
+    ParentColor = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 10
+  end
+  object BtnDeleteDetailHeader: TPanel
+    Cursor = crCross
+    Left = 24
+    Height = 32
+    Top = 408
+    Width = 256
+    BevelColor = clNone
+    BevelOuter = bvNone
+    Caption = '入出金を削除 (CTRL+D)'
+    Color = clBtnFace
+    ParentBackground = False
+    ParentColor = False
+    ParentShowHint = False
+    ShowAccelChar = True
+    ShowHint = True
+    TabOrder = 11
+    TabStop = True
+    OnClick = ActDeleteDetailsHeaderExecute
+    OnEnter = BtnDeleteDetailHeaderEnter
+    OnExit = BtnDeleteDetailHeaderExit
+    OnMouseEnter = BtnDeleteDetailHeaderEnter
+    OnMouseLeave = BtnDeleteDetailHeaderExit
+  end
+  object PnlGoBack: TPanel
+    Left = 294
+    Height = 48
+    Top = 400
+    Width = 549
+    Caption = '前の画面に戻る (CTRL+Q)'
+    Color = clActiveCaption
+    Enabled = False
+    ParentBackground = False
+    ParentColor = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 12
+  end
+  object BtnGoBack: TPanel
+    Cursor = crCross
+    Left = 302
+    Height = 32
+    Top = 408
+    Width = 533
+    BevelColor = clNone
+    BevelOuter = bvNone
+    Caption = '前の画面に戻る (CTRL+Q)'
+    Color = clBtnFace
+    ParentBackground = False
+    ParentColor = False
+    ParentShowHint = False
+    ShowAccelChar = True
+    ShowHint = True
+    TabOrder = 13
+    TabStop = True
+    OnClick = ActGoBackExecute
+    OnEnter = BtnGoBackEnter
+    OnExit = BtnGoBackExit
+    OnMouseEnter = BtnGoBackEnter
+    OnMouseLeave = BtnGoBackExit
+  end
+  object ADBG: TDBG
     Left = 16
     Height = 320
     Top = 16
@@ -27,11 +253,8 @@ object FrmManageDetails: TFrmManageDetails
     Color = clWindow
     Columns = <    
       item
-        Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.MultiLine = True
         Title.Caption = 'USER_ID'
@@ -40,11 +263,8 @@ object FrmManageDetails: TFrmManageDetails
         FieldName = 'USER_ID'
       end    
       item
-        Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = 'HEADER_ID'
         Width = 0
@@ -52,11 +272,8 @@ object FrmManageDetails: TFrmManageDetails
         FieldName = 'HEADER_ID'
       end    
       item
-        Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '日時'
         Width = 100
@@ -64,11 +281,8 @@ object FrmManageDetails: TFrmManageDetails
         DisplayFormat = 'YYYY年MM月DD日 HH時'
       end    
       item
-        Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '店ID'
         Width = 0
@@ -76,22 +290,16 @@ object FrmManageDetails: TFrmManageDetails
         FieldName = 'SHOP_ID'
       end    
       item
-        Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '店名'
         Width = 100
         FieldName = 'SHOP_NAME'
       end    
       item
-        Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '入出金区分ID'
         Width = 0
@@ -99,21 +307,15 @@ object FrmManageDetails: TFrmManageDetails
         FieldName = 'EXP_KEY1'
       end    
       item
-        Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '入出金区分'
         FieldName = 'EXP1'
       end    
       item
-        Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '出金元ID'
         Width = 0
@@ -121,21 +323,15 @@ object FrmManageDetails: TFrmManageDetails
         FieldName = 'FROM_ID'
       end    
       item
-        Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '出金元'
         FieldName = 'FROM_NAME'
       end    
       item
-        Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '入金先ID'
         Width = 0
@@ -164,236 +360,16 @@ object FrmManageDetails: TFrmManageDetails
         FieldName = 'UPDATE_DT'
       end>
     DataSource = ADS
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgDisableInsert]
-    ParentFont = False
+    ShowHint = True
     TabOrder = 0
     TabStop = False
-  end
-  object ADBNav: TDBNavigator
-    Cursor = crHandPoint
-    Left = 571
-    Height = 48
-    Top = 344
-    Width = 272
-    BevelOuter = bvNone
-    ChildSizing.EnlargeHorizontal = crsScaleChilds
-    ChildSizing.EnlargeVertical = crsScaleChilds
-    ChildSizing.ShrinkHorizontal = crsScaleChilds
-    ChildSizing.ShrinkVertical = crsScaleChilds
-    ChildSizing.Layout = cclLeftToRightThenTopToBottom
-    ChildSizing.ControlsPerLine = 100
-    ClientHeight = 48
-    ClientWidth = 272
-    DataSource = ADS
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    Options = [navFocusableButtons]
-    ParentFont = False
-    TabOrder = 1
-    TabStop = True
-    VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast, nbRefresh]
-  end
-  object PnlAddDetail: TPanel
-    Left = 16
-    Height = 48
-    Top = 344
-    Width = 273
-    Caption = '入出金を追加 (CTRL+A)'
-    Color = clActiveCaption
-    Enabled = False
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentBackground = False
-    ParentColor = False
-    ParentFont = False
-    TabOrder = 2
-  end
-  object BtnAddDetailHeader: TPanel
-    Cursor = crCross
-    Left = 24
-    Height = 32
-    Top = 352
-    Width = 256
-    BevelColor = clNone
-    BevelOuter = bvNone
-    Caption = '入出金を追加 (CTRL+A)'
-    Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentBackground = False
-    ParentColor = False
-    ParentFont = False
-    ShowAccelChar = True
-    TabOrder = 3
-    TabStop = True
-    OnClick = ActAddDetailsHeaderExecute
-    OnEnter = BtnAddDetailHeaderEnter
-    OnExit = BtnAddDetailHeaderExit
-    OnMouseEnter = BtnAddDetailHeaderEnter
-    OnMouseLeave = BtnAddDetailHeaderExit
-  end
-  object PnlEditDetail: TPanel
-    Left = 294
-    Height = 48
-    Top = 344
-    Width = 272
-    Caption = '入出金を編集 (CTRL+E)'
-    Color = clActiveCaption
-    Enabled = False
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentBackground = False
-    ParentColor = False
-    ParentFont = False
-    TabOrder = 4
-  end
-  object BtnEditDetailHeader: TPanel
-    Cursor = crCross
-    Left = 302
-    Height = 32
-    Top = 352
-    Width = 256
-    BevelColor = clNone
-    BevelOuter = bvNone
-    Caption = '入出金を編集 (CTRL+E)'
-    Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentBackground = False
-    ParentColor = False
-    ParentFont = False
-    ShowAccelChar = True
-    TabOrder = 5
-    TabStop = True
-    OnClick = ActEditDetailsHeaderExecute
-    OnEnter = BtnEditDetailHeaderEnter
-    OnExit = BtnEditDetailHeaderExit
-    OnMouseEnter = BtnEditDetailHeaderEnter
-    OnMouseLeave = BtnEditDetailHeaderExit
-  end
-  object PnlRemoveDetail: TPanel
-    Left = 16
-    Height = 48
-    Top = 400
-    Width = 272
-    Caption = '入出金を削除 (CTRL+D)'
-    Color = clActiveCaption
-    Enabled = False
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentBackground = False
-    ParentColor = False
-    ParentFont = False
-    TabOrder = 6
-  end
-  object BtnDeleteDetailHeader: TPanel
-    Cursor = crCross
-    Left = 24
-    Height = 32
-    Top = 408
-    Width = 256
-    BevelColor = clNone
-    BevelOuter = bvNone
-    Caption = '入出金を削除 (CTRL+D)'
-    Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentBackground = False
-    ParentColor = False
-    ParentFont = False
-    ShowAccelChar = True
-    TabOrder = 7
-    TabStop = True
-    OnClick = ActDeleteDetailsHeaderExecute
-    OnEnter = BtnDeleteDetailHeaderEnter
-    OnExit = BtnDeleteDetailHeaderExit
-    OnMouseEnter = BtnDeleteDetailHeaderEnter
-    OnMouseLeave = BtnDeleteDetailHeaderExit
-  end
-  object PnlGoBack: TPanel
-    Left = 294
-    Height = 48
-    Top = 400
-    Width = 549
-    Caption = '前の画面に戻る (CTRL+Q)'
-    Color = clActiveCaption
-    Enabled = False
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentBackground = False
-    ParentColor = False
-    ParentFont = False
-    TabOrder = 8
-  end
-  object BtnGoBack: TPanel
-    Cursor = crCross
-    Left = 302
-    Height = 32
-    Top = 408
-    Width = 533
-    BevelColor = clNone
-    BevelOuter = bvNone
-    Caption = '前の画面に戻る (CTRL+Q)'
-    Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentBackground = False
-    ParentColor = False
-    ParentFont = False
-    ShowAccelChar = True
-    TabOrder = 9
-    TabStop = True
-    OnClick = ActGoBackExecute
-    OnEnter = BtnGoBackEnter
-    OnExit = BtnGoBackExit
-    OnMouseEnter = BtnGoBackEnter
-    OnMouseLeave = BtnGoBackExit
+    OnMouseDown = ADBGMouseDown
+    OnWMVScroll = ADBGWMVScroll
   end
   object ActionList: TActionList
-    Left = 504
-    Top = 176
+    Left = 872
+    Top = 160
     object ActAddDetailsHeader: TAction
       Caption = 'ActAddDetailsHeader'
       SecondaryShortCuts.Strings = (
@@ -429,88 +405,21 @@ object FrmManageDetails: TFrmManageDetails
   end
   object ADS: TDataSource
     DataSet = AQu
-    Left = 648
-    Top = 176
-  end
-  object ATr: TSQLTransaction
-    Active = False
-    Database = ACn
-    Left = 696
-    Top = 176
+    Left = 872
+    Top = 224
   end
   object AQu: TSQLQuery
-    FieldDefs = <    
-      item
-        Name = 'USER_ID'
-        Attributes = [faRequired]
-        DataType = ftInteger
-      end    
-      item
-        Name = 'HEADER_ID'
-        DataType = ftInteger
-      end    
-      item
-        Name = 'HEADER_DT'
-        DataType = ftDateTime
-      end    
-      item
-        Name = 'SHOP_ID'
-        DataType = ftInteger
-      end    
-      item
-        Name = 'SHOP_NAME'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'EXP_KEY1'
-        DataType = ftInteger
-      end    
-      item
-        Name = 'EXP1'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'FROM_ID'
-        DataType = ftInteger
-      end    
-      item
-        Name = 'FROM_NAME'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'TO_ID'
-        DataType = ftInteger
-      end    
-      item
-        Name = 'TO_NAME'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'TOTAL_AMOUNT'
-        DataType = ftInteger
-      end    
-      item
-        Name = 'ENTRY_DT'
-        DataType = ftDateTime
-      end    
-      item
-        Name = 'UPDATE_DT'
-        DataType = ftDateTime
-      end>
-    Database = ACn
-    Transaction = ATr
+    FieldDefs = <>
+    AfterScroll = AQuAfterScroll
     Params = <>
     Macros = <>
-    Left = 744
-    Top = 176
+    Left = 928
+    Top = 224
   end
-  object ACn: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATr
-    AlwaysUseBigint = False
-    Left = 600
-    Top = 176
+  object Timer: TTimer
+    Interval = 1
+    OnTimer = TimerTimer
+    Left = 928
+    Top = 160
   end
 end

@@ -6,46 +6,44 @@ interface
 
 uses
   Classes, LCLType, SysUtils, SQLDB, SQLite3Conn, DB, BufDataset, Forms,
-  Controls, Graphics, Dialogs, DBGrids, StdCtrls, ExtCtrls, DBCtrls, LCLIntf,
-  ActnList, UDefs;
+  Controls, Graphics, Dialogs, DBGrids, StdCtrls, ExtCtrls, DBCtrls, Grids,
+  LCLIntf, ActnList;
 
 type
 
   { TFrmManageUser }
 
   TFrmManageUser = class(TForm)
-    ActAddUser       : TAction;
-    ActEditAdminUser : TAction;
-    ActEditUser      : TAction;
+    ADS              : TDataSource;
+    AQu              : TSQLQuery;
     ActionList       : TActionList;
-    ActGoBack          : TAction;
+    ActAddUser       : TAction;
+    ActEditUser      : TAction;
+    ActDeleteUser    : TAction;
+    ActEditAdminUser : TAction;
+    ActGoBack        : TAction;
     ActRemoveUser    : TAction;
     ADataSet         : TDataSet;
-    ADBGrid          : TDBGrid;
-    ADS              : TDataSource;
     ADSByCount       : TDataSource;
-    AQu              : TSQLQuery;
     AQuByCount       : TSQLQuery;
-    ATr              : TSQLTransaction;
-    ATrByCount       : TSQLTransaction;
-    BtnAddUser           : TPanel;
-    BtnEditUser: TPanel;
-    BtnDeleteUser: TPanel;
-    BtnEditAdminUser: TPanel;
-    BtnGoBack: TPanel;
+    BtnAddUser       : TPanel;
+    BtnEditUser      : TPanel;
+    BtnDeleteUser    : TPanel;
+    BtnEditAdminUser : TPanel;
+    BtnGoBack        : TPanel;
+    ADBGrid: TDBGrid;
     PnlAddUser       : TPanel;
     PnlEditAdminUser : TPanel;
     PnlEditUser      : TPanel;
     PnlGoBack        : TPanel;
     PnlRemoveUser    : TPanel;
-    ACn              : TSQLite3Connection;
-    ACnByCount       : TSQLite3Connection;
     Timer            : TTimer;
+    procedure ADBGridEnter(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
     procedure ProcAddUser(Sender: TObject);
     procedure ProcEditUser(Sender: TObject);
     procedure ProcRemoveUser(Sender: TObject);
     procedure ProcEditAdminUser(Sender: TObject);
-    procedure ProcGoBack(Sender: TObject);
     procedure AddUserMouseOver(NewColor: TColor);
     procedure BtnAddUserEnter(Sender: TObject);
     procedure BtnAddUserExit(Sender: TObject);
@@ -72,66 +70,66 @@ type
     procedure TimerTimer(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
-    procedure SetDatabaseNames;
-    procedure CloseTransactions;
+    FCurrentControl: TObject;
+    FGoBack           : Boolean;
+    function GetGoBack: Boolean;
+    procedure SetGoBack(GoBack: Boolean);
     function CountUser(RoleNum: Integer): Integer;
     procedure EnableButton(
       AddUser, EditUser, RemoveUser, EditAdminUser: Boolean);
     procedure OpenFormOrMsgDlg(Sender: TForm);
   public
+  published
   end;
+
 
 var
   FrmManageUser : TFrmManageUser;
 
 implementation
 uses
-  UConsts, UDBAccess, UTopMenu, UAddUser, UEditUser, UDeleteUser, UEditAdmUser;
+  UConsts, UCommonDB, UDefs, UDBAccess, UTopMenu, UAddUser, UEditUser,
+  UDeleteUser, UEditAdmUser;
 
 {$R *.lfm}
 
 { TFrmManageUser }
 
-procedure TFrmManageUser.SetDatabaseNames;
+function TFrmManageUser.GetGoBack: Boolean;
 begin
-  with FrmTopMenu.Defs do begin
-    SetDatabaseName(ACn       );
-    SetDatabaseName(ACnByCount);
-  end;
+  Result := FGoBack;
 end;
 
-procedure TFrmManageUser.CloseTransactions;
+procedure TFrmManageUser.SetGoBack(GoBack: Boolean);
 begin
-  with FrmTopMenu.Defs do begin
-    CloseConn(ACn       , ATr       );
-    CloseConn(ACnByCount, ATrByCount);
-  end;
+  FGoBack := GoBack;
 end;
 
 function TFrmManageUser.CountUser(RoleNum: Integer): Integer;
 var
   LRet: Integer;
 begin
-  try
-    with ACn do begin
-      if Not Connected then
-      begin
-        DatabaseName := DB_NAME;
-        Connected    := True;
-      end;
-    end;
-    with AQuByCount do begin
-      Database                              := ACn;
-      SQL.Text                              := SQL_20020003;
-      with Params do begin
-        ParamByName('pRole').AsInteger := RoleNum;
-      end;
-    end;
+  with CommonDB do begin
+    with Defs do begin
+      try
+        with AQuByCount do begin
+          SQLConnection  := ACn;
+          SQLTransaction := ATr;;
 
-    AQuByCount.Open;
-  finally
-    LRet                       := AQuByCount.FieldByName('COUNT').AsInteger;
-    Result                     := LRet;
+          SQL.Text := SQL_20020003;
+          with Params do begin
+            ParamByName('pRole').AsInteger := RoleNum;
+          end;
+          Open;
+        end;
+      finally
+        with AQuByCount do begin
+          LRet := FieldByName('COUNT').AsInteger;
+          Close;
+        end;
+        Result := LRet;
+      end;
+    end;
   end;
 end;
 
@@ -153,17 +151,16 @@ end;
 
 procedure TFrmManageUser.OpenFormOrMsgDlg(Sender: TForm);
 begin
-  CloseTransactions;
-  SetDatabaseNames;
+  //CloseTransactions;
+  //SetDatabaseNames;
 
-  with FrmTopMenu.Defs do begin
-    if Not GetShowChildForm then
-    begin
+  with Defs do begin
+    if Not GetShowChildForm then begin
       SetShowChildForm(True);
     end;
   end;
 
-  FrmManageUser.Visible := False;
+  Self.Visible := False;
 
   Sender.Show;
 end;
@@ -174,10 +171,25 @@ begin
   OpenFormOrMsgDlg(FrmAddUser);
 end;
 
+procedure TFrmManageUser.ADBGridEnter(Sender: TObject);
+var
+  LPanel : TPanel;
+begin
+  try
+    if FCurrentControl is TPanel then begin
+      LPanel := FCurrentControl As TPanel;
+      LPanel.SetFocus;
+    end;
+  except
+    on E: Exception do begin
+      MessageDlg(E.Message, mtError, [mbOk], 0);
+    end;
+  end;
+end;
+
 procedure TFrmManageUser.ProcEditUser(Sender: TObject);
 begin
-  if CountUser(ROLE_USER) > 0 then
-  begin
+  if CountUser(ROLE_USER) > 0 then begin
     FrmEditUser := TFrmEditUser.Create(Application);
     OpenFormOrMsgDlg(FrmEditUser);
   end else begin
@@ -187,8 +199,7 @@ end;
 
 procedure TFrmManageUser.ProcRemoveUser(Sender: TObject);
 begin
-  if CountUser(ROLE_USER) > 0 then
-  begin
+  if CountUser(ROLE_USER) > 0 then begin
     FrmDeleteUser := TFrmDeleteUser.Create(Application);
     OpenFormOrMsgDlg(FrmDeleteUser);
   end else begin
@@ -202,12 +213,6 @@ begin
   OpenFormOrMsgDlg(FrmEditAdmUser);
 end;
 
-procedure TFrmManageUser.ProcGoBack(Sender: TObject);
-begin
-  FrmTopMenu.Visible         := True;
-  FrmManageUser.Close;
-end;
-
 procedure TFrmManageUser.AddUserMouseOver(NewColor: TColor);
 begin
   BtnAddUser.Color := NewColor;
@@ -216,6 +221,7 @@ end;
 procedure TFrmManageUser.BtnAddUserEnter(Sender: TObject);
 begin
   AddUserMouseOver(clSkyBlue);
+  FCurrentControl := Sender;
 end;
 
 procedure TFrmManageUser.BtnAddUserExit(Sender: TObject);
@@ -231,6 +237,7 @@ end;
 procedure TFrmManageUser.BtnEditUserEnter(Sender: TObject);
 begin
   EditUserMouseOver(clSkyBlue);
+  FCurrentControl := Sender;
 end;
 
 procedure TFrmManageUser.BtnEditUserExit(Sender: TObject);
@@ -246,6 +253,7 @@ end;
 procedure TFrmManageUser.BtnDeleteUserEnter(Sender: TObject);
 begin
   RemoveUserMouseOver(clSkyBlue);
+  FCurrentControl := Sender;
 end;
 
 procedure TFrmManageUser.BtnDeleteUserExit(Sender: TObject);
@@ -261,6 +269,7 @@ end;
 procedure TFrmManageUser.BtnEditAdminUserEnter(Sender: TObject);
 begin
   EditAdminUserMouseOver(clSkyBlue);
+  FCurrentControl := Sender;
 end;
 
 procedure TFrmManageUser.BtnEditAdminUserExit(Sender: TObject);
@@ -276,6 +285,7 @@ end;
 procedure TFrmManageUser.BtnGoBackEnter(Sender: TObject);
 begin
   GoBackMouseOver(clSkyBlue);
+  FCurrentControl := Sender;
 end;
 
 procedure TFrmManageUser.BtnGoBackExit(Sender: TObject);
@@ -285,135 +295,147 @@ end;
 
 procedure TFrmManageUser.ActAddUserExecute(Sender: TObject);
 begin
+  SetGoBack(False);
   ProcAddUser(Sender);
+  Close;
 end;
 
 procedure TFrmManageUser.ActEditUserExecute(Sender: TObject);
 begin
+  SetGoBack(False);
   ProcEditUser(Sender);
+  Close;
 end;
 
 procedure TFrmManageUser.ActRemoveUserExecute(Sender: TObject);
 begin
+  SetGoBack(False);
   ProcRemoveUser(Sender);
+  Close;
 end;
 
 procedure TFrmManageUser.ActEditAdminUserExecute(Sender: TObject);
 begin
+  SetGoBack(False);
   ProcEditAdminUser(Sender);
+  Close;
 end;
 
 procedure TFrmManageUser.ActGoBackExecute(Sender: TObject);
 begin
-  ProcGoBack(Sender);
+  SetGoBack(True);
+  if Sender is TForm then begin
+    TForm(Sender).Visible := True;
+  end;
+  Close;
 end;
 
 procedure TFrmManageUser.FormClose(
     Sender: TObject; var CloseAction: TCloseAction);
 begin
-  with FrmTopMenu do begin
-    CloseTransactions;
+  with CommonDB do begin
+    CloseQuery(AQu);
+    CloseQuery(AQuByCount);
+  end;
 
-    Visible := True;
-
+  if GetGoBack then begin
     with Defs do begin
-      if GetChangedUserDef then
-      begin
-        ProcLogout(Sender);
+      with FrmTopMenu do begin
+        if GetChangedUserDef = False then begin
+          Visible := True;
+        end else begin
+          ProcLogout(Sender);
+          SetChangedUserDef(False);
+        end;
       end;
     end;
-    CloseAction        := caFree;
-    FrmManageUser      := nil;
   end;
+
+  CloseAction   := caFree;
+  FrmManageUser := nil;
 end;
 
 procedure TFrmManageUser.FormCreate(Sender: TObject);
 begin
-  SetDatabaseNames;
-
-  with FrmTopMenu.Defs do begin
+  with Defs do begin
     if GetDoExitKakeiBon then begin
       Application.Terminate;
     end;
   end;
+
+  FrmTopMenu.Visible := False;
+
+  SetGoBack(True);
 end;
 
 procedure TFrmManageUser.FormShow(Sender: TObject);
 begin
-  FrmManageUser.KeyPreview := True;
+  Self.Width             := 710;
 
-  FrmManageUser.Color    := RGB(112, 168, 175);
+  Self.KeyPreview        := True;
+
+  Self.Color             := RGB(112, 168, 175);
   PnlAddUser.Color       := RGB( 72, 122, 129);
   PnlEditUser.Color      := RGB( 72, 122, 129);
   PnlRemoveUser.Color    := RGB( 72, 122, 129);
   PnlEditAdminUser.Color := RGB( 72, 122, 129);
   PnlGoBack.Color        := RGB( 72, 122, 129);
 
-  // Connecting users table with SQLite3
+  { Debug }
+  //Self.Width      := 890;
+end;
+
+procedure TFrmManageUser.FormActivate(Sender: TObject);
+begin
   try
-    with FrmTopMenu.Defs do begin
-      OpenSelectQuery(ACn, ADS, ATr, AQu, SQL_20020001);
+    with CommonDB do begin
+      with Defs do begin
+        OpenSelectQuery(ADS, AQu, SQL_20020001);
 
-      if MatchRole(ROLE_ADMIN) then begin
-        if AQu.RecordCount = 1 then
-        begin
-          EnableButton(True, False, False, True);
-        end else if AQu.RecordCount > 1 then begin
-          EnableButton(True, True, True, True);
-        end;
-      end else begin // Defs.MatchRole(ROLE_ADMIN) = False
-        with AQu do begin
-          CloseTransactions;
-          SetDatabaseNames;
-
-          SQL.Text := SQL_20020002;
-          with Params do begin
-            ParamByName('pUName').AsAnsiString  := GetUName;
+        if MatchRole(ROLE_ADMIN) then begin
+          if AQu.RecordCount = 0 then begin
+            EnableButton(True, False, False, True);
+          end else if AQu.RecordCount = 1 then begin
+            EnableButton(True, False, False, True);
+          end else if AQu.RecordCount > 1 then begin
+            EnableButton(True, True, True, True);
           end;
-          Open;
-          if RecordCount = 1 then
-          begin
-            EnableButton(False, True, False, False);
-          end else begin
-            if Not GetChangedUserDef then
-            begin
-              EnableButton(False, False, False, False);
-              MessageDlg(MSG_JP_000004, mtError, [mbOk], 0);
-              Close;
+        end else begin // Defs.MatchRole(ROLE_ADMIN) = False
+          CloseQuery(AQu);
+
+          with AQu do begin
+            SQL.Text := SQL_20020002;
+            with Params do begin
+              ParamByName('pUName').AsAnsiString  := GetUName;
+            end;
+            Open;
+            if RecordCount = 1 then begin
+              EnableButton(False, True, False, False);
+            end else begin
+              if Not GetChangedUserDef then begin
+                EnableButton(False, False, False, False);
+                MessageDlg(MSG_JP_000004, mtError, [mbOk], 0);
+                Close;
+              end;
             end;
           end;
         end;
-      end;
 
-      ADS.DataSet     := AQu;
-      with ADBGrid do begin
-        DataSource      := ADS;
-        AutoFillColumns := True;
-        AutoFillColumns := False;
+        ADS.DataSet     := AQu;
+        with ADBGrid do begin
+          DataSource := ADS;
+          AutoAdjustColumns;
+        end;
       end;
     end;
   finally
-  end;
-
-  with ADBGrid do begin
-    Options := Options - [dgAutoSizeColumns];
-    Options := Options + [dgColumnResize];
-
-    Columns[0].Width   := 50;
-    Columns[1].Width   := 200;
-    Columns[3].Width   := 200;
-    Columns[4].Width   := 200;
-
-    AutoSize   := False;
-    ScrollBars := ssAutoBoth;
   end;
 end;
 
 procedure TFrmManageUser.TimerTimer(Sender: TObject);
 begin
-  if ChngdAdmUserFlg then
-  begin
-    FrmManageUser.Close;
+  if ChngdAdmUserFlg then begin
+    Self.Close;
   end;
 end;
 
