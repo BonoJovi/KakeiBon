@@ -1,15 +1,18 @@
 object FrmEditUser: TFrmEditUser
   Left = 709
-  Height = 635
+  Height = 665
   Top = 174
   Width = 819
   BorderStyle = bsSingle
   Caption = 'ユーザの編集'
-  ClientHeight = 635
+  ClientHeight = 665
   ClientWidth = 819
   Color = clWindowFrame
+  Font.CharSet = SHIFTJIS_CHARSET
   Font.Height = -21
   Font.Name = '0xProto'
+  Font.Pitch = fpVariable
+  Font.Quality = fqDraft
   Font.Style = [fsBold]
   Position = poScreenCenter
   LCLVersion = '4.2.0.0'
@@ -27,26 +30,35 @@ object FrmEditUser: TFrmEditUser
     Color = clWindow
     Columns = <    
       item
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
         Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
         Font.Style = [fsBold]
         Title.Layout = tlBottom
         Title.Caption = 'ユーザID'
-        Width = 104
+        Width = 67
         FieldName = 'USER_ID'
       end    
       item
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
         Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
         Font.Style = [fsBold]
         Title.Layout = tlBottom
         Title.Caption = 'ユーザ名'
-        Width = 99
+        Width = 67
         FieldName = 'NAME'
       end    
       item
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
         Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
         Font.Style = [fsBold]
         Title.Layout = tlBottom
         Title.Caption = '権限'
@@ -55,60 +67,38 @@ object FrmEditUser: TFrmEditUser
         FieldName = 'ROLE'
       end    
       item
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
         Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
         Font.Style = [fsBold]
         Title.Layout = tlBottom
         Title.Caption = '登録日'
-        Width = 78
+        Width = 54
         FieldName = 'ENTRY_DT'
         DisplayFormat = 'yyyy"/"mm"/"dd hh":"nn":"ss'
       end    
       item
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
         Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
         Font.Style = [fsBold]
         Title.Layout = tlBottom
         Title.Caption = '更新日'
-        Width = 78
+        Width = 54
         FieldName = 'UPDATE_DT'
         DisplayFormat = 'yyyy"/"mm"/"dd hh":"nn":"ss'
       end>
     DataSource = ADS
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns]
-    ParentFont = False
     ReadOnly = True
     TabOrder = 0
     TabStop = False
-    OnEnter = ADBGridEnter
-  end
-  object ADBNavi: TDBNavi
-    Left = 16
-    Height = 28
-    Top = 148
-    Width = 626
-    BevelOuter = bvNone
-    ChildSizing.HorizontalSpacing = 5
-    ChildSizing.EnlargeHorizontal = crsScaleChilds
-    ChildSizing.EnlargeVertical = crsScaleChilds
-    ChildSizing.ShrinkHorizontal = crsScaleChilds
-    ChildSizing.ShrinkVertical = crsScaleChilds
-    ChildSizing.Layout = cclLeftToRightThenTopToBottom
-    ChildSizing.ControlsPerLine = 100
-    ClientHeight = 28
-    ClientWidth = 626
-    DataSource = ADS
-    Options = [navFocusableButtons]
-    TabOrder = 1
-    TabStop = True
-    VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
-    OnClick = ADBNaviClick
-    OnEnter = ADBNaviEnter
-    OnExit = ADBNaviExit
-    OnWMSetFocus = ADBNaviWMSetFocus
+    OnMouseDown = ADBGridMouseDown
+    OnSelectEditor = ADBGridSelectEditor
   end
   object Panel1: TPanel
     Left = 16
@@ -157,77 +147,53 @@ object FrmEditUser: TFrmEditUser
   object LblUserID: TLabel
     Left = 16
     Height = 32
-    Top = 194
+    Top = 209
     Width = 89
     Caption = 'ユーザID'
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object DBTextUserID: TDBText
     Left = 224
     Height = 26
-    Top = 196
+    Top = 209
     Width = 419
     AutoSize = False
     DataField = 'USER_ID'
     DataSource = ADS
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblFromUserName: TLabel
     Left = 16
     Height = 32
-    Top = 234
+    Top = 264
     Width = 144
     Caption = 'ユーザ名 (旧)'
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object DBTextFromUserName: TDBText
     Left = 225
     Height = 26
-    Top = 236
+    Top = 266
     Width = 418
     AutoSize = False
     DataField = 'NAME'
     DataSource = ADS
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblUserName: TLabel
     Left = 272
     Height = 32
-    Top = 264
+    Top = 294
     Width = 21
     Caption = '↓'
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblToUserName: TLabel
     Left = 16
     Height = 32
-    Top = 312
+    Top = 338
     Width = 144
     Caption = 'ユーザ名 (新)'
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object Shape1: TShape
     Left = 201
     Height = 16
-    Top = 320
+    Top = 350
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -240,12 +206,8 @@ object FrmEditUser: TFrmEditUser
     Cursor = crIBeam
     Left = 224
     Height = 49
-    Top = 304
+    Top = 334
     Width = 418
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
-    ParentFont = False
     TabOrder = 6
     OnChange = EdtToUserNameChange
     OnEnter = EdtToUserNameEnter
@@ -254,18 +216,14 @@ object FrmEditUser: TFrmEditUser
   object LblPaw: TLabel
     Left = 16
     Height = 32
-    Top = 369
+    Top = 395
     Width = 105
     Caption = 'パスワード'
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object Shape2: TShape
     Left = 200
     Height = 16
-    Top = 377
+    Top = 407
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -278,13 +236,9 @@ object FrmEditUser: TFrmEditUser
     Cursor = crIBeam
     Left = 224
     Height = 49
-    Top = 361
+    Top = 391
     Width = 419
     EchoMode = emNone
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
-    ParentFont = False
     PasswordChar = ' '
     TabOrder = 7
     OnChange = EdtPawChange
@@ -294,18 +248,14 @@ object FrmEditUser: TFrmEditUser
   object LblPawConfirm: TLabel
     Left = 16
     Height = 32
-    Top = 426
+    Top = 452
     Width = 173
     Caption = 'パスワード(確認)'
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object Shape3: TShape
     Left = 201
     Height = 16
-    Top = 434
+    Top = 464
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -318,13 +268,9 @@ object FrmEditUser: TFrmEditUser
     Cursor = crIBeam
     Left = 223
     Height = 49
-    Top = 418
+    Top = 448
     Width = 419
     EchoMode = emNone
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
-    ParentFont = False
     PasswordChar = ' '
     TabOrder = 8
     OnChange = EdtPawConfirmChange
@@ -334,47 +280,35 @@ object FrmEditUser: TFrmEditUser
   object LblInfo: TLabel
     Left = 309
     Height = 32
-    Top = 475
+    Top = 496
     Width = 334
     Caption = '変更する項目だけ入力してください'
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     ParentColor = False
-    ParentFont = False
   end
   object PnlClearPaw: TPanel
     Left = 16
     Height = 48
-    Top = 515
+    Top = 545
     Width = 627
     Caption = 'パスワードをクリア (CTRL+X)'
     Color = clActiveCaption
     Enabled = False
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     TabOrder = 9
   end
   object BtnClearPaw: TPanel
     Cursor = crCross
     Left = 24
     Height = 32
-    Top = 523
+    Top = 553
     Width = 610
     BevelColor = clNone
     BevelOuter = bvNone
     Caption = 'パスワードをクリア (CTRL+X)'
     Color = clBtnFace
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     ShowAccelChar = True
     TabOrder = 10
     TabStop = True
@@ -387,35 +321,27 @@ object FrmEditUser: TFrmEditUser
   object PnlCancel: TPanel
     Left = 16
     Height = 48
-    Top = 571
+    Top = 601
     Width = 311
     Caption = 'キャンセル (CTRL+C)'
     Color = clActiveCaption
     Enabled = False
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     TabOrder = 11
   end
   object BtnCancel: TPanel
     Cursor = crCross
     Left = 24
     Height = 32
-    Top = 579
+    Top = 609
     Width = 296
     BevelColor = clNone
     BevelOuter = bvNone
     Caption = 'キャンセル (CTRL+C)'
     Color = clBtnFace
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     ShowAccelChar = True
     TabOrder = 12
     TabStop = True
@@ -428,35 +354,27 @@ object FrmEditUser: TFrmEditUser
   object PnlSave: TPanel
     Left = 332
     Height = 48
-    Top = 571
+    Top = 601
     Width = 310
     Caption = '保　　　存 (CTRL+S)'
     Color = clActiveCaption
     Enabled = False
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     TabOrder = 13
   end
   object BtnSave: TPanel
     Cursor = crCross
     Left = 339
     Height = 32
-    Top = 579
+    Top = 609
     Width = 295
     BevelColor = clNone
     BevelOuter = bvNone
     Caption = '保　　　存 (CTRL+S)'
     Color = clBtnFace
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     ShowAccelChar = True
     TabOrder = 14
     TabStop = True
@@ -466,21 +384,53 @@ object FrmEditUser: TFrmEditUser
     OnMouseEnter = BtnSaveEnter
     OnMouseLeave = BtnSaveExit
   end
+  object ADBNavi: TDBNavi
+    Left = 16
+    Height = 28
+    Top = 148
+    Width = 626
+    BevelOuter = bvNone
+    ChildSizing.HorizontalSpacing = 5
+    ChildSizing.EnlargeHorizontal = crsScaleChilds
+    ChildSizing.EnlargeVertical = crsScaleChilds
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 100
+    ClientHeight = 28
+    ClientWidth = 626
+    DataSource = ADS
+    Options = [navFocusableButtons]
+    TabOrder = 1
+    TabStop = True
+    VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
+    OnBtnClick = ADBNaviBtnClick
+    OnKeyUp = ADBNaviKeyUp
+  end
   object ActionList: TActionList
     Left = 680
     Top = 104
     object ActClearPaw: TAction
       Caption = 'ActClearPaw'
+      SecondaryShortCuts.Strings = (
+        'Ctrl+1'
+      )
       ShortCut = 16472
       OnExecute = ActClearPawExecute
     end
     object ActCancel: TAction
       Caption = 'ActCancel'
+      SecondaryShortCuts.Strings = (
+        'Ctrl+2'
+      )
       ShortCut = 16451
       OnExecute = ActCancelExecute
     end
     object ActSave: TAction
       Caption = 'ActSave'
+      SecondaryShortCuts.Strings = (
+        'Ctrl+3'
+      )
       ShortCut = 16467
       OnExecute = ActSaveExecute
     end
@@ -497,6 +447,7 @@ object FrmEditUser: TFrmEditUser
   end
   object AQu: TSQLQuery
     FieldDefs = <>
+    AfterScroll = AQuAfterScroll
     Params = <>
     Macros = <>
     Left = 752
@@ -518,12 +469,7 @@ object FrmEditUser: TFrmEditUser
     Enabled = False
     Interval = 1
     OnTimer = TimerTimer
-    Left = 680
-    Top = 160
-  end
-  object TimerDBNavi: TTimer
-    OnTimer = TimerDBNaviTimer
     Left = 752
-    Top = 160
+    Top = 104
   end
 end

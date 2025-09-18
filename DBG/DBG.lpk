@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <Package Version="5">
-    <Name Value="DBNavi"/>
+    <PathDelim Value="\"/>
+    <Name Value="DBG"/>
     <Type Value="RunAndDesignTime"/>
     <Author Value="Yoshihiro NAKAHARA"/>
     <CompilerOptions>
       <Version Value="11"/>
+      <PathDelim Value="\"/>
       <SearchPaths>
-        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+        <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>
     <License Value="MIT License"/>
     <Version Minor="1"/>
     <Files>
       <Item>
-        <Filename Value="UDBNavi.pas"/>
+        <Filename Value="UDBG.pas"/>
         <HasRegisterProc Value="True"/>
-        <UnitName Value="UDBNavi"/>
+        <UnitName Value="UDBG"/>
       </Item>
     </Files>
     <RequiredPkgs>

@@ -171,15 +171,19 @@ begin
     end;
 
     if LJournalMode <> Mode then begin
-      with AQu do begin
-        try
+      try
+        with AQu do begin
+          ACn.Close(True);
+          ACn.Open;
           DataBase := ACn;
 
           ATr.Options := ATr.Options + [stoUseImplicit];
           SQL.Text := 'PRAGMA journal_mode=' + Mode;
           ExecSQL;
-        finally
-          ATr.Options := ATr.Options - [stoUseImplicit];
+        end;
+      finally
+        ATr.Options := ATr.Options - [stoUseImplicit];
+        with AQu do begin
           if Active then begin
             Close;
           end;
@@ -485,7 +489,7 @@ begin
       Enabled          := False;
     end;
 
-    FrmTopMenu.Caption := APP_NAME;
+    Self.Caption := APP_NAME;
 
     LoginFlg           := False;
   end;
@@ -637,6 +641,13 @@ begin
     CommonDB.InitializeCommonDB;
   end;
 
+  with CommonDB do begin
+    if Not ((Assigned(FrmEntryAdmin))
+        And (Not FileExists(GetDBFullPath))) then begin
+      OpenFormEntryAdmin(Sender);
+    end;
+  end;
+
   SetJournalMode('WAL');
 
   with Defs do begin
@@ -672,11 +683,11 @@ end;
 
 procedure TFrmTopMenu.FormShow(Sender: TObject);
 begin
-  FrmTopMenu.Width      := 627;
+  Self.Width      := 627;
 
-  FrmTopMenu.KeyPreview := True;
+  Self.KeyPreview := True;
 
-  FrmTopMenu.Color       := RGB(  0, 128, 128);
+  Self.Color       := RGB(  0, 128, 128);
   PnlManageDetails.Color := RGB(192, 220, 192);
   PnlManagements.Color   := RGB(192, 220, 192);
   PnlLogInAndOut.Color   := RGB(192, 220, 192);
@@ -738,7 +749,7 @@ begin
   end;
 
   { Debug }
-  //FrmTopMenu.Width      := 777;
+  //Self.Width      := 777;
 end;
 
 procedure TFrmTopMenu.FormActivate(Sender: TObject);
@@ -756,7 +767,7 @@ begin
   with CommonDB do begin
     with Defs do begin
       if Not ((Assigned(FrmEntryAdmin))
-          And (FileExists(GetDBFullPath))) then begin
+          And (Not FileExists(GetDBFullPath))) then begin
         OpenFormEntryAdmin(Sender);
       end;
 

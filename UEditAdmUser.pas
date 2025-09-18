@@ -307,8 +307,7 @@ end;
 
 procedure TFrmEditAdmUser.ProcCancel(Sender: TObject);
 begin
-  FrmManageUser.Visible := True;
-  FrmEditAdmUser.Close;
+  Self.Close;
 end;
 
 procedure TFrmEditAdmUser.ActCancelExecute(Sender: TObject);
@@ -412,6 +411,7 @@ begin
 
             LFieldAndValue := LRet + ', UPDATE_DT = datetime(''Now'', ''+9 hours'')';
 
+            CloseQuery(AQu);
             with AQu do begin
               SQL.Text    := LSQL.Replace(':pFieldAndValue', LFieldAndValue);
               ExecSQL;
@@ -428,7 +428,7 @@ begin
               end;
             end;
           end;
-          FrmEditAdmUser.Close;
+          Self.Close;
         except
           on E: ESQLDatabaseError do begin
             ShowMessage(E.Message);
@@ -579,7 +579,9 @@ procedure TFrmEditAdmUser.FormClose(Sender: TObject;
   var CloseAction: TCloseAction);
 begin
   with Defs do begin
-    FrmManageUser := TFrmManageUser.Create(Application);
+    if (Not Assigned(FrmManageUser)) Or (FrmManageUser = nil) then begin
+      FrmManageUser := TFrmManageUser.Create(Application);
+    end;
     if GetChangedUserDef = False then begin
       FrmManageUser.Visible     := True;
     end else begin
@@ -608,18 +610,18 @@ end;
 
 procedure TFrmEditAdmUser.FormShow(Sender: TObject);
 begin
-  FrmEditAdmUser.Width      := 665;
+  Self.Width           := 665;
 
-  FrmEditAdmUser.KeyPreview := True;
+  Self.KeyPreview      := True;
 
-  FrmEditAdmUser.Color := RGB(112, 168, 175);
+  Self.Color           := RGB(112, 168, 175);
   PnlClearPaw.Color    := RGB( 72, 122, 129);
   PnlCancel.Color      := RGB( 72, 122, 129);
   PnlSave.Color        := RGB( 72, 122, 129);
   LblInfo.Font.Color   := RGB(255,   0,   0);
 
   { Debug }
-  //FrmEditAdmUser.Width      := 807;
+  //Self.Width      := 807;
 end;
 
 procedure TFrmEditAdmUser.FormActivate(Sender: TObject);

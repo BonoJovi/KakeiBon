@@ -73,6 +73,7 @@ end;
 
 procedure TDBNavi.KeyUp(var Key: Word; Shift: TShiftState);
 begin
+  Inherited;
 
   if Assigned(FOnKeyUp) then
   begin
@@ -88,6 +89,8 @@ begin
   begin
     FOnWMSetFocus(Self, Message.FocusedWnd); // Messageのユーザが操作するのに必要な情報だけ受け取る
   end;
+
+  Inherited;
 end;
 
 function TDBNavi.FindNextControl(CurrentControl: TWinControl;

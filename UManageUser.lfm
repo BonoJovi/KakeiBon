@@ -12,7 +12,6 @@ object FrmManageUser: TFrmManageUser
   Font.Name = '0xProto'
   Font.Style = [fsBold]
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
@@ -26,68 +25,30 @@ object FrmManageUser: TFrmManageUser
     Color = clWindow
     Columns = <    
       item
-        Font.Height = -21
-        Font.Name = '0xProto'
-        Font.Style = [fsBold]
-        Title.Layout = tlBottom
         Title.Caption = 'ユーザID'
-        Width = 104
         FieldName = 'USER_ID'
       end    
       item
-        Font.Height = -21
-        Font.Name = '0xProto'
-        Font.Style = [fsBold]
-        Title.Layout = tlBottom
         Title.Caption = 'ユーザ名'
-        Width = 99
         FieldName = 'NAME'
       end    
       item
-        Font.Height = -21
-        Font.Name = '0xProto'
-        Font.Style = [fsBold]
-        Title.Layout = tlBottom
         Title.Caption = '権限'
-        Width = 0
         Visible = False
         FieldName = 'ROLE'
       end    
       item
-        Font.Height = -21
-        Font.Name = '0xProto'
-        Font.Style = [fsBold]
-        Title.Layout = tlBottom
         Title.Caption = '登録日'
-        Width = 78
         FieldName = 'ENTRY_DT'
-        DisplayFormat = 'yyyy"/"mm"/"dd hh":"nn":"ss'
       end    
       item
-        Font.Height = -21
-        Font.Name = '0xProto'
-        Font.Style = [fsBold]
-        Title.Layout = tlBottom
         Title.Caption = '更新日'
-        Width = 78
         FieldName = 'UPDATE_DT'
-        DisplayFormat = 'yyyy"/"mm"/"dd hh":"nn":"ss'
       end>
-    Constraints.MaxWidth = 2000
-    Font.Height = -21
-    Font.Name = 'Noto Sans CJK JP'
-    Font.Style = [fsBold]
-    Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
-    ParentFont = False
+    DataSource = ADS
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
+    ReadOnly = True
     TabOrder = 0
-    TabStop = False
-    TitleFont.CharSet = 4
-    TitleFont.Height = -21
-    TitleFont.Name = '0xProto'
-    TitleFont.Quality = fqAntialiased
-    TitleFont.Style = [fsBold]
-    TitleStyle = tsStandard
-    OnEnter = ADBGridEnter
   end
   object PnlAddUser: TPanel
     Left = 16
@@ -97,12 +58,8 @@ object FrmManageUser: TFrmManageUser
     Caption = 'ユーザの追加 (CTRL+A)'
     Color = clActiveCaption
     Enabled = False
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     TabOrder = 1
   end
   object BtnAddUser: TPanel
@@ -115,12 +72,8 @@ object FrmManageUser: TFrmManageUser
     BevelOuter = bvNone
     Caption = 'ユーザの追加 (CTRL+A)'
     Color = clBtnFace
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     ParentShowHint = False
     ShowAccelChar = True
     ShowHint = True
@@ -140,12 +93,8 @@ object FrmManageUser: TFrmManageUser
     Caption = 'ユーザ の編集 (CTRL+E)'
     Color = clActiveCaption
     Enabled = False
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     TabOrder = 3
   end
   object BtnEditUser: TPanel
@@ -158,12 +107,8 @@ object FrmManageUser: TFrmManageUser
     BevelOuter = bvNone
     Caption = ' 　　ユーザの編集 (CTRL+E)'
     Color = clBtnFace
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     ParentShowHint = False
     ShowAccelChar = True
     ShowHint = True
@@ -183,12 +128,8 @@ object FrmManageUser: TFrmManageUser
     Caption = 'ユーザの削除 (CTRL+D)'
     Color = clActiveCaption
     Enabled = False
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     TabOrder = 5
   end
   object BtnDeleteUser: TPanel
@@ -201,12 +142,8 @@ object FrmManageUser: TFrmManageUser
     BevelOuter = bvNone
     Caption = 'ユーザの削除 (CTRL+D)'
     Color = clBtnFace
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     ParentShowHint = False
     ShowAccelChar = True
     ShowHint = True
@@ -226,12 +163,8 @@ object FrmManageUser: TFrmManageUser
     Caption = '管理者ユーザの編集 (CTRL+S)'
     Color = clActiveCaption
     Enabled = False
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     TabOrder = 7
   end
   object BtnEditAdminUser: TPanel
@@ -244,12 +177,8 @@ object FrmManageUser: TFrmManageUser
     BevelOuter = bvNone
     Caption = '管理者ユーザの編集 (CTRL+S)'
     Color = clBtnFace
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     ParentShowHint = False
     ShowAccelChar = True
     ShowHint = True
@@ -269,12 +198,8 @@ object FrmManageUser: TFrmManageUser
     Caption = '前の画面に戻る (CTRL+Q)'
     Color = clActiveCaption
     Enabled = False
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     TabOrder = 9
   end
   object BtnGoBack: TPanel
@@ -287,12 +212,8 @@ object FrmManageUser: TFrmManageUser
     BevelOuter = bvNone
     Caption = '前の画面に戻る (CTRL+Q)'
     Color = clBtnFace
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     ParentShowHint = False
     ShowAccelChar = True
     ShowHint = True
@@ -369,7 +290,27 @@ object FrmManageUser: TFrmManageUser
     Top = 192
   end
   object AQu: TSQLQuery
-    FieldDefs = <>
+    FieldDefs = <    
+      item
+        Name = 'USER_ID'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'NAME'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'ROLE'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'ENTRY_DT'
+        DataType = ftUnknown
+      end    
+      item
+        Name = 'UPDATE_DT'
+        DataType = ftUnknown
+      end>
     Params = <>
     Macros = <>
     Left = 816

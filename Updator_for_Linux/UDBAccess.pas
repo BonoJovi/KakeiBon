@@ -5,7 +5,7 @@ unit UDBAccess;
 interface
 
 uses
-  Classes, SysUtils, SQLDB, SQLite3Conn, DB;
+  Classes, SysUtils, SQLDB, SQLite3Conn;
 
 const
   // UEntryAdmin

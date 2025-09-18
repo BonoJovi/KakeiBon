@@ -8,10 +8,14 @@ object FrmDeleteUser: TFrmDeleteUser
   ClientHeight = 499
   ClientWidth = 689
   Color = clWindowFrame
+  Font.CharSet = SHIFTJIS_CHARSET
   Font.Height = -21
-  Font.Name = '0xProto Nerd Font Mono'
-  Font.Style = [fsBold, fsItalic]
+  Font.Name = '0xProto'
+  Font.Pitch = fpVariable
+  Font.Quality = fqDraft
+  Font.Style = [fsBold]
   Position = poScreenCenter
+  LCLVersion = '4.2.0.0'
   OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
@@ -25,54 +29,63 @@ object FrmDeleteUser: TFrmDeleteUser
     Color = clWindow
     Columns = <    
       item
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
         Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
         Font.Style = [fsBold]
         Title.Caption = 'ユーザID'
         FieldName = 'USER_ID'
       end    
       item
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
         Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
         Font.Style = [fsBold]
         Title.Caption = 'ユーザ名'
         FieldName = 'NAME'
       end    
       item
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
         Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
         Font.Style = [fsBold]
         Title.Caption = '権限'
         Visible = False
         FieldName = 'ROLE'
       end    
       item
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
         Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
         Font.Style = [fsBold]
         Title.Caption = '登録日'
         FieldName = 'ENTRY_DT'
         DisplayFormat = 'yyyy"/"mm"/"dd hh":"nn":"ss'
       end    
       item
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
         Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
         Font.Style = [fsBold]
         Title.Caption = '更新日'
         FieldName = 'UPDATE_DT'
         DisplayFormat = 'yyyy"/"mm"/"dd hh":"nn":"ss'
       end>
     DataSource = ADS
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
     TabOrder = 0
     TabStop = False
-    OnEnter = ADBGridEnter
+    OnMouseDown = ADBGridMouseDown
+    OnSelectEditor = ADBGridSelectEditor
   end
   object ADBNavi: TDBNavi
     Left = 16
@@ -94,10 +107,8 @@ object FrmDeleteUser: TFrmDeleteUser
     TabOrder = 1
     TabStop = True
     VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
-    OnClick = ADBNaviClick
-    OnEnter = ADBNaviEnter
-    OnExit = ADBNaviExit
-    OnWMSetFocus = ADBNaviWMSetFocus
+    OnBtnClick = ADBNaviBtnClick
+    OnKeyUp = ADBNaviKeyUp
   end
   object Panel1: TPanel
     Left = 16
@@ -149,13 +160,6 @@ object FrmDeleteUser: TFrmDeleteUser
     Top = 232
     Width = 21
     Caption = 'ユ'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblUserId2: TLabel
     Left = 40
@@ -163,13 +167,6 @@ object FrmDeleteUser: TFrmDeleteUser
     Top = 232
     Width = 21
     Caption = 'ー'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblUserId3: TLabel
     Left = 64
@@ -177,57 +174,29 @@ object FrmDeleteUser: TFrmDeleteUser
     Top = 232
     Width = 21
     Caption = 'ザ'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblUserId4: TLabel
     Left = 88
     Height = 26
-    Top = 238
+    Top = 232
     Width = 13
     Caption = 'I'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblUserId5: TLabel
     Left = 104
     Height = 26
-    Top = 238
+    Top = 232
     Width = 13
     Caption = 'D'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object DBTextUserId: TDBText
     Left = 138
     Height = 26
-    Top = 238
+    Top = 232
     Width = 414
     AutoSize = False
     DataField = 'USER_ID'
     DataSource = ADS
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblName1: TLabel
     Left = 16
@@ -235,13 +204,6 @@ object FrmDeleteUser: TFrmDeleteUser
     Top = 272
     Width = 21
     Caption = 'ユ'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblName2: TLabel
     Left = 42
@@ -249,13 +211,6 @@ object FrmDeleteUser: TFrmDeleteUser
     Top = 272
     Width = 21
     Caption = 'ー'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblName3: TLabel
     Left = 68
@@ -263,13 +218,6 @@ object FrmDeleteUser: TFrmDeleteUser
     Top = 272
     Width = 21
     Caption = 'ザ'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblName4: TLabel
     Left = 94
@@ -277,29 +225,15 @@ object FrmDeleteUser: TFrmDeleteUser
     Top = 272
     Width = 21
     Caption = '名'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object DBTextName: TDBText
     Left = 138
     Height = 26
-    Top = 275
+    Top = 272
     Width = 414
     AutoSize = False
     DataField = 'NAME'
     DataSource = ADS
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblRole1: TLabel
     Left = 16
@@ -307,13 +241,6 @@ object FrmDeleteUser: TFrmDeleteUser
     Top = 312
     Width = 21
     Caption = '権'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblRole2: TLabel
     Left = 94
@@ -321,29 +248,15 @@ object FrmDeleteUser: TFrmDeleteUser
     Top = 312
     Width = 21
     Caption = '限'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object DBTextRole: TDBText
     Left = 138
     Height = 26
-    Top = 315
+    Top = 312
     Width = 414
     AutoSize = False
     DataField = 'ROLE'
     DataSource = ADS
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblEntryDT1: TLabel
     Left = 16
@@ -351,13 +264,6 @@ object FrmDeleteUser: TFrmDeleteUser
     Top = 352
     Width = 21
     Caption = '登'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblEntryDT2: TLabel
     Left = 55
@@ -365,13 +271,6 @@ object FrmDeleteUser: TFrmDeleteUser
     Top = 352
     Width = 21
     Caption = '録'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblEntryDT3: TLabel
     Left = 94
@@ -379,29 +278,15 @@ object FrmDeleteUser: TFrmDeleteUser
     Top = 352
     Width = 21
     Caption = '日'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object DBTextEntryDT: TDBText
     Left = 136
     Height = 26
-    Top = 355
+    Top = 352
     Width = 414
     AutoSize = False
     DataField = 'ENTRY_DT'
     DataSource = ADS
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblUpdateDT1: TLabel
     Left = 16
@@ -409,13 +294,6 @@ object FrmDeleteUser: TFrmDeleteUser
     Top = 392
     Width = 21
     Caption = '更'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblUpdateDT2: TLabel
     Left = 55
@@ -423,13 +301,6 @@ object FrmDeleteUser: TFrmDeleteUser
     Top = 392
     Width = 21
     Caption = '新'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblUpdateDT3: TLabel
     Left = 94
@@ -437,29 +308,15 @@ object FrmDeleteUser: TFrmDeleteUser
     Top = 392
     Width = 21
     Caption = '日'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object DBTextUpdateDT: TDBText
     Left = 138
     Height = 26
-    Top = 395
+    Top = 392
     Width = 414
     AutoSize = False
     DataField = 'UPDATE_DT'
     DataSource = ADS
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object PnlCancel: TPanel
     Left = 16
@@ -469,15 +326,8 @@ object FrmDeleteUser: TFrmDeleteUser
     Caption = 'キャンセル (CTRL+C)'
     Color = clActiveCaption
     Enabled = False
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     TabOrder = 6
   end
   object BtnCancel: TPanel
@@ -490,15 +340,8 @@ object FrmDeleteUser: TFrmDeleteUser
     BevelOuter = bvNone
     Caption = 'キャンセル (CTRL+C)'
     Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     ShowAccelChar = True
     TabOrder = 7
     TabStop = True
@@ -516,15 +359,8 @@ object FrmDeleteUser: TFrmDeleteUser
     Caption = '削　　　除 (CTRL+D)'
     Color = clActiveCaption
     Enabled = False
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     TabOrder = 8
   end
   object BtnDeleteUser: TPanel
@@ -537,15 +373,8 @@ object FrmDeleteUser: TFrmDeleteUser
     BevelOuter = bvNone
     Caption = '削　　　除 (CTRL+D)'
     Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     ShowAccelChar = True
     TabOrder = 9
     TabStop = True
@@ -587,6 +416,7 @@ object FrmDeleteUser: TFrmDeleteUser
   end
   object AQu: TSQLQuery
     FieldDefs = <>
+    AfterScroll = AQuAfterScroll
     Params = <>
     Macros = <>
     Left = 632

@@ -5,8 +5,8 @@
 interface
 
 uses
-  Classes, DateUtils, SysUtils, LazUTF8, SQLDB, SQLite3Conn, DB, Forms,
-  Controls, Graphics, Dialogs, StdCtrls, ExtCtrls, DBCtrls, DBGrids, LCLIntf,
+  Classes, Controls, DateUtils, SysUtils, LazUTF8, SQLDB, SQLite3Conn, DB,
+  Forms, Graphics, Dialogs, StdCtrls, ExtCtrls, DBCtrls, DBGrids, LCLIntf,
   LCLType, LMessages, ActnList, UDBNavi;
 
 type
@@ -14,6 +14,7 @@ type
   { TFrmEditUser }
 
   TFrmEditUser = class(TForm)
+    ADBNavi: TDBNavi;
     ADS                : TDataSource;
     AQu                : TSQLQuery;
     { ActionLists }
@@ -26,7 +27,6 @@ type
     ADBGrid            : TDBGrid;
     ADSUsers           : TDataSource;
     AQuUsers           : TSQLQuery;
-    ADBNavi: TDBNavi;
     LblUserID          : TLabel;
     DBTextUserID       : TDBText;
     LblFromUserName    : TLabel;
@@ -53,13 +53,14 @@ type
     PnlSave            : TPanel;
     BtnSave            : TPanel;
     Timer              : TTimer;
-    TimerDBNavi: TTimer;
     { DBGrid }
-    procedure ADBGridEnter(Sender: TObject);
-    procedure ADBNaviClick(Sender: TObject; Button: TDBNavButtonType);
-    procedure ADBNaviEnter(Sender: TObject);
-    procedure ADBNaviExit(Sender: TObject);
-    procedure ADBNaviWMSetFocus(Sender: TObject; HWndLostFocus: HWND);
+    procedure ADBGridMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure ADBGridSelectEditor(Sender: TObject; Column: TColumn;
+      var Editor: TWinControl);
+    procedure ADBNaviBtnClick(Sender: TObject; Index: TNavigateBtn);
+    procedure ADBNaviKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure AQuAfterScroll(DataSet: TDataSet);
     procedure FormActivate(Sender: TObject);
     { Proc }
     procedure ProcClearPaw(Sender: TObject);
@@ -99,20 +100,19 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure TimerDBNaviTimer(Sender: TObject);
     procedure TimerTimer(Sender: TObject);
   private
-    FTab              : Boolean;
-    FGuidePanels      : Array[0..3] of TPanel;
-    FCurrentComponent : TObject;
-    FUName            : String;
-    FPaw              : String;
-    //procedure UpdateActiveButtonStatus(Sender: TObject);
+    //FTab               : Boolean;
+    FGuidePanels       : Array[0..3] of TPanel;
+    FNavigateBtn       : TNavigateBtn;
+    FDBGridClicked     : Boolean;
+    FUName             : String;
+    FPaw               : String;
+    function CannotFocusedNavButton: Boolean;
     function CheckMultiFields(NameField: Boolean): String;
     function CheckSQuoteInPAW: Boolean;
     function CheckSQuoteInUName: Boolean;
   public
-    constructor Create(TheOwner: TComponent);
   end;
 
 var
@@ -126,10 +126,15 @@ uses
 
 { TFrmEditUser }
 
-constructor TFrmEditUser.Create(TheOwner: TComponent);
+function TFrmEditUser.CannotFocusedNavButton: Boolean;
 begin
-  Inherited Create(TheOwner);
-  FTab := True;
+  with AQu do begin
+    if Active then begin
+      Result := RecordCount = 0;
+    end else begin
+      Result := True;
+    end;
+  end;
 end;
 
 function TFrmEditUser.CheckMultiFields(NameField: Boolean): String;
@@ -239,7 +244,6 @@ begin
   Shape1.Visible    := True;
 
   Timer.Enabled     := True;
-  FCurrentComponent := Sender;
 end;
 
 procedure TFrmEditUser.EdtToUserNameExit(Sender: TObject);
@@ -247,7 +251,6 @@ begin
   Shape1.Visible := False;
 
   Timer.Enabled     := True;
-  FCurrentComponent := Sender;
 end;
 
 procedure TFrmEditUser.EdtPawChange(Sender: TObject);
@@ -269,7 +272,6 @@ begin
   Shape2.Visible    := True;
 
   Timer.Enabled     := True;
-  FCurrentComponent := Sender;
 end;
 
 procedure TFrmEditUser.EdtPawExit(Sender: TObject);
@@ -277,7 +279,6 @@ begin
   Shape2.Visible := False;
 
   Timer.Enabled     := True;
-  FCurrentComponent := Sender;
 end;
 
 procedure TFrmEditUser.EdtPawConfirmChange(Sender: TObject);
@@ -297,7 +298,6 @@ begin
   Shape3.Visible    := True;
 
   Timer.Enabled     := True;
-  FCurrentComponent := Sender;
 end;
 
 procedure TFrmEditUser.EdtPawConfirmExit(Sender: TObject);
@@ -305,13 +305,11 @@ begin
   Shape3.Visible := False;
 
   Timer.Enabled     := True;
-  FCurrentComponent := Sender;
 end;
 
 procedure TFrmEditUser.ProcCancel(Sender: TObject);
 begin
-  FrmManageUser.Visible := True;
-  FrmEditUser.close;
+  Self.close;
 end;
 
 procedure TFrmEditUser.ActCancelExecute(Sender: TObject);
@@ -415,6 +413,7 @@ begin
 
             LFieldAndValue := LRet + ', UPDATE_DT = datetime(''Now'', ''+9 hours'')';
 
+            CloseQuery(AQu);
             with AQu do begin
               SQL.Text    := LSQL.Replace(':pFieldAndValue', LFieldAndValue);
               ExecSQL;
@@ -431,7 +430,7 @@ begin
               end;
             end;
           end;
-          FrmEditUser.Close;
+          Self.Close;
         except
           on E: ESQLDatabaseError do begin
             ShowMessage(E.Message);
@@ -467,7 +466,6 @@ begin
   SaveMouseOver(clBtnFace);
 
   Timer.Enabled     := True;
-  FCurrentComponent := Sender;
 end;
 
 procedure TFrmEditUser.BtnClearPawExit(Sender: TObject);
@@ -475,7 +473,6 @@ begin
   ClearPawMouseOver(clBtnFace);
 
   Timer.Enabled     := True;
-  FCurrentComponent := Sender;
 end;
 
 procedure TFrmEditUser.CancelMouseOver(NewColor: TColor);
@@ -490,7 +487,6 @@ begin
   SaveMouseOver(clBtnFace);
 
   Timer.Enabled     := True;
-  FCurrentComponent := Sender;
 end;
 
 procedure TFrmEditUser.BtnCancelExit(Sender: TObject);
@@ -498,7 +494,6 @@ begin
   CancelMouseOver(clBtnFace);
 
   Timer.Enabled     := True;
-  FCurrentComponent := Sender;
 end;
 
 procedure TFrmEditUser.SaveMouseOver(NewColor: TColor);
@@ -513,7 +508,6 @@ begin
   SaveMouseOver(clSkyBlue);
 
   Timer.Enabled     := True;
-  FCurrentComponent := Sender;
 end;
 
 procedure TFrmEditUser.BtnSaveExit(Sender: TObject);
@@ -521,66 +515,71 @@ begin
   SaveMouseOver(clBtnFace);
 
   Timer.Enabled     := True;
-  FCurrentComponent := Sender;
 end;
 
-procedure TFrmEditUser.ADBGridEnter(Sender: TObject);
-var
-  LEdit  : TEdit;
-  LPanel : TPanel;
+procedure TFrmEditUser.ADBGridMouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
 begin
-  if FCurrentComponent is TEdit then begin
-    LEdit := FCurrentComponent as TEdit;
-    LEdit.SetFocus;
-  end else if FCurrentComponent is TPanel then begin
-    LPanel := FCurrentComponent as TPanel;
-    LPanel.SetFocus;
+  if Not FDBGridClicked then begin
+    FDBGridClicked := True;
+    ADBGridSelectEditor(
+      Sender, ADBGrid.LastColumn, TWinControl(ADBGrid));
+
+    ADBNavi.SetFocus;
+    ADBNavi.FindNextControl(ADBNavi, True, True, True).SetFocus;
+
+    Abort;
   end;
 end;
 
-procedure TFrmEditUser.ADBNaviClick(Sender: TObject; Button: TDBNavButtonType);
+procedure TFrmEditUser.ADBGridSelectEditor(Sender: TObject; Column: TColumn;
+  var Editor: TWinControl);
 begin
-  with CommonDB do begin
-    with Defs do begin
-      if (Button = nbFirst) or (Button = nbPrior) then begin
-        if AQu.RecNo = 1  then begin
-          AQu.First;
-          BtnSave.SetFocus;
-        end;
-      end else if (Button = nbNext) Or (Button = nbLast) then begin
-        if AQu.RecNo = AQu.RecordCount  then begin
-          AQu.Last;
-          EdtToUserName.SetFocus;
-        end;
+  ADBGrid.AutoAdjustColumns;
+end;
+
+procedure TFrmEditUser.ADBNaviBtnClick(Sender: TObject; Index: TNavigateBtn);
+begin
+  FNavigateBtn := Index;
+end;
+
+procedure TFrmEditUser.ADBNaviKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_TAB) And (ssShift in Shift) then begin
+    BtnSave.SetFocus;
+  end else if (Key = VK_TAB) then begin
+    if Screen.ActiveControl is TDBNavi then begin
+      if CannotFocusedNavButton then begin
+        EdtToUserName.SetFocus;
+      end else begin
+        ADBNavi.FindNextControl(ADBNavi, True, True, True).SetFocus;
       end;
     end;
   end;
 end;
 
-procedure TFrmEditUser.ADBNaviEnter(Sender: TObject);
+procedure TFrmEditUser.AQuAfterScroll(DataSet: TDataSet);
 begin
-  Timer.Enabled := True;
-end;
-
-procedure TFrmEditUser.ADBNaviExit(Sender: TObject);
-begin
-  Timer.Enabled := True;
-end;
-
-procedure TFrmEditUser.ADBNaviWMSetFocus(Sender: TObject; HWndLostFocus: HWND);
-begin
-  if FTab then begin
-    try
-      if Screen.ActiveControl is TDBNavi then begin
-        TWinControl(TDBNavi(Screen.ActiveControl).FindNextControl(Screen.ActiveControl, True, True, True)).SetFocus;
-      end;
-    except
-      on E: Exception do begin
+  case FNavigateBtn of
+  nbFirst:
+    if AQu.RecordCount > 0 then begin
+      ADBNavi.FindNextControl(ADBNavi, True, True, True).SetFocus;
+    end;
+  nbPrior:
+    if AQu.RecNo <= 1 then begin
+      ADBNavi.FindNextControl(ADBNavi, True, True, True).SetFocus;
+    end;
+  nbNext:
+    begin
+      if AQu.RecNo = AQu.RecordCount then begin
+        ADBNavi.FindNextControl(ADBNavi, False, True, True).SetFocus;
       end;
     end;
+  nbLast: ADBNavi.FindNextControl(ADBNavi, False, True, True).SetFocus;
   end;
 
-  TimerDBNavi.Enabled := True;
+  Timer.Enabled := True;
 end;
 
 procedure TFrmEditUser.FormClose(Sender: TObject;
@@ -592,7 +591,9 @@ begin
   end;
 
   with Defs do begin
-    FrmManageUser := TFrmManageUser.Create(Application);
+    if (Not Assigned(FrmManageUser)) Or (FrmManageUser = nil) then begin
+      FrmManageUser := TFrmManageUser.Create(Application);
+    end;
     if GetChangedUserDef = False then begin
       FrmManageUser.Visible     := True;
     end else begin
@@ -614,27 +615,30 @@ begin
     end;
   end;
 
-  FGuidePanels[0] := Panel1;
-  FGuidePanels[1] := Panel2;
-  FGuidePanels[2] := Panel3;
-  FGuidePanels[3] := Panel4;
+  FDBGridClicked     := False;
+
+  //FTab               := FTAB_UNDEFINED;
+
+  FGuidePanels[0]    := Panel1;
+  FGuidePanels[1]    := Panel2;
+  FGuidePanels[2]    := Panel3;
+  FGuidePanels[3]    := Panel4;
 end;
 
 procedure TFrmEditUser.FormShow(Sender: TObject);
 begin
-  FrmEditUser.Width      := 658;
-  FrmEditUser.Width  := 667;
+  Self.Width             := 667;
 
-  FrmEditUser.KeyPreview := True;
+  Self.KeyPreview        := True;
 
-  FrmEditUser.Color  := RGB(112, 168, 175);
-  PnlClearPaw.Color  := RGB( 72, 122, 129);
-  PnlCancel.Color    := RGB( 72, 122, 129);
-  PnlSave.Color      := RGB( 72, 122, 129);
-  LblInfo.Font.Color := RGB(255,   0,   0);
+  Self.Color             := RGB(112, 168, 175);
+  PnlClearPaw.Color      := RGB( 72, 122, 129);
+  PnlCancel.Color        := RGB( 72, 122, 129);
+  PnlSave.Color          := RGB( 72, 122, 129);
+  LblInfo.Font.Color     := RGB(255,   0,   0);
 
   { Debug }
-  //FrmEditUser.Width      := 819;
+  //Self.Width      := 819;
 end;
 
 procedure TFrmEditUser.FormActivate(Sender: TObject);
@@ -647,15 +651,24 @@ begin
             SQLConnection  := ACn;
             SQLTransaction := ATr;
 
-            SQL.Text   := SQL_20040002;
-            with Params do begin
-              ParamByName('pRole').AsInteger    := ROLE_USER;
-              ParamByName('pName').AsAnsiString := GetUName;
+            if GetRole = ROLE_ADMIN then begin
+              SQL.Text   := SQL_20040001;
+              with Params do begin
+                ParamByName('pRole').AsInteger    := ROLE_USER;
+              end;
+            end else begin
+              SQL.Text   := SQL_20040002;
+              with Params do begin
+                ParamByName('pRole').AsInteger    := ROLE_USER;
+                ParamByName('pName').AsAnsiString := GetUName;
+              end;
             end;
             Open;
           end;
         end;
       end;
+
+      EdtToUserName.SetFocus;
     except
       on E: ESQLDatabaseError do begin
         ShowMessage(E.Message);
@@ -676,23 +689,7 @@ end;
 procedure TFrmEditUser.FormKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  if (Key = VK_TAB) And (ssShift in Shift) then begin
-    FTab := False;
-  end else begin
-    FTab := True;
-    if Screen.ActiveControl is TDBNavi then begin
-      ADBNaviWMSetFocus(ADBNavi, ADBNavi.Handle);
-    end;
-  end;
-
-  if (Key = VK_TAB) AND (ssShift in Shift) then begin
-    if Screen.ActiveControl is TDBNavi then begin
-      BtnSave.SetFocus;
-    end;
-    Timer.Enabled := True;
-  end else begin
-    Timer.Enabled := True;
-  end;
+  Timer.Enabled := True;
 
   if (Key = VK_SPACE) Or (Key = VK_RETURN) then begin
     if ActiveControl.Name = 'BtnClearPaw' then begin
@@ -701,22 +698,6 @@ begin
       ActCancel.Execute;
     end else if ActiveControl.Name = 'BtnSave' then begin
       ActSave.Execute;
-    end;
-  end;
-end;
-
-procedure TFrmEditUser.TimerDBNaviTimer(Sender: TObject);
-begin
-  TimerDBNavi.Enabled := False;
-
-  if FTab then begin
-    try
-      if Screen.ActiveControl is TDBNavi then begin
-        TWinControl(TDBNavi(Screen.ActiveControl).FindNextControl(Screen.ActiveControl, True, True, True)).SetFocus;
-      end;
-    except
-      on E: Exception do begin
-      end;
     end;
   end;
 end;

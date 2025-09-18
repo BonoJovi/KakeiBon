@@ -8,8 +8,11 @@ object FrmSummary: TFrmSummary
   ClientHeight = 546
   ClientWidth = 1000
   Color = clWindowFrame
+  Font.CharSet = SHIFTJIS_CHARSET
   Font.Height = -21
   Font.Name = '0xProto'
+  Font.Pitch = fpVariable
+  Font.Quality = fqDraft
   Font.Style = [fsBold]
   Position = poScreenCenter
   OnActivate = FormActivate
@@ -17,7 +20,7 @@ object FrmSummary: TFrmSummary
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp
   OnShow = FormShow
-  object DBGrid1: TDBGrid
+  object ADBGrid: TDBGrid
     Left = 16
     Height = 456
     Top = 16
@@ -54,11 +57,7 @@ object FrmSummary: TFrmSummary
         FieldName = 'PER'
         DisplayFormat = '#,##0.00'
       end>
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     Options = [dgTitles, dgIndicator, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete]
-    ParentFont = False
     TabOrder = 0
     TabStop = False
   end
@@ -71,12 +70,8 @@ object FrmSummary: TFrmSummary
     Caption = '前の画面に戻る (CTRL+Q)'
     Color = clActiveCaption
     Enabled = False
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     TabOrder = 1
   end
   object BtnGoBack: TPanel
@@ -90,12 +85,8 @@ object FrmSummary: TFrmSummary
     BevelOuter = bvNone
     Caption = '前の画面に戻る (CTRL+Q)'
     Color = clBtnFace
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     ShowAccelChar = True
     TabOrder = 2
     TabStop = True

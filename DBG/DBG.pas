@@ -2,21 +2,21 @@
   This source is only used to compile and install the package.
  }
 
-unit DBNavi;
+unit DBG;
 
 {$warn 5023 off : no warning about unused units}
 interface
 
 uses
-  UDBNavi, LazarusPackageIntf;
+  UDBG, LazarusPackageIntf;
 
 implementation
 
 procedure Register;
 begin
-  RegisterUnit('UDBNavi', @UDBNavi.Register);
+  RegisterUnit('UDBG', @UDBG.Register);
 end;
 
 initialization
-  RegisterPackage('DBNavi', @Register);
+  RegisterPackage('DBG', @Register);
 end.

@@ -24,7 +24,6 @@ type
     ActGoBack        : TAction;
     ActRemoveUser    : TAction;
     ADataSet         : TDataSet;
-    ADBGrid          : TDBGrid;
     ADSByCount       : TDataSource;
     AQuByCount       : TSQLQuery;
     BtnAddUser       : TPanel;
@@ -32,6 +31,7 @@ type
     BtnDeleteUser    : TPanel;
     BtnEditAdminUser : TPanel;
     BtnGoBack        : TPanel;
+    ADBGrid: TDBGrid;
     PnlAddUser       : TPanel;
     PnlEditAdminUser : TPanel;
     PnlEditUser      : TPanel;
@@ -78,7 +78,6 @@ type
     procedure EnableButton(
       AddUser, EditUser, RemoveUser, EditAdminUser: Boolean);
     procedure OpenFormOrMsgDlg(Sender: TForm);
-    property GoBack: Boolean read GetGoBack write SetGoBack;
   public
   published
   end;
@@ -161,7 +160,7 @@ begin
     end;
   end;
 
-  FrmManageUser.Visible := False;
+  Self.Visible := False;
 
   Sender.Show;
 end;
@@ -364,19 +363,18 @@ begin
     end;
   end;
 
+  FrmTopMenu.Visible := False;
+
   SetGoBack(True);
 end;
 
 procedure TFrmManageUser.FormShow(Sender: TObject);
-var
-  LColumn : TColumn;
-  LFields  : TStringList;
 begin
-  FrmManageUser.Width      := 710;
+  Self.Width             := 710;
 
-  FrmManageUser.KeyPreview := True;
+  Self.KeyPreview        := True;
 
-  FrmManageUser.Color    := RGB(112, 168, 175);
+  Self.Color             := RGB(112, 168, 175);
   PnlAddUser.Color       := RGB( 72, 122, 129);
   PnlEditUser.Color      := RGB( 72, 122, 129);
   PnlRemoveUser.Color    := RGB( 72, 122, 129);
@@ -384,7 +382,7 @@ begin
   PnlGoBack.Color        := RGB( 72, 122, 129);
 
   { Debug }
-  //FrmManageUser.Width      := 890;
+  //Self.Width      := 890;
 end;
 
 procedure TFrmManageUser.FormActivate(Sender: TObject);
@@ -437,7 +435,7 @@ end;
 procedure TFrmManageUser.TimerTimer(Sender: TObject);
 begin
   if ChngdAdmUserFlg then begin
-    FrmManageUser.Close;
+    Self.Close;
   end;
 end;
 

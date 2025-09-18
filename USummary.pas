@@ -16,10 +16,10 @@ type
     ADS        : TDataSource;
     AQu        : TSQLQuery;
     ActionList : TActionList;
-    ActGoBack    : TAction;
-    DBGrid1    : TDBGrid;
-    BtnGoBack: TPanel;
-    PnlGoBack: TPanel;
+    ActGoBack  : TAction;
+    ADBGrid    : TDBGrid;
+    BtnGoBack  : TPanel;
+    PnlGoBack  : TPanel;
     procedure FormActivate(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure GoBackMouseOver(NewColor: TColor);
@@ -92,7 +92,7 @@ end;
 
 procedure TFrmSummary.FormShow(Sender: TObject);
 begin
-  FrmSummary.KeyPreview := True;
+  Self.KeyPreview := True;
 end;
 
 procedure TFrmSummary.FormActivate(Sender: TObject);
@@ -113,18 +113,18 @@ begin
         end;
         Open;
 
-        DBGrid1.DataSource := ADS;
-        DBGrid1.AutoAdjustColumns;
-        for i := 0 to DBGrid1.Columns.VisibleCount - 1 do begin
-          LWidth           := LWidth + DBGrid1.Columns.Items[i].Width + 6;
+        ADBGrid.DataSource := ADS;
+        ADBGrid.AutoAdjustColumns;
+        for i := 0 to ADBGrid.Columns.VisibleCount - 1 do begin
+          LWidth           := LWidth + ADBGrid.Columns.Items[i].Width + 6;
         end;
-        FrmSummary.Width   := LWidth + 16 + 16;
+        Self.Width   := LWidth + 16 + 16;
       end;
     end;
   end;
 
-  LLeftPos := Trunc((Screen.Width - FrmSummary.Width) / 2);
-  FrmSummary.Left := LLeftPos;
+  LLeftPos := Trunc((Screen.Width - Self.Width) / 2);
+  Self.Left := LLeftPos;
 end;
 
 procedure TFrmSummary.FormKeyUp(Sender: TObject; var Key: Word;

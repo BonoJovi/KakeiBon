@@ -8,6 +8,9 @@ uses
   Classes, SysUtils;
 
 const
+  SQL_10000000_SEL = 'SELECT NAME FROM SQLITE_MASTER WHERE TYPE=''view''' +
+                     'AND NAME = ''BRAND_VIEW''';
+  SQL_10000000_DRP = 'DROP VIEW BRAND_VIEW';
   SQL_10000001_NEW = 'CREATE TABLE USERS_NEW(' +
                      'USER_ID INTEGER NOT NULL, ' +
                      'NAME VARCHAR(128) NOT NULL UNIQUE, ' +

@@ -14,7 +14,7 @@ uses
   UEditAdmUser, UEditDetail, UEditDetailsHeader, UEditUser,
   UEntryAccount, UEntryAdmin, UEntryBrandName, UEntryMaker, UEntryShop,
   UEntryUnit, ULogin, UManageDetails, UManageExp, UManageUser, UDeleteUser,
-  UTopMenu, UConsts, USummary, UCommonDB;
+  UTopMenu, UConsts, USummary, UCommonDB, UDBG, UDBNavi;
 
 {$R *.res}
 

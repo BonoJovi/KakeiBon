@@ -8,7 +8,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
   ClientHeight = 642
   ClientWidth = 807
   Color = clWindowFrame
-  Font.CharSet = ANSI_CHARSET
+  Font.CharSet = SHIFTJIS_CHARSET
   Font.Height = -21
   Font.Name = '0xProto'
   Font.Pitch = fpVariable
@@ -29,7 +29,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
     Color = clWindow
     Columns = <    
       item
-        Font.CharSet = ANSI_CHARSET
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
         Font.Name = '0xProto'
         Font.Pitch = fpVariable
@@ -40,7 +40,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
         FieldName = 'USER_ID'
       end    
       item
-        Font.CharSet = ANSI_CHARSET
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
         Font.Name = '0xProto'
         Font.Pitch = fpVariable
@@ -51,7 +51,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
         FieldName = 'NAME'
       end    
       item
-        Font.CharSet = ANSI_CHARSET
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
         Font.Name = '0xProto'
         Font.Pitch = fpVariable
@@ -62,7 +62,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
         FieldName = 'ROLE'
       end    
       item
-        Font.CharSet = ANSI_CHARSET
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
         Font.Name = '0xProto'
         Font.Pitch = fpVariable
@@ -73,7 +73,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
         FieldName = 'ENTRY_DT'
       end    
       item
-        Font.CharSet = ANSI_CHARSET
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
         Font.Name = '0xProto'
         Font.Pitch = fpVariable
@@ -88,6 +88,31 @@ object FrmEditAdmUser: TFrmEditAdmUser
     TabOrder = 0
     TabStop = False
     OnEnter = ADBGridEnter
+  end
+  object ADBNavi: TDBNavi
+    Left = 16
+    Height = 26
+    Top = 152
+    Width = 633
+    BevelOuter = bvNone
+    ChildSizing.HorizontalSpacing = 5
+    ChildSizing.EnlargeHorizontal = crsScaleChilds
+    ChildSizing.EnlargeVertical = crsScaleChilds
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 100
+    ClientHeight = 26
+    ClientWidth = 633
+    DataSource = ADS
+    Options = [navFocusableButtons]
+    TabOrder = 1
+    TabStop = True
+    VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
+    OnClick = ADBNaviClick
+    OnEnter = ADBNaviEnter
+    OnExit = ADBNaviExit
+    OnWMSetFocus = ADBNaviWMSetFocus
   end
   object Panel1: TPanel
     Left = 16
@@ -139,13 +164,6 @@ object FrmEditAdmUser: TFrmEditAdmUser
     Top = 194
     Width = 152
     Caption = '管理者ユーザID'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object DBTextUserID: TDBText
     Left = 241
@@ -155,76 +173,41 @@ object FrmEditAdmUser: TFrmEditAdmUser
     AutoSize = False
     DataField = 'USER_ID'
     DataSource = ADS
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblFromUserName: TLabel
     Left = 16
     Height = 32
-    Top = 234
+    Top = 248
     Width = 207
     Caption = '管理者ユーザ名 (旧)'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object DBTextFromUserName: TDBText
     Left = 240
     Height = 26
-    Top = 236
+    Top = 250
     Width = 408
     AutoSize = False
     DataField = 'NAME'
     DataSource = ADS
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblUserName: TLabel
     Left = 345
     Height = 32
-    Top = 264
+    Top = 278
     Width = 21
     Caption = '↓'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblToUserName: TLabel
     Left = 16
     Height = 32
-    Top = 312
+    Top = 322
     Width = 207
     Caption = '管理者ユーザ名 (新)'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object Shape1: TShape
     Left = 240
     Height = 16
-    Top = 320
+    Top = 329
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -237,15 +220,8 @@ object FrmEditAdmUser: TFrmEditAdmUser
     Cursor = crIBeam
     Left = 265
     Height = 49
-    Top = 304
+    Top = 318
     Width = 384
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
     TabOrder = 6
     OnChange = EdtToUserNameChange
     OnEnter = EdtToUserNameEnter
@@ -254,21 +230,14 @@ object FrmEditAdmUser: TFrmEditAdmUser
   object LblPaw: TLabel
     Left = 16
     Height = 32
-    Top = 369
+    Top = 379
     Width = 105
     Caption = 'パスワード'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object Shape2: TShape
     Left = 240
     Height = 16
-    Top = 377
+    Top = 386
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -281,16 +250,9 @@ object FrmEditAdmUser: TFrmEditAdmUser
     Cursor = crIBeam
     Left = 265
     Height = 49
-    Top = 361
+    Top = 375
     Width = 384
     EchoMode = emNone
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
     PasswordChar = ' '
     TabOrder = 7
     OnChange = EdtPawChange
@@ -300,21 +262,14 @@ object FrmEditAdmUser: TFrmEditAdmUser
   object LblPawConfirm: TLabel
     Left = 16
     Height = 32
-    Top = 426
+    Top = 436
     Width = 173
     Caption = 'パスワード(確認)'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object Shape3: TShape
     Left = 240
     Height = 16
-    Top = 434
+    Top = 443
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -327,16 +282,9 @@ object FrmEditAdmUser: TFrmEditAdmUser
     Cursor = crIBeam
     Left = 264
     Height = 49
-    Top = 418
+    Top = 432
     Width = 385
     EchoMode = emNone
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
     PasswordChar = ' '
     TabOrder = 8
     OnChange = EdtPawConfirmChange
@@ -349,14 +297,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
     Top = 475
     Width = 334
     Caption = '変更する項目だけ入力してください'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentColor = False
-    ParentFont = False
   end
   object PnlClearPaw: TPanel
     Left = 16
@@ -365,15 +306,8 @@ object FrmEditAdmUser: TFrmEditAdmUser
     Width = 632
     Caption = 'パスワードをクリア (CTRL+X)'
     Color = clActiveCaption
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     TabOrder = 9
   end
   object BtnClearPaw: TPanel
@@ -386,15 +320,8 @@ object FrmEditAdmUser: TFrmEditAdmUser
     BevelOuter = bvNone
     Caption = 'パスワードをクリア (CTRL+X)'
     Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     ShowAccelChar = True
     TabOrder = 10
     TabStop = True
@@ -411,15 +338,8 @@ object FrmEditAdmUser: TFrmEditAdmUser
     Width = 311
     Caption = 'キャンセル (CTRL+C)'
     Color = clActiveCaption
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     TabOrder = 11
   end
   object BtnCancel: TPanel
@@ -432,15 +352,8 @@ object FrmEditAdmUser: TFrmEditAdmUser
     BevelOuter = bvNone
     Caption = 'キャンセル (CTRL+C)'
     Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     ShowAccelChar = True
     TabOrder = 12
     TabStop = True
@@ -457,15 +370,8 @@ object FrmEditAdmUser: TFrmEditAdmUser
     Width = 312
     Caption = '保　　　存 (CTRL+S)'
     Color = clActiveCaption
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     TabOrder = 13
   end
   object BtnSave: TPanel
@@ -478,15 +384,8 @@ object FrmEditAdmUser: TFrmEditAdmUser
     BevelOuter = bvNone
     Caption = '保　　　存 (CTRL+S)'
     Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     ShowAccelChar = True
     TabOrder = 14
     TabStop = True
@@ -495,31 +394,6 @@ object FrmEditAdmUser: TFrmEditAdmUser
     OnExit = BtnSaveExit
     OnMouseEnter = BtnSaveEnter
     OnMouseLeave = BtnSaveExit
-  end
-  object ADBNavi: TDBNavi
-    Left = 16
-    Height = 26
-    Top = 152
-    Width = 633
-    BevelOuter = bvNone
-    ChildSizing.HorizontalSpacing = 5
-    ChildSizing.EnlargeHorizontal = crsScaleChilds
-    ChildSizing.EnlargeVertical = crsScaleChilds
-    ChildSizing.ShrinkHorizontal = crsScaleChilds
-    ChildSizing.ShrinkVertical = crsScaleChilds
-    ChildSizing.Layout = cclLeftToRightThenTopToBottom
-    ChildSizing.ControlsPerLine = 100
-    ClientHeight = 26
-    ClientWidth = 633
-    DataSource = ADS
-    Options = [navFocusableButtons]
-    TabOrder = 1
-    TabStop = True
-    VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
-    OnClick = ADBNaviClick
-    OnEnter = ADBNaviEnter
-    OnExit = ADBNaviExit
-    OnWMSetFocus = ADBNaviWMSetFocus
   end
   object ActionList: TActionList
     Left = 680
