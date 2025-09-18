@@ -1393,7 +1393,7 @@ begin
   PnlGoBack.Color         := RGB( 72, 122, 129);
 
   { Debug }
-  Self.Width := 1212;
+  //Self.Width := 1212;
 end;
 
 procedure TFrmEditDetail.FormActivate(Sender: TObject);

@@ -75,7 +75,7 @@ object FrmTopMenu: TFrmTopMenu
           Cursor = crCross
           Left = 98
           Height = 40
-          Top = 3
+          Top = 0
           Width = 215
           BevelColor = clNone
           BevelOuter = bvNone
@@ -94,7 +94,7 @@ object FrmTopMenu: TFrmTopMenu
             Cursor = crCross
             Left = 0
             Height = 40
-            Top = 1
+            Top = 2
             Width = 24
             BevelColor = clNone
             BevelOuter = bvNone
@@ -113,7 +113,7 @@ object FrmTopMenu: TFrmTopMenu
             Cursor = crCross
             Left = 52
             Height = 40
-            Top = 1
+            Top = 2
             Width = 24
             BevelColor = clNone
             BevelOuter = bvNone
@@ -132,7 +132,7 @@ object FrmTopMenu: TFrmTopMenu
             Cursor = crCross
             Left = 104
             Height = 40
-            Top = 1
+            Top = 2
             Width = 24
             BevelColor = clNone
             BevelOuter = bvNone
@@ -151,7 +151,7 @@ object FrmTopMenu: TFrmTopMenu
             Cursor = crCross
             Left = 144
             Height = 40
-            Top = 1
+            Top = 2
             Width = 24
             BevelColor = clNone
             BevelOuter = bvNone
@@ -170,7 +170,7 @@ object FrmTopMenu: TFrmTopMenu
             Cursor = crCross
             Left = 184
             Height = 40
-            Top = 1
+            Top = 2
             Width = 24
             BevelColor = clNone
             BevelOuter = bvNone
@@ -241,7 +241,7 @@ object FrmTopMenu: TFrmTopMenu
           Cursor = crCross
           Left = 98
           Height = 40
-          Top = 3
+          Top = 0
           Width = 215
           BevelColor = clNone
           BevelOuter = bvNone
@@ -353,7 +353,7 @@ object FrmTopMenu: TFrmTopMenu
           Cursor = crCross
           Left = 98
           Height = 40
-          Top = 3
+          Top = 0
           Width = 215
           BevelColor = clNone
           BevelOuter = bvNone
@@ -506,7 +506,7 @@ object FrmTopMenu: TFrmTopMenu
           Cursor = crCross
           Left = 98
           Height = 40
-          Top = 3
+          Top = 0
           Width = 215
           BevelColor = clNone
           BevelOuter = bvNone
@@ -790,7 +790,7 @@ object FrmTopMenu: TFrmTopMenu
           Cursor = crCross
           Left = 98
           Height = 40
-          Top = 3
+          Top = 0
           Width = 215
           BevelColor = clNone
           BevelOuter = bvNone
@@ -943,7 +943,7 @@ object FrmTopMenu: TFrmTopMenu
           Cursor = crCross
           Left = 98
           Height = 40
-          Top = 3
+          Top = 0
           Width = 215
           BevelColor = clNone
           BevelOuter = bvNone
@@ -962,7 +962,7 @@ object FrmTopMenu: TFrmTopMenu
             Cursor = crCross
             Left = 0
             Height = 34
-            Top = 3
+            Top = 6
             Width = 16
             BevelColor = clNone
             BevelOuter = bvNone
@@ -981,7 +981,7 @@ object FrmTopMenu: TFrmTopMenu
             Cursor = crCross
             Left = 15
             Height = 34
-            Top = 3
+            Top = 6
             Width = 16
             BevelColor = clNone
             BevelOuter = bvNone
@@ -1000,7 +1000,7 @@ object FrmTopMenu: TFrmTopMenu
             Cursor = crCross
             Left = 30
             Height = 34
-            Top = 3
+            Top = 6
             Width = 16
             BevelColor = clNone
             BevelOuter = bvNone
@@ -1019,7 +1019,7 @@ object FrmTopMenu: TFrmTopMenu
             Cursor = crCross
             Left = 45
             Height = 34
-            Top = 3
+            Top = 6
             Width = 16
             BevelColor = clNone
             BevelOuter = bvNone
@@ -1038,7 +1038,7 @@ object FrmTopMenu: TFrmTopMenu
             Cursor = crCross
             Left = 60
             Height = 34
-            Top = 3
+            Top = 6
             Width = 16
             BevelColor = clNone
             BevelOuter = bvNone
@@ -1057,7 +1057,7 @@ object FrmTopMenu: TFrmTopMenu
             Cursor = crCross
             Left = 75
             Height = 34
-            Top = 3
+            Top = 6
             Width = 16
             BevelColor = clNone
             BevelOuter = bvNone
@@ -1076,7 +1076,7 @@ object FrmTopMenu: TFrmTopMenu
             Cursor = crCross
             Left = 90
             Height = 34
-            Top = 3
+            Top = 6
             Width = 16
             BevelColor = clNone
             BevelOuter = bvNone
@@ -1095,7 +1095,7 @@ object FrmTopMenu: TFrmTopMenu
             Cursor = crCross
             Left = 105
             Height = 34
-            Top = 3
+            Top = 6
             Width = 16
             BevelColor = clNone
             BevelOuter = bvNone
