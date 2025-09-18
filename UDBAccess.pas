@@ -176,13 +176,13 @@ const
                  'PRIMARY KEY(USER_ID, TAX_RATE_ID))';
   SQL_10000027 = 'CREATE UNIQUE INDEX TAX_RATE_ID_idx ON ' +
                  'TAX_RATE(USER_ID, TAX_RATE_ID)';
-  SQL_10000028 = 'CREATE VIEW BRAND_VIEW (USER_ID, MAKER_ID, MAKER_NAME, ' +
-                 'BRAND_NAME_ID, BRAND_NAME, END_OF_SALES, DISABLED, ' +
-                 'ENTRY_DT, UPDATE_DT) AS SELECT B.USER_ID, B.MAKER_ID, ' +
-                 'M.MAKER_NAME, B.BRAND_NAME_ID, B.BRAND_NAME, ' +
-                 'B.END_OF_SALES, B.DISABLED, B.ENTRY_DT, B.UPDATE_DT FROM ' +
-                 'BRAND B LEFT OUTER JOIN MAKER M ON M.USER_ID = B.USER_ID ' +
-                 'AND M.MAKER_ID = B.MAKER_ID';
+  //SQL_10000028 = 'CREATE VIEW BRAND_VIEW (USER_ID, MAKER_ID, MAKER_NAME, ' +
+  //               'BRAND_NAME_ID, BRAND_NAME, END_OF_SALES, DISABLED, ' +
+  //               'ENTRY_DT, UPDATE_DT) AS SELECT B.USER_ID, B.MAKER_ID, ' +
+  //               'M.MAKER_NAME, B.BRAND_NAME_ID, B.BRAND_NAME, ' +
+  //               'B.END_OF_SALES, B.DISABLED, B.ENTRY_DT, B.UPDATE_DT FROM ' +
+  //               'BRAND B LEFT OUTER JOIN MAKER M ON M.USER_ID = B.USER_ID ' +
+  //               'AND M.MAKER_ID = B.MAKER_ID';
   SQL_10000029 = 'SELECT COUNT(*) AS COUNT FROM sqlite_master WHERE TYPE = ' +
                  '''table'' AND NAME = ''USERS''';
   // ULogin
@@ -299,9 +299,8 @@ const
 
   // UEntryShop
   SQL_20080001 = 'SELECT * FROM SHOP WHERE USER_ID = :pUserID';
-  SQL_20080002 = 'SELECT SHOP_ID, SHOP_NAME, PHONE_NUM, START_BUSINESS_DT, ' +
-                 'END_BUSINESS_DT, DISABLED, ENTRY_DT, UPDATE_DT FROM SHOP ' +
-                 'WHERE USER_ID = :pUserID ORDER BY SHOP_NAME ASC';
+  SQL_20080002 = 'SELECT * FROM SHOP WHERE USER_ID = :pUserID AND DISABLED = ' +
+                 'FALSE ORDER BY SHOP_NAME ASC';
   SQL_20080003 = 'SELECT COALESCE(MAX(SHOP_ID), 0) + 1 AS NEXT_ID FROM ' +
                  'SHOP WHERE USER_ID = :pUserID';
   SQL_20080004 = 'INSERT INTO SHOP(USER_ID, SHOP_ID, SHOP_NAME, PHONE_NUM, ' +
@@ -503,10 +502,10 @@ const
 
   // UEntryMaker and UAddDetail and UEditDetail and UEntryBrandName
   SQL_20130001 = 'SELECT * FROM MAKER WHERE USER_ID = :pUserID ORDER BY ' +
-                 'MAKER_NAME';
+                 'MAKER_NAME ASC';
   SQL_20130002 = 'SELECT USER_ID, MAKER_ID, MAKER_NAME, DISABLED, ENTRY_DT, ' +
                  'UPDATE_DT FROM MAKER WHERE USER_ID = :pUserID AND ' +
-                 'DISABLED = FALSE';
+                 'DISABLED = FALSE ORDER BY MAKER_NAME ASC';
   SQL_20130003 = 'SELECT COALESCE(MAX(MAKER_ID), 0) + 1 AS NEXT_ID ' +
                  'FROM MAKER WHERE USER_ID = :pUserID';
   SQL_20130004 = 'INSERT INTO MAKER(USER_ID, MAKER_ID, MAKER_NAME, ' +
@@ -569,7 +568,7 @@ const
                  'EXP3 E3 WHERE E3.EXP_KEY1 = D.EXP_KEY1 AND E3.EXP_KEY2 = ' +
                  'D.EXP_KEY2 AND E3.EXP_KEY3 = D.EXP_KEY3) AS NAME3, ' +
                  'SUM(SUB_TOTAL) AS SUM1 FROM DETAILS D WHERE D.USER_ID = ' +
-                 ':pUserID AND D.EXP_KEY1 = 1 GROUP BY D.EXP_KEY1, ' +
+                 ':pUserID GROUP BY D.EXP_KEY1, ' +
                  'D.EXP_KEY2, D.EXP_KEY3) ORDER BY SUM1 DESC';
 
   //============================================================================

@@ -8,11 +8,13 @@ object FrmManageExp: TFrmManageExp
   ClientHeight = 700
   ClientWidth = 1176
   Color = clWindowFrame
+  Font.CharSet = SHIFTJIS_CHARSET
   Font.Height = -21
   Font.Name = '0xProto'
+  Font.Pitch = fpVariable
+  Font.Quality = fqDraft
   Font.Style = [fsBold]
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp
@@ -28,69 +30,89 @@ object FrmManageExp: TFrmManageExp
     ColCount = 9
     Columns = <    
       item
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
         Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
         Font.Style = [fsBold]
         Title.Caption = 'USER_ID'
         Width = 0
         Visible = False
       end    
       item
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
         Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
         Font.Style = [fsBold]
         Title.Caption = 'ユーザ'
         Width = 0
         Visible = False
       end    
       item
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
         Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
         Font.Style = [fsBold]
         Title.Caption = 'EXP_KEY1'
         Visible = False
       end    
       item
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
         Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
         Font.Style = [fsBold]
         Title.Caption = '費目(大)'
         Width = 100
       end    
       item
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
         Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
         Font.Style = [fsBold]
         Title.Caption = 'DISABLED1'
         Visible = False
       end    
       item
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
         Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
         Font.Style = [fsBold]
         Title.Caption = 'ORDER_KEY1'
         Visible = False
       end    
       item
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
         Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
         Font.Style = [fsBold]
         Title.Caption = 'ENTRY_DT'
         Visible = False
       end    
       item
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
         Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
         Font.Style = [fsBold]
         Title.Caption = 'UPDATE_DT'
         Visible = False
       end>
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing, goRowSelect, goColSpanning, goDblClickAutoSize, goSmoothScroll, goFixedRowNumbering, goSelectionActive, goFixedColSizing, goCellEllipsis]
     Options2 = [goEditorParentColor, goEditorParentFont]
-    ParentFont = False
     TabOrder = 0
     TabStop = False
     OnClick = ASG1Click
@@ -101,10 +123,6 @@ object FrmManageExp: TFrmManageExp
     Top = 122
     Width = 21
     Caption = '＞'
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object ASG2: TStringGrid
     Cursor = crHandPoint
@@ -116,8 +134,11 @@ object FrmManageExp: TFrmManageExp
     ColCount = 9
     Columns = <    
       item
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
         Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
         Font.Style = [fsBold]
         SizePriority = 0
         Title.Caption = 'ID'
@@ -125,8 +146,11 @@ object FrmManageExp: TFrmManageExp
         Visible = False
       end    
       item
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
         Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
         Font.Style = [fsBold]
         SizePriority = 0
         Title.Caption = 'EXP_KEY1'
@@ -134,8 +158,11 @@ object FrmManageExp: TFrmManageExp
         Visible = False
       end    
       item
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
         Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
         Font.Style = [fsBold]
         SizePriority = 0
         Title.Caption = 'EXP_KEY2'
@@ -143,8 +170,11 @@ object FrmManageExp: TFrmManageExp
         Visible = False
       end    
       item
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
         Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
         Font.Style = [fsBold]
         MaxSize = 500
         Title.MultiLine = True
@@ -153,40 +183,48 @@ object FrmManageExp: TFrmManageExp
       end    
       item
         ButtonStyle = cbsCheckboxColumn
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
         Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
         Font.Style = [fsBold]
         Title.Caption = '非表示'
         Width = 64
       end    
       item
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
         Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
         Font.Style = [fsBold]
         Title.Caption = '並び順'
         Width = 64
       end    
       item
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
         Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
         Font.Style = [fsBold]
         Title.Caption = '登録日'
         Width = 0
         Visible = False
       end    
       item
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
         Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
         Font.Style = [fsBold]
         Title.Caption = '更新日'
         Width = 0
         Visible = False
       end>
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing, goEditing, goRowSelect, goAlwaysShowEditor, goColSpanning, goDblClickAutoSize, goSmoothScroll, goSelectionActive, goFixedColSizing, goCellEllipsis]
-    ParentFont = False
     RowCount = 7
     TabOrder = 1
     TabStop = False
@@ -217,12 +255,8 @@ object FrmManageExp: TFrmManageExp
     BevelOuter = bvNone
     Caption = '　　追　　　　　加　　 (CTRL+1)'
     Color = clBtnFace
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     ShowAccelChar = True
     TabOrder = 2
     TabStop = True
@@ -243,12 +277,8 @@ object FrmManageExp: TFrmManageExp
     BevelOuter = bvNone
     Caption = '並び順を初期状態に戻す (CTRL+2)'
     Color = clBtnFace
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     ShowAccelChar = True
     TabOrder = 3
     TabStop = True
@@ -264,10 +294,6 @@ object FrmManageExp: TFrmManageExp
     Top = 122
     Width = 21
     Caption = '＞'
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object ASG3: TStringGrid
     Cursor = crHandPoint
@@ -279,8 +305,11 @@ object FrmManageExp: TFrmManageExp
     ColCount = 10
     Columns = <    
       item
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
         Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
         Font.Style = [fsBold]
         SizePriority = 0
         Title.Caption = 'ID'
@@ -288,8 +317,11 @@ object FrmManageExp: TFrmManageExp
         Visible = False
       end    
       item
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
         Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
         Font.Style = [fsBold]
         SizePriority = 0
         Title.Caption = 'EXP_KEY1'
@@ -297,8 +329,11 @@ object FrmManageExp: TFrmManageExp
         Visible = False
       end    
       item
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
         Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
         Font.Style = [fsBold]
         SizePriority = 0
         Title.Caption = 'EXP_KEY2'
@@ -306,16 +341,22 @@ object FrmManageExp: TFrmManageExp
         Visible = False
       end    
       item
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
         Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
         Font.Style = [fsBold]
         Title.Caption = 'EXP_KEY3'
         Width = 0
         Visible = False
       end    
       item
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
         Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
         Font.Style = [fsBold]
         MaxSize = 500
         Title.Caption = '費目(小)'
@@ -324,40 +365,48 @@ object FrmManageExp: TFrmManageExp
       item
         Alignment = taCenter
         ButtonStyle = cbsCheckboxColumn
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
         Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
         Font.Style = [fsBold]
         Title.Caption = '非表示'
         Width = 64
       end    
       item
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
         Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
         Font.Style = [fsBold]
         Title.Caption = '並び順'
         Width = 64
       end    
       item
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
         Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
         Font.Style = [fsBold]
         Title.Caption = '登録日'
         Width = 0
         Visible = False
       end    
       item
+        Font.CharSet = SHIFTJIS_CHARSET
         Font.Height = -21
         Font.Name = '0xProto'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
         Font.Style = [fsBold]
         Title.Caption = '更新日'
         Width = 0
         Visible = False
       end>
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing, goEditing, goRowSelect, goAlwaysShowEditor, goColSpanning, goDblClickAutoSize, goSmoothScroll, goSelectionActive, goFixedColSizing, goCellEllipsis]
-    ParentFont = False
     RowCount = 7
     TabOrder = 4
     TabStop = False
@@ -389,12 +438,8 @@ object FrmManageExp: TFrmManageExp
     BevelOuter = bvNone
     Caption = '　　追　　　　　加　　 (CTRL+3)'
     Color = clBtnFace
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     ShowAccelChar = True
     TabOrder = 5
     TabStop = True
@@ -415,12 +460,8 @@ object FrmManageExp: TFrmManageExp
     BevelOuter = bvNone
     Caption = '並び順を初期状態に戻す (CTRL+4)'
     Color = clBtnFace
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     ShowAccelChar = True
     TabOrder = 6
     TabStop = True
@@ -439,12 +480,8 @@ object FrmManageExp: TFrmManageExp
     Caption = '前の画面に戻る (CTRL+3)'
     Color = clActiveCaption
     Enabled = False
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     TabOrder = 7
   end
   object BtnGoBack: TPanel
@@ -458,12 +495,8 @@ object FrmManageExp: TFrmManageExp
     BevelOuter = bvNone
     Caption = '前の画面に戻る (CTRL+Q)'
     Color = clBtnFace
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     ShowAccelChar = True
     TabOrder = 8
     TabStop = True

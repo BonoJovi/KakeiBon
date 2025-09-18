@@ -118,8 +118,7 @@ end;
 
 procedure TFrmAddUser.ProcCancel(Sender: TObject);
 begin
-  FrmManageUser.Visible := True;
-  FrmAddUser.close;
+  Self.Close;
 end;
 
 procedure TFrmAddUser.ProcClearPaw(Sender: TObject);
@@ -501,8 +500,7 @@ begin
       with CommonDB do begin
         ATr.Commit;
       end;
-      //FrmManageUser.Visible := True;
-      FrmAddUser.Close;
+      Self.Close;
     except
       on E: ESQLDatabaseError do begin
         ShowMessage(E.Message);
@@ -592,7 +590,8 @@ begin
     CloseQuery(AQu);
   end;
 
-  if (Not Assigned(FrmManageUser)) Or (FrmManageUser = nil) then begin
+  if (Not Assigned(FrmManageUser))
+      Or (FrmManageUser = Nil) then begin
     FrmManageUser := TFrmManageUser.Create(Application);
   end;
   FrmManageUser.Visible := True;
@@ -614,11 +613,11 @@ end;
 
 procedure TFrmAddUser.FormShow(Sender: TObject);
 begin
-  FrmAddUser.Width      := 712;
+  Self.Width         := 712;
 
-  FrmAddUser.KeyPreview := True;
+  Self.KeyPreview    := True;
 
-  FrmAddUser.Color   := RGB(112, 168, 175);
+  Self.Color         := RGB(112, 168, 175);
   PnlClearPass.Color := RGB( 72, 122, 129);
   PnlCancel.Color    := RGB( 72, 122, 129);
   PnlSave.Color      := RGB( 72, 122, 129);
@@ -630,7 +629,7 @@ begin
   end;
 
   { Debug }
-  //FrmAddUser.Width      := 845;
+  //Self.Width      := 845;
 end;
 
 procedure TFrmAddUser.FormKeyUp(Sender: TObject; var Key: Word;

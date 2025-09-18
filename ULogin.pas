@@ -36,7 +36,6 @@ type
     pnlLogin     : TPanel;
     BtnLogin     : TPanel;
     AQu: TSQLQuery;
-    procedure FormDestroy(Sender: TObject);
     procedure ProcClearPaw(Sender: TObject);
     procedure ProcCancel(Sender: TObject);
     procedure ProcLogin(Sender: TObject);
@@ -157,7 +156,7 @@ procedure TFrmLogin.ProcCancel(Sender: TObject);
 begin
   UTopMenu.LoginFlg  := False;
   FrmTopMenu.Visible := True;
-  FrmLogin.Close;
+  Self.Close;
 end;
 
 procedure TFrmLogin.ProcLogin(Sender: TObject);
@@ -233,7 +232,7 @@ begin
   finally
     if LoginFlg then begin
       FrmTopMenu.Visible := True;
-      FrmLogin.Close;
+      Self.Close;
     end;
   end;
 end;
@@ -269,19 +268,11 @@ end;
 
 procedure TFrmLogin.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
-  CloseAction := caFree;
-end;
-
-procedure TFrmLogin.FormDestroy(Sender: TObject);
-begin
-  //with CommonDB.Defs do begin
-  //  CloseAllDB;
-  //end;
-
   with FrmTopMenu do begin
     Visible     := True;
   end;
 
+  CloseAction := caFree;
   FrmLogin    := nil;
 end;
 
@@ -298,11 +289,11 @@ end;
 
 procedure TFrmLogin.FormShow(Sender: TObject);
 begin
-  FrmLogin.Width      := 585;
+  Self.Width        := 585;
 
-  FrmLogin.KeyPreview := True;
+  Self.KeyPreview   := True;
 
-  FrmLogin.Color    := RGB(112, 168, 175);
+  Self.Color        := RGB(112, 168, 175);
   pnlClearPaw.Color := RGB( 72, 122, 129);
   pnlCancel.Color   := RGB( 72, 122, 129);
   pnlLogin.Color    := RGB( 72, 122, 129);
@@ -315,7 +306,7 @@ begin
   EdtPaw.Clear;
 
   { Debug }
-  //FrmLogin.Width      := 716;
+  //Self.Width      := 716;
 end;
 
 procedure TFrmLogin.FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState

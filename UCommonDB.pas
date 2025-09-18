@@ -28,7 +28,6 @@ type
   { TCommonDB }
 
   TCommonDB = class(TDataModule)
-    procedure ACnAfterDisconnect(Sender: TObject);
     procedure InitializeCommonDB;
     procedure SetSQLite3DatabaseName;
     procedure SQLite3Connect;
@@ -65,11 +64,6 @@ uses
 {$R *.lfm}
 
 { TCommonDB }
-
-procedure TCommonDB.ACnAfterDisconnect(Sender: TObject);
-begin
-  DebugLn('After disconnect');
-end;
 
 procedure TCommonDB.InitializeCommonDB;
 begin

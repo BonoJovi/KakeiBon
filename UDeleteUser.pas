@@ -5,9 +5,9 @@ unit UDeleteUser;
 interface
 
 uses
-  Classes, LazUTF8, SysUtils, DB, SQLDB, SQLite3Conn, Forms, Controls, Graphics,
-  Dialogs, DBCtrls, DBGrids, StdCtrls, ExtCtrls, LCLIntf, LCLType, ActnList,
-  DBNavi, UDBNavi;
+  Classes, LCLType, SysUtils, SQLDB, DB, Forms, Controls, Graphics,
+  Dialogs, StdCtrls, ExtCtrls, DBCtrls, DBGrids, LCLIntf, ActnList,
+  UDBNavi;
 
 type
 
@@ -23,8 +23,9 @@ type
     ActQuit        : TAction;
     { Etc }
     ADBGrid        : TDBGrid;
-    BtnCancel      : TButton;
-    ADBNavi: TDBNavi;
+    ADBNavi        : TDBNavi;
+    BtnCancel      : TPanel;
+    BtnDeleteUser  : TPanel;
     DBTextUserId   : TDBText;
     DBTextName     : TDBText;
     DBTextRole     : TDBText;
@@ -47,7 +48,6 @@ type
     LblUserId3     : TLabel;
     LblUserId4     : TLabel;
     LblUserId5     : TLabel;
-    BtnDeleteUser  : TPanel;
     Panel1         : TPanel;
     Panel2         : TPanel;
     Panel3         : TPanel;
@@ -55,32 +55,36 @@ type
     PnlCancel      : TPanel;
     PnlDeleteUser  : TPanel;
     Timer          : TTimer;
-    procedure ADBGridEnter(Sender: TObject);
-    procedure ADBNaviClick(Sender: TObject; Button: TDBNavButtonType);
-    procedure ADBNaviEnter(Sender: TObject);
-    procedure ADBNaviExit(Sender: TObject);
-    procedure ADBNaviWMSetFocus(Sender: TObject; HWndLostFocus: HWND);
-    procedure FormActivate(Sender: TObject);
-    procedure ProcCancel(Sender: TObject);
-    procedure ProcDeleteUser(Sender: TObject);
-    procedure CancelMouseOver(NewColor: TColor);
-    procedure BtnCancelEnter(Sender: TObject);
-    procedure BtnCancelExit(Sender: TObject);
-    procedure DeleteUserMouseOver(NewColor: TColor);
-    procedure BtnDeleteUserEnter(Sender: TObject);
-    procedure BtnDeleteUserExit(Sender: TObject);
     procedure ActCancelExecute(Sender: TObject);
     procedure ActDeleteUserExecute(Sender: TObject);
     procedure ActQuitExecute(Sender: TObject);
+    procedure ADBGridMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure ADBGridSelectEditor(Sender: TObject; Column: TColumn;
+      var Editor: TWinControl);
+    procedure ADBNaviBtnClick(Sender: TObject; Index: TNavigateBtn);
+    procedure ADBNaviKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure AQuAfterScroll(DataSet: TDataSet);
+    procedure BtnCancelEnter(Sender: TObject);
+    procedure BtnCancelExit(Sender: TObject);
+    procedure BtnDeleteUserEnter(Sender: TObject);
+    procedure BtnDeleteUserExit(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
-    procedure FormShow(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure FormShow(Sender: TObject);
     procedure TimerTimer(Sender: TObject);
   private
-    FTab              : Boolean;
-    FGuidePanels      : Array[0..3] of TPanel;
-    FCurrentComponent : TObject;
+    //FTab               : Boolean;
+    FGuidePanels       : Array[0..3] of TPanel;
+    FNavigateBtn       : TNavigateBtn;
+    FDBGridClicked     : Boolean;
+    function CannotFocusedNavButton: Boolean;
+    procedure ProcCancel(Sender: TObject);
+    procedure ProcDeleteUser(Sender: TObject);
+    procedure CancelMouseOver(NewColor: TColor);
+    procedure DeleteUserMouseOver(NewColor: TColor);
   public
 
   end;
@@ -96,64 +100,70 @@ uses
 
 { TFrmDeleteUser }
 
+function TFrmDeleteUser.CannotFocusedNavButton: Boolean;
+begin
+  with AQu do begin
+    if Active then begin
+      Result := RecordCount = 0;
+    end else begin
+      Result := True;
+    end;
+  end;
+end;
+
 procedure TFrmDeleteUser.ProcCancel(Sender: TObject);
 begin
-  FrmManageUser.Visible := True;
-  FrmDeleteUser.Close;
-end;
-
-procedure TFrmDeleteUser.ADBGridEnter(Sender: TObject);
-var
-  LPanel : TPanel;
-begin
-  if FCurrentComponent is TPanel then begin
-    LPanel := FCurrentComponent as TPanel;
-    LPanel.SetFocus;
+  if (Not Assigned(FrmManageUser)) Or (FrmManageUser = nil) then begin
+    FrmManageUser := TFrmManageUser.Create(Application);
   end;
+  Self.Close;
 end;
 
-procedure TFrmDeleteUser.ADBNaviClick(Sender: TObject; Button: TDBNavButtonType
-  );
+procedure TFrmDeleteUser.ADBGridSelectEditor(Sender: TObject; Column: TColumn;
+  var Editor: TWinControl);
 begin
-  with CommonDB do begin
-    with Defs do begin
-      if (Button = nbFirst) or (Button = nbPrior) then begin
-        if AQu.RecNo = 1  then begin
-          AQu.First;
-          BtnDeleteUser.SetFocus;
-        end;
-      end else if (Button = nbNext) Or (Button = nbLast) then begin
-        if AQu.RecNo = AQu.RecordCount  then begin
-          AQu.Last;
-          BtnCancel.SetFocus;
-        end;
+  ADBGrid.AutoAdjustColumns;
+end;
+
+procedure TFrmDeleteUser.ADBNaviBtnClick(Sender: TObject; Index: TNavigateBtn);
+begin
+  FNavigateBtn := Index;
+end;
+
+procedure TFrmDeleteUser.ADBNaviKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_TAB) And (ssShift in Shift) then begin
+    BtnDeleteUser.SetFocus;
+  end else if (Key = VK_TAB) then begin
+    if Screen.ActiveControl is TDBNavi then begin
+      if CannotFocusedNavButton then begin
+        BtnCancel.SetFocus;
+      end else begin
+        ADBNavi.FindNextControl(ADBNavi, True, True, True).SetFocus;
       end;
     end;
   end;
 end;
 
-procedure TFrmDeleteUser.ADBNaviEnter(Sender: TObject);
+procedure TFrmDeleteUser.AQuAfterScroll(DataSet: TDataSet);
 begin
-  Timer.Enabled := True;
-end;
-
-procedure TFrmDeleteUser.ADBNaviExit(Sender: TObject);
-begin
-  Timer.Enabled := True;
-end;
-
-procedure TFrmDeleteUser.ADBNaviWMSetFocus(Sender: TObject; HWndLostFocus: HWND
-  );
-begin
-  if FTab then begin
-    try
-      if Screen.ActiveControl is TDBNavi then begin
-        TWinControl(ADBNavi.FindNextControl(ADBNavi, True, True, True)).SetFocus;
-      end;
-    except
-      on E: Exception do begin
+  case FNavigateBtn of
+  nbFirst:
+    if AQu.RecordCount > 0 then begin
+      ADBNavi.FindNextControl(ADBNavi, True, True, True).SetFocus;
+    end;
+  nbPrior:
+    if AQu.RecNo <= 1 then begin
+      ADBNavi.FindNextControl(ADBNavi, True, True, True).SetFocus;
+    end;
+  nbNext:
+    begin
+      if AQu.RecNo = AQu.RecordCount then begin
+        ADBNavi.FindNextControl(ADBNavi, False, True, True).SetFocus;
       end;
     end;
+  nbLast: ADBNavi.FindNextControl(ADBNavi, False, True, True).SetFocus;
   end;
 
   Timer.Enabled := True;
@@ -168,9 +178,9 @@ begin
     with Defs do begin
       try
         try
-          //ADBGrid.AutoEdit  := True;
-          LUID           := StrToInt(DBTextUserId.Caption);
+          LUID := StrToInt(DBTextUserId.Caption);
 
+          CloseQuery(AQu);
           with AQu do begin
             SQLConnection  := ACn;
             SQLTransaction := ATr;
@@ -182,7 +192,6 @@ begin
 
             LRet := MessageDlg(MSG_JP_000011, mtWarning, [mbNo, mbYes], 0, mbNo);
             if LRet = mrYes then begin
-              //SetDatabaseNames;
               ExecSQL;
 
               // Delete TAX_TYPE
@@ -223,6 +232,10 @@ begin
               ATr.Commit;
               SetChangedUserDef(True);
 
+              if (Not Assigned(FrmManageUser))
+                  Or (FrmManageUser = Nil) then begin
+                FrmManageUser := TFrmManageUser.Create(Application);
+              end;
               FrmManageUser.Visible := True;
               if GetChangedUserDef then begin
                 MessageDlg(MSG_JP_000031, mtInformation, [mbOk], 0);
@@ -241,7 +254,7 @@ begin
         end;
       finally
         ATr.Active            := False;
-        FrmDeleteUser.Close;
+        Self.Close;
       end;
     end;
   end;
@@ -258,13 +271,11 @@ begin
   DeleteUserMouseOver(clBtnFace);
 
   Timer.Enabled     := True;
-  FCurrentComponent := Sender;
 end;
 
 procedure TFrmDeleteUser.BtnCancelExit(Sender: TObject);
 begin
   CancelMouseOver(clBtnFace);
-  FCurrentComponent := Sender;
 end;
 
 procedure TFrmDeleteUser.DeleteUserMouseOver(NewColor: TColor);
@@ -278,13 +289,11 @@ begin
   DeleteUserMouseOver(clSkyBlue);
 
   Timer.Enabled     := True;
-  FCurrentComponent := Sender;
 end;
 
 procedure TFrmDeleteUser.BtnDeleteUserExit(Sender: TObject);
 begin
   DeleteUserMouseOver(clBtnFace);
-  FCurrentComponent := Sender;
 end;
 
 procedure TFrmDeleteUser.ActCancelExecute(Sender: TObject);
@@ -295,6 +304,21 @@ end;
 procedure TFrmDeleteUser.ActQuitExecute(Sender: TObject);
 begin
   Close;
+end;
+
+procedure TFrmDeleteUser.ADBGridMouseDown(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+  if Not FDBGridClicked then begin
+    FDBGridClicked := True;
+    ADBGridSelectEditor(
+      Sender, ADBGrid.LastColumn, TWinControl(ADBGrid));
+
+    ADBNavi.SetFocus;
+    ADBNavi.FindNextControl(ADBNavi, True, True, True).SetFocus;
+
+    Abort;
+  end;
 end;
 
 procedure TFrmDeleteUser.ActDeleteUserExecute(Sender: TObject);
@@ -337,37 +361,45 @@ end;
 
 procedure TFrmDeleteUser.FormShow(Sender: TObject);
 begin
-  FrmDeleteUser.Width      := 567;
+  Self.Width          := 567;
 
-  FrmDeleteUser.KeyPreview := True;
+  Self.KeyPreview     := True;
 
-  FrmDeleteUser.Color := RGB(112, 168, 175);
+  Self.Color          := RGB(112, 168, 175);
   pnlCancel.Color     := RGB( 72, 122, 129);
   PnlDeleteUser.Color := RGB( 72, 122, 129);
 
   { Debug }
-  //FrmDeleteUser.Width  := 689;
+  //Self.Width  := 689;
 end;
 
 procedure TFrmDeleteUser.FormActivate(Sender: TObject);
 begin
-  with CommonDB do begin
-    with Defs do begin
-      try
-        with AQu do begin
-          SQLConnection  := ACn;
-          SQLTransaction := ATr;
+  try
+    try
+      with CommonDB do begin
+        with Defs do begin
+          with AQu do begin
+            SQLConnection  := ACn;
+            SQLTransaction := ATr;
 
-          SQL.Text         := SQL_20050001;
-          with Params do begin
-            ParamByName('pRole').AsInteger := ROLE_USER;
+            SQL.Text         := SQL_20050001;
+            with Params do begin
+              ParamByName('pRole').AsInteger := ROLE_USER;
+            end;
+
+            Open;
           end;
-
-          Open;
         end;
-      finally
+      end;
+      ADBNavi.SetFocus;
+      ADBNavi.FindNextControl(ADBNavi, True, True, True).SetFocus;
+    except
+      on E: Exception do begin
+        ShowMessage(E.Message);
       end;
     end;
+  finally
   end;
 
   ADBGrid.AutoAdjustColumns;
@@ -376,23 +408,7 @@ end;
 procedure TFrmDeleteUser.FormKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  if (Key = VK_TAB) And (ssShift in Shift) then begin
-    FTab := False;
-  end else begin
-    FTab := True;
-    if Screen.ActiveControl is TDBNavi then begin
-      ADBNaviWMSetFocus(ADBNavi, ADBNavi.Handle);
-    end;
-  end;
-
-  if (Key = VK_TAB) AND (ssShift in Shift) then begin
-    if Screen.ActiveControl is TDBNavi then begin
-      BtnDeleteUser.SetFocus;
-    end;
-    Timer.Enabled := True;
-  end else begin
-    Timer.Enabled := True;
-  end;
+  Timer.Enabled := True;
 
   if (Key = VK_SPACE) Or (Key = VK_RETURN) then begin
     if ActiveControl.Name = 'BtnCancel' then begin
@@ -407,7 +423,6 @@ procedure TFrmDeleteUser.TimerTimer(Sender: TObject);
 var
   i            : Integer;
   LTargetIndex : Integer;
-  Key          : Word;
 begin
   Timer.Enabled := False;
   try

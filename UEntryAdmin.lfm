@@ -9,7 +9,7 @@ object FrmEntryAdmin: TFrmEntryAdmin
   ClientHeight = 251
   ClientWidth = 823
   Color = clWindowFrame
-  Font.CharSet = ANSI_CHARSET
+  Font.CharSet = SHIFTJIS_CHARSET
   Font.Height = -21
   Font.Name = '0xProto'
   Font.Pitch = fpVariable
@@ -17,7 +17,6 @@ object FrmEntryAdmin: TFrmEntryAdmin
   Font.Style = [fsBold]
   PopupMode = pmAuto
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp
@@ -25,16 +24,9 @@ object FrmEntryAdmin: TFrmEntryAdmin
   object LblAdminUserID: TLabel
     Left = 16
     Height = 32
-    Top = 24
+    Top = 20
     Width = 152
     Caption = '管理者ユーザID'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object Shape1: TShape
     Left = 208
@@ -54,13 +46,6 @@ object FrmEntryAdmin: TFrmEntryAdmin
     Height = 49
     Top = 16
     Width = 464
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
     TabOrder = 0
     OnEnter = EdtAdminUserIdEnter
     OnExit = EdtAdminUserIdExit
@@ -68,16 +53,9 @@ object FrmEntryAdmin: TFrmEntryAdmin
   object LblPaw: TLabel
     Left = 16
     Height = 32
-    Top = 80
+    Top = 76
     Width = 105
     Caption = 'パスワード'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object Shape2: TShape
     Left = 208
@@ -99,13 +77,6 @@ object FrmEntryAdmin: TFrmEntryAdmin
     Top = 72
     Width = 464
     EchoMode = emNone
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
     ParentShowHint = False
     PasswordChar = ' '
     ShowHint = True
@@ -117,16 +88,9 @@ object FrmEntryAdmin: TFrmEntryAdmin
   object LblPawConfirm: TLabel
     Left = 16
     Height = 32
-    Top = 136
+    Top = 132
     Width = 173
     Caption = 'パスワード(確認)'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object Shape3: TShape
     Left = 208
@@ -148,13 +112,6 @@ object FrmEntryAdmin: TFrmEntryAdmin
     Top = 128
     Width = 464
     EchoMode = emNone
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
     ParentShowHint = False
     PasswordChar = ' '
     ShowHint = True
@@ -171,15 +128,8 @@ object FrmEntryAdmin: TFrmEntryAdmin
     Caption = 'パスワードをクリア (CTRL+X)'
     Color = clActiveCaption
     Enabled = False
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     TabOrder = 3
   end
   object BtnClearPaw: TPanel
@@ -192,15 +142,8 @@ object FrmEntryAdmin: TFrmEntryAdmin
     BevelOuter = bvNone
     Caption = 'パスワードをクリア (CTRL+X)'
     Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     ShowAccelChar = True
     TabOrder = 4
     TabStop = True
@@ -218,15 +161,8 @@ object FrmEntryAdmin: TFrmEntryAdmin
     Caption = '保　　　存 (CTRL+S)'
     Color = clActiveCaption
     Enabled = False
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     TabOrder = 5
   end
   object BtnSave: TPanel
@@ -239,7 +175,7 @@ object FrmEntryAdmin: TFrmEntryAdmin
     BevelOuter = bvNone
     Caption = '保　　　存 (CTRL+S)'
     Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
+    Font.CharSet = SHIFTJIS_CHARSET
     Font.Height = -21
     Font.Name = '0xProto'
     Font.Pitch = fpVariable

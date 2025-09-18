@@ -126,7 +126,7 @@ var
     with CommonDB do begin
       with Defs do begin
         with AQuExp2 do begin
-          //CloseAllDB;
+          CloseQuery(AQuExp2);
 
           SQL.Text := SQL_20060005;
           with Params do begin
@@ -151,9 +151,6 @@ begin
       try
         try
           with AQuExp2 do begin
-            //CloseConn(ACn2, ATr2, AQuExp2);
-            //SetDatabaseNames;
-
             UpdateExpName2;
 
             // ReQuery
@@ -187,8 +184,8 @@ procedure TFrmManageExp.ProcDefaultOrderKey2(Sender: TObject);
 begin
   with CommonDB do begin
     with Defs do begin
-      //CloseAllDB;
-      //SetDatabaseNames;
+      CloseQuery(AQuExp2);
+
       SetDefaultOrderKey2(
         ACn, ADSExp2, ATr, AQuExp2, SQL_20060014,
         ASG1.Cells[3, ASG1.Row].ToInteger);
@@ -206,14 +203,14 @@ var
     with CommonDB do begin
       with Defs do begin
         with AQuExp3 do begin
-          //CloseAllDB;
+          CloseQuery(AQuExp3);
 
           SQL.Text := SQL_20060006;
           with Params do begin
             with ASG2 do begin
-              ParamByName('pUserID').AsInteger     := Cells[1, ASG1.Row].ToInteger;
-              ParamByName('pExpKey1').AsInteger    := Cells[2, ASG2.Row].ToInteger;
-              ParamByName('pExpKey2').AsInteger    := Cells[3, ASG2.Row].ToInteger;
+              ParamByName('pUserID').AsInteger     := ASG1.Cells[1, ASG1.Row].ToInteger;
+              ParamByName('pExpKey1').AsInteger    := ASG2.Cells[2, ASG2.Row].ToInteger;
+              ParamByName('pExpKey2').AsInteger    := ASG2.Cells[3, ASG2.Row].ToInteger;
               ParamByName('pName3').AsAnsiString   := AnsiString('費目');
               ParamByName('pEntryDT').AsAnsiString := FormatDateTime('yyyy-mm-dd hh:nn:ss', Now, GetFS);
             end;
@@ -232,9 +229,6 @@ begin
       try
         try
           with AQuExp3 do begin
-            //CloseConn(ACn3, ATr3, AQuExp3);
-            //SetDatabaseNames;
-
             UpdateExpName3;
 
             // ReQuery
@@ -263,8 +257,8 @@ procedure TFrmManageExp.ProcDefaultOrderKey3(Sender: TObject);
 begin
   with CommonDB do begin
     with Defs do begin
-      //CloseAllDB;
-      //SetDatabaseNames;
+      CloseQuery(AQuExp3);
+
       SetDefaultOrderKey3(
         ACn, ADSExp2, ATr, AQuExp2, SQL_20060015,
         ASG1.Cells[3, ASG1.Row].ToInteger,
@@ -276,7 +270,7 @@ end;
 procedure TFrmManageExp.ProcGoBack(Sender: TObject);
 begin
   FrmTopMenu.Visible := True;
-  FrmManageExp.Close;
+  Self.Close;
 end;
 
 procedure TFrmManageExp.AddExp2MouseOver(NewColor: TColor);
@@ -701,7 +695,7 @@ var
     with CommonDB do begin
       with Defs do begin
         with AQuExp2 do begin
-          //CloseAllDB;
+          CloseQuery(AQuExp2);
 
           SQL.Text := SS;
           with Params do begin
@@ -940,7 +934,7 @@ var
     with CommonDB do begin
       with Defs do begin
         with AQuExp3 do begin
-          //CloseAllDB;
+          CloseQuery(AQuExp3);
 
           SQL.Text := SS;
           with Params do begin
@@ -1198,11 +1192,11 @@ end;
 
 procedure TFrmManageExp.FormShow(Sender: TObject);
 begin
-  FrmManageExp.Width      := 1176;
+  Self.Width         := 1176;
 
-  FrmManageExp.KeyPreview := True;
+  Self.KeyPreview    := True;
 
-  FrmManageExp.Color := RGB(112, 168, 175);
+  Self.Color         := RGB(112, 168, 175);
   PnlGoBack.Color    := RGB( 72, 122, 129);
 
   with CommonDB do begin
@@ -1219,7 +1213,7 @@ begin
   end;
 
   { Debug }
-  //FrmManageExp.Width      := 1176;
+  //Self.Width      := 1176;
 end;
 
 procedure TFrmManageExp.TimerTimer(Sender: TObject);

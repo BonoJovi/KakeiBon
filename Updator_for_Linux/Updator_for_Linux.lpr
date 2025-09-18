@@ -1,4 +1,4 @@
-program Updator1;
+program Updator_for_Linux;
 
 {$mode objfpc}{$H+}
 
@@ -10,7 +10,7 @@ uses
   athreads,
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, UUpdator1, UCommonDB, UNewTables;
+  Forms, UCommonDB, UConsts, UDBAccess, UNewTables, UUpdator;
 
 {$R *.res}
 
@@ -21,8 +21,8 @@ begin
   Application.MainFormOnTaskbar:=True;
   {$POP}
   Application.Initialize;
-  Application.CreateForm(TForm1, Form1);
   Application.CreateForm(TCommonDB, CommonDB);
+  Application.CreateForm(TFrmUpdatorForLinux, FrmUpdatorForLinux);
   Application.Run;
 end.
 

@@ -9,7 +9,6 @@ object CommonDB: TCommonDB
   object ACn: TSQLite3Connection
     Connected = False
     LoginPrompt = False
-    AfterDisconnect = ACnAfterDisconnect
     KeepConnection = False
     Transaction = ATr
     CharSet = 'UTF8'

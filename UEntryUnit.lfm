@@ -1,14 +1,14 @@
 object FrmEntryUnit: TFrmEntryUnit
   Left = 841
-  Height = 643
+  Height = 663
   Top = 133
   Width = 776
   BorderStyle = bsSingle
   Caption = '単位登録'
-  ClientHeight = 643
+  ClientHeight = 663
   ClientWidth = 776
   Color = clWindowFrame
-  Font.CharSet = ANSI_CHARSET
+  Font.CharSet = SHIFTJIS_CHARSET
   Font.Height = -21
   Font.Name = '0xProto'
   Font.Pitch = fpVariable
@@ -21,7 +21,8 @@ object FrmEntryUnit: TFrmEntryUnit
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp
-  object ADBGrid: TDBGrid
+  OnShow = FormShow
+  object ADBGrid: TDBG
     Left = 16
     Height = 280
     Top = 16
@@ -29,11 +30,6 @@ object FrmEntryUnit: TFrmEntryUnit
     AutoFillColumns = True
     Color = clWindow
     Columns = <    
-      item
-        Title.Caption = 'ID'
-        Visible = False
-        FieldName = 'USER_ID'
-      end    
       item
         MaxSize = 300
         Title.Caption = ''
@@ -44,29 +40,34 @@ object FrmEntryUnit: TFrmEntryUnit
       item
         MaxSize = 400
         Title.Caption = '単位'
-        Width = 275
+        Width = 138
         FieldName = 'UNIT'
       end    
       item
         Title.Caption = '非表示'
-        Width = 275
+        Width = 138
         FieldName = 'DISABLED'
+      end    
+      item
+        Title.Caption = '登録日'
+        Width = 137
+        FieldName = 'ENTRY_DT'
+      end    
+      item
+        Title.Caption = '更新日'
+        Width = 137
+        FieldName = 'UPDATE_DT'
       end>
     Constraints.MaxWidth = 2000
     DataSource = ADS
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgAnyButtonCanSelect, dgDisableDelete, dgDblClickAutoSize]
-    ParentFont = False
     TabOrder = 0
     TabStop = False
     TitleStyle = tsStandard
-    OnEnter = ADBGridEnter
+    OnMouseDown = ADBGridMouseDown
+    OnMouseWheel = ADBGridMouseWheel
     OnSelectEditor = ADBGridSelectEditor
+    OnWMVScroll = ADBGridWMVScroll
   end
   object ADBNavi: TDBNavi
     Cursor = crHandPoint
@@ -85,21 +86,12 @@ object FrmEntryUnit: TFrmEntryUnit
     ClientHeight = 28
     ClientWidth = 562
     DataSource = ADS
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     Options = [navFocusableButtons]
-    ParentFont = False
     TabOrder = 1
     TabStop = True
     VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
-    OnClick = ADBNaviClick
-    OnEnter = ADBNaviEnter
-    OnExit = ADBNaviExit
-    OnWMSetFocus = ADBNaviWMSetFocus
+    OnBtnClick = ADBNaviBtnClick
+    OnKeyUp = ADBNaviKeyUp
   end
   object Panel1: TPanel
     Left = 16
@@ -148,35 +140,21 @@ object FrmEntryUnit: TFrmEntryUnit
   object LblUnitID1: TLabel
     Left = 16
     Height = 32
-    Top = 368
+    Top = 381
     Width = 21
     Caption = 'Ｉ'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblUnitID2: TLabel
     Left = 100
     Height = 32
-    Top = 368
+    Top = 381
     Width = 21
     Caption = 'Ｄ'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object Shape1: TShape
     Left = 136
     Height = 16
-    Top = 376
+    Top = 389
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -188,62 +166,42 @@ object FrmEntryUnit: TFrmEntryUnit
   object DBEdtUnitID: TDBEdit
     Left = 158
     Height = 49
-    Top = 360
+    Top = 373
     Width = 164
     DataField = 'UNIT_ID'
     DataSource = ADS
     AutoSelect = False
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     MaxLength = 0
-    ParentFont = False
     TabOrder = 6
     TabStop = False
+    OnChange = DBEdtUnitIDChange
     OnEnter = DBEdtUnitIDEnter
     OnExit = DBEdtUnitIDExit
   end
   object PnlInsert: TPanel
     Left = 334
     Height = 49
-    Top = 360
+    Top = 373
     Width = 244
     Caption = '新規登録 (CTRL+1)'
     Color = clActiveCaption
     Enabled = False
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     TabOrder = 7
   end
   object BtnInsert: TPanel
     Cursor = crCross
     Left = 342
     Height = 33
-    Top = 368
+    Top = 381
     Width = 228
     BevelColor = clNone
     BevelOuter = bvNone
     Caption = '新規登録 (CTRL+1)'
     Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     ShowAccelChar = True
     TabOrder = 8
     TabStop = True
@@ -256,35 +214,21 @@ object FrmEntryUnit: TFrmEntryUnit
   object LblUnit1: TLabel
     Left = 16
     Height = 32
-    Top = 425
+    Top = 438
     Width = 21
     Caption = '単'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblUnit2: TLabel
     Left = 100
     Height = 32
-    Top = 425
+    Top = 438
     Width = 21
     Caption = '位'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object Shape2: TShape
     Left = 136
     Height = 16
-    Top = 433
+    Top = 446
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -297,69 +241,42 @@ object FrmEntryUnit: TFrmEntryUnit
     Cursor = crIBeam
     Left = 158
     Height = 49
-    Top = 417
+    Top = 430
     Width = 420
     DataField = 'UNIT'
     DataSource = ADS
     AutoSelect = False
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     MaxLength = 0
-    ParentFont = False
     TabOrder = 9
+    OnChange = DBEdtUnitChange
     OnEnter = DBEdtUnitEnter
     OnExit = DBEdtUnitExit
   end
   object LblDisabled1: TLabel
     Left = 16
     Height = 32
-    Top = 480
+    Top = 491
     Width = 21
     Caption = '非'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblDisabled2: TLabel
     Left = 58
     Height = 32
-    Top = 480
+    Top = 491
     Width = 21
     Caption = '表'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblDisabled3: TLabel
     Left = 100
     Height = 32
-    Top = 480
+    Top = 491
     Width = 21
     Caption = '示'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object Shape3: TShape
     Left = 136
     Height = 16
-    Top = 488
+    Top = 499
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -372,65 +289,45 @@ object FrmEntryUnit: TFrmEntryUnit
     Cursor = crHandPoint
     Left = 158
     Height = 23
-    Top = 485
+    Top = 496
     Width = 23
     AutoSize = True
     Color = clWindowFrame
     DataField = 'DISABLED'
     DataSource = ADS
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentColor = False
-    ParentFont = False
     TabOrder = 10
     TabStop = True
     ValueChecked = '1'
     ValueUnchecked = '0'
+    OnChange = DBCBDisabledChange
     OnEnter = DBCBDisabledEnter
     OnExit = DBCBDisabledExit
   end
   object PnlCancel: TPanel
     Left = 16
     Height = 49
-    Top = 526
+    Top = 542
     Width = 278
     Caption = 'キャンセル (CTRL+C)'
     Color = clActiveCaption
     Enabled = False
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     TabOrder = 11
   end
   object BtnCancel: TPanel
     Cursor = crCross
     Left = 24
     Height = 33
-    Top = 534
+    Top = 550
     Width = 262
     BevelColor = clNone
     BevelOuter = bvNone
     Caption = 'キャンセル (CTRL+C)'
     Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     ShowAccelChar = True
     TabOrder = 12
     TabStop = True
@@ -443,41 +340,27 @@ object FrmEntryUnit: TFrmEntryUnit
   object PnlSave: TPanel
     Left = 300
     Height = 49
-    Top = 526
+    Top = 542
     Width = 278
     Caption = '登　　　録 (CTRL+3)'
     Color = clActiveCaption
     Enabled = False
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     TabOrder = 13
   end
   object BtnSave: TPanel
     Cursor = crCross
     Left = 308
     Height = 33
-    Top = 534
+    Top = 550
     Width = 262
     BevelColor = clNone
     BevelOuter = bvNone
     Caption = '保　　　存 (CTRL+S)'
     Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     ShowAccelChar = True
     TabOrder = 14
     TabStop = True
@@ -490,41 +373,27 @@ object FrmEntryUnit: TFrmEntryUnit
   object PnlGoBack: TPanel
     Left = 16
     Height = 49
-    Top = 582
+    Top = 598
     Width = 562
     Caption = '前の画面に戻る (CTRL+Q)'
     Color = clActiveCaption
     Enabled = False
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     TabOrder = 15
   end
   object BtnGoBack: TPanel
     Cursor = crCross
     Left = 24
     Height = 33
-    Top = 590
+    Top = 606
     Width = 546
     BevelColor = clNone
     BevelOuter = bvNone
     Caption = '前の画面に戻る (CTRL+Q)'
     Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     ShowAccelChar = True
     TabOrder = 16
     TabStop = True
@@ -541,11 +410,6 @@ object FrmEntryUnit: TFrmEntryUnit
   end
   object AQu: TSQLQuery
     FieldDefs = <    
-      item
-        Name = 'USER_ID'
-        Attributes = [faHiddenCol]
-        DataType = ftInteger
-      end    
       item
         Name = 'UNIT_ID'
         DataType = ftInteger
@@ -566,6 +430,7 @@ object FrmEntryUnit: TFrmEntryUnit
         Name = 'UPDATE_DT'
         DataType = ftDateTime
       end>
+    AfterScroll = AQuAfterScroll
     Options = [sqoAutoApplyUpdates, sqoAutoCommit]
     Params = <>
     Macros = <>

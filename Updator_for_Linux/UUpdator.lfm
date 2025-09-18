@@ -1,10 +1,10 @@
-object Form1: TForm1
+object FrmUpdatorForLinux: TFrmUpdatorForLinux
   Left = 342
   Height = 92
   Top = 32
   Width = 456
   BorderStyle = bsSingle
-  Caption = 'Form1'
+  Caption = 'Updator for Linux'
   ClientHeight = 92
   ClientWidth = 456
   Color = clWindowFrame
@@ -33,7 +33,7 @@ object Form1: TForm1
     Height = 44
     Top = 24
     Width = 408
-    Caption = 'Linux版アップデータ (Ver.1.0.3用)'
+    Caption = 'Linux版アップデータ (Ver.1.0.4用)'
     Color = clBtnFace
     Font.Height = -21
     Font.Name = '0xProto'

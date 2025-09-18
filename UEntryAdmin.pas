@@ -247,7 +247,7 @@ begin
                   // 27th query (TAX_RATE_ID_idx)
                   ExecuteDirect(SQL_10000027);
                   // 27th query (BRAND_VIEW)
-                  ExecuteDirect(SQL_10000028);
+                  //ExecuteDirect(SQL_10000028);
                 end;
 
                 ATr.Commit;
@@ -258,7 +258,7 @@ begin
               end;
             finally
               FrmTopMenu.Visible := True;
-              FrmEntryAdmin.Close;
+              Self.Close;
             end;
           end;
         end;
@@ -349,15 +349,13 @@ end;
 
 procedure TFrmEntryAdmin.FormShow(Sender: TObject);
 begin
-  FrmEntryAdmin.Width      := 712;
+  Self.Width          := 712;
 
-  FrmEntryAdmin.KeyPreview := True;
+  Self.KeyPreview     := True;
 
-  FrmEntryAdmin.Color := RGB(112, 168, 175);
+  Self.Color          := RGB(112, 168, 175);
   PnlClearPaw.Color   := RGB( 72, 122, 129);
   PnlCommit.Color     := RGB( 72, 122, 129);
-
-  FrmEntryAdmin.Height := 279;
 
   EdtAdminUserId.Clear;
   EdtPaw.Clear;
@@ -370,7 +368,7 @@ begin
   end;
 
   { Debug }
-  //FrmEntryAdmin.Width      := 823;
+  //Self.Width      := 823;
 end;
 
 procedure TFrmEntryAdmin.FormKeyUp(Sender: TObject; var Key: Word;

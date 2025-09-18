@@ -8,12 +8,14 @@ object FrmAddUser: TFrmAddUser
   ClientHeight = 315
   ClientWidth = 845
   Color = clWindowFrame
+  Font.CharSet = SHIFTJIS_CHARSET
   Font.Height = -21
   Font.Name = '0xProto'
+  Font.Pitch = fpVariable
+  Font.Quality = fqDraft
   Font.Style = [fsBold]
   FormStyle = fsMDIForm
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp
@@ -21,46 +23,30 @@ object FrmAddUser: TFrmAddUser
   object LblUserID1: TLabel
     Left = 16
     Height = 32
-    Top = 24
+    Top = 20
     Width = 21
     Caption = 'ユ'
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblUserID2: TLabel
     Left = 44
     Height = 32
-    Top = 24
+    Top = 20
     Width = 21
     Caption = 'ー'
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblUserID3: TLabel
     Left = 72
     Height = 32
-    Top = 24
+    Top = 20
     Width = 21
     Caption = 'ザ'
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblUserID4: TLabel
     Left = 100
     Height = 32
-    Top = 24
+    Top = 20
     Width = 21
     Caption = '名'
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object Shape1: TShape
     Left = 192
@@ -80,10 +66,6 @@ object FrmAddUser: TFrmAddUser
     Height = 49
     Top = 16
     Width = 476
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
-    ParentFont = False
     TabOrder = 0
     OnEnter = EdtUserNameEnter
     OnExit = EdtUserNameExit
@@ -91,18 +73,14 @@ object FrmAddUser: TFrmAddUser
   object LblPaw: TLabel
     Left = 16
     Height = 32
-    Top = 80
+    Top = 77
     Width = 105
     Caption = 'パスワード'
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object Shape2: TShape
     Left = 192
     Height = 16
-    Top = 88
+    Top = 89
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -118,10 +96,6 @@ object FrmAddUser: TFrmAddUser
     Top = 73
     Width = 476
     EchoMode = emNone
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
-    ParentFont = False
     PasswordChar = ' '
     TabOrder = 1
     OnChange = EdtPawChange
@@ -131,18 +105,14 @@ object FrmAddUser: TFrmAddUser
   object LblPawConfirm: TLabel
     Left = 16
     Height = 32
-    Top = 136
+    Top = 134
     Width = 173
     Caption = 'パスワード(確認)'
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object Shape3: TShape
     Left = 192
     Height = 16
-    Top = 144
+    Top = 146
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -158,10 +128,6 @@ object FrmAddUser: TFrmAddUser
     Top = 130
     Width = 476
     EchoMode = emNone
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
-    ParentFont = False
     PasswordChar = ' '
     TabOrder = 2
     OnChange = EdtPawConfirmChange
@@ -175,12 +141,8 @@ object FrmAddUser: TFrmAddUser
     Width = 680
     Caption = 'パスワードをクリア (CTRL+X)'
     Color = clActiveCaption
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     TabOrder = 3
   end
   object BtnClearPaw: TPanel
@@ -193,12 +155,8 @@ object FrmAddUser: TFrmAddUser
     BevelOuter = bvNone
     Caption = 'パスワードをクリア (CTRL+X)'
     Color = clBtnFace
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     ShowAccelChar = True
     TabOrder = 4
     TabStop = True
@@ -215,12 +173,8 @@ object FrmAddUser: TFrmAddUser
     Width = 336
     Caption = 'キャンセル (CTRL+C)'
     Color = clActiveCaption
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     TabOrder = 5
   end
   object BtnCancel: TPanel
@@ -233,12 +187,8 @@ object FrmAddUser: TFrmAddUser
     BevelOuter = bvNone
     Caption = 'キャンセル (CTRL+C)'
     Color = clBtnFace
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     ShowAccelChar = True
     TabOrder = 6
     TabStop = True
@@ -255,12 +205,8 @@ object FrmAddUser: TFrmAddUser
     Width = 336
     Caption = '保　　　存 (CTRL+S)'
     Color = clActiveCaption
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     TabOrder = 7
   end
   object BtnSave: TPanel
@@ -273,12 +219,8 @@ object FrmAddUser: TFrmAddUser
     BevelOuter = bvNone
     Caption = '保　　　存 (CTRL+S)'
     Color = clBtnFace
-    Font.Height = -21
-    Font.Name = '0xProto'
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     ShowAccelChar = True
     TabOrder = 8
     TabStop = True

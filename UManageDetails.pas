@@ -7,13 +7,14 @@ interface
 uses
   Classes, Dialogs, Variants, SysUtils, SQLDB, SQLite3Conn, DB, Forms, Controls,
   Graphics, StdCtrls, DBCtrls, DBGrids, ExtCtrls, LCLIntf, LCLType, ActnList,
-  UDBNavi;
+  UDBNavi, UDBG, LMessages;
 
 type
 
   { TFrmManageDetails }
 
   TFrmManageDetails = class(TForm)
+    ADBG: TDBG;
     ADS                    : TDataSource;
     AQu                    : TSQLQuery;
     { ActionLists }
@@ -22,8 +23,6 @@ type
     ActEditDetailsHeader   : TAction;
     ActDeleteDetailsHeader : TAction;
     ActGoBack              : TAction;
-    { Etc controls }
-    ADBG                   : TDBGrid;
     BtnAddDetailHeader     : TPanel;
     BtnEditDetailHeader    : TPanel;
     BtnDeleteDetailHeader  : TPanel;
@@ -36,13 +35,14 @@ type
     PnlAddDetail           : TPanel;
     PnlEditDetail          : TPanel;
     PnlGoBack              : TPanel;
-    PnlRemoveDetail        : TPanel;
+    PnlDeleteDetail        : TPanel;
     Timer                  : TTimer;
-    procedure ADBGEnter(Sender: TObject);
-    procedure ADBNaviClick(Sender: TObject; Button: TDBNavButtonType);
-    procedure ADBNaviEnter(Sender: TObject);
-    procedure ADBNaviExit(Sender: TObject);
-    procedure ADBNaviWMSetFocus(Sender: TObject; HWndLostFocus: HWND);
+    procedure ADBGMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure ADBGWMVScroll(Sender: TObject; var Message: TLMVScroll);
+    procedure ADBNaviBtnClick(Sender: TObject; Index: TNavigateBtn);
+    procedure ADBNaviKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure AQuAfterScroll(DataSet: TDataSet);
     procedure FormActivate(Sender: TObject);
     procedure ProcAddDetailsHeader(Sender: TObject);
     procedure ProcEditDetailsHeader(Sender: TObject);
@@ -69,13 +69,13 @@ type
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure TimerTimer(Sender: TObject);
   private
-    FTab              : Boolean;
-    FGuidePanels      : Array[0..3] of TPanel;
-    FCurrentComponent : TObject;
-    FGoBack           : Boolean;
+    //FTab         : Boolean;
+    FGuidePanels : Array[0..3] of TPanel;
+    FNavigateBtn : TNavigateBtn;
+    FGoBack      : Boolean;
+    function CannotFocusedNavButton: Boolean;
     function GetGoBack: Boolean;
     procedure SetGoBack(GoBack: Boolean);
-    property GoBack: Boolean read GetGoBack write SetGoBack;
   public
 
   end;
@@ -91,6 +91,18 @@ uses
 {$R *.lfm}
 
 { TFrmManageDetails }
+
+
+function TFrmManageDetails.CannotFocusedNavButton: Boolean;
+begin
+  with AQu do begin
+    if Active then begin
+      Result := RecordCount = 0;
+    end else begin
+      Result := True;
+    end;
+  end;
+end;
 
 procedure TFrmManageDetails.ProcAddDetailsHeader(Sender: TObject);
 begin
@@ -220,7 +232,6 @@ begin
   GoBackMouseOver(clBtnFace);
 
   Timer.Enabled     := True;
-  FCurrentComponent := Sender;
 end;
 
 procedure TFrmManageDetails.BtnAddDetailHeaderExit(Sender: TObject);
@@ -228,7 +239,6 @@ begin
   AddDetailHeaderMouseOver(clBtnFace);
 
   Timer.Enabled     := True;
-  FCurrentComponent := Sender;
 end;
 
 procedure TFrmManageDetails.EditDetailHeaderMouseOver(NewColor: TColor);
@@ -244,7 +254,6 @@ begin
   GoBackMouseOver(clBtnFace);
 
   Timer.Enabled     := True;
-  FCurrentComponent := Sender;
 end;
 
 procedure TFrmManageDetails.BtnEditDetailHeaderExit(Sender: TObject);
@@ -252,7 +261,6 @@ begin
   EditDetailHeaderMouseOver(clBtnFace);
 
   Timer.Enabled     := True;
-  FCurrentComponent := Sender;
 end;
 
 procedure TFrmManageDetails.DeleteDetailHeaderMouseOver(NewColor: TColor);
@@ -268,7 +276,6 @@ begin
   GoBackMouseOver(clBtnFace);
 
   Timer.Enabled     := True;
-  FCurrentComponent := Sender;
 end;
 
 procedure TFrmManageDetails.BtnDeleteDetailHeaderExit(Sender: TObject);
@@ -276,7 +283,6 @@ begin
   DeleteDetailHeaderMouseOver(clBtnFace);
 
   Timer.Enabled     := True;
-  FCurrentComponent := Sender;
 end;
 
 procedure TFrmManageDetails.GoBackMouseOver(NewColor: TColor);
@@ -292,7 +298,6 @@ begin
   GoBackMouseOver(clSkyBlue);
 
   Timer.Enabled     := True;
-  FCurrentComponent := Sender;
 end;
 
 procedure TFrmManageDetails.BtnGoBackExit(Sender: TObject);
@@ -300,7 +305,6 @@ begin
   GoBackMouseOver(clBtnFace);
 
   Timer.Enabled     := True;
-  FCurrentComponent := Sender;
 end;
 
 function TFrmManageDetails.GetGoBack: Boolean;
@@ -340,58 +344,64 @@ begin
   Close;
 end;
 
-procedure TFrmManageDetails.ADBGEnter(Sender: TObject);
-var
-  LPanel : TPanel;
+procedure TFrmManageDetails.ADBGMouseDown(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
-  if FCurrentComponent is TPanel then begin
-    LPanel := FCurrentComponent as TPanel;
-    LPanel.SetFocus;
-  end;
+  ADBNavi.SetFocus;
+  ADBNavi.FindNextControl(ADBNavi, True, True, True).SetFocus;
 end;
 
-procedure TFrmManageDetails.ADBNaviClick(Sender: TObject;
-  Button: TDBNavButtonType);
+procedure TFrmManageDetails.ADBGWMVScroll(Sender: TObject;
+  var Message: TLMVScroll);
 begin
-  with CommonDB do begin
-    with Defs do begin
-      if (Button = nbFirst) or (Button = nbPrior) then begin
-        if AQu.RecNo = 1  then begin
-          AQu.First;
+  ADBNavi.SetFocus;
+  ADBNavi.FindNextControl(ADBNavi, True, True, True).SetFocus;
+end;
+
+procedure TFrmManageDetails.ADBNaviBtnClick(Sender: TObject; Index: TNavigateBtn
+  );
+begin
+  FNavigateBtn := Index;
+end;
+
+procedure TFrmManageDetails.ADBNaviKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_TAB) And (ssShift in Shift) then begin
+    BtnEditDetailHeader.SetFocus;
+  end else if (Key = VK_TAB) then begin
+    if Screen.ActiveControl is TDBNavi then begin
+      if CannotFocusedNavButton then begin
+        if BtnDeleteDetailHeader.Enabled then begin
+          BtnDeleteDetailHeader.SetFocus;
+        end else begin
           BtnGoBack.SetFocus;
         end;
-      end else if (Button = nbNext) Or (Button = nbLast) then begin
-        if AQu.RecNo = AQu.RecordCount  then begin
-          AQu.Last;
-          BtnAddDetailHeader.SetFocus;
-        end;
+      end else begin
+        ADBNavi.FindNextControl(ADBNavi, True, True, False).SetFocus;
       end;
     end;
   end;
 end;
 
-procedure TFrmManageDetails.ADBNaviEnter(Sender: TObject);
+procedure TFrmManageDetails.AQuAfterScroll(DataSet: TDataSet);
 begin
-  Timer.Enabled := True;
-end;
-
-procedure TFrmManageDetails.ADBNaviExit(Sender: TObject);
-begin
-  Timer.Enabled := True;
-end;
-
-procedure TFrmManageDetails.ADBNaviWMSetFocus(Sender: TObject;
-  HWndLostFocus: HWND);
-begin
-  if FTab then begin
-    try
-      if Screen.ActiveControl is TDBNavi then begin
-        TWinControl(ADBNavi.FindNextControl(ADBNavi, True, True, True)).SetFocus;
-      end;
-    except
-      on E: Exception do begin
+  case FNavigateBtn of
+  nbFirst:
+    if AQu.RecordCount > 0 then begin
+      ADBNavi.FindNextControl(ADBNavi, True, True, False).SetFocus;
+    end;
+  nbPrior:
+    if AQu.RecNo <= 1 then begin
+      ADBNavi.FindNextControl(ADBNavi, True, True, False).SetFocus;
+    end;
+  nbNext:
+    begin
+      if AQu.RecNo = AQu.RecordCount then begin
+        ADBNavi.FindNextControl(ADBNavi, False, True, False).SetFocus;
       end;
     end;
+  nbLast: ADBNavi.FindNextControl(ADBNavi, False, True, False).SetFocus;
   end;
 
   Timer.Enabled := True;
@@ -432,14 +442,14 @@ end;
 
 procedure TFrmManageDetails.FormShow(Sender: TObject);
 begin
-  FrmManageDetails.Width      := 859;
+  Self.Width             := 859;
 
-  FrmManageDetails.KeyPreview := True;
+  Self.KeyPreview        := True;
 
-  FrmManageDetails.Color := RGB(112, 168, 175);
+  Self.Color             := RGB(112, 168, 175);
   PnlAddDetail.Color     := RGB( 72, 122, 129);
   PnlEditDetail.Color    := RGB( 72, 122, 129);
-  PnlRemoveDetail.Color  := RGB( 72, 122, 129);
+  PnlDeleteDetail.Color  := RGB( 72, 122, 129);
   PnlGoBack.Color        := RGB( 72, 122, 129);
 
   // Clear values of next screen
@@ -460,7 +470,7 @@ begin
   end;
 
   { Debug }
-  //FrmManageDetails.Width      := 986;
+  //Self.Width      := 986;
 end;
 
 procedure TFrmManageDetails.FormActivate(Sender: TObject);
@@ -492,23 +502,7 @@ end;
 procedure TFrmManageDetails.FormKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  if (Key = VK_TAB) And (ssShift in Shift) then begin
-    FTab := False;
-  end else begin
-    FTab := True;
-    if Screen.ActiveControl is TDBNavi then begin
-      ADBNaviWMSetFocus(ADBNavi, ADBNavi.Handle);
-    end;
-  end;
-
-  if (Key = VK_TAB) AND (ssShift in Shift) then begin
-    if Screen.ActiveControl is TDBNavi then begin
-      BtnEditDetailHeader.SetFocus;
-    end;
-    Timer.Enabled := True;
-  end else begin
-    Timer.Enabled := True;
-  end;
+  Timer.Enabled := True;
 
   if (Key = VK_SPACE) Or (Key = VK_RETURN) then begin
     if ActiveControl.Name = 'BtnAddDetailHeader' then begin
