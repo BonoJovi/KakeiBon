@@ -1,20 +1,21 @@
 object FrmEditUser: TFrmEditUser
   Left = 709
-  Height = 646
+  Height = 665
   Top = 174
-  Width = 658
+  Width = 819
   BorderStyle = bsSingle
   Caption = 'ユーザの編集'
-  ClientHeight = 646
-  ClientWidth = 658
+  ClientHeight = 665
+  ClientWidth = 819
   Color = clWindowFrame
-  Font.CharSet = ANSI_CHARSET
+  Font.CharSet = SHIFTJIS_CHARSET
   Font.Height = -21
   Font.Name = 'Noto Sans JP'
   Font.Pitch = fpVariable
   Font.Quality = fqDraft
   Font.Style = [fsBold]
   Position = poScreenCenter
+  OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp
@@ -28,195 +29,155 @@ object FrmEditUser: TFrmEditUser
     Color = clWindow
     Columns = <    
       item
-        Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Name = '0xProto'
         Font.Style = [fsBold]
+        Title.Layout = tlBottom
         Title.Caption = 'ユーザID'
-        Width = 93
+        Width = 81
         FieldName = 'USER_ID'
       end    
       item
-        Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Name = '0xProto'
         Font.Style = [fsBold]
+        Title.Layout = tlBottom
         Title.Caption = 'ユーザ名'
-        Width = 88
+        Width = 77
         FieldName = 'NAME'
       end    
       item
-        Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Name = '0xProto'
         Font.Style = [fsBold]
+        Title.Layout = tlBottom
         Title.Caption = '権限'
-        Width = 57
+        Width = 0
+        Visible = False
         FieldName = 'ROLE'
       end    
       item
-        Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Name = '0xProto'
         Font.Style = [fsBold]
+        Title.Layout = tlBottom
         Title.Caption = '登録日'
-        Width = 78
+        Width = 63
         FieldName = 'ENTRY_DT'
+        DisplayFormat = 'yyyy"/"mm"/"dd hh":"nn":"ss'
       end    
       item
-        Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Name = '0xProto'
         Font.Style = [fsBold]
+        Title.Layout = tlBottom
         Title.Caption = '更新日'
-        Width = 78
+        Width = 63
         FieldName = 'UPDATE_DT'
+        DisplayFormat = 'yyyy"/"mm"/"dd hh":"nn":"ss'
       end>
     DataSource = ADS
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns]
-    ParentFont = False
     ReadOnly = True
     TabOrder = 0
     TabStop = False
+    OnMouseDown = ADBGridMouseDown
+    OnSelectEditor = ADBGridSelectEditor
   end
-  object DBNavigator: TDBNavigator
-    Cursor = crHandPoint
+  object Panel1: TPanel
     Left = 16
-    Height = 36
-    Top = 148
-    Width = 626
-    BevelOuter = bvNone
-    ChildSizing.EnlargeHorizontal = crsScaleChilds
-    ChildSizing.EnlargeVertical = crsScaleChilds
-    ChildSizing.ShrinkHorizontal = crsScaleChilds
-    ChildSizing.ShrinkVertical = crsScaleChilds
-    ChildSizing.Layout = cclLeftToRightThenTopToBottom
-    ChildSizing.ControlsPerLine = 100
-    ClientHeight = 36
-    ClientWidth = 626
-    Color = clWindowFrame
-    DataSource = ADS
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    Options = [navFocusableButtons]
+    Height = 6
+    Top = 180
+    Width = 152
+    Color = clYellow
+    ParentBackground = False
     ParentColor = False
-    ParentFont = False
-    TabOrder = 1
-    TabStop = True
-    VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast, nbRefresh]
+    TabOrder = 2
+    Visible = False
+  end
+  object Panel2: TPanel
+    Left = 174
+    Height = 6
+    Top = 180
+    Width = 152
+    Color = clYellow
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 3
+    Visible = False
+  end
+  object Panel3: TPanel
+    Left = 332
+    Height = 6
+    Top = 180
+    Width = 152
+    Color = clYellow
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 4
+    Visible = False
+  end
+  object Panel4: TPanel
+    Left = 490
+    Height = 6
+    Top = 180
+    Width = 152
+    Color = clYellow
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 5
+    Visible = False
   end
   object LblUserID: TLabel
     Left = 16
     Height = 30
-    Top = 205
+    Top = 209
     Width = 85
     Caption = 'ユーザID'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object DBTextUserID: TDBText
-    Left = 200
+    Left = 224
     Height = 26
-    Top = 205
-    Width = 443
+    Top = 209
+    Width = 419
     AutoSize = False
     DataField = 'USER_ID'
     DataSource = ADS
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
-  object LblUserName: TLabel
+  object LblFromUserName: TLabel
     Left = 16
     Height = 30
-    Top = 245
+    Top = 264
     Width = 126
     Caption = 'ユーザ名 (旧)'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object DBTextFromUserName: TDBText
-    Left = 201
+    Left = 225
     Height = 26
-    Top = 245
-    Width = 442
+    Top = 266
+    Width = 418
     AutoSize = False
     DataField = 'NAME'
     DataSource = ADS
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
-  object LblToUName: TLabel
+  object LblUserName: TLabel
     Left = 272
     Height = 30
-    Top = 275
+    Top = 294
     Width = 21
     Caption = '↓'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
-  object LblUserName1: TLabel
+  object LblToUserName: TLabel
     Left = 16
     Height = 30
-    Top = 323
+    Top = 338
     Width = 126
     Caption = 'ユーザ名 (新)'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object Shape1: TShape
     Left = 201
     Height = 16
-    Top = 331
+    Top = 345
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -229,16 +190,9 @@ object FrmEditUser: TFrmEditUser
     Cursor = crIBeam
     Left = 224
     Height = 38
-    Top = 315
+    Top = 334
     Width = 418
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
-    TabOrder = 2
+    TabOrder = 6
     OnChange = EdtToUserNameChange
     OnEnter = EdtToUserNameEnter
     OnExit = EdtToUserNameExit
@@ -246,21 +200,14 @@ object FrmEditUser: TFrmEditUser
   object LblPaw: TLabel
     Left = 16
     Height = 30
-    Top = 380
+    Top = 395
     Width = 105
     Caption = 'パスワード'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object Shape2: TShape
     Left = 200
     Height = 16
-    Top = 388
+    Top = 402
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -273,18 +220,11 @@ object FrmEditUser: TFrmEditUser
     Cursor = crIBeam
     Left = 224
     Height = 38
-    Top = 372
+    Top = 391
     Width = 419
     EchoMode = emNone
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
     PasswordChar = ' '
-    TabOrder = 3
+    TabOrder = 7
     OnChange = EdtPawChange
     OnEnter = EdtPawEnter
     OnExit = EdtPawExit
@@ -292,21 +232,14 @@ object FrmEditUser: TFrmEditUser
   object LblPawConfirm: TLabel
     Left = 16
     Height = 30
-    Top = 437
+    Top = 452
     Width = 163
     Caption = 'パスワード(確認)'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object Shape3: TShape
     Left = 201
     Height = 16
-    Top = 445
+    Top = 459
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -317,20 +250,13 @@ object FrmEditUser: TFrmEditUser
   end
   object EdtPawConfirm: TEdit
     Cursor = crIBeam
-    Left = 224
+    Left = 223
     Height = 38
-    Top = 429
+    Top = 448
     Width = 419
     EchoMode = emNone
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
     PasswordChar = ' '
-    TabOrder = 4
+    TabOrder = 8
     OnChange = EdtPawConfirmChange
     OnEnter = EdtPawConfirmEnter
     OnExit = EdtPawConfirmExit
@@ -338,58 +264,37 @@ object FrmEditUser: TFrmEditUser
   object LblInfo: TLabel
     Left = 309
     Height = 30
-    Top = 486
+    Top = 496
     Width = 334
     Caption = '変更する項目だけ入力してください'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentColor = False
-    ParentFont = False
   end
   object PnlClearPaw: TPanel
     Left = 16
     Height = 48
-    Top = 526
-    Width = 626
+    Top = 545
+    Width = 627
     Caption = 'パスワードをクリア (CTRL+X)'
     Color = clActiveCaption
     Enabled = False
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
-    TabOrder = 5
+    TabOrder = 9
   end
   object BtnClearPaw: TPanel
     Cursor = crCross
     Left = 24
     Height = 32
-    Top = 534
+    Top = 553
     Width = 610
     BevelColor = clNone
     BevelOuter = bvNone
     Caption = 'パスワードをクリア (CTRL+X)'
     Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     ShowAccelChar = True
-    TabOrder = 6
+    TabOrder = 10
     TabStop = True
     OnClick = ActClearPawExecute
     OnEnter = BtnClearPawEnter
@@ -400,43 +305,29 @@ object FrmEditUser: TFrmEditUser
   object PnlCancel: TPanel
     Left = 16
     Height = 48
-    Top = 582
+    Top = 601
     Width = 311
     Caption = 'キャンセル (CTRL+C)'
     Color = clActiveCaption
     Enabled = False
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
-    TabOrder = 7
+    TabOrder = 11
   end
   object BtnCancel: TPanel
     Cursor = crCross
     Left = 24
     Height = 32
-    Top = 590
+    Top = 609
     Width = 296
     BevelColor = clNone
     BevelOuter = bvNone
     Caption = 'キャンセル (CTRL+C)'
     Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     ShowAccelChar = True
-    TabOrder = 8
+    TabOrder = 12
     TabStop = True
     OnClick = ActCancelExecute
     OnEnter = BtnCancelEnter
@@ -444,46 +335,32 @@ object FrmEditUser: TFrmEditUser
     OnMouseEnter = BtnCancelEnter
     OnMouseLeave = BtnCancelExit
   end
-  object PnlCommit: TPanel
+  object PnlSave: TPanel
     Left = 332
     Height = 48
-    Top = 582
+    Top = 601
     Width = 310
     Caption = '保　　　存 (CTRL+S)'
     Color = clActiveCaption
     Enabled = False
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
-    TabOrder = 9
+    TabOrder = 13
   end
   object BtnSave: TPanel
     Cursor = crCross
     Left = 339
     Height = 32
-    Top = 590
+    Top = 609
     Width = 295
     BevelColor = clNone
     BevelOuter = bvNone
     Caption = '保　　　存 (CTRL+S)'
     Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     ShowAccelChar = True
-    TabOrder = 10
+    TabOrder = 14
     TabStop = True
     OnClick = ActSaveExecute
     OnEnter = BtnSaveEnter
@@ -491,9 +368,32 @@ object FrmEditUser: TFrmEditUser
     OnMouseEnter = BtnSaveEnter
     OnMouseLeave = BtnSaveExit
   end
+  object ADBNavi: TDBNavi
+    Left = 16
+    Height = 28
+    Top = 148
+    Width = 626
+    BevelOuter = bvNone
+    ChildSizing.HorizontalSpacing = 5
+    ChildSizing.EnlargeHorizontal = crsScaleChilds
+    ChildSizing.EnlargeVertical = crsScaleChilds
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 100
+    ClientHeight = 28
+    ClientWidth = 626
+    DataSource = ADS
+    Options = [navFocusableButtons]
+    TabOrder = 1
+    TabStop = True
+    VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
+    OnBtnClick = ADBNaviBtnClick
+    OnKeyUp = ADBNaviKeyUp
+  end
   object ActionList: TActionList
-    Left = 320
-    Top = 144
+    Left = 680
+    Top = 104
     object ActClearPaw: TAction
       Caption = 'ActClearPaw'
       SecondaryShortCuts.Strings = (
@@ -526,65 +426,33 @@ object FrmEditUser: TFrmEditUser
   end
   object ADS: TDataSource
     DataSet = AQu
-    Left = 432
-    Top = 144
-  end
-  object ATr: TSQLTransaction
-    Active = False
-    Database = ACnUsers
-    Left = 488
-    Top = 144
+    Left = 680
+    Top = 280
   end
   object AQu: TSQLQuery
     FieldDefs = <>
-    Database = ACn
-    Transaction = ATr
-    SQL.Strings = (
-      'SELECT "NAME", "PAW" FROM "USERS" WHERE "ROLE" = 1;'
-    )
     Params = <>
     Macros = <>
-    Left = 544
-    Top = 144
-  end
-  object ACn: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    AlwaysUseBigint = False
-    Left = 376
-    Top = 144
-  end
-  object ACnUsers: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATrUsers
-    AlwaysUseBigint = False
-    Left = 376
-    Top = 200
+    Left = 752
+    Top = 280
   end
   object ADSUsers: TDataSource
     DataSet = AQuUsers
-    Left = 432
-    Top = 200
-  end
-  object ATrUsers: TSQLTransaction
-    Active = False
-    Database = ACnUsers
-    Left = 488
-    Top = 200
+    Left = 680
+    Top = 336
   end
   object AQuUsers: TSQLQuery
     FieldDefs = <>
-    Database = ACnUsers
-    Transaction = ATrUsers
-    SQL.Strings = (
-      'SELECT "NAME", "PAW" FROM "USERS" WHERE "ROLE" = 1;'
-    )
     Params = <>
     Macros = <>
-    Left = 544
-    Top = 200
+    Left = 752
+    Top = 336
+  end
+  object Timer: TTimer
+    Enabled = False
+    Interval = 1
+    OnTimer = TimerTimer
+    Left = 752
+    Top = 104
   end
 end

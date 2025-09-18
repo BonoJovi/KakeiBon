@@ -1,14 +1,14 @@
 object FrmAddUser: TFrmAddUser
-  Left = 302
-  Height = 311
-  Top = 478
-  Width = 712
+  Left = 16
+  Height = 315
+  Top = 267
+  Width = 845
   BorderStyle = bsSingle
   Caption = 'ユーザを追加'
-  ClientHeight = 311
-  ClientWidth = 712
+  ClientHeight = 315
+  ClientWidth = 845
   Color = clWindowFrame
-  Font.CharSet = ANSI_CHARSET
+  Font.CharSet = SHIFTJIS_CHARSET
   Font.Height = -21
   Font.Name = 'Noto Sans JP'
   Font.Pitch = fpVariable
@@ -16,6 +16,7 @@ object FrmAddUser: TFrmAddUser
   Font.Style = [fsBold]
   FormStyle = fsMDIForm
   Position = poScreenCenter
+  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp
@@ -26,13 +27,6 @@ object FrmAddUser: TFrmAddUser
     Top = 20
     Width = 21
     Caption = 'ユ'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblUserID2: TLabel
     Left = 44
@@ -40,13 +34,6 @@ object FrmAddUser: TFrmAddUser
     Top = 20
     Width = 21
     Caption = 'ー'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblUserID3: TLabel
     Left = 72
@@ -54,13 +41,6 @@ object FrmAddUser: TFrmAddUser
     Top = 20
     Width = 21
     Caption = 'ザ'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object LblUserID4: TLabel
     Left = 100
@@ -68,13 +48,6 @@ object FrmAddUser: TFrmAddUser
     Top = 20
     Width = 21
     Caption = '名'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object Shape1: TShape
     Left = 192
@@ -94,13 +67,6 @@ object FrmAddUser: TFrmAddUser
     Height = 38
     Top = 16
     Width = 476
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
     TabOrder = 0
     OnEnter = EdtUserNameEnter
     OnExit = EdtUserNameExit
@@ -108,21 +74,14 @@ object FrmAddUser: TFrmAddUser
   object LblPaw: TLabel
     Left = 16
     Height = 30
-    Top = 76
+    Top = 77
     Width = 105
     Caption = 'パスワード'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object Shape2: TShape
     Left = 192
     Height = 16
-    Top = 83
+    Top = 84
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -135,16 +94,9 @@ object FrmAddUser: TFrmAddUser
     Cursor = crIBeam
     Left = 216
     Height = 38
-    Top = 72
+    Top = 73
     Width = 476
     EchoMode = emNone
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
     PasswordChar = ' '
     TabOrder = 1
     OnChange = EdtPawChange
@@ -154,21 +106,14 @@ object FrmAddUser: TFrmAddUser
   object LblPawConfirm: TLabel
     Left = 16
     Height = 30
-    Top = 132
+    Top = 134
     Width = 163
     Caption = 'パスワード(確認)'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object Shape3: TShape
     Left = 192
     Height = 16
-    Top = 139
+    Top = 141
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -181,16 +126,9 @@ object FrmAddUser: TFrmAddUser
     Cursor = crIBeam
     Left = 216
     Height = 38
-    Top = 128
+    Top = 130
     Width = 476
     EchoMode = emNone
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
     PasswordChar = ' '
     TabOrder = 2
     OnChange = EdtPawConfirmChange
@@ -200,40 +138,26 @@ object FrmAddUser: TFrmAddUser
   object PnlClearPass: TPanel
     Left = 16
     Height = 48
-    Top = 188
+    Top = 195
     Width = 680
     Caption = 'パスワードをクリア (CTRL+X)'
     Color = clActiveCaption
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     TabOrder = 3
   end
   object BtnClearPaw: TPanel
     Cursor = crCross
     Left = 24
     Height = 32
-    Top = 196
+    Top = 203
     Width = 664
     BevelColor = clNone
     BevelOuter = bvNone
     Caption = 'パスワードをクリア (CTRL+X)'
     Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     ShowAccelChar = True
     TabOrder = 4
     TabStop = True
@@ -246,40 +170,26 @@ object FrmAddUser: TFrmAddUser
   object PnlCancel: TPanel
     Left = 16
     Height = 48
-    Top = 248
+    Top = 251
     Width = 336
     Caption = 'キャンセル (CTRL+C)'
     Color = clActiveCaption
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     TabOrder = 5
   end
   object BtnCancel: TPanel
     Cursor = crCross
     Left = 24
     Height = 32
-    Top = 256
+    Top = 259
     Width = 320
     BevelColor = clNone
     BevelOuter = bvNone
     Caption = 'キャンセル (CTRL+C)'
     Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     ShowAccelChar = True
     TabOrder = 6
     TabStop = True
@@ -292,40 +202,26 @@ object FrmAddUser: TFrmAddUser
   object PnlSave: TPanel
     Left = 360
     Height = 48
-    Top = 248
+    Top = 251
     Width = 336
     Caption = '保　　　存 (CTRL+S)'
     Color = clActiveCaption
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     TabOrder = 7
   end
   object BtnSave: TPanel
     Cursor = crCross
     Left = 368
     Height = 32
-    Top = 256
+    Top = 259
     Width = 320
     BevelColor = clNone
     BevelOuter = bvNone
     Caption = '保　　　存 (CTRL+S)'
     Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     ShowAccelChar = True
     TabOrder = 8
     TabStop = True
@@ -336,8 +232,8 @@ object FrmAddUser: TFrmAddUser
     OnMouseLeave = BtnSaveExit
   end
   object ActionList: TActionList
-    Left = 272
-    Top = 48
+    Left = 728
+    Top = 24
     object ActClearPaw: TAction
       Caption = 'ActClearPaw'
       SecondaryShortCuts.Strings = (
@@ -370,31 +266,14 @@ object FrmAddUser: TFrmAddUser
   end
   object ADS: TDataSource
     DataSet = AQu
-    Left = 400
-    Top = 48
-  end
-  object ATr: TSQLTransaction
-    Active = False
-    Database = ACn
-    Left = 464
-    Top = 48
+    Left = 728
+    Top = 88
   end
   object AQu: TSQLQuery
     FieldDefs = <>
-    Database = ACn
-    Transaction = ATr
     Params = <>
     Macros = <>
-    Left = 528
-    Top = 48
-  end
-  object ACn: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATr
-    AlwaysUseBigint = False
-    Left = 336
-    Top = 48
+    Left = 792
+    Top = 88
   end
 end

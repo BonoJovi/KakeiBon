@@ -8,13 +8,14 @@ object FrmManageExp: TFrmManageExp
   ClientHeight = 700
   ClientWidth = 1176
   Color = clWindowFrame
-  Font.CharSet = ANSI_CHARSET
+  Font.CharSet = SHIFTJIS_CHARSET
   Font.Height = -21
   Font.Name = 'Noto Sans JP'
   Font.Pitch = fpVariable
   Font.Quality = fqDraft
   Font.Style = [fsBold]
   Position = poScreenCenter
+  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp
@@ -30,96 +31,65 @@ object FrmManageExp: TFrmManageExp
     ColCount = 9
     Columns = <    
       item
-        Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = 'USER_ID'
         Width = 0
         Visible = False
       end    
       item
-        Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = 'ユーザ'
         Width = 0
         Visible = False
       end    
       item
-        Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = 'EXP_KEY1'
         Visible = False
       end    
       item
-        Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '費目(大)'
         Width = 100
       end    
       item
-        Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = 'DISABLED1'
         Visible = False
       end    
       item
-        Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = 'ORDER_KEY1'
         Visible = False
       end    
       item
-        Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = 'ENTRY_DT'
         Visible = False
       end    
       item
-        Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = 'UPDATE_DT'
         Visible = False
       end>
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing, goRowSelect, goColSpanning, goDblClickAutoSize, goSmoothScroll, goFixedRowNumbering, goSelectionActive, goFixedColSizing, goCellEllipsis]
     Options2 = [goEditorParentColor, goEditorParentFont]
-    ParentFont = False
     TabOrder = 0
     TabStop = False
     OnClick = ASG1Click
@@ -130,13 +100,6 @@ object FrmManageExp: TFrmManageExp
     Top = 122
     Width = 21
     Caption = '＞'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object ASG2: TStringGrid
     Cursor = crHandPoint
@@ -148,11 +111,8 @@ object FrmManageExp: TFrmManageExp
     ColCount = 9
     Columns = <    
       item
-        Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Name = '0xProto'
         Font.Style = [fsBold]
         SizePriority = 0
         Title.Caption = 'ID'
@@ -160,11 +120,8 @@ object FrmManageExp: TFrmManageExp
         Visible = False
       end    
       item
-        Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Name = '0xProto'
         Font.Style = [fsBold]
         SizePriority = 0
         Title.Caption = 'EXP_KEY1'
@@ -172,11 +129,8 @@ object FrmManageExp: TFrmManageExp
         Visible = False
       end    
       item
-        Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Name = '0xProto'
         Font.Style = [fsBold]
         SizePriority = 0
         Title.Caption = 'EXP_KEY2'
@@ -184,11 +138,8 @@ object FrmManageExp: TFrmManageExp
         Visible = False
       end    
       item
-        Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Name = '0xProto'
         Font.Style = [fsBold]
         MaxSize = 500
         Title.MultiLine = True
@@ -197,55 +148,36 @@ object FrmManageExp: TFrmManageExp
       end    
       item
         ButtonStyle = cbsCheckboxColumn
-        Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '非表示'
         Width = 64
       end    
       item
-        Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '並び順'
         Width = 64
       end    
       item
-        Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '登録日'
         Width = 0
         Visible = False
       end    
       item
-        Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '更新日'
         Width = 0
         Visible = False
       end>
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing, goEditing, goRowSelect, goAlwaysShowEditor, goColSpanning, goDblClickAutoSize, goSmoothScroll, goSelectionActive, goFixedColSizing, goCellEllipsis]
-    ParentFont = False
     RowCount = 7
     TabOrder = 1
     TabStop = False
@@ -276,15 +208,8 @@ object FrmManageExp: TFrmManageExp
     BevelOuter = bvNone
     Caption = '　　追　　　　　加　　 (CTRL+1)'
     Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     ShowAccelChar = True
     TabOrder = 2
     TabStop = True
@@ -305,15 +230,8 @@ object FrmManageExp: TFrmManageExp
     BevelOuter = bvNone
     Caption = '並び順を初期状態に戻す (CTRL+2)'
     Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     ShowAccelChar = True
     TabOrder = 3
     TabStop = True
@@ -329,13 +247,6 @@ object FrmManageExp: TFrmManageExp
     Top = 122
     Width = 21
     Caption = '＞'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ParentFont = False
   end
   object ASG3: TStringGrid
     Cursor = crHandPoint
@@ -347,11 +258,8 @@ object FrmManageExp: TFrmManageExp
     ColCount = 10
     Columns = <    
       item
-        Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Name = '0xProto'
         Font.Style = [fsBold]
         SizePriority = 0
         Title.Caption = 'ID'
@@ -359,11 +267,8 @@ object FrmManageExp: TFrmManageExp
         Visible = False
       end    
       item
-        Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Name = '0xProto'
         Font.Style = [fsBold]
         SizePriority = 0
         Title.Caption = 'EXP_KEY1'
@@ -371,11 +276,8 @@ object FrmManageExp: TFrmManageExp
         Visible = False
       end    
       item
-        Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Name = '0xProto'
         Font.Style = [fsBold]
         SizePriority = 0
         Title.Caption = 'EXP_KEY2'
@@ -383,22 +285,16 @@ object FrmManageExp: TFrmManageExp
         Visible = False
       end    
       item
-        Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = 'EXP_KEY3'
         Width = 0
         Visible = False
       end    
       item
-        Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Name = '0xProto'
         Font.Style = [fsBold]
         MaxSize = 500
         Title.Caption = '費目(小)'
@@ -407,55 +303,36 @@ object FrmManageExp: TFrmManageExp
       item
         Alignment = taCenter
         ButtonStyle = cbsCheckboxColumn
-        Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '非表示'
         Width = 64
       end    
       item
-        Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '並び順'
         Width = 64
       end    
       item
-        Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '登録日'
         Width = 0
         Visible = False
       end    
       item
-        Font.CharSet = ANSI_CHARSET
         Font.Height = -21
-        Font.Name = 'Noto Sans JP'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
+        Font.Name = '0xProto'
         Font.Style = [fsBold]
         Title.Caption = '更新日'
         Width = 0
         Visible = False
       end>
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing, goEditing, goRowSelect, goAlwaysShowEditor, goColSpanning, goDblClickAutoSize, goSmoothScroll, goSelectionActive, goFixedColSizing, goCellEllipsis]
-    ParentFont = False
     RowCount = 7
     TabOrder = 4
     TabStop = False
@@ -487,15 +364,8 @@ object FrmManageExp: TFrmManageExp
     BevelOuter = bvNone
     Caption = '　　追　　　　　加　　 (CTRL+3)'
     Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     ShowAccelChar = True
     TabOrder = 5
     TabStop = True
@@ -516,15 +386,8 @@ object FrmManageExp: TFrmManageExp
     BevelOuter = bvNone
     Caption = '並び順を初期状態に戻す (CTRL+4)'
     Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     ShowAccelChar = True
     TabOrder = 6
     TabStop = True
@@ -543,15 +406,8 @@ object FrmManageExp: TFrmManageExp
     Caption = '前の画面に戻る (CTRL+3)'
     Color = clActiveCaption
     Enabled = False
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     TabOrder = 7
   end
   object BtnGoBack: TPanel
@@ -565,15 +421,8 @@ object FrmManageExp: TFrmManageExp
     BevelOuter = bvNone
     Caption = '前の画面に戻る (CTRL+Q)'
     Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -21
-    Font.Name = 'Noto Sans JP'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentFont = False
     ShowAccelChar = True
     TabOrder = 8
     TabStop = True
@@ -583,14 +432,15 @@ object FrmManageExp: TFrmManageExp
     OnMouseEnter = BtnGoBackEnter
     OnMouseLeave = BtnGoBackExit
   end
-  object Timer1: TTimer
+  object Timer: TTimer
     Enabled = False
-    Interval = 10
-    Left = 28
+    Interval = 1
+    OnTimer = TimerTimer
+    Left = 152
     Top = 272
   end
   object ActionList: TActionList
-    Left = 120
+    Left = 88
     Top = 272
     object ActAddExp2: TAction
       Caption = 'ActAddExp2'
@@ -618,200 +468,40 @@ object FrmManageExp: TFrmManageExp
       OnExecute = ActGoBackExecute
     end
   end
-  object ADS1: TDataSource
-    DataSet = AQu1
-    Left = 72
-    Top = 140
+  object ADSExp1: TDataSource
+    DataSet = AQuExp1
+    Left = 88
+    Top = 352
   end
-  object ATr1: TSQLTransaction
-    Active = False
-    Database = ACn1
-    Left = 120
-    Top = 140
-  end
-  object AQu1: TSQLQuery
-    FieldDefs = <    
-      item
-        Name = 'USER_ID'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'EXP_KEY1'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'NAME1'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'DISABLED1'
-        DataType = ftBoolean
-      end    
-      item
-        Name = 'ORDER_KEY1'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'ENTRY_DT'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'UPDATE_DT'
-        DataType = ftUnknown
-      end>
-    Database = ACn1
-    Transaction = ATr1
-    ReadOnly = True
-    SQL.Strings = (
-      'SELECT * FROM "EXP1"'
-    )
+  object AQuExp1: TSQLQuery
+    FieldDefs = <>
     Params = <>
     Macros = <>
-    Left = 168
-    Top = 140
+    Left = 152
+    Top = 352
   end
-  object ADS2: TDataSource
-    DataSet = AQu2
-    Left = 384
-    Top = 140
+  object ADSExp2: TDataSource
+    DataSet = AQuExp2
+    Left = 424
+    Top = 344
   end
-  object ATr2: TSQLTransaction
-    Active = False
-    Database = ACn2
-    Left = 432
-    Top = 140
-  end
-  object AQu2: TSQLQuery
-    PacketRecords = 100
-    FieldDefs = <    
-      item
-        Name = 'USER_ID'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'EXP_KEY1'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'EXP_KEY2'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'NAME1'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'DISABLED2'
-        DataType = ftBoolean
-      end    
-      item
-        Name = 'ORDER_KEY2'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'ENTRY_DT'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'UPDATE_DT'
-        DataType = ftUnknown
-      end>
-    Database = ACn2
-    Transaction = ATr2
-    SQL.Strings = (
-      'SELECT * FROM "EXP1"'
-    )
+  object AQuExp2: TSQLQuery
+    FieldDefs = <>
     Params = <>
     Macros = <>
-    UsePrimaryKeyAsKey = False
-    Left = 480
-    Top = 140
+    Left = 488
+    Top = 344
   end
-  object ADS3: TDataSource
-    DataSet = AQu3
-    Left = 832
-    Top = 140
+  object ADSExp3: TDataSource
+    DataSet = AQuExp3
+    Left = 848
+    Top = 352
   end
-  object ATr3: TSQLTransaction
-    Active = False
-    Database = ACn3
-    Left = 880
-    Top = 140
-  end
-  object AQu3: TSQLQuery
-    PacketRecords = 100
-    FieldDefs = <    
-      item
-        Name = 'USER_ID'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'EXP_KEY1'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'EXP_KEY2'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'EXP_KEY3'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'NAME3'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'DISABLED3'
-        DataType = ftBoolean
-      end    
-      item
-        Name = 'ORDER_KEY3'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'ENTRY_DT'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'UPDATE_DT'
-        DataType = ftUnknown
-      end>
-    Database = ACn3
-    Transaction = ATr3
+  object AQuExp3: TSQLQuery
+    FieldDefs = <>
     Params = <>
     Macros = <>
-    Left = 928
-    Top = 140
-  end
-  object ACn1: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATr1
-    CharSet = 'UTF-8'
-    AlwaysUseBigint = False
-    Left = 24
-    Top = 140
-  end
-  object ACn2: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATr2
-    CharSet = 'UTF-8'
-    AlwaysUseBigint = False
-    Left = 336
-    Top = 140
-  end
-  object ACn3: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = ATr3
-    CharSet = 'UTF-8'
-    AlwaysUseBigint = False
-    Left = 776
-    Top = 140
+    Left = 912
+    Top = 352
   end
 end
