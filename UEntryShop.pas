@@ -172,7 +172,7 @@ procedure TFrmEntryShop.BackupValues;
 begin
   with Defs do begin
     with DBEdtShopID do begin
-      if Text <> '' then begin;
+      if Text <> '' then begin
         SetShopID(StrToInt(Text));
       end else begin
         SetShopID(0);
@@ -602,7 +602,7 @@ end;
 procedure TFrmEntryShop.ADBGridWMVScroll(Sender: TObject;
   var Message: TLMVScroll);
 begin
-  if FInsert then begin;
+  if FInsert then begin
     if Not FDBGridClicked then begin
       FDBGridClicked := True;
       ADBGridSelectEditor(
@@ -671,7 +671,7 @@ end;
 
 procedure TFrmEntryShop.DBCBDisabledChange(Sender: TObject);
 begin
-  if Not FDoCommit then begin;
+  if Not FDoCommit then begin
     if DBCBDisabled.State = cbChecked then begin
       SetDisabled(True);
       DBCBDisabled.Checked := True;
@@ -796,7 +796,7 @@ procedure TFrmEntryShop.DBDTPEndBusinessDTChange(Sender: TObject);
 begin
   with Defs do begin
     if Not FDoCommit then begin
-      if Not DBDTPEndBusinessDT.Field.IsNull then begin;
+      if Not DBDTPEndBusinessDT.Field.IsNull then begin
         SetEndBusinessDT(FormatDateTime(
           'yyyy/mm/dd hh:mm:ss',
           DBDTPEndBusinessDT.Field.AsDateTime, GetFS));
