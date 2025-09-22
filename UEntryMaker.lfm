@@ -14,6 +14,7 @@ object FrmEntryMaker: TFrmEntryMaker
   Font.Quality = fqDraft
   Font.Style = [fsBold]
   Position = poScreenCenter
+  LCLVersion = '4.2.0.0'
   OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
@@ -42,22 +43,22 @@ object FrmEntryMaker: TFrmEntryMaker
       item
         MaxSize = 400
         Title.Caption = 'メーカー名'
-        Width = 134
+        Width = 139
         FieldName = 'MAKER_NAME'
       end    
       item
         Title.Caption = '非表示'
-        Width = 134
+        Width = 139
         FieldName = 'DISABLED'
       end    
       item
         Title.Caption = '登録日'
-        Width = 133
+        Width = 139
         FieldName = 'ENTRY_DT'
       end    
       item
         Title.Caption = '更新日'
-        Width = 133
+        Width = 138
         FieldName = 'UPDATE_DT'
       end>
     Constraints.MaxWidth = 2000

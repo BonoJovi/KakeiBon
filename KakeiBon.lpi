@@ -246,6 +246,7 @@
         <Filename Value="UManageDetails.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FrmManageDetails"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit>
       <Unit>
@@ -271,6 +272,7 @@
         <Filename Value="UTopMenu.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FrmTopMenu"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit>
     </Units>

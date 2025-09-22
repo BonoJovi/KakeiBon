@@ -396,7 +396,7 @@ begin
         //CloseAllDB;
         //SetDatabaseNames;
 
-        if GetRole = 1 then begin;
+        if GetRole = 1 then begin
           FrmManageDetails := TFrmManageDetails.Create(Application);
           OpenFormOrMsgDlg(FrmManageDetails, False);
         end else begin
@@ -711,7 +711,7 @@ begin
     if LoginFlg then begin
       SetBtnEnterManageUserEnabled(True);
 
-      if GetRole = ROLE_USER then begin;
+      if GetRole = ROLE_USER then begin
         SetBtnEnterManageDetailsEnabled(True);
         SetBtnEnterSummaryEnabled(True);
         SetBtnEnterManageExpEnabled(True);

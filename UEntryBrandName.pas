@@ -156,18 +156,18 @@ uses
 procedure TFrmEntryBrandName.BackupValues;
 begin
   with Defs do begin
-    if Not VarIsNull(DBLCBMaker.KeyValue) then begin;
+    if Not VarIsNull(DBLCBMaker.KeyValue) then begin
       SetMakerID(VarToInt(DBLCBMaker.KeyValue));
     end;
     with DBEdtBrandNameID do begin
       if (Text <> '')
-        And (StrToInt(Text) > 0) then begin;
+        And (StrToInt(Text) > 0) then begin
           SetBrandNameID(StrToInt(Text));
       end else begin
         SetBrandNameID(0);
       end;
     end;
-    if DBEdtBrandName.Text <> '' then begin;
+    if DBEdtBrandName.Text <> '' then begin
       SetBrandName(DBEdtBrandName.Text);
     end;
 
@@ -556,7 +556,7 @@ end;
 procedure TFrmEntryBrandName.ADBGridMouseDown(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
-  if FInsert then begin;
+  if FInsert then begin
     if Not FDBGridClicked then begin
       FDBGridClicked := True;
       ADBGridSelectEditor(
@@ -638,7 +638,7 @@ end;
 procedure TFrmEntryBrandName.ADBGridWMVScroll(Sender: TObject;
   var Message: TLMVScroll);
 begin
-  if FInsert then begin;
+  if FInsert then begin
     if Not FDBGridClicked then begin
       FDBGridClicked := True;
       ADBGridSelectEditor(Sender, ADBGrid.LastColumn, TWinControl(ADBGrid));
