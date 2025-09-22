@@ -14,6 +14,7 @@ object FrmTopMenu: TFrmTopMenu
   Font.Quality = fqDraft
   Font.Style = [fsBold]
   Position = poScreenCenter
+  LCLVersion = '4.2.0.0'
   Visible = True
   OnActivate = FormActivate
   OnClose = FormClose
@@ -29,8 +30,8 @@ object FrmTopMenu: TFrmTopMenu
     BevelInner = bvLowered
     BevelOuter = bvNone
     BorderStyle = bsSingle
-    ClientHeight = 70
-    ClientWidth = 593
+    ClientHeight = 72
+    ClientWidth = 595
     Color = clMoneyGreen
     ParentBackground = False
     ParentColor = False
@@ -307,8 +308,8 @@ object FrmTopMenu: TFrmTopMenu
     BevelInner = bvLowered
     BevelOuter = bvNone
     BorderStyle = bsSingle
-    ClientHeight = 126
-    ClientWidth = 593
+    ClientHeight = 128
+    ClientWidth = 595
     Color = clMoneyGreen
     ParentBackground = False
     ParentColor = False
@@ -609,8 +610,8 @@ object FrmTopMenu: TFrmTopMenu
     BevelColor = clMoneyGreen
     BevelOuter = bvNone
     BorderStyle = bsSingle
-    ClientHeight = 126
-    ClientWidth = 593
+    ClientHeight = 128
+    ClientWidth = 595
     Color = clMoneyGreen
     ParentBackground = False
     ParentColor = False
