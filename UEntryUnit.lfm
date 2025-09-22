@@ -15,6 +15,7 @@ object FrmEntryUnit: TFrmEntryUnit
   Font.Quality = fqDraft
   Font.Style = [fsBold]
   Position = poScreenCenter
+  LCLVersion = '4.2.0.0'
   Visible = True
   OnActivate = FormActivate
   OnClose = FormClose
@@ -39,22 +40,22 @@ object FrmEntryUnit: TFrmEntryUnit
       item
         MaxSize = 400
         Title.Caption = '単位'
-        Width = 133
+        Width = 138
         FieldName = 'UNIT'
       end    
       item
         Title.Caption = '非表示'
-        Width = 132
+        Width = 138
         FieldName = 'DISABLED'
       end    
       item
         Title.Caption = '登録日'
-        Width = 132
+        Width = 137
         FieldName = 'ENTRY_DT'
       end    
       item
         Title.Caption = '更新日'
-        Width = 132
+        Width = 137
         FieldName = 'UPDATE_DT'
       end>
     Constraints.MaxWidth = 2000

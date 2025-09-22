@@ -130,7 +130,7 @@ begin
     try
       with CommonDB do begin
         with Defs do begin
-          if (Assigned(AQu)) And (AQu.RecordCount > 0) then begin;
+          if (Assigned(AQu)) And (AQu.RecordCount > 0) then begin
             with AQu do begin
               SetUID(FieldByName('USER_ID').AsInteger);
               SetHID(FieldByName('HEADER_ID').AsInteger);

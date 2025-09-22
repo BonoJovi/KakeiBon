@@ -17,6 +17,7 @@ object FrmLogin: TFrmLogin
   PopupMode = pmAuto
   Position = poScreenCenter
   ShowHint = True
+  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp

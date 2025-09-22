@@ -206,7 +206,7 @@ begin
   with CommonDB do begin
     with Defs do begin
       with DBEdtHeaderID do begin
-        if Text <> '' then begin;
+        if Text <> '' then begin
           SetHID(StrToInt(Text));
         end else begin
           SetHID(0);

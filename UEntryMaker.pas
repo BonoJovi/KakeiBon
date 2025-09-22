@@ -137,7 +137,7 @@ procedure TFrmEntryMaker.BackupValues;
 begin
   with Defs do begin
     with DBEdtMakerID do begin
-      if Text <> '' then begin;
+      if Text <> '' then begin
         SetMakerID(StrToInt(Text));
       end else begin
         SetMakerID(0);
@@ -444,7 +444,7 @@ end;
 procedure TFrmEntryMaker.ADBGridMouseDown(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
-  if FInsert then begin;
+  if FInsert then begin
     if Not FDBGridClicked then begin
       FDBGridClicked := True;
       ADBGridSelectEditor(
@@ -525,7 +525,7 @@ end;
 procedure TFrmEntryMaker.ADBGridWMVScroll(Sender: TObject;
   var Message: TLMVScroll);
 begin
-  if FInsert then begin;
+  if FInsert then begin
     if Not FDBGridClicked then begin
       FDBGridClicked := True;
       ADBGridSelectEditor(Sender, ADBGrid.LastColumn, TWinControl(ADBGrid));
@@ -592,7 +592,7 @@ end;
 
 procedure TFrmEntryMaker.DBCBDisabledChange(Sender: TObject);
 begin
-  if Not FDoCommit then begin;
+  if Not FDoCommit then begin
     if DBCBDisabled.State = cbChecked then begin
       SetDisabled(True);
       DBCBDisabled.Checked := True;
