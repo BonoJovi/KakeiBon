@@ -206,7 +206,7 @@ begin
 
                     PnlManageUser.Color      := clMoneyGreen;
                     PnlManageExp.Color       := clMoneyGreen;
-                    if GetRole = 1 then begin;
+                    if GetRole = 1 then begin
                       PnlManageDetails.Color := clMoneyGreen;
                     end;
 

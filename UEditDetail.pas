@@ -271,7 +271,7 @@ begin
     end;
 
     with AQuTaxType do begin
-      if Active then begin;
+      if Active then begin
         if (Not VarIsNull(DBLCBTaxType.KeyValue))
             And (VarToStr(DBLCBTaxType.KeyValue) <> '')
             And (VarToInt(DBLCBTaxType.KeyValue) > 0) then begin
@@ -554,7 +554,7 @@ begin
   if Not FInsert then begin
     with AQu do begin
       //Edit;
-      if AQu.RecordCount > 0 then begin;
+      if AQu.RecordCount > 0 then begin
         Insert;
       end;
       FInsert := True;
