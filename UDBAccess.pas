@@ -116,7 +116,6 @@ const
                  'SUB_NAME VARCHAR(32), ' +
                  'PHONE_NUM VARCHAR(16), ' +
                  'OPENING_BALANCE INTEGER, ' +
-                 'CURRENT_BALANCE INTEGER, ' +
                  'DISABLED BOOLEAN NOT NULL, ' +
                  'ENTRY_DT DATETIME NOT NULL, ' +
                  'UPDATE_DT DATETIME, ' +
@@ -451,15 +450,14 @@ const
   SQL_20110003 = 'SELECT COALESCE(MAX(ACCOUNT_ID), 0) + 1 AS NEXT_ID ' +
                  'FROM ACCOUNT WHERE USER_ID = :pUserID';
   SQL_20110004 = 'INSERT INTO ACCOUNT(USER_ID, ACCOUNT_ID, BRAND_NAME, ' +
-                 'SUB_NAME, PHONE_NUM,OPENING_BALANCE, CURRENT_BALANCE, ' +
-                 'DISABLED, ENTRY_DT, UPDATE_DT) VALUES(:pUserID, ' +
-                 ':pAccountID, :pBrandName, :pSubName, :pPhoneNum, ' +
-                 ':pOpeningBalance, :pCurrentBalance, :pDisabled, :pEntryDT, ' +
-                 'NULL) ON CONFLICT (USER_ID, ACCOUNT_ID) DO UPDATE SET ' +
-                 'BRAND_NAME = :pBrandName, SUB_NAME = :pSubName, PHONE_NUM ' +
-                 '= :pPhoneNum, OPENING_BALANCE = :pOpeningBalance, ' +
-                 'CURRENT_BALANCE = :pCurrentBalance, DISABLED = :pDisabled, ' +
-                 'UPDATE_DT = :pUpdateDT';
+                 'SUB_NAME, PHONE_NUM,OPENING_BALANCE, DISABLED, ENTRY_DT, ' +
+                 'UPDATE_DT) VALUES(:pUserID, :pAccountID, :pBrandName, ' +
+                 ':pSubName, :pPhoneNum, :pOpeningBalance, :pDisabled, ' +
+                 ':pEntryDT, NULL) ON CONFLICT (USER_ID, ACCOUNT_ID) ' +
+                 'DO UPDATE SET BRAND_NAME = :pBrandName, SUB_NAME = ' +
+                 ':pSubName, PHONE_NUM = :pPhoneNum, OPENING_BALANCE = ' +
+                 ':pOpeningBalance, DISABLED = :pDisabled, UPDATE_DT = ' +
+                 ':pUpdateDT';
 
   // UAddDetail and UEditDetail
   SQL_20120001 = 'SELECT USER_ID, EXP_KEY1, EXP_KEY2, NAME2, ' +

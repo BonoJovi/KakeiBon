@@ -86,9 +86,8 @@
       <Unit>
         <Filename Value="UDBAccess.pas"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="171"/>
-        <CursorPos Y="179"/>
         <UsageCount Value="26"/>
       </Unit>
       <Unit>
@@ -162,8 +161,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="823"/>
-        <CursorPos X="30" Y="832"/>
+        <TopLine Value="811"/>
+        <CursorPos Y="828"/>
         <UsageCount Value="26"/>
       </Unit>
       <Unit>
@@ -183,7 +182,6 @@
         <ComponentName Value="FrmEntryBrandName"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="632"/>
         <CursorPos X="24" Y="641"/>
