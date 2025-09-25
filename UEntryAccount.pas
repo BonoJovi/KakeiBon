@@ -48,7 +48,6 @@ type
     LblAccountID1       : TLabel;
     LblBrandName1       : TLabel;
     LblBrandName2       : TLabel;
-    LblCurrentBalance   : TLabel;
     LblDisabled1        : TLabel;
     LblDisabled2        : TLabel;
     LblDisabled3        : TLabel;
@@ -74,7 +73,6 @@ type
     Shape4              : TShape;
     Shape5              : TShape;
     Shape6              : TShape;
-    Shape7              : TShape;
     Timer               : TTimer;
     procedure ActCancelExecute(Sender: TObject);
     procedure ActGoBackExecute(Sender: TObject);
@@ -96,8 +94,8 @@ type
     procedure DBEdtAccountIDExit(Sender: TObject);
     procedure DBEdtBrandNameEnter(Sender: TObject);
     procedure DBEdtBrandNameExit(Sender: TObject);
-    procedure DBEdtCurrentBalanceEnter(Sender: TObject);
-    procedure DBEdtCurrentBalanceExit(Sender: TObject);
+    //procedure DBEdtCurrentBalanceEnter(Sender: TObject);
+    //procedure DBEdtCurrentBalanceExit(Sender: TObject);
     procedure DBEdtOpeningBalanceEnter(Sender: TObject);
     procedure DBEdtOpeningBalanceExit(Sender: TObject);
     procedure DBEdtPhoneNumEnter(Sender: TObject);
@@ -123,7 +121,7 @@ type
     procedure DBCBDisabledChange(Sender: TObject);
     procedure DBEdtAccountIDChange(Sender: TObject);
     procedure DBEdtBrandNameChange(Sender: TObject);
-    procedure DBEdtCurrentBalanceChange(Sender: TObject);
+    //procedure DBEdtCurrentBalanceChange(Sender: TObject);
     procedure DBEdtOpeningBalanceChange(Sender: TObject);
     procedure DBEdtPhoneNumChange(Sender: TObject);
     procedure DBEdtSubNameChange(Sender: TObject);
@@ -145,7 +143,7 @@ type
     FSubName           : String;
     FPhoneNum          : String;
     FOpeningBalance    : Integer;
-    FCurrentBalance    : Integer;
+    //FCurrentBalance    : Integer;
     FDisabled          : Boolean;
     procedure BackupValues;
     function CannotFocusedNavButton: Boolean;
@@ -157,8 +155,8 @@ type
     procedure SetPhoneNum(PhoneNum: String);
     function GetOpeningBalance: Integer;
     procedure SetOpeningBalance(OpeningBalance: Integer);
-    function GetCurrentBalance: Integer;
-    procedure SetCurrentBalance(CurrentBalance: Integer);
+    //function GetCurrentBalance: Integer;
+    //procedure SetCurrentBalance(CurrentBalance: Integer);
     function GetDisabled: Boolean;
     procedure SetDisabled(Disabled: Boolean);
   public
@@ -191,7 +189,7 @@ begin
     SetSubName(DBEdtSubName.Text);
     SetPhoneNum(DBEdtPhoneNum.Text);
     SetOpeningBalance(DBEdtOpeningBalance.Field.AsInteger);
-    SetCurrentBalance(DBEdtCurrentBalance.Field.AsInteger);
+    //SetCurrentBalance(DBEdtCurrentBalance.Field.AsInteger);
 
     if DBCBDisabled.State = cbChecked then begin
       SetDisabled(True);
@@ -277,7 +275,7 @@ end;
 
 procedure TFrmEntryAccount.DBCBDisabledEnter(Sender: TObject);
 begin
-  Shape7.Visible := True;
+  Shape6.Visible := True;
 
   Timer.Enabled     := True;
 end;
@@ -436,7 +434,7 @@ end;
 
 procedure TFrmEntryAccount.DBCBDisabledExit(Sender: TObject);
 begin
-  Shape7.Visible := False;
+  Shape6.Visible := False;
 
   Timer.Enabled     := True;
 end;
@@ -462,19 +460,19 @@ begin
   Timer.Enabled     := True;
 end;
 
-procedure TFrmEntryAccount.DBEdtCurrentBalanceEnter(Sender: TObject);
-begin
-  Shape6.Visible := True;
-
-  Timer.Enabled     := True;
-end;
-
-procedure TFrmEntryAccount.DBEdtCurrentBalanceExit(Sender: TObject);
-begin
-  Shape6.Visible := False;
-
-  Timer.Enabled     := True;
-end;
+//procedure TFrmEntryAccount.DBEdtCurrentBalanceEnter(Sender: TObject);
+//begin
+//  Shape6.Visible := True;
+//
+//  Timer.Enabled     := True;
+//end;
+//
+//procedure TFrmEntryAccount.DBEdtCurrentBalanceExit(Sender: TObject);
+//begin
+//  Shape6.Visible := False;
+//
+//  Timer.Enabled     := True;
+//end;
 
 procedure TFrmEntryAccount.DBEdtOpeningBalanceEnter(Sender: TObject);
 begin
@@ -574,7 +572,7 @@ begin
               ParamByName('pSubName').AsAnsiString     := GetSubName;
               ParamByName('pPhoneNum').AsAnsiString    := GetPhoneNum;
               ParamByName('pOpeningBalance').AsInteger := GetOpeningBalance;
-              ParamByName('pCurrentBalance').AsInteger := GetCurrentBalance;
+              //ParamByName('pCurrentBalance').AsInteger := GetCurrentBalance;
               ParamByName('pDisabled').AsBoolean       := GetDisabled;
               LNow                                     := FormatDateTime('yyyy-mm-dd hh:nn:ss', Now, GetFS);;
               ParamByName('pEntryDT').AsAnsiString     := LNow;
@@ -728,15 +726,15 @@ begin
   FOpeningBalance := OpeningBalance;
 end;
 
-function TFrmEntryAccount.GetCurrentBalance: Integer;
-begin
-  Result := FCurrentBalance;
-end;
-
-procedure TFrmEntryAccount.SetCurrentBalance(CurrentBalance: Integer);
-begin
-  FCurrentBalance := CurrentBalance;
-end;
+//function TFrmEntryAccount.GetCurrentBalance: Integer;
+//begin
+//  Result := FCurrentBalance;
+//end;
+//
+//procedure TFrmEntryAccount.SetCurrentBalance(CurrentBalance: Integer);
+//begin
+//  FCurrentBalance := CurrentBalance;
+//end;
 
 function TFrmEntryAccount.GetDisabled: Boolean;
 begin
@@ -816,16 +814,16 @@ begin
   end;
 end;
 
-procedure TFrmEntryAccount.DBEdtCurrentBalanceChange(Sender: TObject);
-begin
-  if Not FDoCommit then begin
-    if DBEdtCurrentBalance.Text = '' then begin
-      SetCurrentBalance(0);
-    end else begin
-      SetCurrentBalance(DBEdtCurrentBalance.Field.AsInteger);
-    end;
-  end;
-end;
+//procedure TFrmEntryAccount.DBEdtCurrentBalanceChange(Sender: TObject);
+//begin
+//  if Not FDoCommit then begin
+//    if DBEdtCurrentBalance.Text = '' then begin
+//      SetCurrentBalance(0);
+//    end else begin
+//      SetCurrentBalance(DBEdtCurrentBalance.Field.AsInteger);
+//    end;
+//  end;
+//end;
 
 procedure TFrmEntryAccount.DBCBDisabledChange(Sender: TObject);
 begin

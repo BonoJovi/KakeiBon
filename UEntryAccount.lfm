@@ -1,10 +1,10 @@
 object FrmEntryAccount: TFrmEntryAccount
   Left = 403
-  Height = 893
+  Height = 852
   Top = 32
   Width = 983
   Caption = '口座登録'
-  ClientHeight = 893
+  ClientHeight = 852
   ClientWidth = 983
   Color = clWindowFrame
   Font.Height = -21
@@ -85,14 +85,6 @@ object FrmEntryAccount: TFrmEntryAccount
         Title.Caption = '開始時残高'
         Width = 80
         FieldName = 'OPENING_BALANCE'
-        DisplayFormat = '###,###,###,##0'
-      end    
-      item
-        MaxSize = 64
-        Title.PrefixOption = poHeaderClick
-        Title.Caption = '現時点残高'
-        Width = 80
-        FieldName = 'CURRENT_BALANCE'
         DisplayFormat = '###,###,###,##0'
       end    
       item
@@ -446,12 +438,37 @@ object FrmEntryAccount: TFrmEntryAccount
     OnEnter = DBEdtOpeningBalanceEnter
     OnExit = DBEdtOpeningBalanceExit
   end
-  object LblCurrentBalance: TLabel
+  object DBEdtCurrentBalance: TDBEdit
+    Left = 186
+    Height = 49
+    Top = 662
+    Width = 364
+    DataField = 'CURRENT_BALANCE'
+    DataSource = ADS
+    MaxLength = 0
+    TabOrder = 13
+    Visible = False
+  end
+  object LblDisabled1: TLabel
     Left = 16
     Height = 32
-    Top = 666
-    Width = 105
-    Caption = '現時点残高'
+    Top = 670
+    Width = 21
+    Caption = '非'
+  end
+  object LblDisabled2: TLabel
+    Left = 58
+    Height = 32
+    Top = 670
+    Width = 21
+    Caption = '表'
+  end
+  object LblDisabled3: TLabel
+    Left = 100
+    Height = 32
+    Top = 670
+    Width = 21
+    Caption = '示'
   end
   object Shape6: TShape
     Left = 136
@@ -465,57 +482,11 @@ object FrmEntryAccount: TFrmEntryAccount
     Shape = stEllipse
     Visible = False
   end
-  object DBEdtCurrentBalance: TDBEdit
-    Left = 160
-    Height = 49
-    Top = 662
-    Width = 390
-    DataField = 'CURRENT_BALANCE'
-    DataSource = ADS
-    MaxLength = 0
-    TabOrder = 13
-    OnChange = DBEdtCurrentBalanceChange
-    OnEnter = DBEdtCurrentBalanceEnter
-    OnExit = DBEdtCurrentBalanceExit
-  end
-  object LblDisabled1: TLabel
-    Left = 16
-    Height = 32
-    Top = 723
-    Width = 21
-    Caption = '非'
-  end
-  object LblDisabled2: TLabel
-    Left = 58
-    Height = 32
-    Top = 723
-    Width = 21
-    Caption = '表'
-  end
-  object LblDisabled3: TLabel
-    Left = 100
-    Height = 32
-    Top = 723
-    Width = 21
-    Caption = '示'
-  end
-  object Shape7: TShape
-    Left = 136
-    Height = 16
-    Top = 731
-    Width = 16
-    Brush.Color = clYellow
-    Enabled = False
-    Pen.JoinStyle = pjsBevel
-    Pen.Style = psinsideFrame
-    Shape = stEllipse
-    Visible = False
-  end
   object DBCBDisabled: TDBCheckBox
     Cursor = crHandPoint
-    Left = 160
+    Left = 158
     Height = 23
-    Top = 728
+    Top = 675
     Width = 23
     AutoSize = True
     DataField = 'DISABLED'
@@ -531,7 +502,7 @@ object FrmEntryAccount: TFrmEntryAccount
   object PnlCancel: TPanel
     Left = 16
     Height = 48
-    Top = 773
+    Top = 732
     Width = 336
     Caption = 'キャンセル (CTRL+C)'
     Color = clActiveCaption
@@ -544,7 +515,7 @@ object FrmEntryAccount: TFrmEntryAccount
     Cursor = crCross
     Left = 24
     Height = 32
-    Top = 781
+    Top = 740
     Width = 320
     BevelColor = clNone
     BevelOuter = bvNone
@@ -564,7 +535,7 @@ object FrmEntryAccount: TFrmEntryAccount
   object PnlSave: TPanel
     Left = 356
     Height = 48
-    Top = 773
+    Top = 732
     Width = 336
     Caption = '保　　　存 (CTRL+S)'
     Color = clActiveCaption
@@ -577,7 +548,7 @@ object FrmEntryAccount: TFrmEntryAccount
     Cursor = crCross
     Left = 364
     Height = 32
-    Top = 781
+    Top = 740
     Width = 320
     BevelColor = clNone
     BevelOuter = bvNone
@@ -597,7 +568,7 @@ object FrmEntryAccount: TFrmEntryAccount
   object PnlGoBack: TPanel
     Left = 16
     Height = 48
-    Top = 829
+    Top = 788
     Width = 676
     Caption = '前の画面に戻る (CTRL+Q)'
     Color = clActiveCaption
@@ -610,7 +581,7 @@ object FrmEntryAccount: TFrmEntryAccount
     Cursor = crCross
     Left = 24
     Height = 32
-    Top = 837
+    Top = 796
     Width = 660
     BevelColor = clNone
     BevelOuter = bvNone
@@ -784,10 +755,6 @@ object FrmEntryAccount: TFrmEntryAccount
       end    
       item
         Name = 'OPENING_BALANCE'
-        DataType = ftUnknown
-      end    
-      item
-        Name = 'CURRENT_BALANCE'
         DataType = ftUnknown
       end    
       item

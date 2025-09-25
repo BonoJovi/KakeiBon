@@ -52,10 +52,10 @@
       <Unit>
         <Filename Value="UDBAccess.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="5"/>
-        <CursorPos X="3" Y="11"/>
+        <EditorIndex Value="1"/>
+        <CursorPos X="26" Y="7"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UDefs.pas"/>
@@ -119,9 +119,9 @@
         <ComponentName Value="FrmEntryAccount"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="4"/>
-        <TopLine Value="828"/>
-        <CursorPos X="30" Y="832"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="119"/>
+        <CursorPos X="11" Y="122"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -260,10 +260,9 @@
         <ComponentName Value="FrmTopMenu"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="11"/>
-        <TopLine Value="710"/>
-        <CursorPos X="40" Y="714"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="735"/>
+        <CursorPos X="30" Y="740"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -306,7 +305,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="87"/>
         <CursorPos Y="94"/>
-        <UsageCount Value="42"/>
+        <UsageCount Value="43"/>
       </Unit>
       <Unit>
         <Filename Value="DBG/UDBG.pas"/>
@@ -315,7 +314,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="42"/>
+        <UsageCount Value="43"/>
       </Unit>
       <Unit>
         <Filename Value="utest.pas"/>
@@ -611,126 +610,111 @@
         <UsageCount Value="9"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="29">
+    <JumpHistory HistoryIndex="26">
       <Position>
-        <Filename Value="UAddDetail.pas"/>
-        <Caret Line="292" Column="27" TopLine="288"/>
-      </Position>
-      <Position>
-        <Filename Value="UAddDetail.pas"/>
-        <Caret Line="434" Column="40" TopLine="429"/>
-      </Position>
-      <Position>
-        <Filename Value="UAddDetailsHeader.pas"/>
-        <Caret Line="205" Column="33" TopLine="201"/>
-      </Position>
-      <Position>
-        <Filename Value="UEditDetail.pas"/>
-        <Caret Line="274" Column="27" TopLine="270"/>
-      </Position>
-      <Position>
-        <Filename Value="UEditDetail.pas"/>
-        <Caret Line="557" Column="40" TopLine="552"/>
-      </Position>
-      <Position>
-        <Filename Value="UEditDetailsHeader.pas"/>
-        <Caret Line="209" Column="33" TopLine="205"/>
+        <Filename Value="UEntryAccount.pas"/>
+        <Caret Line="407" Column="55" TopLine="398"/>
       </Position>
       <Position>
         <Filename Value="UEntryAccount.pas"/>
-        <Caret Line="183" Column="31" TopLine="178"/>
+        <Caret Line="406" Column="55" TopLine="397"/>
       </Position>
       <Position>
         <Filename Value="UEntryAccount.pas"/>
-        <Caret Line="288" Column="24" TopLine="284"/>
+        <Caret Line="405" Column="55" TopLine="396"/>
       </Position>
       <Position>
         <Filename Value="UEntryAccount.pas"/>
-        <Caret Line="370" Column="24" TopLine="366"/>
+        <Caret Line="400" Column="43" TopLine="396"/>
       </Position>
       <Position>
         <Filename Value="UEntryAccount.pas"/>
-        <Caret Line="832" Column="30" TopLine="828"/>
       </Position>
       <Position>
-        <Filename Value="UEntryBrandName.pas"/>
-        <Caret Line="159" Column="53" TopLine="154"/>
+        <Filename Value="UEntryAccount.pas"/>
+        <Caret Line="74" Column="11" TopLine="65"/>
       </Position>
       <Position>
-        <Filename Value="UEntryBrandName.pas"/>
-        <Caret Line="164" Column="44" TopLine="161"/>
+        <Filename Value="UEntryAccount.pas"/>
+        <Caret Line="479" Column="9" TopLine="469"/>
       </Position>
       <Position>
-        <Filename Value="UEntryBrandName.pas"/>
-        <Caret Line="170" Column="44" TopLine="166"/>
+        <Filename Value="UEntryAccount.pas"/>
+        <Caret Line="480" Column="40" TopLine="476"/>
       </Position>
       <Position>
-        <Filename Value="UEntryBrandName.pas"/>
-        <Caret Line="559" Column="24" TopLine="554"/>
+        <Filename Value="UEntryAccount.pas"/>
       </Position>
       <Position>
-        <Filename Value="UEntryBrandName.pas"/>
-        <Caret Line="641" Column="24" TopLine="637"/>
+        <Filename Value="UEntryAccount.pas"/>
+        <Caret Line="43" Column="17" TopLine="34"/>
       </Position>
       <Position>
-        <Filename Value="UEntryMaker.pas"/>
-        <Caret Line="140" Column="31" TopLine="135"/>
+        <Filename Value="UEntryAccount.pas"/>
+        <Caret Line="97" Column="27" TopLine="88"/>
       </Position>
       <Position>
-        <Filename Value="UEntryMaker.pas"/>
-        <Caret Line="447" Column="24" TopLine="443"/>
+        <Filename Value="UEntryAccount.pas"/>
+        <Caret Line="98" Column="27" TopLine="89"/>
       </Position>
       <Position>
-        <Filename Value="UEntryMaker.pas"/>
-        <Caret Line="528" Column="24" TopLine="524"/>
+        <Filename Value="UEntryAccount.pas"/>
+        <Caret Line="124" Column="27" TopLine="115"/>
       </Position>
       <Position>
-        <Filename Value="UEntryMaker.pas"/>
-        <Caret Line="595" Column="30" TopLine="591"/>
+        <Filename Value="UEntryAccount.pas"/>
+        <Caret Line="146" Column="13" TopLine="138"/>
       </Position>
       <Position>
-        <Filename Value="UEntryShop.pas"/>
-        <Caret Line="176" Column="31" TopLine="171"/>
+        <Filename Value="UEntryAccount.pas"/>
+        <Caret Line="158" Column="24" TopLine="150"/>
       </Position>
       <Position>
-        <Filename Value="UEntryShop.pas"/>
-        <Caret Line="606" Column="24" TopLine="602"/>
+        <Filename Value="UEntryAccount.pas"/>
+        <Caret Line="146" Column="15" TopLine="142"/>
       </Position>
       <Position>
-        <Filename Value="UEntryShop.pas"/>
-        <Caret Line="675" Column="30" TopLine="671"/>
+        <Filename Value="UEntryAccount.pas"/>
+        <Caret Line="160" TopLine="151"/>
       </Position>
       <Position>
-        <Filename Value="UEntryShop.pas"/>
-        <Caret Line="800" Column="56" TopLine="796"/>
+        <Filename Value="UEntryAccount.pas"/>
+        <Caret Line="192" Column="37" TopLine="183"/>
       </Position>
       <Position>
-        <Filename Value="UEntryUnit.pas"/>
-        <Caret Line="137" Column="31" TopLine="132"/>
+        <Filename Value="UEntryAccount.pas"/>
+        <Caret Line="469" TopLine="466"/>
       </Position>
       <Position>
-        <Filename Value="UEntryUnit.pas"/>
-        <Caret Line="439" Column="24" TopLine="435"/>
+        <Filename Value="UEntryAccount.pas"/>
+        <Caret Line="470" Column="42" TopLine="466"/>
       </Position>
       <Position>
-        <Filename Value="UEntryUnit.pas"/>
-        <Caret Line="520" Column="24" TopLine="516"/>
+        <Filename Value="UEntryAccount.pas"/>
+        <Caret Line="575" Column="71" TopLine="566"/>
       </Position>
       <Position>
-        <Filename Value="UEntryUnit.pas"/>
-        <Caret Line="587" Column="30" TopLine="583"/>
+        <Filename Value="UEntryAccount.pas"/>
+        <Caret Line="738" TopLine="728"/>
       </Position>
       <Position>
-        <Filename Value="ULogin.pas"/>
-        <Caret Line="209" Column="46" TopLine="205"/>
+        <Filename Value="UEntryAccount.pas"/>
+        <Caret Line="826" TopLine="816"/>
       </Position>
       <Position>
-        <Filename Value="UManageDetails.pas"/>
-        <Caret Line="133" Column="66" TopLine="129"/>
+        <Filename Value="UEntryAccount.pas"/>
+        <Caret Line="99" TopLine="92"/>
       </Position>
       <Position>
-        <Filename Value="UTopMenu.pas"/>
-        <Caret Line="399" Column="34" TopLine="395"/>
+        <Filename Value="UDBAccess.pas"/>
+        <Caret Line="11" Column="52" TopLine="5"/>
+      </Position>
+      <Position>
+        <Filename Value="UDBAccess.pas"/>
+      </Position>
+      <Position>
+        <Filename Value="UDBAccess.pas"/>
+        <Caret Line="455" Column="19" TopLine="451"/>
       </Position>
     </JumpHistory>
     <RunParams>
