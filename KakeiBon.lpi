@@ -262,6 +262,7 @@
         <Filename Value="UManageUser.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FrmManageUser"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit>
       <Unit>
