@@ -66,14 +66,16 @@ object FrmEntryBrandName: TFrmEntryBrandName
       item
         Title.Caption = '登録日'
         FieldName = 'ENTRY_DT'
+        DisplayFormat = 'yyyy"/"mm"/"dd hh":"nn":"ss'
       end    
       item
         Title.Caption = '更新日'
         FieldName = 'UPDATE_DT'
+        DisplayFormat = 'yyyy"/"mm"/"dd hh":"nn":"ss'
       end>
     Constraints.MaxWidth = 2000
     DataSource = ADS
-    Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAnyButtonCanSelect, dgDisableDelete, dgRowHighlight, dgDblClickAutoSize]
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
     TabOrder = 0
     TabStop = False
     TitleStyle = tsStandard

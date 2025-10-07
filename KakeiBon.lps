@@ -136,10 +136,9 @@
         <ComponentName Value="FrmEntryBrandName"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="1014"/>
-        <CursorPos X="31" Y="1023"/>
+        <TopLine Value="1015"/>
+        <CursorPos X="11" Y="1023"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
@@ -148,9 +147,10 @@
         <ComponentName Value="FrmEntryMaker"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="193"/>
-        <CursorPos X="3" Y="202"/>
+        <CursorPos X="3" Y="196"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
