@@ -150,8 +150,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="1249"/>
-        <CursorPos X="3" Y="1257"/>
+        <TopLine Value="629"/>
+        <CursorPos X="44" Y="637"/>
         <UsageCount Value="46"/>
       </Unit>
       <Unit>
@@ -171,10 +171,12 @@
         <ComponentName Value="FrmEntryBrandName"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="1272"/>
-        <CursorPos X="3" Y="1278"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="1068"/>
+        <CursorPos X="18" Y="1068"/>
         <UsageCount Value="46"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryMaker.pas"/>
@@ -183,8 +185,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="1102"/>
-        <CursorPos X="3" Y="1108"/>
+        <TopLine Value="551"/>
+        <CursorPos X="44" Y="559"/>
         <UsageCount Value="46"/>
       </Unit>
       <Unit>
@@ -193,10 +195,9 @@
         <ComponentName Value="FrmEntryShop"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="634"/>
-        <CursorPos X="19" Y="640"/>
+        <TopLine Value="640"/>
+        <CursorPos X="44" Y="648"/>
         <UsageCount Value="46"/>
       </Unit>
       <Unit>
@@ -206,8 +207,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="1096"/>
-        <CursorPos X="3" Y="1104"/>
+        <TopLine Value="546"/>
+        <CursorPos X="44" Y="554"/>
         <UsageCount Value="46"/>
       </Unit>
       <Unit>
@@ -342,7 +343,32 @@
         <UsageCount Value="9"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="-1"/>
+    <JumpHistory HistoryIndex="5">
+      <Position>
+        <Filename Value="UEntryBrandName.pas"/>
+        <Caret Line="895" Column="46" TopLine="887"/>
+      </Position>
+      <Position>
+        <Filename Value="UEntryBrandName.pas"/>
+        <Caret Line="894" Column="42" TopLine="887"/>
+      </Position>
+      <Position>
+        <Filename Value="UEntryBrandName.pas"/>
+        <Caret Line="696" Column="42" TopLine="688"/>
+      </Position>
+      <Position>
+        <Filename Value="UEntryBrandName.pas"/>
+        <Caret Line="648" Column="44" TopLine="640"/>
+      </Position>
+      <Position>
+        <Filename Value="UEntryBrandName.pas"/>
+        <Caret Line="777" Column="21" TopLine="760"/>
+      </Position>
+      <Position>
+        <Filename Value="UEntryBrandName.pas"/>
+        <Caret Line="938" Column="36" TopLine="922"/>
+      </Position>
+    </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
       <Modes ActiveMode=""/>
