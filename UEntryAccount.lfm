@@ -769,7 +769,14 @@ object FrmEntryAccount: TFrmEntryAccount
         Name = 'UPDATE_DT'
         DataType = ftUnknown
       end>
+    AfterClose = AQuAfterClose
+    AfterInsert = AQuAfterInsert
+    AfterPost = AQuAfterPost
     AfterScroll = AQuAfterScroll
+    BeforeClose = AQuBeforeClose
+    BeforeOpen = AQuBeforeOpen
+    BeforePost = AQuBeforePost
+    BeforeScroll = AQuBeforeScroll
     Params = <>
     Macros = <>
     Left = 816

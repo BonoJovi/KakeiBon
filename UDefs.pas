@@ -39,7 +39,8 @@ type
     procedure OpenSelectQueryWithMakerID(
       var DS: TDataSource; var Qu: TSQLQuery; SS: AnsiString; aMakerID: Integer);
     procedure OpenSelectQueryWithMakerIDAndBrandNameID(
-      var DS: TDataSource; var Qu: TSQLQuery; SS: AnsiString; aMakerID, aBrandNameID: Integer);
+      var DS: TDataSource; var Qu: TSQLQuery; SS: AnsiString;
+      aMakerID, aBrandNameID: Integer);
     procedure UpdateFractionProcQueryWithShopID(
       var Cn: TSQLite3Connection; var DS: TDataSource; var Tr: TSQLTransaction;
       var Qu: TSQLQuery; SS: AnsiString; aShopID: Integer);
@@ -257,7 +258,7 @@ var
 
 implementation
 uses
-  UCommonDB, UConsts, UDBNavi;
+  UCommonDB, UConsts;
 
 { TDefs }
 
@@ -521,9 +522,6 @@ begin
             SQLConnection  := ACn;
             SQLTransaction := ATr;
 
-            SQLConnection  := ACn;
-            SQLTransaction := ATr;
-
             SQL.Text                             := SS;
             if Pos(':pUserID', SS) > 0 then begin
               with Params do begin
@@ -565,12 +563,10 @@ begin
             end;
             Open;
 
-            First;
-            while Not EOF do begin
-              if aBrandNameID = FieldByName('BRAND_NAME_ID').AsInteger then begin
-                Break;
-              end;
-              Next;
+            if aBrandNameID <= 0 then begin
+              aBrandNameID := 1;
+            end else if aBrandNameID > RecordCount then begin
+              aBrandNameID := RecordCount;
             end;
           end;
         end;

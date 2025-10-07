@@ -99,6 +99,7 @@ type
     procedure BtnLogoutExit(Sender: TObject);
     procedure BtnQuitEnter(Sender: TObject);
     procedure BtnQuitExit(Sender: TObject);
+    procedure FormHide(Sender: TObject);
     procedure ManageDetailsMouseOver(NewColor: TColor);
     procedure BtnEnterDetailsEnter(Sender: TObject);
     procedure BtnEnterDetailsExit(Sender: TObject);
@@ -626,6 +627,7 @@ begin
     CloseQuery(AQu);
     CloseQuery(AQuTblChk);
     SQLite3Disconnect;
+    Defs.Free;
   end;
   ProcQuit(Sender);
   CloseAction := caFree;
@@ -669,9 +671,12 @@ begin
     { TFormatSettings }
     with LFS do begin
       DateSeparator   := '/';
-      ShortDateFormat := 'YYYY-MM-DD';
+      ShortDateFormat := 'YYYY/MM/DD';
       TimeSeparator   := ':';
       ShortTimeFormat := 'hh:nn:ss';
+      LongTimeFormat  := 'hh:nn:ss';
+      TimeAMString    := 'AM';
+      TimePMString    := 'PM';
     end;
     SetFS(LFS);
   end;
@@ -681,71 +686,94 @@ begin
   end;
 end;
 
+procedure TFrmTopMenu.FormHide(Sender: TObject);
+var
+  i : Integer;
+begin
+  ActEntryDetails.Enabled := False;
+  ActSummary.Enabled      := False;
+  ActManageUser.Enabled   := False;
+  ActManageExp.Enabled    := False;
+  ActLogin.Enabled        := False;
+  ActLogout.Enabled       := False;
+  ActQuit.Enabled         := False;
+end;
+
 procedure TFrmTopMenu.FormShow(Sender: TObject);
 begin
-  Self.Width      := 627;
+  try
+    Self.Width      := 627;
 
-  Self.KeyPreview := True;
+    Self.KeyPreview := True;
 
-  Self.Color       := RGB(  0, 128, 128);
-  PnlManageDetails.Color := RGB(192, 220, 192);
-  PnlManagements.Color   := RGB(192, 220, 192);
-  PnlLogInAndOut.Color   := RGB(192, 220, 192);
+    Self.Color       := RGB(  0, 128, 128);
+    PnlManageDetails.Color := RGB(192, 220, 192);
+    PnlManagements.Color   := RGB(192, 220, 192);
+    PnlLogInAndOut.Color   := RGB(192, 220, 192);
 
-  SetBtnEnterManageDetailsEnabled(False);
-  SetBtnEnterSummaryEnabled(False);
-  SetBtnEnterManageUserEnabled(False);
-  SetBtnEnterManageExpEnabled(False);
+    SetBtnEnterManageDetailsEnabled(False);
+    SetBtnEnterSummaryEnabled(False);
+    SetBtnEnterManageUserEnabled(False);
+    SetBtnEnterManageExpEnabled(False);
 
-  if LoginFlg then begin
-    PnlManageUser.Color := RGB(192, 220, 192);
-    PnlManageExp.Color  := RGB(192, 220, 192);
-  end;
-
-  with FrmTopMenu do begin
-    Width  := 634;
-    Height := 464;
-  end;
-
-  with Defs do begin
     if LoginFlg then begin
-      SetBtnEnterManageUserEnabled(True);
+      PnlManageUser.Color := RGB(192, 220, 192);
+      PnlManageExp.Color  := RGB(192, 220, 192);
+    end;
 
-      if GetRole = ROLE_USER then begin
-        SetBtnEnterManageDetailsEnabled(True);
-        SetBtnEnterSummaryEnabled(True);
-        SetBtnEnterManageExpEnabled(True);
+    with FrmTopMenu do begin
+      Width  := 634;
+      Height := 464;
+    end;
+
+    with Defs do begin
+      if LoginFlg then begin
+        SetBtnEnterManageUserEnabled(True);
+
+        if GetRole = ROLE_USER then begin
+          SetBtnEnterManageDetailsEnabled(True);
+          SetBtnEnterSummaryEnabled(True);
+          SetBtnEnterManageExpEnabled(True);
+        end else begin
+          SetBtnEnterManageDetailsEnabled(False);
+          SetBtnEnterSummaryEnabled(False);
+          SetBtnEnterManageExpEnabled(False);
+        end;
+
+        with PnlLogin do begin
+          Visible := False;
+          Enabled := False;
+        end;
+
+        with PnlLogout do begin
+          Visible := True;
+          Enabled := True;
+        end;
       end else begin
         SetBtnEnterManageDetailsEnabled(False);
         SetBtnEnterSummaryEnabled(False);
+        SetBtnEnterManageUserEnabled(False);
         SetBtnEnterManageExpEnabled(False);
-      end;
 
-      with PnlLogin do begin
-        Visible := False;
-        Enabled := False;
-      end;
+        with PnlLogin do begin
+          Visible          := True;
+          Enabled          := True;
+        end;
 
-      with PnlLogout do begin
-        Visible := True;
-        Enabled := True;
-      end;
-    end else begin
-      SetBtnEnterManageDetailsEnabled(False);
-      SetBtnEnterSummaryEnabled(False);
-      SetBtnEnterManageUserEnabled(False);
-      SetBtnEnterManageExpEnabled(False);
-
-      with PnlLogin do begin
-        Visible          := True;
-        Enabled          := True;
-      end;
-
-      with PnlLogout do begin
-        Visible          := False;
-        Enabled          := False;
+        with PnlLogout do begin
+          Visible          := False;
+          Enabled          := False;
+        end;
       end;
     end;
+  finally
+    ActEntryDetails.Enabled := True;
+    ActSummary.Enabled      := True;
+    ActManageUser.Enabled   := True;
+    ActManageExp.Enabled    := True;
+    ActLogin.Enabled        := True;
+    ActLogout.Enabled       := True;
+    ActQuit.Enabled         := True;
   end;
 
   { Debug }

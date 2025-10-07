@@ -15,7 +15,6 @@ object FrmAddDetail: TFrmAddDetail
   Font.Quality = fqDraft
   Font.Style = [fsBold]
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
@@ -297,7 +296,7 @@ object FrmAddDetail: TFrmAddDetail
   object PnlEntryUnit: TPanel
     Left = 16
     Height = 49
-    Top = 244
+    Top = 247
     Width = 329
     Caption = '  単    位  を登録 (CTRL+3)'
     Color = clActiveCaption
@@ -310,7 +309,7 @@ object FrmAddDetail: TFrmAddDetail
     Cursor = crCross
     Left = 24
     Height = 33
-    Top = 252
+    Top = 255
     Width = 313
     BevelColor = clNone
     BevelOuter = bvNone
@@ -330,28 +329,28 @@ object FrmAddDetail: TFrmAddDetail
   object LblTaxType1: TLabel
     Left = 16
     Height = 32
-    Top = 309
+    Top = 312
     Width = 21
     Caption = '税'
   end
   object LblTaxType2: TLabel
     Left = 58
     Height = 32
-    Top = 309
+    Top = 312
     Width = 21
     Caption = '区'
   end
   object LblTaxType3: TLabel
     Left = 100
     Height = 32
-    Top = 309
+    Top = 312
     Width = 21
     Caption = '分'
   end
   object Shape6: TShape
     Left = 136
     Height = 16
-    Top = 319
+    Top = 320
     Width = 16
     Brush.Color = clYellow
     Enabled = False
@@ -364,7 +363,7 @@ object FrmAddDetail: TFrmAddDetail
     Cursor = crHandPoint
     Left = 160
     Height = 44
-    Top = 305
+    Top = 306
     Width = 185
     AutoComplete = True
     KeyField = 'TAX_TYPE_ID'
@@ -450,7 +449,7 @@ object FrmAddDetail: TFrmAddDetail
     Left = 504
     Height = 49
     Hint = '単価を入力すると小計が自動計算されます'
-    Top = 248
+    Top = 247
     Width = 217
     Alignment = taRightJustify
     ReadOnly = True

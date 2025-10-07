@@ -80,6 +80,7 @@
             <Debugging>
               <GenerateDebugInfo Value="False"/>
               <RunWithoutDebug Value="True"/>
+              <DebugInfoType Value="dsDwarf3"/>
               <StripSymbols Value="True"/>
             </Debugging>
             <LinkSmart Value="True"/>
@@ -103,6 +104,15 @@
     </PublishOptions>
     <RunParams>
       <FormatVersion Value="2"/>
+      <Modes>
+        <Mode Name="Debug">
+          <local>
+            <HostApplicationFilename Value="/home/bonojovi/Data1/Linux/Projects/Lazarus/KakeiBon/KakeiBon"/>
+            <CommandLineParams Value="-DDebug"/>
+            <LaunchingApplication PathPlusParams="/usr/bin/gnome-terminal -t &apos;Lazarus Run Output&apos; -e &apos;$(LazarusDir)/tools/runwait.sh $(TargetCmdLine)&apos;"/>
+          </local>
+        </Mode>
+      </Modes>
     </RunParams>
     <RequiredPackages>
       <Item>

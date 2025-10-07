@@ -500,8 +500,14 @@ object FrmEntryMaker: TFrmEntryMaker
         Name = 'UPDATE_DT'
         DataType = ftDateTime
       end>
+    AfterClose = AQuAfterClose
+    AfterInsert = AQuAfterInsert
+    AfterPost = AQuAfterPost
     AfterScroll = AQuAfterScroll
-    Options = [sqoAutoApplyUpdates, sqoAutoCommit]
+    BeforeClose = AQuBeforeClose
+    BeforeOpen = AQuBeforeOpen
+    BeforePost = AQuBeforePost
+    BeforeScroll = AQuBeforeScroll
     Params = <>
     Macros = <>
     Left = 688

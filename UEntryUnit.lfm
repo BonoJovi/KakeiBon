@@ -430,7 +430,14 @@ object FrmEntryUnit: TFrmEntryUnit
         Name = 'UPDATE_DT'
         DataType = ftDateTime
       end>
+    AfterClose = AQuAfterClose
+    AfterInsert = AQuAfterInsert
+    AfterPost = AQuAfterPost
     AfterScroll = AQuAfterScroll
+    BeforeClose = AQuBeforeClose
+    BeforeOpen = AQuBeforeOpen
+    BeforePost = AQuBeforePost
+    BeforeScroll = AQuBeforeScroll
     Options = [sqoAutoApplyUpdates, sqoAutoCommit]
     Params = <>
     Macros = <>
