@@ -66,10 +66,12 @@ object FrmEntryBrandName: TFrmEntryBrandName
       item
         Title.Caption = '登録日'
         FieldName = 'ENTRY_DT'
+        DisplayFormat = 'yyyy"/"mm"/"dd hh":"nn":"ss'
       end    
       item
         Title.Caption = '更新日'
         FieldName = 'UPDATE_DT'
+        DisplayFormat = 'yyyy"/"mm"/"dd hh":"nn":"ss'
       end>
     Constraints.MaxWidth = 2000
     DataSource = ADS
