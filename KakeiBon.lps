@@ -113,8 +113,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="608"/>
-        <CursorPos X="21" Y="610"/>
+        <TopLine Value="631"/>
+        <CursorPos X="44" Y="637"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
@@ -136,9 +136,10 @@
         <ComponentName Value="FrmEntryBrandName"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="1015"/>
-        <CursorPos X="11" Y="1023"/>
+        <TopLine Value="1073"/>
+        <CursorPos X="25" Y="1080"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
@@ -147,10 +148,9 @@
         <ComponentName Value="FrmEntryMaker"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="193"/>
-        <CursorPos X="10" Y="197"/>
+        <TopLine Value="553"/>
+        <CursorPos X="44" Y="559"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
@@ -160,13 +160,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="234"/>
-        <CursorPos X="3" Y="243"/>
+        <TopLine Value="1003"/>
+        <CursorPos X="26" Y="1009"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <EditorIndex Value="-1"/>
-          <TopLine Value="1003"/>
-          <CursorPos X="26" Y="1009"/>
+          <TopLine Value="642"/>
+          <CursorPos X="44" Y="648"/>
         </ExtraEditor1>
         <UsageCount Value="200"/>
       </Unit>
@@ -177,8 +177,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="131"/>
-        <CursorPos X="40" Y="142"/>
+        <TopLine Value="548"/>
+        <CursorPos X="44" Y="554"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
@@ -460,21 +460,21 @@
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
         <Source Value="UEntryBrandName.pas"/>
-        <Line Value="820"/>
+        <Line Value="830"/>
       </Item>
       <Item>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
         <Source Value="UEntryBrandName.pas"/>
-        <Line Value="838"/>
+        <Line Value="848"/>
       </Item>
       <Item>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
         <Source Value="UEntryBrandName.pas"/>
-        <Line Value="1452"/>
+        <Line Value="1473"/>
       </Item>
     </BreakPoints>
   </Debugging>
