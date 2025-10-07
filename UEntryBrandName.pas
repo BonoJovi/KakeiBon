@@ -645,7 +645,7 @@ begin
             LMsg := MSG_JP_000043;
           end;
 
-          if AQu.RecordCount > 0 then begin;
+          if AQu.RecordCount > 0 then begin
             if MessageDlg(LMsg, mtConfirmation, [mbYes, mbNo], 0) = mrYes then begin
               // 「はい」が選ばれたらキャンセル処理を実行
               ProcCancel(Self);
@@ -693,7 +693,7 @@ begin
           Msg := MSG_JP_000043;
         end;
 
-        if AQu.RecordCount > 0 then begin;
+        if AQu.RecordCount > 0 then begin
           if MessageDlg(Msg, mtConfirmation, [mbYes, mbNo], 0) = mrYes then begin
             // 「はい」が選ばれたらキャンセル処理を実行
             ProcCancel(Self);
@@ -729,25 +729,35 @@ begin
     Exit;
   end;
 
-  if (AQu.State in [dsInsert, dsEdit])
-      and (Message.ScrollCode in [SB_LINEUP, SB_LINEDOWN, SB_PAGEUP, SB_PAGEDOWN]) then begin
-    FSuppressRecursiveEvent := True;
-    try
-      if DBEdtBrandName.Text <> '' then begin
-        Msg := MSG_JP_000043;
+  // イベントの再帰呼び出しを防ぐ
+  if ADBGrid.Tag = 1 then begin
+    Exit;
+  end;
+  ADBGrid.Tag := 1;
+
+  try
+    if (AQu.State in [dsInsert, dsEdit])
+        and (Message.ScrollCode in [SB_LINEUP, SB_LINEDOWN, SB_PAGEUP, SB_PAGEDOWN]) then begin
+      FSuppressRecursiveEvent := True;
+      try
+        if DBEdtBrandName.Text <> '' then begin
+          Msg := MSG_JP_000043;
+        end;
+        if MessageDlg(Msg, mtConfirmation, [mbYes, mbNo], 0) = mrYes then begin
+          // 「はい」が選ばれたらキャンセル処理を実行してスクロールする
+          ProcCancel(Self);
+          Message.Result  := 1;
+        end else begin
+          // 「いいえ」が選ばれたらスクロール自体を中止する
+          FGoFirst        := True;
+          Message.Result  := 1;
+        end;
+      finally
+        FSuppressRecursiveEvent := False;
       end;
-      if MessageDlg(Msg, mtConfirmation, [mbYes, mbNo], 0) = mrYes then begin
-        // 「はい」が選ばれたらキャンセル処理を実行してスクロールする
-        ProcCancel(Self);
-        Message.Result  := 1;
-      end else begin
-        // 「いいえ」が選ばれたらスクロール自体を中止する
-        FGoFirst        := True;
-        Message.Result  := 1;
-      end;
-    finally
-      FSuppressRecursiveEvent := False;
     end;
+  finally
+    ADBGrid.Tag := 0;
   end;
 
   ADBGrid.AutoAdjustColumns;
@@ -882,35 +892,45 @@ begin
     Exit;
   end;
 
-  //======================================================
-  if AQu.State = dsInsert then begin
-    FSuppressRecursiveEvent := True;
-    try
-      if Not FDoCommit then begin
-        if DBEdtBrandName.Text <> '' then begin
-          Msg := MSG_JP_000043;
-        end;
+  // イベントの再帰呼び出しを防ぐ
+  if ADBGrid.Tag = 1 then begin
+    Exit;
+  end;
+  ADBGrid.Tag := 1;
 
-        if AQu.RecordCount > 0 then begin;
-          if Not FSkipFirstProcess then begin;
-            if MessageDlg(Msg, mtConfirmation, [mbYes, mbNo], 0) = mrYes then begin
-              // 「はい」が選ばれたらキャンセル処理を実行
-              ProcCancel(Self);
-              Abort;
+  //======================================================
+  try
+    if AQu.State = dsInsert then begin
+      FSuppressRecursiveEvent := True;
+      try
+        if Not FDoCommit then begin
+          if DBEdtBrandName.Text <> '' then begin
+            Msg := MSG_JP_000043;
+          end;
+
+          if AQu.RecordCount > 0 then begin
+            if Not FSkipFirstProcess then begin
+              if MessageDlg(Msg, mtConfirmation, [mbYes, mbNo], 0) = mrYes then begin
+                // 「はい」が選ばれたらキャンセル処理を実行
+                ProcCancel(Self);
+                Abort;
+              end else begin
+                // 「いいえ」が選ばれたらスクロール自体を中止する
+                Abort;
+              end;
             end else begin
-              // 「いいえ」が選ばれたらスクロール自体を中止する
-              Abort;
+              FSkipFirstProcess := False;
             end;
           end else begin
-            FSkipFirstProcess := False;
+            Abort;
           end;
-        end else begin
-          Abort;
         end;
+      finally
+        FSuppressRecursiveEvent := False;
       end;
-    finally
-      FSuppressRecursiveEvent := False;
     end;
+  finally
+    ADBGrid.Tag := 0;
   end;
 
   ADBGrid.AutoAdjustColumns;
@@ -1061,6 +1081,7 @@ begin
   LazLogger.DebugLn('AQuBeforeScroll: AQu.Active=' + BoolToStr(AQu.Active, True) +
                     ', AQu.State=' + DataSetStateToStr(AQu.State));
 {$ENDIF}
+  FSkipFirstProcess := True
 end;
 
 procedure TFrmEntryBrandName.DBLCBMakerChange(Sender: TObject);
