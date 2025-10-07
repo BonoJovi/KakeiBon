@@ -57,11 +57,10 @@
       <Unit>
         <Filename Value="UDefs.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="531"/>
         <CursorPos Y="543"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UEditAdmUser.pas"/>
@@ -137,11 +136,11 @@
         <ComponentName Value="FrmEntryBrandName"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="1014"/>
         <CursorPos X="31" Y="1023"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryMaker.pas"/>
@@ -160,18 +159,16 @@
         <ComponentName Value="FrmEntryShop"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="1"/>
-        <TopLine Value="1003"/>
-        <CursorPos X="26" Y="1009"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="234"/>
+        <CursorPos X="3" Y="243"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <EditorIndex Value="-1"/>
-          <TopLine Value="234"/>
-          <CursorPos X="3" Y="243"/>
+          <TopLine Value="1003"/>
+          <CursorPos X="26" Y="1009"/>
         </ExtraEditor1>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryUnit.pas"/>
@@ -225,13 +222,10 @@
         <ComponentName Value="FrmManageUser"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="380"/>
         <CursorPos X="47" Y="391"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UDeleteUser.pas"/>
@@ -443,128 +437,7 @@
         <UsageCount Value="9"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="29">
-      <Position>
-        <Filename Value="UEntryBrandName.pas"/>
-        <Caret Line="1026" TopLine="1019"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryBrandName.pas"/>
-        <Caret Line="1027" TopLine="1019"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryBrandName.pas"/>
-        <Caret Line="1037" TopLine="1029"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryBrandName.pas"/>
-        <Caret Line="1044" TopLine="1031"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryBrandName.pas"/>
-        <Caret Line="1048" TopLine="1040"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryBrandName.pas"/>
-        <Caret Line="1056" TopLine="1048"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryBrandName.pas"/>
-        <Caret Line="1018" TopLine="1009"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryBrandName.pas"/>
-        <Caret Line="1017" Column="20" TopLine="1011"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryBrandName.pas"/>
-        <Caret Line="220" Column="33" TopLine="204"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryBrandName.pas"/>
-        <Caret Line="1019" TopLine="1009"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryBrandName.pas"/>
-        <Caret Line="1049" TopLine="1008"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryBrandName.pas"/>
-        <Caret Line="1019" TopLine="1008"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryBrandName.pas"/>
-        <Caret Line="1049" TopLine="1042"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryBrandName.pas"/>
-        <Caret Line="1019" TopLine="1011"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryBrandName.pas"/>
-        <Caret Line="1049" TopLine="1041"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryBrandName.pas"/>
-        <Caret Line="1019" TopLine="1011"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryBrandName.pas"/>
-        <Caret Line="1040" Column="36" TopLine="1035"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryBrandName.pas"/>
-        <Caret Line="1453" TopLine="1448"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryBrandName.pas"/>
-        <Caret Line="1019" TopLine="1011"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryBrandName.pas"/>
-        <Caret Line="1453" TopLine="1445"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryBrandName.pas"/>
-        <Caret Line="301" TopLine="292"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryBrandName.pas"/>
-        <Caret Line="302" TopLine="292"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryBrandName.pas"/>
-        <Caret Line="305" TopLine="292"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryBrandName.pas"/>
-        <Caret Line="306" TopLine="292"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryBrandName.pas"/>
-        <Caret Line="307" TopLine="293"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryBrandName.pas"/>
-        <Caret Line="168" Column="26" TopLine="163"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryBrandName.pas"/>
-        <Caret Line="1022" Column="26" TopLine="1007"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryBrandName.pas"/>
-        <Caret Line="1020" TopLine="1007"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryBrandName.pas"/>
-        <Caret Line="1454" TopLine="1447"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryBrandName.pas"/>
-        <Caret Line="1023" Column="31" TopLine="1014"/>
-      </Position>
-    </JumpHistory>
+    <JumpHistory HistoryIndex="-1"/>
     <RunParams>
       <FormatVersion Value="2"/>
       <Modes ActiveMode="Debug">
