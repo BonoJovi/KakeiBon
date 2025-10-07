@@ -15,7 +15,6 @@ object FrmEntryUnit: TFrmEntryUnit
   Font.Quality = fqDraft
   Font.Style = [fsBold]
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   Visible = True
   OnActivate = FormActivate
   OnClose = FormClose
@@ -27,7 +26,6 @@ object FrmEntryUnit: TFrmEntryUnit
     Height = 280
     Top = 16
     Width = 562
-    AutoFillColumns = True
     Color = clWindow
     Columns = <    
       item
@@ -40,27 +38,29 @@ object FrmEntryUnit: TFrmEntryUnit
       item
         MaxSize = 400
         Title.Caption = '単位'
-        Width = 138
+        Width = 135
         FieldName = 'UNIT'
       end    
       item
         Title.Caption = '非表示'
-        Width = 138
+        Width = 135
         FieldName = 'DISABLED'
       end    
       item
         Title.Caption = '登録日'
-        Width = 137
+        Width = 134
         FieldName = 'ENTRY_DT'
+        DisplayFormat = 'yyyy"/"mm"/"dd hh":"nn":"ss'
       end    
       item
         Title.Caption = '更新日'
-        Width = 137
+        Width = 134
         FieldName = 'UPDATE_DT'
+        DisplayFormat = 'yyyy"/"mm"/"dd hh":"nn":"ss'
       end>
     Constraints.MaxWidth = 2000
     DataSource = ADS
-    Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgAnyButtonCanSelect, dgDisableDelete, dgDblClickAutoSize]
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
     TabOrder = 0
     TabStop = False
     TitleStyle = tsStandard

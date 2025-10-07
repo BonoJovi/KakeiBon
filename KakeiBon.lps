@@ -150,7 +150,7 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="193"/>
-        <CursorPos X="3" Y="196"/>
+        <CursorPos X="10" Y="197"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
@@ -178,7 +178,7 @@
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="131"/>
-        <CursorPos X="3" Y="139"/>
+        <CursorPos X="40" Y="142"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
