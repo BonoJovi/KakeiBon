@@ -205,7 +205,7 @@ var
 
 implementation
 uses
-  LazLogger,UCommonDB, UDefs, UConsts, UDBAccess, UManageDetails,
+  LazLogger,UCommonDB, UDefs, UConsts, UDBAccess, UTopMenu, UManageDetails,
   UAddDetailsHeader, UEditDetailsHeader, UEntryMaker, UEntryBrandName,
   UEntryUnit;
 
@@ -1368,6 +1368,8 @@ end;
 procedure TFrmEditDetail.FormCreate(Sender: TObject);
 begin
   with Defs do begin
+    //SetDatabaseNames;
+
     if GetDoExitKakeiBon then begin
       Application.Terminate;
     end;

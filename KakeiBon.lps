@@ -3,24 +3,16 @@
   <ProjectSession>
     <PathDelim Value="\"/>
     <Version Value="12"/>
+    <ManyBuildModesSelection Value="Default,Debug,Release"/>
     <BuildModes Active="Release"/>
     <Units>
       <Unit>
         <Filename Value="KakeiBon.lpr"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="12"/>
+        <TopLine Value="13"/>
         <CursorPos Y="30"/>
-        <UsageCount Value="26"/>
-      </Unit>
-      <Unit>
-        <Filename Value="..\DBNavi\UDBNavi.pas"/>
-        <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <WindowIndex Value="-1"/>
-        <TopLine Value="-1"/>
-        <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="26"/>
+        <UsageCount Value="46"/>
       </Unit>
       <Unit>
         <Filename Value="DBG\UDBG.pas"/>
@@ -29,7 +21,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="26"/>
+        <UsageCount Value="46"/>
       </Unit>
       <Unit>
         <Filename Value="UAddDetail.pas"/>
@@ -38,9 +30,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="425"/>
-        <CursorPos X="40" Y="434"/>
-        <UsageCount Value="26"/>
+        <TopLine Value="1464"/>
+        <CursorPos X="16" Y="1474"/>
+        <UsageCount Value="46"/>
       </Unit>
       <Unit>
         <Filename Value="UAddDetailsHeader.pas"/>
@@ -49,20 +41,20 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="196"/>
-        <CursorPos X="33" Y="205"/>
-        <UsageCount Value="26"/>
+        <TopLine Value="1159"/>
+        <CursorPos X="3" Y="1167"/>
+        <UsageCount Value="46"/>
       </Unit>
       <Unit>
         <Filename Value="UAddUser.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FrmAddUser"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <WindowIndex Value="-1"/>
-        <TopLine Value="-1"/>
-        <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="26"/>
+        <TopLine Value="623"/>
+        <CursorPos X="3" Y="631"/>
+        <UsageCount Value="46"/>
       </Unit>
       <Unit>
         <Filename Value="UCommonDB.pas"/>
@@ -71,9 +63,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="78"/>
+        <TopLine Value="60"/>
         <CursorPos X="38" Y="90"/>
-        <UsageCount Value="26"/>
+        <UsageCount Value="46"/>
       </Unit>
       <Unit>
         <Filename Value="UConsts.pas"/>
@@ -81,45 +73,44 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="69"/>
         <CursorPos X="16" Y="79"/>
-        <UsageCount Value="26"/>
+        <UsageCount Value="46"/>
       </Unit>
       <Unit>
         <Filename Value="UDBAccess.pas"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="26"/>
+        <TopLine Value="492"/>
+        <CursorPos X="15" Y="301"/>
+        <UsageCount Value="46"/>
       </Unit>
       <Unit>
         <Filename Value="UDefs.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <WindowIndex Value="-1"/>
-        <TopLine Value="-1"/>
-        <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="26"/>
+        <CursorPos X="39" Y="4"/>
+        <UsageCount Value="46"/>
       </Unit>
       <Unit>
         <Filename Value="UDeleteUser.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FrmDeleteUser"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <WindowIndex Value="-1"/>
-        <TopLine Value="-1"/>
-        <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="26"/>
+        <TopLine Value="364"/>
+        <CursorPos X="3" Y="372"/>
+        <UsageCount Value="46"/>
       </Unit>
       <Unit>
         <Filename Value="UEditAdmUser.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FrmEditAdmUser"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <WindowIndex Value="-1"/>
-        <TopLine Value="-1"/>
-        <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="26"/>
+        <TopLine Value="615"/>
+        <CursorPos X="3" Y="623"/>
+        <UsageCount Value="46"/>
       </Unit>
       <Unit>
         <Filename Value="UEditDetail.pas"/>
@@ -128,9 +119,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="548"/>
-        <CursorPos X="40" Y="557"/>
-        <UsageCount Value="26"/>
+        <TopLine Value="1387"/>
+        <CursorPos X="3" Y="1395"/>
+        <UsageCount Value="46"/>
       </Unit>
       <Unit>
         <Filename Value="UEditDetailsHeader.pas"/>
@@ -139,9 +130,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="200"/>
-        <CursorPos X="33" Y="209"/>
-        <UsageCount Value="26"/>
+        <TopLine Value="1691"/>
+        <CursorPos X="3" Y="1699"/>
+        <UsageCount Value="46"/>
       </Unit>
       <Unit>
         <Filename Value="UEditUser.pas"/>
@@ -150,9 +141,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="708"/>
-        <CursorPos X="22" Y="618"/>
-        <UsageCount Value="26"/>
+        <TopLine Value="632"/>
+        <CursorPos X="3" Y="640"/>
+        <UsageCount Value="46"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryAccount.pas"/>
@@ -161,9 +152,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="811"/>
-        <CursorPos Y="828"/>
-        <UsageCount Value="26"/>
+        <TopLine Value="1249"/>
+        <CursorPos X="3" Y="1257"/>
+        <UsageCount Value="46"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryAdmin.pas"/>
@@ -172,9 +163,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="242"/>
-        <CursorPos Y="252"/>
-        <UsageCount Value="26"/>
+        <TopLine Value="362"/>
+        <CursorPos X="3" Y="370"/>
+        <UsageCount Value="46"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryBrandName.pas"/>
@@ -183,9 +174,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="632"/>
-        <CursorPos X="24" Y="641"/>
-        <UsageCount Value="26"/>
+        <TopLine Value="1271"/>
+        <CursorPos X="3" Y="1278"/>
+        <UsageCount Value="46"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryMaker.pas"/>
@@ -194,9 +185,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="586"/>
-        <CursorPos X="30" Y="595"/>
-        <UsageCount Value="26"/>
+        <TopLine Value="1100"/>
+        <CursorPos X="3" Y="1108"/>
+        <UsageCount Value="46"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryShop.pas"/>
@@ -204,10 +195,11 @@
         <ComponentName Value="FrmEntryShop"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="791"/>
-        <CursorPos X="56" Y="800"/>
-        <UsageCount Value="26"/>
+        <TopLine Value="1247"/>
+        <CursorPos X="3" Y="1262"/>
+        <UsageCount Value="46"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryUnit.pas"/>
@@ -216,9 +208,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="578"/>
-        <CursorPos X="30" Y="587"/>
-        <UsageCount Value="26"/>
+        <TopLine Value="1095"/>
+        <CursorPos X="3" Y="1104"/>
+        <UsageCount Value="46"/>
       </Unit>
       <Unit>
         <Filename Value="ULogin.pas"/>
@@ -227,9 +219,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="201"/>
-        <CursorPos X="46" Y="209"/>
-        <UsageCount Value="26"/>
+        <TopLine Value="300"/>
+        <CursorPos X="3" Y="308"/>
+        <UsageCount Value="46"/>
       </Unit>
       <Unit>
         <Filename Value="UManageDetails.pas"/>
@@ -238,31 +230,31 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="124"/>
-        <CursorPos X="66" Y="133"/>
-        <UsageCount Value="26"/>
+        <TopLine Value="464"/>
+        <CursorPos X="3" Y="472"/>
+        <UsageCount Value="46"/>
       </Unit>
       <Unit>
         <Filename Value="UManageExp.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FrmManageExp"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <WindowIndex Value="-1"/>
-        <TopLine Value="-1"/>
-        <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="26"/>
+        <TopLine Value="1207"/>
+        <CursorPos X="3" Y="1215"/>
+        <UsageCount Value="46"/>
       </Unit>
       <Unit>
         <Filename Value="UManageUser.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FrmManageUser"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <WindowIndex Value="-1"/>
-        <TopLine Value="-1"/>
-        <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="26"/>
+        <TopLine Value="376"/>
+        <CursorPos X="3" Y="384"/>
+        <UsageCount Value="46"/>
       </Unit>
       <Unit>
         <Filename Value="USummary.pas"/>
@@ -271,9 +263,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="102"/>
-        <CursorPos Y="121"/>
-        <UsageCount Value="26"/>
+        <TopLine Value="113"/>
+        <CursorPos X="7" Y="121"/>
+        <UsageCount Value="46"/>
       </Unit>
       <Unit>
         <Filename Value="UTopMenu.pas"/>
@@ -282,16 +274,75 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="706"/>
-        <CursorPos X="40" Y="714"/>
-        <UsageCount Value="26"/>
+        <TopLine Value="769"/>
+        <CursorPos X="3" Y="779"/>
+        <UsageCount Value="46"/>
+      </Unit>
+      <Unit>
+        <Filename Value="DBNavi\UDBNavi.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="40"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\DBNavi\UDBNavi.pas"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
+        <TopLine Value="-1"/>
+        <CursorPos X="-1" Y="-1"/>
+        <UsageCount Value="24"/>
       </Unit>
       <Unit>
         <Filename Value="D:\lazarus\lcl\include\customform.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="912"/>
         <CursorPos Y="924"/>
+        <UsageCount Value="8"/>
+      </Unit>
+      <Unit>
+        <Filename Value="D:\lazarus\lcl\lclmessageglue.pas"/>
+        <UnitName Value="LCLMessageGlue"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="112"/>
+        <CursorPos Y="125"/>
         <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="D:\lazarus\lcl\interfaces\win32\win32callback.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="2778"/>
+        <CursorPos Y="2788"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="D:\lazarus\lcl\interfaces\win32\win32wsbuttons.pp"/>
+        <UnitName Value="Win32WSButtons"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="555"/>
+        <CursorPos Y="563"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="D:\lazarus\lcl\interfaces\win32\win32object.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="428"/>
+        <CursorPos Y="437"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="D:\lazarus\lcl\include\application.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1298"/>
+        <CursorPos X="30" Y="1309"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="D:\lazarus\lcl\dbgrids.pas"/>
+        <UnitName Value="DBGrids"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="2805"/>
+        <CursorPos Y="2817"/>
+        <UsageCount Value="9"/>
       </Unit>
     </Units>
     <JumpHistory HistoryIndex="-1"/>
@@ -300,4 +351,20 @@
       <Modes ActiveMode=""/>
     </RunParams>
   </ProjectSession>
+  <Debugging>
+    <BreakPoints>
+      <Item>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="UEntryShop.pas"/>
+        <Line Value="733"/>
+      </Item>
+    </BreakPoints>
+    <Watches>
+      <Item>
+        <Expression Value="TargetIndex"/>
+      </Item>
+    </Watches>
+  </Debugging>
 </CONFIG>

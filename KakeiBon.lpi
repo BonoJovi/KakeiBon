@@ -25,7 +25,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\DBNavi;DBG"/>
+            <OtherUnitFiles Value="DBG;DBNavi"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <Parsing>
@@ -65,7 +65,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\DBNavi;DBG"/>
+            <OtherUnitFiles Value="DBG;DBNavi"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -99,6 +99,12 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="DBG"/>
+      </Item>
+      <Item>
+        <PackageName Value="DBNavi"/>
+      </Item>
+      <Item>
         <PackageName Value="DateTimeCtrlsDsgn"/>
       </Item>
       <Item>
@@ -111,10 +117,6 @@
     <Units>
       <Unit>
         <Filename Value="KakeiBon.lpr"/>
-        <IsPartOfProject Value="True"/>
-      </Unit>
-      <Unit>
-        <Filename Value="..\DBNavi\UDBNavi.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit>
       <Unit>
@@ -139,6 +141,7 @@
         <Filename Value="UAddUser.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FrmAddUser"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit>
       <Unit>
@@ -275,6 +278,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit>
+      <Unit>
+        <Filename Value="DBNavi\UDBNavi.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -285,7 +292,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\DBNavi;DBG"/>
+      <OtherUnitFiles Value="DBG;DBNavi"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>

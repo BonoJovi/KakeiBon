@@ -10,7 +10,7 @@ uses
   athreads,
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, datetimectrls, UDBNavi, UDBG, UAddDetail, UAddDetailsHeader, UAddUser,
+  Forms, datetimectrls, UDBG, UDBNavi, UAddDetail, UAddDetailsHeader, UAddUser,
   UCommonDB, UConsts, UDBAccess, UDefs, UDeleteUser, UEditAdmUser, UEditDetail,
   UEditDetailsHeader, UEditUser, UEntryAccount, UEntryAdmin, UEntryBrandName,
   UEntryMaker, UEntryShop, UEntryUnit, ULogin, UManageDetails, UManageExp,

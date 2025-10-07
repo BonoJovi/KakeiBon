@@ -5,7 +5,7 @@ unit UAddDetail;
 interface
 
 uses
-  Classes, SysUtils, Variants, SQLDB, SQLite3Conn, DB, Forms, Controls,
+  Classes, SysUtils, Variants, SQLDB, DB, Forms, Controls,
   Graphics, Dialogs, ExtCtrls, StdCtrls, DBCtrls, LCLIntf, LCLType, ActnList,
   DBDateTimePicker;
 

@@ -19,6 +19,7 @@ object FrmTopMenu: TFrmTopMenu
   OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
+  OnHide = FormHide
   OnKeyUp = FormKeyUp
   OnShow = FormShow
   object PnlManageDetails: TPanel

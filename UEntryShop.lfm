@@ -14,14 +14,13 @@ object FrmEntryShop: TFrmEntryShop
   Font.Quality = fqDraft
   Font.Style = [fsBold]
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp
   OnShow = FormShow
   object ADBGrid: TDBG
-    Left = 15
+    Left = 14
     Height = 264
     Top = 16
     Width = 591
@@ -98,9 +97,10 @@ object FrmEntryShop: TFrmEntryShop
       end>
     Constraints.MaxWidth = 2000
     DataSource = ADS
-    Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns, dgDblClickAutoSize]
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
     TabOrder = 0
     TabStop = False
+    OnDblClick = ADBGridDblClick
     OnMouseDown = ADBGridMouseDown
     OnMouseWheel = ADBGridMouseWheel
     OnSelectEditor = ADBGridSelectEditor
@@ -243,7 +243,7 @@ object FrmEntryShop: TFrmEntryShop
     ParentColor = False
     TabOrder = 8
     TabStop = True
-    OnClick = ActInsertExecute
+    OnClick = BtnInsertClick
     OnEnter = BtnInsertEnter
     OnExit = BtnInsertExit
     OnMouseEnter = BtnInsertEnter
@@ -792,7 +792,14 @@ object FrmEntryShop: TFrmEntryShop
         Name = 'UPDATE_DT'
         DataType = ftUnknown
       end>
+    AfterClose = AQuAfterClose
+    AfterInsert = AQuAfterInsert
+    AfterPost = AQuAfterPost
     AfterScroll = AQuAfterScroll
+    BeforeClose = AQuBeforeClose
+    BeforeOpen = AQuBeforeOpen
+    BeforePost = AQuBeforePost
+    BeforeScroll = AQuBeforeScroll
     Params = <>
     Macros = <>
     Left = 720

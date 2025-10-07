@@ -2,10 +2,10 @@ object FrmEntryBrandName: TFrmEntryBrandName
   Left = 498
   Height = 825
   Top = 60
-  Width = 813
+  Width = 594
   Caption = '品名登録'
   ClientHeight = 825
-  ClientWidth = 813
+  ClientWidth = 594
   Color = clWindowFrame
   Font.CharSet = SHIFTJIS_CHARSET
   Font.Height = -21
@@ -14,7 +14,6 @@ object FrmEntryBrandName: TFrmEntryBrandName
   Font.Quality = fqDraft
   Font.Style = [fsBold]
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
@@ -74,10 +73,11 @@ object FrmEntryBrandName: TFrmEntryBrandName
       end>
     Constraints.MaxWidth = 2000
     DataSource = ADS
-    Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgAnyButtonCanSelect, dgDisableDelete, dgDblClickAutoSize]
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
     TabOrder = 0
     TabStop = False
     TitleStyle = tsStandard
+    OnDblClick = ADBGridDblClick
     OnMouseDown = ADBGridMouseDown
     OnMouseWheel = ADBGridMouseWheel
     OnSelectEditor = ADBGridSelectEditor
@@ -662,7 +662,14 @@ object FrmEntryBrandName: TFrmEntryBrandName
         Name = 'UPDATE_DT'
         DataType = ftDateTime
       end>
+    AfterClose = AQuAfterClose
+    AfterInsert = AQuAfterInsert
+    AfterPost = AQuAfterPost
     AfterScroll = AQuAfterScroll
+    BeforeClose = AQuBeforeClose
+    BeforeOpen = AQuBeforeOpen
+    BeforePost = AQuBeforePost
+    BeforeScroll = AQuBeforeScroll
     Options = [sqoAutoApplyUpdates, sqoAutoCommit]
     Params = <>
     Macros = <>

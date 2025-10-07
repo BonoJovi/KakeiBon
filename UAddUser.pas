@@ -78,7 +78,7 @@ var
 
 implementation
 uses
-  UConsts, UDefs, UCommonDB, UDBAccess, UTopMenu, UManageUser;
+  UConsts, UDefs, UCommonDB, UDBAccess, UManageUser;
 
 {$R *.lfm}
 

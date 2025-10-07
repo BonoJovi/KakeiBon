@@ -60,10 +60,11 @@ object FrmEntryUnit: TFrmEntryUnit
       end>
     Constraints.MaxWidth = 2000
     DataSource = ADS
-    Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgAnyButtonCanSelect, dgDisableDelete, dgDblClickAutoSize]
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
     TabOrder = 0
     TabStop = False
     TitleStyle = tsStandard
+    OnDblClick = ADBGridDblClick
     OnMouseDown = ADBGridMouseDown
     OnMouseWheel = ADBGridMouseWheel
     OnSelectEditor = ADBGridSelectEditor
@@ -430,7 +431,14 @@ object FrmEntryUnit: TFrmEntryUnit
         Name = 'UPDATE_DT'
         DataType = ftDateTime
       end>
+    AfterClose = AQuAfterClose
+    AfterInsert = AQuAfterInsert
+    AfterPost = AQuAfterPost
     AfterScroll = AQuAfterScroll
+    BeforeClose = AQuBeforeClose
+    BeforeOpen = AQuBeforeOpen
+    BeforePost = AQuBeforePost
+    BeforeScroll = AQuBeforeScroll
     Options = [sqoAutoApplyUpdates, sqoAutoCommit]
     Params = <>
     Macros = <>
