@@ -182,10 +182,12 @@
         <ComponentName Value="FrmEntryMaker"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="1100"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="1101"/>
         <CursorPos X="3" Y="1108"/>
         <UsageCount Value="46"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryShop.pas"/>
@@ -193,11 +195,12 @@
         <ComponentName Value="FrmEntryShop"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="632"/>
-        <CursorPos X="3" Y="1262"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="633"/>
+        <CursorPos X="19" Y="640"/>
         <UsageCount Value="46"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryUnit.pas"/>
