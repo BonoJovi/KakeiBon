@@ -14,7 +14,6 @@ object FrmEntryBrandName: TFrmEntryBrandName
   Font.Quality = fqDraft
   Font.Style = [fsBold]
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
@@ -74,7 +73,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
       end>
     Constraints.MaxWidth = 2000
     DataSource = ADS
-    Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgAnyButtonCanSelect, dgDisableDelete, dgDblClickAutoSize]
+    Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAnyButtonCanSelect, dgDisableDelete, dgRowHighlight, dgDblClickAutoSize]
     TabOrder = 0
     TabStop = False
     TitleStyle = tsStandard
@@ -106,7 +105,6 @@ object FrmEntryBrandName: TFrmEntryBrandName
     VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
     OnBtnClick = ADBNaviBtnClick
     OnKeyUp = ADBNaviKeyUp
-    OnWMSetFocus = ADBNaviWMSetFocus
   end
   object Panel1: TPanel
     Left = 16
@@ -195,7 +193,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
   object PnlEntryMaker: TPanel
     Left = 160
     Height = 49
-    Top = 422
+    Top = 419
     Width = 418
     Caption = 'メーカー名を登録 (CTRL+1)'
     Color = clActiveCaption
@@ -208,7 +206,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
     Cursor = crCross
     Left = 168
     Height = 33
-    Top = 430
+    Top = 427
     Width = 402
     BevelColor = clNone
     BevelOuter = bvNone
@@ -255,7 +253,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
     Left = 160
     Height = 49
     Hint = '自動採番'
-    Top = 478
+    Top = 476
     Width = 164
     DataField = 'BRAND_NAME_ID'
     DataSource = ADS
@@ -273,7 +271,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
   object PnlInsert: TPanel
     Left = 334
     Height = 49
-    Top = 478
+    Top = 476
     Width = 244
     Caption = '新規登録 (CTRL+2)'
     Color = clActiveCaption
@@ -286,7 +284,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
     Cursor = crCross
     Left = 342
     Height = 33
-    Top = 486
+    Top = 484
     Width = 228
     BevelColor = clNone
     BevelOuter = bvNone
@@ -536,7 +534,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
   object DBEdtUserID: TDBEdit
     Left = 616
     Height = 49
-    Top = 360
+    Top = 365
     Width = 168
     DataField = 'USER_ID'
     DataSource = ADS
@@ -547,7 +545,7 @@ object FrmEntryBrandName: TFrmEntryBrandName
   object DBEdtMakerID: TDBEdit
     Left = 616
     Height = 49
-    Top = 416
+    Top = 419
     Width = 168
     DataField = 'MAKER_ID'
     DataSource = ADS
@@ -663,8 +661,14 @@ object FrmEntryBrandName: TFrmEntryBrandName
         Name = 'UPDATE_DT'
         DataType = ftDateTime
       end>
+    AfterClose = AQuAfterClose
+    AfterInsert = AQuAfterInsert
+    AfterPost = AQuAfterPost
     AfterScroll = AQuAfterScroll
-    Options = [sqoAutoApplyUpdates, sqoAutoCommit]
+    BeforeClose = AQuBeforeClose
+    BeforeOpen = AQuBeforeOpen
+    BeforePost = AQuBeforePost
+    BeforeScroll = AQuBeforeScroll
     Params = <>
     Macros = <>
     Left = 688

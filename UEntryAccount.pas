@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, LCLType, SysUtils, Variants, SQLDB, DB, Forms, Controls, Graphics,
-  Dialogs, StdCtrls, ExtCtrls, DBCtrls, DBGrids, LCLIntf, ActnList,
+  Dialogs, StdCtrls, ExtCtrls, DBCtrls, Grids, DBGrids, LCLIntf, ActnList,
   DBDateTimePicker, Types, UDBNavi, UDBG, LMessages;
 
 type
@@ -37,7 +37,7 @@ type
     DBCBDisabled        : TDBCheckBox;
     DBDTPEntryDT        : TDBDateTimePicker;
     DBDTPUpdateDT       : TDBDateTimePicker;
-    DBEdtUserID: TDBEdit;
+    DBEdtUserID         : TDBEdit;
     DBEdtAccountID      : TDBEdit;
     DBEdtBrandName      : TDBEdit;
     DBEdtCurrentBalance : TDBEdit;
@@ -78,6 +78,7 @@ type
     procedure ActGoBackExecute(Sender: TObject);
     procedure ActInsertExecute(Sender: TObject);
     procedure ActSaveExecute(Sender: TObject);
+    procedure ADBGridDblClick(Sender: TObject);
     procedure ADBGridMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure ADBGridMouseWheel(Sender: TObject; Shift: TShiftState;
@@ -87,15 +88,20 @@ type
     procedure ADBGridWMVScroll(Sender: TObject; var Message: TLMVScroll);
     procedure ADBNaviBtnClick(Sender: TObject; Index: TNavigateBtn);
     procedure ADBNaviKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure AQuAfterClose(DataSet: TDataSet);
+    procedure AQuAfterInsert(DataSet: TDataSet);
+    procedure AQuAfterPost(DataSet: TDataSet);
     procedure AQuAfterScroll(DataSet: TDataSet);
+    procedure AQuBeforeClose(DataSet: TDataSet);
+    procedure AQuBeforeOpen(DataSet: TDataSet);
+    procedure AQuBeforePost(DataSet: TDataSet);
+    procedure AQuBeforeScroll(DataSet: TDataSet);
     procedure DBCBDisabledEnter(Sender: TObject);
     procedure DBCBDisabledExit(Sender: TObject);
     procedure DBEdtAccountIDEnter(Sender: TObject);
     procedure DBEdtAccountIDExit(Sender: TObject);
     procedure DBEdtBrandNameEnter(Sender: TObject);
     procedure DBEdtBrandNameExit(Sender: TObject);
-    //procedure DBEdtCurrentBalanceEnter(Sender: TObject);
-    //procedure DBEdtCurrentBalanceExit(Sender: TObject);
     procedure DBEdtOpeningBalanceEnter(Sender: TObject);
     procedure DBEdtOpeningBalanceExit(Sender: TObject);
     procedure DBEdtPhoneNumEnter(Sender: TObject);
@@ -103,8 +109,8 @@ type
     procedure DBEdtSubNameEnter(Sender: TObject);
     procedure DBEdtSubNameExit(Sender: TObject);
     procedure FormActivate(Sender: TObject);
-    procedure ProcInsert(Sender: TObject);
     procedure ProcCancel(Sender: TObject);
+    procedure ProcInsert(Sender: TObject);
     procedure ProcSave(Sender: TObject);
     procedure InsertMouseOver(NewColor: TColor);
     procedure BtnInsertEnter(Sender: TObject);
@@ -121,7 +127,6 @@ type
     procedure DBCBDisabledChange(Sender: TObject);
     procedure DBEdtAccountIDChange(Sender: TObject);
     procedure DBEdtBrandNameChange(Sender: TObject);
-    //procedure DBEdtCurrentBalanceChange(Sender: TObject);
     procedure DBEdtOpeningBalanceChange(Sender: TObject);
     procedure DBEdtPhoneNumChange(Sender: TObject);
     procedure DBEdtSubNameChange(Sender: TObject);
@@ -131,22 +136,24 @@ type
     procedure TimerTimer(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
-    //FTab               : Boolean;
-    FGuidePanels       : Array[0..3] of TPanel;
-    FNavigateBtn       : TNavigateBtn;
-    FDBGridClicked     : Boolean;
-    FDoCommit          : Boolean;
-    FReOpenDS          : Boolean;
-    FInsert            : Boolean;
-    FAccountID         : Integer;
-    FBrandName         : String;
-    FSubName           : String;
-    FPhoneNum          : String;
-    FOpeningBalance    : Integer;
-    //FCurrentBalance    : Integer;
-    FDisabled          : Boolean;
+    FSkipFirstProcess         : Boolean;
+    FGuidePanels              : Array[0..3] of TPanel;
+    FNavigateBtn              : TNavigateBtn;
+    FDBGridClicked            : Boolean;
+    FDoCommit                 : Boolean;
+    FReOpenDS                 : Boolean;
+    FSuppressRecursiveEvent   : Boolean;
+    FGoFirst                  : Boolean;
+    FAccountID                : Integer;
+    FBrandName                : String;
+    FSubName                  : String;
+    FPhoneNum                 : String;
+    FOpeningBalance           : Integer;
+    FDisabled                 : Boolean;
     procedure BackupValues;
     function CannotFocusedNavButton: Boolean;
+    function DataSetStateToStr(State: TDataSetState): string;
+    procedure EnableTimer(Data: PtrInt);
     function GetBrandName: String;
     procedure SetBrandName(BrandName: String);
     function GetSubName: String;
@@ -155,10 +162,9 @@ type
     procedure SetPhoneNum(PhoneNum: String);
     function GetOpeningBalance: Integer;
     procedure SetOpeningBalance(OpeningBalance: Integer);
-    //function GetCurrentBalance: Integer;
-    //procedure SetCurrentBalance(CurrentBalance: Integer);
     function GetDisabled: Boolean;
     procedure SetDisabled(Disabled: Boolean);
+    function ShiftStateToStr(Shift: TShiftState): string;
   public
   end;
 
@@ -167,7 +173,7 @@ var
 
 implementation
 uses
-  UCommonDB, UDefs, UConsts, UDBAccess, UTopMenu, UManageDetails,
+  LazLogger, UCommonDB, UDefs, UConsts, UDBAccess, UTopMenu, UManageDetails,
   UAddDetailsHeader, UEditDetailsHeader;
 
 {$R *.lfm}
@@ -189,7 +195,6 @@ begin
     SetSubName(DBEdtSubName.Text);
     SetPhoneNum(DBEdtPhoneNum.Text);
     SetOpeningBalance(DBEdtOpeningBalance.Field.AsInteger);
-    //SetCurrentBalance(DBEdtCurrentBalance.Field.AsInteger);
 
     if DBCBDisabled.State = cbChecked then begin
       SetDisabled(True);
@@ -210,11 +215,60 @@ begin
   end;
 end;
 
+function TFrmEntryAccount.DataSetStateToStr(State: TDataSetState): string;
+begin
+  case State of
+    dsInactive: Result := 'dsInactive';
+    dsBrowse: Result := 'dsBrowse';
+    dsEdit: Result := 'dsEdit';
+    dsInsert: Result := 'dsInsert';
+    dsSetKey: Result := 'dsSetKey';
+    dsCalcFields: Result := 'dsCalcFields';
+    dsFilter: Result := 'dsFilter';
+    dsNewValue: Result := 'dsNewValue';
+    dsOldValue: Result := 'dsOldValue';
+    dsCurValue: Result := 'dsCurValue';
+    dsBlockRead: Result := 'dsBlockRead';
+    dsInternalCalc: Result := 'dsInternalCalc';
+    dsOpening: Result := 'dsOpening';
+  else
+    Result := 'Unknown';
+  end;
+end;
+
+procedure TFrmEntryAccount.EnableTimer(Data: PtrInt);
+begin
+{$IFDEF Debug}
+  LazLogger.DebugLn('EnableTimer: Enabling Timer');
+{$ENDIF}
+  Timer.Enabled := True;
+end;
+
+procedure TFrmEntryAccount.ProcCancel(Sender: TObject);
+begin
+  with CommonDB do begin
+    with Defs do begin
+      with AQu do begin
+        if State in [dsInsert, dsEdit] then begin
+          ATr.Rollback;
+          OpenSelectQuery(ADS, AQu, SQL_20110001);
+        end;
+
+        if RecordCount = 0 then begin
+          DBEdtBrandName.SetFocus;
+        end else begin
+          ADBNavi.SetFocus;
+        end;
+      end;
+    end;
+  end;
+end;
+
 procedure TFrmEntryAccount.ProcInsert(Sender: TObject);
 var
   LNextID: Integer;
 begin
-  if Not FInsert then begin
+  if Not (AQu.State in [dsInsert, dsEdit]) then begin
     with CommonDB do begin
       with Defs do begin
         try
@@ -236,7 +290,11 @@ begin
           end;
         end;
 
+        CloseQuery(AQu);
         with AQu do begin
+          SQLConnection  := ACn;
+          SQLTransaction := ATr;
+
           if Not Active then begin
             OpenSelectQuery(ADS, AQu, SQL_20110001);
           end;
@@ -245,20 +303,6 @@ begin
 
           DBEdtUserID.Text := IntToStr(GetUID);
 
-          if GetAccountID = 0 then begin
-            OpenSelectQuery(ADSNextID, AQuNextID, SQL_20110003);
-            LNextID := AQuNextID.FieldByName('NEXT_ID').AsInteger;
-
-            CloseQuery(AQuNextID);
-            DBEdtAccountID.Text := IntToStr(LNextID);
-
-            SetAccountID(LNextID);
-          end;
-
-
-          FInsert := True;
-
-          DBCBDisabled.Checked := False;
           DBEdtBrandName.SetFocus;
         end;
       end;
@@ -266,336 +310,128 @@ begin
   end;
 end;
 
-procedure TFrmEntryAccount.DBEdtAccountIDEnter(Sender: TObject);
-begin
-  Shape1.Visible := True;
-
-  Timer.Enabled     := True;
-end;
-
-procedure TFrmEntryAccount.DBCBDisabledEnter(Sender: TObject);
-begin
-  Shape6.Visible := True;
-
-  Timer.Enabled     := True;
-end;
-
-procedure TFrmEntryAccount.ADBGridMouseDown(Sender: TObject;
-  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-begin
-  if FInsert then begin
-    if Not FDBGridClicked then begin
-      FDBGridClicked := True;
-      ADBGridSelectEditor(
-        Sender, ADBGrid.LastColumn, TWinControl(ADBGrid));
-
-      ADBNavi.SetFocus;
-      ADBNavi.FindNextControl(ADBNavi, True, True, True).SetFocus;
-
-      Abort;
-    end;
-  end;
-end;
-
-procedure TFrmEntryAccount.ADBGridMouseWheel(Sender: TObject;
-  Shift: TShiftState; WheelDelta: Integer; MousePos: TPoint;
-  var Handled: Boolean);
-begin
-  if FInsert then begin
-    if DBEdtBrandName.Text = '' then begin
-      if MessageDlg(MSG_JP_000042,
-                    mtConfirmation, [mbYes, mbNo], 0) = mrYes then
-      begin
-        // 「はい」が選ばれたらキャンセル処理を実行
-        ProcCancel(Self);
-      end else begin
-        // 「いいえ」が選ばれたらスクロール自体を中止する
-        Abort;
-      end;
-    end else begin
-      if MessageDlg(MSG_JP_000043,
-                    mtConfirmation, [mbYes, mbNo], 0) = mrYes then
-      begin
-        // 「はい」が選ばれたらキャンセル処理を実行
-        ProcCancel(Self);
-      end else begin
-        // 「いいえ」が選ばれたらスクロール自体を中止する
-        Abort;
-      end;
-    end;
-  end else begin
-    FDBGridClicked := False;
-  end;
-end;
-
-procedure TFrmEntryAccount.ADBGridSelectEditor(
-  Sender: TObject; Column: TColumn; var Editor: TWinControl);
-begin
-  if FDBGridClicked then begin
-    if FInsert then begin
-      if DBEdtBrandName.Text = '' then begin
-        if MessageDlg(MSG_JP_000042,
-                      mtConfirmation, [mbYes, mbNo], 0) = mrYes then
-        begin
-          // 「はい」が選ばれたらキャンセル処理を実行
-          ProcCancel(Self);
-        end else begin
-          // 「いいえ」が選ばれたらスクロール自体を中止する
-          Abort;
-        end;
-      end else begin
-        if MessageDlg(MSG_JP_000043,
-                      mtConfirmation, [mbYes, mbNo], 0) = mrYes then
-        begin
-          // 「はい」が選ばれたらキャンセル処理を実行
-          ProcCancel(Self);
-        end else begin
-          // 「いいえ」が選ばれたらスクロール自体を中止する
-          Abort;
-        end;
-      end;
-    end else begin
-      FDBGridClicked := False;
-    end;
-  end;
-
-  ADBGrid.AutoAdjustColumns;
-end;
-
-procedure TFrmEntryAccount.ADBGridWMVScroll(Sender: TObject;
-  var Message: TLMVScroll);
-begin
-  if FInsert then begin
-    if Not FDBGridClicked then begin
-      FDBGridClicked := True;
-      ADBGridSelectEditor(
-        Sender, ADBGrid.LastColumn, TWinControl(ADBGrid));
-
-      ADBNavi.SetFocus;
-      ADBNavi.FindNextControl(ADBNavi, True, True, True).SetFocus;
-
-      Abort;
-    end;
-  end;
-end;
-
-procedure TFrmEntryAccount.ADBNaviBtnClick(Sender: TObject; Index: TNavigateBtn
-  );
-begin
-  FNavigateBtn := Index;
-
-  with CommonDB do begin
-    if AQu.RecordCount > 0 then begin
-      if FInsert then begin
-        ProcCancel(Sender);
-      end;
-    end;
-  end;
-end;
-
-procedure TFrmEntryAccount.ADBNaviKeyUp(Sender: TObject; var Key: Word;
-  Shift: TShiftState);
-begin
-  if (Key = VK_TAB) And (ssShift in Shift) then begin
-    BtnGoBack.SetFocus;
-  end else if (Key = VK_TAB) then begin
-    if Screen.ActiveControl is TDBNavi then begin
-      if CannotFocusedNavButton then begin
-        BtnInsert.SetFocus;
-      end else begin
-        ADBNavi.FindNextControl(ADBNavi, True, True, True).SetFocus;
-      end;
-    end;
-  end;
-end;
-
-procedure TFrmEntryAccount.AQuAfterScroll(DataSet: TDataSet);
-begin
-  case FNavigateBtn of
-  nbFirst:
-    if AQu.RecordCount > 0 then begin
-      ADBNavi.FindNextControl(ADBNavi, True, True, True).SetFocus;
-    end;
-  nbPrior:
-    if AQu.RecNo <= 1 then begin
-      ADBNavi.FindNextControl(ADBNavi, True, True, True).SetFocus;
-    end;
-  nbNext:
-    begin
-      if AQu.RecNo = AQu.RecordCount then begin
-        ADBNavi.FindNextControl(ADBNavi, False, True, True).SetFocus;
-      end;
-    end;
-  nbLast: ADBNavi.FindNextControl(ADBNavi, False, True, True).SetFocus;
-  end;
-
-  Timer.Enabled := True;
-end;
-
-procedure TFrmEntryAccount.DBCBDisabledExit(Sender: TObject);
-begin
-  Shape6.Visible := False;
-
-  Timer.Enabled     := True;
-end;
-
-procedure TFrmEntryAccount.DBEdtAccountIDExit(Sender: TObject);
-begin
-  Shape1.Visible := False;
-
-  Timer.Enabled     := True;
-end;
-
-procedure TFrmEntryAccount.DBEdtBrandNameEnter(Sender: TObject);
-begin
-  Shape2.Visible := True;
-
-  Timer.Enabled     := True;
-end;
-
-procedure TFrmEntryAccount.DBEdtBrandNameExit(Sender: TObject);
-begin
-  Shape2.Visible := False;
-
-  Timer.Enabled     := True;
-end;
-
-//procedure TFrmEntryAccount.DBEdtCurrentBalanceEnter(Sender: TObject);
-//begin
-//  Shape6.Visible := True;
-//
-//  Timer.Enabled     := True;
-//end;
-//
-//procedure TFrmEntryAccount.DBEdtCurrentBalanceExit(Sender: TObject);
-//begin
-//  Shape6.Visible := False;
-//
-//  Timer.Enabled     := True;
-//end;
-
-procedure TFrmEntryAccount.DBEdtOpeningBalanceEnter(Sender: TObject);
-begin
-  Shape5.Visible := True;
-
-  Timer.Enabled     := True;
-end;
-
-procedure TFrmEntryAccount.DBEdtOpeningBalanceExit(Sender: TObject);
-begin
-  Shape5.Visible := False;
-
-  Timer.Enabled     := True;
-end;
-
-procedure TFrmEntryAccount.DBEdtPhoneNumEnter(Sender: TObject);
-begin
-  Shape4.Visible := True;
-
-  Timer.Enabled     := True;
-end;
-
-procedure TFrmEntryAccount.DBEdtPhoneNumExit(Sender: TObject);
-begin
-  Shape4.Visible := False;
-
-  Timer.Enabled     := True;
-end;
-
-procedure TFrmEntryAccount.DBEdtSubNameEnter(Sender: TObject);
-begin
-  Shape3.Visible := True;
-
-  Timer.Enabled     := True;
-end;
-
-procedure TFrmEntryAccount.DBEdtSubNameExit(Sender: TObject);
-begin
-  Shape3.Visible := False;
-
-  Timer.Enabled     := True;
-end;
-
-procedure TFrmEntryAccount.ProcCancel(Sender: TObject);
-begin
-  with CommonDB do begin
-    with Defs do begin
-      if FInsert then begin
-        if AQu.RecordCount > 0 then begin
-          FInsert := False;
-          ATr.Rollback;
-          OpenSelectQuery(ADS, AQu, SQL_20110001);
-        end;
-      end;
-
-      if AQu.RecordCount = 0 then begin
-        DBEdtBrandName.SetFocus;
-      end else begin
-        ADBNavi.SetFocus;
-      end;
-    end;
-  end;
-end;
-
 procedure TFrmEntryAccount.ProcSave(Sender: TObject);
 var
-  LNextAccountID : Integer;
-  LNow           : String;
+  LFS: TFormatSettings;
 begin
+  Timer.Enabled := False; // Prevent timer events during ProcSave
   FDoCommit := True;
   try
     try
       with CommonDB do begin
         with Defs do begin
-          CloseQuery(AQu);
+          LFS := GetFS;
 
+          // Ensure database connection is open
+          if not ACn.Connected then begin
+{$IFDEF Debug}
+            LazLogger.DebugLn('ProcSave: Opening database connection');
+{$ENDIF}
+            ACn.Open;
+          end;
           with AQu do begin
-            SQL.Text := SQL_20110004;
-            with Params do begin
-              ParamByName('pUserID').AsInteger         := GetUID;
+            CloseQuery(AQu);
+
+            // Ensure transaction is active
+            if not ATr.Active then begin
+{$IFDEF Debug}
+              LazLogger.DebugLn('ProcSave: Starting transaction');
+{$ENDIF}
+              ATr.StartTransaction;
             end;
+            SQLConnection := ACn;
+            SQLTransaction := ATr;
 
-            if GetAccountID = 0 then begin
-              OpenSelectQuery(ADSNextID, AQuNextID, SQL_20110003);
-              LNextAccountID := AQuNextID.FieldByName('NEXT_ID').AsInteger;
-
+            // Validate BRAND_NAME before setting fields
+            if Trim(GetBrandName) = '' then begin
+{$IFDEF Debug}
+              LazLogger.DebugLn('ProcSave: BRAND_NAME is empty. Aborting save.');
+{$ENDIF}
+              MessageDlg(MSG_JP_000048, mtError, [mbOK], 0);
+              Exit;
+            end;
+            try
+              SQL.Text := SQL_20110004;
               with Params do begin
-                ParamByName('pAccountID').AsInteger    := LNextAccountID;
-              end;
-            end else begin
-              with Params do begin
-                ParamByName('pAccountID').AsInteger    := GetAccountID;
-              end;
-            end;
-            with Params do begin
-              ParamByName('pBrandName').AsAnsiString   := GetBrandName;
-              ParamByName('pSubName').AsAnsiString     := GetSubName;
-              ParamByName('pPhoneNum').AsAnsiString    := GetPhoneNum;
-              ParamByName('pOpeningBalance').AsInteger := GetOpeningBalance;
-              //ParamByName('pCurrentBalance').AsInteger := GetCurrentBalance;
-              ParamByName('pDisabled').AsBoolean       := GetDisabled;
-              LNow                                     := FormatDateTime('yyyy-mm-dd hh:nn:ss', Now, GetFS);;
-              ParamByName('pEntryDT').AsAnsiString     := LNow;
-              ParamByName('pUpdateDT').AsAnsiString    := LNow;
-            end;
+                ParamByName('pUserID').AsInteger := GetUID;
+                ParamByName('pAccountID').AsInteger := GetAccountID;
+                ParamByName('pBrandName').AsString := GetBrandName;
+                ParamByName('pSubName').AsString := GetSubName;
+                ParamByName('pPhoneNum').AsString := GetPhoneNum;
+                ParamByName('pOpeningBalance').AsInteger := GetOpeningBalance;
+                ParamByName('pDisabled').AsBoolean := GetDisabled;
+                ParamByName('pEntryDT').AsAnsiString := FormatDateTime('yyyy-mm-dd hh:nn:ss', Now, LFS);
+                ParamByName('pUpdateDT').AsAnsiString := FormatDateTime('yyyy-mm-dd hh:nn:ss', Now, LFS);
 
-            ExecSQL;
-            ATr.Commit;
+                ExecSQL;
+                ATr.Commit;
+              end;
+{$IFDEF Debug}
+              LazLogger.DebugLn('ProcSave Before Post: AQu.Active=' + BoolToStr(Active, True) +
+                                ', AQu.State=' + DataSetStateToStr(State) +
+                                ', ATr.Active=' + BoolToStr(ATr.Active, True) +
+                                ', ACn.Connected=' + BoolToStr(ACn.Connected, True) +
+                                ', USER_ID=' + FieldByName('USER_ID').AsString +
+                                ', ACCOUNT_ID=' + FieldByName('ACCOUNT_ID').AsString +
+                                ', BRAND_NAME=' + FieldByName('BRAND_NAME').AsString +
+                                ', SUB_NAME=' + FieldByName('SUB_NAME').AsString +
+                                ', PHONE_NUM=' + FieldByName('PHONE_NUM').AsString +
+                                ', OPENING_BALANCE=' + FieldByName('OPENING_BALANCE').AsString +
+                                ', DISABLED=' + FieldByName('DISABLED').AsString +
+                                ', ENTRY_DT=' + FieldByName('ENTRY_DT').AsString +
+                                ', UPDATE_DT=' + FieldByName('UPDATE_DT').AsString);
+{$ENDIF}
+            except
+              on E: ESQLDatabaseError do begin
+                MessageDlg(MSG_JP_000046 + ': ' + E.Message, mtError, [mbOk], 0);
+                ATr.Rollback;
+              end;
+            end;
+          end;
+
+          if not ATr.Active then begin
+{$IFDEF Debug}
+            LazLogger.DebugLn('ProcSave: Starting transaction after ApplyUpdates');
+{$ENDIF}
+            ATr.StartTransaction;
+          end;
+
+          OpenSelectQuery(ADS, AQu, SQL_20110002);
+
+          if not Active then begin
+{$IFDEF Debug}
+            LazLogger.DebugLn('ProcSave: Failed to reopen AQu after ApplyUpdates');
+{$ENDIF}
+            raise Exception.Create('Failed to reopen dataset after ApplyUpdates');
           end;
         end;
       end;
     except
       on E: ESQLDatabaseError do begin
-        ShowMessage(E.Message);
+{$IFDEF Debug}
+        LazLogger.DebugLn('ProcSave: General SQL Error: ' + E.Message);
+{$ENDIF}
+        with CommonDB do begin
+          if ATr.Active then ATr.Rollback;
+          ShowMessage(MSG_JP_000013 + ': ' + E.Message);
+        end;
       end;
     end;
   finally
-    FInsert := False;
+    FReOpenDS := True;
+    FDoCommit := False;
+    Application.QueueAsyncCall(@EnableTimer, 0); // Cross-platform timer enabling
   end;
+end;
 
-  FReOpenDS     := True;
-  Timer.Enabled := True;
-  FDoCommit     := False;
+procedure TFrmEntryAccount.CancelMouseOver(NewColor: TColor);
+begin
+  BtnCancel.Color := NewColor;
+end;
+
+procedure TFrmEntryAccount.GoBackMouseOver(NewColor: TColor);
+begin
+  BtnGoBack.Color := NewColor;
 end;
 
 procedure TFrmEntryAccount.InsertMouseOver(NewColor: TColor);
@@ -603,26 +439,9 @@ begin
   BtnInsert.Color := NewColor;
 end;
 
-procedure TFrmEntryAccount.BtnInsertEnter(Sender: TObject);
+procedure TFrmEntryAccount.SaveMouseOver(NewColor: TColor);
 begin
-  InsertMouseOver(clSkyBlue);
-  CancelMouseOver(clBtnFace);
-  SaveMouseOver(clBtnFace);
-  GoBackMouseOver(clBtnFace);
-
-  Timer.Enabled     := True;
-end;
-
-procedure TFrmEntryAccount.BtnInsertExit(Sender: TObject);
-begin
-  InsertMouseOver(clBtnFace);
-
-  Timer.Enabled     := True;
-end;
-
-procedure TFrmEntryAccount.CancelMouseOver(NewColor: TColor);
-begin
-  BtnCancel.Color := NewColor;
+  BtnSave.Color := NewColor;
 end;
 
 procedure TFrmEntryAccount.BtnCancelEnter(Sender: TObject);
@@ -642,9 +461,38 @@ begin
   Timer.Enabled     := True;
 end;
 
-procedure TFrmEntryAccount.SaveMouseOver(NewColor: TColor);
+procedure TFrmEntryAccount.BtnGoBackEnter(Sender: TObject);
 begin
-  BtnSave.Color := NewColor;
+  InsertMouseOver(clBtnFace);
+  CancelMouseOver(clBtnFace);
+  SaveMouseOver(clBtnFace);
+  GoBackMouseOver(clSkyBlue);
+
+  Timer.Enabled     := True;
+end;
+
+procedure TFrmEntryAccount.BtnGoBackExit(Sender: TObject);
+begin
+  GoBackMouseOver(clBtnFace);
+
+  Timer.Enabled     := True;
+end;
+
+procedure TFrmEntryAccount.BtnInsertEnter(Sender: TObject);
+begin
+  InsertMouseOver(clSkyBlue);
+  CancelMouseOver(clBtnFace);
+  SaveMouseOver(clBtnFace);
+  GoBackMouseOver(clBtnFace);
+
+  Timer.Enabled     := True;
+end;
+
+procedure TFrmEntryAccount.BtnInsertExit(Sender: TObject);
+begin
+  InsertMouseOver(clBtnFace);
+
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.BtnSaveEnter(Sender: TObject);
@@ -660,28 +508,6 @@ end;
 procedure TFrmEntryAccount.BtnSaveExit(Sender: TObject);
 begin
   SaveMouseOver(clBtnFace);
-
-  Timer.Enabled     := True;
-end;
-
-procedure TFrmEntryAccount.GoBackMouseOver(NewColor: TColor);
-begin
-  BtnGoBack.Color := NewColor;
-end;
-
-procedure TFrmEntryAccount.BtnGoBackEnter(Sender: TObject);
-begin
-  InsertMouseOver(clBtnFace);
-  CancelMouseOver(clBtnFace);
-  SaveMouseOver(clBtnFace);
-  GoBackMouseOver(clSkyBlue);
-
-  Timer.Enabled     := True;
-end;
-
-procedure TFrmEntryAccount.BtnGoBackExit(Sender: TObject);
-begin
-  GoBackMouseOver(clBtnFace);
 
   Timer.Enabled     := True;
 end;
@@ -726,16 +552,6 @@ begin
   FOpeningBalance := OpeningBalance;
 end;
 
-//function TFrmEntryAccount.GetCurrentBalance: Integer;
-//begin
-//  Result := FCurrentBalance;
-//end;
-//
-//procedure TFrmEntryAccount.SetCurrentBalance(CurrentBalance: Integer);
-//begin
-//  FCurrentBalance := CurrentBalance;
-//end;
-
 function TFrmEntryAccount.GetDisabled: Boolean;
 begin
   Result := FDisabled;
@@ -746,14 +562,24 @@ begin
   FDisabled := Disabled;
 end;
 
-procedure TFrmEntryAccount.ActInsertExecute(Sender: TObject);
-begin
-  ProcInsert(Sender);
-end;
-
 procedure TFrmEntryAccount.ActCancelExecute(Sender: TObject);
 begin
   ProcCancel(Sender);
+
+  ADBNavi.SetFocus;
+  if AQu.RecordCount > 0 then begin
+    ADBNavi.FindNextControl(ADBNavi, True, True, True).SetFocus;
+  end;
+end;
+
+procedure TFrmEntryAccount.ActGoBackExecute(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TFrmEntryAccount.ActInsertExecute(Sender: TObject);
+begin
+  ProcInsert(Sender);
 end;
 
 procedure TFrmEntryAccount.ActSaveExecute(Sender: TObject);
@@ -762,9 +588,452 @@ begin
   ProcSave(Sender);
 end;
 
-procedure TFrmEntryAccount.ActGoBackExecute(Sender: TObject);
+procedure TFrmEntryAccount.ADBGridDblClick(Sender: TObject);
 begin
-  Close;
+  AQu.Edit;
+end;
+
+procedure TFrmEntryAccount.ADBGridMouseDown(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+var
+  LMsg              : string = MSG_JP_000042;
+  LGridCoord        : TGridCoord;
+  LRowIndex         : Integer;
+  LPrevRecNo        : Integer;
+begin
+  if FSuppressRecursiveEvent then begin
+    Exit;
+  end;
+
+  // イベントの再帰呼び出しを防ぐ
+  if ADBGrid.Tag = 1 then begin
+    Exit;
+  end;
+  ADBGrid.Tag := 1;
+
+  try
+    with AQu do begin
+      if AQu.State in [dsInsert, dsEdit] then begin
+        FSuppressRecursiveEvent := True;
+
+        LGridCoord := ADBGrid.MouseCoord(X, Y);
+        LRowIndex  := LGridCoord.Y;
+        if LRowIndex > 0 then begin
+          if AQu.State = dsInsert then begin
+            if AQu.RecNo = 0 then begin
+              LPrevRecNo := 1;
+            end else begin
+              LPrevRecNo := AQu.RecNo;
+            end;
+            LRowIndex  := LRowIndex - 1;
+          end;
+        end;
+
+        try
+          if DBEdtBrandName.Text <> '' then begin
+            LMsg := MSG_JP_000043;
+          end;
+
+          if AQu.RecordCount > 0 then begin;
+            if MessageDlg(LMsg, mtConfirmation, [mbYes, mbNo], 0) = mrYes then begin
+              // 「はい」が選ばれたらキャンセル処理を実行
+              ProcCancel(Self);
+              AQu.First;
+              AQu.MoveBy(LRowIndex - LPrevRecNo);
+              Abort;
+            end else begin
+              // 「いいえ」が選ばれたらスクロール自体を中止する
+              Abort;
+            end;
+          end else begin
+            Abort;
+          end;
+        finally
+          FSuppressRecursiveEvent := False;
+        end;
+      end;
+    end;
+  finally
+    ADBGrid.Tag := 0; // フラグをリセット
+  end;
+end;
+
+procedure TFrmEntryAccount.ADBGridMouseWheel(Sender: TObject;
+  Shift: TShiftState; WheelDelta: Integer; MousePos: TPoint;
+  var Handled: Boolean);
+var
+  Msg : string = MSG_JP_000042;
+begin
+  if FSuppressRecursiveEvent then begin
+    Exit;
+  end;
+
+  // イベントの再帰呼び出しを防ぐ
+  if ADBGrid.Tag = 1 then begin
+    Exit;
+  end;
+  ADBGrid.Tag := 1;
+
+  try
+    if AQu.State in [dsInsert, dsEdit] then begin
+      FSuppressRecursiveEvent := True;
+      try
+        if DBEdtBrandName.Text <> '' then begin
+          Msg := MSG_JP_000043;
+        end;
+
+        if AQu.RecordCount > 0 then begin;
+          if MessageDlg(Msg, mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+          begin
+            // 「はい」が選ばれたらキャンセル処理を実行
+            ProcCancel(Self);
+            Handled := True;
+          end else begin
+            // 「いいえ」が選ばれたらスクロール自体を中止する
+            Handled := True;
+          end;
+        end else begin
+          Handled := True;
+        end;
+      finally
+        FSuppressRecursiveEvent := False;
+      end;
+    end;
+  finally
+    ADBGrid.Tag := 0;
+  end;
+end;
+
+procedure TFrmEntryAccount.ADBGridSelectEditor(
+  Sender: TObject; Column: TColumn; var Editor: TWinControl);
+begin
+  ADBGrid.AutoAdjustColumns;
+end;
+
+procedure TFrmEntryAccount.ADBGridWMVScroll(Sender: TObject;
+  var Message: TLMVScroll);
+var
+  Msg : string = MSG_JP_000042;
+begin
+  if FSuppressRecursiveEvent then begin
+    Exit;
+  end;
+
+  if (AQu.State in [dsInsert, dsEdit]) and (Message.ScrollCode in [SB_LINEUP, SB_LINEDOWN, SB_PAGEUP, SB_PAGEDOWN]) then begin
+    FSuppressRecursiveEvent := True;
+    try
+      if DBEdtBrandName.Text <> '' then begin
+        Msg := MSG_JP_000043;
+      end;
+      if MessageDlg(Msg, mtConfirmation, [mbYes, mbNo], 0) = mrYes then begin
+        // 「はい」が選ばれたらキャンセル処理を実行してスクロールする
+        ProcCancel(Self);
+        Message.Result  := 1;
+      end else begin
+        // 「いいえ」が選ばれたらスクロール自体を中止する
+        FGoFirst        := True;
+        Message.Result  := 1;
+      end;
+    finally
+      FSuppressRecursiveEvent := False;
+    end;
+  end else begin
+    FDBGridClicked := False;
+  end;
+end;
+
+procedure TFrmEntryAccount.ADBNaviBtnClick(Sender: TObject; Index: TNavigateBtn
+  );
+begin
+  with CommonDB do begin
+{$IFDEF Debug}
+    LazLogger.DebugLn('DBNaviClick: Button=' + IntToStr(Ord(Index)) +
+                      ', AQu.Active=' + BoolToStr(AQu.Active, True) +
+                      ', AQu.State=' + DataSetStateToStr(AQu.State) +
+                      ', FDoCommit=' + BoolToStr(FDoCommit, True) +
+                      ', ATr.Active=' + BoolToStr(ATr.Active, True) +
+                      ', ACn.Connected=' + BoolToStr(ACn.Connected, True));
+{$ENDIF}
+  end;
+  if FDoCommit then begin
+{$IFDEF Debug}
+    LazLogger.DebugLn('DBNaviClick: Skipping due to FDoCommit=True');
+{$ENDIF}
+    Exit;
+  end;
+  FNavigateBtn := Index;
+end;
+
+procedure TFrmEntryAccount.ADBNaviKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_TAB) And (ssShift in Shift) then begin
+    BtnGoBack.SetFocus;
+  end else if (Key = VK_TAB) then begin
+    if Screen.ActiveControl is TDBNavi then begin
+      if CannotFocusedNavButton then begin
+        BtnInsert.SetFocus;
+      end else begin
+        ADBNavi.FindNextControl(ADBNavi, True, True, True).SetFocus;
+      end;
+    end;
+  end;
+end;
+
+procedure TFrmEntryAccount.AQuAfterClose(DataSet: TDataSet);
+begin
+  with CommonDB do begin
+{$IFDEF Debug}
+    LazLogger.DebugLn('AQuAfterClose: AQu.Active=' + BoolToStr(AQu.Active, True) +
+                      ', AQu.State=' + DataSetStateToStr(AQu.State) +
+                      ', FDoCommit=' + BoolToStr(FDoCommit, True) +
+                      ', FReOpenDS=' + BoolToStr(FReOpenDS, True) +
+                      ', ATr.Active=' + BoolToStr(ATr.Active, True) +
+                      ', ACn.Connected=' + BoolToStr(ACn.Connected, True));
+{$ENDIF}
+  end;
+end;
+
+procedure TFrmEntryAccount.AQuAfterInsert(DataSet: TDataSet);
+begin
+  with Defs do begin
+    with AQuNextID do begin
+      with CommonDB do begin
+{$IFDEF Debug}
+        LazLogger.DebugLn('AQuAfterInsert-1: Before Calling OpenSelectQuery : ATr.Active=' + BoolToStr(ATr.Active, True));
+{$ENDIF}
+      end;
+      OpenSelectQuery(ADSNextID, AQuNextID, SQL_20110003);
+      with CommonDB do begin
+{$IFDEF Debug}
+        LazLogger.DebugLn('AQuAfterInsert-2: After Calling OpenSelectQuery : ATr.Active=' + BoolToStr(ATr.Active, True));
+{$ENDIF}
+      end;
+      AQu.FieldByName('ACCOUNT_ID').AsInteger  := FieldByName('NEXT_ID').AsInteger;
+      AQu.FieldByName('DISABLED').AsBoolean := False;
+
+      with CommonDB do begin
+        CloseQuery(AQuNextID);
+      end;
+    end;
+  end;
+end;
+
+procedure TFrmEntryAccount.AQuAfterPost(DataSet: TDataSet);
+begin
+{$IFDEF Debug}
+  LazLogger.DebugLn('AQuAfterPost: AQu.Active=' + BoolToStr(AQu.Active, True) +
+                    ', AQu.State=' + DataSetStateToStr(AQu.State) +
+                    ', FDoCommit=' + BoolToStr(FDoCommit, True) +
+                    ', FReOpenDS=' + BoolToStr(FReOpenDS, True));
+{$ENDIF}
+  if FDoCommit then begin
+{$IFDEF Debug}
+    LazLogger.DebugLn('AQuAfterPost: Skipping additional actions due to FDoCommit=True');
+{$ENDIF}
+    Exit;
+  end;
+
+  with AQu do begin
+    // Ensure dataset remains active
+    if not Active then begin
+{$IFDEF Debug}
+      LazLogger.DebugLn('AQuAfterPost: AQu is inactive. Reopening dataset.');
+{$ENDIF}
+      with CommonDB do begin
+        with Defs do begin
+          if not ATr.Active then begin
+{$IFDEF Debug}
+            LazLogger.DebugLn('AQuAfterPost: Starting transaction');
+{$ENDIF}
+            ATr.StartTransaction;
+          end;
+          OpenSelectQuery(ADS, AQu, SQL_20110001);
+        end;
+      end;
+    end;
+  end;
+end;
+
+procedure TFrmEntryAccount.AQuAfterScroll(DataSet: TDataSet);
+var
+  Msg : string = MSG_JP_000042;
+begin
+  if FSuppressRecursiveEvent then begin
+    Exit;
+  end;
+
+  //======================================================
+  if AQu.State = dsInsert then begin
+    FSuppressRecursiveEvent := True;
+    try
+      if Not FDoCommit then begin
+        if DBEdtBrandName.Text <> '' then begin
+          Msg := MSG_JP_000043;
+        end;
+
+        if AQu.RecordCount > 0 then begin;
+          if Not FSkipFirstProcess then begin;
+            if MessageDlg(Msg, mtConfirmation, [mbYes, mbNo], 0) = mrYes then begin
+              // 「はい」が選ばれたらキャンセル処理を実行
+              ProcCancel(Self);
+              Abort;
+            end else begin
+              // 「いいえ」が選ばれたらスクロール自体を中止する
+              Abort;
+            end;
+          end else begin
+            FSkipFirstProcess := False;
+          end;
+        end else begin
+          Abort;
+        end;
+      end;
+    finally
+      FSuppressRecursiveEvent := False;
+    end;
+  end;
+
+  ADBGrid.AutoAdjustColumns;
+
+  //======================================================
+{$IFDEF Debug}
+  LazLogger.DebugLn('AQuAfterScroll-1: AQu.Active=' + BoolToStr(AQu.Active, True) +
+                    ', AQu.State=' + DataSetStateToStr(AQu.State));
+{$ENDIF}
+
+  if FSuppressRecursiveEvent then begin
+    Exit;
+  end;
+
+  if FGoFirst then begin
+    FGoFirst := False;
+    AQu.First;
+  end;
+
+  case FNavigateBtn of
+  nbFirst:
+    begin
+      if AQu.RecordCount > 0 then begin
+        ADBNavi.FindNextControl(ADBNavi, True, True, True).SetFocus;
+      end;
+    end;
+  nbPrior:
+    begin
+      if AQu.RecNo <= 1 then begin
+        ADBNavi.FindNextControl(ADBNavi, True, True, True).SetFocus;
+      end;
+    end;
+  nbNext:
+    begin
+      if AQu.RecNo = AQu.RecordCount then begin
+        ADBNavi.FindNextControl(ADBNavi, False, True, True).SetFocus;
+      end;
+    end;
+  nbLast:
+    begin
+      ADBNavi.FindNextControl(ADBNavi, False, True, True).SetFocus;
+    end;
+  end;
+
+{$IFDEF Debug}
+  LazLogger.DebugLn('AQuAfterScroll-2: AQu.Active=' + BoolToStr(AQu.Active, True) +
+                  ', AQu.State=' + DataSetStateToStr(AQu.State));
+{$ENDIF}
+  Application.QueueAsyncCall(@EnableTimer, 0); // Cross-platform timer enabling
+end;
+
+procedure TFrmEntryAccount.AQuBeforeClose(DataSet: TDataSet);
+begin
+  with CommonDB do begin
+{$IFDEF Debug}
+    LazLogger.DebugLn('AQuBeforeClose: AQu.Active=' + BoolToStr(AQu.Active, True) +
+                      ', AQu.State=' + DataSetStateToStr(AQu.State) +
+                      ', FDoCommit=' + BoolToStr(FDoCommit, True) +
+                      ', FReOpenDS=' + BoolToStr(FReOpenDS, True) +
+                      ', ATr.Active=' + BoolToStr(ATr.Active, True) +
+                      ', ACn.Connected=' + BoolToStr(ACn.Connected, True));
+{$ENDIF}
+  end;
+end;
+
+procedure TFrmEntryAccount.AQuBeforeOpen(DataSet: TDataSet);
+begin
+{$IFDEF Debug}
+  LazLogger.DebugLn('AQuBeforeOpen: AQu.Active=' + BoolToStr(AQu.Active, True) +
+                    ', AQu.State=' + DataSetStateToStr(AQu.State));
+{$ENDIF}
+end;
+
+procedure TFrmEntryAccount.AQuBeforePost(DataSet: TDataSet);
+var
+  LFS: TFormatSettings;
+begin
+  with Defs do begin
+    LFS := GetFS;
+    with DataSet do begin
+      if FieldByName('DISABLED').AsAnsiString = '' then begin
+        FieldByName('DISABLED').AsBoolean := False;
+      end;
+      // Check MAKER_NAME and abort posting if empty
+      if Trim(FieldByName('BRAND_NAME').AsString) = '' then begin
+{$IFDEF Debug}
+        LazLogger.DebugLn('AQuBeforePost: BRAND_NAME is empty. Aborting post.');
+{$ENDIF}
+        MessageDlg(MSG_JP_000048, mtError, [mbOk], 0);
+        Abort; // Cancel the Post operation without affecting the transaction
+      end;
+      try
+        if AQu.State = dsInsert then begin
+          if FieldByName('ENTRY_DT').IsNull then begin
+            FieldByName('ENTRY_DT').AsAnsiString
+              := FormatDateTime('yyyy-mm-dd hh:nn:ss', Now, LFS);
+          end;
+        end else if AQu.State = dsEdit then begin
+          if FieldByName('UPDATE_DT').IsNull then begin
+            FieldByName('UPDATE_DT').AsAnsiString
+              := FormatDateTime('yyyy-mm-dd hh:nn:ss', Now, LFS);
+          end;
+        end;
+      except
+        on E: EConvertError do begin
+{$IFDEF Debug}
+          LazLogger.DebugLn('AQuBeforePost: Date conversion error: ' + E.Message);
+{$ENDIF}
+          ShowMessage(MSG_JP_000050 + ':' + E.Message);
+          Abort; // Prevent posting
+        end;
+      end;
+      // Log field values for debugging
+{$IFDEF Debug}
+      LazLogger.DebugLn('AQuBeforePost: USER_ID=' + FieldByName('USER_ID').AsString +
+                        ', ACCOUNT_ID=' + FieldByName('ACCOUNT_ID').AsString +
+                        ', BRAND_NAME=' + FieldByName('BRAND_NAME').AsString +
+                        ', SUB_NAME=' + FieldByName('SUB_NAME').AsString +
+                        ', PHONE_NUM=' + FieldByName('PHONE_NUM').AsString +
+                        ', OPENING_BALANCE=' + FieldByName('OPENING_BALANCE').AsString +
+                        ', DISABLED=' + FieldByName('DISABLED').AsString +
+                        ', ENTRY_DT=' + FieldByName('ENTRY_DT').AsString +
+                        ', UPDATE_DT=' + FieldByName('UPDATE_DT').AsString);
+{$ENDIF}
+    end;
+  end;
+  with AQu do begin
+{$IFDEF Debug}
+    LazLogger.DebugLn('AQuBeforePost: AQu.Active=' + BoolToStr(AQu.Active, True) +
+                      ', AQu.State=' + DataSetStateToStr(State) +
+                      ', BRAND_NAME raw=' + FieldByName('BRAND_NAME').AsString +
+                      ', Trimmed=' + Trim(FieldByName('BRAND_NAME').AsString));
+{$ENDIF}
+  end;
+end;
+
+procedure TFrmEntryAccount.AQuBeforeScroll(DataSet: TDataSet);
+begin
+{$IFDEF Debug}
+  LazLogger.DebugLn('AQuBeforeScroll: AQu.Active=' + BoolToStr(AQu.Active, True) +
+                    ', AQu.State=' + DataSetStateToStr(AQu.State));
+{$ENDIF}
 end;
 
 procedure TFrmEntryAccount.DBEdtAccountIDChange(Sender: TObject);
@@ -782,11 +1051,39 @@ begin
   end;
 end;
 
+procedure TFrmEntryAccount.DBEdtAccountIDEnter(Sender: TObject);
+begin
+  Shape1.Visible := True;
+
+  Timer.Enabled     := True;
+end;
+
+procedure TFrmEntryAccount.DBEdtAccountIDExit(Sender: TObject);
+begin
+  Shape1.Visible := False;
+
+  Timer.Enabled     := True;
+end;
+
 procedure TFrmEntryAccount.DBEdtBrandNameChange(Sender: TObject);
 begin
   if Not FDoCommit then begin
     SetBrandName(DBEdtBrandName.Text);
   end;
+end;
+
+procedure TFrmEntryAccount.DBEdtBrandNameEnter(Sender: TObject);
+begin
+  Shape2.Visible := True;
+
+  Timer.Enabled     := True;
+end;
+
+procedure TFrmEntryAccount.DBEdtBrandNameExit(Sender: TObject);
+begin
+  Shape2.Visible := False;
+
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.DBEdtSubNameChange(Sender: TObject);
@@ -796,11 +1093,39 @@ begin
   end;
 end;
 
+procedure TFrmEntryAccount.DBEdtSubNameEnter(Sender: TObject);
+begin
+  Shape3.Visible := True;
+
+  Timer.Enabled     := True;
+end;
+
+procedure TFrmEntryAccount.DBEdtSubNameExit(Sender: TObject);
+begin
+  Shape3.Visible := False;
+
+  Timer.Enabled     := True;
+end;
+
 procedure TFrmEntryAccount.DBEdtPhoneNumChange(Sender: TObject);
 begin
   if Not FDoCommit then begin
     SetPhoneNum(DBEdtPhoneNum.Text);
   end;
+end;
+
+procedure TFrmEntryAccount.DBEdtPhoneNumEnter(Sender: TObject);
+begin
+  Shape4.Visible := True;
+
+  Timer.Enabled     := True;
+end;
+
+procedure TFrmEntryAccount.DBEdtPhoneNumExit(Sender: TObject);
+begin
+  Shape4.Visible := False;
+
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.DBEdtOpeningBalanceChange(Sender: TObject);
@@ -814,16 +1139,19 @@ begin
   end;
 end;
 
-//procedure TFrmEntryAccount.DBEdtCurrentBalanceChange(Sender: TObject);
-//begin
-//  if Not FDoCommit then begin
-//    if DBEdtCurrentBalance.Text = '' then begin
-//      SetCurrentBalance(0);
-//    end else begin
-//      SetCurrentBalance(DBEdtCurrentBalance.Field.AsInteger);
-//    end;
-//  end;
-//end;
+procedure TFrmEntryAccount.DBEdtOpeningBalanceEnter(Sender: TObject);
+begin
+  Shape5.Visible := True;
+
+  Timer.Enabled     := True;
+end;
+
+procedure TFrmEntryAccount.DBEdtOpeningBalanceExit(Sender: TObject);
+begin
+  Shape5.Visible := False;
+
+  Timer.Enabled     := True;
+end;
 
 procedure TFrmEntryAccount.DBCBDisabledChange(Sender: TObject);
 begin
@@ -839,6 +1167,20 @@ begin
   end;
 end;
 
+procedure TFrmEntryAccount.DBCBDisabledEnter(Sender: TObject);
+begin
+  Shape6.Visible := True;
+
+  Timer.Enabled     := True;
+end;
+
+procedure TFrmEntryAccount.DBCBDisabledExit(Sender: TObject);
+begin
+  Shape6.Visible := False;
+
+  Timer.Enabled     := True;
+end;
+
 procedure TFrmEntryAccount.FormClose(
   Sender: TObject; var CloseAction: TCloseAction);
 begin
@@ -851,14 +1193,14 @@ begin
     SetAccountID(FAccountID);
 
     if GetEntryAccount = 0 then begin
-      FrmManageDetails    := TFrmManageDetails.Create(Application);
-      FrmManageDetails.Visible  := True;
+      FrmManageDetails             := TFrmManageDetails.Create(Application);
+      FrmManageDetails.Visible     := True;
     end else if GetEntryAccount = 1 then begin
-      FrmAddDetailsHeader := TFrmAddDetailsHeader.Create(Application);
+      FrmAddDetailsHeader          := TFrmAddDetailsHeader.Create(Application);
       FrmAddDetailsHeader.Visible  := True;
     end else if GetEntryAccount = 2 then begin
-      FrmEditDetailsHeader := TFrmEditDetailsHeader.Create(Application);
-      FrmEditDetailsHeader.Visible  := True;
+      FrmEditDetailsHeader         := TFrmEditDetailsHeader.Create(Application);
+      FrmEditDetailsHeader.Visible := True;
     end;
   end;
 
@@ -874,14 +1216,21 @@ begin
     end;
   end;
 
-  FReOpenDS       := False;
-  FDoCommit       := False;
-  FInsert         := False;
-  Timer.Enabled   := False;
+  FReOpenDS         := False;
+  FDoCommit         := False;
+  Timer.Enabled     := False;
+  FDBGridClicked    := False;
+  FSkipFirstProcess := True;
 
-  FDBGridClicked  := False;
+  Timer.Enabled     := False;
 
-  //FTab            := FTAB_UNDEFINED;
+  //with CommonDB do begin
+  //  ACn.KeepConnection := True;
+  //  ADS.AutoEdit       := False; // Prevent auto-editing
+  //  AQu.Options        := AQu.Options - [sqoAutoApplyUpdates]; // Prevent auto-apply
+  //  AQu.UpdateMode     := upWhereKeyOnly; // Optimize update behavior
+  //  ADS.Enabled        := True;
+  //end;
 
   FGuidePanels[0] := Panel1;
   FGuidePanels[1] := Panel2;
@@ -941,17 +1290,37 @@ begin
   end;
 end;
 
+function TFrmEntryAccount.ShiftStateToStr(Shift: TShiftState): string;
+begin
+  Result                          := '';
+  if ssShift in Shift then Result := Result + 'Shift+';
+  if ssAlt in Shift then Result   := Result + 'Alt+';
+  if ssCtrl in Shift then Result  := Result + 'Ctrl+';
+  if Result = '' then Result      := 'None';
+end;
+
 procedure TFrmEntryAccount.FormKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  //if (Key = VK_TAB) And (ssShift in Shift) then begin
-  //  FTab := FTAB_SHIFT_TAB;
-  //end else if (Key = VK_TAB) And (Not (ssShift in Shift)) then begin
-  //  FTab := FTAB_TAB_ONLY;
-  //end;
-  Timer.Enabled := True;
+{$IFDEF Debug}
+  LazLogger.DebugLn('FormKeyUp: Key=' + IntToStr(Key) +
+                    ', Shift=' + ShiftStateToStr(Shift) +
+                    ', AQu.Active=' + BoolToStr(AQu.Active, True) +
+                    ', AQu.State=' + DataSetStateToStr(AQu.State) +
+                    ', FDoCommit=' + BoolToStr(FDoCommit, True));
+{$ENDIF}
+  if FDoCommit then begin
+{$IFDEF Debug}
+    LazLogger.DebugLn('FormKeyUp: Skipping due to FDoCommit=True');
+{$ENDIF}
+    Key := 0; // Suppress key event
+    Exit;
+  end;
 
-  if (Key = VK_SPACE) Or (Key = VK_RETURN) then begin
+  if ((Key = VK_SPACE) Or (Key = VK_RETURN)) and (Shift = []) then begin
+{$IFDEF Debug}
+    LazLogger.DebugLn('FormKeyUp: Executing ' + ActiveControl.Name);
+{$ENDIF}
     if ActiveControl.Name = 'BtnInsert' then begin
       ActInsert.Execute;
     end else if ActiveControl.Name = 'BtnCancel' then begin
@@ -961,7 +1330,9 @@ begin
     end else if ActiveControl.Name = 'BtnGoBack' then begin
       ActGoBack.Execute;
     end;
+    Key := 0; // Prevent further processing
   end;
+  Application.QueueAsyncCall(@EnableTimer, 0); // Cross-platform timer enabling
 end;
 
 procedure TFrmEntryAccount.TimerTimer(Sender: TObject);
@@ -969,23 +1340,54 @@ var
   i            : Integer;
   LTargetIndex : Integer;
 begin
-  Timer.Enabled      := False;
+  Timer.Enabled := False;
 
-  if FInsert then begin
-    if DBCBDisabled.State = cbChecked then begin
-      AQu.FieldByName('DISABLED').AsBoolean := True;
+{$IFDEF Debug}
+  LazLogger.DebugLn('TimerTimer: AQu.Active=' + BoolToStr(AQu.Active, True) +
+                    ', AQu.State=' + DataSetStateToStr(AQu.State) +
+                    ', FDoCommit=' + BoolToStr(FDoCommit, True) +
+                    ', FReOpenDS=' + BoolToStr(FReOpenDS, True));
+{$ENDIF}
+  if FDoCommit then begin
+{$IFDEF Debug}
+    LazLogger.DebugLn('TimerTimer: Skipping due to FDoCommit=True');
+{$ENDIF}
+    Exit;
+  end;
+
+  if AQu.State in [dsInsert, dsEdit] then begin
+    if AQu.Active and (AQu.State in [dsInsert, dsEdit]) then begin
+      try
+        if DBCBDisabled.State = cbChecked then begin
+          AQu.FieldByName('DISABLED').AsBoolean := True;
+        end else begin
+          AQu.FieldByName('DISABLED').AsBoolean := False;
+        end;
+      except
+        on E: Exception do begin
+{$IFDEF Debug}
+          LazLogger.DebugLn('TimerTimer: Error setting DISABLED: ' + E.Message);
+{$ENDIF}
+        end;
+      end;
     end else begin
-      AQu.FieldByName('DISABLED').AsBoolean := False;
+{$IFDEF Debug}
+      LazLogger.DebugLn('TimerTimer: Skipping DISABLED update due to AQu.Active=' +
+                        BoolToStr(AQu.Active, True) + ', AQu.State=' + DataSetStateToStr(AQu.State));
+{$ENDIF}
     end;
   end;
 
-  if FReOpenDS then begin
-    with CommonDB do begin
-      with Defs do begin
-        OpenSelectQuery(ADS, AQu, SQL_20110001);
-      end;
-    end;
-    FReOpenDS          := False;
+  if FReOpenDS and not FDoCommit then begin
+{$IFDEF Debug}
+    LazLogger.DebugLn('TimerTimer: Reopening dataset (skipped due to commented OpenSelectQuery)');
+{$ENDIF}
+    FReOpenDS := False;
+  end else begin
+{$IFDEF Debug}
+    LazLogger.DebugLn('TimerTimer: Skipping dataset reopen due to FReOpenDS=' +
+                      BoolToStr(FReOpenDS, True) + ', FDoCommit=' + BoolToStr(FDoCommit, True));
+{$ENDIF}
   end;
 
   try
@@ -1002,6 +1404,9 @@ begin
     end;
   except
     on E: Exception do begin
+{$IFDEF Debug}
+      LazLogger.DebugLn('TimerTimer: Error in GuidePanels: ' + E.Message);
+{$ENDIF}
       ShowMessage(E.Message);
     end;
   end;

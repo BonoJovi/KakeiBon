@@ -5,7 +5,7 @@ unit UDBAccess;
 interface
 
 uses
-  Classes, SysUtils, SQLDB, SQLite3Conn, DB;
+  Classes, SysUtils, SQLDB, SQLite3Conn;
 
 const
   // UEntryAdmin
@@ -515,7 +515,8 @@ const
                  '= :pDisabled, UPDATE_DT = :pUpdateDT';
 
   // UEntryBrandName and UAddDetail and UEditDetail
-  SQL_20140001 = 'SELECT * FROM BRAND WHERE USER_ID = :pUserID';
+  SQL_20140001 = 'SELECT * FROM BRAND WHERE USER_ID = :pUserID AND ' +
+                 'MAKER_ID = :pMakerID';
   SQL_20140002 = 'SELECT * FROM BRAND WHERE USER_ID = :pUserID AND ' +
                  'MAKER_ID = :pMakerID ORDER BY BRAND_NAME ASC';
   SQL_20140003 = 'SELECT COALESCE(MAX(BRAND_NAME_ID), 0) + 1 AS ' +
@@ -535,12 +536,12 @@ const
                  'MAKER_ID = :pMakerID, BRAND_NAME_ID = :pBrandNameID, ' +
                  'BRAND_NAME = :pBrandName, END_OF_SALES = :pEndOfSales, ' +
                  'DISABLED = :pDisabled, UPDATE_DT = :pUpdateDT';
-  SQL_20140006 = 'UPDATE BRAND SET USER_ID = :pUserID, MAKER_ID = ' +
-                 ':pMakerID, BRAND_NAME_ID = :pBrandNameID, BRAND_NAME = ' +
-                 ':pBrandName, END_OF_SALES = :pEndOfSales, DISABLED = ' +
-                 ':pDisabled, UPDATE_DT = :pUpdateDT WHERE USER_ID = ' +
-                 ':pUserID AND MAKER_ID = :pCurrMakerID AND BRAND_NAME_ID ' +
-                 '= :pCurrBrandNameID';
+  //SQL_20140006 = 'UPDATE BRAND SET USER_ID = :pUserID, MAKER_ID = ' +
+  //               ':pMakerID, BRAND_NAME_ID = :pBrandNameID, BRAND_NAME = ' +
+  //               ':pBrandName, END_OF_SALES = :pEndOfSales, DISABLED = ' +
+  //               ':pDisabled, UPDATE_DT = :pUpdateDT WHERE USER_ID = ' +
+  //               ':pUserID AND MAKER_ID = :pCurrMakerID AND BRAND_NAME_ID ' +
+  //               '= :pCurrBrandNameID';
 
   // UEntryUnit and UAddDetail and UEditDetail
   SQL_20150001 = 'SELECT UNIT_ID, UNIT, ORDER_ID, DISABLED, ENTRY_DT, ' +

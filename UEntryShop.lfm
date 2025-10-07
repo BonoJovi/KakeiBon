@@ -21,7 +21,7 @@ object FrmEntryShop: TFrmEntryShop
   OnKeyUp = FormKeyUp
   OnShow = FormShow
   object ADBGrid: TDBG
-    Left = 15
+    Left = 14
     Height = 264
     Top = 16
     Width = 591
@@ -99,6 +99,7 @@ object FrmEntryShop: TFrmEntryShop
     Constraints.MaxWidth = 2000
     DataSource = ADS
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns, dgDblClickAutoSize]
+    ReadOnly = True
     TabOrder = 0
     TabStop = False
     OnMouseDown = ADBGridMouseDown
@@ -638,14 +639,14 @@ object FrmEntryShop: TFrmEntryShop
     OnMouseLeave = BtnGoBackExit
   end
   object DBDTPEntryDT: TDBDateTimePicker
-    Left = 680
+    Left = 656
     Height = 32
     Hint = '2025/05/18 09:00'
-    Top = 521
+    Top = 539
     Width = 242
     DataField = 'ENTRY_DT'
     DataSource = ADS
-    ReadOnly = True
+    ReadOnly = False
     CenturyFrom = 1941
     DateDisplayOrder = ddoYMD
     MaxDate = 2958465
@@ -654,9 +655,9 @@ object FrmEntryShop: TFrmEntryShop
     TabStop = False
     DateSeparator = '/'
     TrailingSeparator = False
-    TextForNullDate = 'NULL'
+    TextForNullDate = ''
     LeadingZeros = True
-    Visible = False
+    NullInputAllowed = False
     Kind = dtkDateTime
     TimeSeparator = ':'
     DecimalSeparator = '.'
@@ -669,10 +670,10 @@ object FrmEntryShop: TFrmEntryShop
     Options = [dtpoDoChangeOnSetDateTime, dtpoAutoCheck]
   end
   object DBDTPUpdateDT: TDBDateTimePicker
-    Left = 680
+    Left = 656
     Height = 32
     Hint = '2025/05/18 09:00'
-    Top = 568
+    Top = 592
     Width = 242
     DataField = 'UPDATE_DT'
     DataSource = ADS
@@ -685,9 +686,8 @@ object FrmEntryShop: TFrmEntryShop
     TabStop = False
     DateSeparator = '/'
     TrailingSeparator = False
-    TextForNullDate = 'NULL'
+    TextForNullDate = ''
     LeadingZeros = True
-    Visible = False
     Kind = dtkDateTime
     TimeSeparator = ':'
     DecimalSeparator = '.'
@@ -700,7 +700,7 @@ object FrmEntryShop: TFrmEntryShop
     Options = [dtpoDoChangeOnSetDateTime, dtpoAutoCheck]
   end
   object DBEdtUserID: TDBEdit
-    Left = 640
+    Left = 656
     Height = 49
     Top = 357
     Width = 224
@@ -786,13 +786,20 @@ object FrmEntryShop: TFrmEntryShop
       end    
       item
         Name = 'ENTRY_DT'
-        DataType = ftUnknown
+        DataType = ftDateTime
       end    
       item
         Name = 'UPDATE_DT'
         DataType = ftUnknown
       end>
+    AfterClose = AQuAfterClose
+    AfterInsert = AQuAfterInsert
+    AfterPost = AQuAfterPost
     AfterScroll = AQuAfterScroll
+    BeforeClose = AQuBeforeClose
+    BeforeOpen = AQuBeforeOpen
+    BeforePost = AQuBeforePost
+    BeforeScroll = AQuBeforeScroll
     Params = <>
     Macros = <>
     Left = 720
