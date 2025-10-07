@@ -15,6 +15,7 @@ object FrmEntryUnit: TFrmEntryUnit
   Font.Quality = fqDraft
   Font.Style = [fsBold]
   Position = poScreenCenter
+  LCLVersion = '4.2.0.0'
   Visible = True
   OnActivate = FormActivate
   OnClose = FormClose
