@@ -171,7 +171,6 @@
         <ComponentName Value="FrmEntryBrandName"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="1272"/>
         <CursorPos X="3" Y="1278"/>
@@ -194,8 +193,9 @@
         <ComponentName Value="FrmEntryShop"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="633"/>
+        <TopLine Value="634"/>
         <CursorPos X="19" Y="640"/>
         <UsageCount Value="46"/>
       </Unit>
@@ -206,7 +206,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="1095"/>
+        <TopLine Value="1096"/>
         <CursorPos X="3" Y="1104"/>
         <UsageCount Value="46"/>
       </Unit>

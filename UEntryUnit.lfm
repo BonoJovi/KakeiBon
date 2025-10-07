@@ -15,7 +15,6 @@ object FrmEntryUnit: TFrmEntryUnit
   Font.Quality = fqDraft
   Font.Style = [fsBold]
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   Visible = True
   OnActivate = FormActivate
   OnClose = FormClose
@@ -27,7 +26,6 @@ object FrmEntryUnit: TFrmEntryUnit
     Height = 280
     Top = 16
     Width = 562
-    AutoFillColumns = True
     Color = clWindow
     Columns = <    
       item
@@ -40,23 +38,25 @@ object FrmEntryUnit: TFrmEntryUnit
       item
         MaxSize = 400
         Title.Caption = '単位'
-        Width = 138
+        Width = 133
         FieldName = 'UNIT'
       end    
       item
         Title.Caption = '非表示'
-        Width = 138
+        Width = 132
         FieldName = 'DISABLED'
       end    
       item
         Title.Caption = '登録日'
-        Width = 137
+        Width = 132
         FieldName = 'ENTRY_DT'
+        DisplayFormat = 'yyyy"/"mm"/"dd hh":"nn":"ss'
       end    
       item
         Title.Caption = '更新日'
-        Width = 137
+        Width = 132
         FieldName = 'UPDATE_DT'
+        DisplayFormat = 'yyyy"/"mm"/"dd hh":"nn":"ss'
       end>
     Constraints.MaxWidth = 2000
     DataSource = ADS
