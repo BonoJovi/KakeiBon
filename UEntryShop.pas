@@ -645,7 +645,7 @@ begin
             LMsg := MSG_JP_000043;
           end;
 
-          if AQu.RecordCount > 0 then begin
+          if AQu.RecordCount > 0 then begin;
             if MessageDlg(LMsg, mtConfirmation, [mbYes, mbNo], 0) = mrYes then begin
               // 「はい」が選ばれたらキャンセル処理を実行
               ProcCancel(Self);
@@ -694,7 +694,7 @@ begin
           LMsg := MSG_JP_000043;
         end;
 
-        if AQu.RecordCount > 0 then begin
+        if AQu.RecordCount > 0 then begin;
           if MessageDlg(LMsg, mtConfirmation, [mbYes, mbNo], 0) = mrYes then begin
             // 「はい」が選ばれたらキャンセル処理を実行
             ProcCancel(Self);
@@ -887,8 +887,8 @@ begin
           Msg := MSG_JP_000043;
         end;
 
-        if AQu.RecordCount > 0 then begin
-          if Not FSkipFirstProcess then begin
+        if AQu.RecordCount > 0 then begin;
+          if Not FSkipFirstProcess then begin;
             if MessageDlg(Msg, mtConfirmation, [mbYes, mbNo], 0) = mrYes then begin
               // 「はい」が選ばれたらキャンセル処理を実行
               ProcCancel(Self);
