@@ -223,7 +223,7 @@ object FrmManageUser: TFrmManageUser
     ShowHint = True
     TabOrder = 10
     TabStop = True
-    OnClick = ProcEditAdminUser
+    OnClick = ActGoBackExecute
     OnEnter = BtnGoBackEnter
     OnExit = BtnGoBackExit
     OnMouseEnter = BtnGoBackEnter
