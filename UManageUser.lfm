@@ -51,6 +51,7 @@ object FrmManageUser: TFrmManageUser
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
     ReadOnly = True
     TabOrder = 0
+    TabStop = False
   end
   object PnlAddUser: TPanel
     Left = 16
