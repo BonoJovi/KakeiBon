@@ -124,11 +124,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="366"/>
+        <TopLine Value="367"/>
         <CursorPos X="3" Y="372"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryBrandName.pas"/>
@@ -136,7 +134,6 @@
         <ComponentName Value="FrmEntryBrandName"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="1073"/>
         <CursorPos X="25" Y="1080"/>
@@ -222,10 +219,12 @@
         <ComponentName Value="FrmManageUser"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="380"/>
-        <CursorPos X="47" Y="391"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="324"/>
+        <CursorPos X="36" Y="327"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UDeleteUser.pas"/>
@@ -437,7 +436,32 @@
         <UsageCount Value="9"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="-1"/>
+    <JumpHistory HistoryIndex="5">
+      <Position>
+        <Filename Value="UManageUser.pas"/>
+        <Caret Line="388" Column="48" TopLine="380"/>
+      </Position>
+      <Position>
+        <Filename Value="UManageUser.pas"/>
+        <Caret Line="211" Column="10" TopLine="210"/>
+      </Position>
+      <Position>
+        <Filename Value="UManageUser.pas"/>
+        <Caret Line="212" Column="3" TopLine="210"/>
+      </Position>
+      <Position>
+        <Filename Value="UManageUser.pas"/>
+        <Caret Line="202" Column="3" TopLine="200"/>
+      </Position>
+      <Position>
+        <Filename Value="UManageUser.pas"/>
+        <Caret Line="192" Column="3" TopLine="190"/>
+      </Position>
+      <Position>
+        <Filename Value="UManageUser.pas"/>
+        <Caret Line="170" Column="3" TopLine="168"/>
+      </Position>
+    </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
       <Modes ActiveMode="Debug">
