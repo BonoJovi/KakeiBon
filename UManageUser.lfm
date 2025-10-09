@@ -53,6 +53,7 @@ object FrmManageUser: TFrmManageUser
     DataSource = ADS
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
     TabOrder = 0
+    TabStop = False
   end
   object PnlAddUser: TPanel
     Left = 16
