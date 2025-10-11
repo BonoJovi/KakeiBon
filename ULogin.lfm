@@ -2,12 +2,12 @@ object FrmLogin: TFrmLogin
   Left = 733
   Height = 258
   Top = 235
-  Width = 716
+  Width = 585
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'ログイン'
   ClientHeight = 258
-  ClientWidth = 716
+  ClientWidth = 585
   Color = clWindowFrame
   Font.Height = -21
   Font.Name = '0xProto'
@@ -17,7 +17,6 @@ object FrmLogin: TFrmLogin
   PopupMode = pmAuto
   Position = poScreenCenter
   ShowHint = True
-  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp

@@ -2,11 +2,11 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   Left = 647
   Height = 767
   Top = 16
-  Width = 1193
+  Width = 859
   BorderStyle = bsSingle
   Caption = '入出金登録'
   ClientHeight = 767
-  ClientWidth = 1193
+  ClientWidth = 859
   Color = clWindowFrame
   Font.CharSet = SHIFTJIS_CHARSET
   Font.Height = -21
@@ -15,7 +15,6 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   Font.Quality = fqDraft
   Font.Style = [fsBold]
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate

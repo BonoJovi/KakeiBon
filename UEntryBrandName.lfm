@@ -2,10 +2,10 @@ object FrmEntryBrandName: TFrmEntryBrandName
   Left = 498
   Height = 825
   Top = 60
-  Width = 813
+  Width = 594
   Caption = '品名登録'
   ClientHeight = 825
-  ClientWidth = 813
+  ClientWidth = 594
   Color = clWindowFrame
   Font.CharSet = SHIFTJIS_CHARSET
   Font.Height = -21
@@ -14,7 +14,6 @@ object FrmEntryBrandName: TFrmEntryBrandName
   Font.Quality = fqDraft
   Font.Style = [fsBold]
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate

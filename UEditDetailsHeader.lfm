@@ -2,12 +2,12 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   Left = 589
   Height = 767
   Top = 132
-  Width = 1193
+  Width = 859
   Anchors = [akLeft, akBottom]
   BorderStyle = bsSingle
   Caption = '入出金編集'
   ClientHeight = 767
-  ClientWidth = 1193
+  ClientWidth = 859
   Color = clWindowFrame
   Font.CharSet = SHIFTJIS_CHARSET
   Font.Height = -21
@@ -16,7 +16,6 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   Font.Quality = fqDraft
   Font.Style = [fsBold]
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate

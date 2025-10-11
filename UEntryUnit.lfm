@@ -2,11 +2,11 @@ object FrmEntryUnit: TFrmEntryUnit
   Left = 841
   Height = 663
   Top = 133
-  Width = 776
+  Width = 594
   BorderStyle = bsSingle
   Caption = '単位登録'
   ClientHeight = 663
-  ClientWidth = 776
+  ClientWidth = 594
   Color = clWindowFrame
   Font.CharSet = SHIFTJIS_CHARSET
   Font.Height = -21
@@ -15,7 +15,6 @@ object FrmEntryUnit: TFrmEntryUnit
   Font.Quality = fqDraft
   Font.Style = [fsBold]
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   Visible = True
   OnActivate = FormActivate
   OnClose = FormClose

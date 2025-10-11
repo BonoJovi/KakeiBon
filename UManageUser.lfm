@@ -2,11 +2,11 @@ object FrmManageUser: TFrmManageUser
   Left = 742
   Height = 424
   Top = 224
-  Width = 890
+  Width = 710
   BorderStyle = bsSingle
   Caption = 'ユーザ管理'
   ClientHeight = 424
-  ClientWidth = 890
+  ClientWidth = 710
   Color = clWindowFrame
   Font.Height = -21
   Font.Name = '0xProto'

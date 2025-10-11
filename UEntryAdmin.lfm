@@ -2,12 +2,12 @@ object FrmEntryAdmin: TFrmEntryAdmin
   Left = 329
   Height = 251
   Top = 200
-  Width = 823
+  Width = 712
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = '管理者登録'
   ClientHeight = 251
-  ClientWidth = 823
+  ClientWidth = 712
   Color = clWindowFrame
   Font.CharSet = SHIFTJIS_CHARSET
   Font.Height = -21
