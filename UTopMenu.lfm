@@ -1,5 +1,5 @@
 object FrmTopMenu: TFrmTopMenu
-  Left = 775
+  Left = 0
   Height = 464
   Top = 187
   Width = 627

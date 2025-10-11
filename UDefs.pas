@@ -26,8 +26,8 @@ type
     procedure OpenSelectQueryByUnit(
       var DS: TDataSource; var Qu: TSQLQuery; SS: AnsiString);
     procedure OpenSelectQueryWithUserID(
-      var Cn: TSQLite3Connection; var DS: TDataSource;
-      var Tr: TSQLTransaction; var Qu: TSQLQuery; SS: AnsiString; aUserID: Integer);
+      var DS: TDataSource; var Qu: TSQLQuery;
+      SS: AnsiString; aUserID: Integer);
     procedure OpenSelectQueryWithExp1(
       var Cn: TSQLite3Connection; var DS: TDataSource; var Tr: TSQLTransaction;
       var Qu: TSQLQuery; SS: AnsiString; aExpKey1: Integer);
@@ -389,8 +389,7 @@ begin
 end;
 
 procedure TDefs.OpenSelectQueryWithUserID(
-  var Cn: TSQLite3Connection; var DS: TDataSource;
-  var Tr: TSQLTransaction; var Qu: TSQLQuery; SS: AnsiString; aUserID: Integer);
+  var DS: TDataSource; var Qu: TSQLQuery; SS: AnsiString; aUserID: Integer);
 begin
   try
     try
@@ -400,10 +399,9 @@ begin
           SQLTransaction := ATr;
 
           if Active = False then begin
-            SQL.Text                             := SS;
+            SQL.Text := SS;
             if Pos(':pUserID', SS) > 0 then begin
               with Params do begin
-                ParamByName('pUserID').AsInteger  := GetUID;
                 ParamByName('pUserID').AsInteger := aUserID;
               end;
             end;
