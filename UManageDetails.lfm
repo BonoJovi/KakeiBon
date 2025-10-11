@@ -2,11 +2,11 @@ object FrmManageDetails: TFrmManageDetails
   Left = 305
   Height = 460
   Top = 167
-  Width = 986
+  Width = 859
   BorderStyle = bsSingle
   Caption = '入出金登録'
   ClientHeight = 460
-  ClientWidth = 986
+  ClientWidth = 859
   Color = clWindowFrame
   Font.CharSet = SHIFTJIS_CHARSET
   Font.Height = -21
@@ -15,7 +15,6 @@ object FrmManageDetails: TFrmManageDetails
   Font.Quality = fqDraft
   Font.Style = [fsBold]
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate

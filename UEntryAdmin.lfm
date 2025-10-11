@@ -2,12 +2,12 @@ object FrmEntryAdmin: TFrmEntryAdmin
   Left = 329
   Height = 251
   Top = 200
-  Width = 823
+  Width = 712
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = '管理者登録'
   ClientHeight = 251
-  ClientWidth = 823
+  ClientWidth = 712
   Color = clWindowFrame
   Font.CharSet = SHIFTJIS_CHARSET
   Font.Height = -21
@@ -17,7 +17,6 @@ object FrmEntryAdmin: TFrmEntryAdmin
   Font.Style = [fsBold]
   PopupMode = pmAuto
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp

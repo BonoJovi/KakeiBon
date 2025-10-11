@@ -2,11 +2,11 @@ object FrmEditUser: TFrmEditUser
   Left = 709
   Height = 665
   Top = 174
-  Width = 819
+  Width = 658
   BorderStyle = bsSingle
   Caption = 'ユーザの編集'
   ClientHeight = 665
-  ClientWidth = 819
+  ClientWidth = 658
   Color = clWindowFrame
   Font.CharSet = SHIFTJIS_CHARSET
   Font.Height = -21

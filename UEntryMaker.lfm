@@ -2,10 +2,10 @@ object FrmEntryMaker: TFrmEntryMaker
   Left = 821
   Height = 679
   Top = 195
-  Width = 854
+  Width = 599
   Caption = 'メーカー登録'
   ClientHeight = 679
-  ClientWidth = 854
+  ClientWidth = 599
   Color = clWindowFrame
   Font.CharSet = SHIFTJIS_CHARSET
   Font.Height = -21
@@ -14,7 +14,6 @@ object FrmEntryMaker: TFrmEntryMaker
   Font.Quality = fqDraft
   Font.Style = [fsBold]
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate

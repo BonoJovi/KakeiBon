@@ -2,10 +2,10 @@ object FrmEntryAccount: TFrmEntryAccount
   Left = 403
   Height = 843
   Top = 32
-  Width = 983
+  Width = 708
   Caption = '口座登録'
   ClientHeight = 843
-  ClientWidth = 983
+  ClientWidth = 708
   Color = clWindowFrame
   Font.CharSet = SHIFTJIS_CHARSET
   Font.Height = -21
@@ -14,7 +14,6 @@ object FrmEntryAccount: TFrmEntryAccount
   Font.Quality = fqDraft
   Font.Style = [fsBold]
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate

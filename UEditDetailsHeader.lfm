@@ -2,12 +2,12 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   Left = 589
   Height = 767
   Top = 132
-  Width = 1193
+  Width = 859
   Anchors = [akLeft, akBottom]
   BorderStyle = bsSingle
   Caption = '入出金編集'
   ClientHeight = 767
-  ClientWidth = 1193
+  ClientWidth = 859
   Color = clWindowFrame
   Font.CharSet = SHIFTJIS_CHARSET
   Font.Height = -21
@@ -16,7 +16,6 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   Font.Quality = fqDraft
   Font.Style = [fsBold]
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
@@ -24,14 +23,14 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   OnShow = FormShow
   object LblDateTime1: TLabel
     Left = 16
-    Height = 32
+    Height = 30
     Top = 19
     Width = 21
     Caption = '日'
   end
   object LblDateTime2: TLabel
     Left = 100
-    Height = 32
+    Height = 30
     Top = 19
     Width = 21
     Caption = '時'
@@ -53,7 +52,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     Left = 152
     Height = 38
     Top = 16
-    Width = 69
+    Width = 71
     CenturyFrom = 1941
     DateDisplayOrder = ddoYMD
     MaxDate = 2958465
@@ -84,7 +83,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   end
   object LblYear: TLabel
     Left = 224
-    Height = 32
+    Height = 30
     Top = 22
     Width = 21
     Caption = '年'
@@ -94,7 +93,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     Left = 248
     Height = 38
     Top = 16
-    Width = 45
+    Width = 47
     CenturyFrom = 1941
     DateDisplayOrder = ddoYMD
     MaxDate = 2958465
@@ -124,7 +123,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   end
   object LblMonth: TLabel
     Left = 296
-    Height = 32
+    Height = 30
     Top = 22
     Width = 21
     Caption = '月'
@@ -134,7 +133,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     Left = 318
     Height = 38
     Top = 16
-    Width = 45
+    Width = 47
     CenturyFrom = 1941
     DateDisplayOrder = ddoYMD
     MaxDate = 2958465
@@ -164,7 +163,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   end
   object LblDay: TLabel
     Left = 368
-    Height = 32
+    Height = 30
     Top = 22
     Width = 21
     Caption = '日'
@@ -174,7 +173,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     Left = 400
     Height = 38
     Top = 16
-    Width = 45
+    Width = 47
     CenturyFrom = 1941
     DateDisplayOrder = ddoYMD
     MaxDate = 2958465
@@ -204,21 +203,21 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   end
   object LblHour: TLabel
     Left = 449
-    Height = 32
+    Height = 30
     Top = 22
     Width = 21
     Caption = '時'
   end
   object LblShopName1: TLabel
     Left = 16
-    Height = 32
+    Height = 30
     Top = 70
     Width = 21
     Caption = '店'
   end
   object LblShopName2: TLabel
     Left = 100
-    Height = 32
+    Height = 30
     Top = 70
     Width = 21
     Caption = '名'
@@ -238,7 +237,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   object DBLCBShopName: TDBLookupComboBox
     Cursor = crHandPoint
     Left = 152
-    Height = 48
+    Height = 38
     Top = 62
     Width = 316
     AutoComplete = True
@@ -292,7 +291,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   end
   object LblPhoneNum1: TLabel
     Left = 16
-    Height = 32
+    Height = 30
     Top = 126
     Width = 21
     Alignment = taCenter
@@ -300,7 +299,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   end
   object LblPhoneNum2: TLabel
     Left = 44
-    Height = 32
+    Height = 30
     Top = 126
     Width = 21
     Alignment = taCenter
@@ -308,7 +307,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   end
   object LblPhoneNum3: TLabel
     Left = 72
-    Height = 32
+    Height = 30
     Top = 126
     Width = 21
     Alignment = taCenter
@@ -316,7 +315,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   end
   object LblPhoneNum4: TLabel
     Left = 100
-    Height = 32
+    Height = 30
     Top = 126
     Width = 21
     Alignment = taCenter
@@ -336,7 +335,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   end
   object DBEdtPhoneNum: TDBEdit
     Left = 152
-    Height = 49
+    Height = 38
     Top = 118
     Width = 316
     DataField = 'PHONE_NUM'
@@ -351,7 +350,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   end
   object LblCategory: TLabel
     Left = 16
-    Height = 32
+    Height = 30
     Top = 183
     Width = 105
     Alignment = taCenter
@@ -372,7 +371,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   object DBLCBExp1: TDBLookupComboBox
     Cursor = crHandPoint
     Left = 152
-    Height = 48
+    Height = 38
     Top = 175
     Width = 316
     AutoComplete = True
@@ -392,7 +391,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   end
   object LblFrom1: TLabel
     Left = 16
-    Height = 32
+    Height = 30
     Top = 239
     Width = 21
     Alignment = taCenter
@@ -400,7 +399,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   end
   object LblFrom2: TLabel
     Left = 58
-    Height = 32
+    Height = 30
     Top = 239
     Width = 21
     Alignment = taCenter
@@ -408,7 +407,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   end
   object LblFrom3: TLabel
     Left = 100
-    Height = 32
+    Height = 30
     Top = 239
     Width = 21
     Alignment = taCenter
@@ -429,7 +428,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   object DBLCBFromAC: TDBLookupComboBox
     Cursor = crHandPoint
     Left = 152
-    Height = 48
+    Height = 38
     Top = 231
     Width = 316
     AutoComplete = True
@@ -484,7 +483,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   end
   object LblTo1: TLabel
     Left = 16
-    Height = 32
+    Height = 30
     Top = 295
     Width = 21
     Alignment = taCenter
@@ -492,7 +491,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   end
   object LblTo2: TLabel
     Left = 58
-    Height = 32
+    Height = 30
     Top = 295
     Width = 21
     Alignment = taCenter
@@ -500,7 +499,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   end
   object LblTo3: TLabel
     Left = 100
-    Height = 32
+    Height = 30
     Top = 295
     Width = 21
     Alignment = taCenter
@@ -521,7 +520,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   object DBLCBToAC: TDBLookupComboBox
     Cursor = crHandPoint
     Left = 152
-    Height = 48
+    Height = 38
     Top = 287
     Width = 316
     AutoComplete = True
@@ -542,28 +541,28 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   end
   object LblTotalAmount1: TLabel
     Left = 16
-    Height = 32
+    Height = 30
     Top = 351
     Width = 21
     Caption = '合'
   end
   object LblTotalAmount2: TLabel
     Left = 44
-    Height = 32
+    Height = 30
     Top = 351
     Width = 21
     Caption = '計'
   end
   object LblTotalAmount3: TLabel
     Left = 72
-    Height = 32
+    Height = 30
     Top = 351
     Width = 21
     Caption = '金'
   end
   object LblTotalAmount4: TLabel
     Left = 100
-    Height = 32
+    Height = 30
     Top = 351
     Width = 21
     Caption = '額'
@@ -582,7 +581,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   end
   object EdtTotalAmount: TEdit
     Left = 152
-    Height = 49
+    Height = 38
     Hint = '自動集計項目です。計算が合わない時だけ入力してください。'
     Top = 343
     Width = 316
@@ -931,7 +930,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   end
   object DBEdtUserID: TDBEdit
     Left = 888
-    Height = 49
+    Height = 38
     Top = 8
     Width = 100
     DataField = 'USER_ID'
@@ -942,7 +941,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   end
   object DBEdtHeaderID: TDBEdit
     Left = 992
-    Height = 49
+    Height = 38
     Top = 8
     Width = 100
     DataField = 'HEADER_ID'
@@ -955,7 +954,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     Left = 888
     Height = 38
     Top = 63
-    Width = 245
+    Width = 247
     DataField = 'HEADER_DT'
     DataSource = ADS
     ReadOnly = False
@@ -980,7 +979,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   end
   object DBEdtShopID: TDBEdit
     Left = 888
-    Height = 49
+    Height = 38
     Top = 107
     Width = 100
     DataField = 'SHOP_ID'
@@ -992,7 +991,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   end
   object DBEdtExpKey1: TDBEdit
     Left = 992
-    Height = 49
+    Height = 38
     Top = 107
     Width = 100
     DataField = 'EXP_KEY1'
@@ -1004,7 +1003,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   end
   object DBEdtFromID: TDBEdit
     Left = 888
-    Height = 49
+    Height = 38
     Top = 162
     Width = 100
     DataField = 'FROM_ID'
@@ -1016,7 +1015,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   end
   object DBEdtToID: TDBEdit
     Left = 992
-    Height = 49
+    Height = 38
     Top = 162
     Width = 100
     DataField = 'TO_ID'
@@ -1028,7 +1027,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
   end
   object DBEdtTotalAmount: TDBEdit
     Left = 888
-    Height = 49
+    Height = 38
     Top = 217
     Width = 100
     DataField = 'TOTAL_AMOUNT'
@@ -1042,7 +1041,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     Left = 888
     Height = 38
     Top = 272
-    Width = 245
+    Width = 247
     DataField = 'ENTRY_DT'
     DataSource = ADS
     ReadOnly = False
@@ -1069,7 +1068,7 @@ object FrmEditDetailsHeader: TFrmEditDetailsHeader
     Left = 888
     Height = 38
     Top = 316
-    Width = 245
+    Width = 247
     DataField = 'UPDATE_DT'
     DataSource = ADS
     ReadOnly = False

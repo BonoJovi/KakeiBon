@@ -167,12 +167,14 @@
         <Filename Value="UDeleteUser.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FrmDeleteUser"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit>
       <Unit>
         <Filename Value="UEditAdmUser.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FrmEditAdmUser"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit>
       <Unit>
@@ -256,6 +258,7 @@
         <Filename Value="UManageExp.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FrmManageExp"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit>
       <Unit>

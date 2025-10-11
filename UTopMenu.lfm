@@ -2,11 +2,11 @@ object FrmTopMenu: TFrmTopMenu
   Left = 775
   Height = 464
   Top = 187
-  Width = 777
+  Width = 627
   BorderStyle = bsSingle
   Caption = 'KakeiBon'
   ClientHeight = 464
-  ClientWidth = 777
+  ClientWidth = 627
   Color = clTeal
   Font.Height = -21
   Font.Name = 'Noto Sans JP'
@@ -14,7 +14,6 @@ object FrmTopMenu: TFrmTopMenu
   Font.Quality = fqDraft
   Font.Style = [fsBold]
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   Visible = True
   OnActivate = FormActivate
   OnClose = FormClose
@@ -31,8 +30,8 @@ object FrmTopMenu: TFrmTopMenu
     BevelInner = bvLowered
     BevelOuter = bvNone
     BorderStyle = bsSingle
-    ClientHeight = 72
-    ClientWidth = 595
+    ClientHeight = 68
+    ClientWidth = 591
     Color = clMoneyGreen
     ParentBackground = False
     ParentColor = False
@@ -309,8 +308,8 @@ object FrmTopMenu: TFrmTopMenu
     BevelInner = bvLowered
     BevelOuter = bvNone
     BorderStyle = bsSingle
-    ClientHeight = 128
-    ClientWidth = 595
+    ClientHeight = 124
+    ClientWidth = 591
     Color = clMoneyGreen
     ParentBackground = False
     ParentColor = False
@@ -611,8 +610,8 @@ object FrmTopMenu: TFrmTopMenu
     BevelColor = clMoneyGreen
     BevelOuter = bvNone
     BorderStyle = bsSingle
-    ClientHeight = 128
-    ClientWidth = 595
+    ClientHeight = 124
+    ClientWidth = 591
     Color = clMoneyGreen
     ParentBackground = False
     ParentColor = False

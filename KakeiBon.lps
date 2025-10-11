@@ -12,7 +12,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="13"/>
         <CursorPos Y="30"/>
-        <UsageCount Value="46"/>
+        <UsageCount Value="47"/>
       </Unit>
       <Unit>
         <Filename Value="DBG\UDBG.pas"/>
@@ -21,7 +21,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="46"/>
+        <UsageCount Value="47"/>
       </Unit>
       <Unit>
         <Filename Value="UAddDetail.pas"/>
@@ -30,9 +30,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="1464"/>
-        <CursorPos X="16" Y="1474"/>
-        <UsageCount Value="46"/>
+        <TopLine Value="1449"/>
+        <CursorPos X="33" Y="1460"/>
+        <UsageCount Value="47"/>
       </Unit>
       <Unit>
         <Filename Value="UAddDetailsHeader.pas"/>
@@ -41,9 +41,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="1159"/>
-        <CursorPos X="3" Y="1167"/>
-        <UsageCount Value="46"/>
+        <TopLine Value="1144"/>
+        <CursorPos X="28" Y="1155"/>
+        <UsageCount Value="47"/>
       </Unit>
       <Unit>
         <Filename Value="UAddUser.pas"/>
@@ -52,9 +52,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="623"/>
-        <CursorPos X="3" Y="631"/>
-        <UsageCount Value="46"/>
+        <TopLine Value="605"/>
+        <CursorPos X="28" Y="616"/>
+        <UsageCount Value="47"/>
       </Unit>
       <Unit>
         <Filename Value="UCommonDB.pas"/>
@@ -65,7 +65,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="60"/>
         <CursorPos X="38" Y="90"/>
-        <UsageCount Value="46"/>
+        <UsageCount Value="47"/>
       </Unit>
       <Unit>
         <Filename Value="UConsts.pas"/>
@@ -73,7 +73,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="69"/>
         <CursorPos X="16" Y="79"/>
-        <UsageCount Value="46"/>
+        <UsageCount Value="47"/>
       </Unit>
       <Unit>
         <Filename Value="UDBAccess.pas"/>
@@ -81,34 +81,37 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="492"/>
         <CursorPos X="15" Y="301"/>
-        <UsageCount Value="46"/>
+        <UsageCount Value="47"/>
       </Unit>
       <Unit>
         <Filename Value="UDefs.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="39" Y="4"/>
-        <UsageCount Value="46"/>
+        <UsageCount Value="47"/>
       </Unit>
       <Unit>
         <Filename Value="UDeleteUser.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FrmDeleteUser"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="364"/>
-        <CursorPos X="3" Y="372"/>
-        <UsageCount Value="46"/>
+        <TopLine Value="271"/>
+        <CursorPos X="44" Y="286"/>
+        <UsageCount Value="47"/>
       </Unit>
       <Unit>
         <Filename Value="UEditAdmUser.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FrmEditAdmUser"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="615"/>
-        <CursorPos X="3" Y="623"/>
-        <UsageCount Value="46"/>
+        <TopLine Value="602"/>
+        <CursorPos X="30" Y="613"/>
+        <UsageCount Value="47"/>
       </Unit>
       <Unit>
         <Filename Value="UEditDetail.pas"/>
@@ -117,9 +120,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="1387"/>
-        <CursorPos X="3" Y="1395"/>
-        <UsageCount Value="46"/>
+        <TopLine Value="592"/>
+        <CursorPos X="43" Y="607"/>
+        <UsageCount Value="47"/>
       </Unit>
       <Unit>
         <Filename Value="UEditDetailsHeader.pas"/>
@@ -128,9 +131,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="1691"/>
-        <CursorPos X="3" Y="1699"/>
-        <UsageCount Value="46"/>
+        <TopLine Value="1395"/>
+        <CursorPos X="36" Y="1406"/>
+        <UsageCount Value="47"/>
       </Unit>
       <Unit>
         <Filename Value="UEditUser.pas"/>
@@ -139,9 +142,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="632"/>
-        <CursorPos X="3" Y="640"/>
-        <UsageCount Value="46"/>
+        <TopLine Value="619"/>
+        <CursorPos X="33" Y="630"/>
+        <UsageCount Value="47"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryAccount.pas"/>
@@ -150,9 +153,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="629"/>
-        <CursorPos X="44" Y="637"/>
-        <UsageCount Value="46"/>
+        <TopLine Value="1227"/>
+        <CursorPos X="22" Y="1243"/>
+        <UsageCount Value="47"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryAdmin.pas"/>
@@ -161,9 +164,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="362"/>
-        <CursorPos X="3" Y="370"/>
-        <UsageCount Value="46"/>
+        <TopLine Value="341"/>
+        <CursorPos X="29" Y="352"/>
+        <UsageCount Value="47"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryBrandName.pas"/>
@@ -172,9 +175,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="1068"/>
-        <CursorPos X="18" Y="1068"/>
-        <UsageCount Value="46"/>
+        <TopLine Value="1265"/>
+        <CursorPos X="29" Y="1282"/>
+        <UsageCount Value="47"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryMaker.pas"/>
@@ -183,9 +186,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="551"/>
-        <CursorPos X="44" Y="559"/>
-        <UsageCount Value="46"/>
+        <TopLine Value="1078"/>
+        <CursorPos X="40" Y="1088"/>
+        <UsageCount Value="47"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryShop.pas"/>
@@ -194,9 +197,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="640"/>
-        <CursorPos X="44" Y="648"/>
-        <UsageCount Value="46"/>
+        <TopLine Value="1233"/>
+        <CursorPos X="25" Y="1250"/>
+        <UsageCount Value="47"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryUnit.pas"/>
@@ -205,9 +208,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="546"/>
-        <CursorPos X="44" Y="554"/>
-        <UsageCount Value="46"/>
+        <TopLine Value="1074"/>
+        <CursorPos X="27" Y="1086"/>
+        <UsageCount Value="47"/>
       </Unit>
       <Unit>
         <Filename Value="ULogin.pas"/>
@@ -216,9 +219,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="300"/>
-        <CursorPos X="3" Y="308"/>
-        <UsageCount Value="46"/>
+        <TopLine Value="281"/>
+        <CursorPos X="27" Y="292"/>
+        <UsageCount Value="47"/>
       </Unit>
       <Unit>
         <Filename Value="UManageDetails.pas"/>
@@ -227,19 +230,20 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="464"/>
-        <CursorPos X="3" Y="472"/>
-        <UsageCount Value="46"/>
+        <TopLine Value="434"/>
+        <CursorPos X="32" Y="445"/>
+        <UsageCount Value="47"/>
       </Unit>
       <Unit>
         <Filename Value="UManageExp.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FrmManageExp"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="1207"/>
-        <CursorPos X="3" Y="1215"/>
-        <UsageCount Value="46"/>
+        <TopLine Value="1184"/>
+        <CursorPos X="29" Y="1195"/>
+        <UsageCount Value="47"/>
       </Unit>
       <Unit>
         <Filename Value="UManageUser.pas"/>
@@ -247,11 +251,10 @@
         <ComponentName Value="FrmManageUser"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="382"/>
-        <CursorPos X="49" Y="394"/>
-        <UsageCount Value="46"/>
+        <TopLine Value="362"/>
+        <CursorPos X="16" Y="376"/>
+        <UsageCount Value="47"/>
       </Unit>
       <Unit>
         <Filename Value="USummary.pas"/>
@@ -262,7 +265,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="113"/>
         <CursorPos X="7" Y="121"/>
-        <UsageCount Value="46"/>
+        <UsageCount Value="47"/>
       </Unit>
       <Unit>
         <Filename Value="UTopMenu.pas"/>
@@ -271,15 +274,15 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="769"/>
-        <CursorPos X="3" Y="779"/>
-        <UsageCount Value="46"/>
+        <TopLine Value="690"/>
+        <CursorPos X="24" Y="705"/>
+        <UsageCount Value="47"/>
       </Unit>
       <Unit>
         <Filename Value="DBNavi\UDBNavi.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="40"/>
+        <UsageCount Value="41"/>
       </Unit>
       <Unit>
         <Filename Value="..\DBNavi\UDBNavi.pas"/>

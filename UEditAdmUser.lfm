@@ -2,11 +2,11 @@ object FrmEditAdmUser: TFrmEditAdmUser
   Left = 624
   Height = 642
   Top = 193
-  Width = 807
+  Width = 665
   BorderStyle = bsSingle
   Caption = '管理者アカウントの編集'
   ClientHeight = 642
-  ClientWidth = 807
+  ClientWidth = 665
   Color = clWindowFrame
   Font.CharSet = SHIFTJIS_CHARSET
   Font.Height = -21
@@ -15,7 +15,6 @@ object FrmEditAdmUser: TFrmEditAdmUser
   Font.Quality = fqDraft
   Font.Style = [fsBold]
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
@@ -37,7 +36,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
         Font.Quality = fqDraft
         Font.Style = [fsBold]
         Title.Caption = 'ユーザID'
-        Width = 125
+        Width = 120
         FieldName = 'USER_ID'
       end    
       item
@@ -48,7 +47,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
         Font.Quality = fqDraft
         Font.Style = [fsBold]
         Title.Caption = 'ユーザ名'
-        Width = 124
+        Width = 120
         FieldName = 'NAME'
       end    
       item
@@ -59,7 +58,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
         Font.Quality = fqDraft
         Font.Style = [fsBold]
         Title.Caption = '権限'
-        Width = 124
+        Width = 120
         FieldName = 'ROLE'
       end    
       item
@@ -70,7 +69,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
         Font.Quality = fqDraft
         Font.Style = [fsBold]
         Title.Caption = '登録日'
-        Width = 124
+        Width = 120
         FieldName = 'ENTRY_DT'
       end    
       item
@@ -81,7 +80,7 @@ object FrmEditAdmUser: TFrmEditAdmUser
         Font.Quality = fqDraft
         Font.Style = [fsBold]
         Title.Caption = '更新日'
-        Width = 124
+        Width = 120
         FieldName = 'UPDATE_DT'
       end>
     DataSource = ADS

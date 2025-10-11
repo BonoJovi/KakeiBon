@@ -2,11 +2,11 @@ object FrmEditDetail: TFrmEditDetail
   Left = 87
   Height = 604
   Top = 163
-  Width = 1212
+  Width = 737
   BorderStyle = bsSingle
   Caption = '明細編集'
   ClientHeight = 604
-  ClientWidth = 1212
+  ClientWidth = 737
   Color = clWindowFrame
   Font.CharSet = SHIFTJIS_CHARSET
   Font.Height = -21
@@ -15,7 +15,6 @@ object FrmEditDetail: TFrmEditDetail
   Font.Quality = fqDraft
   Font.Style = [fsBold]
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate

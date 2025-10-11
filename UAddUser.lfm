@@ -2,11 +2,11 @@ object FrmAddUser: TFrmAddUser
   Left = 16
   Height = 315
   Top = 267
-  Width = 845
+  Width = 712
   BorderStyle = bsSingle
   Caption = 'ユーザを追加'
   ClientHeight = 315
-  ClientWidth = 845
+  ClientWidth = 712
   Color = clWindowFrame
   Font.CharSet = SHIFTJIS_CHARSET
   Font.Height = -21
@@ -16,7 +16,6 @@ object FrmAddUser: TFrmAddUser
   Font.Style = [fsBold]
   FormStyle = fsMDIForm
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp

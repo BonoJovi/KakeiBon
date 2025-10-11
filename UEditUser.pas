@@ -627,7 +627,7 @@ end;
 
 procedure TFrmEditUser.FormShow(Sender: TObject);
 begin
-  Self.Width             := 667;
+  Self.Width             := 658;
 
   Self.KeyPreview        := True;
 

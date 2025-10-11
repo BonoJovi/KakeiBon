@@ -2,10 +2,10 @@ object FrmEntryShop: TFrmEntryShop
   Left = 484
   Height = 816
   Top = 32
-  Width = 920
+  Width = 623
   Caption = '店舗登録'
   ClientHeight = 816
-  ClientWidth = 920
+  ClientWidth = 623
   Color = clWindowFrame
   Font.CharSet = SHIFTJIS_CHARSET
   Font.Height = -21
@@ -14,7 +14,6 @@ object FrmEntryShop: TFrmEntryShop
   Font.Quality = fqDraft
   Font.Style = [fsBold]
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate

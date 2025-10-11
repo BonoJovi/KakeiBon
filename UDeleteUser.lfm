@@ -2,11 +2,11 @@ object FrmDeleteUser: TFrmDeleteUser
   Left = 818
   Height = 499
   Top = 199
-  Width = 689
+  Width = 567
   BorderStyle = bsSingle
   Caption = 'ユーザの削除'
   ClientHeight = 499
-  ClientWidth = 689
+  ClientWidth = 567
   Color = clWindowFrame
   Font.CharSet = SHIFTJIS_CHARSET
   Font.Height = -21
@@ -15,7 +15,6 @@ object FrmDeleteUser: TFrmDeleteUser
   Font.Quality = fqDraft
   Font.Style = [fsBold]
   Position = poScreenCenter
-  LCLVersion = '4.2.0.0'
   OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
@@ -69,7 +68,6 @@ object FrmDeleteUser: TFrmDeleteUser
     DataSource = ADS
     TabOrder = 0
     TabStop = False
-    OnEnter = ADBGridEnter
     OnSelectEditor = ADBGridSelectEditor
   end
   object ADBNavi: TDBNavi
