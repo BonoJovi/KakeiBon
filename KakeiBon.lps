@@ -3,7 +3,7 @@
   <ProjectSession>
     <Version Value="12"/>
     <ManyBuildModesSelection Value="Default"/>
-    <BuildModes Active="Debug"/>
+    <BuildModes Active="Release"/>
     <Units>
       <Unit>
         <Filename Value="KakeiBon.lpr"/>
@@ -58,8 +58,8 @@
         <Filename Value="UDefs.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="356"/>
-        <CursorPos Y="364"/>
+        <TopLine Value="336"/>
+        <CursorPos X="42" Y="390"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
@@ -239,15 +239,15 @@
         <ComponentName Value="FrmTopMenu"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="703"/>
-        <CursorPos X="32" Y="713"/>
+        <TopLine Value="502"/>
+        <CursorPos Y="502"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
         <Filename Value="UConsts.pas"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="36"/>
         <CursorPos X="16" Y="37"/>
@@ -469,20 +469,6 @@
         <WatchKind Value="wpkWrite"/>
         <Source Value="UEntryBrandName.pas"/>
         <Line Value="1473"/>
-      </Item>
-      <Item>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="UTopMenu.pas"/>
-        <Line Value="620"/>
-      </Item>
-      <Item>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="UTopMenu.pas"/>
-        <Line Value="625"/>
       </Item>
     </BreakPoints>
   </Debugging>
