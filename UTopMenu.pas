@@ -150,8 +150,8 @@ var
 implementation
 
 uses
-  UConsts, UCommonDB, UDefs, UDBAccess, ULogin, UEntryAdmin, UManageUser,
-  UManageExp, UManageDetails, USummary;
+  LazLogger, UConsts, UCommonDB, UDefs, UDBAccess, ULogin, UEntryAdmin,
+  UManageUser, UManageExp, UManageDetails, USummary;
 
 {$R *.lfm}
 
@@ -388,6 +388,8 @@ procedure TFrmTopMenu.ProcManageDetails(Sender: TObject);
 begin
   with CommonDB do begin
     with Defs do begin
+      ATr.Active := False;
+
       OpenSelectQueryWithUserID(ADS, AQu, SQL_20070002, GetUID);
       with AQu do begin
         if (LoginFlg) And (FieldByName('COUNT').AsInteger > 0) then begin
@@ -416,14 +418,38 @@ end;
 
 procedure TFrmTopMenu.ProcSummary(Sender: TObject);
 begin
-  FrmSummary := TFrmSummary.Create(Application);
-  OpenFormOrMsgDlg(FrmSummary, False);
+  with CommonDB do begin
+    with Defs do begin
+      ATr.Active   := False;
+
+      OpenSelectQuery(ADS, AQu, SQL_20070002);
+      with AQu do begin
+        if (LoginFlg) And (FieldByName('COUNT').AsInteger > 0) then begin
+          ATr.Active   := False;
+
+          FrmSummary := TFrmSummary.Create(Application);
+          OpenFormOrMsgDlg(FrmSummary, False);
+        end else begin
+          ATr.Active    := False;
+          OpenSelectQuery(ADS, AQu, SQL_20070003);
+
+          if FieldByName('COUNT').AsInteger <= 1 then begin
+            MessageDlg(MSG_JP_000023, mtInformation, [mbOk], 0);
+          end else begin
+            MessageDlg(MSG_JP_000001, mtInformation, [mbOk], 0);
+          end;
+        end;
+      end;
+    end;
+  end;
 end;
 
 procedure TFrmTopMenu.ProcManageUser(Sender: TObject);
 begin
   with CommonDB do begin
     with Defs do begin
+      ATr.Active := False;
+
       OpenSelectQueryWithUserID(ADS, AQu, SQL_20070004, GetUID);
       with AQu do begin
         if (LoginFlg) And (FieldByName('COUNT').AsInteger > 0) then begin
@@ -450,6 +476,8 @@ procedure TFrmTopMenu.ProcManageExp(Sender: TObject);
 begin
   with CommonDB do begin
     with Defs do begin
+      ATr.Active := False;
+
       OpenSelectQueryWithUserID(ADS, AQu, SQL_20070002, GetUID);
       with AQu do begin
         if (LoginFlg) And (FieldByName('COUNT').AsInteger > 0) then begin
