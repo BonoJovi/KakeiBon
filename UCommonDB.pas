@@ -154,7 +154,7 @@ procedure TCommonDB.CloseQuery(var Qu: TSQLQuery);
 begin
   try
     try
-      if (Assigned(Qu)) And (Qu.Active) then begin
+      if (Assigned(Qu)) And Not (Qu.State = dsInactive) then begin
         Qu.Close;
       end;
     except

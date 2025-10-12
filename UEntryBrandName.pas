@@ -898,6 +898,7 @@ begin
   end;
   ADBGrid.Tag := 1;
 
+  //======================================================
   try
     if AQu.State = dsInsert then begin
       FSuppressRecursiveEvent := True;
@@ -1080,7 +1081,7 @@ begin
   LazLogger.DebugLn('AQuBeforeScroll: AQu.Active=' + BoolToStr(AQu.Active, True) +
                     ', AQu.State=' + DataSetStateToStr(AQu.State));
 {$ENDIF}
-  FSkipFirstProcess := True;
+  FSkipFirstProcess := True
 end;
 
 procedure TFrmEntryBrandName.DBLCBMakerChange(Sender: TObject);

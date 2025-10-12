@@ -386,30 +386,29 @@ end;
 
 procedure TFrmTopMenu.ProcManageDetails(Sender: TObject);
 begin
-  //with Defs do begin
   with CommonDB do begin
     with Defs do begin
-      OpenSelectQuery(ADS, AQu, SQL_20070001);
+      OpenSelectQueryWithUserID(ADS, AQu, SQL_20070002, GetUID);
+      with AQu do begin
+        if (LoginFlg) And (FieldByName('COUNT').AsInteger > 0) then begin
+          ATr.Active := False;
 
-      if AQu.FieldByName('COUNT').AsInteger > 0 then begin
-        ATr.Active         := False;
-
-        //CloseAllDB;
-        //SetDatabaseNames;
-
-        if GetRole = 1 then begin
-          FrmManageDetails := TFrmManageDetails.Create(Application);
-          OpenFormOrMsgDlg(FrmManageDetails, False);
+          if GetRole = 1 then begin
+            FrmManageDetails := TFrmManageDetails.Create(Application);
+            OpenFormOrMsgDlg(FrmManageDetails, False);
+          end else begin
+            MessageDlg(MSG_JP_000024, mtInformation, [mbOk], 0);
+          end;
         end else begin
-          MessageDlg(MSG_JP_000024, mtInformation, [mbOk], 0);
+          ATr.Active := False;
+          OpenSelectQuery(ADS, AQu, SQL_20070001);
+
+          if FieldByName('COUNT').AsInteger <= 0 then begin
+            MessageDlg(MSG_JP_000023, mtInformation, [mbOk], 0);
+          end else begin
+            MessageDlg(MSG_JP_000001, mtInformation, [mbOk], 0);
+          end;
         end;
-      end else begin
-        ATr.Active         := False;
-
-        //CloseAllDB;
-        //SetDatabaseNames;
-
-        MessageDlg(MSG_JP_000023, mtInformation, [mbOk], 0);
       end;
     end;
   end;
@@ -423,38 +422,51 @@ end;
 
 procedure TFrmTopMenu.ProcManageUser(Sender: TObject);
 begin
-  //with Defs do begin
   with CommonDB do begin
     with Defs do begin
-      OpenSelectQuery(ADS, AQu, SQL_20070001);
+      OpenSelectQueryWithUserID(ADS, AQu, SQL_20070004, GetUID);
+      with AQu do begin
+        if (LoginFlg) And (FieldByName('COUNT').AsInteger > 0) then begin
+          ATr.Active    := False;
 
-      FrmManageUser     := TFrmManageUser.Create(Application);
-      OpenFormOrMsgDlg(FrmManageUser, False);
+          FrmManageUser := TFrmManageUser.Create(Application);
+          OpenFormOrMsgDlg(FrmManageUser, False);
+        end else begin
+          ATr.Active    := False;
+          OpenSelectQuery(ADS, AQu, SQL_20070003);
+
+          if FieldByName('COUNT').AsInteger <= 1 then begin
+            MessageDlg(MSG_JP_000023, mtInformation, [mbOk], 0);
+          end else begin
+            MessageDlg(MSG_JP_000001, mtInformation, [mbOk], 0);
+          end;
+        end;
+      end;
     end;
   end;
 end;
 
 procedure TFrmTopMenu.ProcManageExp(Sender: TObject);
 begin
-  //with Defs do begin
   with CommonDB do begin
     with Defs do begin
-      OpenSelectQueryWithUserID(ACn, ADS, ATr, AQu, SQL_20070002, GetUID);
-      if AQu.FieldByName('COUNT').AsInteger > 0 then begin
-        ATr.Active      := False;
+      OpenSelectQueryWithUserID(ADS, AQu, SQL_20070002, GetUID);
+      with AQu do begin
+        if (LoginFlg) And (FieldByName('COUNT').AsInteger > 0) then begin
+          ATr.Active   := False;
 
-        //CloseAllDB;
-        //SetDatabaseNames;
+          FrmManageExp := TFrmManageExp.Create(Application);
+          OpenFormOrMsgDlg(FrmManageExp, False);
+        end else begin
+          ATr.Active   := False;
+          OpenSelectQuery(ADS, AQu, SQL_20070001);
 
-        FrmManageExp      := TFrmManageExp.Create(Application);
-        OpenFormOrMsgDlg(FrmManageExp, False);
-      end else begin
-        ATr.Active      := False;
-
-        //CloseAllDB;
-        //SetDatabaseNames;
-
-        MessageDlg(MSG_JP_000023, mtInformation, [mbOk], 0);
+          if FieldByName('COUNT').AsInteger <= 0 then begin
+            MessageDlg(MSG_JP_000023, mtInformation, [mbOk], 0);
+          end else begin
+            MessageDlg(MSG_JP_000001, mtInformation, [mbOk], 0);
+          end;
+        end;
       end;
     end;
   end;
@@ -516,14 +528,12 @@ begin
   with FrmTopMenu do begin
     if LoginFlg then begin
       Hide;
-      //Visible         := False;
       Sender.Show;
-    end else begin // LoginFlg = False
+    end else begin
       if NoMessageDlg then begin
         Hide;
-        //Visible       := False;
         Sender.Show;
-      end else begin // NoMessageDlg = False
+      end else begin
         MessageDlg(MSG_JP_000001, mtInformation, [mbOk], 0);
       end;
     end;
@@ -572,7 +582,6 @@ end;
 
 procedure TFrmTopMenu.OpenFormEntryAdmin(Sender: TObject);
 begin
-  //with Defs do begin
   with CommonDB do begin
     SetSQLite3DatabaseName;
     if Not FileExists(GetDBFullPath) then begin
