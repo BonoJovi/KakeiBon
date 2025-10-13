@@ -575,7 +575,6 @@ object FrmAddDetailsHeader: TFrmAddDetailsHeader
   object EdtTotalAmount: TEdit
     Left = 152
     Height = 38
-    Hint = '自動集計項目です。計算が合わない時だけ入力してください。'
     Top = 358
     Width = 316
     Alignment = taRightJustify
