@@ -324,7 +324,7 @@ begin
           LFS := GetFS;
 
           // Ensure database connection is open
-          if not ACn.Connected then begin
+          if Not ACn.Connected then begin
 {$IFDEF Debug}
             LazLogger.DebugLn('ProcSave: Opening database connection');
 {$ENDIF}
@@ -332,8 +332,9 @@ begin
           end;
           with AQu do begin
             CloseQuery(AQu);
+
             // Ensure transaction is active
-            if not ATr.Active then begin
+            if Not ATr.Active then begin
 {$IFDEF Debug}
               LazLogger.DebugLn('ProcSave: Starting transaction');
 {$ENDIF}
@@ -357,12 +358,13 @@ begin
                 ParamByName('pShopID').AsInteger := GetShopID;
                 ParamByName('pShopName').AsString := GetShopName;
                 ParamByName('pPhoneNum').AsString := GetPhoneNum;
-                ParamByName('pStartBusinessDT').AsString := GetStartBusinessDT;
-                ParamByName('pEndBusinessDT').AsString := GetEndBusinessDT;
+                ParamByName('pStartBusinessDT').AsAnsiString := FormatDateTime('yyyy-mm-dd hh:nn:ss', StrToDateTime(GetStartBusinessDT, LFS), LFS);
+                ParamByName('pEndBusinessDT').AsAnsiString := FormatDateTime('yyyy-mm-dd hh:nn:ss', StrToDateTime(GetEndBusinessDT, LFS), LFS);
                 ParamByName('pDisabled').AsBoolean := GetDisabled;
                 ParamByName('pEntryDT').AsAnsiString := FormatDateTime('yyyy-mm-dd hh:nn:ss', Now, LFS);
                 ParamByName('pUpdateDT').AsAnsiString := FormatDateTime('yyyy-mm-dd hh:nn:ss', Now, LFS);            ExecSQL;
 
+                ExecSQL;
                 ATr.Commit;
               end;
 {$IFDEF Debug}
@@ -386,21 +388,21 @@ begin
                 ATr.Rollback;
               end;
             end;
-          end;
 
-          if not ATr.Active then begin
+            if Not ATr.Active then begin
 {$IFDEF Debug}
-            LazLogger.DebugLn('ProcSave: Starting transaction after ApplyUpdates');
+              LazLogger.DebugLn('ProcSave: Starting transaction after ApplyUpdates');
 {$ENDIF}
-            ATr.StartTransaction;
-          end;
-          OpenSelectQuery(ADS, AQu, SQL_20080001);
+              ATr.StartTransaction;
+            end;
+            OpenSelectQuery(ADS, AQu, SQL_20080001);
 
-          if not Active then begin
+            if Not Active then begin
 {$IFDEF Debug}
-            LazLogger.DebugLn('ProcSave: Failed to reopen AQu after ApplyUpdates');
+              LazLogger.DebugLn('ProcSave: Failed to reopen AQu after ExecSQL');
 {$ENDIF}
-            raise Exception.Create('Failed to reopen dataset after ApplyUpdates');
+              raise Exception.Create('Failed to reopen dataset after ExecSQL');
+            end;
           end;
         end;
       end;
@@ -851,13 +853,13 @@ begin
 
   with AQu do begin
     // Ensure dataset remains active
-    if not Active then begin
+    if Not Active then begin
 {$IFDEF Debug}
       LazLogger.DebugLn('AQuAfterPost: AQu is inactive. Reopening dataset.');
 {$ENDIF}
       with CommonDB do begin
         with Defs do begin
-          if not ATr.Active then begin
+          if Not ATr.Active then begin
 {$IFDEF Debug}
             LazLogger.DebugLn('AQuAfterPost: Starting transaction');
 {$ENDIF}
@@ -1271,7 +1273,7 @@ begin
       with CommonDB do begin
         with Defs do begin
           with ACn do begin
-            if not Connected then begin
+            if Not Connected then begin
               Open;
             end;
           end;
@@ -1283,6 +1285,7 @@ begin
           end;
 
           OpenSelectQuery(ADS, AQu, SQL_20080001);
+
           ProcInsert(Sender);
         end;
       end;
@@ -1330,7 +1333,7 @@ begin
     Key := 0; // Suppress key event
     Exit;
   end;
-  if ((Key = VK_SPACE) Or (Key = VK_RETURN)) and (Shift = []) then begin
+  if ((Key = VK_SPACE) Or (Key = VK_RETURN)) And (Shift = []) then begin
 {$IFDEF Debug}
     LazLogger.DebugLn('FormKeyUp: Executing ' + ActiveControl.Name);
 {$ENDIF}
@@ -1369,7 +1372,7 @@ begin
     Exit;
   end;
 
-  if AQu.Active and (AQu.State in [dsInsert, dsEdit]) then begin
+  if AQu.Active And (AQu.State in [dsInsert, dsEdit]) then begin
     try
       if DBCBDisabled.State = cbChecked then begin
         AQu.FieldByName('DISABLED').AsBoolean := True;
@@ -1390,7 +1393,7 @@ begin
 {$ENDIF}
   end;
 
-  if FReOpenDS and not FDoCommit then begin
+  if FReOpenDS And not FDoCommit then begin
 {$IFDEF Debug}
     LazLogger.DebugLn('TimerTimer: Reopening dataset (skipped due to commented OpenSelectQuery)');
 {$ENDIF}

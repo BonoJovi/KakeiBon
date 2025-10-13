@@ -473,7 +473,7 @@ object FrmEntryAccount: TFrmEntryAccount
     Width = 21
     Caption = '示'
   end
-  object Shape7: TShape
+  object Shape6: TShape
     Left = 136
     Height = 16
     Top = 673

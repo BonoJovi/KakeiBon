@@ -278,7 +278,7 @@ begin
           LFS := GetFS;
 
           // Ensure database connection is open
-          if not ACn.Connected then begin
+          if Not ACn.Connected then begin
 {$IFDEF Debug}
             LazLogger.DebugLn('ProcSave: Opening database connection');
 {$ENDIF}
@@ -288,7 +288,7 @@ begin
             CloseQuery(AQu);
 
             // Ensure transaction is active
-            if not ATr.Active then begin
+            if Not ATr.Active then begin
 {$IFDEF Debug}
               LazLogger.DebugLn('ProcSave: Starting transaction');
 {$ENDIF}
@@ -336,22 +336,22 @@ begin
                 ATr.Rollback;
               end;
             end;
-          end;
 
-          if not ATr.Active then begin
+            if Not ATr.Active then begin
 {$IFDEF Debug}
-            LazLogger.DebugLn('ProcSave: Starting transaction after ApplyUpdates');
+              LazLogger.DebugLn('ProcSave: Starting transaction after ApplyUpdates');
 {$ENDIF}
-            ATr.StartTransaction;
-          end;
+              ATr.StartTransaction;
+            end;
 
-          OpenSelectQuery(ADS, AQu, SQL_20150001);
+            OpenSelectQuery(ADS, AQu, SQL_20150001);
 
-          if not Active then begin
+            if Not Active then begin
 {$IFDEF Debug}
-            LazLogger.DebugLn('ProcSave: Failed to reopen AQu after ApplyUpdates');
+              LazLogger.DebugLn('ProcSave: Failed to reopen AQu after ApplyUpdates');
 {$ENDIF}
-            raise Exception.Create('Failed to reopen dataset after ApplyUpdates');
+              raise Exception.Create('Failed to reopen dataset after ApplyUpdates');
+            end;
           end;
         end;
       end;
@@ -752,13 +752,13 @@ begin
 
   with AQu do begin
     // Ensure dataset remains active
-    if not Active then begin
+    if Not Active then begin
 {$IFDEF Debug}
       LazLogger.DebugLn('AQuAfterPost: AQu is inactive. Reopening dataset.');
 {$ENDIF}
       with CommonDB do begin
         with Defs do begin
-          if not ATr.Active then begin
+          if Not ATr.Active then begin
 {$IFDEF Debug}
             LazLogger.DebugLn('AQuAfterPost: Starting transaction');
 {$ENDIF}
@@ -1071,14 +1071,6 @@ begin
 
   Timer.Enabled     := False;
 
-  //with CommonDB do begin
-  //  ACn.KeepConnection := True;
-  //  ADS.AutoEdit       := False; // Prevent auto-editing
-  //  AQu.Options        := AQu.Options - [sqoAutoApplyUpdates]; // Prevent auto-apply
-  //  AQu.UpdateMode     := upWhereKeyOnly; // Optimize update behavior
-  //  ADS.Enabled        := True;
-  //end;
-
   FGuidePanels[0] := Panel1;
   FGuidePanels[1] := Panel2;
   FGuidePanels[2] := Panel3;
@@ -1164,7 +1156,7 @@ begin
       Exit;
     end;
 
-  if ((Key = VK_SPACE) Or (Key = VK_RETURN)) and (Shift = []) then begin
+  if ((Key = VK_SPACE) Or (Key = VK_RETURN)) And (Shift = []) then begin
 {$IFDEF Debug}
     LazLogger.DebugLn('FormKeyUp: Executing ' + ActiveControl.Name);
 {$ENDIF}
@@ -1202,7 +1194,7 @@ begin
     Exit;
   end;
 
-  if AQu.Active and (AQu.State in [dsInsert, dsEdit]) then begin
+  if AQu.Active And (AQu.State in [dsInsert, dsEdit]) then begin
     try
       if DBCBDisabled.State = cbChecked then begin
         AQu.FieldByName('DISABLED').AsBoolean := True;
@@ -1223,7 +1215,7 @@ begin
 {$ENDIF}
   end;
 
-  if FReOpenDS and not FDoCommit then begin
+  if FReOpenDS And not FDoCommit then begin
 {$IFDEF Debug}
     LazLogger.DebugLn('TimerTimer: Reopening dataset (skipped due to commented OpenSelectQuery)');
 {$ENDIF}
