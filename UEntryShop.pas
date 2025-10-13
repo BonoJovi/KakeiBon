@@ -1185,6 +1185,7 @@ end;
 procedure TFrmEntryShop.DBCBDisabledExit(Sender: TObject);
 begin
   Shape6.Visible := False;
+
   // Cross-platform timer enabling
   Application.QueueAsyncCall(@EnableTimer, 0);
 end;

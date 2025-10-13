@@ -258,6 +258,7 @@ begin
           end;
 
           Insert;
+          FSkipFirstProcess := True;
 
           DBEdtUserID.Text := IntToStr(GetUID);
 
