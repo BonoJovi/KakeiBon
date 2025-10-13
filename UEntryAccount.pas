@@ -451,16 +451,14 @@ begin
   SaveMouseOver(clBtnFace);
   GoBackMouseOver(clBtnFace);
 
-  // Cross-platform timer enabling
-  Application.QueueAsyncCall(@EnableTimer, 0);
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.BtnCancelExit(Sender: TObject);
 begin
   CancelMouseOver(clBtnFace);
 
-  // Cross-platform timer enabling
-  Application.QueueAsyncCall(@EnableTimer, 0);
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.BtnGoBackEnter(Sender: TObject);
@@ -470,16 +468,14 @@ begin
   SaveMouseOver(clBtnFace);
   GoBackMouseOver(clSkyBlue);
 
-  // Cross-platform timer enabling
-  Application.QueueAsyncCall(@EnableTimer, 0);
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.BtnGoBackExit(Sender: TObject);
 begin
   GoBackMouseOver(clBtnFace);
 
-  // Cross-platform timer enabling
-  Application.QueueAsyncCall(@EnableTimer, 0);
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.BtnInsertEnter(Sender: TObject);
@@ -489,16 +485,14 @@ begin
   SaveMouseOver(clBtnFace);
   GoBackMouseOver(clBtnFace);
 
-  // Cross-platform timer enabling
-  Application.QueueAsyncCall(@EnableTimer, 0);
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.BtnInsertExit(Sender: TObject);
 begin
   InsertMouseOver(clBtnFace);
 
-  // Cross-platform timer enabling
-  Application.QueueAsyncCall(@EnableTimer, 0);
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.BtnSaveEnter(Sender: TObject);
@@ -508,16 +502,14 @@ begin
   SaveMouseOver(clSkyBlue);
   GoBackMouseOver(clBtnFace);
 
-  // Cross-platform timer enabling
-  Application.QueueAsyncCall(@EnableTimer, 0);
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.BtnSaveExit(Sender: TObject);
 begin
   SaveMouseOver(clBtnFace);
 
-  // Cross-platform timer enabling
-  Application.QueueAsyncCall(@EnableTimer, 0);
+  Timer.Enabled     := True;
 end;
 
 function TFrmEntryAccount.GetBrandName: String;
@@ -893,8 +885,6 @@ begin
           end else begin
             FSkipFirstProcess := False;
           end;
-        end else begin
-          Abort;
         end;
       end;
     finally
@@ -1063,16 +1053,14 @@ procedure TFrmEntryAccount.DBEdtAccountIDEnter(Sender: TObject);
 begin
   Shape1.Visible := True;
 
-  // Cross-platform timer enabling
-  Application.QueueAsyncCall(@EnableTimer, 0);
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.DBEdtAccountIDExit(Sender: TObject);
 begin
   Shape1.Visible := False;
 
-  // Cross-platform timer enabling
-  Application.QueueAsyncCall(@EnableTimer, 0);
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.DBEdtBrandNameChange(Sender: TObject);
@@ -1086,16 +1074,14 @@ procedure TFrmEntryAccount.DBEdtBrandNameEnter(Sender: TObject);
 begin
   Shape2.Visible := True;
 
-  // Cross-platform timer enabling
-  Application.QueueAsyncCall(@EnableTimer, 0);
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.DBEdtBrandNameExit(Sender: TObject);
 begin
   Shape2.Visible := False;
 
-  // Cross-platform timer enabling
-  Application.QueueAsyncCall(@EnableTimer, 0);
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.DBEdtSubNameChange(Sender: TObject);
@@ -1109,16 +1095,14 @@ procedure TFrmEntryAccount.DBEdtSubNameEnter(Sender: TObject);
 begin
   Shape3.Visible := True;
 
-  // Cross-platform timer enabling
-  Application.QueueAsyncCall(@EnableTimer, 0);
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.DBEdtSubNameExit(Sender: TObject);
 begin
   Shape3.Visible := False;
 
-  // Cross-platform timer enabling
-  Application.QueueAsyncCall(@EnableTimer, 0);
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.DBEdtPhoneNumChange(Sender: TObject);
@@ -1132,16 +1116,14 @@ procedure TFrmEntryAccount.DBEdtPhoneNumEnter(Sender: TObject);
 begin
   Shape4.Visible := True;
 
-  // Cross-platform timer enabling
-  Application.QueueAsyncCall(@EnableTimer, 0);
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.DBEdtPhoneNumExit(Sender: TObject);
 begin
   Shape4.Visible := False;
 
-  // Cross-platform timer enabling
-  Application.QueueAsyncCall(@EnableTimer, 0);
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.DBEdtOpeningBalanceChange(Sender: TObject);
@@ -1159,16 +1141,14 @@ procedure TFrmEntryAccount.DBEdtOpeningBalanceEnter(Sender: TObject);
 begin
   Shape5.Visible := True;
 
-  // Cross-platform timer enabling
-  Application.QueueAsyncCall(@EnableTimer, 0);
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.DBEdtOpeningBalanceExit(Sender: TObject);
 begin
   Shape5.Visible := False;
 
-  // Cross-platform timer enabling
-  Application.QueueAsyncCall(@EnableTimer, 0);
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.DBCBDisabledChange(Sender: TObject);
@@ -1181,8 +1161,7 @@ begin
       SetDisabled(False);
       DBCBDisabled.Checked := False;
     end;
-    // Cross-platform timer enabling
-    Application.QueueAsyncCall(@EnableTimer, 0);
+    Timer.Enabled := True;
   end;
 end;
 
@@ -1190,16 +1169,14 @@ procedure TFrmEntryAccount.DBCBDisabledEnter(Sender: TObject);
 begin
   Shape6.Visible := True;
 
-  // Cross-platform timer enabling
-  Application.QueueAsyncCall(@EnableTimer, 0);
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.DBCBDisabledExit(Sender: TObject);
 begin
   Shape6.Visible := False;
 
-  // Cross-platform timer enabling
-  Application.QueueAsyncCall(@EnableTimer, 0);
+  Timer.Enabled     := True;
 end;
 
 procedure TFrmEntryAccount.FormClose(
@@ -1302,9 +1279,7 @@ begin
       end;
 
       ADBGrid.AutoAdjustColumns;
-
-      // Cross-platform timer enabling
-      Application.QueueAsyncCall(@EnableTimer, 0);
+      Timer.Enabled := True;
     except
       on E: Exception do
         ShowMessage(E.Message);

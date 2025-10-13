@@ -4,7 +4,7 @@
     <PathDelim Value="\"/>
     <Version Value="12"/>
     <ManyBuildModesSelection Value="Default,Debug,Release"/>
-    <BuildModes Active="Debug"/>
+    <BuildModes Active="Release"/>
     <Units>
       <Unit>
         <Filename Value="KakeiBon.lpr"/>
@@ -152,11 +152,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="1182"/>
-        <CursorPos X="6" Y="1190"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="882"/>
+        <CursorPos X="42" Y="858"/>
         <UsageCount Value="47"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryAdmin.pas"/>
@@ -176,8 +175,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="1265"/>
-        <CursorPos X="29" Y="1282"/>
+        <TopLine Value="917"/>
+        <CursorPos X="44" Y="887"/>
         <UsageCount Value="47"/>
       </Unit>
       <Unit>
@@ -187,8 +186,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="1078"/>
-        <CursorPos X="40" Y="1088"/>
+        <TopLine Value="796"/>
+        <CursorPos X="40" Y="778"/>
         <UsageCount Value="47"/>
       </Unit>
       <Unit>
@@ -198,8 +197,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="411"/>
-        <CursorPos X="2" Y="420"/>
+        <TopLine Value="888"/>
+        <CursorPos Y="905"/>
         <UsageCount Value="47"/>
       </Unit>
       <Unit>
@@ -209,8 +208,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="1074"/>
-        <CursorPos X="27" Y="1086"/>
+        <TopLine Value="793"/>
+        <CursorPos X="40" Y="807"/>
         <UsageCount Value="47"/>
       </Unit>
       <Unit>
@@ -346,127 +345,7 @@
         <UsageCount Value="9"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="29">
-      <Position>
-        <Filename Value="UEntryAccount.pas"/>
-        <Caret Line="244" Column="16" TopLine="229"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryAccount.pas"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryAccount.pas"/>
-        <Caret Line="244" Column="16" TopLine="229"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryAccount.pas"/>
-        <Caret Line="317" Column="16" TopLine="302"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryAccount.pas"/>
-        <Caret Line="456" TopLine="439"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryAccount.pas"/>
-        <Caret Line="464" TopLine="447"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryAccount.pas"/>
-        <Caret Line="475" TopLine="458"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryAccount.pas"/>
-        <Caret Line="483" TopLine="466"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryAccount.pas"/>
-        <Caret Line="494" TopLine="477"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryAccount.pas"/>
-        <Caret Line="502" TopLine="485"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryAccount.pas"/>
-        <Caret Line="513" TopLine="496"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryAccount.pas"/>
-        <Caret Line="521" TopLine="504"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryAccount.pas"/>
-        <Caret Line="1068" TopLine="1051"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryAccount.pas"/>
-        <Caret Line="1076" TopLine="1059"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryAccount.pas"/>
-        <Caret Line="1091" TopLine="1074"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryAccount.pas"/>
-        <Caret Line="1099" TopLine="1082"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryAccount.pas"/>
-        <Caret Line="1114" TopLine="1097"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryAccount.pas"/>
-        <Caret Line="1122" TopLine="1105"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryAccount.pas"/>
-        <Caret Line="1137" TopLine="1120"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryAccount.pas"/>
-        <Caret Line="1145" TopLine="1128"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryAccount.pas"/>
-        <Caret Line="1164" TopLine="1147"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryAccount.pas"/>
-        <Caret Line="1172" TopLine="1155"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryAccount.pas"/>
-        <Caret Line="1186" TopLine="1169"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryAccount.pas"/>
-        <Caret Line="1195" TopLine="1178"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryAccount.pas"/>
-        <Caret Line="1203" TopLine="1186"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryAccount.pas"/>
-        <Caret Line="1242" Column="16" TopLine="1227"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryAccount.pas"/>
-        <Caret Line="1246" Column="16" TopLine="1231"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryAccount.pas"/>
-        <Caret Line="1306" Column="7" TopLine="1294"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryAccount.pas"/>
-        <Caret Line="1366" Column="16" TopLine="1351"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryAccount.pas"/>
-        <Caret Line="1168" TopLine="1166"/>
-      </Position>
-    </JumpHistory>
+    <JumpHistory HistoryIndex="-1"/>
     <RunParams>
       <FormatVersion Value="2"/>
       <Modes ActiveMode=""/>
