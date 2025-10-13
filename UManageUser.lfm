@@ -108,7 +108,7 @@ object FrmManageUser: TFrmManageUser
     Width = 318
     BevelColor = clNone
     BevelOuter = bvNone
-    Caption = ' 　　ユーザの編集 (CTRL+E)'
+    Caption = '　　　ユーザの編集 (CTRL+E)'
     Color = clBtnFace
     ParentBackground = False
     ParentColor = False
