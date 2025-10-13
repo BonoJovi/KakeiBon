@@ -134,9 +134,10 @@
         <ComponentName Value="FrmEntryBrandName"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="915"/>
-        <CursorPos Y="924"/>
+        <TopLine Value="1217"/>
+        <CursorPos Y="1227"/>
         <UsageCount Value="200"/>
       </Unit>
       <Unit>
@@ -161,7 +162,6 @@
         <CursorPos X="25" Y="1250"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
-          <IsVisibleTab Value="True"/>
           <EditorIndex Value="-1"/>
           <TopLine Value="894"/>
           <CursorPos Y="905"/>
