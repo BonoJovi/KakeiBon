@@ -17,6 +17,7 @@ object FrmEntryAdmin: TFrmEntryAdmin
   Font.Style = [fsBold]
   PopupMode = pmAuto
   Position = poScreenCenter
+  LCLVersion = '4.2.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp

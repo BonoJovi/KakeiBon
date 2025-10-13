@@ -354,7 +354,7 @@ begin
           LFS := GetFS;
 
           // Ensure database connection is open
-          if not ACn.Connected then begin
+          if Not ACn.Connected then begin
 {$IFDEF Debug}
             LazLogger.DebugLn('ProcSave: Opening database connection');
 {$ENDIF}
@@ -364,7 +364,7 @@ begin
             CloseQuery(AQu);
 
             // Ensure transaction is active
-            if not ATr.Active then begin
+            if Not ATr.Active then begin
 {$IFDEF Debug}
               LazLogger.DebugLn('ProcSave: Starting transaction');
 {$ENDIF}
@@ -416,26 +416,26 @@ begin
                 ATr.Rollback;
               end;
             end;
-          end;
 
-          if not ATr.Active then begin
+            if Not ATr.Active then begin
 {$IFDEF Debug}
-            LazLogger.DebugLn('ProcSave: Starting transaction after ApplyUpdates');
+              LazLogger.DebugLn('ProcSave: Starting transaction after ApplyUpdates');
 {$ENDIF}
-            ATr.StartTransaction;
-          end;
+              ATr.StartTransaction;
+            end;
 
-          OpenSelectQuery(ADSMaker, AQuMaker, SQL_20130001);
-          SetKeyValToDBLCB(DBLCBMaker, DBEdtMakerID, GetMakerID);
+            OpenSelectQuery(ADSMaker, AQuMaker, SQL_20130001);
+            SetKeyValToDBLCB(DBLCBMaker, DBEdtMakerID, GetMakerID);
 
-          OpenSelectQueryWithMakerID(
-            ADS, AQu, SQL_20140001, GetMakerID);
+            OpenSelectQueryWithMakerID(
+              ADS, AQu, SQL_20140001, GetMakerID);
 
-          if not Active then begin
+            if Not Active then begin
 {$IFDEF Debug}
-            LazLogger.DebugLn('ProcSave: Failed to reopen AQu after ApplyUpdates');
+              LazLogger.DebugLn('ProcSave: Failed to reopen AQu after ApplyUpdates');
 {$ENDIF}
-            raise Exception.Create('Failed to reopen dataset after ApplyUpdates');
+              raise Exception.Create('Failed to reopen dataset after ApplyUpdates');
+            end;
           end;
         end;
       end;
@@ -737,7 +737,7 @@ begin
 
   try
     if (AQu.State in [dsInsert, dsEdit])
-        and (Message.ScrollCode in [SB_LINEUP, SB_LINEDOWN, SB_PAGEUP, SB_PAGEDOWN]) then begin
+        And (Message.ScrollCode in [SB_LINEUP, SB_LINEDOWN, SB_PAGEUP, SB_PAGEDOWN]) then begin
       FSuppressRecursiveEvent := True;
       try
         if DBEdtBrandName.Text <> '' then begin

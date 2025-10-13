@@ -124,6 +124,8 @@ object FrmEntryShop: TFrmEntryShop
     ClientWidth = 590
     DataSource = ADS
     Options = [navFocusableButtons]
+    ParentShowHint = False
+    ShowHint = True
     TabOrder = 1
     TabStop = True
     VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
