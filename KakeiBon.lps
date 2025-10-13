@@ -29,9 +29,10 @@
         <ComponentName Value="FrmAddDetail"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="1449"/>
-        <CursorPos X="33" Y="1460"/>
+        <TopLine Value="1455"/>
+        <CursorPos Y="1475"/>
         <UsageCount Value="47"/>
       </Unit>
       <Unit>
@@ -195,7 +196,6 @@
         <ComponentName Value="FrmEntryShop"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="293"/>
         <CursorPos X="25" Y="309"/>
