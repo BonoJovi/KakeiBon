@@ -616,40 +616,19 @@ begin
           end;
 
           with AQu do begin
-            CloseQuery(AQu);
-
-            with ATr do begin
-              if Not Active then begin
-                StartTransaction;
-              end;
-            end;
-
-            SQLConnection  := ACn;
-            SQLTransaction := ATr;
-
-            SQL.Text := SQL_20120007;
             with Params do begin
-              ParamByName('pUserID'     ).AsInteger   := GetUID;
-              ParamByName('pHeaderID'   ).AsInteger   := GetHID;
-              ParamByName('pDetailID'   ).AsInteger   := GetDID;
-              ParamByName('pExpKey1'    ).AsInteger   := GetExpKey1;
               if VarToInt(DBLCBExp2.KeyValue) > 0 then begin
                 SetExpKey2(VarToInt(DBLCBExp2.KeyValue));
-                ParamByName('pExpKey2'    ).AsInteger   := GetExpKey2;
               end else begin
                 SetExpKey2(0);
-                ParamByName('pExpKey2'    ).AsInteger   := 0;
               end;
               if VarToInt(DBLCBExp3.KeyValue) > 0 then begin
                 SetExpKey3(VarToInt(DBLCBExp3.KeyValue));
-                ParamByName('pExpKey3'    ).AsInteger   := GetExpKey3;
               end else begin
                 SetExpKey3(0);
-                ParamByName('pExpKey3'    ).AsInteger   := 0;
               end;
               if VarToInt(DBLCBMaker.KeyValue) > 0 then begin
                 SetMakerID(VarToInt(DBLCBMaker.KeyValue));
-                ParamByName('pMakerID'    ).AsInteger   := GetMakerID;
               end else begin
                 SetMakerID(0);
                 MessageDlg(MSG_JP_000032, mtInformation, [mbOK], 0);
@@ -659,7 +638,6 @@ begin
 
               if VarToInt(DBLCBBrandName.KeyValue) > 0 then begin
                 SetBrandNameID(VarToInt(DBLCBBrandName.KeyValue));
-                ParamByName('pBrandNameID').AsInteger   := GetBrandNameID;
               end else begin
                 SetBrandNameID(0);
                 MessageDlg(MSG_JP_000035, mtInformation, [mbOK], 0);
@@ -669,7 +647,6 @@ begin
 
               if VarToInt(DBLCBUnit.KeyValue) > 0 then begin
                 SetUnitID(VarToInt(DBLCBUnit.KeyValue));
-                ParamByName('pUnitID'     ).AsInteger := GetUnitID;
               end else begin
                 SetUnitID(0);
                 MessageDlg(MSG_JP_000036, mtInformation, [mbOK], 0);
@@ -679,8 +656,6 @@ begin
 
               if VarToInt(DBLCBTaxType.KeyValue) > 0 then begin
                 SetTaxTypeID(VarToInt(DBLCBTaxType.KeyValue));
-                ParamByName('pTaxTypeID'  ).AsInteger := GetTaxTypeID;
-                ParamByName('pTaxRateID'  ).AsInteger := AQuTaxType.FieldByName('TAX_RATE_ID').AsInteger;
               end else begin
                 SetTaxTypeID(0);
                 MessageDlg(MSG_JP_000037, mtInformation, [mbOK], 0);
@@ -689,15 +664,40 @@ begin
               end;
               if EdtQuantity.Text <> '' then begin
                 SetQuantity(StrToInt(EdtQuantity.Text));
-                ParamByName('pQuantity'   ).AsInteger := GetQuantity;
               end else begin
                 SetQuantity(1);
                 MessageDlg(MSG_JP_000038, mtInformation, [mbOK], 0);
                 EdtQuantity.SetFocus;
                 Abort;
               end;
+
+              CloseQuery(AQu);
+
+              with ATr do begin
+                if Not Active then begin
+                  StartTransaction;
+                end;
+              end;
+
+              SQLConnection  := ACn;
+              SQLTransaction := ATr;
+
+              SQL.Text := SQL_20120007;
+
+              ParamByName('pUserID'     ).AsInteger    := GetUID;
+              ParamByName('pHeaderID'   ).AsInteger    := GetHID;
+              ParamByName('pDetailID'   ).AsInteger    := GetDID;
+              ParamByName('pExpKey1'    ).AsInteger    := GetExpKey1;
+              ParamByName('pExpKey2'    ).AsInteger    := GetExpKey2;
+              ParamByName('pExpKey3'    ).AsInteger    := GetExpKey3;
+              ParamByName('pMakerID'    ).AsInteger    := GetMakerID;
+              ParamByName('pBrandNameID').AsInteger    := GetBrandNameID;
+              ParamByName('pUnitID'     ).AsInteger    := GetUnitID;
+              ParamByName('pTaxTypeID'  ).AsInteger    := GetTaxTypeID;
+              ParamByName('pTaxRateID'  ).AsInteger    := AQuTaxType.FieldByName('TAX_RATE_ID').AsInteger;
               ParamByName('pExcludeTax' ).AsInteger    := Round(GetExcludeTax);
               ParamByName('pTax'        ).AsInteger    := Round(GetTax);
+              ParamByName('pQuantity'   ).AsInteger    := GetQuantity;
               ParamByName('pSubTotal'   ).AsInteger    := Round(GetSubTotal);
               ParamByName('pEntryDT'    ).AsAnsiString := FormatDateTime('yyyy-mm-dd hh:nn:ss', Now, GetFS);
               ParamByName('pUpdateDT'   ).AsAnsiString := FormatDateTime('yyyy-mm-dd hh:nn:ss', Now, GetFS);
@@ -1470,7 +1470,7 @@ begin
   PnlGoBack.Color         := RGB( 72, 122, 129);
 
   { Debug }
-  //Self.Width := 1212;
+  Self.Width := 1212;
 end;
 
 procedure TFrmAddDetail.FormActivate(Sender: TObject);
