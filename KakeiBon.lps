@@ -19,10 +19,12 @@
         <ComponentName Value="FrmAddDetail"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="1444"/>
-        <CursorPos X="30" Y="1460"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="689"/>
+        <CursorPos X="39" Y="701"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UAddDetailsHeader.pas"/>
@@ -30,12 +32,10 @@
         <ComponentName Value="FrmAddDetailsHeader"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="214"/>
         <CursorPos X="47" Y="219"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UAddUser.pas"/>
@@ -92,13 +92,10 @@
         <ComponentName Value="FrmEditDetailsHeader"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="2"/>
-        <TopLine Value="218"/>
-        <CursorPos X="48" Y="221"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="219"/>
+        <CursorPos X="41" Y="226"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UEditUser.pas"/>
@@ -222,11 +219,10 @@
         <ComponentName Value="FrmManageUser"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="113"/>
         <CursorPos X="34" Y="115"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UDeleteUser.pas"/>
@@ -436,7 +432,19 @@
         <UsageCount Value="8"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="-1"/>
+    <JumpHistory HistoryIndex="2">
+      <Position>
+        <Filename Value="UAddDetail.pas"/>
+        <Caret Line="1448" Column="49" TopLine="1445"/>
+      </Position>
+      <Position>
+        <Filename Value="UAddDetail.pas"/>
+      </Position>
+      <Position>
+        <Filename Value="UAddDetail.pas"/>
+        <Caret Line="139" Column="22" TopLine="126"/>
+      </Position>
+    </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
       <Modes ActiveMode="Debug">
