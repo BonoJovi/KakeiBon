@@ -921,8 +921,6 @@ begin
             end else begin
               FSkipFirstProcess := False;
             end;
-          end else begin
-            Abort;
           end;
         end;
       finally

@@ -3,7 +3,7 @@
   <ProjectSession>
     <Version Value="12"/>
     <ManyBuildModesSelection Value="Default"/>
-    <BuildModes Active="Debug"/>
+    <BuildModes Active="Release"/>
     <Units>
       <Unit>
         <Filename Value="KakeiBon.lpr"/>
@@ -30,12 +30,10 @@
         <ComponentName Value="FrmAddDetailsHeader"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="213"/>
         <CursorPos X="37" Y="221"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UAddUser.pas"/>
@@ -51,20 +49,18 @@
       <Unit>
         <Filename Value="UDBAccess.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="194"/>
         <CursorPos X="27" Y="210"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UDefs.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="356"/>
         <CursorPos Y="364"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UEditAdmUser.pas"/>
@@ -94,12 +90,10 @@
         <ComponentName Value="FrmEditDetailsHeader"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="217"/>
         <CursorPos X="37" Y="225"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UEditUser.pas"/>
@@ -118,12 +112,10 @@
         <ComponentName Value="FrmEntryAccount"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="1"/>
-        <TopLine Value="328"/>
-        <CursorPos Y="366"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="881"/>
+        <CursorPos Y="888"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryAdmin.pas"/>
@@ -131,12 +123,10 @@
         <ComponentName Value="FrmEntryAdmin"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="165"/>
         <CursorPos X="42" Y="173"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryBrandName.pas"/>
@@ -144,12 +134,10 @@
         <ComponentName Value="FrmEntryBrandName"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="3"/>
-        <TopLine Value="430"/>
-        <CursorPos X="17" Y="445"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="915"/>
+        <CursorPos Y="924"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryMaker.pas"/>
@@ -157,12 +145,10 @@
         <ComponentName Value="FrmEntryMaker"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="4"/>
-        <TopLine Value="347"/>
-        <CursorPos X="50" Y="355"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="799"/>
+        <CursorPos Y="808"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryShop.pas"/>
@@ -170,18 +156,17 @@
         <ComponentName Value="FrmEntryShop"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
-        <TopLine Value="335"/>
-        <CursorPos X="37" Y="344"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1234"/>
+        <CursorPos X="25" Y="1250"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
+          <IsVisibleTab Value="True"/>
           <EditorIndex Value="-1"/>
-          <TopLine Value="1234"/>
-          <CursorPos X="25" Y="1250"/>
+          <TopLine Value="894"/>
+          <CursorPos Y="905"/>
         </ExtraEditor1>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryUnit.pas"/>
@@ -189,12 +174,10 @@
         <ComponentName Value="FrmEntryUnit"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="6"/>
-        <TopLine Value="342"/>
-        <CursorPos X="20" Y="350"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="792"/>
+        <CursorPos Y="804"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="ULogin.pas"/>
@@ -224,12 +207,10 @@
         <ComponentName Value="FrmManageExp"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="156"/>
         <CursorPos X="26" Y="164"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UManageUser.pas"/>
@@ -450,123 +431,7 @@
         <UsageCount Value="8"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="29">
-      <Position>
-        <Filename Value="UEntryShop.pas"/>
-        <Caret Line="363" TopLine="352"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryShop.pas"/>
-        <Caret Line="364" TopLine="352"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryShop.pas"/>
-        <Caret Line="365" TopLine="352"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryShop.pas"/>
-        <Caret Line="367" TopLine="354"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryShop.pas"/>
-        <Caret Line="368" TopLine="355"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryShop.pas"/>
-        <Caret Line="393" TopLine="385"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryShop.pas"/>
-        <Caret Line="397" TopLine="385"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryShop.pas"/>
-        <Caret Line="399" TopLine="386"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryShop.pas"/>
-        <Caret Line="401" TopLine="388"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryShop.pas"/>
-        <Caret Line="402" TopLine="389"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryShop.pas"/>
-        <Caret Line="422" Column="60" TopLine="415"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryShop.pas"/>
-        <Caret Line="1289" TopLine="1281"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryShop.pas"/>
-        <Caret Line="360" TopLine="352"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryShop.pas"/>
-        <Caret Line="399" TopLine="386"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryBrandName.pas"/>
-        <Caret Line="740" Column="10" TopLine="732"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryBrandName.pas"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryBrandName.pas"/>
-        <Caret Line="138" Column="23" TopLine="126"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryShop.pas"/>
-        <Caret Line="1276" Column="21" TopLine="1264"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryShop.pas"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryShop.pas"/>
-        <Caret Line="151" Column="23" TopLine="139"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryMaker.pas"/>
-        <Caret Line="897" Column="58" TopLine="890"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryMaker.pas"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryMaker.pas"/>
-        <Caret Line="118" Column="23" TopLine="106"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryAccount.pas"/>
-        <Caret Line="977" Column="29" TopLine="970"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryAccount.pas"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryAccount.pas"/>
-        <Caret Line="114" Column="23" TopLine="101"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryUnit.pas"/>
-        <Caret Line="850" Column="26" TopLine="850"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryUnit.pas"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryUnit.pas"/>
-        <Caret Line="118" Column="23" TopLine="106"/>
-      </Position>
-      <Position>
-        <Filename Value="UEntryUnit.pas"/>
-        <Caret Line="350" Column="20" TopLine="342"/>
-      </Position>
-    </JumpHistory>
+    <JumpHistory HistoryIndex="-1"/>
     <RunParams>
       <FormatVersion Value="2"/>
       <Modes ActiveMode="Debug">
@@ -582,29 +447,4 @@
       </List>
     </HistoryLists>
   </ProjectSession>
-  <Debugging>
-    <BreakPoints>
-      <Item>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="UEntryBrandName.pas"/>
-        <Line Value="830"/>
-      </Item>
-      <Item>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="UEntryBrandName.pas"/>
-        <Line Value="848"/>
-      </Item>
-      <Item>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="UEntryBrandName.pas"/>
-        <Line Value="1473"/>
-      </Item>
-    </BreakPoints>
-  </Debugging>
 </CONFIG>
