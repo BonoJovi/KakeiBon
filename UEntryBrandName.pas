@@ -324,11 +324,13 @@ begin
                 OpenSelectQueryWithMakerID(ADS, AQu, SQL_20140001, GetMakerID);
                 Insert;
               end;
+              FSkipFirstProcess := True;
             end;
           end;
         end else begin
           with AQu do begin
             Insert;
+            FSkipFirstProcess := True;
           end;
         end;
 

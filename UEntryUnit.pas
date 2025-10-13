@@ -257,6 +257,7 @@ begin
           end;
 
           Insert;
+          FSkipFirstProcess := True;
 
           DBEdtUnit.SetFocus;
         end;
