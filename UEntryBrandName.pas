@@ -1174,6 +1174,12 @@ procedure TFrmEntryBrandName.DBEdtBrandNameEnter(Sender: TObject);
 begin
   Shape3.Visible := True;
 
+  with AQu do begin
+    if State = dsBrowse then begin
+      Edit;
+    end;
+  end;
+
   Application.QueueAsyncCall(@EnableTimer, 0); // Cross-platform timer enabling
 end;
 
@@ -1192,6 +1198,12 @@ procedure TFrmEntryBrandName.DBCBEndOfSalesEnter(Sender: TObject);
 begin
   Shape4.Visible := True;
 
+  with AQu do begin
+    if State = dsBrowse then begin
+      Edit;
+    end;
+  end;
+
   Application.QueueAsyncCall(@EnableTimer, 0); // Cross-platform timer enabling
 end;
 
@@ -1205,6 +1217,12 @@ end;
 procedure TFrmEntryBrandName.DBCBDisabledEnter(Sender: TObject);
 begin
   Shape5.Visible := True;
+
+  with AQu do begin
+    if State = dsBrowse then begin
+      Edit;
+    end;
+  end;
 
   Application.QueueAsyncCall(@EnableTimer, 0); // Cross-platform timer enabling
 end;
