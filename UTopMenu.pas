@@ -581,7 +581,7 @@ begin
           SQLConnection  := ACn;
           SQLTransaction := ATr;
 
-          SQL.Text := SQL_10000029;
+          SQL.Text := SQL_10000028;
           Open;
           if FieldByName('COUNT').AsInteger = 1 then begin
             Exit;
