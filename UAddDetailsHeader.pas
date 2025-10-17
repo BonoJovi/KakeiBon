@@ -202,7 +202,7 @@ begin
   with CommonDB do begin
     with Defs do begin
       with DBEdtHeaderID do begin
-        if Text <> '' then begin;
+        if Text <> '' then begin
           SetHID(StrToInt(Text));
         end else begin
           SetHID(0);
@@ -1193,13 +1193,8 @@ begin
             SQLConnection  := ACn;
             SQLTransaction := ATr;
 
-            SQL.Text := SQL_20100006;
-            Params.ParamByName('pUserID').AsInteger := GetUID;
-            Params.ParamByName('pHeaderID').AsInteger := LNextHID;
-            Open;
-            //if RecordCount > 0 then begin
+            OpenSelectQueryWithHeaderID(ADS, AQu, SQL_20100006, LNextHID);
             Insert;
-            //end;
           end;
         end else begin
           // Detail
@@ -1306,8 +1301,8 @@ begin
           SQLConnection  := ACn;
           SQLTransaction := ATr;
 
-          SQL.Text      := SQL_20100009;
-          Open;
+          OpenSelectQueryWithHeaderID(
+            ADSDetail, AQuDetail, SQL_20100009, GetHID);
 
           if RecordCount <= 0 then begin
             BtnEditDetail.Enabled   := False;
