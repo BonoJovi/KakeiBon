@@ -176,14 +176,7 @@ const
                  'PRIMARY KEY(USER_ID, TAX_RATE_ID))';
   SQL_10000027 = 'CREATE UNIQUE INDEX TAX_RATE_ID_idx ON ' +
                  'TAX_RATE(USER_ID, TAX_RATE_ID)';
-  //SQL_10000028 = 'CREATE VIEW BRAND_VIEW (USER_ID, MAKER_ID, MAKER_NAME, ' +
-  //               'BRAND_NAME_ID, BRAND_NAME, END_OF_SALES, DISABLED, ' +
-  //               'ENTRY_DT, UPDATE_DT) AS SELECT B.USER_ID, B.MAKER_ID, ' +
-  //               'M.MAKER_NAME, B.BRAND_NAME_ID, B.BRAND_NAME, ' +
-  //               'B.END_OF_SALES, B.DISABLED, B.ENTRY_DT, B.UPDATE_DT FROM ' +
-  //               'BRAND B LEFT OUTER JOIN MAKER M ON M.USER_ID = B.USER_ID ' +
-  //               'AND M.MAKER_ID = B.MAKER_ID';
-  SQL_10000029 = 'SELECT COUNT(*) AS COUNT FROM sqlite_master WHERE TYPE = ' +
+  SQL_10000028 = 'SELECT COUNT(*) AS COUNT FROM sqlite_master WHERE TYPE = ' +
                  '''table'' AND NAME = ''USERS''';
   // ULogin
   SQL_20010001 = 'SELECT USER_ID, NAME, ROLE FROM USERS ' +
@@ -318,25 +311,28 @@ const
                  'UPDATE_DT = :pUpdateDT';
 
   // UManageDetails
-  SQL_20090001 = 'SELECT DH.USER_ID AS USER_ID, DH.HEADER_ID AS HEADER_ID, ' +
-                 'DH.HEADER_DT AS HEADER_DT, DH.SHOP_ID AS SHOP_ID, ' +
-                 '(SELECT S.SHOP_NAME FROM SHOP S WHERE S.USER_ID = ' +
-                 'DH.USER_ID AND S.SHOP_ID = DH.SHOP_ID) AS SHOP_NAME, ' +
-                 'DH.EXP_KEY1 AS EXP_KEY1, (SELECT E1.NAME1 FROM EXP1 E1 ' +
-                 'WHERE E1.USER_ID = DH.USER_ID AND E1.EXP_KEY1 = ' +
-                 'DH.EXP_KEY1) AS EXP1, DH.FROM_ID AS FROM_ID, ' +
-                 'CAST(AF.BRAND_NAME||'' ''||AF.SUB_NAME AS VARCHAR) ' +
-                 'AS FROM_NAME, DH.TO_ID AS TO_ID, ' +
-                 'CAST(AT.BRAND_NAME||'' ''||AT.SUB_NAME AS VARCHAR) ' +
-                 'AS TO_NAME, DH.TOTAL_AMOUNT AS TOTAL_AMOUNT, ' +
-                 'DH.ENTRY_DT AS ENTRY_DT, DH.UPDATE_DT AS UPDATE_DT ' +
+  SQL_20090001 = 'SELECT ' +
+                 '  DH.USER_ID AS USER_ID, ' +
+                 '  DH.HEADER_ID AS HEADER_ID, ' +
+                 '  DH.HEADER_DT AS HEADER_DT, ' +
+                 '  DH.SHOP_ID AS SHOP_ID, ' +
+                 '  S1.SHOP_NAME AS SHOP_NAME, ' +
+                 '  DH.EXP_KEY1 AS EXP_KEY1, ' +
+                 '  E1.NAME1 AS EXP1, ' +
+                 '  DH.FROM_ID AS FROM_ID, ' +
+                 '  CAST(AF.BRAND_NAME||'' ''||AF.SUB_NAME AS VARCHAR) AS FROM_NAME, ' +
+                 '  DH.TO_ID AS TO_ID, ' +
+                 '  CAST(AT.BRAND_NAME||'' ''||AT.SUB_NAME AS VARCHAR) AS TO_NAME, ' +
+                 '  DH.TOTAL_AMOUNT AS TOTAL_AMOUNT, ' +
+                 '  DH.ENTRY_DT AS ENTRY_DT, ' +
+                 '  DH.UPDATE_DT AS UPDATE_DT ' +
                  'FROM DETAILS_HEADER DH ' +
-                 'LEFT OUTER JOIN ACCOUNT AF ON AF.USER_ID = DH.USER_ID ' +
-                 'AND AF.ACCOUNT_ID = DH.FROM_ID ' +
-                 'LEFT OUTER JOIN ACCOUNT AT ON AT.USER_ID = DH.USER_ID ' +
-                 'AND AT.ACCOUNT_ID = DH.TO_ID ' +
-                 'WHERE DH.USER_ID = :pUserID ORDER BY datetime(HEADER_DT, ' +
-                 '''+9 hours'') DESC, HEADER_ID DESC';
+                 'LEFT OUTER JOIN SHOP S1 ON S1.USER_ID = DH.USER_ID AND S1.SHOP_ID = DH.SHOP_ID ' +
+                 'LEFT OUTER JOIN EXP1 E1 ON E1.USER_ID = DH.USER_ID AND E1.EXP_KEY1 = DH.EXP_KEY1 ' +
+                 'LEFT OUTER JOIN ACCOUNT AF ON AF.USER_ID = DH.USER_ID AND AF.ACCOUNT_ID = DH.FROM_ID ' +
+                 'LEFT OUTER JOIN ACCOUNT AT ON AT.USER_ID = DH.USER_ID AND AT.ACCOUNT_ID = DH.TO_ID ' +
+                 'WHERE DH.USER_ID = :pUserID ' +
+                 'ORDER BY datetime(HEADER_DT, ''+9 hours'') DESC, HEADER_ID';
   SQL_20090002 = 'DELETE FROM DETAILS WHERE USER_ID = :pUserID AND ' +
                  'HEADER_ID = :pHeaderID';
   SQL_20090003 = 'DELETE FROM DETAILS_HEADER WHERE USER_ID = :pUserID AND ' +
@@ -395,48 +391,33 @@ const
                  'BRAND_NAME_ID, EXP_KEY1, QUANTITY, UNIT_ID, EXCLUDE_TAX, ' +
                  'TAX_TYPE_ID, TAX, SUB_TOTAL FROM DETAILS ' +
                  'WHERE USER_ID = :pUserID AND HEADER_ID = :pHeaderID';
-  SQL_20100011 = 'SELECT HEADER_ID, DETAIL_ID, SUM(INCLUSIVE_TAX) AS ' +
-                 'TOTAL_AMOUNT FROM (SELECT HEADER_ID, DETAIL_ID, TAX_TYPE, ' +
-                 'TAX_RATE, CAST(TOTAL_AMOUNT AS VARCHAR) AS TOTAL_AMOUNT, ' +
-                 'ROUND(TOTAL_AMOUNT * RATE) AS INCLUSIVE_TAX FROM (SELECT ' +
-                 'D.HEADER_ID AS HEADER_ID, D.DETAIL_ID AS DETAIL_ID, CAST(' +
-                 'TT.TAX_TYPE AS VARCHAR) AS TAX_TYPE, CAST(TR.TAX_RATE AS ' +
-                 'VARCHAR) AS TAX_RATE, SUM(D.EXCLUDE_TAX) AS TOTAL_AMOUNT, ' +
-                 '1 + (CAST(TR.TAX_RATE AS REAL) / 100) AS RATE FROM DETAILS ' +
-                 'D JOIN TAX_TYPE TT ON D.USER_ID = TT.USER_ID AND ' +
-                 'D.TAX_TYPE_ID = TT.TAX_TYPE_ID JOIN TAX_RATE TR ON ' +
-                 'D.USER_ID = TR.USER_ID AND D.TAX_RATE_ID = TR.TAX_RATE_ID ' +
-                 'WHERE D.USER_ID = :pUserID AND D.HEADER_ID = :pHeaderID ' +
-                 'GROUP BY D.HEADER_ID, D.DETAIL_ID, TT.TAX_TYPE, TR.TAX_RATE' +
-                 '))';
-  SQL_20100012 = 'SELECT HEADER_ID, DETAIL_ID, SUM(INCLUSIVE_TAX) AS ' +
-                 'TOTAL_AMOUNT FROM (SELECT HEADER_ID, DETAIL_ID, TAX_TYPE, ' +
-                 'TAX_RATE, CAST(TOTAL_AMOUNT AS VARCHAR) AS TOTAL_AMOUNT, ' +
-                 'TRUNC(TOTAL_AMOUNT * RATE) AS INCLUSIVE_TAX FROM (SELECT ' +
-                 'D.HEADER_ID AS HEADER_ID, D.DETAIL_ID AS DETAIL_ID, CAST(' +
-                 'TT.TAX_TYPE AS VARCHAR) AS TAX_TYPE, CAST(TR.TAX_RATE AS ' +
-                 'VARCHAR) AS TAX_RATE, SUM(D.EXCLUDE_TAX) AS TOTAL_AMOUNT, ' +
-                 '1 + (CAST(TR.TAX_RATE AS REAL) / 100) AS RATE FROM DETAILS ' +
-                 'D JOIN TAX_TYPE TT ON D.USER_ID = TT.USER_ID AND ' +
-                 'D.TAX_TYPE_ID = TT.TAX_TYPE_ID JOIN TAX_RATE TR ON ' +
-                 'D.USER_ID = TR.USER_ID AND D.TAX_RATE_ID = TR.TAX_RATE_ID ' +
-                 'WHERE D.USER_ID = :pUserID AND D.HEADER_ID = :pHeaderID ' +
-                 'GROUP BY D.HEADER_ID, D.DETAIL_ID, TT.TAX_TYPE, TR.TAX_RATE' +
-                 '))';
-  SQL_20100013 = 'SELECT HEADER_ID, DETAIL_ID, SUM(INCLUSIVE_TAX) AS ' +
-                 'TOTAL_AMOUNT FROM (SELECT HEADER_ID, DETAIL_ID, TAX_TYPE, ' +
-                 'TAX_RATE, CAST(TOTAL_AMOUNT AS VARCHAR) AS TOTAL_AMOUNT, ' +
-                 'CEIL(TOTAL_AMOUNT * RATE) AS INCLUSIVE_TAX FROM (SELECT ' +
-                 'D.HEADER_ID AS HEADER_ID, D.DETAIL_ID AS DETAIL_ID, CAST(' +
-                 'TT.TAX_TYPE AS VARCHAR) AS TAX_TYPE, CAST(TR.TAX_RATE AS ' +
-                 'VARCHAR) AS TAX_RATE, SUM(D.EXCLUDE_TAX) AS TOTAL_AMOUNT, ' +
-                 '1 + (CAST(TR.TAX_RATE AS REAL) / 100) AS RATE FROM DETAILS ' +
-                 'D JOIN TAX_TYPE TT ON D.USER_ID = TT.USER_ID AND ' +
-                 'D.TAX_TYPE_ID = TT.TAX_TYPE_ID JOIN TAX_RATE TR ON ' +
-                 'D.USER_ID = TR.USER_ID AND D.TAX_RATE_ID = TR.TAX_RATE_ID ' +
-                 'WHERE D.USER_ID = :pUserID AND D.HEADER_ID = :pHeaderID ' +
-                 'GROUP BY D.HEADER_ID, D.DETAIL_ID, TT.TAX_TYPE, TR.TAX_RATE' +
-                 '))';
+  SQL_20100011 = 'SELECT ' +
+                 '  D1.HEADER_ID, ' +
+                 '  D1.DETAIL_ID, ' +
+                 '  ROUND(SUM(D1.EXCLUDE_TAX * (1 + (CAST(TR.TAX_RATE AS REAL) / 100)))) AS TOTAL_AMOUNT ' +
+                 'FROM DETAILS D1 ' +
+                 'JOIN DETAILS_HEADER H1 ON D1.USER_ID = H1.USER_ID AND D1.HEADER_ID = H1.HEADER_ID ' +
+                 'JOIN TAX_TYPE TT ON D1.USER_ID = TT.USER_ID AND D1.TAX_TYPE_ID = TT.TAX_TYPE_ID ' +
+                 'JOIN TAX_RATE TR ON D1.USER_ID = TR.USER_ID AND D1.TAX_RATE_ID = TR.TAX_RATE_ID ' +
+                 'WHERE D1.USER_ID = :pUserID AND D1.HEADER_ID = :pHeaderID';
+  SQL_20100012 = 'SELECT ' +
+                 '  D1.HEADER_ID, ' +
+                 '  D1.DETAIL_ID, ' +
+                 '  TRUNC(SUM(D1.EXCLUDE_TAX * (1 + (CAST(TR.TAX_RATE AS REAL) / 100)))) AS TOTAL_AMOUNT ' +
+                 'FROM DETAILS D1 ' +
+                 'JOIN DETAILS_HEADER H1 ON D1.USER_ID = H1.USER_ID AND D1.HEADER_ID = H1.HEADER_ID ' +
+                 'JOIN TAX_TYPE TT ON D1.USER_ID = TT.USER_ID AND D1.TAX_TYPE_ID = TT.TAX_TYPE_ID ' +
+                 'JOIN TAX_RATE TR ON D1.USER_ID = TR.USER_ID AND D1.TAX_RATE_ID = TR.TAX_RATE_ID ' +
+                 'WHERE D1.USER_ID = :pUserID AND D1.HEADER_ID = :pHeaderID';
+  SQL_20100013 = 'SELECT ' +
+                 '  D1.HEADER_ID, ' +
+                 '  D1.DETAIL_ID, ' +
+                 '  CEIL(SUM(D1.EXCLUDE_TAX * (1 + (CAST(TR.TAX_RATE AS REAL) / 100)))) AS TOTAL_AMOUNT ' +
+                 'FROM DETAILS D1 ' +
+                 'JOIN DETAILS_HEADER H1 ON D1.USER_ID = H1.USER_ID AND D1.HEADER_ID = H1.HEADER_ID ' +
+                 'JOIN TAX_TYPE TT ON D1.USER_ID = TT.USER_ID AND D1.TAX_TYPE_ID = TT.TAX_TYPE_ID ' +
+                 'JOIN TAX_RATE TR ON D1.USER_ID = TR.USER_ID AND D1.TAX_RATE_ID = TR.TAX_RATE_ID ' +
+                 'WHERE D1.USER_ID = :pUserID AND D1.HEADER_ID = :pHeaderID';
   SQL_20100014 = 'UPDATE SHOP SET DO_ROUND = TRUE, DO_TRUNCATE = FALSE, ' +
                  'DO_ROUND_UP = FALSE WHERE USER_ID = :pUserID AND SHOP_ID ' +
                  '= :pShopID';
@@ -475,14 +456,18 @@ const
   SQL_20120003 = 'SELECT COALESCE(MAX(DETAIL_ID), 0) + 1 AS NEXT_ID ' +
                  'FROM DETAILS WHERE USER_ID = :pUserID AND HEADER_ID = ' +
                  ':pHeaderID';
-  SQL_20120004 = 'SELECT TT.USER_ID, TT.TAX_TYPE_ID, TT.TAX_RATE_ID, (SELECT ' +
-                 'TR.TAX_RATE FROM TAX_RATE TR WHERE TR.USER_ID = TT.USER_ID ' +
-                 'AND TR.TAX_RATE_ID = TT.TAX_RATE_ID) AS TAX_RATE, ' +
-                 'CAST(TT.TAX_TYPE||''(''||(SELECT TR.TAX_RATE FROM ' +
-                 'TAX_RATE TR WHERE TR.USER_ID = TT.USER_ID AND ' +
-                 'TR.TAX_RATE_ID = TT.TAX_RATE_ID)||''%)'' AS VARCHAR) ' +
-                 'AS TAX_TYPE, TT.ORDER_ID FROM TAX_TYPE TT WHERE TT.USER_ID ' +
-                 '= :pUserID ORDER BY TT.TAX_TYPE_ID ASC';
+  SQL_20120004 = 'SELECT ' +
+                 '  TT.USER_ID, ' +
+                 '  TT.TAX_TYPE_ID, ' +
+                 '  TT.TAX_RATE_ID, ' +
+                 '  TR.TAX_RATE, ' +
+                 '  CAST(TT.TAX_TYPE||''(''||TR.TAX_RATE||''%)'' AS VARCHAR) AS TAX_TYPE, ' +
+                 '  TT.ORDER_ID ' +
+                 'FROM TAX_TYPE TT ' +
+                 'JOIN TAX_RATE TR ON TT.USER_ID = TR.USER_ID ' +
+                 '                AND TT.TAX_RATE_ID = TR.TAX_RATE_ID ' +
+                 'WHERE TT.USER_ID = :pUserID ' +
+                 'ORDER BY TT.TAX_TYPE_ID ASC';
   SQL_20120005 = 'SELECT * FROM DETAILS WHERE USER_ID = :pUserID AND ' +
                  'HEADER_ID = :pHeaderID';
   SQL_20120006 = 'SELECT * FROM DETAILS WHERE USER_ID = :pUserID AND ' +
@@ -525,13 +510,7 @@ const
   SQL_20140003 = 'SELECT COALESCE(MAX(BRAND_NAME_ID), 0) + 1 AS ' +
                  'NEXT_ID FROM BRAND WHERE USER_ID = :pUserID ' +
                  'AND MAKER_ID = :pMakerID';
-  SQL_20140004 = 'SELECT B.USER_ID, B.BRAND_NAME_ID, B.MAKER_ID, ' +
-                 'M.MAKER_NAME, B.BRAND_NAME, B.END_OF_SALES, B.DISABLED, ' +
-                 'B.ENTRY_DT, B.UPDATE_DT FROM BRAND B LEFT OUTER JOIN ' +
-                 'MAKER M ON M.USER_ID = B.USER_ID AND M.MAKER_ID = ' +
-                 'B.MAKER_ID AND B.USER_ID = :pUserID ORDER BY ' +
-                 'M.MAKER_NAME ASC';
-  SQL_20140005 = 'INSERT INTO BRAND(USER_ID, MAKER_ID, BRAND_NAME_ID, ' +
+  SQL_20140004 = 'INSERT INTO BRAND(USER_ID, MAKER_ID, BRAND_NAME_ID, ' +
                  'BRAND_NAME, END_OF_SALES, DISABLED, ENTRY_DT, UPDATE_DT) ' +
                  'VALUES(:pUserID, :pMakerID, :pBrandNameID, :pBrandName, ' +
                  ':pEndOfSales, :pDisabled, :pEntryDT, NULL) ON CONFLICT ' +
@@ -539,12 +518,6 @@ const
                  'MAKER_ID = :pMakerID, BRAND_NAME_ID = :pBrandNameID, ' +
                  'BRAND_NAME = :pBrandName, END_OF_SALES = :pEndOfSales, ' +
                  'DISABLED = :pDisabled, UPDATE_DT = :pUpdateDT';
-  //SQL_20140006 = 'UPDATE BRAND SET USER_ID = :pUserID, MAKER_ID = ' +
-  //               ':pMakerID, BRAND_NAME_ID = :pBrandNameID, BRAND_NAME = ' +
-  //               ':pBrandName, END_OF_SALES = :pEndOfSales, DISABLED = ' +
-  //               ':pDisabled, UPDATE_DT = :pUpdateDT WHERE USER_ID = ' +
-  //               ':pUserID AND MAKER_ID = :pCurrMakerID AND BRAND_NAME_ID ' +
-  //               '= :pCurrBrandNameID';
 
   // UEntryUnit and UAddDetail and UEditDetail
   SQL_20150001 = 'SELECT UNIT_ID, UNIT, ORDER_ID, DISABLED, ENTRY_DT, ' +
@@ -560,19 +533,86 @@ const
   // USummary
   SQL_20160001 = 'SELECT SUM(SUB_TOTAL) AS SUM FROM DETAILS WHERE ' +
                  'USER_ID = :pUserID AND EXP_KEY1 = 1';
-  SQL_20160002 = 'SELECT NAME1, NAME2, NAME3, SUM1, PRINTF(''%.2f'', ' +
-                 'CAST(CAST(SUM1 AS REAL) / CAST(SUM2 AS REAL) * 100 ' +
-                 'AS REAL)) AS PER FROM (SELECT SUM(D1.SUB_TOTAL) AS SUM2 ' +
-                 'FROM DETAILS D1 WHERE D1.USER_ID = :pUserID AND ' +
-                 'D1.EXP_KEY1 = 1), (SELECT (SELECT E1.NAME1 FROM EXP1 E1 ' +
-                 'WHERE E1.EXP_KEY1 = D.EXP_KEY1) AS NAME1, (SELECT E2.NAME2 ' +
-                 'FROM EXP2 E2 WHERE E2.EXP_KEY1 = D.EXP_KEY1 AND ' +
-                 'E2.EXP_KEY2 = D.EXP_KEY2) AS NAME2, (SELECT E3.NAME3 FROM ' +
-                 'EXP3 E3 WHERE E3.EXP_KEY1 = D.EXP_KEY1 AND E3.EXP_KEY2 = ' +
-                 'D.EXP_KEY2 AND E3.EXP_KEY3 = D.EXP_KEY3) AS NAME3, ' +
-                 'SUM(SUB_TOTAL) AS SUM1 FROM DETAILS D WHERE D.USER_ID = ' +
-                 ':pUserID GROUP BY D.EXP_KEY1, ' +
-                 'D.EXP_KEY2, D.EXP_KEY3) ORDER BY SUM1 DESC';
+  SQL_20160002 = 'SELECT ' +
+                 '  A.BRAND_NAME AS BRAND_NAME, ' +
+                 '  A.SUB_NAME AS SUB_NAME, ' +
+                 '  A.OPENING_BALANCE AS OPENING_BAL, ' +
+                 '  (A.OPENING_BALANCE + (' +
+                 '    COALESCE(SUM(CASE ' +
+                 // 出金：EXP_KEY1=1（FROM_ID）
+                 '      WHEN H.EXP_KEY1 = 1 AND H.FROM_ID = A.ACCOUNT_ID ' +
+                 '        THEN H.TOTAL_AMOUNT * -1 ' +
+                 // 振替出金：EXP_KEY1=3（FROM_ID）
+                 '      WHEN H.EXP_KEY1 = 3 AND H.FROM_ID = A.ACCOUNT_ID ' +
+                 '        THEN H.TOTAL_AMOUNT * -1 ' +
+                 // 入金：EXP_KEY1=2（TO_ID）
+                 '      WHEN H.EXP_KEY1 = :pUserID AND H.TO_ID = A.ACCOUNT_ID ' +
+                 '        THEN H.TOTAL_AMOUNT ' +
+                 // 振替入金：EXP_KEY1=3（TO_ID）
+                 '      WHEN H.EXP_KEY1 = 3 AND H.TO_ID = A.ACCOUNT_ID ' +
+                 '        THEN H.TOTAL_AMOUNT ' +
+                 '      ELSE 0 ' +
+                 '      END), 0)' +
+                 '    )' +
+                 '  ) AS CURRENT_BAL, ' +
+                 '  COALESCE(SUM(CASE ' +
+                 // 出金：EXP_KEY1=1（FROM_ID）
+                 '      WHEN H.EXP_KEY1 = 1 AND H.FROM_ID = A.ACCOUNT_ID ' +
+                 '        THEN H.TOTAL_AMOUNT * -1 ' +
+                 // 振替出金：EXP_KEY1=3（FROM_ID）
+                 '      WHEN H.EXP_KEY1 = 3 AND H.FROM_ID = A.ACCOUNT_ID ' +
+                 '        THEN H.TOTAL_AMOUNT * -1 ' +
+                 // 入金：EXP_KEY1=2（TO_ID）
+                 '      WHEN H.EXP_KEY1 = :pUserID AND H.TO_ID = A.ACCOUNT_ID ' +
+                 '        THEN H.TOTAL_AMOUNT ' +
+                 // 振替入金：EXP_KEY1=3（TO_ID）
+                 '    WHEN H.EXP_KEY1 = 3 AND H.TO_ID = A.ACCOUNT_ID ' +
+                 '      THEN H.TOTAL_AMOUNT ' +
+                 '    ELSE 0 ' +
+                 '    END), 0) AS DIFF ' +
+                 'FROM ACCOUNT A ' +
+                 'LEFT JOIN DETAILS_HEADER H ON H.USER_ID = A.USER_ID ' +
+                 'WHERE A.USER_ID = :pUserID ' +
+                 'GROUP BY A.ACCOUNT_ID, A.BRAND_NAME, A.SUB_NAME, ' +
+                 'A.OPENING_BALANCE ORDER BY A.ACCOUNT_ID';
+  SQL_20160003 = 'SELECT ' +
+                 '  (SELECT NAME1 FROM EXP1 WHERE H1.EXP_KEY1 = EXP1.EXP_KEY1) AS EXP_NAME, ' +
+                 '  A1.BRAND_NAME || '' '' || A1.SUB_NAME AS BRAND_NAME1, ' +
+                 '  A2.BRAND_NAME || '' '' || A2.SUB_NAME AS BRAND_NAME2, ' +
+                 '  SUM(D1.SUB_TOTAL) AS SUM1, ' +
+                 '  H1_TOTAL.TOTAL_SUM, ' +
+                 '  PRINTF(''%.2f'', SUM(D1.SUB_TOTAL) * 100.0 / H1_TOTAL.TOTAL_SUM) AS PER ' +
+                 'FROM DETAILS D1 ' +
+                 'JOIN DETAILS_HEADER H1 ON D1.HEADER_ID = H1.HEADER_ID AND D1.USER_ID = H1.USER_ID ' +
+                 'LEFT JOIN ACCOUNT A1 ON H1.FROM_ID = A1.ACCOUNT_ID ' +
+                 'LEFT JOIN ACCOUNT A2 ON H1.TO_ID = A2.ACCOUNT_ID ' +
+                 'JOIN ( ' +
+                 '  SELECT EXP_KEY1, CAST(SUM(TOTAL_AMOUNT) AS REAL) AS TOTAL_SUM ' +
+                 '  FROM DETAILS_HEADER WHERE USER_ID = :pUserID ' +
+                 '  GROUP BY EXP_KEY1' +
+                 ') H1_TOTAL ON H1.EXP_KEY1 = H1_TOTAL.EXP_KEY1 ' +
+                 'WHERE D1.USER_ID = :pUserID ' +
+                 'GROUP BY H1.EXP_KEY1, D1.EXP_KEY2, D1.EXP_KEY3, '+
+                 '         A1.BRAND_NAME, A1.SUB_NAME, A2.BRAND_NAME, A2.SUB_NAME, H1_TOTAL.TOTAL_SUM ' +
+                 'ORDER BY H1.EXP_KEY1, SUM1 DESC;';
+  SQL_20160004 = 'SELECT ' +
+                 '  (SELECT NAME1 FROM EXP1 WHERE H1.EXP_KEY1 = EXP1.EXP_KEY1) AS NAME1, ' +
+                 '  (SELECT NAME2 FROM EXP2 WHERE H1.EXP_KEY1 = EXP2.EXP_KEY1 AND D1.EXP_KEY2 = EXP2.EXP_KEY2) AS NAME2, ' +
+                 '  (SELECT NAME3 FROM EXP3 WHERE H1.EXP_KEY1 = EXP3.EXP_KEY1 AND D1.EXP_KEY2 = EXP3.EXP_KEY2 AND D1.EXP_KEY3 = EXP3.EXP_KEY3) AS NAME3, ' +
+                 '  SUM(D1.SUB_TOTAL) AS SUM1, ' +
+                 '  H1_TOTAL.TOTAL_SUM, ' +
+                 '  PRINTF(''%.2f'', SUM(D1.SUB_TOTAL) * 100 / H1_TOTAL.TOTAL_SUM) AS PER ' +
+                 'FROM DETAILS D1 ' +
+                 'JOIN DETAILS_HEADER H1 ON D1.USER_ID = H1.USER_ID AND D1.HEADER_ID = H1.HEADER_ID ' +
+                 'JOIN ( ' +
+                 '  SELECT EXP_KEY1, CAST(SUM(TOTAL_AMOUNT) AS REAL) AS TOTAL_SUM ' +
+                 '  FROM DETAILS_HEADER ' +
+                 '  WHERE USER_ID = :pUserID ' +
+                 '  GROUP BY EXP_KEY1' +
+                 ') H1_TOTAL ON H1.EXP_KEY1 = H1_TOTAL.EXP_KEY1 ' +
+                 'WHERE H1.USER_ID = :pUserID ' +
+                 'GROUP BY H1.EXP_KEY1, D1.EXP_KEY2, D1.EXP_KEY3 ' +
+                 'ORDER BY H1.EXP_KEY1, SUM1 DESC';
 
   //============================================================================
   // Default Datas

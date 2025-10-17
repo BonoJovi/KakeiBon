@@ -9,10 +9,11 @@
       <Unit>
         <Filename Value="KakeiBon.lpr"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
+        <IsVisibleTab Value="True"/>
         <TopLine Value="13"/>
-        <CursorPos Y="30"/>
-        <UsageCount Value="47"/>
+        <CursorPos Y="31"/>
+        <UsageCount Value="48"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="DBG\UDBG.pas"/>
@@ -21,7 +22,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="47"/>
+        <UsageCount Value="48"/>
       </Unit>
       <Unit>
         <Filename Value="UAddDetail.pas"/>
@@ -29,11 +30,10 @@
         <ComponentName Value="FrmAddDetail"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="1455"/>
         <CursorPos Y="1475"/>
-        <UsageCount Value="47"/>
+        <UsageCount Value="48"/>
       </Unit>
       <Unit>
         <Filename Value="UAddDetailsHeader.pas"/>
@@ -44,7 +44,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="1145"/>
         <CursorPos X="58" Y="1150"/>
-        <UsageCount Value="47"/>
+        <UsageCount Value="48"/>
       </Unit>
       <Unit>
         <Filename Value="UAddUser.pas"/>
@@ -55,7 +55,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="605"/>
         <CursorPos X="28" Y="616"/>
-        <UsageCount Value="47"/>
+        <UsageCount Value="48"/>
       </Unit>
       <Unit>
         <Filename Value="UCommonDB.pas"/>
@@ -66,7 +66,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="60"/>
         <CursorPos X="38" Y="90"/>
-        <UsageCount Value="47"/>
+        <UsageCount Value="48"/>
       </Unit>
       <Unit>
         <Filename Value="UConsts.pas"/>
@@ -74,7 +74,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="69"/>
         <CursorPos X="16" Y="79"/>
-        <UsageCount Value="47"/>
+        <UsageCount Value="48"/>
       </Unit>
       <Unit>
         <Filename Value="UDBAccess.pas"/>
@@ -82,14 +82,14 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="492"/>
         <CursorPos X="15" Y="301"/>
-        <UsageCount Value="47"/>
+        <UsageCount Value="48"/>
       </Unit>
       <Unit>
         <Filename Value="UDefs.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="39" Y="4"/>
-        <UsageCount Value="47"/>
+        <UsageCount Value="48"/>
       </Unit>
       <Unit>
         <Filename Value="UDeleteUser.pas"/>
@@ -100,7 +100,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="271"/>
         <CursorPos X="44" Y="286"/>
-        <UsageCount Value="47"/>
+        <UsageCount Value="48"/>
       </Unit>
       <Unit>
         <Filename Value="UEditAdmUser.pas"/>
@@ -111,7 +111,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="602"/>
         <CursorPos X="30" Y="613"/>
-        <UsageCount Value="47"/>
+        <UsageCount Value="48"/>
       </Unit>
       <Unit>
         <Filename Value="UEditDetail.pas"/>
@@ -122,7 +122,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="592"/>
         <CursorPos X="43" Y="607"/>
-        <UsageCount Value="47"/>
+        <UsageCount Value="48"/>
       </Unit>
       <Unit>
         <Filename Value="UEditDetailsHeader.pas"/>
@@ -133,7 +133,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="1395"/>
         <CursorPos X="61" Y="1406"/>
-        <UsageCount Value="47"/>
+        <UsageCount Value="48"/>
       </Unit>
       <Unit>
         <Filename Value="UEditUser.pas"/>
@@ -144,7 +144,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="619"/>
         <CursorPos X="33" Y="630"/>
-        <UsageCount Value="47"/>
+        <UsageCount Value="48"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryAccount.pas"/>
@@ -155,7 +155,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="291"/>
         <CursorPos X="38" Y="267"/>
-        <UsageCount Value="47"/>
+        <UsageCount Value="48"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryAdmin.pas"/>
@@ -166,7 +166,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="341"/>
         <CursorPos X="29" Y="352"/>
-        <UsageCount Value="47"/>
+        <UsageCount Value="48"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryBrandName.pas"/>
@@ -177,7 +177,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="323"/>
         <CursorPos Y="322"/>
-        <UsageCount Value="47"/>
+        <UsageCount Value="48"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryMaker.pas"/>
@@ -188,7 +188,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="252"/>
         <CursorPos X="26" Y="268"/>
-        <UsageCount Value="47"/>
+        <UsageCount Value="48"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryShop.pas"/>
@@ -199,7 +199,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="293"/>
         <CursorPos X="25" Y="309"/>
-        <UsageCount Value="47"/>
+        <UsageCount Value="48"/>
       </Unit>
       <Unit>
         <Filename Value="UEntryUnit.pas"/>
@@ -210,7 +210,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="252"/>
         <CursorPos X="25" Y="267"/>
-        <UsageCount Value="47"/>
+        <UsageCount Value="48"/>
       </Unit>
       <Unit>
         <Filename Value="ULogin.pas"/>
@@ -221,7 +221,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="281"/>
         <CursorPos X="27" Y="292"/>
-        <UsageCount Value="47"/>
+        <UsageCount Value="48"/>
       </Unit>
       <Unit>
         <Filename Value="UManageDetails.pas"/>
@@ -232,7 +232,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="434"/>
         <CursorPos X="32" Y="445"/>
-        <UsageCount Value="47"/>
+        <UsageCount Value="48"/>
       </Unit>
       <Unit>
         <Filename Value="UManageExp.pas"/>
@@ -243,7 +243,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="1184"/>
         <CursorPos X="29" Y="1195"/>
-        <UsageCount Value="47"/>
+        <UsageCount Value="48"/>
       </Unit>
       <Unit>
         <Filename Value="UManageUser.pas"/>
@@ -254,7 +254,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="362"/>
         <CursorPos X="50" Y="375"/>
-        <UsageCount Value="47"/>
+        <UsageCount Value="48"/>
       </Unit>
       <Unit>
         <Filename Value="USummary.pas"/>
@@ -263,9 +263,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="113"/>
-        <CursorPos X="7" Y="121"/>
-        <UsageCount Value="47"/>
+        <TopLine Value="183"/>
+        <CursorPos X="40" Y="195"/>
+        <UsageCount Value="48"/>
       </Unit>
       <Unit>
         <Filename Value="UTopMenu.pas"/>
@@ -276,13 +276,13 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="702"/>
         <CursorPos Y="709"/>
-        <UsageCount Value="47"/>
+        <UsageCount Value="48"/>
       </Unit>
       <Unit>
         <Filename Value="DBNavi\UDBNavi.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="41"/>
+        <UsageCount Value="42"/>
       </Unit>
       <Unit>
         <Filename Value="..\DBNavi\UDBNavi.pas"/>
