@@ -750,12 +750,8 @@ begin
             SQLConnection  := ACn;
             SQLTransaction := ATr;
 
-            SQL.Text := SQL_20100009;
-            with Params do begin
-              ParamByName('pUserID').AsInteger   := GetUID;
-              ParamByName('pHeaderID').AsInteger := GetHID;
-            end;
-            Open;
+            OpenSelectQueryWithHeaderID(
+              ADSDetail, AQuDetail, SQL_20100009, GetHID);
 
             SetButtonEnabled(AQuDetail);
           end;
