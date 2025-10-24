@@ -44,6 +44,9 @@ KakeiBonをダウンロードいただき、誠にありがとうございます
 実行ファイルのダウンロードはこちら<br/>
 [Relaseページ](https://github.com/BonoJovi/KakeiBon/releases/)<br/>
 
+まだ開発をはじめたばかりですが、Rustでの実装を開始しています。<br/>
+[KakeiBon Built with Rust](https://github.com/BonoJovi/KakeiBonByRust)<br/>
+
 ### Linux環境
 
 フォントのインストール<br/>
